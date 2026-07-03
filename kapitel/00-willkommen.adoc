@@ -1,0 +1,10 @@
+[preface]
+= Willkommen!
+
+== Warum dieses Tutorial?
+
+Willkommen bei *Mein erstes MMBasic Programm*.
+
+Dieses Tutorial begleitet dich Schritt für Schritt bei deinen ersten Programmen in MMBasic.
+
+Du benötigst keine Programmiererfahrung. Alles wird anhand kleiner Beispiele erklärt, die du sofort selbst ausprobieren kannst.
