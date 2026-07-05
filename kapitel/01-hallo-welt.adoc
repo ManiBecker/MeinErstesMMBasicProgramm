@@ -23,9 +23,10 @@ Starte das Programm anschließend.
 
 Auf dem Bildschirm erscheint:
 
-## [source]
-
-## Hallo Welt!
+[source]
+----
+Hallo Welt!
+----
 
 Herzlichen Glückwunsch!
 
@@ -35,9 +36,10 @@ Du hast gerade dein erstes MMBasic-Programm geschrieben.
 
 Schauen wir uns das Programm genauer an:
 
-## [source,basic]
-
-## PRINT "Hallo Welt!"
+[source,basic]
+----
+PRINT "Hallo Welt!"
+----
 
 Die Anweisung `PRINT` gibt Text auf dem Bildschirm aus.
 
@@ -47,15 +49,17 @@ Du kannst jeden beliebigen Text ausgeben lassen.
 
 Zum Beispiel:
 
-## [source,basic]
-
-## PRINT "Hallo MMBasic!"
+[source,basic]
+----
+PRINT "Hallo MMBasic!"
+----
 
 oder
 
-## [source,basic]
-
-## PRINT "Ich programmiere einen PicoMite."
+[source,basic]
+----
+PRINT "Ich programmiere einen PicoMite."
+----
 
 == Experimentiere!
 
@@ -65,13 +69,15 @@ Probiere verschiedene Meldungen aus.
 
 Beispiele:
 
-## [source,basic]
+[source,basic]
+----
+PRINT "Hallo Colour Maximite!"
+----
 
-## PRINT "Hallo Colour Maximite!"
-
-## [source,basic]
-
-## PRINT "Heute lerne ich MMBasic."
+[source,basic]
+----
+PRINT "Heute lerne ich MMBasic."
+----
 
 Was passiert, wenn du den Text änderst?
 
@@ -86,12 +92,12 @@ Versuche folgende Aufgaben:
 
 Beispiel:
 
-## [source,basic]
-
+[source,basic]
+----
 PRINT "Hallo Welt!"
 PRINT "Willkommen bei MMBasic!"
 PRINT "Viel Spaß beim Programmieren!"
--------------------------------------
+----
 
 == Zusammenfassung
 
