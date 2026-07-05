@@ -14,9 +14,10 @@ Am Ende des Kapitels hast du dein erstes eigenes MMBasic-Programm geschrieben un
 
 Gib folgendes Programm ein:
 
-## [source,basic]
-
-## PRINT "Hallo Welt!"
+[source,basic]
+----
+PRINT "Hallo Welt!"
+----
 
 Starte das Programm anschließend.
 
