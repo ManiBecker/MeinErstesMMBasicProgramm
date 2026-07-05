@@ -1,0 +1,101 @@
+= Hallo Welt!
+
+== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* wie ein MMBasic-Programm aussieht
+* wie Programme gestartet werden
+* wie Text auf dem Bildschirm ausgegeben wird
+
+Am Ende des Kapitels hast du dein erstes eigenes MMBasic-Programm geschrieben und ausgeführt.
+
+== Unser erstes Programm
+
+Gib folgendes Programm ein:
+
+## [source,basic]
+
+## PRINT "Hallo Welt!"
+
+Starte das Programm anschließend.
+
+Auf dem Bildschirm erscheint:
+
+## [source]
+
+## Hallo Welt!
+
+Herzlichen Glückwunsch!
+
+Du hast gerade dein erstes MMBasic-Programm geschrieben.
+
+== Schritt für Schritt erklärt
+
+Schauen wir uns das Programm genauer an:
+
+## [source,basic]
+
+## PRINT "Hallo Welt!"
+
+Die Anweisung `PRINT` gibt Text auf dem Bildschirm aus.
+
+Alles, was zwischen den Anführungszeichen steht, wird unverändert angezeigt.
+
+Du kannst jeden beliebigen Text ausgeben lassen.
+
+Zum Beispiel:
+
+## [source,basic]
+
+## PRINT "Hallo MMBasic!"
+
+oder
+
+## [source,basic]
+
+## PRINT "Ich programmiere einen PicoMite."
+
+== Experimentiere!
+
+Ändere den Text zwischen den Anführungszeichen.
+
+Probiere verschiedene Meldungen aus.
+
+Beispiele:
+
+## [source,basic]
+
+## PRINT "Hallo Colour Maximite!"
+
+## [source,basic]
+
+## PRINT "Heute lerne ich MMBasic."
+
+Was passiert, wenn du den Text änderst?
+
+== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Gib deinen Namen aus.
+. Gib deinen Wohnort aus.
+. Gib eine Begrüßung für einen Freund aus.
+. Gib drei verschiedene Meldungen nacheinander aus.
+
+Beispiel:
+
+## [source,basic]
+
+PRINT "Hallo Welt!"
+PRINT "Willkommen bei MMBasic!"
+PRINT "Viel Spaß beim Programmieren!"
+-------------------------------------
+
+== Zusammenfassung
+
+In diesem Kapitel hast du die Anweisung `PRINT` kennengelernt.
+
+Mit `PRINT` können Texte auf dem Bildschirm ausgegeben werden.
+
+Im nächsten Kapitel lernen wir den integrierten Editor kennen und schreiben unsere ersten mehrzeiligen Programme.

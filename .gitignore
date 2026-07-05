@@ -1,0 +1,12 @@
+# Visual Studio Code
+.vscode/
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# PDF-Ausgaben
+pdf/*.pdf
+
+# Temporäre Dateien
+*.tmp
