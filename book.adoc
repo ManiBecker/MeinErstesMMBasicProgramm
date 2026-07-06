@@ -6,6 +6,7 @@ Manfred Becker
 :sectnums:
 :icons: font
 
-include::kapitel/00-willkommen.adoc[]
+image::bilder/cover.png[pdfwidth=80%]
 
+include::kapitel/00-willkommen.adoc[]
 include::kapitel/01-hallo-welt.adoc[]
