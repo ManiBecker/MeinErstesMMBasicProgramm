@@ -1,0 +1,241 @@
+== Benutzereingaben mit INPUT
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* wie Daten vom Benutzer eingegeben werden
+* wie die Anweisung INPUT verwendet wird
+* wie Eingaben in Variablen gespeichert werden
+* wie Eingaben weiterverarbeitet werden
+
+Am Ende des Kapitels kannst du eigene interaktive Programme schreiben.
+
+=== Warum Benutzereingaben wichtig sind
+
+Bisher standen alle Werte fest im Programm.
+
+Zum Beispiel:
+
+[source,basic]
+----
+A=10
+B=20
+PRINT A+B
+----
+
+Das Ergebnis ist immer gleich.
+
+Interessanter wird es, wenn der Benutzer die Werte selbst eingeben kann.
+
+=== Unsere erste Eingabe
+
+Die Anweisung `INPUT` wartet auf eine Eingabe des Benutzers.
+
+Gib folgendes ein:
+
+[source,basic]
+----
+INPUT A
+PRINT A
+----
+
+MMBasic zeigt ein Fragezeichen an:
+
+[source]
+----
+?
+----
+
+Gib nun beispielsweise folgende Zahl ein:
+
+[source]
+----
+42
+----
+
+Danach erscheint:
+
+[source]
+----
+42
+----
+
+=== Eingaben in Variablen speichern
+
+Die eingegebene Zahl wird in der Variablen gespeichert.
+
+[source,basic]
+----
+INPUT A
+PRINT A
+----
+
+Wenn du 100 eingibst:
+
+[source]
+----
+100
+----
+
+wird dieser Wert in der Variablen `A` gespeichert.
+
+=== Mit Eingaben rechnen
+
+Eingegebene Werte können sofort weiterverarbeitet werden.
+
+[source,basic]
+----
+INPUT A
+PRINT A*2
+----
+
+Beispiel:
+
+[source]
+----
+? 21
+42
+----
+
+=== Zwei Werte eingeben
+
+Natürlich können auch mehrere Werte eingegeben werden.
+
+[source,basic]
+----
+INPUT A
+INPUT B
+
+PRINT A+B
+----
+
+Beispiel:
+
+[source]
+----
+? 10
+? 20
+30
+----
+
+=== Eine persönliche Begrüßung
+
+MMBasic kann auch Texte verarbeiten.
+
+Dazu verwenden wir eine String-Variable.
+
+String-Variablen erkennt man am Dollarzeichen am Ende des Namens.
+
+[source,basic]
+----
+INPUT N$
+PRINT "Hallo ";N$
+----
+
+Beispiel:
+
+[source]
+----
+? Manfred
+Hallo Manfred
+----
+
+[NOTE]
+====
+MMBasic erlaubt aussagekräftige Variablennamen.
+
+Statt kurzer Namen wie
+
+[source,basic]
+----
+A
+B
+X
+----
+
+können auch längere Namen verwendet werden:
+
+[source,basic]
+----
+ALTER
+NAME$
+WOHNORT$
+PUNKTE
+----
+
+Ein Variablenname darf mit einem Buchstaben beginnen und kann anschließend weitere Buchstaben, Ziffern und den Unterstrich `_` enthalten.
+
+Für Textvariablen wird häufig ein Dollarzeichen `$` am Ende des Namens verwendet:
+
+[source,basic]
+----
+NAME$
+WOHNORT$
+TEXT$
+----
+====
+
+=== Texte und Variablen kombinieren
+
+Mit einem Semikolon können Texte und Variablen gemeinsam ausgegeben werden.
+
+[source,basic]
+----
+INPUT NAME$
+PRINT "Willkommen ";NAME$
+PRINT "Schön, dass du da bist."
+----
+
+=== Unser erstes interaktives Programm
+
+[source,basic]
+----
+PRINT "Wie heißt du?"
+INPUT NAME$
+
+PRINT "Hallo ";NAME$
+PRINT "Willkommen bei MMBasic!"
+----
+
+Beispiel:
+
+[source]
+----
+Wie heißt du?
+? Manfred
+
+Hallo Manfred
+Willkommen bei MMBasic!
+----
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Gib dein Alter ein.
+* Addiere zwei eingegebene Zahlen.
+* Gib deinen Wohnort ein.
+* Erweitere die Begrüßung um weitere Texte.
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Frage den Benutzer nach seinem Namen.
+. Frage den Benutzer nach seinem Alter.
+. Addiere zwei eingegebene Zahlen.
+. Gib eine persönliche Begrüßung aus.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du die Anweisung `INPUT` kennengelernt.
+
+Du kannst nun:
+
+* Zahlen eingeben
+* Texte eingeben
+* Eingaben speichern
+* Eingaben weiterverarbeiten
+
+Im nächsten Kapitel lernen wir Entscheidungen mit `IF ... THEN` kennen.

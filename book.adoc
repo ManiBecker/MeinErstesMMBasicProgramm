@@ -18,3 +18,7 @@ include::kapitel/02-mit-mmbasic-rechnen.adoc[]
 
 include::kapitel/03-variablen.adoc[]
 
+include::kapitel/04-benutzereingaben-mit-input.adoc[]
+
+include::kapitel/05-entscheidungen-mit-if.adoc[]
+
