@@ -1,6 +1,6 @@
-= Hallo Welt!
+== Hallo Welt!
 
-== Das lernst du
+=== Das lernst du
 
 In diesem Kapitel lernst du:
 
@@ -10,7 +10,7 @@ In diesem Kapitel lernst du:
 
 Am Ende des Kapitels hast du dein erstes eigenes MMBasic-Programm geschrieben und ausgeführt.
 
-== Unser erstes Programm
+=== Unser erstes Programm
 
 Gib folgendes Programm ein:
 
@@ -32,7 +32,7 @@ Herzlichen Glückwunsch!
 
 Du hast gerade dein erstes MMBasic-Programm geschrieben.
 
-== Schritt für Schritt erklärt
+=== Schritt für Schritt erklärt
 
 Schauen wir uns das Programm genauer an:
 
@@ -61,7 +61,7 @@ oder
 PRINT "Ich programmiere einen PicoMite."
 ----
 
-== Experimentiere!
+=== Experimentiere!
 
 Ändere den Text zwischen den Anführungszeichen.
 
@@ -81,7 +81,7 @@ PRINT "Heute lerne ich MMBasic."
 
 Was passiert, wenn du den Text änderst?
 
-== Probier's selbst!
+=== Probier's selbst!
 
 Versuche folgende Aufgaben:
 
@@ -99,7 +99,7 @@ PRINT "Willkommen bei MMBasic!"
 PRINT "Viel Spaß beim Programmieren!"
 ----
 
-== Zusammenfassung
+=== Zusammenfassung
 
 In diesem Kapitel hast du die Anweisung `PRINT` kennengelernt.
 

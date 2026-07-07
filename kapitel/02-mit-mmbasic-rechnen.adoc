@@ -1,0 +1,258 @@
+== Mit MMBasic rechnen
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* wie MMBasic Berechnungen ausführt
+* die vier Grundrechenarten
+* die Verwendung von Klammern
+* einige nützliche mathematische Funktionen
+
+Am Ende des Kapitels kannst du MMBasic für einfache und komplexere Berechnungen einsetzen.
+
+=== MMBasic kann rechnen
+
+Im letzten Kapitel haben wir mit `PRINT` Text auf dem Bildschirm ausgegeben.
+
+Mit `PRINT` können aber nicht nur Texte, sondern auch Berechnungsergebnisse ausgegeben werden.
+
+Gib einmal folgende Zeile ein:
+
+[source,basic]
+----
+PRINT 1+2
+----
+
+MMBasic antwortet:
+
+[source]
+----
+3
+----
+
+Die Berechnung wird sofort ausgeführt.
+
+=== Die vier Grundrechenarten
+
+Addition:
+
+[source,basic]
+----
+PRINT 5+3
+----
+
+Ergebnis:
+
+[source]
+----
+8
+----
+
+Subtraktion:
+
+[source,basic]
+----
+PRINT 10-4
+----
+
+Ergebnis:
+
+[source]
+----
+6
+----
+
+Multiplikation:
+
+[source,basic]
+----
+PRINT 6*7
+----
+
+Ergebnis:
+
+[source]
+----
+42
+----
+
+Division:
+
+[source,basic]
+----
+PRINT 20/4
+----
+
+Ergebnis:
+
+[source]
+----
+5
+----
+
+=== Mehrere Rechenarten kombinieren
+
+Natürlich können auch mehrere Rechenarten miteinander kombiniert werden.
+
+[source,basic]
+----
+PRINT 2+3*4
+----
+
+Ergebnis:
+
+[source]
+----
+14
+----
+
+Vielleicht hast du 20 erwartet?
+
+MMBasic beachtet die bekannten Rechenregeln aus der Mathematik:
+
+Multiplikation und Division werden vor Addition und Subtraktion ausgeführt.
+
+=== Klammern verwenden
+
+Mit Klammern kann die Reihenfolge verändert werden.
+
+[source,basic]
+----
+PRINT (2+3)*4
+----
+
+Ergebnis:
+
+[source]
+----
+20
+----
+
+Klammern helfen dabei, Berechnungen übersichtlicher zu gestalten und Missverständnisse zu vermeiden.
+
+=== Potenzen berechnen
+
+Mit dem Zeichen `^` können Potenzen berechnet werden.
+
+[source,basic]
+----
+PRINT 2^8
+----
+
+Ergebnis:
+
+[source]
+----
+256
+----
+
+Ein weiteres Beispiel:
+
+[source,basic]
+----
+PRINT 10^3
+----
+
+Ergebnis:
+
+[source]
+----
+1000
+----
+
+=== Die Quadratwurzel
+
+Die Funktion `SQR()` berechnet die Quadratwurzel einer Zahl.
+
+[source,basic]
+----
+PRINT SQR(25)
+----
+
+Ergebnis:
+
+[source]
+----
+5
+----
+
+Weiteres Beispiel:
+
+[source,basic]
+----
+PRINT SQR(144)
+----
+
+Ergebnis:
+
+[source]
+----
+12
+----
+
+=== Der Betrag einer Zahl
+
+Die Funktion `ABS()` liefert den Betrag einer Zahl.
+
+[source,basic]
+----
+PRINT ABS(-10)
+----
+
+Ergebnis:
+
+[source]
+----
+10
+----
+
+[source,basic]
+----
+PRINT ABS(10)
+----
+
+Ergebnis:
+
+[source]
+----
+10
+----
+
+=== Experimentiere!
+
+Probiere einige eigene Berechnungen aus:
+
+[source,basic]
+----
+PRINT 123+456
+PRINT 50*20
+PRINT (10+20)*3
+PRINT 3^4
+PRINT SQR(81)
+----
+
+Was passiert?
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Berechne 15 + 27.
+. Berechne 100 - 37.
+. Berechne 12 * 12.
+. Berechne die Quadratwurzel von 225.
+. Berechne (5 + 7) * 8.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt, wie MMBasic Berechnungen ausführt.
+
+Du kennst nun:
+
+* die vier Grundrechenarten
+* Klammern
+* Potenzen
+* die Funktionen `SQR()` und `ABS()`
+
+Im nächsten Kapitel lernen wir Variablen kennen. Damit können wir Werte speichern und später wiederverwenden.

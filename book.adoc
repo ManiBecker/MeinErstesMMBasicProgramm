@@ -1,12 +1,18 @@
 = Mein erstes MMBasic Programm
 Manfred Becker
 :doctype: book
+:revnumber: 0.02
+:revdate: 2026-07-09
 :toc:
-:toclevels: 3
+:toclevels: 1
 :sectnums:
 :icons: font
 
-image::bilder/cover.png[pdfwidth=80%]
+// image::bilder/cover.png[pdfwidth=80%]
 
 include::kapitel/00-willkommen.adoc[]
+
 include::kapitel/01-hallo-welt.adoc[]
+
+include::kapitel/02-mit-mmbasic-rechnen.adoc[]
+

@@ -1,7 +1,7 @@
 [preface]
-= Willkommen!
+== Willkommen!
 
-== Warum dieses Tutorial?
+=== Warum dieses Tutorial?
 
 Willkommen bei *Mein erstes MMBasic Programm*.
 
