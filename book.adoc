@@ -16,3 +16,5 @@ include::kapitel/01-hallo-welt.adoc[]
 
 include::kapitel/02-mit-mmbasic-rechnen.adoc[]
 
+include::kapitel/03-variablen.adoc[]
+

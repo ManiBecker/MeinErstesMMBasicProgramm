@@ -1,0 +1,212 @@
+== Variablen
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* was Variablen sind
+* wie Werte gespeichert werden
+* wie Variablen in Berechnungen verwendet werden
+* wie Variablen ihren Inhalt ändern können
+
+Am Ende des Kapitels kannst du eigene Werte speichern und weiterverarbeiten.
+
+=== Was ist eine Variable?
+
+Eine Variable ist ein Speicherplatz für einen Wert.
+
+Du kannst dir eine Variable wie eine beschriftete Schachtel vorstellen.
+
+In diese Schachtel kannst du einen Wert hineinlegen und später wieder darauf zugreifen.
+
+=== Unsere erste Variable
+
+Gib folgende Zeilen ein:
+
+[source,basic]
+----
+A=10
+PRINT A
+----
+
+Ausgabe:
+
+[source]
+----
+10
+----
+
+MMBasic speichert den Wert 10 in der Variablen A.
+
+Mit PRINT kann der gespeicherte Wert angezeigt werden.
+
+=== Mehrere Variablen verwenden
+
+Natürlich können mehrere Variablen gleichzeitig verwendet werden.
+
+[source,basic]
+----
+A=10
+B=20
+
+PRINT A
+PRINT B
+----
+
+Ausgabe:
+
+[source]
+----
+10
+20
+----
+
+=== Mit Variablen rechnen
+
+Variablen können in Berechnungen verwendet werden.
+
+[source,basic]
+----
+A=10
+B=20
+
+PRINT A+B
+----
+
+Ausgabe:
+
+[source]
+----
+30
+----
+
+Weitere Beispiele:
+
+[source,basic]
+----
+PRINT A-B
+PRINT A*B
+PRINT B/A
+----
+
+=== Variablen verändern
+
+Der Inhalt einer Variablen kann jederzeit geändert werden.
+
+[source,basic]
+----
+A=10
+PRINT A
+
+A=25
+PRINT A
+----
+
+Ausgabe:
+
+[source]
+----
+10
+25
+----
+
+Der alte Wert wird dabei überschrieben.
+
+=== Der Inhalt einer Variablen kann berechnet werden
+
+Besonders interessant wird es, wenn eine Variable mit ihrem eigenen Inhalt verändert wird.
+
+[source,basic]
+----
+A=10
+A=A+1
+
+PRINT A
+----
+
+Ausgabe:
+
+[source]
+----
+11
+----
+
+Schauen wir uns die zweite Zeile genauer an:
+
+[source,basic]
+----
+A=A+1
+----
+
+Zuerst berechnet MMBasic die rechte Seite:
+
+[source,basic]
+----
+10+1
+----
+
+Danach wird das Ergebnis wieder in A gespeichert.
+
+=== Zähler erstellen
+
+Auf diese Weise kann ein einfacher Zähler aufgebaut werden.
+
+[source,basic]
+----
+A=0
+
+A=A+1
+PRINT A
+
+A=A+1
+PRINT A
+
+A=A+1
+PRINT A
+----
+
+Ausgabe:
+
+[source]
+----
+1
+2
+3
+----
+
+=== Experimentiere!
+
+Probiere folgende Beispiele aus:
+
+[source,basic]
+----
+A=100
+B=50
+
+PRINT A+B
+PRINT A-B
+PRINT A*B
+----
+
+Was passiert?
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Speichere dein Alter in einer Variablen.
+. Speichere dein Geburtsjahr in einer Variablen.
+. Addiere zwei Zahlen mit Hilfe von Variablen.
+. Erhöhe eine Variable dreimal um 1.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du Variablen kennengelernt.
+
+Du kannst nun:
+
+* Werte speichern
+* Werte verändern
+* mit Variablen rechnen
+
+Im nächsten Kapitel lernen wir Benutzereingaben mit INPUT kennen.
