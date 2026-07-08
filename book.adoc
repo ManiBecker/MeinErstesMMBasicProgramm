@@ -1,7 +1,7 @@
 = Mein erstes MMBasic Programm
 Manfred Becker
 :doctype: book
-:revnumber: 0.02
+:revnumber: 0.03
 :revdate: 2026-07-09
 :toc:
 :toclevels: 1
@@ -22,3 +22,6 @@ include::kapitel/04-benutzereingaben-mit-input.adoc[]
 
 include::kapitel/05-entscheidungen-mit-if.adoc[]
 
+include::kapitel/06-schleifen-mit-for-next.adoc[]
+
+include::kapitel/07-zufallszahlen.adoc[]

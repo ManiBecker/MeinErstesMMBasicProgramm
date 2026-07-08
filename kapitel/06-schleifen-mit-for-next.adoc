@@ -1,0 +1,364 @@
+== Schleifen mit FOR ... NEXT
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* wie Schleifen funktionieren
+* wie die Anweisung FOR verwendet wird
+* wie Programme Anweisungen mehrfach ausführen können
+* wie Zählvariablen verwendet werden
+
+Am Ende des Kapitels kannst du Programme schreiben, die Aufgaben automatisch wiederholen.
+
+=== Warum Schleifen wichtig sind
+
+Stell dir vor, du möchtest zehnmal "Hallo Welt!" ausgeben.
+
+Ohne Schleife müsstest du schreiben:
+
+[source,basic]
+----
+PRINT "Hallo Welt!"
+PRINT "Hallo Welt!"
+PRINT "Hallo Welt!"
+PRINT "Hallo Welt!"
+PRINT "Hallo Welt!"
+PRINT "Hallo Welt!"
+PRINT "Hallo Welt!"
+PRINT "Hallo Welt!"
+PRINT "Hallo Welt!"
+PRINT "Hallo Welt!"
+----
+
+Das funktioniert, ist aber sehr umständlich.
+
+Mit einer Schleife geht es deutlich einfacher.
+
+=== Unsere erste Schleife
+
+[source,basic]
+----
+FOR I=1 TO 10
+  PRINT "Hallo Welt!"
+NEXT I
+----
+
+Ausgabe:
+
+[source]
+----
+Hallo Welt!
+Hallo Welt!
+Hallo Welt!
+Hallo Welt!
+Hallo Welt!
+Hallo Welt!
+Hallo Welt!
+Hallo Welt!
+Hallo Welt!
+Hallo Welt!
+----
+
+=== Was passiert hier?
+
+Schauen wir uns die Schleife genauer an:
+
+[source,basic]
+----
+FOR I=1 TO 10
+----
+
+MMBasic erzeugt eine Zählvariable mit dem Namen `I`.
+
+Der Wert beginnt bei 1.
+
+Nach jedem Durchlauf wird der Wert automatisch erhöht.
+
+Sobald der Wert 10 erreicht hat, endet die Schleife.
+
+[source]
+----
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+----
+
+=== Die Zählvariable ausgeben
+
+Die aktuelle Nummer kann jederzeit ausgegeben werden.
+
+[source,basic]
+----
+FOR I=1 TO 10
+PRINT I
+NEXT I
+----
+
+Ausgabe:
+
+[source]
+----
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+----
+
+=== Mit der Zählvariable rechnen
+
+Die Zählvariable kann auch in Berechnungen verwendet werden.
+
+[source,basic]
+----
+FOR I=1 TO 10
+PRINT I*I
+NEXT I
+----
+
+Ausgabe:
+
+[source]
+----
+1
+4
+9
+16
+25
+36
+49
+64
+81
+100
+----
+
+=== Das kleine Einmaleins
+
+Mit einer Schleife lässt sich schnell ein kleines Einmaleins erzeugen.
+
+[source,basic]
+----
+FOR I=1 TO 10
+PRINT I;" x 5 = ";I*5
+NEXT I
+----
+
+Ausgabe:
+
+[source]
+----
+1 x 5 = 5
+2 x 5 = 10
+3 x 5 = 15
+...
+10 x 5 = 50
+----
+
+=== Rückwärts zählen
+
+Schleifen können auch rückwärts laufen.
+
+Dazu wird STEP verwendet.
+
+[source,basic]
+----
+FOR I=10 TO 1 STEP -1
+PRINT I
+NEXT I
+----
+
+Ausgabe:
+
+[source]
+----
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+----
+
+=== Größere Schritte
+
+Mit STEP können auch andere Schrittweiten verwendet werden.
+
+[source,basic]
+----
+FOR I=0 TO 20 STEP 2
+PRINT I
+NEXT I
+----
+
+Ausgabe:
+
+[source]
+----
+0
+2
+4
+6
+8
+10
+12
+14
+16
+18
+20
+----
+
+=== Unser erster Countdown
+
+[source,basic]
+----
+FOR I=10 TO 1 STEP -1
+PRINT I
+NEXT I
+
+PRINT "Start!"
+----
+
+Ausgabe:
+
+[source]
+----
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+Start!
+----
+
+=== Schleifen und Entscheidungen
+
+Schleifen und IF lassen sich hervorragend kombinieren.
+
+[source,basic]
+----
+FOR I=1 TO 10
+
+IF I MOD 2 = 0 THEN
+PRINT I
+ENDIF
+
+NEXT I
+----
+
+Ausgabe:
+
+[source]
+----
+2
+4
+6
+8
+10
+----
+
+=== Eine mathematische Funktion berechnen
+
+Schleifen werden häufig verwendet, um mathematische Funktionen für viele Werte zu berechnen.
+
+Betrachten wir die Funktion:
+
+[source]
+----
+y = 0.5*x^2 + x + 0.5
+----
+
+Wir möchten die Funktion für alle Werte von 0 bis 10 berechnen.
+
+[source,basic]
+----
+FOR X=0 TO 10
+
+  Y=0.5*X^2+X+0.5
+
+  PRINT "X=";X;"  Y=";Y
+
+NEXT X
+----
+
+Ausgabe:
+
+[source]
+----
+X=0   Y=0.5
+X=1   Y=2
+X=2   Y=4.5
+X=3   Y=8
+X=4   Y=12.5
+X=5   Y=18
+X=6   Y=24.5
+X=7   Y=32
+X=8   Y=40.5
+X=9   Y=50
+X=10  Y=60.5
+----
+
+Mit einer Schleife können auf diese Weise auch Tabellen für komplexere Funktionen erzeugt werden.
+
+Frühe Heimcomputer und Taschenrechner wurden häufig genau für solche Berechnungen eingesetzt.
+
+[TIP]
+====
+Mit einer Schleife lassen sich auch Tabellen für mathematische Funktionen erzeugen.
+
+Solche Wertetabellen wurden früher häufig verwendet, um Funktionen zu untersuchen oder später als Graph darzustellen.
+====
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+Gib die Zahlen von 1 bis 20 aus.
+Zähle von 100 bis 0 herunter.
+Gib alle Vielfachen von 3 aus.
+Berechne die Quadratzahlen von 1 bis 20.
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Gib die Zahlen von 1 bis 50 aus.
+. Gib nur die geraden Zahlen von 1 bis 20 aus.
+. Erstelle einen Countdown von 20 bis 1.
+. Erzeuge das Einmaleins der Zahl 7.
+. Berechne die Quadratzahlen von 1 bis 15.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du die FOR-Schleife kennengelernt.
+
+Du kannst nun:
+
+Anweisungen mehrfach ausführen
+vorwärts zählen
+rückwärts zählen
+Schrittweiten mit STEP verwenden
+Schleifen mit IF kombinieren
+
+Im nächsten Kapitel schreiben wir unser erstes größeres Programm.

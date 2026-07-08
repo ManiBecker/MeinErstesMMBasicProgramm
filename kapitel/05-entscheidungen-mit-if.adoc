@@ -249,6 +249,36 @@ PRINT "Befriedigend"
 ENDIF
 ----
 
+=== ELSEIF verwenden
+
+Oft müssen mehrere Möglichkeiten geprüft werden.
+
+Dafür eignet sich `ELSEIF`.
+
+[source,basic]
+----
+INPUT NOTE
+
+IF NOTE=1 THEN
+  PRINT "Sehr gut"
+ELSEIF NOTE=2 THEN
+  PRINT "Gut"
+ELSEIF NOTE=3 THEN
+  PRINT "Befriedigend"
+ELSE
+  PRINT "Unbekannte Note"
+ENDIF
+----
+
+Beispiel:
+
+[source]
+----
+? 2
+
+Gut
+----
+
 === Experimentiere!
 
 Probiere folgende Beispiele aus:

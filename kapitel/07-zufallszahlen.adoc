@@ -1,0 +1,138 @@
+== Zufallszahlen
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* wie Zufallszahlen erzeugt werden
+* wie die Funktion RND verwendet wird
+* wie Zufallszahlen auf einen gewünschten Bereich angepasst werden
+
+Am Ende des Kapitels kannst du Würfel, Münzwürfe und kleine Spiele programmieren.
+
+=== Warum Zufallszahlen wichtig sind
+
+Viele Programme benötigen Zufallszahlen.
+
+Zum Beispiel:
+
+* Spiele
+* Quizprogramme
+* Simulationen
+* Würfel
+* Lottozahlen
+
+MMBasic stellt dafür die Funktion `RND` bereit.
+
+=== Eine Zufallszahl erzeugen
+
+Gib folgendes Programm ein:
+
+[source,basic]
+----
+PRINT RND
+----
+
+Bei jeder Ausführung erscheint eine andere Zahl.
+
+Zum Beispiel:
+
+[source]
+----
+0.38142
+----
+
+oder
+
+[source]
+----
+0.92471
+----
+
+=== Zufallszahlen mehrfach erzeugen
+
+Mit einer Schleife können mehrere Zufallszahlen ausgegeben werden.
+
+[source,basic]
+----
+FOR I=1 TO 10
+  PRINT RND
+NEXT I
+----
+
+=== Einen Würfel simulieren
+
+Ein Würfel besitzt die Werte 1 bis 6.
+
+[source,basic]
+----
+PRINT INT(RND*6)+1
+----
+
+Mögliche Ausgabe:
+
+[source]
+----
+4
+----
+
+=== Mehrfach würfeln
+
+[source,basic]
+----
+FOR I=1 TO 10
+  PRINT INT(RND*6)+1
+NEXT I
+----
+
+=== Münze werfen
+
+[source,basic]
+----
+IF INT(RND*2)=0 THEN
+  PRINT "Kopf"
+ELSE
+  PRINT "Zahl"
+ENDIF
+----
+
+=== Lottozahlen erzeugen
+
+[source,basic]
+----
+FOR I=1 TO 6
+  PRINT INT(RND*49)+1
+NEXT I
+----
+
+Hinweis:
+
+Die Zahlen können mehrfach auftreten. Eine vollständige Lotto-Simulation werden wir später erstellen.
+
+=== Ein Ratespiel
+
+[source,basic]
+----
+GEHEIM=INT(RND*10)+1
+
+PRINT "Rate eine Zahl von 1 bis 10"
+
+INPUT TIPP
+
+IF TIPP=GEHEIM THEN
+  PRINT "Richtig!"
+ELSE
+  PRINT "Leider falsch."
+ENDIF
+----
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt:
+
+* Zufallszahlen zu erzeugen
+* Würfel zu simulieren
+* Münzen zu werfen
+* kleine Spiele zu programmieren
+
+Im nächsten Kapitel schreiben wir unser erstes größeres Programm.
