@@ -21,7 +21,7 @@ Das Tutorial entsteht Schritt für Schritt öffentlich auf GitHub und richtet si
 
 ## Website
 
-(kommt später)
+[Mein erstes MMBasic Programm – Willkommen](https://mikrocontroller.bplaced.net/wordpress/mein-erstes-mmbasic-programm-vorwort/)
 
 ## Viel Spaß!
 
