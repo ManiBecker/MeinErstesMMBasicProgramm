@@ -1,0 +1,194 @@
+== Unser erstes Spiel: Zahlenraten
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* wie mehrere Befehle zu einem vollständigen Programm kombiniert werden
+* wie Zufallszahlen verwendet werden
+* wie Benutzereingaben verarbeitet werden
+* wie Programme auf richtige und falsche Antworten reagieren
+
+Am Ende des Kapitels hast du dein erstes kleines Spiel programmiert.
+
+=== Die Spielidee
+
+Der Computer denkt sich eine Zahl aus.
+
+Der Spieler versucht diese Zahl zu erraten.
+
+Danach verrät das Programm, ob der Tipp richtig war.
+
+=== Das komplette Programm
+
+[source,basic]
+----
+GEHEIM=INT(RND*10)+1
+
+PRINT "Ich habe mir eine Zahl von 1 bis 10 ausgedacht."
+
+INPUT TIPP
+
+IF TIPP=GEHEIM THEN
+  PRINT "Richtig!"
+ELSE
+  PRINT "Leider falsch."
+ENDIF
+----
+
+=== Das Programm verstehen
+
+Die erste Zeile erzeugt eine Zufallszahl:
+
+[source,basic]
+----
+GEHEIM=INT(RND*10)+1
+----
+
+Die Funktion `RND` liefert eine Zufallszahl.
+
+Durch Multiplikation mit 10 und anschließendes Abrunden mit `INT()` entsteht eine ganze Zahl zwischen 0 und 9.
+
+Durch Addition von 1 wird daraus eine Zahl zwischen 1 und 10.
+
+Danach fordert das Programm den Benutzer zur Eingabe eines Tipps auf:
+
+[source,basic]
+----
+INPUT TIPP
+----
+
+Anschließend werden Tipp und Zufallszahl verglichen:
+
+[source,basic]
+----
+IF TIPP=GEHEIM THEN
+  ...
+ENDIF
+----
+
+Stimmen beide Werte überein, gewinnt der Spieler.
+
+=== Das Spiel testen
+
+Starte das Programm mehrmals.
+
+Du wirst feststellen, dass sich die geheime Zahl bei jedem Programmlauf ändert.
+
+Das liegt daran, dass jedes Mal eine neue Zufallszahl erzeugt wird.
+
+=== Mehrere Spielrunden
+
+Mit einer Schleife können mehrere Spielrunden hintereinander gespielt werden.
+
+[source,basic]
+----
+FOR RUNDE=1 TO 5
+
+  GEHEIM=INT(RND*10)+1
+
+  PRINT
+  PRINT "Runde ";RUNDE
+
+  INPUT TIPP
+
+  IF TIPP=GEHEIM THEN
+    PRINT "Richtig!"
+  ELSE
+    PRINT "Leider falsch."
+  ENDIF
+
+NEXT RUNDE
+----
+
+Das Spiel wird nun fünfmal hintereinander ausgeführt.
+
+=== Punkte sammeln
+
+Mit einer zusätzlichen Variablen können wir die Anzahl der Treffer zählen.
+
+[source,basic]
+----
+PUNKTE=0
+
+FOR RUNDE=1 TO 5
+
+  GEHEIM=INT(RND*10)+1
+
+  PRINT
+  PRINT "Runde ";RUNDE
+
+  INPUT TIPP
+
+  IF TIPP=GEHEIM THEN
+    PRINT "Richtig!"
+    PUNKTE=PUNKTE+1
+  ELSE
+    PRINT "Leider falsch."
+  ENDIF
+
+NEXT RUNDE
+
+PRINT
+PRINT "Du hast ";PUNKTE;" Punkte erreicht."
+----
+
+=== Das Spiel verbessern
+
+Das Spiel funktioniert bereits erstaunlich gut.
+
+Allerdings hat der Spieler pro Runde nur einen einzigen Versuch.
+
+Außerdem erfährt er nicht, ob sein Tipp zu groß oder zu klein war.
+
+Diese Verbesserungen werden wir in einem späteren Kapitel umsetzen.
+
+=== Ideen für Erweiterungen
+
+Vielleicht möchtest du das Spiel bereits jetzt erweitern.
+
+Zum Beispiel:
+
+* Zahlen von 1 bis 20 verwenden
+* Zahlen von 1 bis 100 verwenden
+* zehn Spielrunden durchführen
+* zwei Punkte für einen Treffer vergeben
+* den Namen des Spielers abfragen
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Erhöhe den Zahlenbereich auf 20.
+* Erhöhe den Zahlenbereich auf 100.
+* Spiele zehn Runden statt fünf.
+* Vergib zwei Punkte für jeden Treffer.
+
+Welche Auswirkungen haben die Änderungen?
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Erweitere das Spiel auf zehn Runden.
+. Zähle die Treffer.
+. Gib die Gesamtpunktzahl aus.
+. Verwende Zahlen von 1 bis 50.
+. Frage den Namen des Spielers ab und begrüße ihn persönlich.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du dein erstes vollständiges Spiel programmiert.
+
+Dabei wurden viele der bisher gelernten Befehle verwendet:
+
+* PRINT
+* INPUT
+* Variablen
+* IF
+* FOR
+* RND
+
+Du hast gesehen, wie aus einzelnen Befehlen ein vollständiges Programm entsteht.
+
+Im nächsten Kapitel werden wir das Spiel weiter verbessern und dem Spieler Hinweise geben, ob sein Tipp zu groß oder zu klein war.
