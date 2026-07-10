@@ -1,0 +1,377 @@
+== Arrays
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* was ein Array ist
+* wie Arrays mit DIM angelegt werden
+* wie Werte in Arrays gespeichert werden
+* wie Arrays mit FOR-Schleifen verarbeitet werden
+* wie Zahlen- und Textarrays verwendet werden
+
+Am Ende des Kapitels kannst du viele Werte übersichtlich verwalten.
+
+=== Das Problem
+
+In unserem Zahlenratespiel könnten mehrere Spieler gegeneinander antreten.
+
+Für jeden Spieler möchten wir die Anzahl der benötigten Versuche speichern.
+
+Ohne Arrays könnte das so aussehen:
+
+[source,basic]
+----
+VERSUCH0=5
+VERSUCH1=8
+VERSUCH2=3
+VERSUCH3=6
+VERSUCH4=4
+----
+
+Das funktioniert.
+
+Aber was passiert bei 20 Spielern?
+
+Oder 100 Spielern?
+
+Es muss einen besseren Weg geben.
+
+=== Die Lösung: Arrays
+
+Ein Array ist eine Sammlung von Variablen mit demselben Namen.
+
+Jedes Element besitzt eine Nummer, den sogenannten Index.
+
+Bevor ein Array verwendet werden kann, muss es mit DIM angelegt werden.
+
+[source,basic]
+----
+DIM VERSUCH(4)
+----
+
+[IMPORTANT]
+====
+MMBasic nummeriert Array-Elemente standardmäßig ab 0.
+
+Das Array
+
+[source,basic]
+----
+DIM VERSUCH(4)
+----
+
+enthält die Elemente
+
+[source]
+----
+VERSUCH(0)
+VERSUCH(1)
+VERSUCH(2)
+VERSUCH(3)
+VERSUCH(4)
+----
+
+also insgesamt fünf Speicherplätze.
+====
+
+=== Werte speichern
+
+Werte werden wie bei normalen Variablen gespeichert.
+
+[source,basic]
+----
+DIM VERSUCH(4)
+
+VERSUCH(0)=5
+VERSUCH(1)=8
+VERSUCH(2)=3
+VERSUCH(3)=6
+VERSUCH(4)=4
+----
+
+=== Werte ausgeben
+
+Auf einzelne Elemente kann direkt zugegriffen werden.
+
+[source,basic]
+----
+PRINT VERSUCH(0)
+PRINT VERSUCH(1)
+PRINT VERSUCH(2)
+----
+
+Ausgabe:
+
+[source]
+----
+5
+8
+3
+----
+
+=== Arrays und FOR-Schleifen
+
+Arrays und FOR-Schleifen sind ein perfektes Team.
+
+[source,basic]
+----
+DIM VERSUCH(4)
+
+FOR I=0 TO 4
+
+  INPUT VERSUCH(I)
+
+NEXT I
+----
+
+Die eingegebenen Werte werden automatisch in den Array-Elementen gespeichert.
+
+=== Alle Werte ausgeben
+
+[source,basic]
+----
+FOR I=0 TO 4
+
+  PRINT VERSUCH(I)
+
+NEXT I
+----
+
+=== Den Durchschnitt berechnen
+
+Arrays eignen sich hervorragend für Berechnungen.
+
+[source,basic]
+----
+DIM VERSUCH(4)
+
+SUMME=0
+
+FOR I=0 TO 4
+
+  INPUT VERSUCH(I)
+
+  SUMME=SUMME+VERSUCH(I)
+
+NEXT I
+
+PRINT
+PRINT "Durchschnitt:"
+PRINT SUMME/5
+----
+
+=== Den besten Spieler finden
+
+Nun suchen wir die kleinste Anzahl von Versuchen.
+
+[source,basic]
+----
+DIM VERSUCH(4)
+
+FOR I=0 TO 4
+
+  INPUT VERSUCH(I)
+
+NEXT I
+
+BEST=VERSUCH(0)
+
+FOR I=1 TO 4
+
+  IF VERSUCH(I)<BEST THEN
+    BEST=VERSUCH(I)
+  ENDIF
+
+NEXT I
+
+PRINT
+PRINT "Bester Spieler:"
+PRINT BEST;" Versuche"
+----
+
+=== Arrays initialisieren
+
+Arrays können bereits beim Anlegen mit Werten gefüllt werden.
+
+[source,basic]
+----
+DIM NAME$(2)=("Manfred","Geoff","Peter")
+----
+
+Anschließend können die Werte direkt verwendet werden.
+
+[source,basic]
+----
+PRINT NAME$(0)
+PRINT NAME$(1)
+PRINT NAME$(2)
+----
+
+Ausgabe:
+
+[source]
+----
+Manfred
+Geoff
+Peter
+----
+
+=== Textarrays
+
+Natürlich können auch Texte gespeichert werden.
+
+[source,basic]
+----
+DIM SPIELER$(4)
+
+SPIELER$(0)="Manfred"
+SPIELER$(1)="Geoff"
+SPIELER$(2)="Peter"
+SPIELER$(3)="Tom"
+SPIELER$(4)="Sarah"
+----
+
+Ausgabe:
+
+[source,basic]
+----
+FOR I=0 TO 4
+
+  PRINT SPIELER$(I)
+
+NEXT I
+----
+
+Ausgabe:
+
+[source]
+----
+Manfred
+Geoff
+Peter
+Tom
+Sarah
+----
+
+=== Würfelergebnisse speichern
+
+In Kapitel 7 haben wir einen Würfel simuliert.
+
+Mit einem Array können wir mehrere Würfe speichern.
+
+[source,basic]
+----
+DIM WURF(9)
+
+FOR I=0 TO 9
+
+  WURF(I)=INT(RND*6)+1
+
+NEXT I
+
+FOR I=0 TO 9
+
+  PRINT WURF(I)
+
+NEXT I
+----
+
+Mögliche Ausgabe:
+
+[source]
+----
+4
+2
+6
+1
+5
+3
+2
+4
+6
+1
+----
+
+=== Eine Wertetabelle speichern
+
+In Kapitel 6 haben wir eine mathematische Funktion berechnet.
+
+Mit Arrays können wir die Ergebnisse speichern.
+
+[source,basic]
+----
+DIM Y(10)
+
+FOR X=0 TO 10
+
+  Y(X)=0.5*X^2+X+0.5
+
+NEXT X
+
+FOR X=0 TO 10
+
+  PRINT X;"  ";Y(X)
+
+NEXT X
+----
+
+=== Mehrdimensionale Arrays
+
+Ein Array kann mehrere Dimensionen besitzen.
+
+Stell dir eine Tabelle mit Zeilen und Spalten vor.
+
+Für eine kleine Notentabelle könnte man schreiben:
+
+[source,basic]
+----
+DIM NOTE(4,2)
+----
+
+Der erste Index beschreibt den Schüler.
+
+Der zweite Index beschreibt das Fach.
+
+[source,basic]
+----
+NOTE(2,1)=1
+----
+
+Schüler Nummer 2 hat im Fach Nummer 1 die Note 1 erhalten.
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Speichere zehn Würfelergebnisse.
+* Speichere die Punkte von zehn Spielern.
+* Berechne einen Durchschnitt.
+* Vergrößere ein Array.
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Speichere die Alter von fünf Personen.
+. Gib alle Werte mit einer FOR-Schleife aus.
+. Berechne die Summe aller Werte.
+. Ermittle den größten Wert.
+. Speichere fünf Namen in einem Textarray.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du Arrays kennengelernt.
+
+Du kannst nun:
+
+* Arrays mit DIM anlegen
+* Werte speichern
+* Werte auslesen
+* Arrays mit FOR-Schleifen verarbeiten
+* Zahlen- und Textarrays verwenden
+* mehrdimensionale Arrays anlegen
+
+Arrays gehören zu den wichtigsten Werkzeugen der Programmierung und werden in vielen späteren Projekten verwendet.
+
+Im nächsten Kapitel beschäftigen wir uns mit Zeichenketten und lernen, Texte zu bearbeiten und auszuwerten.

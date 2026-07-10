@@ -70,3 +70,5 @@ include::kapitel/08-zahlenraten.adoc[]
 include::kapitel/09-zahlenraten-v2.adoc[]
 
 include::kapitel/10-sub-und-function.adoc[]
+
+include::kapitel/11-arrays.adoc[]
