@@ -6,8 +6,8 @@ Manfred Becker
 :toclevels: 1
 :sectnums:
 :icons: font
-:revnumber: 0.05
-:revdate: 2026-07-10
+:revnumber: 0.06
+:revdate: 2026-07-11
 
 image::bilder/cover.png[pdfwidth=100%,align=center]
 
@@ -84,3 +84,5 @@ include::kapitel/15-little-professor-v3.adoc[]
 include::kapitel/16-dateien.adoc[]
 
 include::kapitel/17-die-verschiedenen-grafikmodi.adoc[]
+
+include::kapitel/18-farben-und-schriftarten.adoc[]

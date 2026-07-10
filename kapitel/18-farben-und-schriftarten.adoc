@@ -1,0 +1,277 @@
+== Farben und Schriftarten
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* Farben in MMBasic zu verwenden
+* die Funktion RGB() einzusetzen
+* Vorder- und Hintergrundfarben festzulegen
+* verschiedene Schriftarten auszuwählen
+* Schriftgrößen zu verändern
+
+Am Ende des Kapitels kannst du farbige Bildschirmausgaben gestalten und die passende Schriftart auswählen.
+
+=== Farben in MMBasic
+
+MMBasic verwendet ein modernes Farbsystem mit 24 Bit Farbtiefe.
+
+Jede Farbe setzt sich aus den Anteilen für:
+
+* Rot
+* Grün
+* Blau
+
+zusammen.
+
+Daher stammt auch die Bezeichnung RGB.
+
+=== Farben mit RGB() erzeugen
+
+Die Funktion RGB() erwartet drei Werte zwischen 0 und 255.
+
+[source,basic]
+----
+RGB(Rot, Gruen, Blau)
+----
+
+Beispiele:
+
+[source,basic]
+----
+RGB(255,0,0)
+RGB(0,255,0)
+RGB(0,0,255)
+----
+
+erzeugen:
+
+* Rot
+* Grün
+* Blau
+
+=== Farbkonstanten verwenden
+
+Häufig verwendete Farben können direkt über ihren Namen angegeben werden.
+
+[source,basic]
+----
+RGB(RED)
+RGB(GREEN)
+RGB(BLUE)
+RGB(YELLOW)
+RGB(CYAN)
+RGB(MAGENTA)
+RGB(WHITE)
+RGB(BLACK)
+----
+
+Dadurch werden Programme leichter lesbar.
+
+=== Vorder- und Hintergrundfarbe
+
+Mit dem Befehl COLOUR werden die Standardfarben festgelegt.
+
+[source,basic]
+----
+COLOUR RGB(YELLOW), RGB(BLUE)
+----
+
+Dabei bedeutet:
+
+* Gelb = Vordergrundfarbe
+* Blau = Hintergrundfarbe
+
+Alle folgenden Textausgaben verwenden diese Farben.
+
+[source,basic]
+----
+CLS
+
+COLOUR RGB(YELLOW), RGB(BLUE)
+
+PRINT "Hallo MMBasic"
+----
+
+=== Der Bildschirmhintergrund
+
+Mit CLS wird der Bildschirm gelöscht.
+
+Ohne Parameter wird die aktuelle Hintergrundfarbe verwendet.
+
+[source,basic]
+----
+CLS
+----
+
+Es kann aber auch direkt eine Farbe angegeben werden.
+
+[source,basic]
+----
+CLS RGB(BLACK)
+----
+
+=== Ein kleines Farbexperiment
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+COLOUR RGB(YELLOW), RGB(BLACK)
+
+PRINT "Gelber Text"
+
+COLOUR RGB(CYAN), RGB(BLACK)
+
+PRINT "Cyanfarbener Text"
+
+COLOUR RGB(RED), RGB(BLACK)
+
+PRINT "Roter Text"
+----
+
+Probiere verschiedene Farbkombinationen aus.
+
+=== Schriftarten
+
+MMBasic enthält bereits mehrere eingebaute Schriftarten.
+
+Jede Schrift besitzt eine andere Größe.
+
+Die Standard-Schrift ist Schriftart 1.
+
+=== Schriftart auswählen
+
+Mit FONT wird die gewünschte Schriftart ausgewählt.
+
+[source,basic]
+----
+FONT 1
+PRINT "Schriftart 1"
+
+FONT 2
+PRINT "Schriftart 2"
+
+FONT 3
+PRINT "Schriftart 3"
+----
+
+=== Die wichtigsten Schriftarten
+
+[cols="1,3"]
+|===
+|Font |Beschreibung
+
+|1
+|Standardschrift
+
+|2
+|Mittlere Schrift
+
+|3
+|Große Schrift
+
+|5
+|Sehr große Schrift
+
+|6
+|Große Ziffern
+|===
+
+=== Schriftgröße ausprobieren
+
+[source,basic]
+----
+CLS
+
+FONT 1
+PRINT "Kleine Schrift"
+
+FONT 2
+PRINT "Mittlere Schrift"
+
+FONT 3
+PRINT "Grosse Schrift"
+
+FONT 5
+PRINT "Sehr grosse Schrift"
+----
+
+=== Große Zahlen darstellen
+
+Für Messwerte oder Uhren eignet sich Font 6 besonders gut.
+
+[source,basic]
+----
+CLS
+
+FONT 6
+
+PRINT "12:45"
+----
+
+=== Informationen zur aktuellen Schrift
+
+Die Breite und Höhe der aktuellen Schrift können abgefragt werden.
+
+[source,basic]
+----
+PRINT MM.INFO(FONTWIDTH)
+PRINT MM.INFO(FONTHEIGHT)
+----
+
+Beispiel:
+
+[source]
+----
+16
+24
+----
+
+Die Werte hängen von der gewählten Schriftart und vom verwendeten Grafikmodus ab.
+
+=== Ein digitales Display
+
+Das folgende Programm simuliert eine einfache Digitalanzeige.
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+COLOUR RGB(GREEN), RGB(BLACK)
+
+FONT 6
+
+PRINT TIME$
+----
+
+Je nach System wird die aktuelle Uhrzeit in großen Ziffern dargestellt.
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Verwende andere Farben.
+* Teste verschiedene Schriftarten.
+* Kombiniere unterschiedliche Vorder- und Hintergrundfarben.
+* Zeige das aktuelle Datum an.
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Gib deinen Namen in einer großen Schrift aus.
+. Zeige Datum und Uhrzeit gleichzeitig an.
+. Verwende eine andere Farbe für jede Zeile.
+. Erstelle eine einfache digitale Uhr.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt:
+
+* Farben mit RGB() zu verwenden
+* Vorder- und Hintergrundfarben festzulegen
+* Schriftarten auszuwählen
+* Informationen über die aktuelle Schrift abzurufen
+
+Im nächsten Kapitel werden wir die ersten grafischen Objekte auf dem Bildschirm zeichnen und lernen PIXEL, LINE und BOX kennen.
