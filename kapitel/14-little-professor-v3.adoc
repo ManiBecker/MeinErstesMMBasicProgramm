@@ -1,0 +1,330 @@
+== Little Professor Version 3
+
+=== Das lernst du
+
+In diesem Kapitel erweitern wir unseren Little Professor erneut.
+
+Dabei lernst du:
+
+* Arrays in einem größeren Projekt einzusetzen
+* Antworten und Lösungen zu speichern
+* Ergebnisse auszuwerten
+* einfache Statistiken zu erstellen
+* dem Spieler gezielt Rückmeldungen zu geben
+
+Am Ende des Kapitels besitzt du einen Mathematiktrainer, der nicht nur Punkte zählt, sondern auch die Fehler des Spielers analysiert.
+
+=== Warum noch eine Version?
+
+Unser Little Professor kann bereits:
+
+* verschiedene Rechenarten erzeugen
+* Antworten prüfen
+* Punkte zählen
+* Ergebnisse bewerten
+
+Am Ende kennen wir jedoch nur die erreichte Punktzahl.
+
+Wir wissen nicht:
+
+* Welche Aufgaben falsch beantwortet wurden?
+* Welche Antwort der Spieler eingegeben hat?
+* Bei welcher Rechenart die meisten Fehler auftraten?
+
+Das möchten wir nun ändern.
+
+=== Die Aufgaben speichern
+
+Für jede Aufgabe speichern wir:
+
+* die Aufgabe selbst
+* die richtige Lösung
+* die Antwort des Spielers
+* die Rechenart
+
+Dafür legen wir einige Arrays an.
+
+[source,basic]
+----
+DIM AUFGABE$(9)
+DIM LOESUNG(9)
+DIM EINGABE(9)
+DIM TYP(9)
+----
+
+Da wir zehn Aufgaben stellen, benötigen wir die Elemente 0 bis 9.
+
+=== Die Arrays füllen
+
+Nach jeder Aufgabe speichern wir die Daten.
+
+[source,basic]
+----
+AUFGABE$(RUNDE-1)=TEXT$
+LOESUNG(RUNDE-1)=ERG
+EINGABE(RUNDE-1)=ANTWORT
+TYP(RUNDE-1)=OP
+----
+
+Dadurch stehen die Informationen auch nach dem Spiel noch zur Verfügung.
+
+=== Eine Aufgabe als Text speichern
+
+Zusätzlich erzeugen wir einen Text, der die Aufgabe beschreibt.
+
+Bei einer Addition:
+
+[source,basic]
+----
+TEXT$=STR$(A)+" + "+STR$(B)
+----
+
+Bei einer Multiplikation:
+
+[source,basic]
+----
+TEXT$=STR$(A)+" * "+STR$(B)
+----
+
+Dieser Text wird später für die Auswertung benötigt.
+
+=== Das komplette Programm
+
+[source,basic]
+----
+INPUT "Wie heisst du ";NAME$
+
+DIM AUFGABE$(9)
+DIM LOESUNG(9)
+DIM EINGABE(9)
+DIM TYP(9)
+
+PUNKTE=0
+
+FOR RUNDE=1 TO 10
+
+  NeueAufgabe
+
+  PRINT
+  PRINT "Aufgabe ";RUNDE
+  PRINT TEXT$;" = ?"
+
+  INPUT ANTWORT
+
+  AUFGABE$(RUNDE-1)=TEXT$
+  LOESUNG(RUNDE-1)=ERG
+  EINGABE(RUNDE-1)=ANTWORT
+  TYP(RUNDE-1)=OP
+
+  IF ANTWORT=ERG THEN
+
+    PRINT "Richtig!"
+
+    PUNKTE=PUNKTE+1
+
+  ELSE
+
+    PRINT "Leider falsch!"
+
+    PRINT "Richtig waere ";ERG
+
+  ENDIF
+
+NEXT RUNDE
+
+PRINT
+PRINT NAME$;", du hast ";PUNKTE;" von 10 Punkten erreicht."
+
+
+
+PRINT
+PRINT "Auswertung"
+PRINT "-----------"
+
+FOR I=0 TO 9
+
+  IF EINGABE(I)=LOESUNG(I) THEN
+
+    PRINT AUFGABE$(I);" = ";LOESUNG(I);"  OK"
+
+  ELSE
+
+    PRINT AUFGABE$(I);" = ";LOESUNG(I)
+    PRINT "Deine Antwort: ";EINGABE(I)
+
+  ENDIF
+
+NEXT I
+
+
+
+SUB NeueAufgabe
+
+  OP=INT(RND*4)
+
+  IF OP=0 THEN
+
+    A=INT(RND*10)
+    B=INT(RND*10)
+
+    ERG=A+B
+
+    TEXT$=STR$(A)+" + "+STR$(B)
+
+  ELSEIF OP=1 THEN
+
+    A=INT(RND*10)+10
+    B=INT(RND*10)
+
+    ERG=A-B
+
+    TEXT$=STR$(A)+" - "+STR$(B)
+
+  ELSEIF OP=2 THEN
+
+    A=INT(RND*10)
+    B=INT(RND*10)
+
+    ERG=A*B
+
+    TEXT$=STR$(A)+" * "+STR$(B)
+
+  ELSE
+
+    ERG=INT(RND*10)+1
+
+    B=INT(RND*10)+1
+
+    A=ERG*B
+
+    TEXT$=STR$(A)+" / "+STR$(B)
+
+  ENDIF
+
+END SUB
+----
+
+=== Die Auswertung verstehen
+
+Während des Spiels werden alle Antworten gespeichert.
+
+Nach der letzten Aufgabe durchläuft eine FOR-Schleife die Arrays.
+
+[source,basic]
+----
+FOR I=0 TO 9
+  ...
+NEXT I
+----
+
+Dabei werden die gespeicherten Informationen ausgewertet.
+
+=== Beispielausgabe
+
+[source]
+----
+Manfred, du hast 7 von 10 Punkten erreicht.
+
+
+Auswertung
+-----------
+
+7 + 5 = 12  OK
+
+8 * 7 = 56
+Deine Antwort: 55
+
+24 / 6 = 4  OK
+
+15 - 9 = 6
+Deine Antwort: 8
+----
+
+Jetzt erkennt der Spieler sofort, welche Aufgaben falsch beantwortet wurden.
+
+=== Fehler nach Rechenart zählen
+
+Mit den gespeicherten Aufgabentypen können wir weitere Statistiken erstellen.
+
+[source,basic]
+----
+ADD=0
+SUB=0
+MUL=0
+DIV=0
+
+FOR I=0 TO 9
+
+  IF EINGABE(I)<>LOESUNG(I) THEN
+
+    IF TYP(I)=0 THEN ADD=ADD+1
+    IF TYP(I)=1 THEN SUB=SUB+1
+    IF TYP(I)=2 THEN MUL=MUL+1
+    IF TYP(I)=3 THEN DIV=DIV+1
+
+  ENDIF
+
+NEXT I
+----
+
+Danach können wir die Statistik ausgeben:
+
+[source,basic]
+----
+PRINT
+PRINT "Fehlerstatistik"
+
+PRINT "Additionen:      ";ADD
+PRINT "Subtraktionen:   ";SUB
+PRINT "Multiplikation:  ";MUL
+PRINT "Divisionen:      ";DIV
+----
+
+=== Warum Arrays hier wichtig sind
+
+Ohne Arrays würden die Antworten nach jeder Aufgabe verloren gehen.
+
+Durch die Arrays können wir:
+
+* Aufgaben speichern
+* Antworten speichern
+* Lösungen speichern
+* Statistiken berechnen
+* Fehler analysieren
+
+Genau für solche Aufgaben werden Arrays in der Praxis verwendet.
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Erhöhe die Anzahl der Aufgaben auf 20.
+* Speichere zusätzlich die benötigte Zeit.
+* Gib nur die falsch beantworteten Aufgaben aus.
+* Zähle richtige Antworten je Rechenart.
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Speichere den Namen des Spielers.
+. Gib die erreichte Prozentzahl aus.
+. Zeige nur die falschen Antworten an.
+. Ermittle die schwierigste Rechenart.
+. Vergib eine Schulnote.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du Arrays in einem echten Projekt eingesetzt.
+
+Du hast gelernt:
+
+* Daten in Arrays zu speichern
+* Informationen später auszuwerten
+* Statistiken zu berechnen
+* Fehler gezielt zu analysieren
+
+Der Little Professor ist damit von einem einfachen Übungsprogramm zu einem echten Lernsystem geworden.
+
+Im nächsten Kapitel werden wir den Little Professor weiter ausbauen und beispielsweise Schwierigkeitsstufen oder mehrere Spieler unterstützen.
+

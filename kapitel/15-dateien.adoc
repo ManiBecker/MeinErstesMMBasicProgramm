@@ -1,0 +1,343 @@
+== Dateien speichern und laden
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* Dateien anzulegen
+* Daten in Dateien zu speichern
+* Dateien wieder einzulesen
+* Textdateien zu verwenden
+* Highscores und Einstellungen dauerhaft zu speichern
+
+Am Ende des Kapitels können deine Programme Informationen auch nach dem Programmende behalten.
+
+=== Das Problem
+
+Bisher gingen alle Daten verloren, sobald ein Programm beendet wurde.
+
+Nehmen wir unseren Little Professor als Beispiel.
+
+Ein Spieler erreicht 9 von 10 Punkten.
+
+Nach dem nächsten Programmstart ist dieses Ergebnis vergessen.
+
+Es wäre viel besser, wenn wir die Ergebnisse dauerhaft speichern könnten.
+
+Genau dafür gibt es Dateien.
+
+=== Was ist eine Datei?
+
+Eine Datei ist ein Bereich auf einem Speichermedium, in dem Informationen dauerhaft gespeichert werden.
+
+Typische Beispiele sind:
+
+* Texte
+* Bilder
+* Programme
+* Tabellen
+* Spielstände
+
+Auch unsere BASIC-Programme können Dateien lesen und schreiben.
+
+=== Eine Datei öffnen
+
+Bevor eine Datei verwendet werden kann, muss sie geöffnet werden.
+
+Dies geschieht mit dem Befehl OPEN.
+
+[source,basic]
+----
+OPEN "test.txt" FOR OUTPUT AS #1
+----
+
+Dabei bedeutet:
+
+[cols="1,3"]
+|===
+|Teil |Bedeutung
+
+|test.txt
+|Dateiname
+
+|OUTPUT
+|Datei zum Schreiben öffnen
+
+|#1
+|Dateinummer
+|===
+
+Die Dateinummer wird später verwendet, um auf die geöffnete Datei zuzugreifen.
+
+=== Eine Datei schreiben
+
+Mit PRINT können Daten in eine Datei geschrieben werden.
+
+[source,basic]
+----
+OPEN "test.txt" FOR OUTPUT AS #1
+
+PRINT #1,"Hallo Welt"
+
+CLOSE #1
+----
+
+Nach dem Ausführen enthält die Datei:
+
+[source]
+----
+Hallo Welt
+----
+
+=== Dateien immer schließen
+
+Nach der Arbeit mit einer Datei sollte diese geschlossen werden.
+
+[source,basic]
+----
+CLOSE #1
+----
+
+Dadurch werden alle Daten sicher gespeichert.
+
+=== Eine Datei lesen
+
+Zum Lesen wird die Datei im Modus INPUT geöffnet.
+
+[source,basic]
+----
+OPEN "test.txt" FOR INPUT AS #1
+
+LINE INPUT #1,A$
+
+PRINT A$
+
+CLOSE #1
+----
+
+Ausgabe:
+
+[source]
+----
+Hallo Welt
+----
+
+=== LINE INPUT
+
+LINE INPUT liest eine komplette Zeile aus einer Datei.
+
+[source,basic]
+----
+LINE INPUT #1,TEXT$
+----
+
+Dies ist besonders praktisch bei Textdateien.
+
+=== Mehrere Zeilen speichern
+
+Natürlich können auch mehrere Zeilen geschrieben werden.
+
+[source,basic]
+----
+OPEN "namen.txt" FOR OUTPUT AS #1
+
+PRINT #1,"Manfred"
+PRINT #1,"Geoff"
+PRINT #1,"Peter"
+
+CLOSE #1
+----
+
+Die Datei enthält anschließend:
+
+[source]
+----
+Manfred
+Geoff
+Peter
+----
+
+=== Daten anhängen
+
+Normalerweise überschreibt OUTPUT eine vorhandene Datei.
+
+Soll der Inhalt erhalten bleiben, verwendet man APPEND.
+
+[source,basic]
+----
+OPEN "namen.txt" FOR APPEND AS #1
+
+PRINT #1,"Sarah"
+
+CLOSE #1
+----
+
+Die neue Zeile wird an das Ende der Datei angehängt.
+
+=== Der Unterschied zwischen OUTPUT und APPEND
+
+[source,basic]
+----
+OPEN "daten.txt" FOR OUTPUT AS #1
+----
+
+öffnet eine Datei zum Schreiben und löscht einen eventuell vorhandenen Inhalt.
+
+[source,basic]
+----
+OPEN "daten.txt" FOR APPEND AS #1
+----
+
+öffnet die Datei zum Anhängen neuer Daten.
+
+Vorhandene Daten bleiben erhalten.
+
+=== Mit WRITE speichern
+
+Neben PRINT gibt es auch den Befehl WRITE.
+
+[source,basic]
+----
+OPEN "spieler.txt" FOR OUTPUT AS #1
+
+WRITE #1,"Manfred",9
+
+CLOSE #1
+----
+
+Der Inhalt der Datei sieht dann so aus:
+
+[source]
+----
+"Manfred",9
+----
+
+WRITE eignet sich besonders gut zum Speichern strukturierter Daten.
+
+=== Ein Highscore speichern
+
+Nun speichern wir den Namen eines Spielers und seine Punktzahl.
+
+[source,basic]
+----
+INPUT "Name ";NAME$
+
+PUNKTE=8
+
+OPEN "highscore.txt" FOR OUTPUT AS #1
+
+WRITE #1,NAME$,PUNKTE
+
+CLOSE #1
+
+PRINT "Highscore gespeichert."
+----
+
+=== Einen Highscore laden
+
+[source,basic]
+----
+OPEN "highscore.txt" FOR INPUT AS #1
+
+LINE INPUT #1,TEXT$
+
+CLOSE #1
+
+PRINT TEXT$
+----
+
+Ausgabe:
+
+[source]
+----
+"Manfred",8
+----
+
+=== Dateinamen und Verzeichnisse
+
+Dateien können auch in Unterverzeichnissen gespeichert werden.
+
+Beispiel:
+
+[source,basic]
+----
+OPEN "daten\spieler.txt" FOR OUTPUT AS #1
+----
+
+Es können lange Dateinamen verwendet werden.
+
+[source,basic]
+----
+OPEN "mein_erster_highscore.txt" FOR OUTPUT AS #1
+----
+
+=== Wichtige Betriebsarten
+
+MMBasic kennt verschiedene Betriebsarten beim Öffnen einer Datei.
+
+[cols="1,3"]
+|===
+|Modus |Bedeutung
+
+|INPUT
+|Datei lesen
+
+|OUTPUT
+|Datei schreiben (überschreibt vorhandene Datei)
+
+|APPEND
+|Daten an bestehende Datei anhängen
+
+|RANDOM
+|Datei lesen und schreiben mit direktem Zugriff
+|===
+
+Für die meisten Programme reichen INPUT, OUTPUT und APPEND völlig aus.
+
+=== Fehlerquellen
+
+Ein häufiger Fehler ist das Lesen einer Datei, die nicht existiert.
+
+[source,basic]
+----
+OPEN "unbekannt.txt" FOR INPUT AS #1
+----
+
+In diesem Fall erzeugt MMBasic eine Fehlermeldung.
+
+Ebenso sollte jede geöffnete Datei wieder geschlossen werden.
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Speichere mehrere Namen in einer Datei.
+* Speichere mehrere Punktzahlen.
+* Verwende APPEND statt OUTPUT.
+* Ändere den Dateinamen.
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Speichere deinen Namen in einer Datei.
+. Speichere dein Alter in einer Datei.
+. Lies die Datei wieder ein.
+. Erstelle eine kleine Highscore-Datei.
+. Speichere mehrere Spieler untereinander.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt, mit Dateien zu arbeiten.
+
+Du kennst nun:
+
+* OPEN
+* CLOSE
+* PRINT
+* WRITE
+* LINE INPUT
+
+Damit können deine Programme Informationen dauerhaft speichern.
+
+Im nächsten Kapitel werden wir die grafischen Möglichkeiten des PicoMite kennenlernen und erste Zeichnungen auf dem Bildschirm erzeugen.
