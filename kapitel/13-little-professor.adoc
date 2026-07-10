@@ -1,0 +1,260 @@
+== Little Professor
+
+=== Das lernst du
+
+In diesem Kapitel verwendest du viele der bisher gelernten Befehle, um ein vollständiges Programm zu entwickeln.
+
+Dabei kommen unter anderem zum Einsatz:
+
+* Variablen
+* Zufallszahlen
+* Benutzereingaben
+* Entscheidungen mit IF
+* Schleifen mit FOR
+* Punktzählung
+
+Am Ende des Kapitels besitzt du deinen eigenen kleinen Mathematiktrainer.
+
+=== Was ist ein Little Professor?
+
+Der Little Professor war ein Lerncomputer von Texas Instruments.
+
+Er stellte Rechenaufgaben und überprüfte die Antworten des Benutzers.
+
+Das Gerät erfreute sich besonders bei Schülern großer Beliebtheit, da es das Kopfrechnen auf spielerische Weise trainierte.
+
+In diesem Kapitel entwickeln wir eine einfache Version mit MMBasic.
+
+=== Unsere erste Rechenaufgabe
+
+Beginnen wir mit einer einzigen Aufgabe.
+
+[source,basic]
+----
+A=INT(RND*10)
+B=INT(RND*10)
+
+PRINT A;" + ";B;" = ?"
+
+INPUT ANTWORT
+
+IF ANTWORT=A+B THEN
+  PRINT "Richtig!"
+ELSE
+  PRINT "Leider falsch!"
+ENDIF
+----
+
+=== Das Programm verstehen
+
+Die Variablen `A` und `B` erhalten Zufallszahlen zwischen 0 und 9.
+
+[source,basic]
+----
+A=INT(RND*10)
+B=INT(RND*10)
+----
+
+Anschließend wird die Aufgabe ausgegeben.
+
+[source,basic]
+----
+PRINT A;" + ";B;" = ?"
+----
+
+Mit `INPUT` wird die Antwort eingelesen.
+
+Danach vergleicht die IF-Anweisung die Eingabe mit dem korrekten Ergebnis.
+
+=== Mehrere Aufgaben hintereinander
+
+Ein echter Little Professor stellt natürlich nicht nur eine einzige Aufgabe.
+
+Mit einer FOR-Schleife können wir mehrere Aufgaben erzeugen.
+
+[source,basic]
+----
+FOR RUNDE=1 TO 10
+
+  A=INT(RND*10)
+  B=INT(RND*10)
+
+  PRINT
+  PRINT "Aufgabe ";RUNDE
+  PRINT A;" + ";B;" = ?"
+
+  INPUT ANTWORT
+
+  IF ANTWORT=A+B THEN
+    PRINT "Richtig!"
+  ELSE
+    PRINT "Leider falsch!"
+  ENDIF
+
+NEXT RUNDE
+----
+
+Jetzt werden zehn Aufgaben hintereinander gestellt.
+
+=== Punkte zählen
+
+Natürlich möchten wir wissen, wie viele Aufgaben richtig gelöst wurden.
+
+Dafür verwenden wir eine Variable mit dem Namen `PUNKTE`.
+
+[source,basic]
+----
+PUNKTE=0
+----
+
+Für jede richtige Antwort erhöhen wir den Punktestand um eins.
+
+[source,basic]
+----
+PUNKTE=PUNKTE+1
+----
+
+=== Die richtige Lösung anzeigen
+
+Wird eine Aufgabe falsch beantwortet, kann das Programm die richtige Lösung anzeigen.
+
+[source,basic]
+----
+IF ANTWORT=A+B THEN
+  PRINT "Richtig!"
+  PUNKTE=PUNKTE+1
+ELSE
+  PRINT "Leider falsch!"
+  PRINT "Richtig waere ";A+B
+ENDIF
+----
+
+Dadurch kann der Spieler aus seinen Fehlern lernen.
+
+=== Das komplette Programm
+
+[source,basic]
+----
+PUNKTE=0
+
+FOR RUNDE=1 TO 10
+
+  A=INT(RND*10)
+  B=INT(RND*10)
+
+  PRINT
+  PRINT "Aufgabe ";RUNDE
+  PRINT A;" + ";B;" = ?"
+
+  INPUT ANTWORT
+
+  IF ANTWORT=A+B THEN
+    PRINT "Richtig!"
+    PUNKTE=PUNKTE+1
+  ELSE
+    PRINT "Leider falsch!"
+    PRINT "Richtig waere ";A+B
+  ENDIF
+
+NEXT RUNDE
+
+PRINT
+PRINT "Du hast ";PUNKTE;" von 10 Punkten erreicht."
+----
+
+=== Eine Beispielrunde
+
+Eine mögliche Programmausführung könnte so aussehen:
+
+[source]
+----
+Aufgabe 1
+7 + 5 = ?
+12
+Richtig!
+
+Aufgabe 2
+3 + 8 = ?
+12
+Leider falsch!
+Richtig waere 11
+
+Aufgabe 3
+6 + 1 = ?
+7
+Richtig!
+----
+
+=== Das Ergebnis bewerten
+
+Am Ende können wir das Ergebnis bewerten.
+
+[source,basic]
+----
+PRINT
+
+IF PUNKTE=10 THEN
+  PRINT "Perfekt!"
+ELSEIF PUNKTE>=8 THEN
+  PRINT "Sehr gut!"
+ELSEIF PUNKTE>=5 THEN
+  PRINT "Gut gemacht!"
+ELSE
+  PRINT "Weiter ueben!"
+ENDIF
+----
+
+Dadurch erhält der Spieler eine direkte Rückmeldung über seine Leistung.
+
+=== Verbesserungsmöglichkeiten
+
+Unser Little Professor funktioniert bereits erstaunlich gut.
+
+Es gibt jedoch viele Möglichkeiten zur Erweiterung:
+
+* größere Zahlenbereiche
+* Subtraktionsaufgaben
+* Multiplikationsaufgaben
+* Division
+* verschiedene Schwierigkeitsstufen
+* mehrere Spieler
+
+In den nächsten Kapiteln werden wir einige dieser Ideen umsetzen.
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Verwende Zahlen bis 20.
+* Verwende Zahlen bis 100.
+* Stelle 20 Aufgaben.
+* Vergib zwei Punkte pro richtiger Antwort.
+* Ändere die Bewertung am Ende.
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Ergänze Subtraktionsaufgaben.
+. Ergänze Multiplikationsaufgaben.
+. Frage den Namen des Spielers ab.
+. Begrüße den Spieler persönlich.
+. Gib die Anzahl der falschen Antworten aus.
+. Zeige am Ende die erreichte Prozentzahl an.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du ein vollständiges Lernprogramm entwickelt.
+
+Dabei wurden viele der bisher gelernten Befehle verwendet:
+
+* PRINT
+* INPUT
+* IF ... THEN ... ELSE
+* FOR ... NEXT
+* RND
+* Variablen
+
+Du hast gesehen, wie aus vielen kleinen Bausteinen ein nützliches Programm entsteht.
+
+Im nächsten Kapitel werden wir den Little Professor weiter verbessern und um zusätzliche Funktionen erweitern.

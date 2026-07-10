@@ -74,3 +74,5 @@ include::kapitel/10-sub-und-function.adoc[]
 include::kapitel/11-arrays.adoc[]
 
 include::kapitel/12-mit-texten-arbeiten.adoc[]
+
+include::kapitel/13-little-professor.adoc[]
