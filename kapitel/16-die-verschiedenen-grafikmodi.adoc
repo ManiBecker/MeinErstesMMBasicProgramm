@@ -1,0 +1,285 @@
+= Grafik und Benutzeroberflächen
+
+== Die verschiedenen Grafikmodi
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* wie MMBasic Grafiken auf dem Bildschirm darstellt
+* was Pixel sind
+* wie Bildschirmkoordinaten funktionieren
+* wie die Bildschirmgröße ermittelt werden kann
+* welche Informationen MMBasic über den Bildschirm bereitstellt
+
+Am Ende des Kapitels verstehst du die wichtigsten Grundlagen für die Grafikprogrammierung.
+
+=== Eine neue Welt
+
+Bisher haben wir unsere Programme hauptsächlich mit Texten erstellt.
+
+Beispielsweise:
+
+[source,basic]
+----
+PRINT "Hallo Welt"
+----
+
+oder:
+
+[source,basic]
+----
+INPUT NAME$
+----
+
+Der Bildschirm wurde dabei wie ein klassisches Terminal verwendet.
+
+MMBasic kann jedoch deutlich mehr.
+
+Mit wenigen Befehlen lassen sich:
+
+* Linien zeichnen
+* Kreise darstellen
+* Texte frei positionieren
+* Farben verwenden
+* grafische Benutzeroberflächen erstellen
+
+Bevor wir damit beginnen, sollten wir einige Grundlagen kennenlernen.
+
+=== Was ist ein Pixel?
+
+Jeder Bildschirm besteht aus vielen einzelnen Bildpunkten.
+
+Diese Bildpunkte nennt man Pixel.
+
+Jeder Pixel besitzt eine Position auf dem Bildschirm.
+
+Die Position wird durch zwei Werte beschrieben:
+
+* X = horizontale Position
+* Y = vertikale Position
+
+=== Das Koordinatensystem
+
+In MMBasic befindet sich der Ursprung in der linken oberen Ecke.
+
+Die Position links oben besitzt die Koordinaten:
+
+[source]
+----
+X = 0
+Y = 0
+----
+
+Die X-Koordinate wächst nach rechts.
+
+Die Y-Koordinate wächst nach unten.
+
+[source]
+----
+(0,0)
+  +---------------------------->
+  |
+  |
+  |
+  |
+  v
+----
+    
+Wenn später eine Linie oder ein Kreis gezeichnet wird, erfolgt dies immer anhand dieser Koordinaten.
+
+=== Die Bildschirmgröße
+
+Nicht jeder Bildschirm besitzt dieselbe Auflösung.
+
+MMBasic stellt deshalb zwei Variablen bereit.
+
+[source,basic]
+----
+PRINT MM.HRES
+PRINT MM.VRES
+----
+
+Beispiel:
+
+[source]
+----
+640
+480
+----
+
+Dies bedeutet:
+
+* 640 Pixel Breite
+* 480 Pixel Höhe
+
+Die Variablen haben folgende Bedeutung:
+
+[cols="1,3"]
+|===
+|Variable |Beschreibung
+
+|MM.HRES
+|Horizontale Auflösung (Breite)
+
+|MM.VRES
+|Vertikale Auflösung (Höhe)
+|===
+
+=== Bildschirminformationen anzeigen
+
+Mit dem folgenden Programm kann die aktuelle Bildschirmgröße ausgegeben werden.
+
+[source,basic]
+----
+CLS
+
+PRINT "Bildschirminformationen"
+PRINT
+
+PRINT "Breite : ";MM.HRES
+PRINT "Hoehe  : ";MM.VRES
+----
+
+=== Schriftarten
+
+MMBasic besitzt mehrere eingebaute Schriftarten.
+
+Je nach Schriftart unterscheiden sich Breite und Höhe der Zeichen.
+
+Die aktuelle Schriftgröße kann abgefragt werden.
+
+[source,basic]
+----
+PRINT MM.INFO(FONTWIDTH)
+PRINT MM.INFO(FONTHEIGHT)
+----
+
+Beispiel:
+
+[source]
+----
+8
+12
+----
+
+Das bedeutet:
+
+* 8 Pixel breit
+* 12 Pixel hoch
+
+=== Warum ist das wichtig?
+
+Wenn Texte an einer bestimmten Position ausgegeben werden sollen, muss bekannt sein, wie groß die verwendete Schrift ist.
+
+Dadurch können Texte exakt positioniert werden.
+
+=== Verschiedene Ausgabegeräte
+
+MMBasic unterstützt verschiedene Grafiksysteme.
+
+Dazu gehören:
+
+* LCD-Displays
+* VGA-Monitore
+* HDMI-Monitore
+
+Je nach verwendeter Hardware unterscheiden sich:
+
+* Auflösung
+* Farbtiefe
+* verfügbare Grafikmodi
+
+Die Grafikbefehle selbst funktionieren jedoch weitgehend identisch.
+
+=== Farben
+
+Farben werden in MMBasic mit der Funktion RGB() beschrieben.
+
+Beispiele:
+
+[source,basic]
+----
+RGB(RED)
+RGB(BLUE)
+RGB(GREEN)
+RGB(YELLOW)
+----
+
+Oder mit numerischen Farbwerten:
+
+[source,basic]
+----
+RGB(255,0,0)
+RGB(0,255,0)
+RGB(0,0,255)
+----
+
+Die genaue Verwendung von Farben werden wir im nächsten Kapitel kennenlernen.
+
+=== Ein erstes Informationsprogramm
+
+Das folgende Programm zeigt einige wichtige Informationen über den aktuell verwendeten Bildschirm an.
+
+[source,basic]
+----
+CLS
+
+PRINT "Grafiksystem"
+PRINT "------------"
+PRINT
+
+PRINT "Breite      : ";MM.HRES
+PRINT "Hoehe       : ";MM.VRES
+
+PRINT
+PRINT "Fontbreite  : ";MM.INFO(FONTWIDTH)
+PRINT "Fonthoehe   : ";MM.INFO(FONTHEIGHT)
+----
+
+Eine mögliche Ausgabe könnte so aussehen:
+
+[source]
+----
+Grafiksystem
+------------
+
+Breite      : 640
+Hoehe       : 480
+
+Fontbreite  : 8
+Fonthoehe   : 12
+----
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Führe das Programm auf verschiedenen Geräten aus.
+* Vergleiche HDMI und VGA.
+* Ändere die Schriftart und beobachte die Werte.
+* Notiere die Bildschirmgröße deines Systems.
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Gib die Bildschirmbreite aus.
+. Gib die Bildschirmhöhe aus.
+. Gib die Fontbreite aus.
+. Gib die Fonthöhe aus.
+. Berechne die Bildschirmmitte.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du die Grundlagen der Grafikprogrammierung kennengelernt.
+
+Du weißt nun:
+
+* was Pixel sind
+* wie das Koordinatensystem funktioniert
+* wie die Bildschirmgröße bestimmt wird
+* wie Schriftgrößen abgefragt werden können
+* wie Farben beschrieben werden
+
+Im nächsten Kapitel werden wir die ersten grafischen Objekte auf dem Bildschirm zeichnen.
