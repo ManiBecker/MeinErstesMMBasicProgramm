@@ -79,8 +79,8 @@ include::kapitel/13-little-professor.adoc[]
 
 include::kapitel/14-little-professor-v2.adoc[]
 
-include::kapitel/14-little-professor-v3.adoc[]
+include::kapitel/15-little-professor-v3.adoc[]
 
-include::kapitel/15-dateien.adoc[]
+include::kapitel/16-dateien.adoc[]
 
-include::kapitel/16-die-verschiedenen-grafikmodi.adoc[]
+include::kapitel/17-die-verschiedenen-grafikmodi.adoc[]
