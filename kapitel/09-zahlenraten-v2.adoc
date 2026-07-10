@@ -1,0 +1,223 @@
+== Zahlenraten Version 2
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* wie ein Spiel mehrere Versuche erlauben kann
+* wie Hinweise ausgegeben werden
+* wie die Anzahl der Versuche gezählt wird
+* wie die Schleife DO ... LOOP UNTIL verwendet wird
+
+Am Ende des Kapitels hast du ein deutlich verbessertes Zahlenratespiel programmiert.
+
+=== Das Problem
+
+In unserem ersten Zahlenratespiel hatte der Spieler nur einen einzigen Versuch.
+
+War die Eingabe falsch, war das Spiel sofort beendet.
+
+Das ist nicht besonders spannend.
+
+Wir möchten dem Spieler deshalb mehrere Versuche erlauben.
+
+=== Die neue Spielidee
+
+Der Computer denkt sich wieder eine Zahl aus.
+
+Der Spieler darf so lange raten, bis er die richtige Zahl gefunden hat.
+
+Zusätzlich erhält er hilfreiche Hinweise:
+
+* Zu klein!
+* Zu groß!
+* Richtig!
+
+=== Eine neue Schleife
+
+Für solche Aufgaben eignet sich die Schleife DO ... LOOP.
+
+[source,basic]
+----
+DO
+
+  PRINT "Hallo Welt!"
+
+LOOP
+----
+
+Vorsicht!
+
+Dieses Programm läuft endlos und kann nur mit CTRL+C beendet werden.
+
+=== Die Schleife beenden
+
+Eine Schleife kann mit einer Bedingung beendet werden.
+
+[source,basic]
+----
+DO
+
+  INPUT A
+
+LOOP UNTIL A=10
+----
+
+Das Programm fordert solange eine Zahl an, bis die Zahl 10 eingegeben wird.
+
+=== Das neue Zahlenratespiel
+
+[source,basic]
+----
+GEHEIM=INT(RND*100)+1
+
+PRINT "Ich habe mir eine Zahl von 1 bis 100 ausgedacht."
+
+DO
+
+  INPUT TIPP
+
+  IF TIPP<GEHEIM THEN
+    PRINT "Zu klein!"
+  ELSEIF TIPP>GEHEIM THEN
+    PRINT "Zu gross!"
+  ELSE
+    PRINT "Richtig!"
+  ENDIF
+
+LOOP UNTIL TIPP=GEHEIM
+----
+
+=== Das Programm verstehen
+
+Wie bisher wird zunächst eine Zufallszahl erzeugt.
+
+[source,basic]
+----
+GEHEIM=INT(RND*100)+1
+----
+
+Danach beginnt die Schleife:
+
+[source,basic]
+----
+DO
+...
+LOOP UNTIL TIPP=GEHEIM
+----
+
+Die Schleife wird solange wiederholt, bis der Spieler die richtige Zahl eingegeben hat.
+
+=== Die Anzahl der Versuche zählen
+
+Wie viele Versuche benötigt der Spieler?
+
+Das können wir mit einer Variablen zählen.
+
+[source,basic]
+----
+VERSUCHE=0
+
+DO
+
+  VERSUCHE=VERSUCHE+1
+
+  INPUT TIPP
+
+  IF TIPP<GEHEIM THEN
+    PRINT "Zu klein!"
+  ELSEIF TIPP>GEHEIM THEN
+    PRINT "Zu gross!"
+  ELSE
+    PRINT "Richtig!"
+  ENDIF
+
+LOOP UNTIL TIPP=GEHEIM
+
+PRINT
+PRINT "Du hast ";VERSUCHE;" Versuche benoetigt."
+----
+
+=== Das Spiel ausprobieren
+
+Starte das Programm mehrfach.
+
+Wie viele Versuche benötigst du?
+
+Schaffst du es in weniger als fünf Versuchen?
+
+=== Eine persönliche Begrüßung
+
+Das Spiel kann den Spieler auch persönlich begrüßen.
+
+[source,basic]
+----
+PRINT "Wie heisst du?"
+INPUT NAME$
+
+PRINT
+PRINT "Hallo ";NAME$
+
+GEHEIM=INT(RND*100)+1
+VERSUCHE=0
+
+DO
+
+  VERSUCHE=VERSUCHE+1
+
+  INPUT TIPP
+
+  IF TIPP<GEHEIM THEN
+    PRINT "Zu klein!"
+  ELSEIF TIPP>GEHEIM THEN
+    PRINT "Zu gross!"
+  ELSE
+    PRINT "Richtig!"
+  ENDIF
+
+LOOP UNTIL TIPP=GEHEIM
+
+PRINT
+PRINT "Du hast ";VERSUCHE;" Versuche benoetigt."
+----
+
+[TIP]
+====
+Viele Programme entstehen nicht auf einmal.
+
+Oft beginnt man mit einer einfachen Version und erweitert diese Schritt für Schritt.
+
+Genau so ist auch unser Zahlenratespiel entstanden.
+====
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Verwende Zahlen von 1 bis 50.
+* Verwende Zahlen von 1 bis 1000.
+* Begrenze die Anzahl der Versuche.
+* Vergib Punkte für besonders gute Ergebnisse.
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Begrenze die Anzahl der Versuche auf 10.
+. Gib nach dem Spiel die geheime Zahl aus.
+. Vergib Punkte abhängig von der Anzahl der Versuche.
+. Frage nach jedem Spiel, ob noch einmal gespielt werden soll.
+. Erweitere das Spiel um einen Highscore.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du unser erstes Spiel verbessert.
+
+Du hast gelernt:
+
+* die Schleife DO ... LOOP UNTIL zu verwenden
+* Hinweise auszugeben
+* Versuche zu zählen
+* Programme schrittweise zu erweitern
+
+Im nächsten Kapitel lernen wir Unterprogramme kennen. Damit können größere Programme übersichtlicher aufgebaut werden.
