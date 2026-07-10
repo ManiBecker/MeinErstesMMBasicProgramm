@@ -326,5 +326,5 @@ Du hast gelernt:
 
 Der Little Professor ist damit von einem einfachen Übungsprogramm zu einem echten Lernsystem geworden.
 
-Im nächsten Kapitel werden wir den Little Professor weiter ausbauen und beispielsweise Schwierigkeitsstufen oder mehrere Spieler unterstützen.
+Im nächsten Kapitel werden wir lernen Dateien anzulegen, Daten in Dateien zu speichern und diese wieder auszulesen.
 
