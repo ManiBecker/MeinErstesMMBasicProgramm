@@ -1,14 +1,53 @@
 = Mein erstes MMBasic Programm
 Manfred Becker
 :doctype: book
-:revnumber: 0.03
-:revdate: 2026-07-09
-:toc:
+:notitle:
+:toc: macro
 :toclevels: 1
 :sectnums:
 :icons: font
+:revnumber: 0.04
+:revdate: 2026-07-09
 
-// image::bilder/cover.png[pdfwidth=80%]
+image::bilder/cover.png[pdfwidth=100%,align=center]
+
+<<<
+
+[.text-center]
+= Mein erstes MMBasic Programm
+
+[.text-center]
+*Schritt für Schritt in die Welt von MMBasic*
+
+[.text-center]
+für PicoMite und Colour Maximite
+
+[.text-center]
+Manfred Becker
+
+[.text-center]
+Version {revnumber} +
+{revdate}
+
+<<<
+
+[colophon]
+== Impressum
+
+Autor: Manfred Becker
+
+Projektseite: +
+https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+
+Dieses Tutorial entsteht Schritt für Schritt öffentlich auf GitHub.
+
+MMBasic wurde von Geoff Graham entwickelt und von der MMBasic-Community weitergeführt und erweitert.
+
+<<<
+
+toc::[]
+
+<<<
 
 include::kapitel/00-willkommen.adoc[]
 
