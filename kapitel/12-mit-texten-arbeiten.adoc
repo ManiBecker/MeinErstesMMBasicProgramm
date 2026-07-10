@@ -1,0 +1,493 @@
+== Mit Texten arbeiten
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* Texte in Variablen zu speichern
+* Texte einzugeben und auszugeben
+* die Länge eines Textes zu bestimmen
+* Teile eines Textes auszulesen
+* Texte in Groß- und Kleinbuchstaben umzuwandeln
+* in Texten zu suchen
+* Zahlen und Texte ineinander umzuwandeln
+* Datum und Uhrzeit zu verwenden
+
+Am Ende des Kapitels kannst du Texte in deinen Programmen verarbeiten und auswerten.
+
+=== Zahlen und Texte
+
+Bisher haben wir hauptsächlich mit Zahlen gearbeitet.
+
+Zum Beispiel:
+
+[source,basic]
+----
+ALTER=60
+PUNKTE=125
+----
+
+Programme arbeiten aber nicht nur mit Zahlen.
+
+Oft müssen auch Texte verarbeitet werden.
+
+Zum Beispiel:
+
+* Namen
+* Adressen
+* Dateinamen
+* Antworten auf Fragen
+* Meldungen
+
+Texte werden in MMBasic in String-Variablen gespeichert.
+
+String-Variablen erkennt man am Dollarzeichen am Ende des Namens.
+
+[source,basic]
+----
+NAME$="Manfred"
+ORT$="Schwetzingen"
+----
+
+=== Wie lang darf ein Text sein?
+
+Normale Zeichenketten können in MMBasic maximal 255 Zeichen enthalten.
+
+Für die meisten Programme ist das vollkommen ausreichend.
+
+Beispiele:
+
+* Namen
+* Dateinamen
+* Benutzereingaben
+* Meldungen
+* kurze Texte
+
+[source,basic]
+----
+NAME$="Manfred"
+----
+
+Für sehr lange Texte stellt MMBasic sogenannte Long Strings zur Verfügung.
+
+Diese werden wir später kennenlernen.
+
+Für die meisten Programme reichen normale Zeichenketten jedoch völlig aus.
+
+=== Texte ausgeben
+
+Texte können wie Zahlen ausgegeben werden.
+
+[source,basic]
+----
+NAME$="Manfred"
+
+PRINT NAME$
+----
+
+Ausgabe:
+
+[source]
+----
+Manfred
+----
+
+=== Texte eingeben
+
+Mit INPUT können auch Texte eingegeben werden.
+
+[source,basic]
+----
+INPUT NAME$
+
+PRINT "Hallo ";NAME$
+----
+
+Beispiel:
+
+[source]
+----
+? Manfred
+
+Hallo Manfred
+----
+
+=== Texte verbinden
+
+Mehrere Texte können in einer Ausgabe kombiniert werden.
+
+[source,basic]
+----
+VORNAME$="Manfred"
+NACHNAME$="Becker"
+
+PRINT VORNAME$;" ";NACHNAME$
+----
+
+Ausgabe:
+
+[source]
+----
+Manfred Becker
+----
+
+=== Die Länge eines Textes bestimmen
+
+Mit LEN() kann die Anzahl der Zeichen ermittelt werden.
+
+[source,basic]
+----
+NAME$="Manfred"
+
+PRINT LEN(NAME$)
+----
+
+Ausgabe:
+
+[source]
+----
+7
+----
+
+Jeder Buchstabe zählt als ein Zeichen.
+
+Auch Leerzeichen werden mitgezählt.
+
+=== Das erste Zeichen ermitteln
+
+Mit LEFT$() können Zeichen vom Anfang eines Textes gelesen werden.
+
+[source,basic]
+----
+NAME$="Manfred"
+
+PRINT LEFT$(NAME$,1)
+----
+
+Ausgabe:
+
+[source]
+----
+M
+----
+
+=== Mehrere Zeichen vom Anfang lesen
+
+[source,basic]
+----
+NAME$="Manfred"
+
+PRINT LEFT$(NAME$,3)
+----
+
+Ausgabe:
+
+[source]
+----
+Man
+----
+
+=== Zeichen vom Ende lesen
+
+Mit RIGHT$() können Zeichen vom Ende eines Textes gelesen werden.
+
+[source,basic]
+----
+NAME$="Manfred"
+
+PRINT RIGHT$(NAME$,3)
+----
+
+Ausgabe:
+
+[source]
+----
+red
+----
+
+=== Zeichen aus der Mitte lesen
+
+Mit MID$() können Zeichen aus der Mitte eines Textes gelesen werden.
+
+[source,basic]
+----
+NAME$="Manfred"
+
+PRINT MID$(NAME$,3,2)
+----
+
+Ausgabe:
+
+[source]
+----
+nf
+----
+
+Die Zahl 3 gibt die Startposition an.
+
+Die Zahl 2 gibt die Anzahl der Zeichen an.
+
+=== Groß- und Kleinbuchstaben
+
+Mit UCASE$() wird ein Text in Großbuchstaben umgewandelt.
+
+[source,basic]
+----
+NAME$="Manfred"
+
+PRINT UCASE$(NAME$)
+----
+
+Ausgabe:
+
+[source]
+----
+MANFRED
+----
+
+Mit LCASE$() wird ein Text in Kleinbuchstaben umgewandelt.
+
+[source,basic]
+----
+NAME$="Manfred"
+
+PRINT LCASE$(NAME$)
+----
+
+Ausgabe:
+
+[source]
+----
+manfred
+----
+
+=== Texte vergleichen
+
+Texte können mit IF verglichen werden.
+
+[source,basic]
+----
+INPUT ANTWORT$
+
+IF ANTWORT$="JA" THEN
+  PRINT "Richtig"
+ENDIF
+----
+
+Dabei muss die Schreibweise exakt übereinstimmen.
+
+Die Eingabe
+
+[source]
+----
+ja
+----
+
+ist nicht dasselbe wie
+
+[source]
+----
+JA
+----
+
+=== Groß- und Kleinschreibung ignorieren
+
+Oft soll die Schreibweise keine Rolle spielen.
+
+Mit UCASE$() lässt sich das einfach lösen.
+
+[source,basic]
+----
+INPUT ANTWORT$
+
+IF UCASE$(ANTWORT$)="JA" THEN
+  PRINT "Richtig"
+ENDIF
+----
+
+Jetzt werden beispielsweise
+
+[source]
+----
+JA
+Ja
+ja
+jA
+----
+
+alle akzeptiert.
+
+=== In einem Text suchen
+
+Mit INSTR() kann nach einem Zeichen oder einer Zeichenfolge gesucht werden.
+
+[source,basic]
+----
+TEXT$="MMBasic macht Spass"
+
+PRINT INSTR(TEXT$,"macht")
+----
+
+Ausgabe:
+
+[source]
+----
+9
+----
+
+Die Funktion liefert die Position zurück, an der der gesuchte Text beginnt.
+
+Wird der Text nicht gefunden, liefert INSTR() den Wert 0.
+
+[source,basic]
+----
+TEXT$="MMBasic macht Spass"
+
+IF INSTR(TEXT$,"Basic")>0 THEN
+  PRINT "Text gefunden"
+ELSE
+  PRINT "Text nicht gefunden"
+ENDIF
+----
+
+=== Zahlen und Texte umwandeln
+
+Mit VAL() wird ein Text in eine Zahl umgewandelt.
+
+[source,basic]
+----
+ZAHL=VAL("123")
+
+PRINT ZAHL+1
+----
+
+Ausgabe:
+
+[source]
+----
+124
+----
+
+Mit STR$() wird umgekehrt eine Zahl in einen Text umgewandelt.
+
+[source,basic]
+----
+TEXT$=STR$(123)
+
+PRINT "Die Zahl lautet ";TEXT$
+----
+
+=== Datum und Uhrzeit
+
+MMBasic stellt das aktuelle Datum und die aktuelle Uhrzeit als Zeichenketten zur Verfügung.
+
+[source,basic]
+----
+PRINT DATE$
+PRINT TIME$
+----
+
+Die genaue Darstellung hängt von der Konfiguration des Systems ab.
+
+Da Datum und Uhrzeit Zeichenketten sind, können sie mit den bekannten String-Funktionen verarbeitet werden.
+
+[source,basic]
+----
+PRINT "Heute ist ";DATE$
+PRINT "Es ist ";TIME$
+----
+
+=== Begrüßung abhängig von der Uhrzeit
+
+Mit LEFT$() lässt sich die Stunde aus der Uhrzeit auslesen.
+
+Da LEFT$() einen Text zurückliefert, wird dieser mit VAL() in eine Zahl umgewandelt.
+
+[source,basic]
+----
+STUNDE=VAL(LEFT$(TIME$,2))
+
+IF STUNDE<12 THEN
+  PRINT "Guten Morgen!"
+ELSEIF STUNDE<18 THEN
+  PRINT "Guten Tag!"
+ELSE
+  PRINT "Guten Abend!"
+ENDIF
+----
+
+=== Ein kleines Praxisprogramm
+
+Das folgende Programm verwendet viele der neuen Funktionen.
+
+[source,basic]
+----
+INPUT NAME$
+
+PRINT
+PRINT "Hallo ";NAME$
+PRINT
+
+PRINT "Heute ist ";DATE$
+PRINT "Aktuelle Uhrzeit: ";TIME$
+PRINT
+
+PRINT "Dein Name hat ";LEN(NAME$);" Zeichen."
+
+PRINT "Er beginnt mit ";LEFT$(NAME$,1)
+
+PRINT "Er endet mit ";RIGHT$(NAME$,1)
+
+IF VAL(LEFT$(TIME$,2))<12 THEN
+  PRINT "Guten Morgen!"
+ELSEIF VAL(LEFT$(TIME$,2))<18 THEN
+  PRINT "Guten Tag!"
+ELSE
+  PRINT "Guten Abend!"
+ENDIF
+----
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Gib die ersten drei Zeichen eines Namens aus.
+* Gib die letzten drei Zeichen aus.
+* Wandle einen Namen in Großbuchstaben um.
+* Wandle einen Namen in Kleinbuchstaben um.
+* Suche nach einem Wort in einem Text.
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Frage den Namen des Benutzers ab.
+. Gib die Anzahl der Zeichen aus.
+. Gib den ersten Buchstaben aus.
+. Gib den letzten Buchstaben aus.
+. Gib den Namen komplett in Großbuchstaben aus.
+. Suche nach einem bestimmten Wort in einem Satz.
+. Gib Datum und Uhrzeit aus.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt, mit Texten zu arbeiten.
+
+Du kennst nun:
+
+* String-Variablen
+* LEN()
+* LEFT$()
+* MID$()
+* RIGHT$()
+* UCASE$()
+* LCASE$()
+* INSTR()
+* VAL()
+* STR$()
+* DATE$
+* TIME$
+
+Damit kannst du Texte speichern, verändern und auswerten.
+
+Im nächsten Kapitel werden wir das bisher Gelernte in einem größeren Praxisprojekt einsetzen.
