@@ -6,8 +6,8 @@ Manfred Becker
 :toclevels: 1
 :sectnums:
 :icons: font
-:revnumber: 0.04
-:revdate: 2026-07-09
+:revnumber: 0.05
+:revdate: 2026-07-10
 
 image::bilder/cover.png[pdfwidth=100%,align=center]
 
@@ -64,3 +64,9 @@ include::kapitel/05-entscheidungen-mit-if.adoc[]
 include::kapitel/06-schleifen-mit-for-next.adoc[]
 
 include::kapitel/07-zufallszahlen.adoc[]
+
+include::kapitel/08-zahlenraten.adoc[]
+
+include::kapitel/09-zahlenraten-v2.adoc[]
+
+include::kapitel/10-sub-und-function.adoc[]
