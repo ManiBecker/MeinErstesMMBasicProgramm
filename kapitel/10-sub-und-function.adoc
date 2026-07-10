@@ -1,0 +1,306 @@
+== Programme strukturieren mit SUB und FUNCTION
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* Programme in kleinere Bausteine aufzuteilen
+* eigene Unterprogramme mit SUB zu erstellen
+* eigene Funktionen mit FUNCTION zu schreiben
+* Parameter an Unterprogramme und Funktionen zu übergeben
+
+Am Ende des Kapitels kannst du eigene Befehle und Funktionen entwickeln.
+
+=== Warum Programme strukturieren?
+
+Unsere Programme werden langsam größer.
+
+Das Zahlenratespiel aus dem letzten Kapitel besteht bereits aus vielen Zeilen Code.
+
+Bei größeren Programmen wird es zunehmend schwieriger, den Überblick zu behalten.
+
+Deshalb teilen Programmierer ihre Programme in kleinere, überschaubare Bausteine auf.
+
+MMBasic stellt dafür SUB und FUNCTION zur Verfügung.
+
+=== Unsere erste SUB
+
+Eine SUB fasst mehrere Anweisungen zu einem Unterprogramm zusammen.
+
+[source,basic]
+----
+SUB Begruessung
+
+  PRINT "Hallo Welt!"
+
+END SUB
+
+Begruessung
+----
+
+Ausgabe:
+
+[source]
+----
+Hallo Welt!
+----
+
+Die Anweisungen zwischen SUB und END SUB werden erst ausgeführt, wenn die SUB aufgerufen wird.
+
+=== Eine SUB mehrfach aufrufen
+
+Eine SUB kann beliebig oft verwendet werden.
+
+[source,basic]
+----
+SUB Begruessung
+
+  PRINT "Hallo Welt!"
+
+END SUB
+
+Begruessung
+Begruessung
+Begruessung
+----
+
+Ausgabe:
+
+[source]
+----
+Hallo Welt!
+Hallo Welt!
+Hallo Welt!
+----
+
+=== Eine SUB mit Parametern
+
+Oft soll ein Unterprogramm unterschiedliche Werte verarbeiten.
+
+Dazu können Parameter verwendet werden.
+
+[source,basic]
+----
+SUB Begruessung(NAME$)
+
+  PRINT "Hallo ";NAME$
+
+END SUB
+
+Begruessung("Manfred")
+Begruessung("Geoff")
+Begruessung("Peter")
+----
+
+Ausgabe:
+
+[source]
+----
+Hallo Manfred
+Hallo Geoff
+Hallo Peter
+----
+
+=== Warum FUNCTION?
+
+Eine SUB führt Anweisungen aus.
+
+Manchmal möchten wir jedoch einen Wert berechnen und zurückgeben.
+
+Dafür gibt es FUNCTION.
+
+=== Unsere erste FUNCTION
+
+[source,basic]
+----
+FUNCTION Quadrat(X)
+
+  Quadrat=X*X
+
+END FUNCTION
+
+PRINT Quadrat(5)
+----
+
+Ausgabe:
+
+[source]
+----
+25
+----
+
+Die Funktion erhält einen Wert als Parameter und liefert das Quadrat dieses Wertes zurück.
+
+=== Weitere Funktionen
+
+[source,basic]
+----
+FUNCTION Verdoppeln(X)
+
+  Verdoppeln=X*2
+
+END FUNCTION
+
+PRINT Verdoppeln(10)
+----
+
+Ausgabe:
+
+[source]
+----
+20
+----
+
+=== Funktionen in Berechnungen verwenden
+
+Der Rückgabewert einer Funktion kann direkt in Berechnungen verwendet werden.
+
+[source,basic]
+----
+FUNCTION Quadrat(X)
+
+  Quadrat=X*X
+
+END FUNCTION
+
+PRINT Quadrat(5)+Quadrat(3)
+----
+
+Ausgabe:
+
+[source]
+----
+34
+----
+
+=== Eine Würfelfunktion
+
+Mit Funktionen lassen sich eigene BASIC-Befehle erstellen.
+
+[source,basic]
+----
+FUNCTION Wuerfel()
+
+  Wuerfel=INT(RND*6)+1
+
+END FUNCTION
+
+PRINT Wuerfel()
+PRINT Wuerfel()
+PRINT Wuerfel()
+----
+
+Mögliche Ausgabe:
+
+[source]
+----
+4
+1
+6
+----
+
+Bei jedem Aufruf wird eine neue Zufallszahl erzeugt.
+
+=== Eine mathematische Funktion
+
+Eigene Funktionen eignen sich hervorragend für mathematische Berechnungen.
+
+[source,basic]
+----
+FUNCTION F(X)
+
+  F=0.5*X^2+X+0.5
+
+END FUNCTION
+
+FOR X=0 TO 10
+
+  PRINT X;"  ";F(X)
+
+NEXT X
+----
+
+Die Funktion berechnet dabei: y = 0.5x² + x + 0.5
+
+image::bilder/funktion01.png[align=center]
+
+=== Das Zahlenratespiel verbessern
+
+Im letzten Kapitel wurde die geheime Zahl direkt erzeugt:
+
+[source,basic]
+----
+GEHEIM=INT(RND*100)+1
+----
+
+Mit einer Funktion wird der Programmcode besser lesbar.
+
+[source,basic]
+----
+FUNCTION NeueZahl()
+
+  NeueZahl=INT(RND*100)+1
+
+END FUNCTION
+
+GEHEIM=NeueZahl()
+----
+
+Der Programmierer erkennt sofort, was die Zeile bewirkt.
+
+=== Wann verwendet man SUB?
+
+Eine SUB eignet sich für Programmteile, die Aufgaben ausführen.
+
+Beispiele:
+
+* Begrüßungen ausgeben
+* Menüs anzeigen
+* Bildschirmausgaben erzeugen
+* Daten einlesen
+
+=== Wann verwendet man FUNCTION?
+
+Eine FUNCTION eignet sich für Programmteile, die einen Wert berechnen.
+
+Beispiele:
+
+* Flächen berechnen
+* Temperaturen umrechnen
+* Zufallszahlen erzeugen
+* mathematische Funktionen berechnen
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Schreibe eine Funktion zur Berechnung des Dreifachen einer Zahl.
+* Schreibe eine Funktion für die Berechnung eines Kreises.
+* Erweitere die Würfelfunktion.
+* Erstelle eine SUB für eine persönliche Begrüßung.
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Schreibe eine Funktion zur Berechnung des Würfels einer Zahl.
+. Schreibe eine Funktion zur Berechnung des Umfangs eines Quadrats.
+. Erstelle eine SUB, die fünfmal "MMBasic" ausgibt.
+. Verwende eine Funktion innerhalb einer FOR-Schleife.
+. Baue die Funktion NeueZahl() in dein Zahlenratespiel ein.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt, Programme zu strukturieren.
+
+Du kennst nun:
+
+* SUB ... END SUB
+* FUNCTION ... END FUNCTION
+* Parameter
+* Rückgabewerte
+
+Mit diesen Werkzeugen lassen sich auch größere Programme übersichtlich aufbauen.
+
+Im nächsten Kapitel werden wir unser Wissen nutzen, um ein weiteres Spiel oder ein größeres Praxisprojekt zu entwickeln.
+
