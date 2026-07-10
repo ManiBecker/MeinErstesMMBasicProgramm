@@ -1,0 +1,384 @@
+== Little Professor Version 2
+
+=== Das lernst du
+
+In diesem Kapitel verbessern wir unseren Little Professor aus dem letzten Kapitel.
+
+Dabei lernst du:
+
+* zufällig verschiedene Aufgabentypen auszuwählen
+* Addition, Subtraktion, Multiplikation und Division zu kombinieren
+* SUB zur Strukturierung eines Programms einzusetzen
+* Funktionen und Variablen sinnvoll zusammenzuarbeiten
+* den Spieler persönlich anzusprechen
+
+Am Ende des Kapitels besitzt du einen deutlich leistungsfähigeren Mathematiktrainer.
+
+=== Unser Programm wächst
+
+Der Little Professor aus dem letzten Kapitel konnte bereits Additionsaufgaben erzeugen.
+
+Nun möchten wir weitere Rechenarten hinzufügen:
+
+* Addition
+* Subtraktion
+* Multiplikation
+* Division
+
+Außerdem soll der Spieler mit seinem Namen begrüßt werden.
+
+=== Der Spielername
+
+Zu Beginn fragen wir den Namen des Spielers ab.
+
+[source,basic]
+----
+INPUT "Wie heisst du ";NAME$
+
+PRINT
+PRINT "Hallo ";NAME$
+PRINT
+----
+
+=== Zufällig eine Rechenart auswählen
+
+Für jede Aufgabe soll eine Rechenart zufällig ausgewählt werden.
+
+Dazu verwenden wir eine Zufallszahl zwischen 0 und 3.
+
+[source,basic]
+----
+OP=INT(RND*4)
+----
+
+Die Werte bedeuten:
+
+[source]
+----
+0 = Addition
+1 = Subtraktion
+2 = Multiplikation
+3 = Division
+----
+
+=== Eine Aufgabe erzeugen
+
+Damit unser Hauptprogramm übersichtlich bleibt, erzeugen wir die Aufgabe in einer SUB.
+
+[source,basic]
+----
+SUB NeueAufgabe
+
+  OP=INT(RND*4)
+
+END SUB
+----
+
+Später wird diese SUB alle benötigten Werte erzeugen.
+
+=== Additionsaufgaben
+
+[source,basic]
+----
+A=INT(RND*10)
+B=INT(RND*10)
+
+ERG=A+B
+
+PRINT A;" + ";B;" = ?"
+----
+
+=== Subtraktionsaufgaben
+
+Bei Subtraktionsaufgaben möchten wir negative Ergebnisse vermeiden.
+
+[source,basic]
+----
+A=INT(RND*10)+10
+B=INT(RND*10)
+
+ERG=A-B
+
+PRINT A;" - ";B;" = ?"
+----
+
+=== Multiplikationsaufgaben
+
+[source,basic]
+----
+A=INT(RND*10)
+B=INT(RND*10)
+
+ERG=A*B
+
+PRINT A;" * ";B;" = ?"
+----
+
+=== Divisionsaufgaben
+
+Divisionen sollen immer ganzzahlig lösbar sein.
+
+Deshalb erzeugen wir zuerst das Ergebnis.
+
+[source,basic]
+----
+ERG=INT(RND*10)+1
+
+B=INT(RND*10)+1
+
+A=ERG*B
+
+PRINT A;" / ";B;" = ?"
+----
+
+Dadurch entstehen Aufgaben wie:
+
+[source]
+----
+24 / 6 = ?
+----
+
+Die Lösung ist immer eine ganze Zahl.
+
+=== Die SUB vervollständigen
+
+Nun fassen wir alle Aufgabentypen zusammen.
+
+[source,basic]
+----
+SUB NeueAufgabe
+
+  OP=INT(RND*4)
+
+  IF OP=0 THEN
+
+    A=INT(RND*10)
+    B=INT(RND*10)
+
+    ERG=A+B
+
+    PRINT A;" + ";B;" = ?"
+
+  ELSEIF OP=1 THEN
+
+    A=INT(RND*10)+10
+    B=INT(RND*10)
+
+    ERG=A-B
+
+    PRINT A;" - ";B;" = ?"
+
+  ELSEIF OP=2 THEN
+
+    A=INT(RND*10)
+    B=INT(RND*10)
+
+    ERG=A*B
+
+    PRINT A;" * ";B;" = ?"
+
+  ELSE
+
+    ERG=INT(RND*10)+1
+
+    B=INT(RND*10)+1
+
+    A=ERG*B
+
+    PRINT A;" / ";B;" = ?"
+
+  ENDIF
+
+END SUB
+----
+
+=== Das komplette Programm
+
+[source,basic]
+----
+INPUT "Wie heisst du ";NAME$
+
+PRINT
+PRINT "Hallo ";NAME$
+PRINT
+
+PUNKTE=0
+
+FOR RUNDE=1 TO 10
+
+  PRINT
+  PRINT "Aufgabe ";RUNDE
+
+  NeueAufgabe
+
+  INPUT ANTWORT
+
+  IF ANTWORT=ERG THEN
+
+    PRINT "Richtig!"
+
+    PUNKTE=PUNKTE+1
+
+  ELSE
+
+    PRINT "Leider falsch!"
+
+    PRINT "Richtig waere ";ERG
+
+  ENDIF
+
+NEXT RUNDE
+
+PRINT
+PRINT NAME$;", du hast ";PUNKTE;" von 10 Punkten erreicht."
+
+PROZENT=PUNKTE*100/10
+
+IF PROZENT=100 THEN
+
+  PRINT "Perfekt!"
+
+ELSEIF PROZENT>=90 THEN
+
+  PRINT "Sehr gut!"
+
+ELSEIF PROZENT>=80 THEN
+
+  PRINT "Gut gemacht!"
+
+ELSEIF PROZENT>=60 THEN
+
+  PRINT "Das war ordentlich."
+
+ELSE
+
+  PRINT "Weiter ueben!"
+
+ENDIF
+
+
+
+SUB NeueAufgabe
+
+  OP=INT(RND*4)
+
+  IF OP=0 THEN
+
+    A=INT(RND*10)
+    B=INT(RND*10)
+
+    ERG=A+B
+
+    PRINT A;" + ";B;" = ?"
+
+  ELSEIF OP=1 THEN
+
+    A=INT(RND*10)+10
+    B=INT(RND*10)
+
+    ERG=A-B
+
+    PRINT A;" - ";B;" = ?"
+
+  ELSEIF OP=2 THEN
+
+    A=INT(RND*10)
+    B=INT(RND*10)
+
+    ERG=A*B
+
+    PRINT A;" * ";B;" = ?"
+
+  ELSE
+
+    ERG=INT(RND*10)+1
+
+    B=INT(RND*10)+1
+
+    A=ERG*B
+
+    PRINT A;" / ";B;" = ?"
+
+  ENDIF
+
+END SUB
+----
+
+=== Beispielausgabe
+
+[source]
+----
+Wie heisst du? Manfred
+
+Hallo Manfred
+
+
+Aufgabe 1
+7 + 5 = ?
+12
+Richtig!
+
+Aufgabe 2
+24 / 6 = ?
+4
+Richtig!
+
+Aufgabe 3
+8 * 7 = ?
+55
+Leider falsch!
+Richtig waere 56
+----
+
+=== Warum SUB hier sinnvoll ist
+
+Die Aufgabe wird in jedem Durchlauf neu erzeugt.
+
+Würden wir den gesamten Code direkt in die Schleife schreiben, würde das Hauptprogramm schnell unübersichtlich werden.
+
+Durch die SUB bleibt der Ablauf klar erkennbar:
+
+[source,basic]
+----
+NeueAufgabe
+
+INPUT ANTWORT
+
+Antwort prüfen
+----
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Verwende Zahlen bis 20.
+* Stelle 20 Aufgaben.
+* Verwende nur Multiplikationsaufgaben.
+* Verwende nur Divisionsaufgaben.
+* Ändere die Bewertung am Ende.
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Füge eine Schwierigkeitsstufe hinzu.
+. Lasse den Spieler die Anzahl der Aufgaben wählen.
+. Vergib Bonuspunkte für besonders schnelle Lösungen.
+. Speichere die Anzahl richtiger und falscher Antworten getrennt.
+. Zeige am Ende die erreichte Prozentzahl an.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du den Little Professor erweitert.
+
+Du hast gelernt:
+
+* verschiedene Rechenarten zu kombinieren
+* SUB zur Strukturierung einzusetzen
+* Zufallszahlen für unterschiedliche Aufgaben zu verwenden
+* den Spieler persönlich anzusprechen
+* Ergebnisse zu bewerten
+
+Das Programm ist nun deutlich leistungsfähiger und ähnelt bereits einem echten Lerncomputer.
+
+Im nächsten Kapitel werden wir weitere Verbesserungen einbauen und erstmals Arrays verwenden, um Statistiken über die gelösten Aufgaben zu speichern.
