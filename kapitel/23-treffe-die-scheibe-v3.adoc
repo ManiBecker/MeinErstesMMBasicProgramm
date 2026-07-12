@@ -1,0 +1,528 @@
+== Treffe die Scheibe – Version 3
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* die Maus in einem MMBasic-Programm abzufragen
+* Mauskoordinaten für ein Grafikspiel zu verwenden
+* einen Mausklick zu erkennen
+* den Abstand zwischen Mausklick und Ziel zu berechnen
+* das Spiel ohne die Eingabe von X- und Y-Koordinaten zu steuern
+
+Am Ende des Kapitels kannst du die Zielscheibe direkt mit der Maus anvisieren.
+
+=== Direkte Steuerung mit der Maus
+
+In den bisherigen Versionen musste der Spieler die Koordinaten seines Schusses über die Tastatur eingeben:
+
+[source]
+----
+X ? 120
+Y ? 85
+----
+
+Das war nützlich, um das Koordinatensystem kennenzulernen.
+
+Für ein Grafikspiel ist es jedoch viel natürlicher, direkt mit der Maus auf den Bildschirm zu klicken.
+
+In Version 3 ersetzen wir deshalb die Koordinateneingabe durch eine Maussteuerung.
+
+=== Informationen der Maus abfragen
+
+MMBasic stellt über die Funktion `MOUSE()` verschiedene Informationen über die angeschlossene Maus bereit.
+
+Die aktuelle horizontale Position erhältst du mit:
+
+[source,basic]
+----
+MOUSE(X)
+----
+
+Die aktuelle vertikale Position erhältst du mit:
+
+[source,basic]
+----
+MOUSE(Y)
+----
+
+Der Zustand der linken Maustaste kann mit
+
+[source,basic]
+----
+MOUSE(L)
+----
+
+abgefragt werden.
+
+Ein Wert ungleich 0 bedeutet, dass die linke Maustaste gedrückt ist.
+
+[NOTE]
+====
+Die Maus muss vom verwendeten PicoMite-System unterstützt und korrekt angeschlossen beziehungsweise konfiguriert sein.
+
+Das folgende Programm ist insbesondere für PicoMite-Systeme mit VGA- oder HDMI-Ausgabe und Mausunterstützung vorgesehen.
+====
+
+=== Die aktuelle Mausposition anzeigen
+
+Mit einem kleinen Testprogramm kannst du zunächst die Mauskoordinaten beobachten.
+
+[source,basic]
+----
+DO
+
+  LOCATE 1,1
+
+  PRINT "X: ";MOUSE(X);"   "
+  PRINT "Y: ";MOUSE(Y);"   "
+
+LOOP
+----
+
+Bewege die Maus über den Bildschirm.
+
+Die angezeigten Werte verändern sich entsprechend der aktuellen Position.
+
+Das Programm kann mit `Strg+C` beendet werden.
+
+=== Auf einen Mausklick warten
+
+Das folgende Beispiel wartet, bis die linke Maustaste gedrückt wird:
+
+[source,basic]
+----
+DO
+LOOP UNTIL MOUSE(L)<>0
+
+PRINT "Maus wurde geklickt."
+----
+
+Die Schleife wird so lange wiederholt, bis ein Mausklick erkannt wird.
+
+=== Die Position eines Mausklicks speichern
+
+Beim Mausklick speichern wir die aktuellen Koordinaten:
+
+[source,basic]
+----
+DO
+LOOP UNTIL MOUSE(L)<>0
+
+SX=MOUSE(X)
+SY=MOUSE(Y)
+----
+
+Die Variablen `SX` und `SY` enthalten anschließend die Position des Schusses.
+
+=== Auf das Loslassen der Maustaste warten
+
+Eine Maustaste bleibt meist für mehrere Programmdurchläufe gedrückt.
+
+Damit ein einzelner Klick nicht mehrfach erkannt wird, warten wir anschließend auf das Loslassen:
+
+[source,basic]
+----
+DO
+LOOP UNTIL MOUSE(L)=0
+----
+
+Ein vollständiger Mausklick besteht damit aus zwei Schritten:
+
+[source,basic]
+----
+DO
+LOOP UNTIL MOUSE(L)<>0
+
+SX=MOUSE(X)
+SY=MOUSE(Y)
+
+DO
+LOOP UNTIL MOUSE(L)=0
+----
+
+=== Der neue Spielablauf
+
+Das Spiel besteht wieder aus zehn Runden.
+
+In jeder Runde geschieht Folgendes:
+
+. Der Bildschirm wird gelöscht.
+. Eine Zielscheibe wird an einer zufälligen Position gezeichnet.
+. Das Programm wartet auf einen Mausklick.
+. Der Klick wird als Trefferpunkt dargestellt.
+. Entfernung und Punktzahl werden berechnet.
+. Das Ergebnis wird gespeichert.
+
+=== Das komplette Spiel
+
+[source,basic]
+----
+MODE 2
+
+INPUT "Name ";NAME$
+
+PRINT
+PRINT "1 = Leicht"
+PRINT "2 = Mittel"
+PRINT "3 = Schwer"
+
+INPUT "Schwierigkeit ";LEVEL
+
+IF LEVEL=1 THEN
+  RADIUS=60
+ELSEIF LEVEL=2 THEN
+  RADIUS=40
+ELSE
+  RADIUS=25
+ENDIF
+
+DIM TREFFER(9)
+DIM PUNKTE(9)
+
+GESAMTPUNKTE=0
+
+FOR RUNDE=1 TO 10
+
+  CLS RGB(BLACK)
+
+  TX=INT(RND*(MM.HRES-2*RADIUS))+RADIUS
+  TY=INT(RND*(MM.VRES-2*RADIUS))+RADIUS
+
+  ZeichneScheibe TX,TY,RADIUS
+
+  TEXT MM.HRES/2,15,"Schuss "+STR$(RUNDE)+" von 10","CT",1,1,RGB(WHITE),-1
+
+  TEXT MM.HRES/2,MM.VRES-20,"Klicke auf die Zielscheibe","CB",1,1,RGB(YELLOW),-1
+
+  DO
+  LOOP UNTIL MOUSE(L)<>0
+
+  SX=MOUSE(X)
+  SY=MOUSE(Y)
+
+  DO
+  LOOP UNTIL MOUSE(L)=0
+
+  DIST=SQR((SX-TX)^2+(SY-TY)^2)
+
+  TREFFER(RUNDE-1)=DIST
+
+  PUNKTE(RUNDE-1)=100-INT(DIST)
+
+  IF PUNKTE(RUNDE-1)<0 THEN
+    PUNKTE(RUNDE-1)=0
+  ENDIF
+
+  GESAMTPUNKTE=GESAMTPUNKTE+PUNKTE(RUNDE-1)
+
+  ZeichneTreffer SX,SY
+
+  TEXT MM.HRES/2,MM.VRES-55,                     _
+       STR$(INT(DIST))+" Pixel entfernt","CB",   _
+       1,1,RGB(WHITE),-1
+
+  TEXT MM.HRES/2,MM.VRES-35,                     _
+       STR$(PUNKTE(RUNDE-1))+" Punkte","CB",     _
+       1,1,RGB(CYAN),-1
+
+  IF DIST<=RADIUS*0.33 THEN
+
+    TEXT MM.HRES/2,MM.VRES/2,                    _
+         "VOLLTREFFER!","CM",2,2,RGB(YELLOW),-1
+
+  ELSEIF DIST<=RADIUS*0.66 THEN
+
+    TEXT MM.HRES/2,MM.VRES/2,                    _
+         "SEHR GUT!","CM",2,2,RGB(GREEN),-1
+
+  ELSEIF DIST<=RADIUS THEN
+
+    TEXT MM.HRES/2,MM.VRES/2,                    _
+         "GETROFFEN!","CM",2,2,RGB(CYAN),-1
+
+  ELSE
+
+    TEXT MM.HRES/2,MM.VRES/2,                    _
+         "DANEBEN!","CM",2,2,RGB(RED),-1
+
+  ENDIF
+
+  PAUSE 1500
+
+NEXT RUNDE
+
+ZeigeAuswertung
+
+SpeichereErgebnis
+
+END
+
+
+
+SUB ZeichneScheibe(X,Y,R)
+
+  CIRCLE X,Y,R,2,1,RGB(WHITE),RGB(BLUE)
+
+  CIRCLE X,Y,R*0.66,2,1,RGB(WHITE),RGB(RED)
+
+  CIRCLE X,Y,R*0.33,2,1,RGB(WHITE),RGB(YELLOW)
+
+  CIRCLE X,Y,3,1,1,RGB(BLACK),RGB(BLACK)
+
+END SUB
+
+
+
+SUB ZeichneTreffer(X,Y)
+
+  LINE X-7,Y,X+7,Y,2,RGB(WHITE)
+
+  LINE X,Y-7,X,Y+7,2,RGB(WHITE)
+
+  CIRCLE X,Y,4,1,1,RGB(BLACK),RGB(RED)
+
+END SUB
+
+
+
+SUB ZeigeAuswertung
+
+  CLS RGB(BLACK)
+
+  TEXT MM.HRES/2,20,"SPIEL BEENDET","CT",2,2,RGB(YELLOW),-1
+
+  TEXT MM.HRES/2,65,NAME$,"CT",1,2,RGB(WHITE),-1
+
+  TEXT MM.HRES/2,100,                            _
+       "Gesamtpunkte: "+STR$(GESAMTPUNKTE),      _
+       "CT",1,2,RGB(CYAN),-1
+
+  BEST=TREFFER(0)
+  SUMME=0
+
+  FOR I=0 TO 9
+
+    SUMME=SUMME+TREFFER(I)
+
+    IF TREFFER(I)<BEST THEN
+      BEST=TREFFER(I)
+    ENDIF
+
+  NEXT I
+
+  DURCHSCHNITT=SUMME/10
+
+  TEXT MM.HRES/2,135,                            _
+       "Bester Schuss: "+STR$(INT(BEST))+" Pixel",_
+       "CT",1,1,RGB(GREEN),-1
+
+  TEXT MM.HRES/2,160,                            _
+       "Durchschnitt: "+                         _
+       STR$(INT(DURCHSCHNITT))+" Pixel",         _
+       "CT",1,1,RGB(WHITE),-1
+
+  Y=200
+
+  FOR I=0 TO 9
+
+    TEXT MM.HRES/2,Y,                            _
+         STR$(I+1)+". Schuss: "+                 _
+         STR$(INT(TREFFER(I)))+" Pixel, "+       _
+         STR$(PUNKTE(I))+" Punkte",              _
+         "CT",1,1,RGB(WHITE),-1
+
+    Y=Y+18
+
+  NEXT I
+
+END SUB
+
+
+
+SUB SpeichereErgebnis
+
+  OPEN "highscore.txt" FOR APPEND AS #1
+
+  WRITE #1,DATE$,TIME$,NAME$,LEVEL,GESAMTPUNKTE
+
+  CLOSE #1
+
+END SUB
+----
+
+=== Das Programm verstehen
+
+Die bisherige Eingabe
+
+[source,basic]
+----
+INPUT "X ";SX
+INPUT "Y ";SY
+----
+
+wurde durch die Mausabfrage ersetzt:
+
+[source,basic]
+----
+DO
+LOOP UNTIL MOUSE(L)<>0
+
+SX=MOUSE(X)
+SY=MOUSE(Y)
+
+DO
+LOOP UNTIL MOUSE(L)=0
+----
+
+Dadurch wird der Schuss genau an der angeklickten Bildschirmposition abgegeben.
+
+=== Den Trefferpunkt darstellen
+
+Ein kleiner roter Kreis zeigt die genaue Position des Mausklicks.
+
+Zusätzlich zeichnen zwei Linien ein Fadenkreuz:
+
+[source,basic]
+----
+LINE X-7,Y,X+7,Y,2,RGB(WHITE)
+
+LINE X,Y-7,X,Y+7,2,RGB(WHITE)
+
+CIRCLE X,Y,4,1,1,RGB(BLACK),RGB(RED)
+----
+
+Dadurch ist der Treffer auch auf einer farbigen Zielscheibe gut sichtbar.
+
+=== Trefferbereiche auswerten
+
+Die Größe der Zielscheibe hängt von der gewählten Schwierigkeitsstufe ab.
+
+Deshalb werden die Trefferbereiche relativ zum Radius berechnet.
+
+[source,basic]
+----
+IF DIST<=RADIUS*0.33 THEN
+  ...
+ELSEIF DIST<=RADIUS*0.66 THEN
+  ...
+ELSEIF DIST<=RADIUS THEN
+  ...
+ELSE
+  ...
+ENDIF
+----
+
+So funktioniert die Auswertung bei allen drei Schwierigkeitsstufen.
+
+=== Punkte und Entfernungen speichern
+
+Für jede Runde werden Entfernung und Punktzahl in Arrays gespeichert:
+
+[source,basic]
+----
+TREFFER(RUNDE-1)=DIST
+PUNKTE(RUNDE-1)=100-INT(DIST)
+----
+
+Nach dem Spiel können diese Werte ausgewertet und angezeigt werden.
+
+=== Den Durchschnitt berechnen
+
+Die Summe aller Entfernungen wird durch die Anzahl der Schüsse geteilt:
+
+[source,basic]
+----
+SUMME=0
+
+FOR I=0 TO 9
+  SUMME=SUMME+TREFFER(I)
+NEXT I
+
+DURCHSCHNITT=SUMME/10
+----
+
+Je kleiner der Durchschnitt ist, desto genauer hat der Spieler insgesamt gezielt.
+
+=== Ergebnisse dauerhaft speichern
+
+Version 2 hatte die Highscore-Datei bei jedem Spiel überschrieben.
+
+Version 3 verwendet stattdessen den Modus `APPEND`:
+
+[source,basic]
+----
+OPEN "highscore.txt" FOR APPEND AS #1
+----
+
+Dadurch bleibt jedes Spielergebnis erhalten.
+
+Mit `WRITE` werden gespeichert:
+
+* Datum
+* Uhrzeit
+* Spielername
+* Schwierigkeitsstufe
+* Gesamtpunktzahl
+
+Ein Eintrag kann beispielsweise so aussehen:
+
+[source]
+----
+"12-07-2026","21:45:30","Manfred",2,784
+----
+
+=== Warum SUB hier besonders hilfreich ist
+
+Das Programm besteht inzwischen aus mehreren klar getrennten Aufgaben:
+
+[source]
+----
+ZeichneScheibe
+ZeichneTreffer
+ZeigeAuswertung
+SpeichereErgebnis
+----
+
+Jede dieser Aufgaben wurde in eine eigene `SUB` ausgelagert.
+
+Dadurch bleibt das Hauptprogramm trotz seines größeren Umfangs übersichtlich.
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Verwende fünf statt zehn Schüsse.
+* Ändere die Farben der Zielscheibe.
+* Verkleinere den Radius der schweren Stufe.
+* Vergib 200 statt 100 maximal mögliche Punkte.
+* Zeichne einen eigenen Mauszeiger.
+* Zeige während des Spiels die Gesamtpunktzahl an.
+
+=== Probier's selbst!
+
+Versuche folgende Erweiterungen:
+
+. Beende das Spiel mit der rechten Maustaste.
+. Zeichne vor jedem Schuss einen Countdown.
+. Begrenze die Zeit für einen Schuss.
+. Vergib Bonuspunkte für schnelle Treffer.
+. Lade den bisherigen Highscore aus der Datei.
+. Zeige eine Bestenliste mit mehreren Spielern an.
+. Lasse die Zielscheibe nach kurzer Zeit ihre Position ändern.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du das Grafikspiel auf Maussteuerung umgestellt.
+
+Du hast gelernt:
+
+* Mauskoordinaten abzufragen
+* Mausklicks zu erkennen
+* Klickpositionen grafisch darzustellen
+* Treffer relativ zur Zielgröße auszuwerten
+* Ergebnisse in Arrays zu speichern
+* Statistiken zu berechnen
+* mehrere Highscores dauerhaft zu sichern
+
+Aus einem einfachen Koordinatenexperiment ist damit Schritt für Schritt ein vollständiges kleines Grafikspiel entstanden.

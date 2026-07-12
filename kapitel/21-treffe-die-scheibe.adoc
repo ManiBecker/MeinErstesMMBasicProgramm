@@ -1,0 +1,261 @@
+== Treffe die Scheibe
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* grafische Objekte zu kombinieren
+* Bildschirmpositionen zu berechnen
+* Entfernungen zu bestimmen
+* Funktionen in einem echten Spiel einzusetzen
+* ein vollständiges Grafikspiel zu programmieren
+
+Am Ende des Kapitels hast du dein erstes eigenes Grafikspiel entwickelt.
+
+=== Unser erstes Grafikspiel
+
+In den letzten Kapiteln haben wir gelernt:
+
+* Linien zu zeichnen
+* Kreise darzustellen
+* Texte zu positionieren
+* Farben zu verwenden
+
+Nun wird es Zeit, alles miteinander zu verbinden.
+
+Wir programmieren ein kleines Geschicklichkeitsspiel.
+
+Der Computer versteckt eine Zielscheibe an einer zufälligen Position auf dem Bildschirm.
+
+Deine Aufgabe ist es, die Position möglichst genau zu erraten.
+
+=== So funktioniert das Spiel
+
+Nach dem Start erscheint eine Zielscheibe.
+
+Anschließend gibst du einen Schuss ab.
+
+Dazu werden die Koordinaten eingegeben:
+
+[source]
+----
+X ?
+Y ?
+----
+
+Das Programm berechnet anschließend die Entfernung zum Mittelpunkt der Zielscheibe.
+
+Je näher dein Treffer liegt, desto mehr Punkte erhältst du.
+
+=== Die Zielscheibe zeichnen
+
+Zunächst benötigen wir eine Funktion zum Zeichnen der Zielscheibe.
+
+[source,basic]
+----
+SUB ZeichneScheibe(X,Y)
+
+  CIRCLE X,Y,60,2,1,RGB(WHITE)
+
+  CIRCLE X,Y,40,2,1,RGB(WHITE)
+
+  CIRCLE X,Y,20,2,1,RGB(WHITE)
+
+END SUB
+----
+
+Die Zielscheibe besteht aus drei konzentrischen Kreisen.
+
+=== Die Entfernung berechnen
+
+Um die Entfernung zwischen zwei Punkten zu bestimmen, verwenden wir die Formel:
+
+[source]
+----
+Abstand =
+Quadratwurzel(
+(X1-X2)^2 +
+(Y1-Y2)^2 )
+----
+    
+MMBasic besitzt dafür die Funktion SQR().
+
+=== Das komplette Spiel
+
+[source,basic]
+----
+MODE 2
+
+CLS RGB(BLACK)
+
+TX=INT(RND*(MM.HRES-120))+60
+TY=INT(RND*(MM.VRES-120))+60
+
+ZeichneScheibe TX,TY
+
+PRINT
+PRINT "Treffe die Scheibe!"
+PRINT
+
+INPUT "X ";SX
+INPUT "Y ";SY
+
+DIST=SQR((SX-TX)^2+(SY-TY)^2)
+
+CIRCLE SX,SY,4,1,1,RGB(RED),RGB(RED)
+
+PRINT
+PRINT "Abstand: ";INT(DIST);" Pixel"
+
+IF DIST<10 THEN
+
+  PRINT "Volltreffer!"
+
+ELSEIF DIST<25 THEN
+
+  PRINT "Sehr gut!"
+
+ELSEIF DIST<50 THEN
+
+  PRINT "Gut getroffen!"
+
+ELSE
+
+  PRINT "Daneben!"
+
+ENDIF
+
+
+
+SUB ZeichneScheibe(X,Y)
+
+  CIRCLE X,Y,60,2,1,RGB(WHITE)
+
+  CIRCLE X,Y,40,2,1,RGB(WHITE)
+
+  CIRCLE X,Y,20,2,1,RGB(WHITE)
+
+END SUB
+----
+    
+=== Das Spiel ausprobieren
+
+Nach dem Programmstart erscheint beispielsweise:
+
+[source]
+----
+Treffe die Scheibe!
+
+X ? 120
+Y ? 100
+----
+
+Anschließend wird dein Schuss als roter Punkt dargestellt.
+
+=== Die Bildschirmmitte verwenden
+
+Statt einer zufälligen Position kann die Zielscheibe auch in der Mitte erscheinen.
+
+[source,basic]
+----
+TX=MM.HRES/2
+TY=MM.VRES/2
+----
+
+Dadurch lässt sich das Spiel leichter testen.
+
+=== Mehrere Schüsse erlauben
+
+Mit einer Schleife können mehrere Versuche durchgeführt werden.
+
+[source,basic]
+----
+FOR RUNDE=1 TO 5
+
+  ...
+
+NEXT RUNDE
+----
+
+Dadurch entsteht ein deutlich spannenderes Spiel.
+
+=== Punkte vergeben
+
+Die Entfernung kann direkt in Punkte umgerechnet werden.
+
+[source,basic]
+----
+PUNKTE=100-DIST
+
+IF PUNKTE<0 THEN
+  PUNKTE=0
+ENDIF
+----
+
+Ein perfekter Treffer bringt 100 Punkte.
+
+=== Eine farbige Zielscheibe
+
+Mit Füllfarben wird die Zielscheibe attraktiver.
+
+[source,basic]
+----
+CIRCLE X,Y,60,1,1,RGB(WHITE),RGB(BLUE)
+
+CIRCLE X,Y,40,1,1,RGB(WHITE),RGB(RED)
+
+CIRCLE X,Y,20,1,1,RGB(WHITE),RGB(YELLOW)
+----
+
+Jetzt erinnert die Scheibe an eine echte Zielscheibe.
+
+=== Highscore speichern
+
+Mit dem Wissen aus Kapitel 16 könntest du die höchste Punktzahl sogar dauerhaft speichern.
+
+[source,basic]
+----
+OPEN "highscore.txt" FOR OUTPUT AS #1
+
+PRINT #1,PUNKTE
+
+CLOSE #1
+----
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Verwende andere Farben.
+* Vergrößere die Zielscheibe.
+* Erlaube mehrere Schüsse.
+* Vergib Punkte.
+* Speichere einen Highscore.
+
+=== Probier's selbst!
+
+Versuche folgende Erweiterungen:
+
+. Führe zehn Schüsse durch.
+. Berechne die Gesamtpunktzahl.
+. Speichere den besten Spieler.
+. Erzeuge unterschiedlich große Zielscheiben.
+. Lasse die Zielscheibe nach jedem Treffer an einer neuen Position erscheinen.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du dein erstes Grafikspiel programmiert.
+
+Dabei kamen viele Techniken zusammen:
+
+* Zufallszahlen
+* Grafik
+* Funktionen
+* Benutzereingaben
+* mathematische Berechnungen
+
+Du hast damit einen wichtigen Meilenstein erreicht:
+
+Nicht mehr einzelne Befehle stehen im Mittelpunkt, sondern ein vollständiges Programm.
+
+Im nächsten Kapitel werden wir dieses Spiel weiter ausbauen und beispielsweise mehrere Schüsse, Highscores und Schwierigkeitsstufen hinzufügen.

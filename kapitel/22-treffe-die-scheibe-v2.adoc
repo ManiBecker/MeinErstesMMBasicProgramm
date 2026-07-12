@@ -1,0 +1,317 @@
+== Treffe die Scheibe – Version 2
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* mehrere Spielrunden durchzuführen
+* Punkte zu vergeben
+* Ergebnisse in Arrays zu speichern
+* Statistiken auszuwerten
+* Highscores zu speichern
+
+Am Ende des Kapitels besitzt du ein kleines Grafikspiel mit Punktesystem.
+
+=== Mehr Spielspaß
+
+In der ersten Version durfte der Spieler nur einen einzigen Schuss abgeben.
+
+Das ist zwar ein guter Anfang, aber noch kein richtiges Spiel.
+
+In dieser Version erhält der Spieler zehn Schüsse.
+
+Nach jedem Schuss werden Punkte vergeben.
+
+Am Ende wird die Gesamtpunktzahl berechnet.
+
+=== Schwierigkeitsstufen
+
+Zu Beginn darf der Spieler den Schwierigkeitsgrad wählen.
+
+[source,basic]
+----
+PRINT "1 = Leicht"
+PRINT "2 = Mittel"
+PRINT "3 = Schwer"
+
+INPUT "Schwierigkeit ";LEVEL
+----
+
+Je höher die Schwierigkeit, desto kleiner wird die Zielscheibe.
+
+[source,basic]
+----
+IF LEVEL=1 THEN
+  RADIUS=60
+ELSEIF LEVEL=2 THEN
+  RADIUS=40
+ELSE
+  RADIUS=25
+ENDIF
+----
+
+=== Ergebnisse speichern
+
+Für jeden Schuss speichern wir die Entfernung.
+
+[source,basic]
+----
+DIM TREFFER(9)
+----
+
+Damit können wir die Ergebnisse später auswerten.
+
+=== Das komplette Spiel
+
+[source,basic]
+----
+MODE 2
+
+CLS RGB(BLACK)
+
+INPUT "Name ";NAME$
+
+PRINT
+PRINT "1 = Leicht"
+PRINT "2 = Mittel"
+PRINT "3 = Schwer"
+
+INPUT "Schwierigkeit ";LEVEL
+
+IF LEVEL=1 THEN
+  RADIUS=60
+ELSEIF LEVEL=2 THEN
+  RADIUS=40
+ELSE
+  RADIUS=25
+ENDIF
+
+DIM TREFFER(9)
+
+GESAMTPUNKTE=0
+
+FOR RUNDE=1 TO 10
+
+  CLS RGB(BLACK)
+
+  TX=INT(RND*(MM.HRES-2*RADIUS))+RADIUS
+  TY=INT(RND*(MM.VRES-2*RADIUS))+RADIUS
+
+  ZeichneScheibe TX,TY,RADIUS
+
+  PRINT
+  PRINT "Schuss ";RUNDE;" von 10"
+
+  INPUT "X ";SX
+  INPUT "Y ";SY
+
+  DIST=SQR((SX-TX)^2+(SY-TY)^2)
+
+  TREFFER(RUNDE-1)=DIST
+
+  CIRCLE SX,SY,4,1,1,RGB(RED),RGB(RED)
+
+  PUNKTE=100-INT(DIST)
+
+  IF PUNKTE<0 THEN
+    PUNKTE=0
+  ENDIF
+
+  GESAMTPUNKTE=GESAMTPUNKTE+PUNKTE
+
+  PRINT
+  PRINT "Entfernung : ";INT(DIST);" Pixel"
+  PRINT "Punkte     : ";PUNKTE
+
+  PAUSE 1500
+
+NEXT RUNDE
+
+CLS RGB(BLACK)
+
+PRINT
+PRINT "===================="
+PRINT "   SPIEL BEENDET"
+PRINT "===================="
+PRINT
+
+PRINT NAME$
+PRINT
+
+PRINT "Gesamtpunkte : ";GESAMTPUNKTE
+
+BEST=TREFFER(0)
+
+FOR I=1 TO 9
+
+  IF TREFFER(I)<BEST THEN
+    BEST=TREFFER(I)
+  ENDIF
+
+NEXT I
+
+PRINT
+PRINT "Bester Schuss : ";INT(BEST);" Pixel"
+
+PRINT
+PRINT "Alle Schuesse"
+
+FOR I=0 TO 9
+
+  PRINT I+1;". ";INT(TREFFER(I));" Pixel"
+
+NEXT I
+
+OPEN "highscore.txt" FOR OUTPUT AS #1
+
+WRITE #1,NAME$,GESAMTPUNKTE
+
+CLOSE #1
+
+PRINT
+PRINT "Highscore gespeichert"
+
+END
+
+
+
+SUB ZeichneScheibe(X,Y,R)
+
+  CIRCLE X,Y,R,2,1,RGB(WHITE)
+
+  CIRCLE X,Y,R*0.66,2,1,RGB(WHITE)
+
+  CIRCLE X,Y,R*0.33,2,1,RGB(WHITE)
+
+END SUB
+----
+
+=== Das Punktesystem
+
+Die Entfernung wird in Punkte umgerechnet.
+
+[source,basic]
+----
+PUNKTE=100-INT(DIST)
+----
+
+Ein perfekter Treffer bringt 100 Punkte.
+
+Je weiter der Schuss vom Mittelpunkt entfernt liegt, desto weniger Punkte gibt es.
+
+=== Die Zielscheibe anpassen
+
+Der Radius der Zielscheibe wird über die Schwierigkeit festgelegt.
+
+[cols="1,2"]
+|===
+|Stufe |Radius
+
+|Leicht
+|60
+
+|Mittel
+|40
+
+|Schwer
+|25
+|===
+
+Dadurch wird das Spiel deutlich anspruchsvoller.
+
+=== Die besten Schüsse ermitteln
+
+Alle Entfernungen werden im Array `TREFFER()` gespeichert.
+
+Am Ende wird der beste Schuss gesucht.
+
+[source,basic]
+----
+BEST=TREFFER(0)
+
+FOR I=1 TO 9
+
+  IF TREFFER(I)<BEST THEN
+    BEST=TREFFER(I)
+  ENDIF
+
+NEXT I
+----
+
+Der kleinste Abstand entspricht dem besten Treffer.
+
+=== Highscores speichern
+
+Mit dem Wissen aus Kapitel 16 speichern wir den Highscore in einer Datei.
+
+[source,basic]
+----
+OPEN "highscore.txt" FOR OUTPUT AS #1
+
+WRITE #1,NAME$,GESAMTPUNKTE
+
+CLOSE #1
+----
+
+Die Datei enthält anschließend:
+
+[source]
+----
+"Manfred",742
+----
+
+=== Beispielausgabe
+
+[source]
+----
+====================
+   SPIEL BEENDET
+====================
+
+Manfred
+
+Gesamtpunkte : 742
+
+Bester Schuss : 3 Pixel
+
+Alle Schuesse
+
+1. 12 Pixel
+2. 45 Pixel
+3. 3 Pixel
+4. 27 Pixel
+...
+----
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Erhöhe die Anzahl der Schüsse auf 20.
+* Verwende andere Farben.
+* Vergib Bonuspunkte für Volltreffer.
+* Speichere mehrere Highscores.
+
+=== Probier's selbst!
+
+Versuche folgende Erweiterungen:
+
+. Zeige die aktuelle Runde grafisch an.
+. Berechne die durchschnittliche Entfernung.
+. Speichere Datum und Uhrzeit mit dem Highscore.
+. Führe eine Bestenliste mit mehreren Spielern.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du das Spiel deutlich erweitert.
+
+Du hast gelernt:
+
+* Ergebnisse in Arrays zu speichern
+* Punktesysteme zu entwickeln
+* Statistiken auszuwerten
+* Highscores zu speichern
+
+Das Spiel fühlt sich nun deutlich mehr wie ein echtes Computerspiel an.
+
+Im nächsten Kapitel werden wir die Steuerung weiter verbessern und die Zielscheibe direkt mit der Maus anvisieren.

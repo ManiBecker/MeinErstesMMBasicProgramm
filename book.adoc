@@ -6,8 +6,8 @@ Manfred Becker
 :toclevels: 1
 :sectnums:
 :icons: font
-:revnumber: 0.06
-:revdate: 2026-07-11
+:revnumber: 0.07
+:revdate: 2026-07-12
 
 image::bilder/cover.png[pdfwidth=100%,align=center]
 
@@ -90,3 +90,9 @@ include::kapitel/18-farben-und-schriftarten.adoc[]
 include::kapitel/19-die-ersten-grafikbefehle.adoc[]
 
 include::kapitel/20-rechtecke-kreise-und-texte.adoc[]
+
+include::kapitel/21-treffe-die-scheibe.adoc[]
+
+include::kapitel/22-treffe-die-scheibe-v2.adoc[]
+
+include::kapitel/23-treffe-die-scheibe-v3.adoc[]
