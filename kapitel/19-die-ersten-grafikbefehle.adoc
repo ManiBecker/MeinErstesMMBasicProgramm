@@ -1,0 +1,386 @@
+== Die ersten Grafikbefehle
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* den Bildschirm zu löschen
+* einzelne Pixel zu setzen
+* Linien zu zeichnen
+* Koordinaten zu verwenden
+
+Am Ende des Kapitels kannst du eigene einfache Zeichnungen erstellen.
+
+=== Endlich wird gezeichnet
+
+In den bisherigen Kapiteln haben wir hauptsächlich mit Texten gearbeitet.
+
+Nun beginnen wir mit der eigentlichen Grafikprogrammierung.
+
+Die wichtigsten Befehle für den Einstieg sind:
+
+* CLS
+* PIXEL
+* LINE
+
+=== Den Bildschirm löschen
+
+Mit CLS wird der Bildschirm gelöscht.
+
+[source,basic]
+----
+CLS
+----
+
+Der gesamte Bildschirm wird dabei mit der aktuellen Hintergrundfarbe gefüllt.
+
+Es kann auch direkt eine Farbe angegeben werden.
+
+[source,basic]
+----
+CLS RGB(BLACK)
+----
+
+=== Ein einzelner Pixel
+
+Der einfachste Grafikbefehl ist PIXEL.
+
+[source,basic]
+----
+PIXEL 100,100
+----
+
+Dieser Befehl setzt einen einzelnen Bildpunkt an der Position X=100 und Y=100.
+
+=== Ein farbiger Pixel
+
+Natürlich kann auch eine Farbe angegeben werden.
+
+[source,basic]
+----
+PIXEL 100,100,RGB(RED)
+----
+
+=== Unser erstes Grafikprogramm
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+PIXEL 100,100,RGB(RED)
+----
+
+Das Ergebnis ist ein einzelner roter Punkt auf schwarzem Hintergrund.
+
+=== Mehrere Pixel zeichnen
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+PIXEL 100,100,RGB(RED)
+PIXEL 101,100,RGB(RED)
+PIXEL 102,100,RGB(RED)
+PIXEL 103,100,RGB(RED)
+PIXEL 104,100,RGB(RED)
+----
+
+Aus einzelnen Pixeln entstehen später Linien, Kreise und Bilder.
+
+=== Linien zeichnen
+
+Mit LINE wird eine Linie zwischen zwei Punkten gezeichnet.
+
+[source,basic]
+----
+LINE X1,Y1,X2,Y2
+----
+
+Beispiel:
+
+[source,basic]
+----
+LINE 10,10,200,10
+----
+
+=== Horizontale Linien
+
+[source,basic]
+----
+CLS
+
+LINE 10,50,200,50
+----
+
+Die Linie beginnt bei X=10 und endet bei X=200.
+
+Die Y-Koordinate bleibt konstant.
+
+=== Vertikale Linien
+
+[source,basic]
+----
+CLS
+
+LINE 100,20,100,200
+----
+
+Diesmal bleibt die X-Koordinate konstant.
+
+=== Diagonale Linien
+
+[source,basic]
+----
+CLS
+
+LINE 10,10,200,150
+----
+
+Nun werden sowohl X als auch Y verändert.
+
+=== Linienfarben
+
+Auch für Linien kann eine Farbe angegeben werden.
+
+[source,basic]
+----
+LINE 10,10,200,100,,RGB(RED)
+----
+
+=== Mehrere Linien kombinieren
+
+Mit mehreren Linien können einfache Formen erzeugt werden.
+
+[source,basic]
+----
+CLS
+
+LINE 50,100,250,100
+LINE 150,20,150,180
+----
+
+Das Ergebnis ist ein Kreuz.
+
+=== Ein Dreieck zeichnen
+
+[source,basic]
+----
+CLS
+
+LINE 100,50,50,150
+LINE 50,150,150,150
+LINE 150,150,100,50
+----
+
+=== Ein Haus zeichnen
+
+Mit einigen wenigen Linien lässt sich bereits ein kleines Haus darstellen.
+
+[source,basic]
+----
+CLS
+
+LINE 50,150,150,150
+LINE 150,150,150,80
+LINE 150,80,50,80
+LINE 50,80,50,150
+
+LINE 50,80,100,30
+LINE 100,30,150,80
+----
+
+=== Das Haus vom Nikolaus
+
+Eine bekannte Zeichenübung ist das Haus vom Nikolaus.
+
+Versuche, es selbst mit LINE zu zeichnen.
+
+[source]
+----
+      /\
+     /  \
+    /____\
+    |    |
+    | /\ |
+    |/  \|
+    ------
+----
+
+=== Bildschirmmitte berechnen
+
+Mit MM.HRES und MM.VRES lässt sich die Bildschirmmitte berechnen.
+
+[source,basic]
+----
+MITTEX=MM.HRES/2
+MITTEY=MM.VRES/2
+
+PIXEL MITTEX,MITTEY,RGB(RED)
+----
+
+Dadurch funktioniert das Programm auf unterschiedlichen Bildschirmgrößen.
+
+=== Ein Fadenkreuz zeichnen
+
+[source,basic]
+----
+CLS
+
+LINE MM.HRES/2,0,MM.HRES/2,MM.VRES
+
+LINE 0,MM.VRES/2,MM.HRES,MM.VRES/2
+----
+
+Dieses Programm zeichnet ein Fadenkreuz durch die Bildschirmmitte.
+
+=== Ein kleines Grafik-Testprogramm
+
+Zum Abschluss verbinden wir die bisher kennengelernten Grafikbefehle mit Schleifen, Zufallszahlen und Farben.
+
+Das folgende Programm zeichnet nacheinander:
+
+* 1000 zufällig verteilte Punkte
+* 1000 Kreise
+* 1000 Rechtecke
+
+Position, Größe und Farbe werden jeweils zufällig bestimmt.
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+PRINT "1000 zufaellige Punkte"
+
+FOR I=1 TO 1000
+
+  X=INT(RND*MM.HRES)
+  Y=INT(RND*MM.VRES)
+
+  FARBE=RGB(INT(RND*256),INT(RND*256),INT(RND*256))
+
+  PIXEL X,Y,FARBE
+
+NEXT I
+
+PAUSE 1000
+
+
+PRINT "1000 zufaellige Kreise"
+
+FOR I=1 TO 1000
+
+  RADIUS=INT(RND*20)+2
+
+  X=INT(RND*(MM.HRES-2*RADIUS))+RADIUS
+  Y=INT(RND*(MM.VRES-2*RADIUS))+RADIUS
+
+  FARBE=RGB(INT(RND*256),INT(RND*256),INT(RND*256))
+
+  CIRCLE X,Y,RADIUS,1,1,FARBE
+
+NEXT I
+
+PAUSE 1000
+
+
+PRINT "1000 zufaellige Rechtecke"
+
+FOR I=1 TO 1000
+
+  BREITE=INT(RND*50)+5
+  HOEHE=INT(RND*50)+5
+
+  X=INT(RND*(MM.HRES-BREITE))
+  Y=INT(RND*(MM.VRES-HOEHE))
+
+  FARBE=RGB(INT(RND*256),INT(RND*256),INT(RND*256))
+
+  BOX X,Y,BREITE,HOEHE,1,FARBE
+
+NEXT I
+----
+
+=== Das Programm verstehen
+
+Für jedes Grafikelement werden zunächst zufällige Bildschirmkoordinaten berechnet.
+
+[source,basic]
+----
+X=INT(RND*MM.HRES)
+Y=INT(RND*MM.VRES)
+----
+
+Dadurch werden nur Positionen innerhalb der aktuellen Bildschirmauflösung erzeugt.
+
+Auch die Farbe wird zufällig zusammengesetzt:
+
+[source,basic]
+----
+FARBE=RGB(INT(RND*256),INT(RND*256),INT(RND*256))
+----
+
+Jeder der drei Farbanteile Rot, Grün und Blau erhält einen zufälligen Wert zwischen 0 und 255.
+
+Bei Kreisen wird zusätzlich ein zufälliger Radius bestimmt:
+
+[source,basic]
+----
+RADIUS=INT(RND*20)+2
+----
+
+Die Berechnung der Position berücksichtigt den Radius. Dadurch wird verhindert, dass der Mittelpunkt eines Kreises zu nahe am Bildschirmrand liegt.
+
+Bei den Rechtecken werden Breite und Höhe ebenfalls zufällig erzeugt:
+
+[source,basic]
+----
+BREITE=INT(RND*50)+5
+HOEHE=INT(RND*50)+5
+----
+
+Die beiden `PAUSE`-Anweisungen sorgen für eine kurze Unterbrechung zwischen den drei Abschnitten.
+
+[TIP]
+====
+Da die Grafikelemente nicht gelöscht werden, überlagern sich Punkte, Kreise und Rechtecke zunehmend.
+
+Möchtest du jeden Test auf einem leeren Bildschirm sehen, füge vor dem jeweiligen Abschnitt eine weitere Anweisung ein:
+
+[source,basic]
+----
+CLS RGB(BLACK)
+----
+====
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Verwende andere Farben.
+* Zeichne ein größeres Haus.
+* Zeichne mehrere Dreiecke.
+* Zeichne ein Gitter aus Linien.
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Zeichne ein Quadrat aus vier Linien.
+. Zeichne einen Stern.
+. Zeichne ein eigenes Haus.
+. Zeichne ein Spielfeld für Tic-Tac-Toe.
+. Zeichne die Umrisse eines Briefumschlags.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du die ersten Grafikbefehle kennengelernt.
+
+Du kennst nun:
+
+* CLS
+* PIXEL
+* LINE
+
+Außerdem hast du gelernt, mit Bildschirmkoordinaten zu arbeiten.
+
+Im nächsten Kapitel werden wir weitere Grafikbefehle kennenlernen und Rechtecke, Kreise sowie frei positionierbare Texte zeichnen.
