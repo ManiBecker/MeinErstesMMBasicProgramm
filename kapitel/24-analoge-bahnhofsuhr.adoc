@@ -1,0 +1,537 @@
+== Eine analoge Bahnhofsuhr
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* eine bildschirmfüllende analoge Uhr zu zeichnen
+* die aktuelle Uhrzeit aus `TIME$` auszulesen
+* Winkel in Bildschirmkoordinaten umzurechnen
+* Stunden-, Minuten- und Sekundenzeiger darzustellen
+* ein Zifferblatt an unterschiedliche Bildschirmauflösungen anzupassen
+* mehrere Grafikbefehle zu einer dynamischen Anzeige zu verbinden
+
+Am Ende des Kapitels besitzt du eine laufende analoge Uhr im Stil einer klassischen Bahnhofsuhr.
+
+=== Die Idee
+
+Klassische Bahnhofsuhren besitzen ein besonders klares und gut lesbares Design:
+
+* ein weißes Zifferblatt
+* einen schwarzen Rand
+* kräftige Stundenmarkierungen
+* kleinere Minutenmarkierungen
+* schwarze Stunden- und Minutenzeiger
+* einen auffälligen roten Sekundenzeiger
+
+Auf Ziffern wird häufig verzichtet.
+
+Dadurch lässt sich die Uhrzeit auch aus größerer Entfernung schnell erkennen.
+
+Unsere MMBasic-Uhr soll sich automatisch an die aktuelle Bildschirmgröße anpassen und möglichst viel von der verfügbaren Fläche nutzen.
+
+=== Die Bildschirmmitte bestimmen
+
+Zuerst bestimmen wir den Mittelpunkt des Bildschirms.
+
+[source,basic]
+----
+MITTEX=MM.HRES/2
+MITTEY=MM.VRES/2
+----
+
+Die Variablen `MM.HRES` und `MM.VRES` enthalten die aktuelle Bildschirmbreite und Bildschirmhöhe.
+
+=== Den größtmöglichen Radius berechnen
+
+Die Uhr soll weder rechts noch unten aus dem Bildschirm herausragen.
+
+Deshalb berechnen wir zunächst den Radius aus der Bildschirmbreite:
+
+[source,basic]
+----
+RADIUS=MM.HRES/2-10
+----
+
+Danach prüfen wir, ob die Bildschirmhöhe einen kleineren Radius erfordert:
+
+[source,basic]
+----
+IF MM.VRES/2-10<RADIUS THEN
+  RADIUS=MM.VRES/2-10
+ENDIF
+----
+
+Damit bleibt rund um die Uhr ein kleiner Rand von zehn Pixeln erhalten.
+
+=== Das Zifferblatt zeichnen
+
+Das Zifferblatt besteht aus einem großen weißen Kreis mit einem schwarzen Rand.
+
+[source,basic]
+----
+CIRCLE MITTEX,MITTEY,RADIUS,3,1,RGB(BLACK),RGB(WHITE)
+----
+
+Der Kreis besitzt:
+
+* den Mittelpunkt `MITTEX`, `MITTEY`
+* den berechneten Radius
+* einen schwarzen Rand
+* eine weiße Füllung
+
+=== Die Minutenmarkierungen
+
+Eine Uhr besitzt 60 Markierungen.
+
+Der Abstand zwischen zwei Markierungen beträgt:
+
+[source]
+----
+360 Grad / 60 = 6 Grad
+----
+
+Mit einer Schleife können wir alle Markierungen erzeugen.
+
+[source,basic]
+----
+FOR I=0 TO 59
+
+  WINKEL=I*6*PI/180
+
+NEXT I
+----
+
+Die Funktionen `SIN()` und `COS()` erwarten Winkel im Bogenmaß.
+
+Deshalb wird der Winkel mit `PI/180` umgerechnet.
+
+=== Positionen auf einem Kreis berechnen
+
+Für jede Markierung benötigen wir zwei Punkte:
+
+* den Anfang der Markierung
+* das Ende der Markierung
+
+Die äußere Position berechnen wir so:
+
+[source,basic]
+----
+X2=MITTEX+SIN(WINKEL)*RADIUS*0.92
+Y2=MITTEY-COS(WINKEL)*RADIUS*0.92
+----
+
+Das Minuszeichen vor `COS()` ist notwendig, weil die Y-Koordinate auf dem Bildschirm nach unten wächst.
+
+=== Stunden- und Minutenmarkierungen unterscheiden
+
+Jede fünfte Markierung steht für eine volle Stunde.
+
+Diese Markierungen werden länger gezeichnet.
+
+[source,basic]
+----
+IF I MOD 5=0 THEN
+  INNEN=RADIUS*0.78
+ELSE
+  INNEN=RADIUS*0.86
+ENDIF
+----
+
+Anschließend werden Anfang und Ende berechnet:
+
+[source,basic]
+----
+X1=MITTEX+SIN(WINKEL)*INNEN
+Y1=MITTEY-COS(WINKEL)*INNEN
+
+X2=MITTEX+SIN(WINKEL)*RADIUS*0.92
+Y2=MITTEY-COS(WINKEL)*RADIUS*0.92
+
+LINE X1,Y1,X2,Y2,,,RGB(BLACK)
+----
+
+=== Die Uhrzeit aus TIME$ auslesen
+
+`TIME$` liefert die aktuelle Uhrzeit als Zeichenkette.
+
+Ein typischer Wert ist:
+
+[source]
+----
+21:37:45
+----
+
+Die Stunde steht in den ersten beiden Zeichen:
+
+[source,basic]
+----
+STUNDE=VAL(LEFT$(TIME$,2))
+----
+
+Die Minute beginnt an Position 4:
+
+[source,basic]
+----
+MINUTE=VAL(MID$(TIME$,4,2))
+----
+
+Die Sekunde steht am Ende:
+
+[source,basic]
+----
+SEKUNDE=VAL(RIGHT$(TIME$,2))
+----
+
+Mit `VAL()` werden die Zeichenketten in Zahlen umgewandelt.
+
+=== Den Winkel des Sekundenzeigers berechnen
+
+Eine vollständige Umdrehung besitzt 360 Grad.
+
+Der Sekundenzeiger bewegt sich in 60 Schritten:
+
+[source]
+----
+360 Grad / 60 Sekunden = 6 Grad pro Sekunde
+----
+
+Der Winkel lautet deshalb:
+
+[source,basic]
+----
+SEKUNDENWINKEL=SEKUNDE*6*PI/180
+----
+
+=== Den Winkel des Minutenzeigers berechnen
+
+Der Minutenzeiger bewegt sich ebenfalls um sechs Grad pro Minute.
+
+Zusätzlich berücksichtigen wir die Sekunden, damit sich der Zeiger gleichmäßiger bewegt.
+
+[source,basic]
+----
+MINUTENWINKEL=(MINUTE*6+SEKUNDE*0.1)*PI/180
+----
+
+=== Den Winkel des Stundenzeigers berechnen
+
+Der Stundenzeiger bewegt sich pro Stunde um 30 Grad:
+
+[source]
+----
+360 Grad / 12 Stunden = 30 Grad pro Stunde
+----
+
+Er soll sich auch zwischen zwei Stundenmarkierungen weiterbewegen.
+
+[source,basic]
+----
+STUNDENWINKEL=((STUNDE MOD 12)*30+MINUTE*0.5)*PI/180
+----
+
+Durch `MOD 12` werden beispielsweise 13 Uhr und 1 Uhr auf dieselbe Position abgebildet.
+
+=== Einen Zeiger zeichnen
+
+Für einen Zeiger benötigen wir dessen Endpunkt.
+
+Der Endpunkt des Stundenzeigers wird so berechnet:
+
+[source,basic]
+----
+X=MITTEX+SIN(STUNDENWINKEL)*RADIUS*0.50
+Y=MITTEY-COS(STUNDENWINKEL)*RADIUS*0.50
+----
+
+Anschließend wird die Linie vom Mittelpunkt zum Endpunkt gezeichnet:
+
+[source,basic]
+----
+LINE MITTEX,MITTEY,X,Y,,,RGB(BLACK)
+----
+
+Der Minutenzeiger ist länger:
+
+[source,basic]
+----
+X=MITTEX+SIN(MINUTENWINKEL)*RADIUS*0.72
+Y=MITTEY-COS(MINUTENWINKEL)*RADIUS*0.72
+----
+
+Der Sekundenzeiger reicht fast bis zu den Minutenmarkierungen:
+
+[source,basic]
+----
+X=MITTEX+SIN(SEKUNDENWINKEL)*RADIUS*0.84
+Y=MITTEY-COS(SEKUNDENWINKEL)*RADIUS*0.84
+----
+
+=== Der rote Sekundenzeiger
+
+Der rote Sekundenzeiger ist ein besonders auffälliges Merkmal klassischer Bahnhofsuhren.
+
+[source,basic]
+----
+LINE MITTEX,MITTEY,X,Y,,,RGB(RED)
+----
+
+Zusätzlich zeichnen wir kurz vor der Spitze einen roten Kreis.
+
+[source,basic]
+----
+KX=MITTEX+SIN(SEKUNDENWINKEL)*RADIUS*0.70
+KY=MITTEY-COS(SEKUNDENWINKEL)*RADIUS*0.70
+
+CIRCLE KX,KY,RADIUS*0.035,1,1,RGB(RED),RGB(RED)
+----
+
+Dadurch erhält der Sekundenzeiger seine typische Form.
+
+=== Der Mittelpunkt
+
+Zum Abschluss wird der Drehpunkt der Zeiger hervorgehoben.
+
+[source,basic]
+----
+CIRCLE MITTEX,MITTEY,RADIUS*0.035,1,1,RGB(BLACK),RGB(BLACK)
+----
+
+=== Das vollständige Programm
+
+[source,basic]
+----
+MITTEX=MM.HRES/2
+MITTEY=MM.VRES/2
+
+RADIUS=MM.HRES/2-10
+
+IF MM.VRES/2-10<RADIUS THEN
+  RADIUS=MM.VRES/2-10
+ENDIF
+
+ALTEZEIT$=""
+
+DO
+
+  IF TIME$<>ALTEZEIT$ THEN
+
+    ALTEZEIT$=TIME$
+
+    STUNDE=VAL(LEFT$(TIME$,2))
+    MINUTE=VAL(MID$(TIME$,4,2))
+    SEKUNDE=VAL(RIGHT$(TIME$,2))
+
+    CLS RGB(WHITE)
+
+    ZeichneZifferblatt MITTEX,MITTEY,RADIUS
+
+    STUNDENWINKEL=((STUNDE MOD 12)*30+MINUTE*0.5)*PI/180
+
+    MINUTENWINKEL=(MINUTE*6+SEKUNDE*0.1)*PI/180
+
+    SEKUNDENWINKEL=SEKUNDE*6*PI/180
+
+    ZeichneStundenzeiger MITTEX,MITTEY,RADIUS,STUNDENWINKEL
+
+    ZeichneMinutenzeiger MITTEX,MITTEY,RADIUS,MINUTENWINKEL
+
+    ZeichneSekundenzeiger MITTEX,MITTEY,RADIUS,SEKUNDENWINKEL
+
+    CIRCLE MITTEX,MITTEY,RADIUS*0.035,1,1,RGB(BLACK),RGB(BLACK)
+
+  ENDIF
+
+LOOP
+
+
+
+SUB ZeichneZifferblatt(X,Y,R)
+
+  CIRCLE X,Y,R,3,1,RGB(BLACK),RGB(WHITE)
+
+  FOR I=0 TO 59
+
+    WINKEL=I*6*PI/180
+
+    IF I MOD 5=0 THEN
+      INNEN=R*0.78
+    ELSE
+      INNEN=R*0.86
+    ENDIF
+
+    X1=X+SIN(WINKEL)*INNEN
+    Y1=Y-COS(WINKEL)*INNEN
+
+    X2=X+SIN(WINKEL)*R*0.92
+    Y2=Y-COS(WINKEL)*R*0.92
+
+    LINE X1,Y1,X2,Y2,,,RGB(BLACK)
+
+  NEXT I
+
+END SUB
+
+
+
+SUB ZeichneStundenzeiger(X,Y,R,WINKEL)
+
+  X2=X+SIN(WINKEL)*R*0.50
+  Y2=Y-COS(WINKEL)*R*0.50
+
+  LINE X,Y,X2,Y2,,,RGB(BLACK)
+
+  LINE X-1,Y,X2-1,Y2,,,RGB(BLACK)
+  LINE X+1,Y,X2+1,Y2,,,RGB(BLACK)
+
+END SUB
+
+
+
+SUB ZeichneMinutenzeiger(X,Y,R,WINKEL)
+
+  X2=X+SIN(WINKEL)*R*0.72
+  Y2=Y-COS(WINKEL)*R*0.72
+
+  LINE X,Y,X2,Y2,,,RGB(BLACK)
+
+  LINE X-1,Y,X2-1,Y2,,,RGB(BLACK)
+  LINE X+1,Y,X2+1,Y2,,,RGB(BLACK)
+
+END SUB
+
+
+
+SUB ZeichneSekundenzeiger(X,Y,R,WINKEL)
+
+  X2=X+SIN(WINKEL)*R*0.84
+  Y2=Y-COS(WINKEL)*R*0.84
+
+  LINE X,Y,X2,Y2,,,RGB(RED)
+
+  KX=X+SIN(WINKEL)*R*0.70
+  KY=Y-COS(WINKEL)*R*0.70
+
+  CIRCLE KX,KY,R*0.035,1,1,RGB(RED),RGB(RED)
+
+END SUB
+----
+
+=== Das Programm verstehen
+
+Das Hauptprogramm wartet in einer Endlosschleife auf eine Änderung von `TIME$`.
+
+[source,basic]
+----
+IF TIME$<>ALTEZEIT$ THEN
+----
+
+Die Uhr wird dadurch nur einmal pro Sekunde neu gezeichnet.
+
+Anschließend werden:
+
+. das Zifferblatt
+. der Stundenzeiger
+. der Minutenzeiger
+. der Sekundenzeiger
+. der Mittelpunkt
+
+nacheinander dargestellt.
+
+=== Warum wird der Bildschirm neu gezeichnet?
+
+Die alten Zeiger müssen entfernt werden, bevor die neue Zeigerposition dargestellt wird.
+
+Die einfachste Lösung besteht darin, den Bildschirm einmal pro Sekunde zu löschen und die vollständige Uhr neu zu zeichnen.
+
+[source,basic]
+----
+CLS RGB(WHITE)
+----
+
+Bei schnellen Systemen geschieht dies nahezu augenblicklich.
+
+[NOTE]
+====
+Je nach Bildschirm, Grafikmodus und Prozessorgeschwindigkeit kann beim Neuzeichnen ein leichtes Flackern sichtbar sein.
+
+Später lernen wir Framebuffer kennen. Damit kann eine vollständige Grafik zunächst unsichtbar aufgebaut und anschließend in einem Schritt auf den Bildschirm übertragen werden.
+====
+
+=== Auflösungsunabhängige Darstellung
+
+Das Programm verwendet keine fest vorgegebenen Mittelpunkt- oder Radiuswerte.
+
+Stattdessen werden sie aus
+
+[source,basic]
+----
+MM.HRES
+MM.VRES
+----
+
+berechnet.
+
+Dadurch passt sich die Uhr automatisch an unterschiedliche Bildschirmauflösungen an.
+
+=== Eine digitale Ergänzung
+
+Unterhalb der Uhr kann zusätzlich die digitale Uhrzeit ausgegeben werden.
+
+Füge nach dem Zeichnen des Mittelpunkts ein:
+
+[source,basic]
+----
+TEXT MITTEX,MITTEY+RADIUS*0.55,TIME$,"CM",1,1,RGB(BLACK),-1
+----
+
+Dadurch werden analoge und digitale Anzeige kombiniert.
+
+=== Einen Schriftzug ergänzen
+
+Klassische Bahnhofsuhren besitzen häufig einen kleinen Schriftzug.
+
+[source,basic]
+----
+TEXT MITTEX,MITTEY-RADIUS*0.45,"MMBasic","CM",1,1,RGB(BLACK),-1
+----
+
+Du kannst dort beispielsweise deinen Namen oder die Bezeichnung deines PicoMite eintragen.
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Verwende einen blauen Sekundenzeiger.
+* Vergrößere den roten Kreis am Sekundenzeiger.
+* Ergänze die Ziffern 3, 6, 9 und 12.
+* Zeige zusätzlich das aktuelle Datum an.
+* Ändere die Länge der Zeiger.
+* Verwende einen schwarzen Hintergrund und ein weißes Zifferblatt.
+
+=== Probier's selbst!
+
+Versuche folgende Erweiterungen:
+
+. Zeichne die Stundenmarkierungen kräftiger.
+. Ergänze einen äußeren Schatten um das Zifferblatt.
+. Gib unterhalb der Uhr `DATE$` aus.
+. Erstelle eine Nachtansicht mit dunklem Zifferblatt.
+. Ergänze eine zweite Zeitzone.
+. Spiele zu jeder vollen Stunde einen Ton ab.
+. Verwende später einen Framebuffer, um das Flackern zu vermeiden.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du eine vollständige analoge Uhr programmiert.
+
+Du hast gelernt:
+
+* eine Grafik an die Bildschirmauflösung anzupassen
+* kreisförmig angeordnete Markierungen zu berechnen
+* `TIME$` in Stunden, Minuten und Sekunden zu zerlegen
+* Winkel mit `SIN()` und `COS()` in Koordinaten umzuwandeln
+* bewegliche Zeiger darzustellen
+* ein dynamisches Grafikprogramm zu strukturieren
+
+Die Bahnhofsuhr verbindet Grafik, Mathematik, Zeichenketten, Schleifen und Unterprogramme zu einer vollständigen Anwendung.
