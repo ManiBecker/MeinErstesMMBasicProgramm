@@ -88,3 +88,5 @@ include::kapitel/17-die-verschiedenen-grafikmodi.adoc[]
 include::kapitel/18-farben-und-schriftarten.adoc[]
 
 include::kapitel/19-die-ersten-grafikbefehle.adoc[]
+
+include::kapitel/20-rechtecke-kreise-und-texte.adoc[]

@@ -1,0 +1,539 @@
+== Rechtecke, Kreise und Texte
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* Rechtecke mit `BOX` zu zeichnen
+* abgerundete Rechtecke mit `RBOX` zu erzeugen
+* Kreise und Ellipsen darzustellen
+* Kreisbögen mit `ARC` zu zeichnen
+* Texte frei auf dem Bildschirm zu positionieren
+* Formen mit Farben zu füllen
+
+Am Ende des Kapitels kannst du bereits kleine grafische Bildschirmseiten gestalten.
+
+=== Mehr als Punkte und Linien
+
+Im letzten Kapitel haben wir einzelne Pixel gesetzt und Linien gezeichnet.
+
+MMBasic bietet weitere Grafikbefehle, mit denen sich häufig benötigte Formen direkt erzeugen lassen:
+
+* `BOX`
+* `RBOX`
+* `CIRCLE`
+* `ARC`
+* `TEXT`
+
+Dadurch müssen Rechtecke, Kreise und Texte nicht mühsam aus einzelnen Pixeln zusammengesetzt werden.
+
+=== Ein Rechteck zeichnen
+
+Mit `BOX` wird ein Rechteck gezeichnet.
+
+Die grundlegende Schreibweise lautet:
+
+[source,basic]
+----
+BOX X,Y,BREITE,HOEHE
+----
+
+Ein Beispiel:
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+BOX 50,40,200,100
+----
+
+Das Rechteck beginnt an der Position `X=50`, `Y=40`.
+
+Es ist 200 Pixel breit und 100 Pixel hoch.
+
+=== Die Parameter von BOX
+
+Der vollständige Befehl lautet:
+
+[source,basic]
+----
+BOX X,Y,BREITE,HOEHE,LINIENBREITE,FARBE,FUELLFARBE
+----
+
+Die Parameter haben folgende Bedeutung:
+
+[cols="1,3"]
+|===
+|Parameter |Bedeutung
+
+|X
+|Horizontale Position der linken oberen Ecke
+
+|Y
+|Vertikale Position der linken oberen Ecke
+
+|BREITE
+|Breite des Rechtecks in Pixeln
+
+|HOEHE
+|Höhe des Rechtecks in Pixeln
+
+|LINIENBREITE
+|Breite des Rahmens
+
+|FARBE
+|Farbe des Rahmens
+
+|FUELLFARBE
+|Farbe der Fläche
+|===
+
+=== Ein farbiges Rechteck
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+BOX 50,40,200,100,3,RGB(YELLOW),RGB(BLUE)
+----
+
+Das Rechteck besitzt nun:
+
+* einen drei Pixel breiten gelben Rahmen
+* eine blaue Füllung
+
+=== Ein Rechteck ohne Füllung
+
+Soll das Rechteck nicht gefüllt werden, kann die Füllfarbe weggelassen werden.
+
+[source,basic]
+----
+BOX 50,40,200,100,3,RGB(YELLOW)
+----
+
+Der Hintergrund innerhalb des Rechtecks bleibt unverändert.
+
+=== Mehrere Rechtecke zeichnen
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+BOX 20,20,100,60,2,RGB(RED)
+BOX 50,50,100,60,2,RGB(GREEN)
+BOX 80,80,100,60,2,RGB(BLUE)
+----
+
+Da sich die Rechtecke überlagern, entsteht bereits eine kleine grafische Komposition.
+
+=== Abgerundete Rechtecke
+
+Mit `RBOX` werden Rechtecke mit abgerundeten Ecken gezeichnet.
+
+[source,basic]
+----
+RBOX X,Y,BREITE,HOEHE,RADIUS,FARBE,FUELLFARBE
+----
+
+Beispiel:
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+RBOX 50,50,220,80,15,RGB(WHITE),RGB(BLUE)
+----
+
+Der Wert `15` bestimmt den Radius der abgerundeten Ecken.
+
+=== Ein grafischer Schalter
+
+Abgerundete Rechtecke eignen sich gut für Schaltflächen.
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+RBOX 100,80,200,70,12,RGB(WHITE),RGB(GREEN)
+
+TEXT 200,115,"START","CM"
+----
+
+Der Text wird in der Mitte der Schaltfläche ausgegeben.
+
+=== Einen Kreis zeichnen
+
+Mit `CIRCLE` wird ein Kreis gezeichnet.
+
+Die grundlegende Schreibweise lautet:
+
+[source,basic]
+----
+CIRCLE X,Y,RADIUS
+----
+
+Dabei geben `X` und `Y` den Mittelpunkt des Kreises an.
+
+Beispiel:
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+CIRCLE 160,120,50
+----
+
+Der Kreis besitzt:
+
+* Mittelpunkt `X=160`, `Y=120`
+* Radius 50 Pixel
+
+=== Einen farbigen Kreis zeichnen
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+CIRCLE 160,120,50,3,1,RGB(YELLOW),RGB(BLUE)
+----
+
+Dabei bedeuten die zusätzlichen Parameter:
+
+[cols="1,3"]
+|===
+|Parameter |Bedeutung
+
+|3
+|Breite der Kreislinie
+
+|1
+|Seitenverhältnis
+
+|RGB(YELLOW)
+|Farbe der Kreislinie
+
+|RGB(BLUE)
+|Füllfarbe
+|===
+
+=== Ellipsen zeichnen
+
+Der Parameter für das Seitenverhältnis bestimmt, ob ein Kreis oder eine Ellipse gezeichnet wird.
+
+Ein Wert von `1` erzeugt einen Kreis.
+
+[source,basic]
+----
+CIRCLE 160,120,60,2,1,RGB(WHITE)
+----
+
+Ein Wert kleiner als `1` macht die Form schmaler.
+
+[source,basic]
+----
+CIRCLE 160,120,60,2,0.5,RGB(YELLOW)
+----
+
+Dadurch entsteht eine Ellipse.
+
+=== Ein einfaches Ziel
+
+Mit mehreren Kreisen lassen sich Zielscheiben erzeugen.
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+X=MM.HRES/2
+Y=MM.VRES/2
+
+CIRCLE X,Y,100,2,1,RGB(WHITE)
+CIRCLE X,Y,75,2,1,RGB(YELLOW)
+CIRCLE X,Y,50,2,1,RGB(RED)
+CIRCLE X,Y,25,2,1,RGB(GREEN)
+----
+
+Die Position wird aus der Bildschirmgröße berechnet.
+
+Dadurch liegt die Zielscheibe unabhängig von der Auflösung in der Bildschirmmitte.
+
+=== Kreisbögen zeichnen
+
+Mit `ARC` können Teile eines Kreises gezeichnet werden.
+
+Die grundlegende Schreibweise lautet:
+
+[source,basic]
+----
+ARC X,Y,INNENRADIUS,AUSSENRADIUS,STARTWINKEL,ENDWINKEL,FARBE
+----
+
+Beispiel:
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+ARC 160,120,45,55,0,180,RGB(YELLOW)
+----
+
+Der Winkel `0` befindet sich bei MMBasic an der Zwölf-Uhr-Position.
+
+Die Winkel werden in Grad angegeben.
+
+=== Mehrere Kreisbögen kombinieren
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+X=MM.HRES/2
+Y=MM.VRES/2
+
+ARC X,Y,40,50,0,90,RGB(RED)
+ARC X,Y,40,50,90,180,RGB(GREEN)
+ARC X,Y,40,50,180,270,RGB(BLUE)
+ARC X,Y,40,50,270,360,RGB(YELLOW)
+----
+
+Damit entsteht ein Ring aus vier verschiedenfarbigen Abschnitten.
+
+=== Texte frei positionieren
+
+Mit `PRINT` wird Text normalerweise an der aktuellen Schreibposition ausgegeben.
+
+Der Befehl `TEXT` ermöglicht dagegen eine pixelgenaue Positionierung.
+
+Die grundlegende Schreibweise lautet:
+
+[source,basic]
+----
+TEXT X,Y,"Text"
+----
+
+Beispiel:
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+TEXT 50,40,"Hallo MMBasic"
+----
+
+=== Text ausrichten
+
+Der Text kann relativ zu seiner Position ausgerichtet werden.
+
+[source,basic]
+----
+TEXT X,Y,"Text","AUSRICHTUNG"
+----
+
+Für die horizontale Ausrichtung stehen zur Verfügung:
+
+[cols="1,3"]
+|===
+|Buchstabe |Bedeutung
+
+|L
+|Linksbündig
+
+|C
+|Zentriert
+
+|R
+|Rechtsbündig
+|===
+
+Für die vertikale Ausrichtung stehen zur Verfügung:
+
+[cols="1,3"]
+|===
+|Buchstabe |Bedeutung
+
+|T
+|Oben
+
+|M
+|Mittig
+
+|B
+|Unten
+|===
+
+=== Text in der Bildschirmmitte
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+TEXT MM.HRES/2,MM.VRES/2,"Hallo MMBasic","CM"
+----
+
+`C` richtet den Text horizontal zentriert aus.
+
+`M` richtet ihn vertikal mittig aus.
+
+=== Schriftart und Skalierung
+
+Mit weiteren Parametern können Schriftart und Vergrößerung festgelegt werden.
+
+[source,basic]
+----
+TEXT 100,80,"MMBasic","LT",2,2
+----
+
+Dabei bedeutet:
+
+* Schriftart 2
+* Skalierungsfaktor 2
+
+=== Farbiger Text
+
+Auch Vorder- und Hintergrundfarbe können direkt angegeben werden.
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+TEXT 100,80,"MMBasic","LT",2,2,RGB(YELLOW),RGB(BLUE)
+----
+
+=== Transparenter Hintergrund
+
+Auf unterstützten Bildschirmen kann der Hintergrund eines Textes transparent bleiben.
+
+Dazu wird als Hintergrundfarbe `-1` angegeben.
+
+[source,basic]
+----
+TEXT 100,80,"MMBasic","LT",2,2,RGB(YELLOW),-1
+----
+
+Der bereits vorhandene Bildschirminhalt bleibt zwischen den Buchstaben sichtbar.
+
+[NOTE]
+====
+Transparenter Text wird nicht von jeder Display-Konfiguration unterstützt.
+
+Auf VGA- und HDMI-Systemen steht diese Möglichkeit in der Regel zur Verfügung.
+====
+
+=== Text drehen
+
+Ein dritter Buchstabe in der Ausrichtung legt die Orientierung des Textes fest.
+
+[cols="1,3"]
+|===
+|Buchstabe |Ausrichtung
+
+|N
+|Normal
+
+|V
+|Buchstaben senkrecht untereinander
+
+|I
+|Um 180 Grad gedreht
+
+|U
+|Um 90 Grad gegen den Uhrzeigersinn gedreht
+
+|D
+|Um 90 Grad im Uhrzeigersinn gedreht
+|===
+
+Beispiel:
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+TEXT 20,MM.VRES/2,"MMBasic","LMV",2
+----
+
+Der Text wird am linken Bildschirmrand senkrecht dargestellt.
+
+=== Eine einfache Informationskarte
+
+Nun kombinieren wir Rechteck und Text.
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+X=MM.HRES/2-150
+Y=MM.VRES/2-70
+
+RBOX X,Y,300,140,15,RGB(WHITE),RGB(BLUE)
+
+TEXT MM.HRES/2,Y+35,"MMBasic","CM",2,1,RGB(YELLOW),RGB(BLUE)
+
+TEXT MM.HRES/2,Y+75,DATE$,"CM",1,1,RGB(WHITE),RGB(BLUE)
+
+TEXT MM.HRES/2,Y+105,TIME$,"CM",1,1,RGB(CYAN),RGB(BLUE)
+----
+
+Das Ergebnis ist eine kleine Informationskarte mit:
+
+* Überschrift
+* Datum
+* Uhrzeit
+
+=== Ein einfaches Gesicht
+
+Mit Kreisen, Bögen und Linien lässt sich ein Gesicht zeichnen.
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+X=MM.HRES/2
+Y=MM.VRES/2
+
+CIRCLE X,Y,100,3,1,RGB(YELLOW)
+
+CIRCLE X-35,Y-30,10,1,1,RGB(WHITE),RGB(WHITE)
+CIRCLE X+35,Y-30,10,1,1,RGB(WHITE),RGB(WHITE)
+
+ARC X,Y+10,45,50,120,240,RGB(YELLOW)
+----
+
+Probiere aus, wie sich das Gesicht verändert, wenn du die Positionen oder Winkel veränderst.
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Zeichne Rechtecke mit verschiedenen Rahmenbreiten.
+* Verwende unterschiedliche Füllfarben.
+* Erzeuge Kreise mit verschiedenen Radien.
+* Zeichne Ellipsen mit unterschiedlichen Seitenverhältnissen.
+* Positioniere Texte an verschiedenen Bildschirmrändern.
+* Drehe einen Text in alle verfügbaren Richtungen.
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Zeichne eine Ampel aus einem Rechteck und drei Kreisen.
+. Gestalte eine Schaltfläche mit `RBOX` und `TEXT`.
+. Zeichne eine Zielscheibe.
+. Erzeuge eine digitale Uhr mit Rahmen.
+. Zeichne ein einfaches Gesicht.
+. Erstelle eine kleine Visitenkarte mit deinem Namen.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du weitere wichtige Grafikbefehle kennengelernt.
+
+Du kannst nun:
+
+* Rechtecke mit `BOX` zeichnen
+* abgerundete Rechtecke mit `RBOX` erzeugen
+* Kreise und Ellipsen mit `CIRCLE` darstellen
+* Kreisbögen mit `ARC` zeichnen
+* Texte mit `TEXT` frei positionieren
+* Formen mit Farben füllen
+
+Im nächsten Kapitel verbinden wir die Grafikbefehle zu einem vollständigen kleinen Grafikprojekt.
