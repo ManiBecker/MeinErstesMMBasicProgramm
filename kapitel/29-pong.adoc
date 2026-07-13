@@ -1300,3 +1300,13 @@ alles wiederholen
 Dieses Prinzip findet sich nicht nur in Pong, sondern in fast allen Echtzeitspielen wieder.
 
 Aus den ersten einfachen Grafikbefehlen ist damit Schritt für Schritt ein richtiges Computerspiel entstanden.
+
+=== Rückblick auf die Grafikprogrammierung
+
+Mit einem einzelnen Pixel haben wir begonnen.
+
+Danach entstanden Linien, geometrische Formen, grafische Spiele, eine Bahnhofsuhr, mathematische Kunstwerke und schließlich ein vollständiges Pong-Spiel.
+
+Dabei hast du nicht nur neue Grafikbefehle kennengelernt. Du hast auch erfahren, wie Animationen, Kollisionen, Framebuffer und Spielschleifen zusammenarbeiten.
+
+Die fortgeschrittenen Grafikfunktionen von MMBasic – darunter Bitmaps, BLIT und Sprites – werden wir in einem späteren Teil kennenlernen.
