@@ -1,0 +1,387 @@
+== Geometrische Muster und Spirographen
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* Kreise mit Sinus und Cosinus zu berechnen
+* Punkte auf einem Kreis zu positionieren
+* Sterne zu zeichnen
+* Rosetten zu erzeugen
+* Spirograph-ähnliche Muster zu erstellen
+* mathematische Formeln für Grafiken zu verwenden
+
+Am Ende des Kapitels kannst du faszinierende geometrische Bilder erzeugen.
+
+=== Mathematik kann schön sein
+
+Viele Menschen verbinden Mathematik mit Formeln und Berechnungen.
+
+Mit Computergrafik wird Mathematik jedoch sichtbar.
+
+Schon wenige Zeilen MMBasic-Code können erstaunliche Muster erzeugen.
+
+In diesem Kapitel verwenden wir:
+
+* SIN()
+* COS()
+* PI
+
+um Punkte auf Kreisen zu berechnen.
+
+=== Punkte auf einem Kreis
+
+Die Position eines Punktes auf einem Kreis kann mit Sinus und Cosinus berechnet werden.
+
+[source,basic]
+----
+X = MITTEX + SIN(WINKEL) * RADIUS
+Y = MITTEY - COS(WINKEL) * RADIUS
+----
+
+Dabei bedeutet:
+
+* MITTEX = Mittelpunkt X
+* MITTEY = Mittelpunkt Y
+* WINKEL = Winkel in Bogenmaß
+* RADIUS = Radius des Kreises
+
+=== Ein Kreis aus Punkten
+
+Das folgende Programm zeichnet einen Kreis aus vielen einzelnen Punkten.
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+MX=MM.HRES/2
+MY=MM.VRES/2
+
+FOR I=0 TO 360
+
+  W=I*PI/180
+
+  X=MX+SIN(W)*100
+  Y=MY-COS(W)*100
+
+  PIXEL X,Y,RGB(YELLOW)
+
+NEXT I
+----
+
+Die Punkte liegen so dicht beieinander, dass ein Kreis entsteht.
+
+=== Ein Sonnenstrahlen-Muster
+
+Nun verbinden wir alle Punkte mit dem Mittelpunkt.
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+MX=MM.HRES/2
+MY=MM.VRES/2
+
+FOR I=0 TO 360 STEP 5
+
+  W=I*PI/180
+
+  X=MX+SIN(W)*150
+  Y=MY-COS(W)*150
+
+  LINE MX,MY,X,Y,,,RGB(YELLOW)
+
+NEXT I
+----
+
+Das Ergebnis erinnert an Sonnenstrahlen.
+
+=== Ein Stern
+
+Nun verbinden wir nicht mehr den Mittelpunkt mit dem Kreis, sondern jeweils zwei Punkte auf dem Kreis.
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+MX=MM.HRES/2
+MY=MM.VRES/2
+
+FOR I=0 TO 4
+
+  W=I*72*PI/180
+
+  X(I)=MX+SIN(W)*120
+  Y(I)=MY-COS(W)*120
+
+NEXT I
+
+FOR I=0 TO 4
+
+  J=(I+2) MOD 5
+
+  LINE X(I),Y(I),X(J),Y(J),,,RGB(CYAN)
+
+NEXT I
+----
+
+Es entsteht ein klassischer fünfzackiger Stern.
+
+=== Ein Stern mit zehn Spitzen
+
+Durch mehr Punkte auf dem Kreis entstehen komplexere Figuren.
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+MX=MM.HRES/2
+MY=MM.VRES/2
+
+DIM X(9)
+DIM Y(9)
+
+FOR I=0 TO 9
+
+  W=I*36*PI/180
+
+  X(I)=MX+SIN(W)*150
+  Y(I)=MY-COS(W)*150
+
+NEXT I
+
+FOR I=0 TO 9
+
+  J=(I+3) MOD 10
+
+  LINE X(I),Y(I),X(J),Y(J),,,RGB(GREEN)
+
+NEXT I
+----
+
+Probiere verschiedene Werte für `+3` aus.
+
+=== Eine Rosette
+
+Rosetten entstehen durch viele Linien zwischen Punkten auf einem Kreis.
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+MX=MM.HRES/2
+MY=MM.VRES/2
+
+FOR I=0 TO 355 STEP 5
+
+  W1=I*PI/180
+  W2=(I*3)*PI/180
+
+  X1=MX+SIN(W1)*150
+  Y1=MY-COS(W1)*150
+
+  X2=MX+SIN(W2)*150
+  Y2=MY-COS(W2)*150
+
+  LINE X1,Y1,X2,Y2,,,RGB(YELLOW)
+
+NEXT I
+----
+
+Das Ergebnis erinnert an eine Blüte.
+
+=== Farben ins Spiel bringen
+
+Jetzt erhält jede Linie eine zufällige Farbe.
+
+[source,basic]
+----
+FARBE=RGB( _
+  INT(RND*256), _
+  INT(RND*256), _
+  INT(RND*256))
+----
+
+Setze die Farbe direkt beim Zeichnen der Linie ein.
+
+Dadurch entstehen sehr farbenfrohe Muster.
+
+=== Ein einfacher Spirograph
+
+Jetzt wird es spannend.
+
+Das folgende Programm erzeugt ein Muster, das an die bekannten Spirograph-Zeichnungen erinnert.
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+MX=MM.HRES/2
+MY=MM.VRES/2
+
+FOR I=0 TO 1440 STEP 2
+
+  W=I*PI/180
+
+  X=MX+COS(W)*150+COS(W*5)*40
+
+  Y=MY+SIN(W)*150+SIN(W*5)*40
+
+  PIXEL X,Y,RGB(CYAN)
+
+NEXT I
+----
+
+Das Muster entsteht durch die Überlagerung zweier Kreisbewegungen.
+
+=== Das Muster verändern
+
+Die beiden Zahlen:
+
+[source,basic]
+----
+150
+40
+----
+
+bestimmen die Größe der Kreise.
+
+Die Zahl:
+
+[source,basic]
+----
+5
+----
+
+bestimmt das Verhältnis der Drehgeschwindigkeiten.
+
+Schon kleine Änderungen erzeugen völlig andere Bilder.
+
+Probiere beispielsweise:
+
+[source,basic]
+----
+COS(W*7)
+SIN(W*7)
+----
+
+oder:
+
+[source,basic]
+----
+COS(W*9)
+SIN(W*9)
+----
+
+aus.
+
+=== Ein spektakulärer Spirograph
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+MX=MM.HRES/2
+MY=MM.VRES/2
+
+FOR I=0 TO 3600 STEP 1
+
+  W=I*PI/180
+
+  X=MX+COS(W)*120+COS(W*7)*50
+
+  Y=MY+SIN(W)*120+SIN(W*7)*50
+
+  FARBE=RGB( _
+    INT(RND*256), _
+    INT(RND*256), _
+    INT(RND*256))
+
+  PIXEL X,Y,FARBE
+
+NEXT I
+----
+
+Auf schnellen PicoMite-Systemen entsteht innerhalb weniger Sekunden ein beeindruckendes Kunstwerk.
+
+=== Ein Blumenmuster
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+MX=MM.HRES/2
+MY=MM.VRES/2
+
+FOR I=0 TO 3600
+
+  W=I*PI/180
+
+  R=120+40*SIN(W*8)
+
+  X=MX+COS(W)*R
+  Y=MY+SIN(W)*R
+
+  PIXEL X,Y,RGB(MAGENTA)
+
+NEXT I
+----
+
+Das Ergebnis erinnert an eine Blume.
+
+=== Was haben wir gelernt?
+
+Alle bisherigen Muster basieren auf derselben Idee:
+
+[source,basic]
+----
+X=MX+SIN(...)
+Y=MY+COS(...)
+----
+
+Durch geschickte Kombinationen entstehen:
+
+* Sterne
+* Rosetten
+* Blumen
+* Spirographen
+* mathematische Kunstwerke
+
+=== Beispiele geometrischer Muster
+
+Die folgenden Abbildungen zeigen einige der Muster, die mit den in diesem Kapitel vorgestellten Techniken erzeugt werden können.
+
+image::bilder/geometrische_muster.png[align=center, title="Stern, Rosette, Blumenmuster und Spirograph"]
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Ändere die Radien.
+* Verwende andere Farben.
+* Erhöhe die Anzahl der Linien.
+* Verändere die Multiplikatoren 3, 5 oder 7.
+* Zeichne mehrere Rosetten gleichzeitig.
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Zeichne einen sechszackigen Stern.
+. Erzeuge eine Rosette mit 100 Linien.
+. Verwende zufällige Farben.
+. Kombiniere zwei Blumenmuster.
+. Entwickle deinen eigenen Spirographen.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt:
+
+* Kreispunkte mit Sinus und Cosinus zu berechnen
+* geometrische Muster zu erzeugen
+* Sterne und Rosetten zu zeichnen
+* Spirograph-ähnliche Grafiken zu erstellen
+
+Du hast außerdem gesehen, dass Mathematik nicht nur für Berechnungen nützlich ist, sondern auch faszinierende Bilder erzeugen kann.
+
+Im nächsten Kapitel werden wir die Grafiken zum Leben erwecken und erste Animationen programmieren.

@@ -98,3 +98,5 @@ include::kapitel/22-treffe-die-scheibe-v2.adoc[]
 include::kapitel/23-treffe-die-scheibe-v3.adoc[]
 
 include::kapitel/24-analoge-bahnhofsuhr.adoc[]
+
+include::kapitel/25-geometrische-muster-und-spirographen.adoc[]
