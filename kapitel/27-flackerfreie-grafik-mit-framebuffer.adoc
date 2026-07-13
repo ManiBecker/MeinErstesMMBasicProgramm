@@ -1,0 +1,378 @@
+== Flackerfreie Grafik mit Framebuffer
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* was ein Framebuffer ist
+* warum Animationen manchmal flackern
+* Grafiken unsichtbar im Speicher aufzubauen
+* fertige Bilder auf den Bildschirm zu übertragen
+* bestehende Programme zu verbessern
+* die Grundlage moderner Grafiktechniken kennenzulernen
+
+Am Ende des Kapitels kannst du Animationen und Grafikanzeigen deutlich professioneller gestalten.
+
+=== Warum flackern Animationen?
+
+Im vorherigen Kapitel haben wir bewegte Grafiken programmiert.
+
+Dazu wurde der Bildschirm ständig gelöscht und neu aufgebaut.
+
+[source,basic]
+----
+CLS
+
+CIRCLE X,Y,10,,,RGB(YELLOW),RGB(YELLOW)
+----
+
+Dieser Vorgang wiederholt sich viele Male pro Sekunde.
+
+Je nach Grafikmodus und Prozessorgeschwindigkeit kann dabei ein leichtes Flackern sichtbar werden.
+
+Besonders bei komplexeren Grafiken fällt dieser Effekt auf.
+
+=== Die Idee hinter einem Framebuffer
+
+Stell dir vor, du möchtest ein Bild zeichnen.
+
+Ohne Framebuffer zeichnest du direkt auf ein Blatt Papier.
+
+Jeder Strich ist sofort sichtbar.
+
+Der Betrachter sieht jeden einzelnen Arbeitsschritt.
+
+Mit einem Framebuffer verwendest du zunächst ein zweites Blatt Papier.
+
+Auf diesem Blatt wird das komplette Bild aufgebaut.
+
+Erst wenn alles fertig ist, wird das Bild gezeigt.
+
+Der Betrachter sieht niemals die einzelnen Zeichenschritte.
+
+=== Framebuffer und Bildschirm
+
+Normalerweise werden Grafikbefehle direkt auf den Bildschirm ausgegeben.
+
+[source,basic]
+----
+PIXEL
+LINE
+CIRCLE
+BOX
+TEXT
+----
+
+zeichnen unmittelbar auf dem sichtbaren Bildschirm.
+
+Mit einem Framebuffer können dieselben Befehle stattdessen auf eine unsichtbare Zeichenfläche umgeleitet werden.
+
+=== Einen Framebuffer erzeugen
+
+Zuerst wird ein Framebuffer angelegt.
+
+[source,basic]
+----
+FRAMEBUFFER CREATE
+----
+
+Der PicoMite reserviert nun Speicher für eine zusätzliche Bildfläche.
+
+=== In den Framebuffer zeichnen
+
+Mit dem folgenden Befehl werden alle Grafikbefehle in den Framebuffer umgeleitet.
+
+[source,basic]
+----
+FRAMEBUFFER WRITE F
+----
+
+Das `F` steht für:
+
+[source]
+----
+F = Framebuffer
+----
+
+Ab jetzt werden alle Grafiken unsichtbar aufgebaut.
+
+=== Unser erstes Beispiel
+
+Das folgende Programm zeichnet 1000 zufällige Punkte.
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+FRAMEBUFFER CREATE
+
+FRAMEBUFFER WRITE F
+
+FOR I=1 TO 1000
+
+  X=INT(RND*MM.HRES)
+  Y=INT(RND*MM.VRES)
+
+  PIXEL X,Y,RGB(YELLOW)
+
+NEXT I
+
+PAUSE 3000
+----
+
+Was passiert?
+
+Nichts.
+
+Der Bildschirm bleibt schwarz.
+
+=== Warum bleibt der Bildschirm leer?
+
+Die Punkte wurden tatsächlich gezeichnet.
+
+Allerdings befinden sie sich im Framebuffer.
+
+Der Inhalt wurde noch nicht auf den Bildschirm übertragen.
+
+=== Das Bild anzeigen
+
+Mit `FRAMEBUFFER COPY` wird der Inhalt des Framebuffers auf den Bildschirm kopiert.
+
+[source,basic]
+----
+FRAMEBUFFER COPY F,N
+----
+
+Dabei bedeutet:
+
+[cols="1,3"]
+|===
+|Code |Bedeutung
+
+|F
+|Framebuffer
+
+|N
+|Normaler Bildschirm
+|===
+
+Erweitern wir das Programm:
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+FRAMEBUFFER CREATE
+
+FRAMEBUFFER WRITE F
+
+FOR I=1 TO 1000
+
+  X=INT(RND*MM.HRES)
+  Y=INT(RND*MM.VRES)
+
+  PIXEL X,Y,RGB(YELLOW)
+
+NEXT I
+
+FRAMEBUFFER COPY F,N
+----
+
+Nun erscheinen alle Punkte gleichzeitig.
+
+=== Wieder auf den Bildschirm zeichnen
+
+Nach dem Arbeiten mit dem Framebuffer möchten wir oft wieder direkt auf den Bildschirm zeichnen.
+
+Dazu verwenden wir:
+
+[source,basic]
+----
+FRAMEBUFFER WRITE N
+----
+
+Das `N` steht für den normalen Ausgabebildschirm.
+
+=== Ein komplettes Bild vorbereiten
+
+Der eigentliche Vorteil eines Framebuffers zeigt sich bei komplexen Grafiken.
+
+Das folgende Programm zeichnet mehrere Objekte.
+
+[source,basic]
+----
+FRAMEBUFFER CREATE
+
+FRAMEBUFFER WRITE F
+
+CLS RGB(BLACK)
+
+FOR I=1 TO 100
+
+  X=INT(RND*MM.HRES)
+  Y=INT(RND*MM.VRES)
+
+  CIRCLE X,Y,10,,,RGB(CYAN)
+
+NEXT I
+
+TEXT MM.HRES/2,20,     _
+     "Framebuffer Demo", _
+     "CT"
+
+FRAMEBUFFER COPY F,N
+----
+
+Der Betrachter sieht sofort das fertige Bild.
+
+=== Die Bahnhofsuhr verbessern
+
+Im Kapitel "Eine analoge Bahnhofsuhr" wurde die Uhr jede Sekunde vollständig neu gezeichnet.
+
+Der Ablauf sah vereinfacht so aus:
+
+[source,basic]
+----
+CLS
+
+ZeichneZifferblatt
+
+ZeichneStundenzeiger
+
+ZeichneMinutenzeiger
+
+ZeichneSekundenzeiger
+----
+
+Je nach Hardware konnte dabei ein leichtes Flackern sichtbar werden.
+
+Mit einem Framebuffer lässt sich die Uhr zunächst unsichtbar aufbauen.
+
+Erst wenn alle Elemente fertig sind, wird das fertige Bild angezeigt.
+
+=== Die Uhr mit Framebuffer
+
+Der neue Ablauf lautet:
+
+[source,basic]
+----
+FRAMEBUFFER WRITE F
+
+CLS RGB(WHITE)
+
+ZeichneZifferblatt
+
+ZeichneStundenzeiger
+
+ZeichneMinutenzeiger
+
+ZeichneSekundenzeiger
+
+FRAMEBUFFER COPY F,N
+----
+
+Das Ergebnis wirkt deutlich ruhiger.
+
+=== Ein hüpfender Ball mit Framebuffer
+
+Auch Animationen profitieren von dieser Technik.
+
+[source,basic]
+----
+DO
+
+  FRAMEBUFFER WRITE F
+
+  CLS RGB(BLACK)
+
+  CIRCLE X,Y,10,,,RGB(YELLOW),RGB(YELLOW)
+
+  FRAMEBUFFER COPY F,N
+
+  X=X+DX
+  Y=Y+DY
+
+LOOP
+----
+
+Der Ball wird zunächst unsichtbar gezeichnet.
+
+Anschließend erscheint das fertige Bild auf dem Bildschirm.
+
+=== Den Framebuffer wieder freigeben
+
+Wird der Framebuffer nicht mehr benötigt, sollte der Speicher freigegeben werden.
+
+[source,basic]
+----
+FRAMEBUFFER CLOSE
+----
+
+Dadurch steht der Speicher wieder für Programme und Variablen zur Verfügung.
+
+[NOTE]
+====
+Der Colour Maximite 2 besitzt ebenfalls Framebuffer-Funktionen.
+
+Dort werden Framebuffer häufig als virtuelle Zeichenflächen verwendet und bieten zusätzliche Möglichkeiten wie große Scrollbereiche und Hintergrundbilder.
+
+Diese Funktionen werden wir in späteren Kapiteln kennenlernen.
+====
+
+=== Framebuffer und Spiele
+
+Für viele Spiele ist ein Framebuffer die Grundlage einer flüssigen Darstellung.
+
+Typische Anwendungen sind:
+
+* Animationen
+* Spiele
+* Grafische Menüs
+* Uhren
+* Messwertanzeigen
+* Bildschirmschoner
+
+=== Ausblick: Layerbuffer
+
+PicoMite HDMI und VGA unterstützen zusätzlich sogenannte Layerbuffer.
+
+Dabei können bewegliche Objekte auf einer separaten Ebene dargestellt werden.
+
+Der Hintergrund muss dadurch nicht ständig neu gezeichnet werden.
+
+Diese Technik ist besonders für Spiele interessant.
+
+Wir werden sie im nächsten Kapitel kennenlernen.
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Zeichne 5000 Punkte.
+* Erzeuge zufällige Kreise.
+* Zeichne mehrere Texte.
+* Verwende unterschiedliche Hintergrundfarben.
+* Baue die Bahnhofsuhr auf einen Framebuffer um.
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Erweitere den hüpfenden Ball um Farbwechsel.
+. Zeichne mehrere Bälle gleichzeitig.
+. Erzeuge einen einfachen Bildschirmschoner.
+. Baue eine bestehende Grafikdemo auf Framebuffer um.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt:
+
+* was ein Framebuffer ist
+* Grafiken unsichtbar aufzubauen
+* fertige Bilder auf den Bildschirm zu übertragen
+* Flackern zu reduzieren
+* Animationen professioneller darzustellen
+
+Framebuffer gehören zu den wichtigsten Werkzeugen moderner Grafikprogrammierung.
+
+Im nächsten Kapitel werden wir Layerbuffer kennenlernen und bewegliche Objekte noch effizienter darstellen.
