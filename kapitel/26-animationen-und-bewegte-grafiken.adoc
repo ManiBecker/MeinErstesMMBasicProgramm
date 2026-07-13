@@ -1,0 +1,421 @@
+== Animationen und bewegte Grafiken
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* Objekte über den Bildschirm zu bewegen
+* Geschwindigkeiten zu verwenden
+* Kollisionen mit dem Bildschirmrand zu erkennen
+* Animationen mit Schleifen zu erzeugen
+* mehrere bewegte Objekte darzustellen
+
+Am Ende des Kapitels kannst du eigene kleine Animationen programmieren.
+
+=== Von Bildern zu Bewegung
+
+Bisher haben wir Grafiken gezeichnet, die sich nicht verändern.
+
+Eine Animation entsteht dadurch, dass ein Bild immer wieder neu gezeichnet wird.
+
+Der Ablauf sieht dabei vereinfacht so aus:
+
+[source]
+----
+Bild zeichnen
+Pause
+Bild löschen
+
+Position verändern
+
+Bild neu zeichnen
+Pause
+Bild löschen
+
+...
+----
+
+Werden diese Schritte schnell genug wiederholt, entsteht der Eindruck einer flüssigen Bewegung.
+
+=== Unser erstes bewegtes Objekt
+
+Beginnen wir mit einem kleinen Ball.
+
+[source,basic]
+----
+MODE 2
+
+X=50
+Y=100
+
+DO
+
+  CLS
+
+  CIRCLE X,Y,10,,,RGB(YELLOW),RGB(YELLOW)
+
+  PAUSE 20
+
+  X=X+2
+
+LOOP
+----
+
+Der Ball bewegt sich von links nach rechts.
+
+=== Was passiert hier?
+
+Die Position des Balls wird durch zwei Variablen gespeichert:
+
+[source,basic]
+----
+X
+Y
+----
+
+Nach jedem Schleifendurchlauf wird X erhöht:
+
+[source,basic]
+----
+X=X+2
+----
+
+Dadurch verschiebt sich der Ball nach rechts.
+
+=== Die Geschwindigkeit ändern
+
+Der Wert
+
+[source,basic]
+----
+2
+----
+
+bestimmt die Geschwindigkeit.
+
+[source,basic]
+----
+X=X+5
+----
+
+bewegt den Ball deutlich schneller.
+
+[source,basic]
+----
+X=X+1
+----
+
+macht ihn langsamer.
+
+=== Bewegung in zwei Richtungen
+
+Nun bewegen wir den Ball gleichzeitig nach rechts und nach unten.
+
+[source,basic]
+----
+MODE 2
+
+X=50
+Y=50
+
+DO
+
+  CLS
+
+  CIRCLE X,Y,10,,,RGB(CYAN),RGB(CYAN)
+
+  PAUSE 20
+
+  X=X+2
+  Y=Y+1
+
+LOOP
+----
+
+Jetzt bewegt sich der Ball diagonal.
+
+=== Geschwindigkeiten als Variablen
+
+Statt feste Zahlen zu verwenden, speichern wir die Geschwindigkeit in Variablen.
+
+[source,basic]
+----
+DX=2
+DY=1
+----
+
+Die Bewegung erfolgt dann über:
+
+[source,basic]
+----
+X=X+DX
+Y=Y+DY
+----
+
+Das macht das Programm deutlich flexibler.
+
+=== Am Bildschirmrand abprallen
+
+Ein Ball soll nicht einfach verschwinden.
+
+Trifft er den Rand des Bildschirms, ändern wir seine Bewegungsrichtung.
+
+[source,basic]
+----
+IF X<10 THEN DX=-DX
+----
+
+Dadurch wird aus:
+
+[source]
+----
++2
+----
+
+automatisch:
+
+[source]
+----
+-2
+----
+
+Der Ball bewegt sich nun in die Gegenrichtung.
+
+=== Der erste hüpfende Ball
+
+[source,basic]
+----
+MODE 2
+
+X=100
+Y=100
+
+DX=3
+DY=2
+
+DO
+
+  CLS
+
+  CIRCLE X,Y,10,,,RGB(YELLOW),RGB(YELLOW)
+
+  PAUSE 15
+
+  X=X+DX
+  Y=Y+DY
+
+  IF X<10 THEN DX=-DX
+  IF X>MM.HRES-10 THEN DX=-DX
+
+  IF Y<10 THEN DY=-DY
+  IF Y>MM.VRES-10 THEN DY=-DY
+
+LOOP
+----
+
+Der Ball prallt nun an allen vier Bildschirmrändern ab.
+
+=== Warum 10?
+
+Der Ball besitzt einen Radius von 10 Pixeln.
+
+[source,basic]
+----
+CIRCLE X,Y,10
+----
+
+Der Mittelpunkt darf deshalb nicht näher als 10 Pixel an den Rand gelangen.
+
+=== Eine Spur hinterlassen
+
+Entfernen wir das Löschen des Bildschirms:
+
+[source,basic]
+----
+' CLS
+----
+
+Dann bleibt jede Position sichtbar.
+
+Es entstehen interessante Muster.
+
+=== Ein Farbwechsel bei jeder Kollision
+
+Jedes Mal, wenn der Ball den Rand berührt, erhält er eine neue Farbe.
+
+[source,basic]
+----
+FARBE=RGB( _
+ INT(RND*256), _
+ INT(RND*256), _
+ INT(RND*256))
+----
+
+Diese Anweisung wird innerhalb der Kollisionsabfrage eingefügt.
+
+=== Mehrere Bälle gleichzeitig
+
+Nun verwenden wir Arrays.
+
+[source,basic]
+----
+DIM X(9)
+DIM Y(9)
+
+DIM DX(9)
+DIM DY(9)
+----
+
+Damit können wir zehn Bälle gleichzeitig verwalten.
+
+=== Die Startwerte erzeugen
+
+[source,basic]
+----
+FOR I=0 TO 9
+
+  X(I)=INT(RND*MM.HRES)
+  Y(I)=INT(RND*MM.VRES)
+
+  DX(I)=INT(RND*5)+1
+  DY(I)=INT(RND*5)+1
+
+NEXT I
+----
+
+Jeder Ball erhält eine eigene Position und Geschwindigkeit.
+
+=== Zehn hüpfende Bälle
+
+[source,basic]
+----
+MODE 2
+
+DIM X(9)
+DIM Y(9)
+
+DIM DX(9)
+DIM DY(9)
+
+FOR I=0 TO 9
+
+  X(I)=INT(RND*MM.HRES)
+  Y(I)=INT(RND*MM.VRES)
+
+  DX(I)=INT(RND*5)+1
+  DY(I)=INT(RND*5)+1
+
+NEXT I
+
+DO
+
+  CLS
+
+  FOR I=0 TO 9
+
+    CIRCLE X(I),Y(I),10,,,RGB(YELLOW),RGB(YELLOW)
+
+    X(I)=X(I)+DX(I)
+    Y(I)=Y(I)+DY(I)
+
+    IF X(I)<10 THEN DX(I)=-DX(I)
+    IF X(I)>MM.HRES-10 THEN DX(I)=-DX(I)
+
+    IF Y(I)<10 THEN DY(I)=-DY(I)
+    IF Y(I)>MM.VRES-10 THEN DY(I)=-DY(I)
+
+  NEXT I
+
+  PAUSE 20
+
+LOOP
+----
+
+Jetzt ist richtig Bewegung auf dem Bildschirm.
+
+=== Ein kleiner Bildschirmschoner
+
+Mit wenigen Änderungen entsteht ein einfacher Bildschirmschoner.
+
+[source,basic]
+----
+TEXT X,Y,"MMBasic"
+----
+
+anstelle von
+
+[source,basic]
+----
+CIRCLE X,Y,10
+----
+
+Der Schriftzug wandert nun über den Bildschirm.
+
+=== Das DVD-Logo
+
+Vielleicht kennst du den berühmten Bildschirmschoner mit dem DVD-Logo.
+
+Ein Schriftzug bewegt sich über den Bildschirm und prallt an den Rändern ab.
+
+Mit dem Wissen aus diesem Kapitel kannst du ihn bereits selbst programmieren.
+
+=== Warum flackert das Bild?
+
+Jeder Schleifendurchlauf beginnt mit:
+
+[source,basic]
+----
+CLS
+----
+
+Dadurch wird der Bildschirm ständig gelöscht und neu aufgebaut.
+
+Je nach Hardware kann das zu leichtem Flackern führen.
+
+[NOTE]
+====
+MMBasic unterstützt Framebuffer.
+
+Damit kann das Bild zunächst unsichtbar aufgebaut und anschließend in einem Schritt angezeigt werden.
+
+Dadurch lassen sich Animationen deutlich flüssiger darstellen.
+
+Dieses Thema werden wir in einem späteren Kapitel behandeln.
+====
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Verändere die Ballgröße.
+* Verwende unterschiedliche Farben.
+* Erhöhe die Anzahl der Bälle.
+* Lasse eine Spur sichtbar.
+* Verändere die Geschwindigkeiten.
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Programmiere einen DVD-Bildschirmschoner.
+. Verwende zufällige Farben.
+. Erzeuge 20 statt 10 Bälle.
+. Lasse die Bälle ihre Größe ändern.
+. Zeichne statt Kreisen kleine Sterne.
+. Ergänze eine Anzeige der aktuellen Anzahl von Kollisionen.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt:
+
+* Objekte zu bewegen
+* Geschwindigkeiten zu verwenden
+* Bildschirmränder zu erkennen
+* Kollisionen auszuwerten
+* mehrere Objekte gleichzeitig zu animieren
+
+Damit hast du einen wichtigen Schritt gemacht:
+
+Aus statischen Bildern sind erstmals lebendige Programme geworden.
+
+Im nächsten Kapitel werden wir lernen, wie Animationen mit Hilfe von Framebuffern deutlich flüssiger dargestellt werden können.
