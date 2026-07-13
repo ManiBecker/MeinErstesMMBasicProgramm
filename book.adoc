@@ -104,3 +104,5 @@ include::kapitel/25-geometrische-muster-und-spirographen.adoc[]
 include::kapitel/26-animationen-und-bewegte-grafiken.adoc[]
 
 include::kapitel/27-flackerfreie-grafik-mit-framebuffer.adoc[]
+
+include::kapitel/28-layerbuffer-und-bewegliche-objekte.adoc[]

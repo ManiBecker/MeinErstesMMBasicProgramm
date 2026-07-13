@@ -1,0 +1,366 @@
+== Layerbuffer und bewegliche Objekte
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* was ein Layerbuffer ist
+* wie sich Layerbuffer von einem Framebuffer unterscheiden
+* bewegliche Objekte auf einer separaten Ebene darzustellen
+* statische Hintergründe effizient zu verwenden
+* die Grundlage moderner Spieleprogrammierung kennenzulernen
+
+Am Ende des Kapitels kannst du Animationen erstellen, ohne den gesamten Hintergrund ständig neu zeichnen zu müssen.
+
+=== Das Problem
+
+Im vorherigen Kapitel haben wir einen Framebuffer verwendet.
+
+Der Ablauf war:
+
+[source]
+----
+Hintergrund zeichnen
+Objekte zeichnen
+
+Bild anzeigen
+
+Alles löschen
+
+Hintergrund neu zeichnen
+Objekte neu zeichnen
+----
+
+Das funktioniert gut.
+
+Allerdings wird auch der Hintergrund immer wieder neu aufgebaut.
+
+=== Ein Beispiel
+
+Stell dir vor, du hast einen Hintergrund mit:
+
+* Sternenhimmel
+* Landschaft
+* Spielfeld
+
+und darauf bewegt sich nur ein kleiner Ball.
+
+Dann wäre es eigentlich unnötig, den gesamten Hintergrund ständig neu zu zeichnen.
+
+=== Die Idee eines Layerbuffers
+
+Ein Layerbuffer ist eine zusätzliche Bildebene.
+
+Man kann sich das wie zwei transparente Folien vorstellen.
+
+[source]
+----
+Ebene 1
+Hintergrund
+
+Ebene 2
+Ball
+Spieler
+Gegner
+----
+
+Der Hintergrund bleibt unverändert.
+
+Nur die Objekte auf der zweiten Ebene bewegen sich.
+
+=== Framebuffer und Layerbuffer
+
+[cols="1,2,2"]
+|===
+|Technik |Vorteil |Nachteil
+
+|Framebuffer
+|Einfach zu verstehen
+|Komplettes Bild wird neu aufgebaut
+
+|Layerbuffer
+|Sehr effizient
+|Etwas komplexer
+|===
+
+=== Einen Layerbuffer erzeugen
+
+Zuerst wird ein Layerbuffer angelegt.
+
+[source,basic]
+----
+FRAMEBUFFER LAYER
+----
+
+Danach steht eine zusätzliche Zeichenebene zur Verfügung.
+
+=== Auf den Layerbuffer zeichnen
+
+Mit
+
+[source,basic]
+----
+FRAMEBUFFER WRITE L
+----
+
+werden alle Grafikbefehle auf den Layerbuffer umgeleitet.
+
+Das `L` steht für:
+
+[source]
+----
+L = Layerbuffer
+----
+
+=== Wieder auf den Bildschirm zeichnen
+
+[source,basic]
+----
+FRAMEBUFFER WRITE N
+----
+
+stellt die normale Ausgabe wieder her.
+
+=== Unser erster Hintergrund
+
+Zunächst zeichnen wir einen statischen Sternenhimmel.
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+FOR I=1 TO 500
+
+  X=INT(RND*MM.HRES)
+  Y=INT(RND*MM.VRES)
+
+  PIXEL X,Y,RGB(WHITE)
+
+NEXT I
+----
+
+Dieser Hintergrund bleibt später unverändert.
+
+=== Einen Ball auf dem Layerbuffer zeichnen
+
+[source,basic]
+----
+FRAMEBUFFER LAYER
+
+FRAMEBUFFER WRITE L
+
+CIRCLE 100,100,10,,,RGB(YELLOW),RGB(YELLOW)
+----
+
+Der Ball befindet sich nun auf der zweiten Ebene.
+
+=== Hintergrund und Layer
+
+Auf HDMI- und VGA-Systemen wird der Layerbuffer automatisch über den Hintergrund gelegt.
+
+Der Ball erscheint dadurch vor dem Sternenhimmel.
+
+=== Das Prinzip einer Animation
+
+Der Hintergrund wird nur einmal erzeugt.
+
+Die Bewegung betrifft ausschließlich den Layerbuffer.
+
+[source]
+----
+Hintergrund
+einmal zeichnen
+
+Layer
+ständig aktualisieren
+----
+
+=== Ein beweglicher Ball
+
+[source,basic]
+----
+CLS RGB(BLACK)
+
+FOR I=1 TO 500
+
+  PIXEL INT(RND*MM.HRES), _
+        INT(RND*MM.VRES), _
+        RGB(WHITE)
+
+NEXT I
+
+FRAMEBUFFER LAYER
+
+X=100
+Y=100
+
+DX=3
+DY=2
+
+DO
+
+  FRAMEBUFFER WRITE L
+
+  CLS
+
+  CIRCLE X,Y,10,,,RGB(YELLOW),RGB(YELLOW)
+
+  X=X+DX
+  Y=Y+DY
+
+  IF X<10 THEN DX=-DX
+  IF X>MM.HRES-10 THEN DX=-DX
+
+  IF Y<10 THEN DY=-DY
+  IF Y>MM.VRES-10 THEN DY=-DY
+
+  PAUSE 20
+
+LOOP
+----
+
+=== Warum wird nur der Layer gelöscht?
+
+Der Befehl
+
+[source,basic]
+----
+CLS
+----
+
+wirkt innerhalb von
+
+[source,basic]
+----
+FRAMEBUFFER WRITE L
+----
+
+nur auf den Layerbuffer.
+
+Der Hintergrund bleibt erhalten.
+
+=== Ein Raumschiff über Sternenhimmel
+
+Jetzt ersetzen wir den Ball durch ein kleines Raumschiff.
+
+[source,basic]
+----
+LINE X,Y-10,X-8,Y+8
+
+LINE X,Y-10,X+8,Y+8
+
+LINE X-8,Y+8,X+8,Y+8
+----
+
+Das Dreieck bewegt sich nun über den Sternenhimmel.
+
+=== Mehrere Objekte
+
+Natürlich können auch mehrere Objekte auf dem Layer gezeichnet werden.
+
+[source,basic]
+----
+FOR I=0 TO 9
+
+  CIRCLE X(I),Y(I),8,,,RGB(CYAN)
+
+NEXT I
+----
+
+Dadurch entstehen sehr flüssige Animationen.
+
+=== Warum verwenden Spiele Layer?
+
+Viele Spiele bestehen aus:
+
+* Hintergrund
+* Spielfigur
+* Gegner
+* Geschosse
+* Statusanzeigen
+
+Der Hintergrund ändert sich selten.
+
+Die beweglichen Objekte ändern sich ständig.
+
+Layerbuffer ermöglichen genau diese Trennung.
+
+=== Ein einfaches Spielfeld
+
+Stell dir ein Pong-Spiel vor.
+
+[source]
+----
++------------------+
+
+      O
+
+ |                |
+
++------------------+
+----
+
+Das Spielfeld bleibt unverändert.
+
+Nur Ball und Schläger bewegen sich.
+
+Layerbuffer sind dafür ideal.
+
+=== HDMI- und VGA-Systeme
+
+Layerbuffer werden automatisch unterstützt in:
+
+* HDMI Mode 2
+* HDMI Mode 3
+* HDMI Mode 4
+* HDMI Mode 5
+* VGA Mode 2
+* VGA Mode 3 (RP2350)
+
+Je nach Hardware können sogar mehrere Layer gleichzeitig verwendet werden.
+
+=== Colour Maximite 2
+
+[NOTE]
+====
+Der Colour Maximite 2 verwendet ein anderes Framebuffer-Konzept.
+
+Dort werden häufig virtuelle Bildschirme verwendet, die größer als die sichtbare Anzeige sein können.
+
+Techniken wie Scrolling und große Karten lassen sich damit sehr elegant umsetzen.
+
+Diese Funktionen werden wir später in eigenen Kapiteln behandeln.
+====
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Verwende mehrere Bälle.
+* Zeichne einen Sternenhimmel mit 1000 Sternen.
+* Verändere die Ballgröße.
+* Erzeuge zufällige Farben.
+* Verwende eigene Objekte statt Kreisen.
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Programmiere ein kleines Raumschiff.
+. Erzeuge einen Meteoritenschauer.
+. Zeichne mehrere Gegner.
+. Lasse Objekte unterschiedlich schnell fliegen.
+. Erstelle einen einfachen Bildschirmschoner.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt:
+
+* was ein Layerbuffer ist
+* wie Layerbuffer funktionieren
+* Hintergründe und bewegliche Objekte zu trennen
+* Animationen effizienter darzustellen
+
+Layerbuffer gehören zu den wichtigsten Techniken moderner Spieleprogrammierung.
+
+Im nächsten Kapitel werden wir dieses Wissen nutzen und unser erstes echtes Arcade-Spiel entwickeln: Pong.
