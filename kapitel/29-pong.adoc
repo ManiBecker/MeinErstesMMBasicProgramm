@@ -1,0 +1,1302 @@
+== Pong – das Spiel der Spiele
+
+=== Das lernst du
+
+In diesem Kapitel entwickelst du ein vollständiges kleines Arcade-Spiel.
+
+Dabei lernst du:
+
+* einen Ball über den Bildschirm zu bewegen
+* einen Schläger mit der Tastatur zu steuern
+* einen computergesteuerten Gegner zu programmieren
+* Kollisionen mit Wänden und Schlägern zu erkennen
+* Punkte zu zählen und anzuzeigen
+* den Abprallwinkel des Balls zu verändern
+* ein Spiel in mehrere Unterprogramme aufzuteilen
+* einen Framebuffer für eine flüssige Darstellung zu verwenden
+* eine vollständige Spielschleife aufzubauen
+
+Am Ende des Kapitels besitzt du ein spielbares Pong-Programm für den PicoMite.
+
+=== Vom Grafikexperiment zum Computerspiel
+
+In den vergangenen Kapiteln haben wir bereits viele Techniken kennengelernt, die wir für ein Spiel benötigen:
+
+* Rechtecke und Kreise zeichnen
+* Objekte bewegen
+* Bildschirmränder erkennen
+* Tastatureingaben verarbeiten
+* Unterprogramme verwenden
+* Grafiken in einem Framebuffer aufbauen
+
+Nun verbinden wir diese einzelnen Bausteine zu einem vollständigen Spiel.
+
+Pong besteht nur aus wenigen Elementen:
+
+* einem Ball
+* zwei Schlägern
+* zwei Punkteständen
+* einer oberen und unteren Begrenzung
+
+Trotzdem benötigt das Programm fast alle wichtigen Bestandteile eines echten Computerspiels.
+
+=== Die Spielregeln
+
+Der Spieler steuert den linken Schläger.
+
+Der rechte Schläger wird vom Computer bewegt.
+
+Der Ball fliegt zwischen beiden Seiten hin und her.
+
+Trifft er einen Schläger, wird er zurückgeworfen.
+
+Verlässt der Ball den Bildschirm auf einer Seite, erhält der Gegner einen Punkt.
+
+Wer zuerst zehn Punkte erreicht, gewinnt das Spiel.
+
+=== Die Steuerung
+
+Der linke Schläger wird mit zwei Tasten gesteuert:
+
+[cols="1,3"]
+|===
+|Taste |Funktion
+
+|`W`
+|Schläger nach oben bewegen
+
+|`S`
+|Schläger nach unten bewegen
+
+|`ESC`
+|Spiel beenden
+|===
+
+Die Tastatur wird während des laufenden Spiels mit `INKEY$` abgefragt.
+
+[source,basic]
+----
+TASTE$=UCASE$(INKEY$)
+----
+
+Ist keine Taste gedrückt, liefert `INKEY$` eine leere Zeichenkette.
+
+Mit `UCASE$()` werden kleine und große Buchstaben gleich behandelt.
+
+=== Die Bestandteile des Spielfelds
+
+Das Spielfeld besteht aus:
+
+* einem schwarzen Hintergrund
+* einer gestrichelten Mittellinie
+* zwei weißen Schlägern
+* einem weißen Ball
+* dem Punktestand
+
+Die Bildschirmgröße wird nicht fest vorgegeben.
+
+Stattdessen verwendet das Programm:
+
+[source,basic]
+----
+MM.HRES
+MM.VRES
+----
+
+Dadurch passt sich das Spielfeld an die aktuelle Auflösung an.
+
+=== Größen und Positionen festlegen
+
+Zuerst legen wir die Größe der Schläger und des Balls fest.
+
+[source,basic]
+----
+SCHLAEGERBREITE=6
+SCHLAEGERHOEHE=50
+BALLRADIUS=5
+----
+
+Der linke Schläger steht etwas vom linken Bildschirmrand entfernt.
+
+[source,basic]
+----
+SPIELERX=15
+----
+
+Der rechte Schläger wird entsprechend am rechten Rand positioniert.
+
+[source,basic]
+----
+COMPUTERX=MM.HRES-15-SCHLAEGERBREITE
+----
+
+Beide Schläger beginnen senkrecht in der Bildschirmmitte.
+
+[source,basic]
+----
+SPIELERY=MM.VRES/2-SCHLAEGERHOEHE/2
+COMPUTERY=SPIELERY
+----
+
+=== Den Ball beschreiben
+
+Für den Ball benötigen wir vier Variablen:
+
+[source,basic]
+----
+BALLX
+BALLY
+BALLDX
+BALLDY
+----
+
+`BALLX` und `BALLY` enthalten die aktuelle Position.
+
+`BALLDX` und `BALLDY` enthalten die Geschwindigkeit in horizontaler und vertikaler Richtung.
+
+Beispielsweise bedeutet:
+
+[source,basic]
+----
+BALLDX=3
+BALLDY=2
+----
+
+Der Ball bewegt sich:
+
+* drei Pixel nach rechts
+* zwei Pixel nach unten
+
+Ein negativer Wert ändert die Bewegungsrichtung.
+
+[source,basic]
+----
+BALLDX=-3
+----
+
+bewegt den Ball nach links.
+
+=== Den Ball in Bewegung setzen
+
+Die Position wird in jedem Schleifendurchlauf verändert.
+
+[source,basic]
+----
+BALLX=BALLX+BALLDX
+BALLY=BALLY+BALLDY
+----
+
+Wird dieser Vorgang oft genug wiederholt, entsteht eine flüssige Bewegung.
+
+=== Die obere und untere Wand
+
+Trifft der Ball den oberen oder unteren Rand, muss seine vertikale Bewegungsrichtung umgekehrt werden.
+
+[source,basic]
+----
+IF BALLY-BALLRADIUS<=0 THEN
+  BALLY=BALLRADIUS
+  BALLDY=-BALLDY
+ENDIF
+----
+
+Für den unteren Rand gilt:
+
+[source,basic]
+----
+IF BALLY+BALLRADIUS>=MM.VRES-1 THEN
+  BALLY=MM.VRES-1-BALLRADIUS
+  BALLDY=-BALLDY
+ENDIF
+----
+
+Die Korrektur von `BALLY` verhindert, dass der Ball außerhalb des sichtbaren Bereichs bleibt.
+
+=== Rechtecke können Schläger sein
+
+Die Schläger werden mit `BOX` gezeichnet.
+
+[source,basic]
+----
+BOX SPIELERX,SPIELERY,                      _
+    SCHLAEGERBREITE,SCHLAEGERHOEHE,         _
+    0,RGB(WHITE),RGB(WHITE)
+----
+
+Die Rahmenbreite ist `0`, weil wir ein vollständig gefülltes Rechteck benötigen.
+
+Der computergesteuerte Schläger wird auf dieselbe Weise gezeichnet.
+
+=== Den Ball zeichnen
+
+Der Ball wird als gefüllter Kreis dargestellt.
+
+[source,basic]
+----
+CIRCLE BALLX,BALLY,BALLRADIUS,              _
+       1,1,RGB(WHITE),RGB(WHITE)
+----
+
+=== Die Spielschleife
+
+Fast jedes Echtzeitspiel besitzt eine zentrale Schleife.
+
+Diese wird häufig als Spielschleife oder _Game Loop_ bezeichnet.
+
+Der vereinfachte Ablauf lautet:
+
+[source]
+----
+Tastatur abfragen
+
+Spieler bewegen
+Computer bewegen
+Ball bewegen
+Kollisionen prüfen
+Punkte prüfen
+
+Bild zeichnen
+
+kurz warten
+
+alles wiederholen
+----
+
+In MMBasic verwenden wir dafür eine `DO ... LOOP`-Schleife.
+
+[source,basic]
+----
+DO
+
+  ' Eingaben verarbeiten
+  ' Spielzustand verändern
+  ' Bild zeichnen
+
+LOOP
+----
+
+=== Den Spieler bewegen
+
+Die Tastatur wird in jedem Schleifendurchlauf abgefragt.
+
+[source,basic]
+----
+TASTE$=UCASE$(INKEY$)
+
+IF TASTE$="W" THEN
+  SPIELERY=SPIELERY-SCHLAEGERGESCHWINDIGKEIT
+ENDIF
+
+IF TASTE$="S" THEN
+  SPIELERY=SPIELERY+SCHLAEGERGESCHWINDIGKEIT
+ENDIF
+----
+
+Der Spieler darf den Bildschirm jedoch nicht verlassen.
+
+[source,basic]
+----
+IF SPIELERY<0 THEN
+  SPIELERY=0
+ENDIF
+
+IF SPIELERY>MM.VRES-SCHLAEGERHOEHE THEN
+  SPIELERY=MM.VRES-SCHLAEGERHOEHE
+ENDIF
+----
+
+=== Der computergesteuerte Gegner
+
+Der Computer beobachtet die vertikale Position des Balls.
+
+Befindet sich der Ball oberhalb des Schlägermittelpunkts, bewegt sich der Schläger nach oben.
+
+[source,basic]
+----
+IF BALLY<COMPUTERY+SCHLAEGERHOEHE/2 THEN
+  COMPUTERY=COMPUTERY-COMPUTERGESCHWINDIGKEIT
+ENDIF
+----
+
+Befindet sich der Ball darunter, bewegt er sich nach unten.
+
+[source,basic]
+----
+IF BALLY>COMPUTERY+SCHLAEGERHOEHE/2 THEN
+  COMPUTERY=COMPUTERY+COMPUTERGESCHWINDIGKEIT
+ENDIF
+----
+
+Auch der Computerschläger wird an den Bildschirmgrenzen angehalten.
+
+=== Warum darf der Computer nicht zu schnell sein?
+
+Würde der Computer seine Position sofort an die Ballposition anpassen, könnte er kaum besiegt werden.
+
+Deshalb besitzt er eine begrenzte Geschwindigkeit.
+
+[source,basic]
+----
+COMPUTERGESCHWINDIGKEIT=2
+----
+
+Der Ball kann dadurch schneller sein als der Gegner.
+
+Das Spiel bleibt herausfordernd, aber gewinnbar.
+
+=== Eine Kollision mit dem Spielerschläger
+
+Eine Kollision findet statt, wenn sich Ball und Schläger überlappen.
+
+Für den linken Schläger prüfen wir zunächst, ob sich der Ball nach links bewegt.
+
+[source,basic]
+----
+IF BALLDX<0 THEN
+----
+
+Dann prüfen wir die horizontale Position.
+
+[source,basic]
+----
+IF BALLX-BALLRADIUS<=                        _
+   SPIELERX+SCHLAEGERBREITE THEN
+----
+
+Schließlich muss sich der Ball auch innerhalb der vertikalen Schlägerfläche befinden.
+
+[source,basic]
+----
+IF BALLY>=SPIELERY AND                      _
+   BALLY<=SPIELERY+SCHLAEGERHOEHE THEN
+----
+
+Sind alle Bedingungen erfüllt, wird die horizontale Geschwindigkeit umgekehrt.
+
+[source,basic]
+----
+BALLDX=-BALLDX
+----
+
+=== Den Ball nach der Kollision versetzen
+
+Nach einer Kollision kann sich der Ball bereits ein Stück im Schläger befinden.
+
+Würde nur die Geschwindigkeit umgedreht, könnte er im nächsten Schleifendurchlauf erneut mit dem Schläger kollidieren.
+
+Deshalb setzen wir ihn direkt vor den Schläger.
+
+[source,basic]
+----
+BALLX=SPIELERX+SCHLAEGERBREITE+BALLRADIUS
+----
+
+Dadurch wird jede Berührung nur einmal verarbeitet.
+
+=== Unterschiedliche Abprallwinkel
+
+Würde der Ball immer im gleichen Winkel zurückfliegen, wäre das Spiel schnell langweilig.
+
+Deshalb berücksichtigen wir, an welcher Stelle der Schläger getroffen wurde.
+
+[source,basic]
+----
+TREFFER=(BALLY-(SPIELERY+SCHLAEGERHOEHE/2)) / _
+        (SCHLAEGERHOEHE/2)
+----
+
+Das Ergebnis liegt ungefähr zwischen `-1` und `1`.
+
+[cols="1,3"]
+|===
+|Wert |Bedeutung
+
+|-1
+|Treffer am oberen Ende
+
+|0
+|Treffer in der Mitte
+
+|1
+|Treffer am unteren Ende
+|===
+
+Dieser Wert beeinflusst die vertikale Ballgeschwindigkeit.
+
+[source,basic]
+----
+BALLDY=BALLDY+TREFFER*2
+----
+
+Ein Treffer am oberen Rand lenkt den Ball nach oben.
+
+Ein Treffer am unteren Rand lenkt ihn nach unten.
+
+=== Die Ballgeschwindigkeit begrenzen
+
+Durch mehrere Schlägerkontakte könnte die vertikale Geschwindigkeit immer größer werden.
+
+Deshalb begrenzen wir sie.
+
+[source,basic]
+----
+IF BALLDY>5 THEN BALLDY=5
+IF BALLDY<-5 THEN BALLDY=-5
+----
+
+So bleibt der Ball kontrollierbar.
+
+=== Die Kollision mit dem Computerschläger
+
+Die Prüfung auf der rechten Seite funktioniert entsprechend.
+
+Da sich der Ball diesmal nach rechts bewegen muss, prüfen wir:
+
+[source,basic]
+----
+IF BALLDX>0 THEN
+----
+
+Die horizontale Kollisionsprüfung lautet:
+
+[source,basic]
+----
+IF BALLX+BALLRADIUS>=COMPUTERX THEN
+----
+
+Nach einem Treffer wird der Ball links neben den Computerschläger gesetzt.
+
+[source,basic]
+----
+BALLX=COMPUTERX-BALLRADIUS
+----
+
+=== Einen Punkt erkennen
+
+Verlässt der Ball den Bildschirm links, erhält der Computer einen Punkt.
+
+[source,basic]
+----
+IF BALLX<0 THEN
+  COMPUTERPUNKTE=COMPUTERPUNKTE+1
+  NeuerBall 1
+ENDIF
+----
+
+Verlässt er den Bildschirm rechts, erhält der Spieler einen Punkt.
+
+[source,basic]
+----
+IF BALLX>MM.HRES THEN
+  SPIELERPUNKTE=SPIELERPUNKTE+1
+  NeuerBall -1
+ENDIF
+----
+
+Der Parameter bestimmt, in welche Richtung der neue Ball startet.
+
+=== Den Ball neu starten
+
+Nach jedem Punkt wird der Ball in die Bildschirmmitte gesetzt.
+
+[source,basic]
+----
+BALLX=MM.HRES/2
+BALLY=MM.VRES/2
+----
+
+Die horizontale Richtung wird übergeben.
+
+Die vertikale Richtung wird zufällig bestimmt.
+
+[source,basic]
+----
+BALLDY=INT(RND*5)-2
+----
+
+Dadurch entstehen Werte zwischen `-2` und `2`.
+
+Damit der Ball nicht vollkommen waagerecht fliegt, ersetzen wir den Wert `0`.
+
+[source,basic]
+----
+IF BALLDY=0 THEN BALLDY=1
+----
+
+=== Die Mittellinie zeichnen
+
+Eine gestrichelte Mittellinie lässt sich mit einer Schleife erzeugen.
+
+[source,basic]
+----
+FOR Y=0 TO MM.VRES STEP 20
+
+  LINE MM.HRES/2,Y,MM.HRES/2,Y+10,1,RGB(GREY)
+
+NEXT Y
+----
+
+Die Linie besteht aus zehn Pixel langen Abschnitten mit zehn Pixel großen Lücken.
+
+=== Den Punktestand anzeigen
+
+Der Punktestand wird oberhalb der Spielfeldmitte ausgegeben.
+
+[source,basic]
+----
+TEXT MM.HRES/2-40,20,STR$(SPIELERPUNKTE),   _
+     "CT",2,2,RGB(WHITE),-1
+
+TEXT MM.HRES/2+40,20,STR$(COMPUTERPUNKTE),  _
+     "CT",2,2,RGB(WHITE),-1
+----
+
+Mit `STR$()` werden die Zahlen in Texte umgewandelt.
+
+=== Flackerfreie Darstellung
+
+Das vollständige Spielfeld wird zunächst im Framebuffer aufgebaut.
+
+[source,basic]
+----
+FRAMEBUFFER WRITE F
+
+CLS RGB(BLACK)
+
+ZeichneSpielfeld
+ZeichneSchlaeger
+ZeichneBall
+ZeichnePunkte
+----
+
+Erst wenn das komplette Bild fertig ist, wird es auf den Bildschirm übertragen.
+
+[source,basic]
+----
+FRAMEBUFFER COPY F,N,B
+----
+
+Der zusätzliche Parameter `B` sorgt dafür, dass die Übertragung während der Bildaustastlücke erfolgt, sofern der verwendete Grafikmodus dies unterstützt.
+
+Dadurch wird das Bild möglichst vollständig in einem Schritt sichtbar.
+
+=== Das vollständige Programm
+
+[source,basic]
+----
+'----------------------------------------------------------
+' Pong fuer den PicoMite
+'
+' Steuerung:
+'   W   Schlaeger nach oben
+'   S   Schlaeger nach unten
+'   ESC Spiel beenden
+'----------------------------------------------------------
+
+MODE 2
+
+CONST SCHLAEGERBREITE=6
+CONST SCHLAEGERHOEHE=50
+CONST BALLRADIUS=5
+
+CONST SCHLAEGERGESCHWINDIGKEIT=4
+CONST COMPUTERGESCHWINDIGKEIT=2
+
+CONST GEWINNPUNKTE=10
+
+SPIELERX=15
+COMPUTERX=MM.HRES-15-SCHLAEGERBREITE
+
+SPIELERY=MM.VRES/2-SCHLAEGERHOEHE/2
+COMPUTERY=SPIELERY
+
+SPIELERPUNKTE=0
+COMPUTERPUNKTE=0
+
+FRAMEBUFFER CREATE
+
+NeuerBall 1
+
+SPIELEN=1
+
+DO WHILE SPIELEN=1
+
+  TASTE$=UCASE$(INKEY$)
+
+  IF TASTE$="W" THEN
+    SPIELERY=SPIELERY-SCHLAEGERGESCHWINDIGKEIT
+  ENDIF
+
+  IF TASTE$="S" THEN
+    SPIELERY=SPIELERY+SCHLAEGERGESCHWINDIGKEIT
+  ENDIF
+
+  IF TASTE$=CHR$(27) THEN
+    SPIELEN=0
+  ENDIF
+
+  BegrenzeSpieler
+
+  BewegeComputer
+
+  BewegeBall
+
+  PruefeWaende
+
+  PruefeSchlaeger
+
+  PruefePunkt
+
+  ZeichneSpiel
+
+  IF SPIELERPUNKTE>=GEWINNPUNKTE OR          _
+     COMPUTERPUNKTE>=GEWINNPUNKTE THEN
+
+    ZeigeSpielende
+
+    SPIELERPUNKTE=0
+    COMPUTERPUNKTE=0
+
+    SPIELERY=MM.VRES/2-SCHLAEGERHOEHE/2
+    COMPUTERY=SPIELERY
+
+    NeuerBall 1
+
+  ENDIF
+
+  PAUSE 10
+
+LOOP
+
+FRAMEBUFFER WRITE N
+FRAMEBUFFER CLOSE
+
+CLS RGB(BLACK)
+
+PRINT "Pong wurde beendet."
+
+END
+
+
+
+SUB BegrenzeSpieler
+
+  IF SPIELERY<0 THEN
+    SPIELERY=0
+  ENDIF
+
+  IF SPIELERY>MM.VRES-SCHLAEGERHOEHE THEN
+    SPIELERY=MM.VRES-SCHLAEGERHOEHE
+  ENDIF
+
+END SUB
+
+
+
+SUB BewegeComputer
+
+  MITTE=COMPUTERY+SCHLAEGERHOEHE/2
+
+  IF BALLY<MITTE-3 THEN
+    COMPUTERY=COMPUTERY-COMPUTERGESCHWINDIGKEIT
+  ELSEIF BALLY>MITTE+3 THEN
+    COMPUTERY=COMPUTERY+COMPUTERGESCHWINDIGKEIT
+  ENDIF
+
+  IF COMPUTERY<0 THEN
+    COMPUTERY=0
+  ENDIF
+
+  IF COMPUTERY>MM.VRES-SCHLAEGERHOEHE THEN
+    COMPUTERY=MM.VRES-SCHLAEGERHOEHE
+  ENDIF
+
+END SUB
+
+
+
+SUB BewegeBall
+
+  BALLX=BALLX+BALLDX
+  BALLY=BALLY+BALLDY
+
+END SUB
+
+
+
+SUB PruefeWaende
+
+  IF BALLY-BALLRADIUS<=0 THEN
+
+    BALLY=BALLRADIUS
+    BALLDY=-BALLDY
+
+  ENDIF
+
+  IF BALLY+BALLRADIUS>=MM.VRES-1 THEN
+
+    BALLY=MM.VRES-1-BALLRADIUS
+    BALLDY=-BALLDY
+
+  ENDIF
+
+END SUB
+
+
+
+SUB PruefeSchlaeger
+
+  IF BALLDX<0 THEN
+
+    IF BALLX-BALLRADIUS<=                    _
+       SPIELERX+SCHLAEGERBREITE THEN
+
+      IF BALLX>=SPIELERX THEN
+
+        IF BALLY>=SPIELERY AND               _
+           BALLY<=SPIELERY+SCHLAEGERHOEHE THEN
+
+          BALLX=SPIELERX+                    _
+                SCHLAEGERBREITE+BALLRADIUS
+
+          BALLDX=-BALLDX
+
+          TREFFER=(BALLY-                    _
+                   (SPIELERY+                _
+                    SCHLAEGERHOEHE/2)) /     _
+                  (SCHLAEGERHOEHE/2)
+
+          BALLDY=BALLDY+TREFFER*2
+
+          BegrenzeBallgeschwindigkeit
+
+        ENDIF
+
+      ENDIF
+
+    ENDIF
+
+  ENDIF
+
+  IF BALLDX>0 THEN
+
+    IF BALLX+BALLRADIUS>=COMPUTERX THEN
+
+      IF BALLX<=COMPUTERX+SCHLAEGERBREITE THEN
+
+        IF BALLY>=COMPUTERY AND              _
+           BALLY<=COMPUTERY+SCHLAEGERHOEHE THEN
+
+          BALLX=COMPUTERX-BALLRADIUS
+
+          BALLDX=-BALLDX
+
+          TREFFER=(BALLY-                    _
+                   (COMPUTERY+               _
+                    SCHLAEGERHOEHE/2)) /     _
+                  (SCHLAEGERHOEHE/2)
+
+          BALLDY=BALLDY+TREFFER*2
+
+          BegrenzeBallgeschwindigkeit
+
+        ENDIF
+
+      ENDIF
+
+    ENDIF
+
+  ENDIF
+
+END SUB
+
+
+
+SUB BegrenzeBallgeschwindigkeit
+
+  IF BALLDY>5 THEN
+    BALLDY=5
+  ENDIF
+
+  IF BALLDY<-5 THEN
+    BALLDY=-5
+  ENDIF
+
+END SUB
+
+
+
+SUB PruefePunkt
+
+  IF BALLX<0 THEN
+
+    COMPUTERPUNKTE=COMPUTERPUNKTE+1
+
+    ZeigePunkt "Punkt fuer den Computer"
+
+    NeuerBall 1
+
+  ENDIF
+
+  IF BALLX>MM.HRES THEN
+
+    SPIELERPUNKTE=SPIELERPUNKTE+1
+
+    ZeigePunkt "Punkt fuer den Spieler"
+
+    NeuerBall -1
+
+  ENDIF
+
+END SUB
+
+
+
+SUB NeuerBall(RICHTUNG)
+
+  BALLX=MM.HRES/2
+  BALLY=MM.VRES/2
+
+  BALLDX=3*RICHTUNG
+
+  BALLDY=INT(RND*5)-2
+
+  IF BALLDY=0 THEN
+    BALLDY=1
+  ENDIF
+
+  PAUSE 500
+
+END SUB
+
+
+
+SUB ZeichneSpiel
+
+  FRAMEBUFFER WRITE F
+
+  CLS RGB(BLACK)
+
+  ZeichneMittellinie
+
+  BOX SPIELERX,SPIELERY,                    _
+      SCHLAEGERBREITE,SCHLAEGERHOEHE,       _
+      0,RGB(WHITE),RGB(WHITE)
+
+  BOX COMPUTERX,COMPUTERY,                  _
+      SCHLAEGERBREITE,SCHLAEGERHOEHE,       _
+      0,RGB(WHITE),RGB(WHITE)
+
+  CIRCLE BALLX,BALLY,BALLRADIUS,            _
+         1,1,RGB(WHITE),RGB(WHITE)
+
+  TEXT MM.HRES/2-40,20,                     _
+       STR$(SPIELERPUNKTE),                 _
+       "CT",2,2,RGB(WHITE),-1
+
+  TEXT MM.HRES/2+40,20,                     _
+       STR$(COMPUTERPUNKTE),                _
+       "CT",2,2,RGB(WHITE),-1
+
+  FRAMEBUFFER COPY F,N,B
+
+END SUB
+
+
+
+SUB ZeichneMittellinie
+
+  FOR Y=0 TO MM.VRES-1 STEP 20
+
+    Y2=Y+10
+
+    IF Y2>MM.VRES-1 THEN
+      Y2=MM.VRES-1
+    ENDIF
+
+    LINE MM.HRES/2,Y,                       _
+         MM.HRES/2,Y2,                     _
+         1,RGB(GREY)
+
+  NEXT Y
+
+END SUB
+
+
+
+SUB ZeigePunkt(TEXT$)
+
+  FRAMEBUFFER WRITE F
+
+  CLS RGB(BLACK)
+
+  TEXT MM.HRES/2,MM.VRES/2,                 _
+       TEXT$,"CM",1,2,RGB(YELLOW),-1
+
+  FRAMEBUFFER COPY F,N,B
+
+  PAUSE 800
+
+END SUB
+
+
+
+SUB ZeigeSpielende
+
+  FRAMEBUFFER WRITE F
+
+  CLS RGB(BLACK)
+
+  TEXT MM.HRES/2,MM.VRES/2-50,              _
+       "SPIEL BEENDET",                     _
+       "CM",2,2,RGB(YELLOW),-1
+
+  IF SPIELERPUNKTE>COMPUTERPUNKTE THEN
+
+    TEXT MM.HRES/2,MM.VRES/2,               _
+         "DU HAST GEWONNEN!",               _
+         "CM",1,2,RGB(GREEN),-1
+
+  ELSE
+
+    TEXT MM.HRES/2,MM.VRES/2,               _
+         "DER COMPUTER GEWINNT",            _
+         "CM",1,2,RGB(RED),-1
+
+  ENDIF
+
+  TEXT MM.HRES/2,MM.VRES/2+45,              _
+       STR$(SPIELERPUNKTE)+" : "+           _
+       STR$(COMPUTERPUNKTE),                _
+       "CM",2,2,RGB(WHITE),-1
+
+  TEXT MM.HRES/2,MM.VRES-25,                _
+       "Taste fuer ein neues Spiel",        _
+       "CB",1,1,RGB(CYAN),-1
+
+  FRAMEBUFFER COPY F,N,B
+
+  DO
+
+    T$=INKEY$
+
+  LOOP UNTIL T$<>""
+
+END SUB
+----
+
+=== Das Hauptprogramm verstehen
+
+Das Hauptprogramm enthält nur den grundsätzlichen Spielablauf.
+
+[source,basic]
+----
+TASTE$=UCASE$(INKEY$)
+
+BegrenzeSpieler
+BewegeComputer
+BewegeBall
+PruefeWaende
+PruefeSchlaeger
+PruefePunkt
+ZeichneSpiel
+----
+
+Die Einzelheiten befinden sich in eigenen Unterprogrammen.
+
+Dadurch bleibt die zentrale Spielschleife gut lesbar.
+
+=== Warum so viele Unterprogramme?
+
+Das Pong-Programm ist deutlich größer als unsere bisherigen Beispiele.
+
+Ohne Unterprogramme würden Tastatursteuerung, Kollisionsprüfung, Grafik und Punkteverwaltung in einer langen Programmliste vermischt.
+
+Die Aufteilung sorgt dafür, dass jedes Unterprogramm genau eine klar erkennbare Aufgabe besitzt.
+
+[cols="2,4"]
+|===
+|Unterprogramm |Aufgabe
+
+|`BegrenzeSpieler`
+|Verhindert, dass der Spielerschläger den Bildschirm verlässt
+
+|`BewegeComputer`
+|Steuert den gegnerischen Schläger
+
+|`BewegeBall`
+|Berechnet die nächste Ballposition
+
+|`PruefeWaende`
+|Erkennt Kollisionen mit oberem und unterem Rand
+
+|`PruefeSchlaeger`
+|Erkennt Treffer auf beiden Schlägern
+
+|`PruefePunkt`
+|Vergibt Punkte, wenn der Ball das Spielfeld verlässt
+
+|`NeuerBall`
+|Setzt den Ball nach einem Punkt zurück
+
+|`ZeichneSpiel`
+|Baut das vollständige Spielfeld im Framebuffer auf
+
+|`ZeigePunkt`
+|Zeigt kurz an, wer einen Punkt erhalten hat
+
+|`ZeigeSpielende`
+|Zeigt Gewinner und Endstand an
+|===
+
+=== Der Computer ist absichtlich nicht perfekt
+
+Der Computer bewegt seinen Schläger zwar in Richtung des Balls, aber nur mit begrenzter Geschwindigkeit.
+
+Außerdem verwendet er einen kleinen Bereich von drei Pixeln, in dem er nicht reagiert.
+
+[source,basic]
+----
+IF BALLY<MITTE-3 THEN
+  ...
+ELSEIF BALLY>MITTE+3 THEN
+  ...
+ENDIF
+----
+
+Ohne diesen Bereich könnte der Schläger bei kleinen Abweichungen ständig zwischen zwei Positionen wechseln.
+
+Der Computer wirkt dadurch ruhiger und natürlicher.
+
+=== Das Spieltempo verändern
+
+Die Geschwindigkeit wird an mehreren Stellen beeinflusst.
+
+Die Pause am Ende der Spielschleife legt die grundsätzliche Bildrate fest.
+
+[source,basic]
+----
+PAUSE 10
+----
+
+Ein größerer Wert macht das Spiel langsamer.
+
+[source,basic]
+----
+PAUSE 20
+----
+
+Ein kleinerer Wert macht es schneller.
+
+Die horizontale Ballgeschwindigkeit wird in `NeuerBall` festgelegt.
+
+[source,basic]
+----
+BALLDX=3*RICHTUNG
+----
+
+Der Spielerschläger verwendet:
+
+[source,basic]
+----
+SCHLAEGERGESCHWINDIGKEIT=4
+----
+
+Der Computer verwendet:
+
+[source,basic]
+----
+COMPUTERGESCHWINDIGKEIT=2
+----
+
+Diese Werte kannst du unabhängig voneinander verändern.
+
+=== Eine mögliche Schwierigkeitstabelle
+
+Du kannst später mehrere Schwierigkeitsstufen einbauen.
+
+[cols="1,2,2,2"]
+|===
+|Stufe |Ball |Spieler |Computer
+
+|Leicht
+|2
+|5
+|1
+
+|Normal
+|3
+|4
+|2
+
+|Schwer
+|4
+|4
+|3
+
+|Extrem
+|5
+|4
+|4
+|===
+
+=== Warum verwenden wir vorerst keine Layerbuffer?
+
+Layerbuffer eignen sich grundsätzlich hervorragend für bewegliche Objekte.
+
+Bei Pong verändert sich jedoch fast der gesamte sichtbare Spielzustand:
+
+* Ball
+* linker Schläger
+* rechter Schläger
+* Punktestand
+
+Das Spielfeld ist außerdem sehr einfach und kann schnell neu aufgebaut werden.
+
+Ein vollständiges Bild im Framebuffer zu zeichnen und anschließend zu kopieren, ist deshalb für dieses erste Spiel übersichtlicher.
+
+Die im vorherigen Kapitel kennengelernnten Layerbuffer werden besonders interessant, wenn ein aufwendiger Hintergrund erhalten bleiben soll.
+
+=== Den zweiten Spieler ergänzen
+
+Das Programm verwendet momentan einen computergesteuerten Gegner.
+
+Du kannst den rechten Schläger auch durch einen zweiten Spieler steuern lassen.
+
+Beispielsweise:
+
+[cols="1,2,2"]
+|===
+|Spieler |Nach oben |Nach unten
+
+|Spieler 1
+|`W`
+|`S`
+
+|Spieler 2
+|`O`
+|`L`
+|===
+
+Die Computersteuerung wird dann entfernt und durch eine zweite Tastaturabfrage ersetzt.
+
+[NOTE]
+====
+Mit `INKEY$` wird jeweils ein Zeichen aus dem Tastaturpuffer gelesen.
+
+Für sehr schnelle Mehrspielersteuerungen und gleichzeitig gedrückte Tasten kann je nach PicoMite-Variante eine direkte Tastaturabfrage geeigneter sein.
+
+Für die erste Pong-Version bleibt die Steuerung mit `INKEY$` jedoch leicht verständlich.
+====
+
+=== Farbe ins Spiel bringen
+
+Das klassische Spielfeld verwendet bewusst nur Schwarz und Weiß.
+
+Du kannst das Erscheinungsbild leicht verändern.
+
+Beispielsweise:
+
+[source,basic]
+----
+HINTERGRUND=RGB(0,0,40)
+BALLFARBE=RGB(YELLOW)
+SPIELERFARBE=RGB(CYAN)
+COMPUTERFARBE=RGB(MAGENTA)
+----
+
+Diese Variablen können dann in `ZeichneSpiel` verwendet werden.
+
+=== Geräusche ergänzen
+
+Ein Pong-Spiel wirkt mit Geräuschen noch lebendiger.
+
+Geeignete Ereignisse sind:
+
+* Ball trifft Wand
+* Ball trifft Schläger
+* Spieler erhält einen Punkt
+* Spiel ist beendet
+
+Die genaue Soundausgabe hängt von der verwendeten PicoMite-Hardware und deren Audiokonfiguration ab.
+
+Wir werden Töne und Klänge in einem späteren Kapitel ausführlicher behandeln.
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Verändere die Ballgeschwindigkeit.
+* Vergrößere oder verkleinere die Schläger.
+* Ändere die Gewinnpunktzahl.
+* Verwende farbige Spielelemente.
+* Mache den Computer schneller oder langsamer.
+* Entferne die Mittellinie.
+* Verwende einen quadratischen Ball mit `BOX`.
+
+=== Probier's selbst!
+
+Versuche folgende Erweiterungen:
+
+. Baue mehrere Schwierigkeitsstufen ein.
+. Ergänze einen Startbildschirm.
+. Ermögliche die Auswahl zwischen einem und zwei Spielern.
+. Speichere gewonnene Spiele in einer Datei.
+. Erhöhe die Ballgeschwindigkeit nach jedem Schlägerkontakt.
+. Lasse die Schläger nach jedem Punkt etwas kleiner werden.
+. Ergänze einfache Soundeffekte.
+. Zeige die bisher längste Ballwechselserie an.
+. Beende ein Spiel erst mit zwei Punkten Vorsprung.
+. Entwirf ein eigenes farbiges Spielfeld.
+
+=== Ideen für eine spätere Version
+
+Unser Pong-Spiel kann noch deutlich erweitert werden.
+
+Mögliche Ideen sind:
+
+* verschiedene Ballgrößen
+* mehrere Bälle gleichzeitig
+* Hindernisse im Spielfeld
+* schräge Schläger
+* Spezialeffekte bei Treffern
+* Highscores
+* Turniermodus
+* Maus- oder Joysticksteuerung
+* Netzwerkspiel zwischen zwei PicoMites
+
+Schon die aktuelle Version enthält jedoch alle wesentlichen Elemente eines vollständigen Arcade-Spiels.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du ein vollständiges Echtzeitspiel entwickelt.
+
+Dabei hast du viele bisher erlernte Techniken miteinander verbunden:
+
+* Variablen
+* Konstanten
+* Bedingungen
+* Schleifen
+* Unterprogramme
+* Tastatureingaben
+* Animationen
+* Kollisionserkennung
+* computergesteuerte Gegner
+* Punkteverwaltung
+* Framebuffer
+* flackerfreie Grafik
+
+Du hast außerdem den grundlegenden Aufbau eines Spiels kennengelernt:
+
+[source]
+----
+Eingaben lesen
+Spielzustand verändern
+Kollisionen prüfen
+Bild zeichnen
+alles wiederholen
+----
+
+Dieses Prinzip findet sich nicht nur in Pong, sondern in fast allen Echtzeitspielen wieder.
+
+Aus den ersten einfachen Grafikbefehlen ist damit Schritt für Schritt ein richtiges Computerspiel entstanden.
