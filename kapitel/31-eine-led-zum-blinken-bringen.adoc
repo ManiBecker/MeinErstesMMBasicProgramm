@@ -1,0 +1,519 @@
+== Eine LED zum Blinken bringen
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* was eine LED ist
+* wie eine LED angeschlossen wird
+* warum ein Vorwiderstand notwendig ist
+* wie GPIO-Ausgänge verwendet werden
+* wie ein Blinkprogramm funktioniert
+* wie Blinkfrequenzen verändert werden
+
+Am Ende des Kapitels kannst du deine erste externe Schaltung mit MMBasic ansteuern.
+
+=== Das Mikrocontroller-Hallo-Welt
+
+Bei vielen Programmiersprachen lautet das erste Programm:
+
+[source,basic]
+----
+PRINT "Hallo Welt"
+----
+
+Bei Mikrocontrollern gibt es ein anderes klassisches Einstiegsprojekt:
+
+Eine LED zum Blinken bringen.
+
+Der Grund ist einfach:
+
+Zum ersten Mal bewirkt ein Programm etwas in der realen Welt.
+
+Der Mikrocontroller erzeugt ein elektrisches Signal und eine LED beginnt sichtbar zu leuchten.
+
+Dieser Moment begeistert bis heute viele Einsteiger.
+
+=== PicoMite und Colour Maximite 2
+
+Die Programme in diesem Kapitel funktionieren sowohl auf dem PicoMite als auch auf dem Colour Maximite 2.
+
+Der Unterschied liegt hauptsächlich in der Bezeichnung der Ein- und Ausgänge.
+
+Beim PicoMite werden GPIO-Namen verwendet:
+
+[source,basic]
+----
+SETPIN GP0,DOUT
+----
+
+Beim Colour Maximite 2 werden die Pinnummern des 40-poligen I/O-Steckers verwendet:
+
+[source,basic]
+----
+SETPIN 32,DOUT
+----
+
+Die Funktionsweise ist ansonsten identisch. Der Colour Maximite 2 stellt insgesamt 28 frei verwendbare Ein- und Ausgänge zur Verfügung.
+
+=== Die eingebaute LED des PicoMite
+
+Viele Raspberry Pi Pico Boards besitzen bereits eine eingebaute LED.
+
+Diese ist mit dem GPIO-Pin GP25 verbunden.
+
+Dadurch kann das erste Blinkprogramm oft ganz ohne zusätzliche Hardware ausprobiert werden.
+
+=== Erstes Blinkprogramm
+
+[source,basic]
+----
+SETPIN GP25,DOUT
+
+DO
+
+  PIN(GP25)=1
+
+  PAUSE 500
+
+  PIN(GP25)=0
+
+  PAUSE 500
+
+LOOP
+----
+
+Die LED sollte nun einmal pro Sekunde blinken.
+
+=== Hinweis zum Pico W
+
+[WARNING]
+====
+Beim Raspberry Pi Pico W ist die eingebaute LED nicht direkt mit dem Mikrocontroller verbunden.
+
+Sie kann deshalb nicht mit den hier gezeigten MMBasic-Befehlen angesteuert werden.
+
+Verwende in diesem Fall eine externe LED.
+====
+
+=== Was ist eine LED?
+
+LED steht für:
+
+[source]
+----
+Light Emitting Diode
+----
+
+Eine LED ist ein elektronisches Bauteil, das Licht erzeugt, wenn Strom hindurchfließt.
+
+LEDs gibt es in vielen Farben:
+
+* Rot
+* Grün
+* Gelb
+* Blau
+* Weiß
+
+Im Gegensatz zu einer Glühlampe benötigt eine LED nur sehr wenig Strom.
+
+=== Eine LED ist eine Diode
+
+Eine Diode lässt Strom nur in einer Richtung fließen.
+
+Wird sie falsch herum angeschlossen, bleibt sie dunkel.
+
+Deshalb besitzt jede LED zwei Anschlüsse:
+
+[cols="1,3"]
+|===
+|Anschluss |Bedeutung
+
+|Anode
+|Positiver Anschluss
+
+|Kathode
+|Negativer Anschluss
+|===
+
+=== Wie erkennt man die Anschlüsse?
+
+Bei den meisten LEDs gibt es zwei Merkmale:
+
+* Das längere Beinchen ist die Anode (+)
+* Das kürzere Beinchen ist die Kathode (-)
+
+Zusätzlich besitzt das Gehäuse häufig eine kleine Abflachung auf der Kathodenseite.
+
+image::bilder/led_polaritaet.png[
+align=center,
+title="Anode und Kathode einer LED"
+]
+
+=== Warum benötigen wir einen Vorwiderstand?
+
+Eine LED darf niemals direkt an einen Ausgang angeschlossen werden.
+
+Ohne Vorwiderstand würde zu viel Strom fließen.
+
+Die Folgen können sein:
+
+* Die LED wird beschädigt.
+* Der Ausgang wird beschädigt.
+* Im schlimmsten Fall wird der Mikrocontroller beschädigt.
+
+Deshalb wird immer ein Widerstand in Reihe geschaltet.
+
+=== Welchen Widerstand verwenden wir?
+
+Typische Werte liegen zwischen:
+
+[source]
+----
+220 Ω bis 470 Ω
+----
+
+Für unsere Beispiele verwenden wir:
+
+[source]
+----
+330 Ω
+----
+
+Dieser Wert ist ein guter Kompromiss zwischen Helligkeit und Sicherheit.
+
+=== Die Schaltung
+
+Für unser erstes Hardwareprojekt benötigen wir:
+
+* MMBasic-System (PicoMite oder Colour Maximite 2)
+* LED
+* 330-Ohm-Widerstand
+* Steckdrähte
+* Steckbrett
+
+Die Schaltung sieht so aus:
+
+[source]
+----
+Ausgang ----[330 Ω]----|>|---- GND
+----
+
+=== Schaltplan
+
+image::bilder/led_blinken_schaltplan.png[
+align=center,
+title="LED mit Vorwiderstand"
+]
+
+=== Anschluss am PicoMite
+
+Für die ersten Versuche verwenden wir GP0.
+
+[source]
+----
+GP0 ----[330 Ω]----|>|---- GND
+----
+
+Programm:
+
+[source,basic]
+----
+SETPIN GP0,DOUT
+
+PIN(GP0)=1
+----
+
+=== Anschluss am Colour Maximite 2
+
+Für die ersten Versuche verwenden wir Pin 32 des I/O-Steckers.
+
+[source]
+----
+Pin 32 ----[330 Ω]----|>|---- GND
+----
+
+Programm:
+
+[source,basic]
+----
+SETPIN 32,DOUT
+
+PIN(32)=1
+----
+
+=== Die LED dauerhaft einschalten
+
+PicoMite:
+
+[source,basic]
+----
+SETPIN GP0,DOUT
+
+PIN(GP0)=1
+----
+
+Colour Maximite 2:
+
+[source,basic]
+----
+SETPIN 32,DOUT
+
+PIN(32)=1
+----
+
+Die LED sollte nun dauerhaft leuchten.
+
+=== Die LED ausschalten
+
+PicoMite:
+
+[source,basic]
+----
+PIN(GP0)=0
+----
+
+Colour Maximite 2:
+
+[source,basic]
+----
+PIN(32)=0
+----
+
+=== Das erste Blinkprogramm
+
+PicoMite:
+
+[source,basic]
+----
+SETPIN GP0,DOUT
+
+DO
+
+  PIN(GP0)=1
+  PAUSE 500
+
+  PIN(GP0)=0
+  PAUSE 500
+
+LOOP
+----
+
+Colour Maximite 2:
+
+[source,basic]
+----
+SETPIN 32,DOUT
+
+DO
+
+  PIN(32)=1
+  PAUSE 500
+
+  PIN(32)=0
+  PAUSE 500
+
+LOOP
+----
+
+=== Wie funktioniert das Programm?
+
+Zunächst wird der Ausgang konfiguriert:
+
+[source,basic]
+----
+SETPIN ...,DOUT
+----
+
+Danach wird der Ausgang eingeschaltet:
+
+[source,basic]
+----
+PIN(...)=1
+----
+
+Die LED leuchtet.
+
+Nach einer Pause von einer halben Sekunde wird sie wieder ausgeschaltet:
+
+[source,basic]
+----
+PIN(...)=0
+----
+
+Die Schleife beginnt anschließend erneut.
+
+=== Die Blinkgeschwindigkeit verändern
+
+Schneller:
+
+[source,basic]
+----
+PAUSE 100
+----
+
+Langsamer:
+
+[source,basic]
+----
+PAUSE 1000
+----
+
+Experimentiere mit verschiedenen Werten.
+
+=== Mehrfach blinken
+
+[source,basic]
+----
+FOR I=1 TO 10
+
+  PIN(GP0)=1
+  PAUSE 200
+
+  PIN(GP0)=0
+  PAUSE 200
+
+NEXT I
+----
+
+Danach endet das Programm.
+
+=== Eine Blinkfunktion erstellen
+
+[source,basic]
+----
+SUB Blinke(ANZEIT,AUSZEIT)
+
+  PIN(GP0)=1
+  PAUSE ANZEIT
+
+  PIN(GP0)=0
+  PAUSE AUSZEIT
+
+END SUB
+----
+
+Verwendung:
+
+[source,basic]
+----
+Blinke 200,200
+----
+
+=== Praxisbeispiel: SOS
+
+Mit einer blinkenden LED lassen sich Informationen übertragen.
+
+Der bekannte SOS-Notruf lautet:
+
+[source]
+----
+... --- ...
+----
+
+Das bedeutet:
+
+* drei kurze Signale
+* drei lange Signale
+* drei kurze Signale
+
+=== SOS senden
+
+[source,basic]
+----
+SETPIN GP0,DOUT
+
+DO
+
+  Kurzsignal
+  Kurzsignal
+  Kurzsignal
+
+  Langsignal
+  Langsignal
+  Langsignal
+
+  Kurzsignal
+  Kurzsignal
+  Kurzsignal
+
+  PAUSE 2000
+
+LOOP
+----
+
+Die Unterprogramme:
+
+[source,basic]
+----
+SUB Kurzsignal
+
+  PIN(GP0)=1
+  PAUSE 200
+
+  PIN(GP0)=0
+  PAUSE 200
+
+END SUB
+
+
+
+SUB Langsignal
+
+  PIN(GP0)=1
+  PAUSE 600
+
+  PIN(GP0)=0
+  PAUSE 200
+
+END SUB
+----
+
+=== Typische Fehler
+
+Wenn die LED nicht leuchtet, prüfe:
+
+. Ist die LED richtig herum angeschlossen?
+. Ist der Widerstand eingebaut?
+. Ist GND korrekt verbunden?
+. Wird der richtige Pin verwendet?
+. Wurde `SETPIN` aufgerufen?
+
+=== Noch keine Hardware vorhanden?
+
+Falls du momentan keine externe LED zur Verfügung hast, kannst du zunächst die eingebaute LED des PicoMite verwenden.
+
+So lassen sich die meisten Beispiele dieses Kapitels ausprobieren.
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* andere Blinkgeschwindigkeiten
+* längere und kürzere Impulse
+* andere Ausgänge
+* eigene Blinkmuster
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Lasse die LED genau fünfmal blinken.
+. Erzeuge ein Doppelblinken.
+. Sende deinen Anfangsbuchstaben als Morsezeichen.
+. Verwende zwei LEDs mit unterschiedlichen Blinkmustern.
+. Schreibe ein Unterprogramm für beliebige Blinkimpulse.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt:
+
+* was eine LED ist
+* warum ein Vorwiderstand notwendig ist
+* wie digitale Ausgänge verwendet werden
+* wie eine LED ein- und ausgeschaltet wird
+* wie Blinkprogramme aufgebaut sind
+
+Zum ersten Mal hat dein MMBasic-Programm direkt mit der realen Welt kommuniziert.
+
+Im nächsten Kapitel werden wir digitale Eingänge kennenlernen und einen Taster abfragen.
