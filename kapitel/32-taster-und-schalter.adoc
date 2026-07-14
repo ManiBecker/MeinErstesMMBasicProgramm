@@ -1,0 +1,586 @@
+== Taster und Schalter
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* was digitale Eingänge sind
+* wie Taster und Schalter funktionieren
+* wie ein Eingang abgefragt wird
+* was Pull-Up- und Pull-Down-Widerstände sind
+* warum Taster prellen
+* wie man Taster entprellt
+* wie Programme auf Benutzereingaben reagieren
+
+Am Ende des Kapitels kannst du eigene Tasterabfragen programmieren und erste interaktive Hardwareprojekte entwickeln.
+
+=== Vom Blinken zum Reagieren
+
+Im letzten Kapitel konnten wir eine LED ein- und ausschalten.
+
+Der PicoMite beziehungsweise Colour Maximite 2 konnte also Informationen nach außen geben.
+
+Jetzt drehen wir die Richtung um.
+
+Wir möchten, dass unser Programm auf Ereignisse aus seiner Umgebung reagiert.
+
+Dazu benötigen wir Eingänge.
+
+Der einfachste Eingang ist ein Taster.
+
+=== Digitale Eingänge
+
+Ein digitaler Eingang kennt nur zwei Zustände:
+
+[cols="1,3"]
+|===
+|Wert |Bedeutung
+
+|0
+|Aus, LOW, nicht aktiv
+
+|1
+|Ein, HIGH, aktiv
+|===
+
+Mehr Informationen stehen nicht zur Verfügung.
+
+Ein digitaler Eingang kann also beispielsweise erkennen:
+
+* Taster gedrückt oder nicht gedrückt
+* Schalter ein oder aus
+* Lichtschranke unterbrochen oder frei
+* Bewegungsmelder aktiv oder inaktiv
+
+=== Taster und Schalter
+
+Obwohl beide Bauteile ähnlich aussehen können, gibt es einen wichtigen Unterschied.
+
+Ein Schalter behält seinen Zustand bei.
+
+[source]
+----
+EIN  -> bleibt EIN
+AUS  -> bleibt AUS
+----
+
+Ein Taster kehrt nach dem Loslassen automatisch in seine Ausgangsposition zurück.
+
+[source]
+----
+gedrückt     -> EIN
+losgelassen  -> AUS
+----
+
+=== Pull-Up und Pull-Down
+
+Ein Eingang darf niemals "in der Luft hängen".
+
+Andernfalls kann er zufällige Werte liefern.
+
+[source]
+----
+0
+1
+0
+1
+1
+0
+----
+    
+obwohl überhaupt nichts passiert.
+
+Dieses Verhalten nennt man einen "floating input".
+
+Deshalb benötigt jeder Eingang einen definierten Grundzustand.
+
+Dafür werden Pull-Up- oder Pull-Down-Widerstände verwendet.
+
+=== Pull-Up
+
+Beim Pull-Up liegt der Eingang normalerweise auf HIGH.
+
+Wird der Taster gedrückt, wird der Eingang mit GND verbunden.
+
+[source]
+----
+3.3V
+ |
+[R]
+ |
+ +---- Eingang
+ |
+[Taster]
+ |
+GND
+----
+
+Der Eingang liefert:
+
+[cols="1,2"]
+|===
+|Taster |Wert
+
+|nicht gedrückt
+|1
+
+|gedrückt
+|0
+|===
+
+=== Pull-Down
+
+Beim Pull-Down liegt der Eingang normalerweise auf LOW.
+
+[source]
+----
+3.3V
+ |
+[Taster]
+ |
+ +---- Eingang
+ |
+[R]
+ |
+GND
+----
+
+Der Eingang liefert:
+
+[cols="1,2"]
+|===
+|Taster |Wert
+
+|nicht gedrückt
+|0
+
+|gedrückt
+|1
+|===
+
+=== Die interne Pull-Up-Funktion
+
+Die meisten MMBasic-Systeme besitzen interne Pull-Up-Widerstände.
+
+Dadurch wird keine zusätzliche Hardware benötigt.
+
+PicoMite:
+
+[source,basic]
+----
+SETPIN GP1,DIN,PULLUP
+----
+
+Colour Maximite 2:
+
+[source,basic]
+----
+SETPIN 31,DIN,PULLUP
+----
+
+Der Eingang befindet sich nun automatisch auf HIGH.
+
+=== Eine einfache Tasterschaltung
+
+PicoMite:
+
+[source]
+----
+GP1 --------+
+            |
+         [Taster]
+            |
+           GND
+----
+
+Colour Maximite 2:
+
+[source]
+----
+Pin 31 -----+
+            |
+         [Taster]
+            |
+           GND
+----
+
+=== Den Eingang abfragen
+
+PicoMite:
+
+[source,basic]
+----
+SETPIN GP1,DIN,PULLUP
+
+PRINT PIN(GP1)
+----
+
+Colour Maximite 2:
+
+[source,basic]
+----
+SETPIN 31,DIN,PULLUP
+
+PRINT PIN(31)
+----
+
+=== Das erste Tasterprogramm
+
+PicoMite:
+
+[source,basic]
+----
+SETPIN GP1,DIN,PULLUP
+
+DO
+
+  IF PIN(GP1)=0 THEN
+    PRINT "Gedrueckt"
+  ENDIF
+
+LOOP
+----
+
+Colour Maximite 2:
+
+[source,basic]
+----
+SETPIN 31,DIN,PULLUP
+
+DO
+
+  IF PIN(31)=0 THEN
+    PRINT "Gedrueckt"
+  ENDIF
+
+LOOP
+----
+
+Da wir Pull-Up verwenden, liefert ein gedrückter Taster den Wert 0.
+
+Das wirkt zunächst ungewohnt, ist aber vollkommen normal.
+
+=== Eine LED mit einem Taster schalten
+
+Nun verbinden wir das neue Wissen mit dem LED-Kapitel.
+
+PicoMite:
+
+[source,basic]
+----
+SETPIN GP0,DOUT
+SETPIN GP1,DIN,PULLUP
+
+DO
+
+  IF PIN(GP1)=0 THEN
+    PIN(GP0)=1
+  ELSE
+    PIN(GP0)=0
+  ENDIF
+
+LOOP
+----
+
+Solange der Taster gedrückt wird, leuchtet die LED.
+
+=== Ein Schalter mit Speicherfunktion
+
+Manchmal soll ein Tastendruck etwas dauerhaft ein- oder ausschalten.
+
+Beispielsweise:
+
+* Licht ein/aus
+* Alarm aktivieren
+* Spiel starten
+
+Dafür benötigen wir eine Variable.
+
+[source,basic]
+----
+LICHT=0
+----
+
+Bei jedem Tastendruck wird der Zustand umgeschaltet.
+
+[source,basic]
+----
+IF LICHT=0 THEN
+  LICHT=1
+ELSE
+  LICHT=0
+ENDIF
+----
+
+=== Warum zählt mein Taster mehrfach?
+
+Betrachten wir folgendes Programm:
+
+[source,basic]
+----
+SETPIN GP1,DIN,PULLUP
+
+ZAHL=0
+
+DO
+
+  IF PIN(GP1)=0 THEN
+
+    ZAHL=ZAHL+1
+
+    PRINT ZAHL
+
+  ENDIF
+
+LOOP
+----
+
+Was erwarten wir?
+
+[source]
+----
+Ein Tastendruck
+=
+Ein neuer Wert
+----
+
+Tatsächlich erhalten wir oft:
+
+[source]
+----
+1
+2
+3
+4
+5
+----
+    
+obwohl wir nur einmal gedrückt haben.
+
+=== Das Prellen von Kontakten
+
+Der Grund liegt im mechanischen Aufbau eines Tasters.
+
+Beim Drücken schließen die Kontakte nicht sofort sauber.
+
+Sie springen für wenige Millisekunden mehrfach auf und zu.
+
+Ideal:
+
+[source]
+----
+0 -------------------- 1
+----
+
+Tatsächlich:
+
+[source]
+----
+0 --1-0-1-0-1------1
+----
+
+Der Mikrocontroller erkennt mehrere Tastendrücke.
+
+Dieses Verhalten nennt man:
+
+[source]
+----
+Prellen
+----
+
+=== Eine einfache Entprellung
+
+Die einfachste Lösung besteht darin, nach einem Tastendruck kurz zu warten.
+
+[source,basic]
+----
+IF PIN(GP1)=0 THEN
+
+  ZAHL=ZAHL+1
+
+  PAUSE 50
+
+ENDIF
+----
+
+Die Kontakte können sich während dieser Zeit beruhigen.
+
+Für viele Anwendungen genügt das bereits.
+
+=== Flankenerkennung
+
+Noch besser ist die Erkennung eines Zustandswechsels.
+
+Dazu merken wir uns den vorherigen Zustand.
+
+[source,basic]
+----
+ALT=1
+
+DO
+
+  AKTUELL=PIN(GP1)
+
+  IF AKTUELL=0 AND ALT=1 THEN
+
+    PRINT "Tastendruck"
+
+  ENDIF
+
+  ALT=AKTUELL
+
+LOOP
+----
+
+Jetzt wird nur der Übergang von:
+
+[source]
+----
+1 -> 0
+----
+
+erkannt.
+
+Der Taster kann beliebig lange gedrückt bleiben.
+
+=== Praxisprojekt: Reaktionsspiel
+
+Nun entwickeln wir ein kleines Spiel.
+
+Das Programm wartet eine zufällige Zeit.
+
+Danach leuchtet eine LED auf.
+
+Der Spieler muss möglichst schnell den Taster drücken.
+
+Die Reaktionszeit wird gemessen.
+
+=== Aufbau
+
+Benötigt werden:
+
+* eine LED
+* ein Taster
+
+PicoMite:
+
+[source]
+----
+GP0 -> LED
+GP1 -> Taster
+----
+
+Colour Maximite 2:
+
+[source]
+----
+Pin 32 -> LED
+Pin 31 -> Taster
+----
+
+=== Programm
+
+[source,basic]
+----
+SETPIN GP0,DOUT
+SETPIN GP1,DIN,PULLUP
+
+CLS
+
+PRINT "Reaktionsspiel"
+PRINT
+PRINT "Warte auf das Signal..."
+
+PAUSE 2000
+
+WARTEZEIT=1000+INT(RND*4000)
+
+PAUSE WARTEZEIT
+
+PIN(GP0)=1
+
+START=TIMER
+
+DO
+LOOP UNTIL PIN(GP1)=0
+
+REAKTION=TIMER-START
+
+PIN(GP0)=0
+
+PRINT
+PRINT "Deine Reaktionszeit:"
+PRINT REAKTION;" ms"
+----
+
+=== Bewertung
+
+Eine mögliche Bewertung:
+
+[cols="1,2"]
+|===
+|Zeit |Bewertung
+
+|unter 200 ms
+|Ausgezeichnet
+
+|200 bis 300 ms
+|Sehr gut
+
+|300 bis 400 ms
+|Gut
+
+|über 400 ms
+|Weiter üben
+|===
+
+=== Typische Anwendungen
+
+Digitale Eingänge werden in vielen Projekten verwendet:
+
+* Taster
+* Schalter
+* Alarmanlagen
+* Lichtschranken
+* Türkontakte
+* Endschalter
+* Bewegungsmelder
+
+Sie gehören zu den wichtigsten Funktionen eines Mikrocontrollers.
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* mehrere Taster
+* andere Wartezeiten
+* mehrere LEDs
+* verschiedene Blinkmuster
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Baue einen Startknopf für ein Programm.
+. Schalte zwei LEDs mit zwei Tastern.
+. Zähle die Anzahl der Tastendrücke.
+. Messe die Zeit zwischen zwei Tastendrücken.
+. Programmiere einen elektronischen Münzwurf mit Tasterstart.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt:
+
+* wie digitale Eingänge funktionieren
+* wie Taster angeschlossen werden
+* was Pull-Up-Widerstände sind
+* warum Taster prellen
+* wie eine einfache Entprellung funktioniert
+* wie Programme auf Benutzereingaben reagieren
+
+Damit beherrschst du nun die beiden wichtigsten Hardwarefunktionen eines Mikrocontrollers:
+
+* Ausgänge steuern
+* Eingänge auswerten
+
+Im nächsten Kapitel werden wir dieses Wissen nutzen und eine Ampelsteuerung entwickeln.
