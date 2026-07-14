@@ -1,0 +1,561 @@
+== Eine Ampelsteuerung
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* mehrere LEDs gleichzeitig anzusteuern
+* Zustände in einem Programm zu verwalten
+* den Befehl `SELECT CASE` zu verwenden
+* eine Ampelsteuerung zu programmieren
+* einen Taster auszuwerten
+* eine Fußgängeranforderung umzusetzen
+
+Am Ende des Kapitels kannst du eine einfache Verkehrsampel mit Fußgängeranforderung realisieren.
+
+=== Warum eine Ampel?
+
+Ampeln gehören zu den bekanntesten Steuerungssystemen überhaupt.
+
+Sie arbeiten nach klaren Regeln:
+
+* Rot bedeutet Halt
+* Grün bedeutet Fahrt
+* Gelb kündigt einen Zustandswechsel an
+
+Eine Ampel ist deshalb ein ideales Beispiel für die Programmierung eines Mikrocontrollers.
+
+=== Die Farben einer Verkehrsampel
+
+Eine Fahrzeugampel besitzt normalerweise drei Lampen:
+
+* Rot
+* Gelb
+* Grün
+
+Die Reihenfolge lautet:
+
+[source]
+----
+Rot
+Rot-Gelb
+Grün
+Gelb
+Rot
+----
+
+Danach beginnt der Zyklus erneut.
+
+=== Unsere Hardware
+
+Für das erste Beispiel benötigen wir:
+
+* 1 rote LED
+* 1 gelbe LED
+* 1 grüne LED
+* 3 Widerstände (220 Ω bis 470 Ω)
+
+PicoMite:
+
+[cols="1,2"]
+|===
+|LED |GPIO
+
+|Rot
+|GP0
+
+|Gelb
+|GP1
+
+|Grün
+|GP2
+|===
+
+Colour Maximite 2:
+
+[cols="1,2"]
+|===
+|LED |Pin
+
+|Rot
+|32
+
+|Gelb
+|33
+
+|Grün
+|34
+|===
+
+=== Die Verdrahtung
+
+Jede LED wird wie im vorherigen Kapitel angeschlossen.
+
+[source]
+----
+GPIO ----[330 Ω]----|>|---- GND
+----
+
+Die Schaltung wird für jede LED wiederholt.
+
+image::bilder/ampel_drei_leds.png[
+align=center,
+title="Drei LEDs als Verkehrsampel"
+]
+
+=== Die erste Ampel
+
+Beginnen wir mit einem einfachen Ablauf.
+
+PicoMite:
+
+[source,basic]
+----
+SETPIN GP0,DOUT
+SETPIN GP1,DOUT
+SETPIN GP2,DOUT
+
+DO
+
+  PIN(GP0)=1
+  PIN(GP1)=0
+  PIN(GP2)=0
+
+  PAUSE 3000
+
+  PIN(GP0)=1
+  PIN(GP1)=1
+  PIN(GP2)=0
+
+  PAUSE 1000
+
+  PIN(GP0)=0
+  PIN(GP1)=0
+  PIN(GP2)=1
+
+  PAUSE 3000
+
+  PIN(GP0)=0
+  PIN(GP1)=1
+  PIN(GP2)=0
+
+  PAUSE 1000
+
+LOOP
+----
+
+Die Ampel durchläuft nun kontinuierlich alle Zustände.
+
+=== Das Problem
+
+Das Programm funktioniert.
+
+Allerdings ist der Ablauf schwer zu lesen.
+
+Wenn wir später weitere Funktionen hinzufügen, wird das schnell unübersichtlich.
+
+=== Eine Ampel hat Zustände
+
+Eine Ampel befindet sich immer in genau einem Zustand.
+
+Zum Beispiel:
+
+[cols="1,2"]
+|===
+|Zustand |Bedeutung
+
+|1
+|Rot
+
+|2
+|Rot-Gelb
+
+|3
+|Grün
+
+|4
+|Gelb
+|===
+
+Wir speichern diesen Zustand in einer Variablen.
+
+[source,basic]
+----
+STATUS=1
+----
+
+=== SELECT CASE
+
+Für solche Aufgaben eignet sich `SELECT CASE` hervorragend.
+
+[source,basic]
+----
+SELECT CASE STATUS
+
+  CASE 1
+
+  CASE 2
+
+  CASE 3
+
+  CASE 4
+
+END SELECT
+----
+
+Je nach Wert von `STATUS` wird ein anderer Programmteil ausgeführt.
+
+=== Die Ampel mit Zuständen
+
+[source,basic]
+----
+STATUS=1
+
+DO
+
+  SELECT CASE STATUS
+
+    CASE 1
+
+      PRINT "Rot"
+
+      STATUS=2
+
+    CASE 2
+
+      PRINT "Rot-Gelb"
+
+      STATUS=3
+
+    CASE 3
+
+      PRINT "Gruen"
+
+      STATUS=4
+
+    CASE 4
+
+      PRINT "Gelb"
+
+      STATUS=1
+
+  END SELECT
+
+LOOP
+----
+
+Jetzt ist der Ablauf deutlich besser erkennbar.
+
+=== Warum sind Zustände wichtig?
+
+Viele technische Systeme arbeiten mit Zuständen:
+
+* Ampeln
+* Aufzüge
+* Waschmaschinen
+* Fahrkartenautomaten
+* Alarmanlagen
+
+Dieses Programmierprinzip gehört zu den wichtigsten Techniken der Automatisierung.
+
+=== Die Fußgängerampel
+
+Nun erweitern wir die Anlage.
+
+Zusätzlich benötigen wir:
+
+* eine rote Fußgänger-LED
+* eine grüne Fußgänger-LED
+
+PicoMite:
+
+[cols="1,2"]
+|===
+|LED |GPIO
+
+|Fußgänger Rot
+|GP3
+
+|Fußgänger Grün
+|GP4
+|===
+
+=== Der Fußgängertaster
+
+Zusätzlich kommt ein Taster hinzu.
+
+PicoMite:
+
+[source]
+----
+GP5 ----+
+         |
+      Taster
+         |
+        GND
+----
+
+Der Eingang wird mit Pull-Up betrieben.
+
+[source,basic]
+----
+SETPIN GP5,DIN,PULLUP
+----
+
+=== Normalbetrieb
+
+Im Normalfall gilt:
+
+[source]
+----
+Autos: Grün
+
+Fußgänger: Rot
+----
+
+So bleibt der Verkehrsfluss erhalten.
+
+=== Fußgängeranforderung
+
+Wird der Taster gedrückt:
+
+[source]
+----
+Autos Grün
+     ↓
+Autos Gelb
+     ↓
+Autos Rot
+     ↓
+Fußgänger Grün
+     ↓
+Fußgänger Rot
+     ↓
+Autos Rot-Gelb
+     ↓
+Autos Grün
+----
+
+Das entspricht dem Verhalten vieler realer Ampeln.
+
+=== Eine Anforderung speichern
+
+Der Tastendruck wird in einer Variablen gespeichert.
+
+[source,basic]
+----
+ANFORDERUNG=0
+----
+
+Wird der Taster gedrückt:
+
+[source,basic]
+----
+IF PIN(GP5)=0 THEN
+
+  ANFORDERUNG=1
+
+ENDIF
+----
+
+Die Information bleibt erhalten.
+
+=== Warum speichern wir die Anforderung?
+
+Vielleicht drückt ein Fußgänger den Taster genau dann, wenn die Ampel gerade auf Grün steht.
+
+Die Ampel soll den Wunsch trotzdem berücksichtigen.
+
+Deshalb wird die Anforderung gespeichert.
+
+=== Das vollständige Konzept
+
+Wir verwenden folgende Zustände:
+
+[cols="1,3"]
+|===
+|Status |Bedeutung
+
+|1
+|Autos Grün
+
+|2
+|Autos Gelb
+
+|3
+|Autos Rot
+
+|4
+|Fußgänger Grün
+
+|5
+|Fußgänger Rot
+
+|6
+|Autos Rot-Gelb
+|===
+
+=== Praxisprojekt: Fußgängerampel
+
+[source,basic]
+----
+SETPIN GP0,DOUT
+SETPIN GP1,DOUT
+SETPIN GP2,DOUT
+
+SETPIN GP3,DOUT
+SETPIN GP4,DOUT
+
+SETPIN GP5,DIN,PULLUP
+
+STATUS=1
+ANFORDERUNG=0
+
+DO
+
+  IF PIN(GP5)=0 THEN
+    ANFORDERUNG=1
+  ENDIF
+
+  SELECT CASE STATUS
+
+    CASE 1
+
+      ' Autos Gruen
+
+      PIN(GP0)=0
+      PIN(GP1)=0
+      PIN(GP2)=1
+
+      PIN(GP3)=1
+      PIN(GP4)=0
+
+      IF ANFORDERUNG=1 THEN
+
+        PAUSE 1000
+
+        STATUS=2
+
+      ENDIF
+
+    CASE 2
+
+      ' Autos Gelb
+
+      PIN(GP0)=0
+      PIN(GP1)=1
+      PIN(GP2)=0
+
+      PAUSE 2000
+
+      STATUS=3
+
+    CASE 3
+
+      ' Autos Rot
+
+      PIN(GP0)=1
+      PIN(GP1)=0
+      PIN(GP2)=0
+
+      PAUSE 1000
+
+      STATUS=4
+
+    CASE 4
+
+      ' Fussgaenger Gruen
+
+      PIN(GP3)=0
+      PIN(GP4)=1
+
+      PAUSE 5000
+
+      STATUS=5
+
+    CASE 5
+
+      ' Fussgaenger Rot
+
+      PIN(GP3)=1
+      PIN(GP4)=0
+
+      PAUSE 1000
+
+      STATUS=6
+
+    CASE 6
+
+      ' Autos Rot-Gelb
+
+      PIN(GP0)=1
+      PIN(GP1)=1
+      PIN(GP2)=0
+
+      PAUSE 1000
+
+      ANFORDERUNG=0
+
+      STATUS=1
+
+  END SELECT
+
+LOOP
+----
+
+=== Was passiert im Programm?
+
+Im Zustand 1 dürfen die Autos fahren.
+
+Erst wenn ein Fußgänger den Taster drückt, wird die Ampel umgeschaltet.
+
+Die Anforderung wird gespeichert.
+
+Anschließend werden alle Zustände automatisch durchlaufen.
+
+Am Ende beginnt der Zyklus erneut.
+
+=== Erweiterungsmöglichkeiten
+
+Eine echte Verkehrsampel besitzt noch weitere Funktionen:
+
+* Blinkendes Grün
+* Gelbblinkbetrieb
+* Nachtabschaltung
+* Akustische Signale
+* Countdown-Anzeigen
+
+Mit dem bisher erlernten Wissen könntest du viele dieser Funktionen bereits selbst ergänzen.
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* längere Grünphasen
+* kürzere Gelbphasen
+* mehrere Fußgängertaster
+* blinkendes Fußgänger-Grün
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Lasse die Fußgängerampel vor dem Umschalten dreimal blinken.
+. Ergänze einen Summer.
+. Zähle die Anzahl der Fußgängeranforderungen.
+. Baue eine Nachtabschaltung ein.
+. Ergänze einen zweiten Taster für eine weitere Straßenseite.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt:
+
+* mehrere LEDs gleichzeitig anzusteuern
+* Zustände in Programmen zu verwenden
+* den Befehl `SELECT CASE` einzusetzen
+* Taster und LEDs zu kombinieren
+* eine einfache Fußgängerampel zu programmieren
+
+Du hast damit dein erstes kleines Automatisierungsprojekt entwickelt.
+
+Im nächsten Kapitel werden wir analoge Eingänge kennenlernen und kontinuierliche Messwerte auswerten.
