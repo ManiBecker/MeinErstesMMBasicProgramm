@@ -6,8 +6,8 @@ Manfred Becker
 :toclevels: 1
 :sectnums:
 :icons: font
-:revnumber: 0.09
-:revdate: 2026-07-14
+:revnumber: 0.10
+:revdate: 2026-07-15
 
 image::bilder/cover.png[pdfwidth=100%,align=center]
 
@@ -120,3 +120,5 @@ include::kapitel/33-eine-ampelsteuerung.adoc[]
 include::kapitel/34-analoge-eingaenge.adoc[]
 
 include::kapitel/35-pwm-und-led-dimmer.adoc[]
+
+include::kapitel/36-toene-und-piezo-summer.adoc[]
