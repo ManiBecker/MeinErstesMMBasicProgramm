@@ -1,0 +1,560 @@
+== Analoge Eingänge
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* was ein analoges Signal ist
+* den Unterschied zwischen digitalen und analogen Eingängen
+* wie ein Analog-Digital-Wandler arbeitet
+* wie ein Potentiometer angeschlossen wird
+* analoge Werte einzulesen
+* Messwerte grafisch darzustellen
+* analoge Sensoren auszuwerten
+
+Am Ende des Kapitels kannst du kontinuierliche Messwerte erfassen und für eigene Projekte verwenden.
+
+=== Von der Ampel zur Messtechnik
+
+Bisher kannten unsere Programme nur zwei Zustände:
+
+* Ein
+* Aus
+
+Viele technische Anwendungen benötigen jedoch deutlich mehr Informationen.
+
+Ein Temperaturfühler liefert beispielsweise nicht nur "warm" oder "kalt".
+
+Ein Potentiometer kennt nicht nur "links" oder "rechts".
+
+Stattdessen werden kontinuierliche Messwerte erfasst.
+
+Genau dafür gibt es analoge Eingänge.
+
+Mit ihnen beginnt die Welt der Mess-, Steuer- und Regeltechnik.
+
+=== Digitale und analoge Signale
+
+Ein digitaler Eingang kennt nur zwei Zustände:
+
+[source]
+----
+0
+1
+----
+
+Das genügt für:
+
+* Taster
+* Schalter
+* Lichtschranken
+* Endschalter
+
+Viele Sensoren liefern jedoch Zwischenwerte.
+
+Beispiele:
+
+* Temperatur
+* Helligkeit
+* Lautstärke
+* Druck
+* Feuchtigkeit
+
+Hier reichen nur 0 und 1 nicht mehr aus.
+
+=== Ein Vergleich
+
+Stell dir einen Lichtschalter vor.
+
+Er kennt nur:
+
+[source]
+----
+Ein
+Aus
+----
+
+Das entspricht einem digitalen Signal.
+
+Ein Lichtdimmer dagegen kann viele Zwischenstellungen besitzen.
+
+[source]
+----
+0%
+10%
+20%
+...
+100%
+----
+
+Das entspricht einem analogen Signal.
+
+=== Analoge Spannungen
+
+Ein analoger Eingang misst eine Spannung.
+
+Beim PicoMite und Colour Maximite 2 liegt diese typischerweise zwischen:
+
+[source]
+----
+0 Volt
+und
+3,3 Volt
+----
+
+Jede Spannung innerhalb dieses Bereichs kann gemessen werden.
+
+=== Der Analog-Digital-Wandler
+
+Ein Mikrocontroller arbeitet intern digital.
+
+Er kann keine analogen Spannungen direkt verarbeiten.
+
+Deshalb besitzt er einen sogenannten:
+
+[source]
+----
+Analog-Digital-Wandler
+----
+
+oft auch kurz:
+
+[source]
+----
+A/D-Wandler
+----
+
+genannt.
+
+=== Was macht ein A/D-Wandler?
+
+Der A/D-Wandler misst die anliegende Spannung.
+
+Anschließend wandelt er diese in einen Zahlenwert um.
+
+Beispielsweise:
+
+[cols="1,2"]
+|===
+|Spannung |Messwert
+
+|0,0 V
+|0
+
+|1,65 V
+|512
+
+|3,3 V
+|1023
+|===
+
+=== Warum gerade 1023?
+
+Viele Mikrocontroller verwenden einen 10-Bit-A/D-Wandler.
+
+10 Bit ergeben:
+
+[source]
+----
+2^10 = 1024
+----
+
+verschiedene Werte.
+
+Da bei 0 begonnen wird, lautet der Bereich:
+
+[source]
+----
+0 bis 1023
+----
+
+=== Das Potentiometer
+
+Für erste Experimente eignet sich ein Potentiometer hervorragend.
+
+Ein Potentiometer ist ein verstellbarer Widerstand.
+
+Es besitzt drei Anschlüsse.
+
+[source]
+----
+3.3V ----+
+          \
+           ) Potentiometer
+          /
+GND  -----+
+
+Mittelanschluss
+     |
+     +---- Analog Eingang
+----
+
+=== Das Potentiometer als Spannungsteiler
+
+Durch Drehen des Knopfes verändert sich die Spannung am Mittelanschluss.
+
+Beispiele:
+
+[source]
+----
+Linksanschlag     0,0 V
+
+Mittelstellung    1,65 V
+
+Rechtsanschlag    3,3 V
+----
+
+Der Analog-Eingang kann diese Spannung messen.
+
+=== Geeignete Potentiometer
+
+Für unsere Versuche eignen sich:
+
+[source]
+----
+1 kΩ bis 100 kΩ
+----
+
+besonders gut.
+
+Sehr häufig verwendet werden:
+
+[source]
+----
+10 kΩ
+----
+
+Potentiometer.
+
+=== Anschluss am PicoMite
+
+Viele PicoMite-Varianten besitzen analoge Eingänge.
+
+Beispielsweise:
+
+[source]
+----
+GP26
+GP27
+GP28
+----
+
+Diese Pins sind gleichzeitig ADC-Eingänge.
+
+=== Anschluss am Colour Maximite 2
+
+Der Colour Maximite 2 besitzt ebenfalls mehrere analoge Eingänge.
+
+Die genaue Pinnummer hängt vom verwendeten Anschluss ab.
+
+Details findest du im Handbuch deines Systems.
+
+=== Einen Analog-Eingang konfigurieren
+
+PicoMite:
+
+[source,basic]
+----
+SETPIN GP26,AIN
+----
+
+Das Kürzel bedeutet:
+
+[source]
+----
+AIN
+=
+Analog Input
+----
+
+=== Den Messwert lesen
+
+[source,basic]
+----
+WERT=PIN(GP26)
+----
+
+Der Rückgabewert liegt typischerweise zwischen:
+
+[source]
+----
+0
+und
+1023
+----
+
+=== Unser erstes Messprogramm
+
+[source,basic]
+----
+SETPIN GP26,AIN
+
+DO
+
+  PRINT PIN(GP26)
+
+  PAUSE 200
+
+LOOP
+----
+
+Drehst du am Potentiometer, ändern sich die Werte.
+
+Beispiel:
+
+[source]
+----
+12
+97
+348
+512
+734
+1001
+----
+
+=== Was bedeutet der Messwert?
+
+Je größer die gemessene Spannung ist, desto größer wird der Zahlenwert.
+
+[cols="1,2"]
+|===
+|Wert |Bedeutung
+
+|0
+|0 Volt
+
+|512
+|etwa halbe Spannung
+
+|1023
+|maximale Spannung
+|===
+
+=== Messwerte auf Prozent umrechnen
+
+Häufig sind Prozentwerte einfacher zu verstehen.
+
+[source,basic]
+----
+PROZENT=WERT*100/1023
+----
+
+Beispiele:
+
+[cols="1,2"]
+|===
+|Messwert |Prozent
+
+|0
+|0 %
+
+|512
+|50 %
+
+|1023
+|100 %
+|===
+
+=== Eine Prozentanzeige
+
+[source,basic]
+----
+SETPIN GP26,AIN
+
+DO
+
+  WERT=PIN(GP26)
+
+  PROZENT=WERT*100/1023
+
+  CLS
+
+  PRINT INT(PROZENT);" %"
+
+  PAUSE 200
+
+LOOP
+----
+
+=== Eine grafische Balkenanzeige
+
+Messwerte lassen sich oft besser grafisch darstellen.
+
+[source,basic]
+----
+MODE 2
+
+SETPIN GP26,AIN
+
+DO
+
+  WERT=PIN(GP26)
+
+  BREITE=WERT*MM.HRES/1023
+
+  CLS RGB(BLACK)
+
+  BOX 20,50,BREITE,40,0,RGB(GREEN),RGB(GREEN)
+
+  TEXT 20,110,STR$(INT(WERT*100/1023))+" %"
+
+  PAUSE 50
+
+LOOP
+----
+
+Der Balken wächst und schrumpft nun beim Drehen des Potentiometers.
+
+=== Schwankende Messwerte
+
+Manche Sensoren liefern leicht schwankende Werte.
+
+Beispielsweise:
+
+[source]
+----
+512
+513
+511
+514
+512
+----
+
+Das ist völlig normal.
+
+Ursachen können sein:
+
+* elektrisches Rauschen
+* Versorgungsspannung
+* Sensorungenauigkeiten
+
+=== Mehrere Messungen mitteln
+
+Um stabilere Werte zu erhalten, kann man mehrere Messungen mitteln.
+
+[source,basic]
+----
+SUMME=0
+
+FOR I=1 TO 10
+
+  SUMME=SUMME+PIN(GP26)
+
+NEXT I
+
+WERT=SUMME/10
+----
+
+Dadurch werden Schwankungen reduziert.
+
+=== Praxisprojekt: Elektronische Tankanzeige
+
+Nun bauen wir eine einfache Tankanzeige.
+
+Dabei simuliert das Potentiometer den Tankgeber eines Fahrzeugs.
+
+[source]
+----
+Potentiometer
+=
+Tankgeber
+
+Messwert
+=
+Tankinhalt
+----
+
+=== Die Anzeige
+
+[source,basic]
+----
+MODE 2
+
+SETPIN GP26,AIN
+
+DO
+
+  WERT=PIN(GP26)
+
+  PROZENT=WERT*100/1023
+
+  CLS RGB(BLACK)
+
+  TEXT MM.HRES/2,20,      _
+       "Tankanzeige",     _
+       "CT"
+
+  BOX 40,80,200,30
+
+  BOX 40,80,              _
+      PROZENT*2,30,       _
+      0,                  _
+      RGB(GREEN),         _
+      RGB(GREEN)
+
+  TEXT MM.HRES/2,140,     _
+       STR$(INT(PROZENT))+" %", _
+       "CT"
+
+  PAUSE 100
+
+LOOP
+----
+
+Beim Drehen des Potentiometers verändert sich nun der Tankfüllstand.
+
+=== Wo werden analoge Eingänge verwendet?
+
+Analoge Eingänge findet man überall:
+
+* Temperaturfühler
+* Helligkeitssensoren
+* Joysticks
+* Potentiometer
+* Drucksensoren
+* Abstandssensoren
+* Feuchtigkeitssensoren
+
+Sie gehören zu den wichtigsten Funktionen moderner Mikrocontroller.
+
+=== Typische Fehler
+
+Wenn keine sinnvollen Werte erscheinen:
+
+. Ist das Potentiometer richtig angeschlossen?
+. Wurde der richtige ADC-Pin verwendet?
+. Wurde `SETPIN ...,AIN` aufgerufen?
+. Sind 3,3 V und GND korrekt verbunden?
+
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* andere Potentiometer
+* andere Farben
+* größere Balkenanzeigen
+* Prozentanzeige mit einer Nachkommastelle
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Baue eine Temperaturanzeige mit einem geeigneten Sensor.
+. Zeichne einen horizontalen Balken.
+. Zeichne einen vertikalen Balken.
+. Erstelle eine Tankwarnung unter 20 %.
+. Zeige den Messwert zusätzlich als Zahl an.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt:
+
+* was analoge Signale sind
+* wie ein A/D-Wandler arbeitet
+* wie analoge Eingänge verwendet werden
+* wie ein Potentiometer angeschlossen wird
+* wie Messwerte verarbeitet werden
+
+Damit kann dein Mikrocontroller nun nicht nur digitale Zustände erkennen, sondern auch kontinuierliche Messwerte erfassen.
+
+Im nächsten Kapitel werden wir PWM kennenlernen und die Helligkeit einer LED stufenlos steuern.

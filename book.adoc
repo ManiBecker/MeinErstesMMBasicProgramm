@@ -116,3 +116,5 @@ include::kapitel/31-eine-led-zum-blinken-bringen.adoc[]
 include::kapitel/32-taster-und-schalter.adoc[]
 
 include::kapitel/33-eine-ampelsteuerung.adoc[]
+
+include::kapitel/34-analoge-eingaenge.adoc[]
