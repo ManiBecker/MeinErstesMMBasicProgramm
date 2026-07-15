@@ -118,3 +118,5 @@ include::kapitel/32-taster-und-schalter.adoc[]
 include::kapitel/33-eine-ampelsteuerung.adoc[]
 
 include::kapitel/34-analoge-eingaenge.adoc[]
+
+include::kapitel/35-pwm-und-led-dimmer.adoc[]
