@@ -122,3 +122,5 @@ include::kapitel/34-analoge-eingaenge.adoc[]
 include::kapitel/35-pwm-und-led-dimmer.adoc[]
 
 include::kapitel/36-toene-und-piezo-summer.adoc[]
+
+include::kapitel/37-senso-das-elektronische-gedaechtnisspiel.adoc[]

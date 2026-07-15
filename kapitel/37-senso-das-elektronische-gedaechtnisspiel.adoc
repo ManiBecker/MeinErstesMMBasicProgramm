@@ -1,0 +1,695 @@
+== Senso – Das elektronische Gedächtnisspiel
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* größere Programme zu strukturieren
+* Arrays sinnvoll einzusetzen
+* Zufallszahlen praktisch zu verwenden
+* LEDs, Taster und Töne zu kombinieren
+* Spielabläufe zu steuern
+* Benutzereingaben auszuwerten
+* eigene elektronische Spiele zu entwickeln
+
+Am Ende des Kapitels hast du ein vollständiges elektronisches Gedächtnisspiel programmiert.
+
+=== Das große Hardware-Projekt
+
+In den letzten Kapiteln haben wir viele wichtige Techniken kennengelernt:
+
+* Digitale Ausgänge
+* LEDs
+* Digitale Eingänge
+* Taster
+* Analoge Eingänge
+* PWM
+* Töne
+
+Bisher wurden diese Techniken meist einzeln betrachtet.
+
+Nun wollen wir sie in einem größeren Projekt kombinieren.
+
+Dazu bauen wir ein elektronisches Gedächtnisspiel nach dem Vorbild von Simon beziehungsweise Senso.
+
+=== Das Vorbild
+
+Ende der 1970er Jahre erschien ein elektronisches Spiel mit vier farbigen Tasten.
+
+Der Computer spielte eine Folge von Farben und Tönen vor.
+
+Der Spieler musste diese Folge anschließend exakt wiederholen.
+
+Nach jeder erfolgreichen Runde wurde die Folge um ein weiteres Element verlängert.
+
+Mit jeder Runde wurde das Spiel schwieriger.
+
+Das Spiel wurde unter verschiedenen Namen verkauft:
+
+* Simon
+* Senso
+
+Bis heute zählt es zu den bekanntesten elektronischen Spielen.
+
+=== Das Spielprinzip
+
+Betrachten wir eine typische Spielrunde.
+
+Runde 1:
+
+[source]
+----
+Computer:
+Rot
+
+Spieler:
+Rot
+----
+
+Runde 2:
+
+[source]
+----
+Computer:
+Rot Gelb
+
+Spieler:
+Rot Gelb
+----
+
+Runde 3:
+
+[source]
+----
+Computer:
+Rot Gelb Blau
+
+Spieler:
+Rot Gelb Blau
+----
+
+Nach jeder erfolgreichen Runde wird die Folge länger.
+
+Irgendwann wird sie so lang, dass der Spieler einen Fehler macht.
+
+Dann endet das Spiel.
+
+=== Unsere Hardware
+
+Wir benötigen:
+
+* 4 LEDs
+* 4 Taster
+* 1 Piezo-Lautsprecher
+* 8 Widerstände
+* Steckbrett und Verbindungsdrähte
+
+=== Anschlussbeispiel für den PicoMite
+
+[cols="1,2"]
+|===
+|Funktion |GPIO
+
+|LED Rot
+|GP0
+
+|LED Gelb
+|GP1
+
+|LED Grün
+|GP2
+
+|LED Blau
+|GP3
+
+|Taster Rot
+|GP4
+
+|Taster Gelb
+|GP5
+
+|Taster Grün
+|GP6
+
+|Taster Blau
+|GP7
+
+|Piezo
+|GP8
+|===
+
+=== Die Farben
+
+Intern verwenden wir Zahlen für die Farben.
+
+[cols="1,2"]
+|===
+|Wert |Farbe
+
+|1
+|Rot
+
+|2
+|Gelb
+
+|3
+|Grün
+
+|4
+|Blau
+|===
+    
+Dadurch wird das Programm wesentlich einfacher.
+
+=== Warum brauchen wir Arrays?
+
+Der Computer muss sich die komplette Folge merken.
+
+Beispielsweise:
+
+[source]
+----
+Rot
+Gelb
+Blau
+Gruen
+Rot
+Gelb
+----
+    
+Eine einzelne Variable genügt dafür nicht.
+
+Deshalb verwenden wir ein Array.
+
+[source,basic]
+----
+DIM FOLGE(100)
+----
+
+Damit können bis zu 100 Spielschritte gespeichert werden.
+
+=== Eine neue Farbe erzeugen
+
+Für jede neue Runde wird eine Zufallszahl erzeugt.
+
+[source,basic]
+----
+FOLGE(LEVEL)=INT(RND*4)+1
+----
+
+Mögliche Ergebnisse:
+
+[source]
+----
+1
+2
+3
+4
+----
+
+also:
+
+[source]
+----
+Rot
+Gelb
+Gruen
+Blau
+----
+
+=== Das Programm strukturieren
+
+Unser Spiel besteht aus mehreren Aufgaben.
+
+Deshalb teilen wir es in Unterprogramme auf.
+
+[source]
+----
+Neue Farbe erzeugen
+
+Folge anzeigen
+
+Spielereingaben lesen
+
+Fehler anzeigen
+
+Spiel beenden
+----
+
+Dadurch bleibt das Programm übersichtlich.
+
+=== Eine Farbe anzeigen
+
+Zunächst erstellen wir ein Unterprogramm.
+
+[source,basic]
+----
+SUB ZeigeFarbe(FARBE)
+
+END SUB
+----
+
+Dieses Unterprogramm erhält eine Zahl:
+
+[source]
+----
+1
+2
+3
+oder
+4
+----
+
+und schaltet die passende LED ein.
+
+=== Rot anzeigen
+
+[source,basic]
+----
+PIN(GP0)=1
+
+PAUSE 500
+
+PIN(GP0)=0
+----
+
+Das ist der erste Baustein unseres Spiels.
+
+=== Unterschiedliche Töne
+
+Jede Farbe erhält ihren eigenen Ton.
+
+[cols="1,2"]
+|===
+|Farbe |Ton
+
+|Rot
+|262 Hz
+
+|Gelb
+|330 Hz
+
+|Grün
+|392 Hz
+
+|Blau
+|523 Hz
+|===
+
+Dadurch erkennt der Spieler die Farben nicht nur optisch, sondern auch akustisch.
+
+=== Das Unterprogramm ZeigeFarbe
+
+[source,basic]
+----
+SUB ZeigeFarbe(FARBE)
+
+  SELECT CASE FARBE
+
+    CASE 1
+
+      PIN(GP0)=1
+
+      TONE 262,300
+
+      PIN(GP0)=0
+
+    CASE 2
+
+      PIN(GP1)=1
+
+      TONE 330,300
+
+      PIN(GP1)=0
+
+    CASE 3
+
+      PIN(GP2)=1
+
+      TONE 392,300
+
+      PIN(GP2)=0
+
+    CASE 4
+
+      PIN(GP3)=1
+
+      TONE 523,300
+
+      PIN(GP3)=0
+
+  END SELECT
+
+  PAUSE 150
+
+END SUB
+----
+
+=== Die komplette Folge anzeigen
+
+Nun können wir eine gesamte Spielrunde ausgeben.
+
+[source,basic]
+----
+FOR I=1 TO LEVEL
+
+  ZeigeFarbe FOLGE(I)
+
+NEXT I
+----
+
+Damit wird die komplette Sequenz angezeigt.
+
+=== Die Eingabe des Spielers
+
+Nun wird es spannend.
+
+Der Spieler muss die Folge exakt wiederholen.
+
+Dazu benötigen wir ein weiteres Unterprogramm.
+
+[source,basic]
+----
+TASTE=HoleTaste()
+----
+
+Das Ergebnis ist:
+
+[source]
+----
+1
+2
+3
+oder
+4
+----
+
+je nachdem, welcher Taster gedrückt wurde.
+
+=== Das Unterprogramm HoleTaste
+
+Das Unterprogramm wartet so lange, bis einer der vier Taster gedrückt wird.
+
+Da die Eingänge mit Pull-Up-Widerständen betrieben werden, gilt:
+
+[source]
+----
+Taster nicht gedrückt = 1
+Taster gedrückt       = 0
+----
+
+Das Unterprogramm liefert eine Zahl zwischen 1 und 4 zurück.
+
+[source,basic]
+----
+FUNCTION HoleTaste()
+
+  DO
+
+    IF PIN(GP4)=0 THEN
+      HoleTaste=1
+      ZeigeFarbe 1
+      WarteAufLoslassen GP4
+      EXIT FUNCTION
+    ENDIF
+
+    IF PIN(GP5)=0 THEN
+      HoleTaste=2
+      ZeigeFarbe 2
+      WarteAufLoslassen GP5
+      EXIT FUNCTION
+    ENDIF
+
+    IF PIN(GP6)=0 THEN
+      HoleTaste=3
+      ZeigeFarbe 3
+      WarteAufLoslassen GP6
+      EXIT FUNCTION
+    ENDIF
+
+    IF PIN(GP7)=0 THEN
+      HoleTaste=4
+      ZeigeFarbe 4
+      WarteAufLoslassen GP7
+      EXIT FUNCTION
+    ENDIF
+
+  LOOP
+
+END FUNCTION
+----
+
+=== Auf das Loslassen warten
+
+Ein Tastendruck dauert meist deutlich länger als ein Programmdurchlauf.
+
+Ohne zusätzliche Prüfung könnte derselbe Tastendruck mehrfach erkannt werden.
+
+Deshalb wartet das Programm, bis der Taster wieder losgelassen wurde.
+
+[source,basic]
+----
+SUB WarteAufLoslassen(PINNUMMER)
+
+  DO
+  LOOP UNTIL PIN(PINNUMMER)=1
+
+  PAUSE 30
+
+END SUB
+----
+
+Die kurze Pause dient zusätzlich als einfache Entprellung.
+
+=== Die Eingabe prüfen
+
+[source,basic]
+----
+FOR I=1 TO LEVEL
+
+  TASTE=HoleTaste()
+
+  IF TASTE<>FOLGE(I) THEN
+
+    SPIELENDE=1
+
+    EXIT FOR
+
+  ENDIF
+
+NEXT I
+----
+
+Hier findet die eigentliche Spielprüfung statt.
+
+=== Was passiert bei einem Fehler?
+
+Wenn der Spieler einen Fehler macht, soll dies deutlich sichtbar werden.
+
+Dazu blinken alle LEDs gleichzeitig.
+
+=== Fehleranimation
+
+[source,basic]
+----
+FOR I=1 TO 3
+
+  PIN(GP0)=1
+  PIN(GP1)=1
+  PIN(GP2)=1
+  PIN(GP3)=1
+
+  PAUSE 200
+
+  PIN(GP0)=0
+  PIN(GP1)=0
+  PIN(GP2)=0
+  PIN(GP3)=0
+
+  PAUSE 200
+
+NEXT I
+----
+
+=== Fehlerton
+
+Zusätzlich erzeugen wir einen Warnton.
+
+[source,basic]
+----
+TONE 150,1000
+----
+
+Der Spieler erkennt sofort:
+
+[source]
+----
+Spiel verloren
+----
+
+=== Der Spielablauf
+
+Unser Spiel arbeitet nun nach folgendem Schema:
+
+[source]
+----
+Neue Farbe erzeugen
+
+Folge anzeigen
+
+Spielereingaben lesen
+
+Richtig?
+ |
+ +-- Ja --> Naechste Runde
+ |
+ +-- Nein --> Spielende
+----
+
+=== Das vollständige Programm
+
+Jetzt setzen wir alle Bausteine zusammen.
+
+[source,basic]
+----
+DIM FOLGE(100)
+
+LEVEL=1
+
+DO
+
+  FOLGE(LEVEL)=INT(RND*4)+1
+
+  FOR I=1 TO LEVEL
+
+    ZeigeFarbe FOLGE(I)
+
+  NEXT I
+
+  FEHLER=0
+
+  FOR I=1 TO LEVEL
+
+    TASTE=HoleTaste()
+
+    IF TASTE<>FOLGE(I) THEN
+
+      FEHLER=1
+
+      EXIT FOR
+
+    ENDIF
+
+  NEXT I
+
+  IF FEHLER=1 THEN
+
+    EXIT DO
+
+  ENDIF
+
+  LEVEL=LEVEL+1
+
+LOOP
+----
+
+=== Spielende
+
+Nach einem Fehler wird die erreichte Runde ausgegeben.
+
+[source,basic]
+----
+PRINT
+
+PRINT "Spiel beendet"
+
+PRINT "Erreichte Runde:"
+
+PRINT LEVEL
+----
+
+=== Erweiterung: Highscore
+
+Eine interessante Erweiterung wäre ein Highscore.
+
+[source,basic]
+----
+IF LEVEL>BESTE_RUNDE THEN
+
+  BESTE_RUNDE=LEVEL
+
+ENDIF
+----
+
+Dadurch kann man versuchen, den eigenen Rekord zu verbessern.
+
+=== Erweiterung: Höhere Geschwindigkeit
+
+Nach jeder Runde könnte die Anzeigegeschwindigkeit erhöht werden.
+
+Das macht das Spiel deutlich schwieriger.
+
+=== Erweiterung: Mehr Farben
+
+Wer möchte, kann weitere LEDs und Taster hinzufügen.
+
+Dadurch entstehen noch längere und anspruchsvollere Folgen.
+
+=== Erweiterung: Grafikdarstellung
+
+Besitzt dein System einen Bildschirm, könnten die Farben zusätzlich grafisch dargestellt werden.
+
+Damit entsteht eine moderne Version des Spiels.
+
+=== Warum dieses Projekt wichtig ist
+
+In diesem Projekt kommen fast alle bisher erlernten Techniken zusammen.
+
+Verwendet wurden:
+
+* Variablen
+* Schleifen
+* Arrays
+* Unterprogramme
+* Zufallszahlen
+* LEDs
+* Taster
+* Töne
+
+Genau deshalb eignet sich Senso hervorragend als Abschlussprojekt des Hardware-Teils.
+
+=== Experimentiere!
+
+Probiere folgende Erweiterungen aus:
+
+* höhere Spielgeschwindigkeit
+* Highscore
+* zusätzliche Farben
+* andere Tonhöhen
+* grafische Darstellung
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Ergänze eine Startmelodie.
+. Speichere den Highscore in einer Datei.
+. Zeige die aktuelle Runde auf dem Bildschirm an.
+. Erhöhe die Schwierigkeit automatisch.
+. Entwickle eine eigene Variante des Spiels.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt:
+
+* Arrays praktisch einzusetzen
+* größere Programme zu strukturieren
+* LEDs, Taster und Töne zu kombinieren
+* Spielabläufe zu programmieren
+* Benutzereingaben auszuwerten
+
+Du hast damit dein erstes vollständiges elektronisches Spiel entwickelt.
+
+Herzlichen Glückwunsch!
+
+Viele professionelle Softwareprojekte bestehen aus genau den Bausteinen, die du in diesem Kapitel verwendet hast.
