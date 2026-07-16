@@ -1,10 +1,205 @@
-[preface]
-== Willkommen!
+== Willkommen zu MMBasic
+
+Willkommen zu diesem MMBasic-Tutorial.
+
+Dieses Buch richtet sich an alle, die MMBasic kennenlernen und damit eigene Programme entwickeln möchten.
+
+Dabei spielt es keine Rolle, ob du bereits Programmiererfahrung besitzt oder zum ersten Mal eine Programmiersprache verwendest.
+
+=== Was ist MMBasic?
+
+MMBasic ist eine moderne BASIC-Programmiersprache für Mikrocontroller und Computersysteme.
+
+Sie verbindet die Einfachheit klassischer BASIC-Dialekte mit den Möglichkeiten moderner Hardware.
+
+MMBasic läuft unter anderem auf:
+
+* PicoMite
+* PicoMite VGA
+* PicoMite HDMI
+* Colour Maximite 2
+
+Mit MMBasic lassen sich nicht nur Konsolenprogramme entwickeln, sondern auch:
+
+* Grafikanwendungen
+* Spiele
+* Hardwareprojekte
+* Mess- und Steueranwendungen
+* Netzwerkanwendungen
 
 === Warum dieses Tutorial?
 
-Willkommen bei *Mein erstes MMBasic Programm*.
+Viele Programmierbücher konzentrieren sich auf die Beschreibung einzelner Befehle.
 
-Dieses Tutorial begleitet dich Schritt für Schritt bei deinen ersten Programmen in MMBasic.
+Dieses Tutorial verfolgt einen anderen Ansatz.
 
-Du benötigst keine Programmiererfahrung. Alles wird anhand kleiner Beispiele erklärt, die du sofort selbst ausprobieren kannst.
+Wir entwickeln gemeinsam praktische Programme und Projekte.
+
+Dabei lernen wir die Sprache Schritt für Schritt kennen.
+
+Von den ersten Ausgaben auf dem Bildschirm bis hin zu:
+
+* Grafikanwendungen
+* Spielen
+* Hardwareprojekten
+* elektronischen Experimenten
+
+Das Ziel ist nicht nur das Erlernen einzelner Befehle, sondern das Verständnis, wie aus vielen kleinen Bausteinen größere Programme entstehen.
+
+=== Lernen durch praktische Beispiele
+
+Viele Beispiele dieses Tutorials stammen aus realen Projekten und eigenen Erfahrungen.
+
+Dazu gehören unter anderem:
+
+* Little Professor
+* Pong
+* Ampelsteuerung
+* Hardwareexperimente mit LEDs und Tastern
+* Senso – Das elektronische Gedächtnisspiel
+
+Jedes Projekt baut auf bereits gelerntem Wissen auf.
+
+Dadurch entsteht Schritt für Schritt ein tieferes Verständnis der Sprache.
+
+=== Aufbau des Buches
+
+Dieses Tutorial begleitet dich Schritt für Schritt beim Erlernen von MMBasic.
+
+Wir beginnen mit einfachen Befehlen und kleinen Programmen.
+
+Später beschäftigen wir uns unter anderem mit:
+
+* Variablen
+* Schleifen
+* Unterprogrammen
+* Grafikausgabe
+* Spielen
+* Dateiverarbeitung
+* Hardwareprojekten
+* Entwicklungswerkzeugen
+
+Die einzelnen Kapitel bauen weitgehend aufeinander auf.
+
+Deshalb empfiehlt es sich insbesondere für Einsteiger, das Tutorial der Reihe nach durchzuarbeiten.
+
+=== Wie arbeitet man mit MMBasic?
+
+Eine Besonderheit von MMBasic ist, dass nach dem Einschalten sofort eine Eingabeaufforderung erscheint.
+
+Beispielsweise:
+
+[source]
+----
+>
+----
+
+An dieser Eingabeaufforderung können BASIC-Befehle direkt eingegeben und sofort ausgeführt werden.
+
+Beispiel:
+
+[source,basic]
+----
+PRINT "Hallo Welt"
+----
+
+Nach dem Drücken der Eingabetaste erscheint unmittelbar:
+
+[source]
+----
+Hallo Welt
+----
+
+Viele Beispiele der ersten Kapitel können deshalb direkt am Prompt ausprobiert werden.
+
+=== Befehle und Programme
+
+Es gibt einen wichtigen Unterschied zwischen einzelnen Befehlen und vollständigen Programmen.
+
+Einzelne Befehle können direkt am Prompt eingegeben werden.
+
+Beispiel:
+
+[source,basic]
+----
+PRINT 2+3
+----
+
+Ausgabe:
+
+[source]
+----
+5
+----
+
+Sobald ein Programm aus mehreren Zeilen besteht, wird jedoch ein Editor benötigt.
+
+=== Der eingebaute Editor
+
+MMBasic enthält bereits einen komfortablen Vollbild-Editor.
+
+Dieser wird mit dem Befehl:
+
+[source,basic]
+----
+EDIT
+----
+
+gestartet.
+
+Im Editor können Programme erstellt, gespeichert und ausgeführt werden.
+
+Den Editor lernen wir später ausführlich kennen.
+
+=== Programme speichern und laden
+
+Programme können dauerhaft gespeichert und später wieder geladen werden.
+
+Typische Befehle dafür sind:
+
+[source,basic]
+----
+SAVE "MEINPROG.BAS"
+
+LOAD "MEINPROG.BAS"
+----
+
+Was diese Befehle genau machen und welche weiteren Möglichkeiten die Dateiverwaltung bietet, lernen wir in einem späteren Kapitel.
+
+=== Programmieren mit MMEdit
+
+Alternativ kann auch ein PC verwendet werden.
+
+Mit dem kostenlosen Programm MMEdit lassen sich Programme komfortabel auf dem Computer erstellen und anschließend zum PicoMite oder Colour Maximite übertragen.
+
+Dazu wird lediglich eine USB-Verbindung benötigt.
+
+MMEdit wird später ausführlich vorgestellt.
+
+=== Keine Angst vor Fehlern
+
+Programmieren lernt man nicht durch Lesen allein.
+
+Deshalb solltest du die Beispiele ausprobieren, verändern und auch bewusst Fehler machen.
+
+Fehlermeldungen gehören zum Programmieren dazu.
+
+Jeder erfahrene Entwickler produziert täglich Fehler.
+
+Entscheidend ist, daraus zu lernen.
+
+=== Das Ziel dieses Buches
+
+Wenn du dieses Tutorial vollständig durcharbeitest, wirst du nicht nur einzelne BASIC-Befehle kennen.
+
+Du wirst in der Lage sein:
+
+* eigene Programme zu schreiben
+* Grafiken zu erzeugen
+* Hardware anzusteuern
+* Spiele zu entwickeln
+* größere Projekte zu strukturieren
+
+Und genau darum geht es.
+
+Viel Spaß beim Programmieren mit MMBasic!
