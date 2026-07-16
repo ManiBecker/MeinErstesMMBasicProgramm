@@ -1,5 +1,3 @@
-= Hardware steuern mit MMBasic
-
 == Digitale Ein- und Ausgänge
 
 === Das lernst du

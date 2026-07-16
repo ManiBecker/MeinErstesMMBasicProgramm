@@ -1,0 +1,571 @@
+== Der eingebaute Editor
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* den eingebauten Vollbild-Editor von MMBasic kennen
+* neue Programme direkt auf dem Gerät zu erstellen
+* bestehende Programme zu bearbeiten
+* Dateien zu speichern und auszuführen
+* Such- und Kopierfunktionen zu verwenden
+* die integrierte Hilfe zu nutzen
+* die Vorteile des eingebauten Editors zu verstehen
+
+Am Ende des Kapitels kannst du Programme komfortabel direkt auf deinem MMBasic-System entwickeln.
+
+=== Programmieren direkt auf dem MMBasic-System
+
+Viele Programmiersprachen benötigen einen separaten Computer zum Erstellen von Programmen.
+
+MMBasic geht einen anderen Weg.
+
+Der Interpreter enthält bereits einen leistungsfähigen Vollbild-Editor.
+
+Dadurch können Programme direkt auf dem Zielsystem entwickelt werden.
+
+Besonders bei PicoMite- und Colour-Maximite-Systemen ist dies ein großer Vorteil.
+
+Man benötigt lediglich:
+
+* Tastatur
+* Bildschirm
+* MMBasic-System
+
+und kann sofort mit dem Programmieren beginnen.
+
+=== Den Editor starten
+
+Der Editor wird mit dem Befehl:
+
+[source,basic]
+----
+EDIT
+----
+
+gestartet.
+
+Der Bildschirm wechselt nun in den Vollbild-Editor.
+
+=== Ein neues Programm erstellen
+
+Nach dem Start des Editors kann sofort mit dem Schreiben begonnen werden.
+
+Beispiel:
+
+[source,basic]
+----
+PRINT "Hallo Welt"
+
+FOR I=1 TO 10
+  PRINT I
+NEXT I
+----
+
+=== Speichern und Beenden
+
+Die wichtigsten Funktionstasten sind:
+
+[cols="1,3"]
+|===
+|Taste |Funktion
+
+|ESC
+|Editor verlassen ohne Speichern
+
+|F1
+|Speichern und zum Kommando-Prompt zurückkehren
+
+|F2
+|Speichern und Programm sofort starten
+|===
+
+=== Der Turbo-Pascal-Effekt
+
+Viele Entwickler schätzen kurze Entwicklungszyklen.
+
+Mit der Taste F2 kann ein Programm gespeichert und sofort gestartet werden.
+
+Dadurch entsteht ein schneller Arbeitsablauf:
+
+[source]
+----
+Programm ändern
+       ↓
+F2 drücken
+       ↓
+Programm testen
+       ↓
+Programm ändern
+----
+
+Wer früher mit Turbo Pascal gearbeitet hat, wird sich schnell zuhause fühlen.
+
+=== Dateien direkt bearbeiten
+
+Neben dem aktuellen Programm können auch Dateien bearbeitet werden.
+
+Beispiel:
+
+[source,basic]
+----
+EDIT "TEST.BAS"
+----
+
+Existiert die Datei bereits, wird sie geladen.
+
+Existiert sie noch nicht, wird sie beim Speichern automatisch angelegt.
+
+=== Dateiendungen
+
+Wird keine Dateiendung angegeben:
+
+[source,basic]
+----
+EDIT "TEST"
+----
+
+ergänzt MMBasic automatisch:
+
+[source]
+----
+TEST.BAS
+----
+
+=== Nicht-BASIC-Dateien bearbeiten
+
+Der Editor kann auch andere Textdateien bearbeiten.
+
+Beispiele:
+
+[source,basic]
+----
+EDIT "INDEX.HTML"
+
+EDIT "SPRITES.TXT"
+
+EDIT "CONFIG.INI"
+----
+
+In diesem Fall wird die BASIC-Farbhervorhebung automatisch deaktiviert.
+
+=== Cursor bewegen
+
+Der Editor arbeitet ähnlich wie bekannte Texteditoren.
+
+Die wichtigsten Tasten:
+
+[cols="1,3"]
+|===
+|Taste |Funktion
+
+|Pfeiltasten
+|Cursor bewegen
+
+|HOME
+|Zum Zeilenanfang
+
+|END
+|Zum Zeilenende
+
+|PAGE UP
+|Eine Seite nach oben
+
+|PAGE DOWN
+|Eine Seite nach unten
+
+|INS
+|Einfüge- oder Überschreibmodus umschalten
+
+|DEL
+|Zeichen löschen
+
+|BACKSPACE
+|Zeichen links vom Cursor löschen
+|===
+
+=== Schnell zum Programmanfang
+
+Eine praktische Besonderheit:
+
+[source]
+----
+HOME HOME
+----
+
+springt direkt zum Programmanfang.
+
+Ebenso führt:
+
+[source]
+----
+END END
+----
+
+direkt zum Programmende.
+
+Bei größeren Programmen spart das viel Zeit.
+
+=== Suchen im Programm
+
+Mit:
+
+[source]
+----
+F3
+----
+
+oder:
+
+[source]
+----
+CTRL-F
+----
+
+wird die Suchfunktion gestartet.
+
+Nach Eingabe eines Suchbegriffs springt der Cursor automatisch zur ersten Fundstelle.
+
+Beispiel:
+
+[source]
+----
+PRINT
+----
+
+Der Editor sucht nun nach allen Vorkommen von PRINT.
+
+=== Text markieren
+
+Mit:
+
+[source]
+----
+F4
+----
+
+oder:
+
+[source]
+----
+CTRL-S
+----
+
+wird der Auswahlmodus aktiviert.
+
+Nun kann mit den Cursor-Tasten ein Bereich markiert werden.
+
+Die Markierung wird hervorgehoben dargestellt.
+
+=== Kopieren
+
+Ist Text markiert:
+
+[source]
+----
+F5
+----
+
+oder:
+
+[source]
+----
+CTRL-C
+----
+
+kopiert den markierten Bereich in die Zwischenablage.
+
+=== Ausschneiden
+
+Alternativ kann der markierte Bereich ausgeschnitten werden.
+
+[source]
+----
+CTRL-X
+----
+
+Der Text wird dabei entfernt und in die Zwischenablage übernommen.
+
+=== Einfügen
+
+Mit:
+
+[source]
+----
+F5
+----
+
+oder:
+
+[source]
+----
+CTRL-V
+----
+
+wird der Inhalt der Zwischenablage an der Cursorposition eingefügt.
+
+=== Arbeiten mit Programmbausteinen
+
+Diese Funktionen sind besonders hilfreich bei:
+
+* Unterprogrammen
+* Funktionen
+* Tabellen
+* Datenblöcken
+
+Dadurch können größere Programme deutlich einfacher umstrukturiert werden.
+
+=== Zeilenende löschen
+
+Mit:
+
+[source]
+----
+CTRL-K
+----
+
+wird alles vom Cursor bis zum Ende der aktuellen Zeile gelöscht.
+
+Beispiel:
+
+Vorher:
+
+[source,basic]
+----
+PRINT "Hallo Welt" : PRINT "Test"
+----
+
+Cursor vor dem Doppelpunkt:
+
+[source]
+----
+PRINT "Hallo Welt"| : PRINT "Test"
+----
+
+Nach CTRL-K:
+
+[source,basic]
+----
+PRINT "Hallo Welt"
+----
+
+=== Datei unter anderem Namen speichern
+
+Mit:
+
+[source]
+----
+CTRL-W
+----
+
+kann eine Kopie unter einem anderen Dateinamen gespeichert werden.
+
+Das Original bleibt dabei unverändert.
+
+=== Datei einfügen
+
+Mit:
+
+[source]
+----
+F7
+----
+
+kann der Inhalt einer anderen Datei an der aktuellen Cursorposition eingefügt werden.
+
+Das eignet sich hervorragend für:
+
+* Programmbausteine
+* Include-Dateien
+* Vorlagen
+
+=== Markierte Blöcke speichern
+
+Mit:
+
+[source]
+----
+F8
+----
+
+kann ein markierter Block direkt in eine Datei geschrieben werden.
+
+Dadurch lassen sich Programmteile einfach zwischen Projekten austauschen.
+
+=== Die integrierte Hilfe
+
+Eine besonders praktische Funktion ist die Hilfe.
+
+Mit:
+
+[source]
+----
+F12
+----
+
+wird die Hilfe geöffnet.
+
+Befindet sich der Cursor auf einem BASIC-Befehl, wird automatisch danach gesucht.
+
+Beispiel:
+
+[source,basic]
+----
+PRINT
+----
+
+Cursor auf PRINT positionieren und F12 drücken.
+
+=== Hilfe übernehmen
+
+Nach dem Schließen der Hilfe kann mit:
+
+[source]
+----
+F11
+----
+
+der oberste Hilfeneintrag direkt in das Programm übernommen werden.
+
+Diese Funktion wird oft übersehen, ist aber äußerst praktisch.
+
+=== Farbsyntax
+
+Der Editor hebt verschiedene Elemente farbig hervor.
+
+Zum Beispiel:
+
+* BASIC-Schlüsselwörter
+* Zahlen
+* Kommentare
+* Zeichenketten
+
+Dadurch werden Programme leichter lesbar.
+
+=== Farbsyntax deaktivieren
+
+Falls gewünscht:
+
+[source,basic]
+----
+OPTION COLOURCODE OFF
+----
+
+Aktivieren:
+
+[source,basic]
+----
+OPTION COLOURCODE ON
+----
+
+=== Mausunterstützung
+
+Verfügt das System über eine Maus, kann diese ebenfalls verwendet werden.
+
+Mögliche Aktionen:
+
+* Cursor positionieren
+* Text markieren
+* Scrollen
+* Bereiche auswählen
+
+Der Editor verhält sich dabei ähnlich wie moderne Desktop-Anwendungen.
+
+=== Automatische Sicherung
+
+Beim Speichern wird automatisch eine Sicherungskopie erzeugt.
+
+Beispiel:
+
+[source]
+----
+MEINPROG.BAS
+----
+
+führt zu:
+
+[source]
+----
+MEINPROG.BAS.BAK
+----
+
+Dadurch kann bei Problemen jederzeit auf die vorherige Version zurückgegriffen werden.
+
+=== Der Edit-Run-Zyklus
+
+Viele Entwickler arbeiten nach folgendem Muster:
+
+[source]
+----
+EDIT
+  ↓
+Programm ändern
+  ↓
+F2
+  ↓
+Programm testen
+  ↓
+Fehler beheben
+  ↓
+F2
+----
+
+Dieser Zyklus ist sehr schnell und produktiv.
+
+=== Wann sollte man den eingebauten Editor verwenden?
+
+Der Editor eignet sich hervorragend für:
+
+* kleine Programme
+* Experimente
+* Fehlersuche
+* Unterricht
+* mobile Systeme
+
+Besonders auf einem PicoMite mit HDMI oder VGA kann komplett ohne PC entwickelt werden.
+
+=== Grenzen des eingebauten Editors
+
+Bei sehr großen Projekten werden externe Werkzeuge komfortabler.
+
+Beispiele:
+
+* mehrere Dateien gleichzeitig
+* Projektverwaltung
+* Versionsverwaltung
+* Git-Integration
+
+Hier kommen Programme wie MMEdit oder Visual Studio Code ins Spiel.
+
+=== Tipps aus der Praxis
+
+* Speichere regelmäßig mit F1 oder F2.
+* Nutze F3 zum schnellen Auffinden von Variablen.
+* Verwende F12 für unbekannte Befehle.
+* Behalte die automatisch erzeugten .BAK-Dateien als Sicherheitskopie.
+* Nutze F2 für einen schnellen Entwicklungszyklus.
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Erstelle ein neues Programm mit EDIT.
+. Speichere es mit F1.
+. Starte es mit F2.
+. Suche mit F3 nach einer Variablen.
+. Kopiere ein Unterprogramm mit F4 und F5.
+. Rufe die Hilfe zu PRINT auf.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt:
+
+* den eingebauten Vollbild-Editor zu verwenden
+* Programme zu erstellen und zu bearbeiten
+* Such- und Kopierfunktionen einzusetzen
+* die integrierte Hilfe zu nutzen
+* Sicherungskopien zu verwenden
+
+Der eingebaute Editor ist eines der produktivsten Werkzeuge von MMBasic und ermöglicht die komplette Programmentwicklung direkt auf dem Zielsystem.
+
+Im nächsten Kapitel lernen wir mit MMEdit ein leistungsfähiges Entwicklungswerkzeug für den PC kennen.

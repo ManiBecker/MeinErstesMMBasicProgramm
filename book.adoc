@@ -6,8 +6,8 @@ Manfred Becker
 :toclevels: 1
 :sectnums:
 :icons: font
-:revnumber: 0.10
-:revdate: 2026-07-15
+:revnumber: 0.11
+:revdate: 2026-07-16
 
 image::bilder/cover.png[pdfwidth=100%,align=center]
 
@@ -51,6 +51,8 @@ toc::[]
 
 include::kapitel/00-willkommen.adoc[]
 
+= Teil I – Einstieg in MMBasic
+
 include::kapitel/01-hallo-welt.adoc[]
 
 include::kapitel/02-mit-mmbasic-rechnen.adoc[]
@@ -69,6 +71,8 @@ include::kapitel/08-zahlenraten.adoc[]
 
 include::kapitel/09-zahlenraten-v2.adoc[]
 
+= Teil II – Größere Programme entwickeln
+
 include::kapitel/10-sub-und-function.adoc[]
 
 include::kapitel/11-arrays.adoc[]
@@ -82,6 +86,8 @@ include::kapitel/14-little-professor-v2.adoc[]
 include::kapitel/15-little-professor-v3.adoc[]
 
 include::kapitel/16-dateien.adoc[]
+
+= Teil III – Grafik und Spiele
 
 include::kapitel/17-die-verschiedenen-grafikmodi.adoc[]
 
@@ -109,6 +115,8 @@ include::kapitel/28-layerbuffer-und-bewegliche-objekte.adoc[]
 
 include::kapitel/29-pong.adoc[]
 
+= Teil IV – Hardware und Elektronik
+
 include::kapitel/30-digitale-ein-und-ausgaenge.adoc[]
 
 include::kapitel/31-eine-led-zum-blinken-bringen.adoc[]
@@ -124,3 +132,7 @@ include::kapitel/35-pwm-und-led-dimmer.adoc[]
 include::kapitel/36-toene-und-piezo-summer.adoc[]
 
 include::kapitel/37-senso-das-elektronische-gedaechtnisspiel.adoc[]
+
+= Teil V – Werkzeuge und Entwicklung
+
+include::kapitel/38-der-eingebaute-editor.adoc[]
