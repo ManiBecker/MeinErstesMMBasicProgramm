@@ -136,3 +136,5 @@ include::kapitel/37-senso-das-elektronische-gedaechtnisspiel.adoc[]
 = Teil V – Werkzeuge und Entwicklung
 
 include::kapitel/38-der-eingebaute-editor.adoc[]
+
+include::kapitel/39-programmieren-mit-mmedit.adoc[]

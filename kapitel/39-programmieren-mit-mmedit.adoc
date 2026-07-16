@@ -1,0 +1,529 @@
+== Programmieren mit MMEdit
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* was MMEdit ist
+* wie MMEdit eingerichtet wird
+* wie die Verbindung zu einem PicoMite oder Colour Maximite hergestellt wird
+* Programme zu erstellen, zu bearbeiten und zu übertragen
+* Projekte zu organisieren
+* effizient mit MMBasic zu entwickeln
+
+Am Ende des Kapitels kannst du MMEdit als zentrale Entwicklungsumgebung für deine MMBasic-Projekte verwenden.
+
+=== Warum MMEdit?
+
+Der eingebaute Editor von MMBasic ist leistungsfähig und für viele Aufgaben vollkommen ausreichend.
+
+Mit zunehmender Projektgröße steigen jedoch die Anforderungen.
+
+Beispiele:
+
+* mehrere Dateien gleichzeitig bearbeiten
+* große Programme verwalten
+* komfortabel suchen und ersetzen
+* Projekte organisieren
+* Programme archivieren
+* Quelltexte sichern
+
+Für genau diese Aufgaben wurde MMEdit entwickelt.
+
+=== Was ist MMEdit?
+
+MMEdit ist eine speziell für MMBasic entwickelte Entwicklungsumgebung.
+
+Im Gegensatz zu allgemeinen Texteditoren kennt MMEdit die Besonderheiten von MMBasic und unterstützt viele typische Arbeitsabläufe direkt.
+
+Unterstützt werden unter anderem:
+
+* PicoMite
+* PicoMite VGA
+* PicoMite HDMI
+* Colour Maximite 2
+* Maximite
+* Micromite
+
+MMEdit kombiniert:
+
+* Editor
+* Terminal
+* Dateiübertragung
+* Projektverwaltung
+
+in einer einzigen Anwendung.
+
+=== Welche Version wird verwendet?
+
+Zum Zeitpunkt der Erstellung dieses Tutorials wird verwendet:
+
+[source]
+----
+MMEdit V5.2.9
+Juni 2024
+----
+
+Diese Version unterstützt aktuelle PicoMite- und Colour-Maximite-Systeme und wird von vielen Anwendern eingesetzt.
+
+=== MMEdit auf der mitgelieferten SD-Karte
+
+Bei meinen PicoMite- und Colour-Maximite-Systemen befindet sich auf der mitgelieferten SD-Karte bereits eine passende Version von MMEdit.
+
+Dadurch kann sofort mit der Entwicklung begonnen werden.
+
+Ein weiterer Vorteil:
+
+Diese Version benötigt keine Installation.
+
+MMEdit kann direkt gestartet werden.
+
+Gerade für Einsteiger ist das sehr praktisch.
+
+=== Der erste Start
+
+Nach dem Start erscheint die Hauptoberfläche.
+
+Typischerweise besteht sie aus:
+
+* Menüleiste
+* Editorfenster
+* Terminalfenster
+* Statusbereich
+
+Damit stehen alle wichtigen Werkzeuge sofort zur Verfügung.
+
+=== Verbindung zum Zielsystem
+
+Damit MMEdit mit einem PicoMite oder Colour Maximite kommunizieren kann, wird eine serielle Verbindung benötigt.
+
+In den meisten Fällen erfolgt diese über USB.
+
+[source]
+----
+PC
+ |
+ +---- USB ---- PicoMite
+----
+
+oder:
+
+[source]
+----
+PC
+ |
+ +---- USB ---- Colour Maximite 2
+----
+
+=== COM-Port auswählen
+
+Nach dem Anschließen erzeugt Windows einen virtuellen COM-Port.
+
+Typische Beispiele:
+
+[source]
+----
+COM3
+COM5
+COM8
+----
+
+Dieser COM-Port muss in MMEdit ausgewählt werden.
+
+=== Verbindung testen
+
+Nach erfolgreicher Verbindung erscheint die MMBasic-Eingabeaufforderung.
+
+[source]
+----
+>
+----
+
+Nun können Befehle direkt eingegeben werden.
+
+Beispiel:
+
+[source,basic]
+----
+PRINT MM.INFO$(VERSION)
+----
+
+Die Antwort erscheint unmittelbar im Terminalfenster.
+
+=== Das Terminalfenster
+
+Das Terminalfenster ist eine der wichtigsten Funktionen von MMEdit.
+
+Hier können:
+
+* Befehle eingegeben werden
+* Programme gestartet werden
+* Fehlermeldungen analysiert werden
+* Ergebnisse betrachtet werden
+
+Im täglichen Einsatz wird das Terminal ständig verwendet.
+
+=== Ein typischer Arbeitstag mit MMEdit
+
+Schauen wir uns an, wie ein neues Projekt entsteht.
+
+Wir möchten ein Blinklicht programmieren.
+
+Der Ablauf sieht typischerweise so aus:
+
+[source]
+----
+Neues Programm erstellen
+        ↓
+Programm schreiben
+        ↓
+Speichern
+        ↓
+Zum PicoMite übertragen
+        ↓
+Testen
+        ↓
+Fehler korrigieren
+        ↓
+Erneut übertragen
+----
+
+Diesen Zyklus durchläuft man oft dutzende Male während der Entwicklung.
+
+Genau hier spielt MMEdit seine Stärken aus.
+
+=== Ein erstes Projekt
+
+Wir erstellen eine neue Datei:
+
+[source]
+----
+HALLO.BAS
+----
+
+und schreiben:
+
+[source,basic]
+----
+DO
+
+  PRINT "Hallo MMBasic"
+
+  PAUSE 1000
+
+LOOP
+----
+
+Nun speichern wir die Datei und übertragen sie auf den PicoMite.
+
+Nach dem Start erscheint jede Sekunde:
+
+[source]
+----
+Hallo MMBasic
+----
+
+=== Syntax-Hervorhebung
+
+MMEdit erkennt MMBasic-Befehle automatisch.
+
+Elemente wie:
+
+* Schlüsselwörter
+* Kommentare
+* Zahlen
+* Zeichenketten
+
+werden farbig dargestellt.
+
+Dadurch werden Programme wesentlich besser lesbar.
+
+=== Programme speichern
+
+MMEdit speichert Programme als normale Textdateien.
+
+Typische Beispiele:
+
+[source]
+----
+SENSO.BAS
+
+PONG.BAS
+
+AMPel.BAS
+----
+
+Die Dateien können problemlos archiviert oder weitergegeben werden.
+
+=== Programme übertragen
+
+Eine der wichtigsten Funktionen von MMEdit ist die Übertragung eines Programms auf das Zielsystem.
+
+Der Ablauf ist einfach:
+
+[source]
+----
+Programm schreiben
+       ↓
+Speichern
+       ↓
+Übertragen
+       ↓
+Testen
+----
+
+Dadurch entsteht ein sehr schneller Entwicklungszyklus.
+
+=== Programme vom Zielsystem lesen
+
+MMEdit kann nicht nur Programme übertragen.
+
+Auch bereits vorhandene Programme können wieder eingelesen werden.
+
+Dies ist hilfreich für:
+
+* Datensicherung
+* Fehlersuche
+* Dokumentation
+* Versionsverwaltung
+
+=== Arbeiten mit mehreren Dateien
+
+Bei größeren Projekten entstehen oft mehrere Dateien.
+
+Beispiel:
+
+[source]
+----
+SENSO.BAS
+
+SOUND.BAS
+
+ANZEIGE.BAS
+
+TEST.BAS
+----
+
+MMEdit kann mehrere Dateien gleichzeitig geöffnet halten.
+
+=== Registerkarten verwenden
+
+Jede Datei erhält eine eigene Registerkarte.
+
+[source]
+----
+| SENSO.BAS |
+| SOUND.BAS |
+| TEST.BAS  |
+----
+
+Der Wechsel zwischen den Dateien erfolgt mit einem Mausklick.
+
+=== Ordnung spart Zeit
+
+Anfangs besteht ein Projekt oft nur aus einer Datei.
+
+Später entstehen jedoch größere Projekte.
+
+Ein möglicher Aufbau könnte so aussehen:
+
+[source]
+----
+LittleProfessor
+│
+├── littleprofessor.bas
+├── fragen.dat
+├── bilder
+│   ├── logo.png
+│   └── titel.png
+└── dokumentation
+    └── readme.txt
+----
+
+Eine saubere Struktur erleichtert die Wartung erheblich.
+
+=== Arbeiten mit SD-Karten
+
+Viele MMBasic-Systeme verwenden eine SD-Karte.
+
+Programme können dadurch einfach zwischen PC und Zielsystem ausgetauscht werden.
+
+Ein häufiger Arbeitsablauf sieht so aus:
+
+[source]
+----
+MMEdit
+   ↓
+SD-Karte
+   ↓
+PicoMite
+----
+
+Dadurch können Projekte archiviert, gesichert oder weitergegeben werden.
+
+=== Suchen und Ersetzen
+
+Mit zunehmender Programmgröße wird die Suchfunktion unverzichtbar.
+
+Beispiel:
+
+[source]
+----
+PUNKTZAHL
+----
+
+Alle Vorkommen dieser Variablen können sofort gefunden werden.
+
+Ebenso lassen sich Begriffe automatisch ersetzen.
+
+=== Wenn Projekte wachsen
+
+Kleine Programme lassen sich mit nahezu jedem Editor bearbeiten.
+
+Mit zunehmender Größe ändern sich jedoch die Anforderungen.
+
+Aus:
+
+[source]
+----
+50 Zeilen
+----
+
+werden schnell:
+
+[source]
+----
+500 Zeilen
+----
+
+oder sogar mehrere tausend Zeilen.
+
+Nun werden Funktionen wie:
+
+* Suchen
+* Ersetzen
+* mehrere geöffnete Dateien
+* Projektstruktur
+
+immer wichtiger.
+
+Genau dafür wurde MMEdit entwickelt.
+
+[NOTE]
+====
+Dieses Tutorial umfasst inzwischen mehrere hundert Seiten und besteht aus zahlreichen Einzeldateien.
+
+Mit zunehmender Projektgröße werden gute Werkzeuge immer wichtiger.
+
+Dasselbe gilt auch für MMBasic-Projekte.
+
+Während kleine Programme problemlos direkt auf dem Zielsystem entwickelt werden können, profitieren größere Projekte erheblich von Werkzeugen wie MMEdit.
+====
+
+=== MMEdit oder der eingebaute Editor?
+
+Beide Werkzeuge haben ihre Stärken.
+
+[cols="2,1,1"]
+|===
+|Aufgabe |Editor |MMEdit
+
+|Kleine Programme
+|✓
+|✓
+
+|Unterwegs ohne PC
+|✓
+|✗
+
+|Mehrere Dateien
+|✗
+|✓
+
+|Große Projekte
+|△
+|✓
+
+|Komfortables Suchen
+|△
+|✓
+
+|Direkt auf dem Zielsystem
+|✓
+|✗
+
+|Projektverwaltung
+|✗
+|✓
+|===
+
+=== MMEdit oder Visual Studio Code?
+
+Viele Anwender verwenden neben MMEdit auch allgemeine Editoren.
+
+Beispiele:
+
+* Visual Studio Code
+* Notepad++
+* Geany
+
+MMEdit besitzt den Vorteil, speziell für MMBasic entwickelt worden zu sein.
+
+Dadurch sind viele Arbeitsabläufe bereits integriert.
+
+Visual Studio Code bietet dagegen Vorteile bei:
+
+* Git
+* GitHub
+* Dokumentation
+* AsciiDoc
+* größeren Softwareprojekten
+
+Welches Werkzeug verwendet wird, ist letztlich Geschmackssache.
+
+Viele Entwickler nutzen beide Werkzeuge parallel.
+
+=== Tipps aus der Praxis
+
+* Verwende für jedes Projekt ein eigenes Verzeichnis.
+* Sichere wichtige Projekte regelmäßig.
+* Nutze aussagekräftige Dateinamen.
+* Halte das Terminalfenster sichtbar.
+* Teste Programme früh und häufig.
+* Dokumentiere besondere Hardwareanschlüsse.
+* Lege wichtige Projekte zusätzlich auf einer SD-Karte ab.
+
+=== Ein persönlicher Tipp
+
+Viele Entwickler konzentrieren sich ausschließlich auf den Quellcode.
+
+Mindestens genauso wichtig ist jedoch eine gute Projektorganisation.
+
+Ein sauber strukturiertes Projekt spart oft mehr Zeit als jede Programmiersprache oder Entwicklungsumgebung.
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Verbinde MMEdit mit deinem PicoMite.
+. Erstelle ein neues Programm.
+. Übertrage das Programm auf das Zielsystem.
+. Öffne mehrere Dateien gleichzeitig.
+. Verwende die Suchfunktion.
+. Lege einen Projektordner mit Unterverzeichnissen an.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt:
+
+* was MMEdit ist
+* wie die Verbindung zum Zielsystem hergestellt wird
+* Programme zu erstellen und zu übertragen
+* mehrere Dateien zu verwalten
+* Projekte sauber zu organisieren
+
+MMEdit ist eines der wichtigsten Werkzeuge für die Entwicklung größerer MMBasic-Projekte.
+
+Zusammen mit dem eingebauten Editor besitzt du nun zwei leistungsfähige Werkzeuge für die tägliche Arbeit mit MMBasic.
+
+Damit endet der Teil *Werkzeuge und Entwicklung* und du verfügst nun über das notwendige Rüstzeug, um auch größere MMBasic-Projekte erfolgreich umzusetzen.
