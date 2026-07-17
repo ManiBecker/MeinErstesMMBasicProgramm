@@ -138,3 +138,11 @@ include::kapitel/37-senso-das-elektronische-gedaechtnisspiel.adoc[]
 include::kapitel/38-der-eingebaute-editor.adoc[]
 
 include::kapitel/39-programmieren-mit-mmedit.adoc[]
+
+= Teil VI – Dateien und Projekte
+
+include::kapitel/40-programme-speichern-und-laden.adoc[]
+
+include::kapitel/41-dateiverwaltung-auf-der-sd-karte.adoc[]
+
+include::kapitel/42-programme-verketten-mit-chain.adoc[]
