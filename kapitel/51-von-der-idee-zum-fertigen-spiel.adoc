@@ -1,0 +1,226 @@
+== Von der Idee zum fertigen Spiel
+
+=== Willkommen zum Finale
+
+Herzlichen Glückwunsch!
+
+Wenn du bis hierher gekommen bist, hast du bereits einen langen Weg zurückgelegt.
+
+Du hast gelernt,
+
+* Variablen und Konstanten zu verwenden,
+* Entscheidungen mit `IF` und `SELECT CASE` zu treffen,
+* Schleifen zu programmieren,
+* Funktionen zu schreiben,
+* Grafiken und Texte auszugeben,
+* Sound zu erzeugen,
+* Dateien zu speichern,
+* Timer einzusetzen,
+* Gamepads auszulesen
+* und Sprites über den Bildschirm zu bewegen.
+
+Jedes dieser Themen war zunächst nur ein kleiner Baustein.
+
+Jetzt werden wir sie miteinander verbinden.
+
+In diesem Kapitel entwickeln wir gemeinsam ein vollständiges Computerspiel.
+
+Nicht als Sammlung einzelner Programmbeispiele.
+
+Sondern so, wie auch echte Softwareprojekte entstehen.
+
+Wir beginnen mit einer Idee, planen die einzelnen Bestandteile und setzen sie anschließend Schritt für Schritt um.
+
+Du wirst dabei feststellen, dass viele Dinge, die dir am Anfang dieses Buches noch kompliziert erschienen, inzwischen ganz selbstverständlich geworden sind.
+
+Genau das ist das Ziel dieses Buches.
+
+Nicht einzelne BASIC-Befehle auswendig zu lernen.
+
+Sondern eigene Programme entwickeln zu können.
+
+=== Die Spielidee
+
+Unser Abschlussprojekt soll bewusst überschaubar bleiben.
+
+Es soll alle wichtigen Techniken verwenden, die wir im Laufe dieses Buches kennengelernt haben, dabei aber so einfach aufgebaut sein, dass du den gesamten Programmablauf problemlos nachvollziehen kannst.
+
+Wir entwickeln deshalb ein kleines Arcade-Spiel.
+
+Der Spieler steuert eine Spielfigur über den Bildschirm.
+
+Über das Spielfeld verteilt erscheinen Münzen.
+
+Ziel des Spiels ist es, möglichst viele Münzen einzusammeln.
+
+Doch Vorsicht!
+
+Mehrere Gegner bewegen sich ebenfalls über den Bildschirm.
+
+Berührt einer der Gegner unsere Spielfigur, verliert der Spieler ein Leben.
+
+Sind alle Münzen eingesammelt, beginnt das nächste Level.
+
+Mit jedem Level werden die Gegner etwas schneller.
+
+Das Spiel endet, sobald keine Leben mehr übrig sind.
+
+Obwohl diese Spielidee sehr einfach klingt, verwendet sie bereits nahezu alle wichtigen Techniken der klassischen Spieleprogrammierung.
+
+=== Spielregeln
+
+Die Regeln unseres Spiels sind schnell erklärt.
+
+* Der Spieler bewegt seine Figur mit dem linken Analogstick des Gamepads.
+* Jede eingesammelte Münze bringt Punkte.
+* Gegner bewegen sich selbstständig über den Bildschirm.
+* Berührt ein Gegner den Spieler, geht ein Leben verloren.
+* Sind alle Münzen eingesammelt, beginnt das nächste Level.
+* Mit jedem Level erhöht sich die Spielgeschwindigkeit.
+* Sind keine Leben mehr vorhanden, endet das Spiel.
+
+Mehr Regeln benötigen wir zunächst nicht.
+
+Gerade einfache Spielideen machen häufig den größten Spaß.
+
+Viele bekannte Computerspiele der 1980er-Jahre bestanden aus ähnlich einfachen Spielregeln.
+
+=== Das Spielfeld
+
+Bevor wir mit dem Programmieren beginnen, überlegen wir uns zunächst den Aufbau unseres Spielfeldes.
+
+[source]
+----
++--------------------------------------------------+
+
+        💰
+
+                      👾
+
+
+   🙂
+
+
+               💰
+
+                              👾
+
+
+          💰
+
+
++--------------------------------------------------+
+----
+
+Unser Spiel verwendet lediglich drei unterschiedliche Sprite-Typen.
+
+* 🙂 Spieler
+* 💰 Münze
+* 👾 Gegner
+
+Zusätzlich benötigen wir einige Textanzeigen.
+
+Am oberen Bildschirmrand zeigen wir
+
+* den aktuellen Punktestand,
+* das aktuelle Level
+* und die verbleibenden Leben an.
+
+Damit besitzt unser Spiel bereits alle wichtigen Bestandteile eines klassischen Arcade-Spiels.
+
+=== Planung
+
+Bevor wir mit dem eigentlichen Programm beginnen, überlegen wir uns den grundsätzlichen Ablauf.
+
+Unser Spiel besteht aus mehreren unabhängigen Aufgaben.
+
+* Initialisierung
+* Sprites laden
+* Spiel starten
+* Eingaben lesen
+* Spieler bewegen
+* Gegner bewegen
+* Münzen prüfen
+* Kollisionen erkennen
+* Punktestand aktualisieren
+* Bildschirm aktualisieren
+
+Jede dieser Aufgaben werden wir später in einer eigenen Funktion unterbringen.
+
+Dadurch bleibt unser Programm übersichtlich und kann jederzeit erweitert werden.
+
+Diese Vorgehensweise entspricht auch der Arbeitsweise professioneller Softwareentwickler.
+
+=== Die Programmstruktur
+
+Bevor wir die erste Programmzeile schreiben, lohnt sich ein Blick auf den grundsätzlichen Aufbau.
+
+[source]
+----
+Programmstart
+
+↓
+
+Grafik initialisieren
+
+↓
+
+Sprites laden
+
+↓
+
+Spielvariablen initialisieren
+
+↓
+
+Game Loop
+
+    ↓
+
+    Gamepad lesen
+
+    ↓
+
+    Spieler bewegen
+
+    ↓
+
+    Gegner bewegen
+
+    ↓
+
+    Münzen prüfen
+
+    ↓
+
+    Kollisionen prüfen
+
+    ↓
+
+    Bildschirm aktualisieren
+
+↓
+
+Spiel beendet
+----
+
+Vielleicht kommt dir dieser Ablauf bekannt vor.
+
+Genau diese Spielschleife haben wir bereits im vorherigen Kapitel kennengelernt.
+
+Der Unterschied besteht lediglich darin, dass jetzt sämtliche Techniken gemeinsam verwendet werden.
+
+=== Los geht's
+
+Jetzt ist es endlich so weit.
+
+Im nächsten Abschnitt beginnen wir mit dem eigentlichen Programm.
+
+Zunächst legen wir die benötigten Konstanten und Variablen an und initialisieren unsere Spielumgebung.
+
+Anschließend laden wir die Sprites und erzeugen unser Spielfeld.
+
+Danach folgt die eigentliche Spielschleife, in der alle Bestandteile unseres Spiels zusammenarbeiten.
+
+Aus vielen kleinen Programmbausteinen entsteht nun Schritt für Schritt ein vollständiges Computerspiel.
+
