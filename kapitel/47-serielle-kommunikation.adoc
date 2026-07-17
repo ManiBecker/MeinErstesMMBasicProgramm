@@ -371,6 +371,196 @@ Beispielsweise:
 
 Dadurch lassen sich moderne und historische Systeme miteinander verbinden.
 
+=== Praxisprojekt: Zeitmessung für einen Commodore CBM
+
+In einem Retrocomputer-Forum stellte ein Leser die folgende Frage:
+
+[quote]
+____
+Ich brauche demnächst die Anbindung eines Pi Pico an einen Commodore CBM zur Zeiterfassung von RC-Fahrzeugen. Die Zeit soll mit einer Lichtschranke gemessen werden.
+
+Der CBM ist dafür eigentlich zu langsam, der Pi Pico kann dagegen problemlos Hundertstelsekunden oder sogar Millisekunden erfassen.
+
+Die Daten sollen anschließend über eine serielle Verbindung an den CBM übertragen werden.
+____
+
+Dieses Beispiel zeigt sehr schön, wie sich moderne Mikrocontroller und klassische Computer sinnvoll ergänzen können.
+
+Der PicoMite übernimmt die Aufgabe, die hohe Rechengeschwindigkeit und präzise Zeitmessung erfordert, während der Commodore CBM die Ergebnisse anzeigt, speichert oder weiterverarbeitet.
+
+=== Aufgaben sinnvoll verteilen
+
+Beide Computer besitzen unterschiedliche Stärken.
+
+Der Commodore CBM bietet:
+
+* komfortable BASIC-Programmierung
+* Tastatur und Bildschirm
+* einfache Datenauswertung
+* gute Möglichkeiten zur Speicherung der Ergebnisse
+
+Der PicoMite bietet dagegen:
+
+* einen schnellen Mikrocontroller
+* präzise Timer
+* Interrupts
+* schnelle Reaktion auf Eingangssignale
+
+Anstatt den CBM durch einen modernen Rechner zu ersetzen, übernimmt der PicoMite lediglich die Aufgabe, für die er besser geeignet ist.
+
+=== Aufbau der Schaltung
+
+Der prinzipielle Aufbau sieht folgendermaßen aus:
+
+[source]
+----
+             Lichtschranke
+                    │
+                    ▼
+           +----------------+
+           |    PicoMite    |
+           |                |
+           | Zeitmessung    |
+           | Interrupt      |
+           | TIMER          |
+           +----------------+
+                    │
+             UART / RS232
+                    │
+                    ▼
+         +--------------------+
+         | Commodore CBM      |
+         | BASIC-Programm     |
+         | Anzeige            |
+         | Auswertung         |
+         +--------------------+
+----
+
+Sobald das Fahrzeug die Lichtschranke durchfährt, registriert der PicoMite das Ereignis und berechnet die verstrichene Zeit.
+
+Anschließend wird das Ergebnis über die serielle Schnittstelle an den Commodore übertragen.
+
+=== Warum übernimmt der CBM die Zeitmessung nicht selbst?
+
+Natürlich könnte man versuchen, die Zeit direkt im BASIC-Programm des CBM zu messen.
+
+Allerdings arbeitet BASIC interpretiert. Während der Rechner gleichzeitig Tastatur, Bildschirm und Programm ausführt, vergeht bereits wertvolle Zeit.
+
+Für viele Anwendungen reicht diese Genauigkeit völlig aus.
+
+Bei einer Rennstrecke oder einer Lichtschranke möchte man jedoch möglichst genaue Messwerte erhalten.
+
+Ein Mikrocontroller wie der PicoMite reagiert innerhalb weniger Mikrosekunden auf ein Eingangssignal und kann Zeitabstände sehr präzise bestimmen.
+
+=== Die serielle Verbindung
+
+Der RP2040 bzw. RP2350 besitzt bereits eine integrierte UART.
+
+Für die serielle Kommunikation ist daher keine zusätzliche Hardware erforderlich.
+
+Soll die Verbindung jedoch an eine klassische RS232-Schnittstelle erfolgen, müssen die unterschiedlichen Signalpegel angepasst werden.
+
+Hierzu verwendet man einen Pegelwandler wie beispielsweise den bekannten MAX232.
+
+[source]
+----
+PicoMite (3,3 V UART)
+          │
+          ▼
+      MAX232
+          │
+          ▼
+RS232 des Commodore
+----
+
+Besitzt der Zielrechner dagegen bereits TTL-Pegel oder wird der User-Port entsprechend angepasst, kann auf den MAX232 verzichtet werden.
+
+=== Ein einfaches Kommunikationsprotokoll
+
+Der PicoMite muss dem Commodore lediglich die gemessene Zeit übertragen.
+
+Eine einfache Textnachricht genügt bereits.
+
+Beispiele:
+
+[source]
+----
+TIME:2.37
+----
+
+oder
+
+[source]
+----
+TIME:2371
+----
+
+Im zweiten Beispiel wird die Zeit in Millisekunden übertragen.
+
+Textbasierte Protokolle besitzen den Vorteil, dass sie leicht lesbar und einfach zu testen sind.
+
+=== Das BASIC-Programm auf dem Commodore
+
+Der Commodore muss die empfangene Zeichenkette lediglich einlesen.
+
+Das Programm könnte anschließend beispielsweise folgende Ausgabe erzeugen:
+
+[source]
+----
+Runde 1 : 2.371 s
+Runde 2 : 2.294 s
+Runde 3 : 2.415 s
+----
+
+Die eigentliche Berechnung der Zeit erfolgt vollständig auf dem PicoMite.
+
+=== Erweiterungsmöglichkeiten
+
+Aus dieser einfachen Idee lassen sich viele interessante Projekte entwickeln.
+
+Zum Beispiel:
+
+* Rundenzähler
+* Bestzeiten speichern
+* Mehrere Lichtschranken auswerten
+* Fehlstarts erkennen
+* Ziel- und Zwischenzeiten messen
+* Ergebnisse auf SD-Karte speichern
+* Live-Anzeige auf einem zweiten Display
+
+=== Mehr als nur ein Commodore
+
+Das gleiche Prinzip funktioniert selbstverständlich auch mit vielen anderen klassischen Computern.
+
+Zum Beispiel:
+
+* AC1
+* Z1013
+* KC85
+* Apple II
+* CP/M-Rechner
+* Siemens PG
+* Eigenbaucomputer mit serieller Schnittstelle
+
+Der Retrocomputer übernimmt dabei die Benutzeroberfläche, während der PicoMite die zeitkritischen Aufgaben erledigt.
+
+[TIP]
+====
+Viele Retrocomputer besitzen bereits eine serielle Schnittstelle oder können mit einem einfachen RS232-Interface nachgerüstet werden.
+
+Dadurch lassen sich moderne Sensoren, Mikrocontroller und Messgeräte überraschend einfach mit historischen Computern verbinden.
+====
+
+=== Fazit
+
+Dieses Projekt zeigt eindrucksvoll, dass ein PicoMite keinen klassischen Computer ersetzen muss.
+
+Im Gegenteil: Beide Systeme ergänzen sich hervorragend.
+
+Der Retrocomputer übernimmt die Bedienung und Darstellung der Daten, während der PicoMite seine hohe Geschwindigkeit für präzise Messungen nutzt.
+
+Genau diese Kombination macht den besonderen Reiz vieler moderner Retro-Projekte aus.
+
 === Ein Blick in die Zukunft
 
 Serielle Kommunikation bildet die Grundlage vieler weiterer Technologien.
