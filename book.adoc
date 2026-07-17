@@ -146,3 +146,5 @@ include::kapitel/40-programme-speichern-und-laden.adoc[]
 include::kapitel/41-dateiverwaltung-auf-der-sd-karte.adoc[]
 
 include::kapitel/42-programme-verketten-mit-chain.adoc[]
+
+include::kapitel/43-nuetzliche-systeminformationen.adoc[]
