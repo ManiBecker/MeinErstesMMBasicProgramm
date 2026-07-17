@@ -6,8 +6,8 @@ Manfred Becker
 :toclevels: 1
 :sectnums:
 :icons: font
-:revnumber: 0.11
-:revdate: 2026-07-16
+:revnumber: 0.12
+:revdate: 2026-07-17
 
 image::bilder/cover.png[pdfwidth=100%,align=center]
 
