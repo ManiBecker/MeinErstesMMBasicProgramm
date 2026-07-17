@@ -1,0 +1,110 @@
+= Epilog
+
+== Wie geht es jetzt weiter?
+
+Herzlichen Glückwunsch!
+
+Wenn du dieses Buch bis hierhin durchgearbeitet hast, hast du einen wichtigen Meilenstein erreicht.
+
+Du kannst jetzt eigene Programme in MMBasic schreiben, Grafiken erzeugen, Sounds abspielen, Dateien speichern, Gamepads verwenden und sogar einfache Computerspiele entwickeln.
+
+Vor allem aber hast du etwas viel Wichtigeres gelernt:
+
+Du hast gelernt, Probleme in kleine, überschaubare Schritte zu zerlegen und daraus funktionierende Programme zu entwickeln.
+
+Genau das macht einen Programmierer aus.
+
+Natürlich wirst du noch längst nicht jede Aufgabe lösen können. Das kann niemand.
+
+Auch erfahrene Programmierer schlagen regelmäßig Befehle nach, lesen Dokumentationen oder suchen nach neuen Lösungswegen.
+
+Das gehört zum Programmieren einfach dazu.
+
+Lass dich deshalb nicht entmutigen, wenn einmal etwas nicht auf Anhieb funktioniert.
+
+Fehlermeldungen sind keine Niederlagen.
+
+Sie sind Wegweiser.
+
+Fast jedes Programm entsteht durch Ausprobieren, Verbessern und erneutes Testen.
+
+=== Jetzt bist du dran
+
+Das Abschlussprojekt dieses Buches ist nur ein Anfang.
+
+Vielleicht hast du beim Lesen bereits eigene Ideen entwickelt.
+
+Warum nicht einmal
+
+* zusätzliche Gegner einbauen?
+* neue Level entwerfen?
+* Highscores speichern?
+* eigene Spritegrafiken zeichnen?
+* Soundeffekte ergänzen?
+* eine Titelmusik komponieren?
+* ein Jump-and-Run oder ein Denkspiel entwickeln?
+
+Vielleicht entsteht daraus irgendwann sogar dein ganz eigenes Spiel.
+
+=== Nutze die Dokumentation
+
+Dieses Buch konnte nur einen Teil der Möglichkeiten von MMBasic zeigen.
+
+Im offiziellen MMBasic User Manual findest du viele weitere Befehle und Funktionen.
+
+Lass dich davon aber nicht abschrecken.
+
+Du musst nicht alles kennen.
+
+Wenn du eine neue Aufgabe lösen möchtest, suche gezielt nach den passenden Befehlen.
+
+So arbeiten auch erfahrene Entwickler.
+
+=== Tausche dich mit anderen aus
+
+Programmieren macht noch mehr Spaß, wenn man seine Projekte mit anderen teilt.
+
+Im Internet gibt es zahlreiche Foren und Communities rund um MMBasic, den PicoMite und den Colour Maximite 2.
+
+Zeige dort deine Projekte.
+
+Stelle Fragen.
+
+Hilf anderen Einsteigern.
+
+Du wirst feststellen, dass die meisten Mitglieder ihre Erfahrungen gerne weitergeben.
+
+=== Mein persönlicher Rat
+
+Ich programmiere seit vielen Jahrzehnten.
+
+In dieser Zeit habe ich unzählige Programmiersprachen, Betriebssysteme und Computer kennengelernt.
+
+Doch eines hat sich nie geändert:
+
+Der schönste Moment ist immer der, wenn ein eigenes Programm zum ersten Mal genau das tut, was man sich vorgestellt hat.
+
+Dieses Gefühl verliert man nie.
+
+Ich wünsche dir, dass du noch viele solcher Momente erleben wirst.
+
+Bleib neugierig.
+
+Experimentiere.
+
+Hab keine Angst vor Fehlern.
+
+Und vor allem:
+
+Hab Spaß am Programmieren.
+
+[quote]
+____
+»Jedes große Programm begann einmal mit einer einzigen Zeile.«
+
+`PRINT "Hallo Welt"`
+____
+
+Vielen Dank, dass ich dich auf deinem Einstieg in die Welt von MMBasic begleiten durfte.
+
+Ich wünsche dir viel Erfolg – und vor allem viel Freude – bei deinen eigenen Projekten.
