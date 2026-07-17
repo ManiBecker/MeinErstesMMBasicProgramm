@@ -1,1 +1,284 @@
-x
+== Spielcontroller und Gamepads
+
+=== Das lernst du
+
+In den bisherigen Kapiteln wurden unsere Programme hauptsächlich über die Tastatur gesteuert. Das funktioniert für viele Anwendungen hervorragend, bei Spielen stößt man jedoch schnell an Grenzen.
+
+Ein Gamepad liegt gut in der Hand, besitzt zahlreiche Bedienelemente und ermöglicht eine schnelle und intuitive Steuerung. Deshalb gehören Spielcontroller heute zur Standardausstattung vieler Computer und Spielekonsolen.
+
+In diesem Kapitel lernst du:
+
+* einen USB-Spielcontroller am PicoMite anzuschließen
+* digitale Tasten und Analogsticks auszulesen
+* Eingaben im Programm zu verarbeiten
+* Testprogramme für Gamepads zu entwickeln
+* Gamepads für Spiele und technische Anwendungen einzusetzen
+
+Im nächsten Kapitel verwenden wir diese Kenntnisse, um Sprites und Spielfiguren zu steuern.
+
+=== Vom Joystick zum modernen Gamepad
+
+Bereits in den 1980er-Jahren besaßen viele Heimcomputer einen Joystickanschluss.
+
+Ein klassischer Joystick verfügte meist nur über:
+
+* vier Richtungen
+* einen Feuerknopf
+
+Damit ließen sich nahezu alle damaligen Spiele bedienen.
+
+Moderne Gamepads besitzen deutlich mehr Möglichkeiten:
+
+* Steuerkreuz
+* zwei Analogsticks
+* mehrere Aktionstasten
+* Schultertasten
+* Start- und Menütasten
+
+Dadurch eignen sie sich auch für anspruchsvollere Spiele.
+
+=== USB-Spielcontroller
+
+Die meisten heutigen Gamepads verwenden USB als Schnittstelle.
+
+Der PicoMite unterstützt zahlreiche USB-HID-Spielcontroller. In vielen Fällen genügt es, den Controller einfach anzuschließen.
+
+Eine zusätzliche Treiberinstallation ist normalerweise nicht erforderlich.
+
+[TIP]
+====
+Nicht jeder USB-Controller verhält sich exakt gleich.
+
+Vor allem preiswerte No-Name-Geräte können unterschiedliche Tastenbelegungen besitzen.
+
+Deshalb empfiehlt es sich, zunächst immer ein kleines Testprogramm zu schreiben.
+====
+
+=== Digitale und analoge Eingaben
+
+Man unterscheidet grundsätzlich zwei Arten von Bedienelementen.
+
+==== Digitale Tasten
+
+Digitale Tasten besitzen nur zwei Zustände:
+
+* gedrückt
+* nicht gedrückt
+
+Dazu gehören beispielsweise:
+
+* A
+* B
+* X
+* Y
+* START
+* SELECT
+
+==== Analogsticks
+
+Analogsticks liefern dagegen kontinuierliche Werte.
+
+Je weiter der Stick bewegt wird, desto größer wird der ausgegebene Zahlenwert.
+
+Dadurch lassen sich Figuren besonders weich und präzise steuern.
+
+=== Praxisprojekt: Controller testen
+
+Bevor wir Spiele entwickeln, überprüfen wir zunächst die Funktion unseres Controllers.
+
+Das Programm soll:
+
+* alle gedrückten Tasten anzeigen
+* die Werte der Analogsticks ausgeben
+* Trigger anzeigen
+
+[source,basic]
+----
+'------------------------------------------
+' Controller-Testprogramm
+'------------------------------------------
+
+' TODO:
+' Gamepad initialisieren
+
+DO
+
+    ' TODO:
+    ' Aktuelle Controllerdaten einlesen
+
+    PRINT "Linker Stick : "; StickX; StickY
+    PRINT "Rechter Stick: "; StickRX; StickRY
+
+    IF ButtonA THEN PRINT "Taste A"
+
+    IF ButtonB THEN PRINT "Taste B"
+
+    IF ButtonStart THEN PRINT "START"
+
+LOOP
+----
+
+[IMPORTANT]
+====
+TODO
+
+Beim Praxistest werden hier die tatsächlichen MMBasic-Befehle zum Initialisieren und Auslesen des Gamepads eingefügt.
+====
+
+=== Praxisprojekt: Cursor bewegen
+
+Nun soll ein kleiner Kreis mit dem linken Analogstick bewegt werden.
+
+[source,basic]
+----
+CLS
+
+x = MM.HRES / 2
+y = MM.VRES / 2
+
+DO
+
+    ' TODO:
+    ' Gamepad lesen
+
+    x = x + StickX
+    y = y + StickY
+
+    CLS
+
+    CIRCLE x,y,8
+
+LOOP
+----
+
+Schon dieses einfache Programm vermittelt ein gutes Gefühl dafür, wie Analogsticks arbeiten.
+
+=== Totzone
+
+Viele Analogsticks liefern selbst in ihrer Mittelstellung kleine Abweichungen.
+
+Dadurch würde sich der Cursor langsam über den Bildschirm bewegen.
+
+Dieses Verhalten verhindert man durch eine sogenannte Totzone.
+
+Erst wenn der gemessene Wert einen bestimmten Bereich verlässt, wird die Bewegung ausgeführt.
+
+[source,basic]
+----
+IF ABS(StickX) > Totzone THEN
+
+    x = x + StickX
+
+ENDIF
+----
+
+Dadurch bleibt der Cursor in der Mittelstellung ruhig stehen.
+
+=== Praxisprojekt: Elektronisches Zeichenbrett
+
+Jetzt erweitern wir unser Cursorprogramm.
+
+Der linke Analogstick bewegt den Zeichenstift.
+
+Mit einer Taste wird gezeichnet.
+
+Mit einer anderen Taste wird die Farbe gewechselt.
+
+[source,basic]
+----
+' TODO
+
+Stick bewegen
+
+Taste A:
+    Punkt zeichnen
+
+Taste B:
+    Farbe wechseln
+
+Taste X:
+    Bildschirm löschen
+----
+
+Dieses kleine Programm zeigt bereits sehr schön, wie vielseitig sich Gamepads einsetzen lassen.
+
+=== Praxisprojekt: Pong mit Gamepad
+
+Im Kapitel über Grafik haben wir bereits das Spiel Pong entwickelt.
+
+Damals wurde der Schläger über die Tastatur bewegt.
+
+Jetzt ersetzen wir lediglich die Eingabe.
+
+[source,basic]
+----
+'------------------------------------------
+' bisher
+'------------------------------------------
+
+IF INKEY$="A" THEN y=y-4
+
+IF INKEY$="Z" THEN y=y+4
+
+'------------------------------------------
+' neu
+'------------------------------------------
+
+' TODO
+
+Gamepad lesen
+
+y = y + StickY
+----
+
+An der eigentlichen Spiellogik muss nahezu nichts verändert werden.
+
+Gerade das zeigt den Vorteil einer sauberen Programmstruktur.
+
+=== Mehr als nur Spiele
+
+Gamepads eignen sich für weit mehr als Computerspiele.
+
+Beispiele:
+
+* Roboter steuern
+* Modellfahrzeuge bedienen
+* Servomotoren bewegen
+* Kameras schwenken
+* Menüs bedienen
+* Messgeräte steuern
+
+Mit einem preiswerten USB-Controller erhält man somit ein vielseitiges Eingabegerät für viele Projekte.
+
+=== Retro-Ecke
+
+Die klassischen Competition-Pro-Joysticks der Heimcomputerzeit besaßen lediglich vier Mikroschalter und einen Feuerknopf.
+
+Trotz der heute wesentlich leistungsfähigeren Gamepads ist das Grundprinzip unverändert geblieben.
+
+Der Spieler gibt eine Richtung oder einen Befehl vor.
+
+Das Programm reagiert unmittelbar darauf.
+
+Im nächsten Kapitel werden wir genau diese Eingaben verwenden, um Sprites flüssig über den Bildschirm zu bewegen.
+
+=== Probier's selbst!
+
+* Ermittle die Tastenbelegung deines Gamepads.
+* Zeige die Werte aller Analogsticks auf dem Bildschirm an.
+* Ergänze eine Totzone.
+* Erweitere das Zeichenprogramm um mehrere Farben.
+* Baue dein Pong-Spiel auf Gamepad-Steuerung um.
+
+=== Zusammenfassung
+
+Gamepads gehören heute zu den wichtigsten Eingabegeräten für Spiele.
+
+Du hast gelernt,
+
+* wie moderne USB-Spielcontroller aufgebaut sind,
+* den Unterschied zwischen digitalen und analogen Eingaben kennengelernt,
+* erste Testprogramme entworfen
+* und Gamepads als universelle Eingabegeräte eingesetzt.
+
+Im nächsten Kapitel werden wir diese Eingaben verwenden, um Sprites und Spielfiguren komfortabel zu steuern.
