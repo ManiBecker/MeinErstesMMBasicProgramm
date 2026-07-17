@@ -1,0 +1,406 @@
+== Wichtige OPTION-Befehle
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* was OPTION-Befehle sind
+* welche Einstellungen dauerhaft gespeichert werden
+* wichtige OPTION-Befehle im Alltag einzusetzen
+* typische Fehler zu vermeiden
+* MMBasic an deine Bedürfnisse anzupassen
+
+Am Ende des Kapitels kennst du die wichtigsten Konfigurationsmöglichkeiten von MMBasic.
+
+=== Was sind OPTION-Befehle?
+
+Bisher haben wir überwiegend Befehle kennengelernt, die unmittelbar etwas ausführen:
+
+[source,basic]
+----
+PRINT "Hallo Welt"
+CLS
+LINE 0,0,100,100
+----
+
+OPTION-Befehle funktionieren anders.
+
+Sie verändern die Konfiguration von MMBasic selbst.
+
+Man kann sie sich wie die Einstellungen eines Betriebssystems vorstellen.
+
+Viele dieser Einstellungen werden dauerhaft gespeichert und bleiben auch nach einem Neustart erhalten.
+
+=== Aktuelle Einstellungen anzeigen
+
+Mit folgendem Befehl können alle aktiven Optionen angezeigt werden:
+
+[source,basic]
+----
+OPTION LIST
+----
+
+Dies ist oft der erste Befehl, wenn man die aktuelle Konfiguration eines Systems untersuchen möchte.
+
+=== OPTION EXPLICIT
+
+Eine der wichtigsten Optionen für Programmierer ist:
+
+[source,basic]
+----
+OPTION EXPLICIT
+----
+
+Ist diese Option aktiv, müssen alle Variablen vor ihrer Verwendung mit DIM deklariert werden.
+
+Beispiel:
+
+[source,basic]
+----
+OPTION EXPLICIT
+
+DIM punkte
+
+punkte = 100
+----
+
+Wird versehentlich eine Variable falsch geschrieben:
+
+[source,basic]
+----
+punkt = 100
+----
+
+meldet MMBasic einen Fehler.
+
+Ohne OPTION EXPLICIT würde automatisch eine neue Variable angelegt werden.
+
+=== Warum OPTION EXPLICIT sinnvoll ist
+
+Betrachten wir folgendes Beispiel:
+
+[source,basic]
+----
+punkte = punkte + 10
+
+PRINT punkte
+----
+
+Vertippt man sich:
+
+[source,basic]
+----
+punkte = punkt + 10
+----
+
+entsteht ohne OPTION EXPLICIT eine neue Variable mit dem Namen:
+
+[source]
+----
+punkt
+----
+
+Solche Fehler können schwer zu finden sein.
+
+Viele erfahrene Entwickler verwenden OPTION EXPLICIT grundsätzlich.
+
+=== OPTION DEFAULT
+
+Mit OPTION DEFAULT wird festgelegt, welchen Datentyp neue Variablen standardmäßig erhalten.
+
+Mögliche Werte sind:
+
+[source,basic]
+----
+OPTION DEFAULT FLOAT
+OPTION DEFAULT INTEGER
+OPTION DEFAULT STRING
+OPTION DEFAULT NONE
+----
+
+=== OPTION DEFAULT FLOAT
+
+Dies ist die Standard-Einstellung von MMBasic.
+
+[source,basic]
+----
+OPTION DEFAULT FLOAT
+----
+
+Nicht deklarierte Variablen werden als Fließkommazahlen behandelt.
+
+[TIP]
+====
+MMBasic verwendet standardmäßig FLOAT, um kompatibel zu klassischen BASIC-Dialekten und älteren MMBasic-Versionen zu bleiben.
+====
+
+=== OPTION DEFAULT INTEGER
+
+[source,basic]
+----
+OPTION DEFAULT INTEGER
+----
+
+Nicht deklarierte Variablen werden als Ganzzahlen behandelt.
+
+Dies kann Speicher sparen und Berechnungen beschleunigen.
+
+=== OPTION DEFAULT STRING
+
+[source,basic]
+----
+OPTION DEFAULT STRING
+----
+
+Nicht deklarierte Variablen werden als Zeichenketten behandelt.
+
+Diese Einstellung wird nur selten verwendet.
+
+=== OPTION DEFAULT NONE
+
+Die strengste Variante ist:
+
+[source,basic]
+----
+OPTION DEFAULT NONE
+----
+
+Nun muss jede Variable explizit mit ihrem Typ angegeben werden.
+
+Beispiel:
+
+[source,basic]
+----
+DIM name$
+DIM punkte%
+DIM temperatur
+----
+
+Wird ein Typ vergessen, meldet MMBasic einen Fehler.
+
+=== OPTION EXPLICIT und OPTION DEFAULT NONE
+
+Viele Entwickler kombinieren beide Optionen:
+
+[source,basic]
+----
+OPTION EXPLICIT
+OPTION DEFAULT NONE
+----
+
+Dadurch werden viele Programmierfehler bereits während der Entwicklung erkannt.
+
+=== OPTION BASE
+
+Mit OPTION BASE wird festgelegt, bei welchem Index Arrays beginnen.
+
+Standard:
+
+[source,basic]
+----
+OPTION BASE 0
+----
+
+Beispiel:
+
+[source,basic]
+----
+DIM zahlen(10)
+----
+
+Die Elemente reichen dann von:
+
+[source]
+----
+zahlen(0)
+bis
+zahlen(10)
+----
+
+Alternativ:
+
+[source,basic]
+----
+OPTION BASE 1
+----
+
+Dann beginnt das Array bei:
+
+[source]
+----
+zahlen(1)
+----
+
+[TIP]
+====
+In diesem Tutorial verwenden wir grundsätzlich OPTION BASE 0.
+====
+
+=== OPTION TAB
+
+Diese Option legt die Breite eines Tabulators fest.
+
+Beispiel:
+
+[source,basic]
+----
+OPTION TAB 4
+----
+
+Ein Tabulator entspricht dann vier Leerzeichen.
+
+Dies beeinflusst insbesondere den eingebauten Editor.
+
+=== OPTION COLOURCODE
+
+Der eingebaute Editor kann BASIC-Programme farbig darstellen.
+
+Aktivieren:
+
+[source,basic]
+----
+OPTION COLOURCODE ON
+----
+
+Deaktivieren:
+
+[source,basic]
+----
+OPTION COLOURCODE OFF
+----
+
+Dadurch können Programme leichter gelesen werden.
+
+=== OPTION CPUSPEED
+
+Der PicoMite erlaubt die Anpassung der CPU-Geschwindigkeit.
+
+Beispiel:
+
+[source,basic]
+----
+OPTION CPUSPEED 252000
+----
+
+Die Angabe erfolgt in kHz.
+
+Dies entspricht:
+
+[source]
+----
+252 MHz
+----
+
+Die erlaubten Werte liegen zwischen:
+
+[source]
+----
+48000 kHz
+und
+420000 kHz
+----
+
+=== Gültige CPU-Geschwindigkeit prüfen
+
+Mit:
+
+[source,basic]
+----
+PRINT MM.INFO(VALID CPUSPEED 300000)
+----
+
+kann geprüft werden, ob eine bestimmte Frequenz zulässig ist.
+
+Die Funktion liefert:
+
+[source]
+----
+1
+----
+
+für gültige Werte und:
+
+[source]
+----
+0
+----
+
+für ungültige Werte.
+
+[NOTE]
+====
+OPTION CPUSPEED steht nur auf PicoMite-Systemen zur Verfügung.
+
+Auf VGA-, HDMI- und Colour-Maximite-Systemen wird die Taktfrequenz durch die Firmware festgelegt.
+====
+
+=== OPTION RESET
+
+Mit:
+
+[source,basic]
+----
+OPTION RESET
+----
+
+werden alle gespeicherten Optionen auf ihre Standardwerte zurückgesetzt.
+
+Dies betrifft beispielsweise:
+
+* OPTION EXPLICIT
+* OPTION DEFAULT
+* OPTION BASE
+* OPTION TAB
+* OPTION COLOURCODE
+* OPTION CPUSPEED
+
+[WARNING]
+====
+OPTION RESET wirkt dauerhaft.
+
+Alle zuvor vorgenommenen Anpassungen gehen verloren.
+====
+
+=== Wann sollte man OPTION-Befehle verwenden?
+
+OPTION-Befehle werden normalerweise nur selten geändert.
+
+Typische Situationen sind:
+
+* Erstkonfiguration eines Systems
+* Umstellung auf eine andere Arbeitsweise
+* Fehlersuche
+* Anpassung an spezielle Hardware
+
+Im normalen Programmablauf werden OPTION-Befehle nur selten benötigt.
+
+=== Tipps aus der Praxis
+
+* Verwende OPTION EXPLICIT für größere Projekte.
+* Nutze OPTION DEFAULT NONE bei professionellen Programmen.
+* Ändere OPTION CPUSPEED nur bewusst.
+* Dokumentiere Änderungen an der Systemkonfiguration.
+* Prüfe die aktuellen Einstellungen regelmäßig mit OPTION LIST.
+
+=== Probier's selbst!
+
+. Gib OPTION LIST ein.
+. Aktiviere OPTION EXPLICIT.
+. Schreibe ein kleines Programm mit einer absichtlich falsch geschriebenen Variablen.
+. Teste OPTION DEFAULT NONE.
+. Beobachte die Fehlermeldungen.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt:
+
+* was OPTION-Befehle sind
+* die aktuelle Konfiguration mit OPTION LIST anzuzeigen
+* OPTION EXPLICIT sinnvoll einzusetzen
+* OPTION DEFAULT zu verwenden
+* OPTION BASE und OPTION TAB kennenzulernen
+* OPTION COLOURCODE anzupassen
+* OPTION CPUSPEED auf dem PicoMite zu verwenden
+* alle Optionen mit OPTION RESET zurückzusetzen
+
+OPTION-Befehle helfen dabei, MMBasic optimal an die eigenen Bedürfnisse anzupassen und Programme robuster zu machen.
