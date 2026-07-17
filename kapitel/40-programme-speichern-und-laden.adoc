@@ -1,0 +1,345 @@
+== Programme speichern und laden
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* Programme dauerhaft zu speichern
+* gespeicherte Programme wieder zu laden
+* den Inhalt von Laufwerken anzuzeigen
+* zwischen verschiedenen Laufwerken zu wechseln
+* die Dateiauswahl des Colour Maximite 2 zu verwenden
+
+Am Ende des Kapitels kannst du deine Programme sicher verwalten und jederzeit wiederverwenden.
+
+=== Warum Programme speichern?
+
+In den bisherigen Kapiteln haben wir viele Programme entwickelt.
+
+Dazu gehören beispielsweise:
+
+* Zahlenraten
+* Little Professor
+* Pong
+* Senso
+
+Diese Programme möchten wir natürlich nicht nach jedem Neustart erneut eingeben.
+
+Deshalb bietet MMBasic die Möglichkeit, Programme dauerhaft auf einem Datenträger zu speichern.
+
+=== Flüchtiger und dauerhafter Speicher
+
+Beim Einschalten befindet sich MMBasic zunächst im Arbeitsspeicher.
+
+Programme, die dort abgelegt sind, gehen verloren, wenn:
+
+* das System ausgeschaltet wird
+* ein anderes Programm geladen wird
+* der Speicher gelöscht wird
+
+Deshalb sollten wichtige Programme regelmäßig gespeichert werden.
+
+=== Programme speichern
+
+Zum Speichern eines Programms wird der Befehl SAVE verwendet.
+
+Beispiel:
+
+[source,basic]
+----
+SAVE "HALLO.BAS"
+----
+
+Das aktuelle Programm wird unter dem angegebenen Namen gespeichert.
+
+=== Dateinamen
+
+Dateinamen sollten möglichst aussagekräftig gewählt werden.
+
+Gute Beispiele:
+
+[source]
+----
+PONG.BAS
+SENSO.BAS
+AMPEL.BAS
+----
+
+Weniger hilfreich:
+
+[source]
+----
+TEST1.BAS
+NEU.BAS
+PROGRAMM.BAS
+----
+
+Je größer die Programmsammlung wird, desto wichtiger werden aussagekräftige Namen.
+
+=== Programme laden
+
+Mit LOAD wird ein zuvor gespeichertes Programm geladen.
+
+Beispiel:
+
+[source,basic]
+----
+LOAD "PONG.BAS"
+----
+
+Das Programm befindet sich anschließend wieder im Programmspeicher und kann ausgeführt werden.
+
+=== Programme starten
+
+Nach dem Laden wird ein Programm mit RUN gestartet.
+
+Beispiel:
+
+[source,basic]
+----
+LOAD "PONG.BAS"
+RUN
+----
+
+Viele Anwender verwenden diese beiden Befehle häufig hintereinander.
+
+=== Programme überschreiben
+
+Wird ein Programm unter einem bereits vorhandenen Dateinamen gespeichert, überschreibt MMBasic die vorhandene Datei.
+
+Beispiel:
+
+[source,basic]
+----
+SAVE "PONG.BAS"
+----
+
+Existiert die Datei bereits, wird sie durch die neue Version ersetzt.
+
+Deshalb empfiehlt es sich, wichtige Projekte regelmäßig zu sichern.
+
+=== Welche Dateien gibt es?
+
+Mit FILES kann der Inhalt des aktuellen Laufwerks angezeigt werden.
+
+[source,basic]
+----
+FILES
+----
+
+Die Ausgabe könnte beispielsweise so aussehen:
+
+[source]
+----
+PONG.BAS
+SENSO.BAS
+AMPEL.BAS
+UHR.BAS
+----
+
+Dadurch erhält man einen schnellen Überblick über die vorhandenen Dateien.
+
+=== Der Befehl CAT
+
+Viele MMBasic-Systeme unterstützen zusätzlich den Befehl CAT.
+
+CAT steht für:
+
+[source]
+----
+Catalog
+----
+
+und zeigt den Inhalt des aktuellen Verzeichnisses an.
+
+[source,basic]
+----
+CAT
+----
+
+Je nach Plattform werden dabei zusätzliche Informationen angezeigt.
+
+=== FILES oder CAT?
+
+In der Praxis erfüllen beide Befehle einen ähnlichen Zweck:
+
+* vorhandene Dateien anzeigen
+* Dateinamen kontrollieren
+* Programme auswählen
+
+Welche Variante verwendet wird, ist häufig Geschmackssache.
+
+=== Laufwerke
+
+MMBasic kennt verschiedene Laufwerke.
+
+Typische Beispiele sind:
+
+[source]
+----
+A:
+B:
+----
+
+Welches Laufwerk welche Funktion besitzt, hängt von der verwendeten Plattform ab.
+
+=== Aktuelles Laufwerk anzeigen
+
+Der Befehl DRIVE zeigt das aktuelle Laufwerk an.
+
+[source,basic]
+----
+DRIVE
+----
+
+Beispielausgabe:
+
+[source]
+----
+A:
+----
+
+=== Laufwerk wechseln
+
+Mit DRIVE kann auch das aktuelle Laufwerk geändert werden.
+
+Beispiel:
+
+[source,basic]
+----
+DRIVE "B:"
+----
+
+Ab diesem Zeitpunkt arbeiten Dateibefehle auf dem neuen Laufwerk.
+
+=== Beispiel
+
+[source,basic]
+----
+DRIVE "A:"
+SAVE "TEST.BAS"
+
+DRIVE "B:"
+FILES
+----
+
+Hier wird das Programm auf Laufwerk A gespeichert und anschließend der Inhalt von Laufwerk B angezeigt.
+
+=== Programme auf SD-Karten
+
+Sowohl PicoMite-Systeme als auch der Colour Maximite 2 verwenden häufig SD-Karten.
+
+Die Vorteile sind:
+
+* große Speicherkapazität
+* einfache Datensicherung
+* einfacher Datenaustausch mit dem PC
+
+Viele Anwender speichern sämtliche Projekte auf der SD-Karte.
+
+=== Die Dateiauswahl des Colour Maximite 2
+
+Eine besonders praktische Funktion besitzt der Colour Maximite 2.
+
+Wird an der Eingabeaufforderung die Taste:
+
+----
+F1
+----
+
+gedrückt, erscheint eine Dateiauswahl.
+
+Der Benutzer kann nun bequem ein Programm aus einer Liste auswählen.
+
+=== Warum ist F1 so praktisch?
+
+Bei einer großen Programmsammlung müssen Dateinamen nicht mehr vollständig eingegeben werden.
+
+Statt:
+
+[source,basic]
+----
+LOAD "SENSO.BAS"
+----
+
+genügt:
+
+[source]
+----
+F1 drücken
+Programm auswählen
+Enter
+----
+
+Das erinnert an klassische Heimcomputer und macht die Bedienung besonders komfortabel.
+
+=== Der tägliche Arbeitsablauf
+
+Ein typischer Entwicklungsablauf könnte so aussehen:
+
+[source]
+----
+EDIT
+  ↓
+Programm schreiben
+  ↓
+SAVE
+  ↓
+RUN
+----
+
+Später:
+
+[source]
+----
+LOAD
+  ↓
+RUN
+----
+
+Dadurch können Programme jederzeit weiterentwickelt werden.
+
+=== Tipps aus der Praxis
+
+* Speichere wichtige Programme regelmäßig.
+* Verwende aussagekräftige Dateinamen.
+* Lege verschiedene Projekte in getrennten Verzeichnissen ab.
+* Sichere wichtige Projekte zusätzlich auf dem PC.
+* Nutze die Dateiauswahl des Colour Maximite 2 bei größeren Programmsammlungen.
+
+=== Probier's selbst!
+
+Erstelle ein kleines Testprogramm:
+
+[source,basic]
+----
+PRINT "Hallo MMBasic"
+----
+
+Speichere es anschließend:
+
+[source,basic]
+----
+SAVE "HALLO.BAS"
+----
+
+Lade es erneut:
+
+[source,basic]
+----
+LOAD "HALLO.BAS"
+----
+
+Zeige danach mit FILES oder CAT die vorhandenen Dateien an.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt:
+
+* Programme mit SAVE zu speichern
+* Programme mit LOAD zu laden
+* Dateien mit FILES und CAT anzuzeigen
+* Laufwerke mit DRIVE auszuwählen
+* die Dateiauswahl des Colour Maximite 2 zu nutzen
+
+Im nächsten Kapitel beschäftigen wir uns mit Verzeichnissen und der Dateiverwaltung auf SD-Karten.
