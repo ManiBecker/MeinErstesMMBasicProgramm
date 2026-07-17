@@ -170,3 +170,7 @@ include::kapitel/51-von-der-idee-zum-fertigen-spiel.adoc[]
 = Epilog
 
 include::kapitel/52-epilog.adoc[]
+
+<<<
+
+image::bilder/back.png[pdfwidth=100%,align=center]
