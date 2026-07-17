@@ -1,1 +1,1032 @@
-todo
+== Sprites und BLIT
+
+=== Das lernst du
+
+Fast jedes Computerspiel besteht aus denselben grundlegenden Bausteinen. Es gibt Spielfiguren, Gegner, Hindernisse, Hintergründe und Animationen. All diese Objekte müssen gezeichnet, bewegt und miteinander in Beziehung gesetzt werden.
+
+In den vergangenen Kapiteln hast du bereits viele der dafür benötigten Techniken kennengelernt. Du weißt, wie man Variablen verwendet, Schleifen programmiert, Grafiken zeichnet, Farben und Sound einsetzt und Programme mit einem Gamepad steuert.
+
+Nun fügen wir diese Bausteine zu einem Ganzen zusammen.
+
+In diesem Kapitel lernst du,
+
+* was Sprites sind,
+* wie sie sich flüssig über den Bildschirm bewegen lassen,
+* warum Animationen aus mehreren Einzelbildern bestehen,
+* welche Aufgabe der BLIT-Befehl übernimmt,
+* und weshalb Sprites seit mehr als vierzig Jahren zu den wichtigsten Werkzeugen der Spieleprogrammierung gehören.
+
+Am Ende dieses Kapitels wirst du verstehen, wie klassische Computerspiele aufgebaut sind und wie du dieselben Techniken in deinen eigenen Programmen einsetzen kannst.
+
+=== Warum reichen normale Grafiken nicht?
+
+Bisher haben wir unsere Grafiken direkt auf den Bildschirm gezeichnet. Das war für viele Anwendungen vollkommen ausreichend.
+
+Ein Kreis wird mit dem Befehl `CIRCLE` gezeichnet, eine Linie mit `LINE` und ein Rechteck mit `BOX`. Soll sich eine Grafik bewegen, genügt es zunächst, ihre Position zu verändern und sie an der neuen Stelle erneut zu zeichnen.
+
+Ein einfaches Programm könnte beispielsweise einen Ball über den Bildschirm bewegen.
+
+[source,basic]
+----
+x = 20
+y = 100
+
+DO
+
+    CLS
+
+    CIRCLE x, y, 10
+
+    x = x + 2
+
+LOOP
+----
+
+Auf den ersten Blick funktioniert dieses Programm hervorragend. Der Ball bewegt sich gleichmäßig nach rechts.
+
+Betrachtet man jedoch genauer, was in jeder Schleife geschieht, erkennt man schnell das eigentliche Problem:
+
+. Der gesamte Bildschirm wird gelöscht.
+. Sämtliche Grafiken werden erneut gezeichnet.
+. Erst danach erscheint der Ball an seiner neuen Position.
+
+Bei einem einzelnen Kreis fällt dieser Aufwand kaum auf.
+
+Ein typisches Computerspiel besteht jedoch aus deutlich mehr Objekten:
+
+* einem Hintergrund,
+* einer Spielfigur,
+* mehreren Gegnern,
+* Hindernissen,
+* Punkten,
+* Anzeigen für Leben und Spielstand
+* und häufig sogar zusätzlichen Animationen.
+
+Würde der komplette Bildschirm für jede einzelne Bewegung gelöscht und neu aufgebaut, müsste der Prozessor sehr viel Arbeit verrichten. Das Programm würde langsamer werden und auf manchen Systemen sogar sichtbar flackern.
+
+Genau vor diesem Problem standen bereits die Entwickler der ersten Heimcomputer.
+
+Sie mussten eine Lösung finden, mit der sich viele bewegliche Objekte möglichst schnell darstellen ließen.
+
+=== Eine Idee aus den 1980er-Jahren
+
+In den frühen 1980er-Jahren verfügten Heimcomputer nur über einen Bruchteil der Rechenleistung heutiger Systeme.
+
+Ein Prozessor mit einem Megahertz galt bereits als leistungsfähig. Der Arbeitsspeicher betrug oft nur wenige Kilobyte und Grafikkarten mit eigener Rechenleistung existierten noch nicht.
+
+Trotzdem erschienen bereits damals beeindruckende Spiele.
+
+Denke nur an Klassiker wie *Pac-Man*, *Space Invaders*, *Donkey Kong*, *Bubble Bobble* oder *The Great Giana Sisters*.
+
+Wie war das möglich?
+
+Die Entwickler verlagerten möglichst viele Aufgaben in spezielle Grafikchips. Diese konnten kleine Grafiken unabhängig vom Hintergrund darstellen und verschieben.
+
+Diese kleinen beweglichen Grafiken nannte man *Sprites*.
+
+Ein Sprite konnte beispielsweise
+
+* den Spieler,
+* einen Gegner,
+* einen Ball,
+* ein Raumschiff,
+* einen Schuss
+* oder ein Bonusobjekt
+
+darstellen.
+
+Während sich die Spielfigur bewegte, blieb der Hintergrund unverändert. Dadurch mussten nicht bei jedem Bild sämtliche Grafiken neu gezeichnet werden.
+
+Vor allem der Commodore 64 wurde für seine leistungsfähige Sprite-Hardware berühmt. Er konnte bis zu acht Hardware-Sprites gleichzeitig darstellen. Geschickte Programmierer entwickelten später sogar Techniken, um deutlich mehr bewegliche Objekte auf dem Bildschirm erscheinen zu lassen.
+
+Auch viele andere bekannte Systeme verwendeten Sprites, darunter
+
+* Atari XL/XE,
+* Atari ST,
+* Commodore Amiga,
+* Nintendo Entertainment System,
+* Sega Master System
+* und zahlreiche Arcade-Automaten.
+
+Sprites gehören deshalb bis heute zu den wichtigsten Konzepten der Spieleprogrammierung.
+
+=== Was ist ein Sprite?
+
+Ein Sprite ist eine kleine Grafik, die unabhängig vom Hintergrund auf dem Bildschirm dargestellt werden kann.
+
+Stell dir ein Blatt Papier mit einer Landschaft vor.
+
+Nun legst du einen kleinen Aufkleber mit einer Spielfigur auf dieses Bild.
+
+Möchtest du die Figur bewegen, nimmst du den Aufkleber einfach hoch und setzt ihn an einer anderen Stelle wieder ab.
+
+Die Landschaft selbst bleibt dabei vollständig erhalten.
+
+Genau nach diesem Prinzip arbeiten Sprites.
+
+Der Hintergrund bildet eine feste Grafik.
+
+Alle beweglichen Objekte werden als einzelne Sprites darübergelegt.
+
+Dadurch lassen sich Figuren besonders einfach bewegen, ohne den kompletten Bildschirm ständig neu aufbauen zu müssen.
+
+Ein Sprite besitzt dabei in der Regel mehrere Eigenschaften:
+
+* ein Bild,
+* eine Position,
+* eine Größe,
+* eine Blickrichtung,
+* und häufig auch mehrere Animationsbilder.
+
+In einem Spiel besteht fast jedes bewegliche Objekt aus einem Sprite.
+
+Das gilt beispielsweise für
+
+* den Spieler,
+* Gegner,
+* Fahrzeuge,
+* Bälle,
+* Raketen,
+* Explosionen
+* und viele weitere Objekte.
+
+Sprites gehören deshalb zu den wichtigsten Werkzeugen der modernen Spieleprogrammierung.
+
+=== Hardware- und Software-Sprites
+
+Im Laufe der Jahre haben sich zwei unterschiedliche Verfahren entwickelt.
+
+==== Hardware-Sprites
+
+Bei klassischen Heimcomputern wurden Sprites häufig direkt vom Grafikchip erzeugt.
+
+Der Programmierer musste lediglich festlegen,
+
+* welches Bild verwendet werden soll,
+* an welcher Position es erscheint
+* und ob es sichtbar sein soll.
+
+Den Rest erledigte die Hardware.
+
+Dieses Verfahren war äußerst schnell, hatte aber auch Grenzen.
+
+So konnten viele Computer nur eine begrenzte Anzahl von Sprites gleichzeitig darstellen. Beim Commodore 64 waren es beispielsweise acht Hardware-Sprites.
+
+Trotz dieser Einschränkung entstanden unzählige berühmte Spiele.
+
+==== Software-Sprites
+
+Heute arbeiten die meisten Systeme mit sogenannten Software-Sprites.
+
+Dabei übernimmt nicht mehr ein spezieller Grafikchip die komplette Arbeit, sondern die Programmbibliothek oder das Betriebssystem.
+
+MMBasic stellt hierfür komfortable Befehle zur Verfügung.
+
+Für dich als Programmierer macht das kaum einen Unterschied.
+
+Du musst lediglich angeben,
+
+* welches Sprite angezeigt werden soll,
+* wo es erscheinen soll,
+* und wann es bewegt wird.
+
+Die eigentliche Darstellung übernimmt MMBasic.
+
+Dadurch kannst du dich vollständig auf die Spiellogik konzentrieren.
+
+[TIP]
+====
+Viele bekannte Spiele verwenden gleichzeitig Hunderte von Sprites.
+
+Der Spieler bemerkt davon nichts. Er sieht lediglich eine flüssige Animation.
+
+Dass dahinter zahlreiche einzelne Grafiken ständig verschoben, überlagert und aktualisiert werden, bleibt für ihn unsichtbar.
+====
+
+=== Das erste Sprite
+
+Nachdem wir nun wissen, was ein Sprite ist und warum es in Computerspielen verwendet wird, wollen wir unser erstes eigenes Sprite auf dem Bildschirm darstellen.
+
+Ein Sprite besteht immer aus zwei Teilen:
+
+* einer Grafik,
+* und einer Position auf dem Bildschirm.
+
+Die Grafik beschreibt das Aussehen des Sprites. Die Position legt fest, an welcher Stelle es angezeigt wird.
+
+Im einfachsten Fall genügt bereits ein einzelnes Bild.
+
+Später werden wir mehrere Bilder verwenden, um Animationen zu erzeugen.
+
+In MMBasic werden Sprites über spezielle Befehle verwaltet. Diese kümmern sich darum, das Sprite auf dem Bildschirm anzuzeigen, zu verschieben oder wieder auszublenden.
+
+Wir beginnen mit dem einfachsten Fall.
+
+=== Sprite laden
+
+Bevor ein Sprite angezeigt werden kann, muss zunächst seine Grafik in den Speicher geladen werden.
+
+Diese Grafik kann beispielsweise
+
+* eine Spielfigur,
+* ein Ball,
+* ein Raumschiff,
+* oder auch ein Gegner sein.
+
+Für unser erstes Beispiel verwenden wir eine einfache Spielfigur.
+
+[source,basic]
+----
+'------------------------------------
+' Sprite vorbereiten
+'------------------------------------
+
+' TODO
+' Spritegrafik laden
+
+LoadSprite(PlayerSprite, "spieler.bmp")
+----
+
+[IMPORTANT]
+====
+Die tatsächlichen MMBasic-Befehle unterscheiden sich je nach PicoMite- bzw. Colour-Maximite-Version.
+
+Wir verwenden hier zunächst leicht verständliche Platzhalter. Im Praxistest werden diese später durch die echten MMBasic-Befehle ersetzt.
+====
+
+=== Sprite anzeigen
+
+Nachdem das Sprite geladen wurde, kann es an einer beliebigen Position auf dem Bildschirm angezeigt werden.
+
+Dazu benötigen wir lediglich seine X- und Y-Koordinate.
+
+[source,basic]
+----
+x = 160
+y = 120
+
+ShowSprite(PlayerSprite, x, y)
+----
+
+Nach dem Programmstart erscheint unsere Spielfigur genau an dieser Position.
+
+Die eigentliche Grafik wird dabei nicht dauerhaft in den Hintergrund gezeichnet.
+
+MMBasic verwaltet das Sprite separat und sorgt dafür, dass es jederzeit an einer anderen Position wieder erscheinen kann.
+
+=== Sprite bewegen
+
+Jetzt wird es interessant.
+
+Bisher haben wir unser Sprite lediglich angezeigt.
+
+Nun soll es sich bewegen.
+
+Dazu verändern wir einfach seine Koordinaten.
+
+[source,basic]
+----
+DO
+
+    x = x + 2
+
+    MoveSprite(PlayerSprite, x, y)
+
+LOOP
+----
+
+Während das Programm läuft, verschiebt sich das Sprite kontinuierlich nach rechts.
+
+Der Hintergrund bleibt dabei unverändert.
+
+Genau darin liegt der große Vorteil eines Sprites.
+
+Wir müssen nicht den gesamten Bildschirm neu zeichnen.
+
+Lediglich die Position unseres Sprites ändert sich.
+
+[TIP]
+====
+Fast alle Computerspiele bewegen ihre Spielfiguren genau nach diesem Prinzip.
+
+Nicht die Grafik selbst verändert sich, sondern lediglich ihre Position auf dem Bildschirm.
+====
+
+=== Steuerung mit dem Gamepad
+
+Im vorherigen Kapitel haben wir gelernt, wie sich ein USB-Gamepad auslesen lässt.
+
+Jetzt verbinden wir beide Techniken miteinander.
+
+Anstatt das Sprite automatisch zu bewegen, übernimmt nun der Spieler die Steuerung.
+
+Die Position unseres Sprites wird direkt über den linken Analogstick verändert.
+
+[source,basic]
+----
+x = MM.HRES / 2
+y = MM.VRES / 2
+
+DO
+
+    ' TODO
+    ' Gamepad lesen
+
+    x = x + StickX
+    y = y + StickY
+
+    MoveSprite(PlayerSprite, x, y)
+
+LOOP
+----
+
+Bereits dieses kleine Programm vermittelt das typische Gefühl eines Computerspiels.
+
+Der Spieler bewegt eine Figur direkt über den Bildschirm.
+
+Mehr ist für das Grundprinzip zunächst gar nicht notwendig.
+
+Später werden wir diese Figur mit Gegnern, Hindernissen und weiteren Spielelementen kombinieren.
+
+=== Geschwindigkeit steuern
+
+Nicht jede Spielfigur soll sich gleich schnell bewegen.
+
+Ein Rennwagen fährt schneller als eine Schildkröte und ein Raumschiff beschleunigt anders als ein Fußball.
+
+Deshalb verwendet man häufig eine Geschwindigkeitsvariable.
+
+[source,basic]
+----
+Speed = 4
+
+DO
+
+    ' TODO
+    ' Gamepad lesen
+
+    x = x + StickX * Speed
+    y = y + StickY * Speed
+
+    MoveSprite(PlayerSprite, x, y)
+
+LOOP
+----
+
+Durch das Ändern einer einzigen Variablen lässt sich das Bewegungsverhalten bequem anpassen.
+
+Dieses Verfahren werden wir später in unseren Spielen häufig einsetzen.
+
+=== Animationen
+
+Bis jetzt besteht unser Sprite nur aus einem einzigen Bild.
+
+Das genügt bereits, um eine Figur über den Bildschirm zu bewegen.
+
+Lebendig wirkt sie dadurch allerdings noch nicht.
+
+Die Lösung besteht aus einer einfachen Idee.
+
+Wir zeichnen dieselbe Figur mehrfach.
+
+Jedes Bild unterscheidet sich nur geringfügig vom vorherigen.
+
+Anschließend werden diese Bilder schnell hintereinander angezeigt.
+
+Unser Gehirn nimmt diese Bildfolge als flüssige Bewegung wahr.
+
+Genau dieses Prinzip wird seit den Anfängen des Zeichentrickfilms verwendet.
+
+[source]
+----
+Bild 1      Bild 2      Bild 3      Bild 4
+
+ 🚶          🚶‍♂️          🚶          🚶‍♂️
+----
+
+Je schneller zwischen den Bildern umgeschaltet wird, desto flüssiger erscheint die Bewegung.
+
+Bei Computerspielen spricht man dabei von Animationsframes.
+
+[source,basic]
+----
+Frame = Frame + 1
+
+IF Frame > 4 THEN
+    Frame = 1
+ENDIF
+
+' TODO
+' Spritebild wechseln
+
+SetSpriteFrame(PlayerSprite, Frame)
+----
+
+Auch hier verwenden wir zunächst einen leicht verständlichen Platzhalter.
+
+Die tatsächlichen MMBasic-Befehle werden wir später anhand eines funktionierenden Programms kennenlernen.
+
+[TIP]
+====
+Viele bekannte Spielfiguren bestehen aus erstaunlich wenigen Einzelbildern.
+
+Mario, Pac-Man oder die Spielfigur aus *The Great Giana Sisters* benötigen häufig nur vier bis acht Animationsbilder, um flüssig zu wirken.
+
+Nicht die Anzahl der Bilder ist entscheidend, sondern der geschickte Wechsel zwischen ihnen.
+====
+
+=== Was bedeutet BLIT?
+
+Beim Programmieren von Spielen begegnet dir früher oder später der Begriff *BLIT*.
+
+Das klingt zunächst ziemlich technisch.
+
+Die eigentliche Idee dahinter ist jedoch erstaunlich einfach.
+
+Stell dir vor, dein Bildschirm wäre ein Blatt Papier.
+
+Darauf befindet sich eine Landschaft mit Bäumen, Häusern und einem Weg.
+
+Nun möchtest du eine Spielfigur einige Zentimeter nach rechts verschieben.
+
+Eine Möglichkeit wäre, das gesamte Blatt wegzuwerfen und alles neu zu zeichnen.
+
+Das wäre natürlich sehr umständlich.
+
+Viel einfacher wäre es, nur den kleinen Bildausschnitt mit der Spielfigur auszuschneiden und an einer anderen Stelle wieder aufzukleben.
+
+Genau dieses Prinzip steckt hinter einem BLIT.
+
+BLIT ist die Abkürzung für *Bit Block Transfer*.
+
+Dabei wird ein rechteckiger Bildbereich von einer Stelle an eine andere kopiert.
+
+Da lediglich ein kleiner Ausschnitt übertragen wird, arbeitet dieses Verfahren wesentlich schneller als das vollständige Neuzeichnen des gesamten Bildschirms.
+
+BLIT gehört deshalb seit vielen Jahrzehnten zu den wichtigsten Techniken der Computergrafik.
+
+=== Hintergrund restaurieren
+
+Beim Verschieben eines Sprites entsteht ein neues Problem.
+
+Nehmen wir an, unsere Spielfigur steht vor einem Baum.
+
+[source]
+----
+🌳🌳🌳🌳🌳
+
+     🙂
+----
+
+Bewegt sich die Figur nach rechts, bleibt an ihrer alten Position zunächst eine Lücke zurück.
+
+[source]
+----
+🌳🌳🌳🌳🌳
+
+      🙂
+```
+
+Was muss nun an der alten Stelle erscheinen?
+
+Natürlich wieder der ursprüngliche Hintergrund.
+
+Dieser muss also wiederhergestellt werden.
+
+Genau diese Aufgabe übernimmt MMBasic beim Arbeiten mit Sprites und BLIT-Befehlen.
+
+Vor dem Zeichnen eines Sprites wird der betreffende Hintergrundbereich gesichert.
+
+Wird das Sprite später verschoben, restauriert MMBasic zunächst den ursprünglichen Hintergrund und zeichnet das Sprite anschließend an seiner neuen Position.
+
+Für den Programmierer geschieht dieser Vorgang vollkommen automatisch.
+
+Dadurch entstehen saubere und flüssige Bewegungen ohne störende Bildreste.
+
+[TIP]
+====
+Wenn sich ein Objekt bewegt und dabei "Spuren" auf dem Bildschirm hinterlässt, wurde der Hintergrund meist nicht korrekt restauriert.
+
+Dieses Phänomen tritt besonders häufig bei selbst programmierten Grafikroutinen auf.
+
+Sprites und BLIT-Befehle nehmen dem Programmierer diese Arbeit weitgehend ab.
+====
+
+=== Praxisbeispiel: Ein Ball rollt über den Bildschirm
+
+Betrachten wir zunächst den einfachsten Fall.
+
+Ein Ball soll sich von links nach rechts bewegen.
+
+Mit den bisher bekannten Grafikbefehlen müsste in jeder Schleife der gesamte Bildschirm gelöscht und neu aufgebaut werden.
+
+Mit einem Sprite genügt dagegen eine einzige Positionsänderung.
+
+[source,basic]
+----
+DO
+
+    x = x + 2
+
+    MoveSprite(Ball, x, y)
+
+LOOP
+----
+
+Der Hintergrund bleibt vollständig erhalten.
+
+Lediglich das Sprite wird an seiner neuen Position dargestellt.
+
+Je komplexer der Hintergrund wird, desto größer ist der Geschwindigkeitsvorteil.
+
+=== Praxisbeispiel: Mehrere bewegliche Objekte
+
+Der eigentliche Vorteil von Sprites zeigt sich erst bei mehreren beweglichen Objekten.
+
+Stell dir ein kleines Weltraumspiel vor.
+
+Auf dem Bildschirm befinden sich gleichzeitig
+
+* das Raumschiff,
+* mehrere Gegner,
+* Schüsse,
+* Explosionen
+* und Bonusobjekte.
+
+Jedes dieser Objekte besitzt seine eigene Position.
+
+In jeder Spielrunde werden lediglich ihre Koordinaten aktualisiert.
+
+[source,basic]
+----
+DO
+
+    MoveSprite(Player, PlayerX, PlayerY)
+
+    MoveSprite(Enemy1, Enemy1X, Enemy1Y)
+
+    MoveSprite(Enemy2, Enemy2X, Enemy2Y)
+
+    MoveSprite(Shot, ShotX, ShotY)
+
+LOOP
+----
+
+Obwohl sich mehrere Objekte gleichzeitig bewegen, muss der Hintergrund nicht vollständig neu aufgebaut werden.
+
+Gerade dadurch lassen sich auch umfangreiche Spiele flüssig darstellen.
+
+=== Praxisbeispiel: Bildschirm scrollen
+
+BLIT eignet sich nicht nur für Sprites.
+
+Auch ganze Bildbereiche lassen sich sehr schnell verschieben.
+
+Ein typisches Beispiel ist ein seitlich scrollender Hintergrund.
+
+Anstatt die komplette Landschaft neu zu zeichnen, wird das vorhandene Bild einfach um einige Pixel verschoben.
+
+Anschließend muss lediglich der neu entstandene Rand ergänzt werden.
+
+[source]
+----
+Vorher
+
+############################
+
+Nach dem BLIT
+
+ ###########################
+
+Neuen Rand ergänzen
+|
+v
+############################
+----
+
+Dieses Verfahren wird seit vielen Jahrzehnten in Jump'n-Run- und Rennspielen eingesetzt.
+
+Da immer nur ein kleiner Teil des Bildschirms neu gezeichnet werden muss, können selbst große Landschaften flüssig dargestellt werden.
+
+=== Wann verwendet man BLIT?
+
+Nicht jede Grafik benötigt einen BLIT-Befehl.
+
+Für einfache Diagramme oder statische Benutzeroberflächen reichen die normalen Grafikbefehle vollkommen aus.
+
+Sobald jedoch
+
+* Bilder verschoben,
+* Sprites animiert,
+* Hintergründe gescrollt
+* oder große Bildbereiche kopiert
+
+werden sollen, spielt BLIT seine Stärken aus.
+
+Aus diesem Grund gehört BLIT bis heute zu den wichtigsten Werkzeugen der Spieleprogrammierung.
+
+=== Praxisprojekt: Mehrere Sprites gleichzeitig
+
+Ein einzelnes Sprite zu bewegen ist bereits interessant.
+
+Richtig spannend wird es jedoch erst, wenn sich mehrere Objekte gleichzeitig auf dem Bildschirm befinden.
+
+Jedes Sprite besitzt seine eigene Position.
+
+Dadurch können sich alle Figuren unabhängig voneinander bewegen.
+
+Ein typisches Spiel könnte beispielsweise aus folgenden Sprites bestehen:
+
+* Spieler
+* Gegner 1
+* Gegner 2
+* Gegner 3
+* Bonusobjekt
+
+Für jedes Sprite werden lediglich die Koordinaten aktualisiert.
+
+[source,basic]
+----
+DO
+
+    MoveSprite(Player, PlayerX, PlayerY)
+
+    MoveSprite(Enemy1, Enemy1X, Enemy1Y)
+
+    MoveSprite(Enemy2, Enemy2X, Enemy2Y)
+
+    MoveSprite(Enemy3, Enemy3X, Enemy3Y)
+
+    MoveSprite(Bonus, BonusX, BonusY)
+
+LOOP
+----
+
+Der eigentliche Programmablauf bleibt dabei erstaunlich einfach.
+
+Jedes Sprite wird unabhängig von den anderen verwaltet.
+
+Neue Spielfiguren können deshalb problemlos ergänzt werden.
+
+[TIP]
+====
+In vielen Spielen werden Sprites in Arrays oder Listen verwaltet.
+
+Dadurch kann dieselbe Programmschleife beliebig viele Gegner bearbeiten.
+====
+
+=== Praxisprojekt: Kollisionen erkennen
+
+Sobald sich mehrere Objekte bewegen, stellt sich automatisch eine wichtige Frage.
+
+Was passiert, wenn sich zwei Sprites berühren?
+
+Diese Überprüfung nennt man *Kollisionserkennung*.
+
+Sie gehört zu den wichtigsten Bestandteilen nahezu jedes Computerspiels.
+
+Beispiele:
+
+* Der Spieler sammelt einen Schatz ein.
+* Eine Rakete trifft einen Gegner.
+* Ein Ball prallt von einer Wand ab.
+* Ein Fahrzeug stößt mit einem Hindernis zusammen.
+
+Viele Grafikbibliotheken besitzen bereits eingebaute Funktionen zur Kollisionsprüfung.
+
+Ist das nicht der Fall, genügt häufig schon ein einfacher Vergleich der Positionen.
+
+[source,basic]
+----
+IF Collision(Player, Enemy1) THEN
+
+    PRINT "Treffer!"
+
+ENDIF
+----
+
+Oder allgemeiner:
+
+[source,basic]
+----
+FOR i = 1 TO EnemyCount
+
+    IF Collision(Player, Enemy(i)) THEN
+
+        PRINT "Spieler getroffen"
+
+    ENDIF
+
+NEXT i
+----
+
+Später werden wir diese Technik in unserem eigenen Spiel verwenden.
+
+=== Praxisprojekt: Das DVD-Logo
+
+Fast jeder kennt den berühmten Bildschirmschoner, bei dem ein DVD-Logo über den Bildschirm wandert und an den Bildschirmrändern abprallt.
+
+Dieses Programm eignet sich hervorragend als erstes Sprite-Projekt.
+
+Wir benötigen lediglich
+
+* ein Sprite,
+* eine Bewegungsrichtung
+* und die Bildschirmgröße.
+
+[source,basic]
+----
+DO
+
+    x = x + dx
+
+    y = y + dy
+
+    IF x < 0 THEN dx = -dx
+
+    IF x > MM.HRES THEN dx = -dx
+
+    IF y < 0 THEN dy = -dy
+
+    IF y > MM.VRES THEN dy = -dy
+
+    MoveSprite(Logo, x, y)
+
+LOOP
+----
+
+Dieses kleine Programm enthält bereits viele typische Bestandteile eines Spiels:
+
+* Bewegung
+* Richtungsänderung
+* Bildschirmbegrenzung
+* Spielschleife
+
+Ein schöner Nebeneffekt:
+
+Man ertappt sich schnell dabei, darauf zu warten, dass das Logo genau eine Bildschirmecke trifft.
+
+=== Praxisprojekt: Breakout
+
+Das Spiel *Breakout* gehört zu den bekanntesten Videospielen überhaupt.
+
+Die Spielidee ist einfach.
+
+Ein Ball springt über den Bildschirm und zerstört Steine.
+
+Der Spieler bewegt einen Schläger und verhindert, dass der Ball nach unten aus dem Spielfeld fällt.
+
+Für dieses Spiel benötigen wir lediglich wenige Sprites:
+
+* Ball
+* Schläger
+* Steine
+
+Der Schläger wird mit dem Gamepad bewegt.
+
+[source,basic]
+----
+DO
+
+    ' Gamepad lesen
+
+    PaddleX = PaddleX + StickX
+
+    MoveSprite(Paddle, PaddleX, PaddleY)
+
+    MoveSprite(Ball, BallX, BallY)
+
+LOOP
+----
+
+Hinzu kommen später
+
+* Ballphysik,
+* Kollisionen,
+* Punkte
+* und mehrere Spielstufen.
+
+Obwohl Breakout einfach aussieht, verwendet es bereits viele klassische Techniken der Spieleprogrammierung.
+
+=== Praxisprojekt: Mini-Space-Invaders
+
+Zum Abschluss dieses Kapitels kombinieren wir nahezu alle bisher kennengelernten Techniken.
+
+Der Spieler steuert ein kleines Raumschiff.
+
+Von oben nähern sich mehrere Gegner.
+
+Mit einer Taste wird ein Schuss ausgelöst.
+
+[source]
+----
+      👾 👾 👾 👾
+
+         ↓
+
+      👾 👾 👾 👾
+
+
+          ▲
+
+          🚀
+----
+
+Für dieses Spiel benötigen wir
+
+* mehrere Sprites,
+* Animationen,
+* Kollisionserkennung,
+* Gamepad-Steuerung,
+* Sound
+* und eine Spielschleife.
+
+Der grundsätzliche Ablauf sieht bereits erstaunlich übersichtlich aus.
+
+[source,basic]
+----
+DO
+
+    ReadGamepad()
+
+    MovePlayer()
+
+    MoveEnemies()
+
+    MoveShots()
+
+    CheckCollisions()
+
+    UpdateSprites()
+
+LOOP
+----
+
+Dieses Programm enthält bereits den typischen Aufbau vieler klassischer Arcade-Spiele.
+
+Mit zusätzlichen Ideen lassen sich daraus nahezu beliebig umfangreiche Spiele entwickeln.
+
+[TIP]
+====
+Lass dich nicht entmutigen, wenn dein erstes Spiel noch nicht perfekt aussieht.
+
+Nahezu jedes Computerspiel beginnt mit einer einzigen Figur, die sich über einen leeren Bildschirm bewegt.
+
+Erst nach und nach kommen Gegner, Kollisionen, Punkte, Sound und weitere Spielideen hinzu.
+
+Auch professionelle Spiele entstehen Schritt für Schritt.
+====
+
+=== Von der Demo zum Spiel
+
+Alle bisherigen Beispiele zeigen nur einzelne Techniken.
+
+Ein vollständiges Spiel entsteht erst dann, wenn diese Bausteine miteinander kombiniert werden.
+
+* Spielfigur
+* Gegner
+* Animation
+* Kollision
+* Sound
+* Punkte
+* Spielregeln
+
+Genau das werden wir im nächsten Kapitel gemeinsam tun.
+
+=== Die Spielschleife
+
+Während wir die einzelnen Praxisprojekte entwickelt haben, ist dir vielleicht aufgefallen, dass sich derselbe Programmablauf immer wiederholt.
+
+Ganz gleich, ob wir einen Ball bewegen, ein Breakout-Spiel programmieren oder ein Raumschiff steuern – der grundsätzliche Ablauf bleibt immer derselbe.
+
+Zu Beginn jeder Spielrunde werden zunächst die Eingaben des Spielers verarbeitet.
+
+Anschließend werden alle Spielfiguren entsprechend ihrer Geschwindigkeit oder den Eingaben des Gamepads bewegt.
+
+Danach prüft das Programm, ob sich Objekte berühren oder andere Ereignisse eingetreten sind.
+
+Zum Schluss wird der Bildschirm aktualisiert und der nächste Durchlauf beginnt.
+
+Dieser ständig wiederkehrende Ablauf wird als *Game Loop* oder *Spielschleife* bezeichnet.
+
+Nahezu jedes Computerspiel arbeitet nach diesem Prinzip.
+
+[source]
+----
+┌─────────────────────────────┐
+│ Eingaben lesen              │
+└─────────────┬───────────────┘
+              │
+              ▼
+┌─────────────────────────────┐
+│ Spielfiguren bewegen        │
+└─────────────┬───────────────┘
+              │
+              ▼
+┌─────────────────────────────┐
+│ Animationen aktualisieren   │
+└─────────────┬───────────────┘
+              │
+              ▼
+┌─────────────────────────────┐
+│ Kollisionen prüfen          │
+└─────────────┬───────────────┘
+              │
+              ▼
+┌─────────────────────────────┐
+│ Punkte und Spielregeln      │
+│ aktualisieren               │
+└─────────────┬───────────────┘
+              │
+              ▼
+┌─────────────────────────────┐
+│ Bildschirm aktualisieren    │
+└─────────────┬───────────────┘
+              │
+              └──────────► zurück zum Anfang
+----
+
+Die eigentliche Kunst bei der Spieleprogrammierung besteht also nicht darin, möglichst komplizierte Programme zu schreiben.
+
+Viel wichtiger ist es, diese Spielschleife sauber zu strukturieren.
+
+Je klarer die einzelnen Aufgaben voneinander getrennt sind, desto einfacher lassen sich später neue Funktionen ergänzen.
+
+[TIP]
+====
+Versuche, jede Aufgabe der Spielschleife in einer eigenen Funktion unterzubringen.
+
+Beispielsweise:
+
+* `ReadGamepad()`
+* `MovePlayer()`
+* `MoveEnemies()`
+* `AnimateSprites()`
+* `CheckCollisions()`
+* `DrawScreen()`
+
+Dadurch bleibt dein Programm auch bei mehreren hundert Programmzeilen übersichtlich.
+====
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du die wichtigsten Grundlagen der Spieleprogrammierung kennengelernt.
+
+Du weißt nun,
+
+* warum Sprites entwickelt wurden,
+* wie sich Sprites unabhängig vom Hintergrund bewegen lassen,
+* welche Aufgabe BLIT beim Kopieren von Bildbereichen übernimmt,
+* wie mehrere Sprites gleichzeitig verwaltet werden,
+* wie Kollisionen erkannt werden,
+* und weshalb nahezu jedes Spiel aus einer immer wiederkehrenden Spielschleife besteht.
+
+Vielleicht ist dir aufgefallen, dass viele der bisher behandelten Themen plötzlich zusammenpassen.
+
+Variablen speichern Positionen.
+
+Schleifen bilden den Programmablauf.
+
+Funktionen sorgen für eine übersichtliche Struktur.
+
+Timer steuern Animationen.
+
+Gamepads liefern die Eingaben des Spielers.
+
+Sprites stellen die Spielfiguren dar.
+
+Aus vielen kleinen Bausteinen entsteht so Schritt für Schritt ein vollständiges Computerspiel.
+
+=== Ausblick auf Kapitel 51
+
+Herzlichen Glückwunsch!
+
+Mit diesem Kapitel hast du die wichtigsten Werkzeuge kennengelernt, die für die Entwicklung klassischer Computerspiele benötigt werden.
+
+Natürlich macht noch keines der bisherigen Beispiele ein vollständiges Spiel aus.
+
+Genau das werden wir jetzt ändern.
+
+Im nächsten Kapitel entwickeln wir gemeinsam ein komplettes Spiel – von der ersten Programmzeile bis zum spielbaren Ergebnis.
+
+Dabei greifen wir auf viele Techniken zurück, die du im Laufe dieses Buches kennengelernt hast:
+
+* Variablen
+* Schleifen
+* Funktionen
+* Grafik
+* Sound
+* Zufallszahlen
+* Dateien
+* Timer
+* Gamepads
+* Sprites
+* Kollisionen
+
+Du wirst überrascht sein, wie viele dieser Bausteine inzwischen ganz selbstverständlich zusammenarbeiten.
+
+Und genau das ist das eigentliche Ziel dieses Buches:
+
+Nicht einzelne BASIC-Befehle auswendig zu lernen, sondern Programme zu entwickeln, die Spaß machen und die eigene Kreativität zum Leben erwecken.
+
+Ich freue mich darauf, im nächsten Kapitel gemeinsam mit dir unser erstes vollständiges Spiel zu programmieren.
