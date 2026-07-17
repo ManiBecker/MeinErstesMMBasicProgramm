@@ -1,0 +1,387 @@
+== Datum und Uhrzeit
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* Datum und Uhrzeit auszulesen
+* die interne Echtzeituhr (RTC) von MMBasic zu verwenden
+* Zeitmessungen durchzuführen
+* Datums- und Uhrzeitangaben zu formatieren
+* praktische Anwendungen mit Datum und Uhrzeit zu entwickeln
+
+Am Ende des Kapitels kannst du Uhren, Stoppuhren und einfache Datenlogger programmieren.
+
+=== Warum Datum und Uhrzeit wichtig sind
+
+Viele Programme benötigen Informationen über die aktuelle Zeit.
+
+Beispiele sind:
+
+* Uhren
+* Wecker
+* Datenlogger
+* Alarmanlagen
+* Zeiterfassung
+* Messwertaufzeichnungen
+
+MMBasic stellt dafür verschiedene Funktionen bereit.
+
+=== Die aktuelle Uhrzeit
+
+Die aktuelle Uhrzeit kann mit:
+
+[source,basic]
+----
+TIME$
+----
+
+abgerufen werden.
+
+Beispiel:
+
+[source,basic]
+----
+PRINT TIME$
+----
+
+Ausgabe:
+
+[source]
+----
+21:37:15
+----
+
+=== Das aktuelle Datum
+
+Für das Datum gibt es:
+
+[source,basic]
+----
+DATE$
+----
+
+Beispiel:
+
+[source,basic]
+----
+PRINT DATE$
+----
+
+Ausgabe:
+
+[source]
+----
+17-07-2026
+----
+
+Das genaue Format kann je nach Systemeinstellung variieren.
+
+=== Datum und Uhrzeit gemeinsam anzeigen
+
+[source,basic]
+----
+PRINT DATE$; " "; TIME$
+----
+
+Beispiel:
+
+[source]
+----
+17-07-2026 21:37:15
+----
+
+=== Eine digitale Uhr
+
+Mit wenigen Zeilen Code lässt sich eine laufende Uhr erstellen.
+
+[source,basic]
+----
+DO
+
+  CLS
+
+  PRINT TIME$
+
+  PAUSE 1000
+
+LOOP
+----
+
+Jede Sekunde wird die Anzeige aktualisiert.
+
+=== Datum und Uhrzeit setzen
+
+Auf vielen Systemen können Datum und Uhrzeit auch geändert werden.
+
+Beispiel:
+
+[source,basic]
+----
+DATE$ = "17-07-2026"
+
+TIME$ = "21:45:00"
+----
+
+Danach arbeitet die interne Echtzeituhr mit den neuen Werten.
+
+[NOTE]
+====
+Die genaue Syntax kann je nach Firmware-Version leicht variieren.
+====
+ 
+=== Die interne Echtzeituhr
+
+PicoMite und Colour Maximite besitzen eine Echtzeituhr (RTC).
+
+RTC steht für:
+
+[source]
+----
+Real Time Clock
+----
+
+Die RTC läuft unabhängig vom eigentlichen Programm weiter.
+
+Dadurch bleibt die Uhrzeit auch dann verfügbar, wenn gerade kein Programm läuft.
+
+=== Die Funktion TIMER
+
+Neben der Uhrzeit gibt es auch die Variable:
+
+[source,basic]
+----
+TIMER
+----
+
+Sie enthält die Anzahl der Millisekunden seit dem Start.
+
+Beispiel:
+
+[source,basic]
+----
+PRINT TIMER
+----
+
+Mögliche Ausgabe:
+
+[source]
+----
+123456
+----
+
+=== Zeit messen
+
+Mit TIMER können Zeitmessungen durchgeführt werden.
+
+[source,basic]
+----
+start = TIMER
+
+PAUSE 2000
+
+PRINT TIMER - start
+----
+
+Ausgabe:
+
+[source]
+----
+2000
+----
+
+Das Programm hat etwa zwei Sekunden gewartet.
+
+=== Eine einfache Stoppuhr
+
+[source,basic]
+----
+start = TIMER
+
+PRINT "Beliebige Taste druecken"
+
+DO
+LOOP UNTIL INKEY$ <> ""
+
+PRINT
+PRINT "Zeit: "; TIMER - start; " ms"
+----
+
+Die vergangene Zeit wird in Millisekunden angezeigt.
+
+=== Minuten und Sekunden berechnen
+
+Angenommen, wir haben eine Zeitdauer in Sekunden:
+
+[source,basic]
+----
+sekunden = 367
+----
+
+Dann können Minuten und Sekunden berechnet werden:
+
+[source,basic]
+----
+minuten = sekunden \ 60
+
+rest = sekunden MOD 60
+
+PRINT minuten; " Minuten"
+
+PRINT rest; " Sekunden"
+----
+
+Ausgabe:
+
+[source]
+----
+6 Minuten
+7 Sekunden
+----
+
+=== Eine laufende Stoppuhr
+
+[source,basic]
+----
+start = TIMER
+
+DO
+
+  CLS
+
+  PRINT "Zeit: "; (TIMER - start) / 1000
+
+  PAUSE 100
+
+LOOP
+----
+
+Die Anzeige wird zehnmal pro Sekunde aktualisiert.
+
+=== Praxisprojekt: Digitale Uhr
+
+[source,basic]
+----
+DO
+
+  CLS
+
+  PRINT "Digitale Uhr"
+
+  PRINT
+
+  PRINT DATE$
+
+  PRINT TIME$
+
+  PAUSE 1000
+
+LOOP
+----
+
+Dieses kleine Programm verwandelt PicoMite oder Colour Maximite in eine einfache Uhr.
+
+=== Praxisprojekt: Betriebsstundenzähler
+
+Viele technische Geräte zählen ihre Betriebszeit.
+
+Das lässt sich leicht nachbauen.
+
+[source,basic]
+----
+start = TIMER
+
+DO
+
+  CLS
+
+  PRINT "Betriebszeit"
+
+  PRINT
+
+  PRINT INT((TIMER - start) / 1000)
+
+  PRINT " Sekunden"
+
+  PAUSE 1000
+
+LOOP
+----
+
+=== Praxisprojekt: Messwerte mit Zeitstempel
+
+Stellen wir uns vor, ein Sensor liefert Messwerte.
+
+Dann könnte jeder Datensatz mit Datum und Uhrzeit gespeichert werden.
+
+[source,basic]
+----
+OPEN "MESSUNG.TXT" FOR APPEND AS #1
+
+PRINT #1, DATE$; ";"; TIME$; ";"; temperatur
+
+CLOSE #1
+----
+
+Die Datei könnte später so aussehen:
+
+[source]
+----
+17-07-2026;21:30:15;23.5
+17-07-2026;21:35:15;23.7
+17-07-2026;21:40:15;23.8
+----
+
+Dieses Verfahren wird in Datenloggern häufig eingesetzt.
+
+=== Die analoge Bahnhofsuhr revisited
+
+Erinnerst du dich an die Bahnhofsuhr aus Kapitel 24?
+
+Damals haben wir die Zeiger mit Hilfe von Variablen bewegt.
+
+Mit den Funktionen DATE$ und TIME$ könnte die Uhr nun die tatsächliche Uhrzeit anzeigen.
+
+Damit würde aus der Animation eine echte Uhr.
+
+=== Datum und Uhrzeit in eigenen Projekten
+
+Typische Anwendungen sind:
+
+* Alarmanlagen
+* Bewässerungssteuerungen
+* Datenlogger
+* Wecker
+* Zeiterfassung
+* Hausautomatisierung
+
+Fast jedes größere Projekt benötigt früher oder später Datum und Uhrzeit.
+
+=== Tipps aus der Praxis
+
+* Verwende TIMER für Zeitmessungen.
+* Verwende DATE$ und TIME$ für Anzeigen.
+* Speichere Messwerte immer mit Zeitstempel.
+* Aktualisiere Uhren höchstens einmal pro Sekunde.
+* Nutze die RTC für langfristige Zeitmessungen.
+
+=== Probier's selbst!
+
+. Erstelle eine digitale Uhr.
+. Baue eine Stoppuhr.
+. Miss deine Reaktionszeit.
+. Erweitere die Bahnhofsuhr um die aktuelle Uhrzeit.
+. Speichere Datum und Uhrzeit in einer Datei.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt:
+
+* Datum mit DATE$ auszulesen
+* Uhrzeiten mit TIME$ anzuzeigen
+* Zeitmessungen mit TIMER durchzuführen
+* Stoppuhren zu programmieren
+* Zeitstempel in Dateien zu speichern
+* eigene Projekte um Datum und Uhrzeit zu erweitern
+
+Datum und Uhrzeit gehören zu den wichtigsten Informationen in technischen Anwendungen und eröffnen viele neue Möglichkeiten für praktische Projekte.
