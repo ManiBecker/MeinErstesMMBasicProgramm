@@ -1,0 +1,341 @@
+== Programme verketten mit CHAIN
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* was CHAIN macht
+* wann CHAIN sinnvoll eingesetzt wird
+* wie mehrere Programme zusammenarbeiten können
+* einfache Menüsysteme zu erstellen
+* größere Projekte in mehrere Dateien aufzuteilen
+
+Am Ende des Kapitels kannst du mehrere MMBasic-Programme zu einer gemeinsamen Anwendung verbinden.
+
+=== Warum mehrere Programme?
+
+In den bisherigen Kapiteln bestand ein Projekt meist aus einer einzigen Datei.
+
+Beispiele:
+
+* Zahlenraten
+* Little Professor
+* Pong
+* Senso
+
+Mit zunehmender Projektgröße kann es jedoch sinnvoll sein, Funktionen auf mehrere Programme aufzuteilen.
+
+Beispielsweise:
+
+[source]
+----
+HAUPTMENU.BAS
+
+PONG.BAS
+
+SENSO.BAS
+
+UHR.BAS
+----
+
+Jedes Programm übernimmt dabei eine bestimmte Aufgabe.
+
+=== Was macht CHAIN?
+
+Mit CHAIN wird ein anderes BASIC-Programm geladen und gestartet.
+
+Beispiel:
+
+[source,basic]
+----
+CHAIN "PONG.BAS"
+----
+
+Das aktuell laufende Programm wird beendet.
+
+Anschließend wird PONG.BAS geladen und gestartet.
+
+=== CHAIN oder RUN?
+
+Auf den ersten Blick scheint CHAIN dem Befehl RUN ähnlich zu sein.
+
+Es gibt jedoch einen wichtigen Unterschied.
+
+RUN wird typischerweise an der Eingabeaufforderung verwendet:
+
+[source,basic]
+----
+RUN "PONG.BAS"
+----
+
+CHAIN wird dagegen innerhalb eines laufenden Programms eingesetzt.
+
+Beispiel:
+
+[source,basic]
+----
+IF taste$ = "P" THEN
+  CHAIN "PONG.BAS"
+ENDIF
+----
+
+=== Ein einfaches Hauptmenü
+
+Erstellen wir ein kleines Menüsystem.
+
+Datei:
+
+[source]
+----
+HAUPTMENU.BAS
+----
+
+[source,basic]
+----
+CLS
+
+PRINT "===================="
+PRINT " MMBASIC SPIELE "
+PRINT "===================="
+PRINT
+PRINT "1 - Pong"
+PRINT "2 - Senso"
+PRINT "3 - Bahnhofsuhr"
+PRINT
+PRINT "0 - Ende"
+
+INPUT "Auswahl"; wahl
+
+SELECT CASE wahl
+
+  CASE 1
+    CHAIN "PONG.BAS"
+
+  CASE 2
+    CHAIN "SENSO.BAS"
+
+  CASE 3
+    CHAIN "UHR.BAS"
+
+END SELECT
+
+END
+----
+
+=== Die Struktur des Projekts
+
+[source]
+----
+SPIELE
+│
+├── HAUPTMENU.BAS
+├── PONG.BAS
+├── SENSO.BAS
+└── UHR.BAS
+----
+
+Der Benutzer startet lediglich:
+
+[source,basic]
+----
+RUN "HAUPTMENU.BAS"
+----
+
+Danach erfolgt die Navigation über das Menü.
+
+=== Zurück zum Hauptmenü
+
+Ein Spiel kann jederzeit wieder zum Hauptmenü zurückkehren.
+
+Beispiel:
+
+[source,basic]
+----
+PRINT
+PRINT "Taste drücken..."
+
+DO
+LOOP UNTIL INKEY$ <> ""
+
+CHAIN "HAUPTMENU.BAS"
+----
+
+Dadurch entsteht eine vollständige Anwendung aus mehreren Einzelprogrammen.
+
+=== Vorteile von CHAIN
+
+Die Aufteilung in mehrere Programme bietet viele Vorteile:
+
+* kleinere Quelldateien
+* bessere Übersicht
+* einfachere Wartung
+* getrennte Entwicklung einzelner Module
+* Wiederverwendbarkeit
+
+=== Ein Beispiel aus der Praxis
+
+Stellen wir uns vor, wir möchten eine kleine Programmsammlung erstellen.
+
+[source]
+----
+TOOLS
+│
+├── MENU.BAS
+├── TABELLE.BAS
+├── UHR.BAS
+├── RECHNER.BAS
+└── NOTIZEN.BAS
+----
+
+Das Menü übernimmt die Auswahl.
+
+Die einzelnen Programme bleiben unabhängig voneinander.
+
+=== Grenzen von CHAIN
+
+CHAIN lädt das neue Programm vollständig.
+
+Dabei wird das aktuell laufende Programm beendet.
+
+Alle Variablen gehen verloren.
+
+Beispiel:
+
+[source,basic]
+----
+punkte = 100
+
+CHAIN "SPIEL2.BAS"
+----
+
+In SPIEL2.BAS existiert die Variable:
+
+[source,basic]
+----
+punkte
+----
+
+nicht mehr.
+
+=== Daten zwischen Programmen austauschen
+
+Sollen Daten erhalten bleiben, gibt es verschiedene Möglichkeiten:
+
+* Dateien verwenden
+* Einstellungen speichern
+* Daten neu berechnen
+
+Für viele Anwendungen genügt bereits das Speichern einer kleinen Datei.
+
+=== Beispiel: Spielstand speichern
+
+Programm 1:
+
+[source,basic]
+----
+OPEN "PUNKTE.TXT" FOR OUTPUT AS #1
+
+PRINT #1, 150
+
+CLOSE #1
+
+CHAIN "SPIEL2.BAS"
+----
+
+Programm 2:
+
+[source,basic]
+----
+OPEN "PUNKTE.TXT" FOR INPUT AS #1
+
+INPUT #1, punkte
+
+CLOSE #1
+
+PRINT "Punkte:"; punkte
+----
+
+So können Informationen zwischen Programmen übertragen werden.
+
+=== CHAIN und Verzeichnisse
+
+CHAIN kann auch mit Pfadangaben verwendet werden.
+
+Beispiel:
+
+[source,basic]
+----
+CHAIN "/SPIELE/PONG.BAS"
+----
+
+oder:
+
+[source,basic]
+----
+CHAIN "/TOOLS/UHR.BAS"
+----
+
+Dadurch lassen sich auch größere Projektstrukturen organisieren.
+
+=== Ein Blick auf klassische Heimcomputer
+
+Viele klassische BASIC-Systeme boten ähnliche Möglichkeiten.
+
+Beispiele:
+
+* Commodore 64
+* Atari
+* Schneider CPC
+* BBC Micro
+
+Auch dort wurden größere Anwendungen häufig in mehrere Programme aufgeteilt.
+
+CHAIN führt dieses Konzept auf modernen MMBasic-Systemen fort.
+
+=== Praxisprojekt: Die MMBasic-Spielesammlung
+
+Nutze die bereits erstellten Programme:
+
+* Pong
+* Senso
+* Bahnhofsuhr
+
+und erstelle ein gemeinsames Hauptmenü.
+
+Erweitere das Menü beispielsweise um:
+
+[source]
+----
+4 - Rechner
+5 - Little Professor
+----
+
+Je größer die Sammlung wird, desto wertvoller wird ein zentrales Menü.
+
+=== Tipps aus der Praxis
+
+* Verwende CHAIN für größere Projekte.
+* Halte einzelne Programme überschaubar.
+* Verwende aussagekräftige Dateinamen.
+* Speichere wichtige Daten vor dem Wechsel in Dateien.
+* Plane eine klare Verzeichnisstruktur.
+
+=== Probier's selbst!
+
+. Erstelle ein Hauptmenü.
+. Lege zwei kleine Testprogramme an.
+. Starte die Programme über CHAIN.
+. Baue eine Rückkehr zum Hauptmenü ein.
+. Erweitere das Menü um weitere Programme.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt:
+
+* Programme mit CHAIN zu starten
+* größere Projekte in mehrere Dateien aufzuteilen
+* Menüsysteme zu erstellen
+* Programme miteinander zu verbinden
+* Daten zwischen Programmen auszutauschen
+
+Mit CHAIN steht dir nun ein wichtiges Werkzeug zur Verfügung, um größere und besser strukturierte MMBasic-Anwendungen zu entwickeln.
