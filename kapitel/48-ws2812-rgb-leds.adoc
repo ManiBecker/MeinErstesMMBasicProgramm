@@ -1,0 +1,312 @@
+== WS2812 RGB-LEDs
+
+=== Das lernst du
+
+WS2812-LEDs gehören zu den beliebtesten Bausteinen im Mikrocontroller-Bereich.
+
+Mit nur einer einzigen Datenleitung lassen sich beliebig viele RGB-LEDs ansteuern. Jede LED kann dabei unabhängig von allen anderen in einer beliebigen Farbe leuchten.
+
+In diesem Kapitel lernst du:
+
+* wie WS2812-LEDs funktionieren
+* wie sie an den PicoMite angeschlossen werden
+* Farben zu erzeugen
+* Lichtanimationen zu programmieren
+* beeindruckende Effekte mit wenigen BASIC-Zeilen zu erzeugen
+
+=== Was sind WS2812-LEDs?
+
+Eine WS2812 ist weit mehr als eine gewöhnliche Leuchtdiode.
+
+Sie besteht aus zwei Bausteinen:
+
+* einer RGB-LED
+* einem integrierten Controller
+
+Dadurch kann jede LED selbstständig ihre Farbe speichern.
+
+Die LEDs werden hintereinander geschaltet und benötigen trotzdem nur drei Leitungen:
+
+* Versorgungsspannung (+5 V)
+* Masse (GND)
+* Datenleitung (DIN)
+
+Die Daten werden von einer LED zur nächsten weitergereicht.
+
+Dadurch können auch sehr lange LED-Ketten mit nur einem einzigen GPIO-Pin angesteuert werden.
+
+=== Wie funktioniert das?
+
+Jede LED empfängt zunächst ihre eigenen Farbdaten.
+
+Alle weiteren Daten werden automatisch an die nächste LED weitergeleitet.
+
+Dadurch entsteht eine Kette:
+
+[source]
+----
+PicoMite
+
+    │
+    ▼
+
+LED1 → LED2 → LED3 → LED4 → LED5 → ...
+----
+
+Der PicoMite muss also lediglich einen kontinuierlichen Datenstrom erzeugen.
+
+Die eigentliche Verteilung übernehmen die LEDs selbst.
+
+=== Anschluss
+
+Für die meisten Projekte genügt bereits ein kurzer LED-Streifen.
+
+Der Anschluss erfolgt folgendermaßen:
+
+[source]
+----
+PicoMite
+
+GP16 ---------- DIN
+
+5 V ----------- +5 V
+
+GND ----------- GND
+----
+
+Achte unbedingt darauf, den Eingang *DIN* zu verwenden.
+
+Viele LED-Streifen besitzen zusätzlich einen Ausgang *DOUT*, der zum Anschluss weiterer LEDs dient.
+
+[TIP]
+====
+Größere LED-Streifen benötigen erstaunlich viel Strom.
+
+Eine einzelne LED kann bei voller Helligkeit bis zu etwa 60 mA aufnehmen.
+
+Ein Streifen mit 100 LEDs benötigt daher theoretisch bis zu 6 Ampere.
+
+Für größere Installationen sollte deshalb immer ein separates Netzteil verwendet werden.
+====
+
+=== RGB – Drei Farben ergeben Millionen Möglichkeiten
+
+Jede LED besitzt drei Farbkanäle:
+
+* Rot
+* Grün
+* Blau
+
+Jeder Farbkanal kann einen Wert zwischen 0 und 255 annehmen.
+
+Dadurch ergeben sich über 16 Millionen verschiedene Farben.
+
+[cols="1,1"]
+|===
+|RGB-Werte |Farbe
+
+|255,0,0
+|Rot
+
+|0,255,0
+|Grün
+
+|0,0,255
+|Blau
+
+|255,255,0
+|Gelb
+
+|255,0,255
+|Magenta
+
+|0,255,255
+|Cyan
+
+|255,255,255
+|Weiß
+
+|0,0,0
+|Aus
+|===
+
+=== Der erste Farbtest
+
+Beginnen wir mit einem einfachen Experiment.
+
+Wir lassen alle LEDs rot leuchten.
+
+[source,basic]
+----
+' Beispiel folgt später mit dem passenden MMBasic-Befehl
+----
+
+Schon mit wenigen Programmzeilen lässt sich die komplette LED-Kette steuern.
+
+=== Helligkeit
+
+Nicht immer soll eine LED mit voller Helligkeit leuchten.
+
+Häufig wirken Animationen deutlich angenehmer, wenn die Farben etwas dunkler eingestellt werden.
+
+Statt:
+
+[source]
+----
+255,0,0
+----
+
+genügt oft bereits:
+
+[source]
+----
+40,0,0
+----
+
+Das spart außerdem Energie.
+
+=== Praxisprojekt: Farbpalette
+
+Unser erstes Projekt zeigt nacheinander die wichtigsten Farben.
+
+Rot
+
+↓
+
+Grün
+
+↓
+
+Blau
+
+↓
+
+Gelb
+
+↓
+
+Cyan
+
+↓
+
+Magenta
+
+↓
+
+Weiß
+
+Dabei erhält man schnell ein Gefühl dafür, wie sich Farben mischen lassen.
+
+=== Praxisprojekt: Regenbogen
+
+Kaum ein LED-Projekt kommt ohne einen Regenbogeneffekt aus.
+
+Dabei verändert sich die Farbe jeder LED kontinuierlich.
+
+Es entsteht ein fließender Farbverlauf über den gesamten LED-Streifen.
+
+Der Effekt wirkt besonders eindrucksvoll, wenn sich der Regenbogen langsam über den Streifen bewegt.
+
+=== Praxisprojekt: Lauflicht
+
+Ein Lauflicht gehört zu den klassischen Übungen.
+
+Mit RGB-LEDs wirkt es jedoch wesentlich eleganter.
+
+Nicht nur eine LED bewegt sich.
+
+Der Lichtpunkt besitzt einen farbigen Schweif.
+
+Dadurch entsteht ein weicher Bewegungseffekt.
+
+=== Praxisprojekt: Knight Rider
+
+Viele Leser kennen vermutlich noch die Fernsehserie *Knight Rider*.
+
+Das markante rote Lauflicht auf der Fahrzeugfront wurde zu einem echten Klassiker.
+
+Mit einem WS2812-Streifen lässt sich dieser Effekt erstaunlich einfach nachbilden.
+
+Durch ein leichtes Nachleuchten wirkt die Bewegung besonders realistisch.
+
+=== Praxisprojekt: Feuerwehrlicht
+
+Ein weiteres interessantes Projekt ist ein Blaulicht.
+
+Die linke Hälfte blinkt rot.
+
+Die rechte Hälfte blinkt blau.
+
+Anschließend werden beide Farben vertauscht.
+
+Dieser Effekt eignet sich hervorragend für Modellbauprojekte.
+
+=== Praxisprojekt: Sternenhimmel
+
+Nun lassen wir den Zufall arbeiten.
+
+Immer wieder leuchten einzelne LEDs kurz auf und verlöschen langsam wieder.
+
+Dadurch entsteht der Eindruck eines funkelnden Sternenhimmels.
+
+Jeder Durchlauf sieht dabei anders aus.
+
+=== Praxisprojekt: Statusanzeige
+
+RGB-LEDs eignen sich hervorragend als Statusanzeigen.
+
+Beispielsweise:
+
+* Grün = alles in Ordnung
+* Gelb = Warnung
+* Rot = Fehler
+* Blau = Verbindung aktiv
+
+Diese Technik findet man in vielen industriellen Anwendungen.
+
+=== Sanfte Farbwechsel
+
+Abrupte Farbwechsel wirken häufig unnatürlich.
+
+Schöner sind langsame Übergänge.
+
+Dabei wird jeweils nur ein Farbwert schrittweise verändert.
+
+Der Effekt wird als *Fade* bezeichnet.
+
+=== Animationen flüssig gestalten
+
+Zwischen zwei Aktualisierungen sollte immer eine kleine Pause liegen.
+
+Dadurch laufen Animationen gleichmäßig und flüssig.
+
+Auch der Prozessor wird dadurch entlastet.
+
+Schon Pausen von wenigen Millisekunden reichen meist aus.
+
+=== Ideen für eigene Projekte
+
+WS2812-LEDs eignen sich für unzählige Anwendungen.
+
+Zum Beispiel:
+
+* Stimmungsbeleuchtung
+* Modellbau
+* PC-Gehäusebeleuchtung
+* Ambilight
+* VU-Meter
+* Spielbeleuchtung
+* Wetterstationen
+* Statusanzeigen
+* Weihnachtsdekoration
+* Kunstprojekte
+
+=== Zusammenfassung
+
+WS2812-LEDs verbinden einfache Verdrahtung mit beeindruckenden Lichteffekten.
+
+Mit nur einer Datenleitung lassen sich ganze LED-Ketten individuell steuern.
+
+Bereits wenige BASIC-Zeilen genügen, um farbenfrohe Animationen und professionelle Beleuchtungseffekte zu erzeugen.
+
+Im nächsten Kapitel lernen wir eine weitere Technik kennen, mit der sich auf dem Bildschirm flüssige Animationen und Spiele realisieren lassen.
