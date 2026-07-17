@@ -1,573 +1,415 @@
-== Datum und Uhrzeit
+== Serielle Kommunikation
 
 === Das lernst du
 
 In diesem Kapitel lernst du:
 
-* Datum und Uhrzeit auszulesen
-* die interne Echtzeituhr (RTC) von MMBasic zu verwenden
-* Zeitmessungen durchzuführen
-* Datums- und Uhrzeitangaben zu formatieren
-* praktische Anwendungen mit Datum und Uhrzeit zu entwickeln
+* was eine serielle Schnittstelle ist
+* Daten über eine UART-Verbindung zu senden und zu empfangen
+* einen PicoMite mit einem PC zu verbinden
+* zwei MMBasic-Systeme miteinander kommunizieren zu lassen
+* einfache Kommunikationsprotokolle zu entwickeln
 
-Am Ende des Kapitels kannst du Uhren, Stoppuhren und einfache Datenlogger programmieren.
+Am Ende des Kapitels kannst du eigene Geräte miteinander Daten austauschen lassen.
 
-=== Warum Datum und Uhrzeit wichtig sind
+=== Eine der ältesten Computerschnittstellen
 
-Viele Programme benötigen Informationen über die aktuelle Zeit.
+Bereits in den 1970er- und 1980er-Jahren kommunizierten Computer über serielle Schnittstellen miteinander.
 
-Beispiele sind:
+Viele bekannte Systeme nutzten diese Technik:
 
-* Uhren
-* Wecker
-* Datenlogger
-* Alarmanlagen
-* Zeiterfassung
-* Messwertaufzeichnungen
+* Commodore C64
+* Atari ST
+* Apple II
+* CP/M-Rechner
+* Robotron-Computer
+* Industriecomputer
+* Terminals
 
-MMBasic stellt dafür verschiedene Funktionen bereit.
+Damals war die serielle Schnittstelle oft die wichtigste Verbindung zur Außenwelt.
 
-=== Die aktuelle Uhrzeit
+Auch heute wird sie noch in unzähligen Geräten eingesetzt.
 
-Die aktuelle Uhrzeit kann mit:
+=== Was bedeutet seriell?
 
-[source,basic]
-----
-TIME$
-----
+Daten bestehen aus einzelnen Bits.
 
-abgerufen werden.
-
-Beispiel:
-
-[source,basic]
-----
-PRINT TIME$
-----
-
-Ausgabe:
-
-[source]
-----
-21:37:15
-----
-
-=== Das aktuelle Datum
-
-Für das Datum gibt es:
-
-[source,basic]
-----
-DATE$
-----
-
-Beispiel:
-
-[source,basic]
-----
-PRINT DATE$
-----
-
-Ausgabe:
-
-[source]
-----
-17-07-2026
-----
-
-Das genaue Format kann je nach Systemeinstellung variieren.
-
-=== Datum und Uhrzeit gemeinsam anzeigen
-
-[source,basic]
-----
-PRINT DATE$; " "; TIME$
-----
+Bei einer seriellen Verbindung werden diese Bits nacheinander übertragen.
 
 Beispiel:
 
 [source]
 ----
-17-07-2026 21:37:15
+H = 01001000
 ----
 
-=== Eine digitale Uhr
+Die einzelnen Bits werden nacheinander über eine Leitung gesendet:
 
-Mit wenigen Zeilen Code lässt sich eine laufende Uhr erstellen.
-
-[source,basic]
+[source]
 ----
-DO
-
-  CLS
-
-  PRINT TIME$
-
-  PAUSE 1000
-
-LOOP
+0 1 0 0 1 0 0 0
 ----
 
-Jede Sekunde wird die Anzeige aktualisiert.
+Daher stammt die Bezeichnung *seriell*.
 
-=== Datum und Uhrzeit setzen
+=== UART
 
-Auf vielen Systemen können Datum und Uhrzeit auch geändert werden.
+Die meisten Mikrocontroller besitzen eine UART.
+
+UART steht für:
+
+[source]
+----
+Universal Asynchronous
+Receiver Transmitter
+----
+
+Die UART übernimmt das Senden und Empfangen der Daten.
+
+Der Programmierer muss sich dadurch nicht um die einzelnen Bits kümmern.
+
+=== Wo begegnet uns UART heute?
+
+Serielle Schnittstellen werden heute beispielsweise verwendet für:
+
+* GPS-Empfänger
+* Sensoren
+* Funkmodule
+* industrielle Steuerungen
+* Retrocomputer
+* andere Mikrocontroller
+
+Sie gehören zu den wichtigsten Kommunikationsschnittstellen in der Elektronik.
+
+=== Baudrate
+
+Damit zwei Geräte miteinander kommunizieren können, müssen beide dieselbe Geschwindigkeit verwenden.
+
+Diese Geschwindigkeit wird als Baudrate bezeichnet.
+
+Typische Werte sind:
+
+[source]
+----
+1200
+2400
+4800
+9600
+19200
+38400
+115200
+----
+
+Für viele Anwendungen sind 9600 oder 115200 Baud üblich.
+
+=== Sender und Empfänger
+
+Eine UART besitzt zwei Signale:
+
+[cols="1,3"]
+|===
+|Signal |Bedeutung
+
+|TX
+|Senden
+
+|RX
+|Empfangen
+|===
+
+Wichtig:
+
+[source]
+----
+TX → RX
+
+RX → TX
+----
+
+Sender und Empfänger werden gekreuzt verbunden.
+
+=== Verbindung zweier Systeme
+
+[source]
+----
+PicoMite A          PicoMite B
+
+TX ---------------- RX
+
+RX ---------------- TX
+
+GND -------------- GND
+----
+
+Zusätzlich müssen beide Geräte eine gemeinsame Masse besitzen.
+
+=== Die erste Ausgabe
+
+MMBasic behandelt eine serielle Schnittstelle ähnlich wie eine Datei.
+
+Zunächst wird die Schnittstelle geöffnet.
+
+Anschließend können Daten geschrieben oder gelesen werden.
+
+=== Daten senden
 
 Beispiel:
 
 [source,basic]
 ----
-DATE$ = "17-07-2026"
+OPEN "COM1:9600" AS #1
 
-TIME$ = "21:45:00"
+PRINT #1, "Hallo Welt"
 ----
 
-Danach arbeitet die interne Echtzeituhr mit den neuen Werten.
+Der Text wird über die serielle Schnittstelle gesendet.
 
-[NOTE]
-====
-Die genaue Syntax kann je nach Firmware-Version leicht variieren.
-====
- 
-=== Die interne Echtzeituhr
+=== Schnittstelle schließen
 
-PicoMite und Colour Maximite besitzen eine Echtzeituhr (RTC).
-
-RTC steht für:
-
-[source]
-----
-Real Time Clock
-----
-
-Die RTC läuft unabhängig vom eigentlichen Programm weiter.
-
-Dadurch bleibt die Uhrzeit auch dann verfügbar, wenn gerade kein Programm läuft.
-
-=== Die Funktion TIMER
-
-Neben der Uhrzeit gibt es auch die Variable:
+Nach der Verwendung sollte die Verbindung geschlossen werden.
 
 [source,basic]
 ----
-TIMER
+CLOSE #1
 ----
 
-Sie enthält die Anzahl der Millisekunden seit dem Start.
+=== Daten empfangen
 
-Beispiel:
+Zum Empfangen verwenden wir:
 
 [source,basic]
 ----
-PRINT TIMER
+LINE INPUT #1, text$
+
+PRINT text$
 ----
 
-Mögliche Ausgabe:
+Die empfangene Zeile wird in einer Variablen gespeichert.
 
-[source]
-----
-123456
-----
+=== Praxisprojekt: PicoMite und PC verbinden
 
-=== Zeit messen
+Ein besonders nützliches Experiment ist die Verbindung mit einem PC.
 
-Mit TIMER können Zeitmessungen durchgeführt werden.
+=== Benötigte Software
+
+Geeignete Terminalprogramme sind beispielsweise:
+
+* Tera Term
+* PuTTY
+* MobaXterm
+
+Diese Programme können serielle Daten anzeigen und senden.
+
+=== Testprogramm
 
 [source,basic]
 ----
-start = TIMER
+OPEN "COM1:9600" AS #1
 
-PAUSE 2000
-
-PRINT TIMER - start
-----
-
-Ausgabe:
-
-[source]
-----
-2000
-----
-
-Das Programm hat etwa zwei Sekunden gewartet.
-
-=== Eine einfache Stoppuhr
-
-[source,basic]
-----
-start = TIMER
-
-PRINT "Beliebige Taste druecken"
-
-DO
-LOOP UNTIL INKEY$ <> ""
-
-PRINT
-PRINT "Zeit: "; TIMER - start; " ms"
-----
-
-Die vergangene Zeit wird in Millisekunden angezeigt.
-
-=== Minuten und Sekunden berechnen
-
-Angenommen, wir haben eine Zeitdauer in Sekunden:
-
-[source,basic]
-----
-sekunden = 367
-----
-
-Dann können Minuten und Sekunden berechnet werden:
-
-[source,basic]
-----
-minuten = sekunden \ 60
-
-rest = sekunden MOD 60
-
-PRINT minuten; " Minuten"
-
-PRINT rest; " Sekunden"
-----
-
-Ausgabe:
-
-[source]
-----
-6 Minuten
-7 Sekunden
-----
-
-=== Eine laufende Stoppuhr
-
-[source,basic]
-----
-start = TIMER
-
-DO
-
-  CLS
-
-  PRINT "Zeit: "; (TIMER - start) / 1000
-
-  PAUSE 100
-
-LOOP
-----
-
-Die Anzeige wird zehnmal pro Sekunde aktualisiert.
-
-=== Praxisprojekt: Digitale Uhr
-
-[source,basic]
-----
-DO
-
-  CLS
-
-  PRINT "Digitale Uhr"
-
-  PRINT
-
-  PRINT DATE$
-
-  PRINT TIME$
-
-  PAUSE 1000
-
-LOOP
-----
-
-Dieses kleine Programm verwandelt PicoMite oder Colour Maximite in eine einfache Uhr.
-
-=== Praxisprojekt: Monatskalender
-
-Nachdem wir uns mit Datum und Uhrzeit beschäftigt haben, wollen wir nun ein etwas größeres Praxisprojekt umsetzen.
-
-Wir schreiben einen einfachen Monatskalender.
-
-Der Benutzer gibt Monat und Jahr ein, und das Programm erzeugt einen Kalender ähnlich wie man ihn aus Wandkalendern oder Terminplanern kennt.
-
-Beispiel:
-
-[source]
-----
-Kalender fuer Juli 2026
-
-Mo Di Mi Do Fr Sa So
-
-       1  2  3  4  5
- 6  7  8  9 10 11 12
-13 14 15 16 17 18 19
-20 21 22 23 24 25 26
-27 28 29 30 31
-----
-
-Dieses Projekt zeigt sehr schön, wie viele der bisher gelernten Techniken zusammenarbeiten:
-
-* Variablen
-* IF-Abfragen
-* Schleifen
-* Funktionen
-* Datumsberechnungen
-* Textformatierung
-
-==== Schaltjahre berücksichtigen
-
-Bevor wir einen Kalender erzeugen können, müssen wir wissen, wie viele Tage ein Monat besitzt.
-
-Besonders der Februar ist interessant.
-
-Er besitzt:
-
-* 28 Tage in normalen Jahren
-* 29 Tage in Schaltjahren
-
-Ein Schaltjahr liegt vor, wenn:
-
-* das Jahr durch 4 teilbar ist
-* aber nicht durch 100
-* außer es ist zusätzlich durch 400 teilbar
-
-==== Anzahl der Tage bestimmen
-
-[source,basic]
-----
-FUNCTION TageImMonat(monat, jahr)
-
-  SELECT CASE monat
-
-    CASE 1,3,5,7,8,10,12
-      TageImMonat = 31
-
-    CASE 4,6,9,11
-      TageImMonat = 30
-
-    CASE 2
-
-      IF (jahr MOD 400 = 0) OR _
-         ((jahr MOD 4 = 0) AND (jahr MOD 100 <> 0)) THEN
-
-        TageImMonat = 29
-
-      ELSE
-
-        TageImMonat = 28
-
-      ENDIF
-
-  END SELECT
-
-END FUNCTION
-----
-
-==== Wochentag des ersten Tages bestimmen
-
-Für einen Kalender müssen wir außerdem wissen, auf welchen Wochentag der erste Tag des Monats fällt.
-
-MMBasic stellt dafür Datumsfunktionen zur Verfügung. Alternativ kann eine entsprechende Berechnungsfunktion verwendet werden.
-
-Für unser Beispiel verwenden wir eine vorbereitete Funktion:
-
-[source,basic]
-----
-FUNCTION ErsterWochentag(monat, jahr)
-
-  LOCAL q, m, j, h
-
-  q = 1
-
-  IF monat < 3 THEN
-    monat = monat + 12
-    jahr = jahr - 1
-  ENDIF
-
-  m = monat
-  j = jahr
-
-  h = (q + INT((13*(m+1))/5) + _
-       j + INT(j/4) - INT(j/100) + _
-       INT(j/400)) MOD 7
-
-  ErsterWochentag = (h + 5) MOD 7
-
-END FUNCTION
-----
-
-Die Funktion liefert:
-
-[source]
-----
-0 = Montag
-1 = Dienstag
-...
-6 = Sonntag
-----
-
-==== Das Hauptprogramm
-
-[source,basic]
-----
-CLS
-
-INPUT "Monat"; monat
-INPUT "Jahr"; jahr
-
-tage = TageImMonat(monat, jahr)
-
-starttag = ErsterWochentag(monat, jahr)
-
-PRINT
-PRINT "Mo Di Mi Do Fr Sa So"
-PRINT
-
-FOR i = 1 TO starttag
-  PRINT "   ";
-NEXT i
-
-FOR tag = 1 TO tage
-
-  PRINT RIGHT$("  " + STR$(tag), 2); " ";
-
-  IF (starttag + tag) MOD 7 = 0 THEN
-    PRINT
-  ENDIF
-
-NEXT tag
-
-PRINT
-----
-
-==== Erweiterungen
-
-Dieses Programm lässt sich leicht erweitern.
-
-Mögliche Ideen sind:
-
-* aktuelles Datum hervorheben
-* Monatsnamen anzeigen
-* Feiertage markieren
-* Geburtstage eintragen
-* mehrere Monate hintereinander ausgeben
-* einen Jahreskalender erzeugen
-
-==== Ein Blick zurück
-
-Kalenderprogramme gehörten in den 1980er-Jahren zu den beliebtesten BASIC-Projekten auf Heimcomputern.
-
-Sie waren anspruchsvoll genug, um interessante Programmiertechniken zu vermitteln, gleichzeitig aber praktisch im Alltag nutzbar.
-
-Auch heute ist ein Kalender ein schönes Beispiel dafür, wie Mathematik und Programmierung zusammenarbeiten.
-
-[TIP]
-====
-Versuche den Kalender so zu erweitern, dass automatisch der aktuelle Monat angezeigt wird.
-
-Verwende dazu DATE$ und werte Monat und Jahr aus dem aktuellen Datum aus.
-====
-
-=== Praxisprojekt: Betriebsstundenzähler
-
-Viele technische Geräte zählen ihre Betriebszeit.
-
-Das lässt sich leicht nachbauen.
-
-[source,basic]
-----
-start = TIMER
-
-DO
-
-  CLS
-
-  PRINT "Betriebszeit"
-
-  PRINT
-
-  PRINT INT((TIMER - start) / 1000)
-
-  PRINT " Sekunden"
-
-  PAUSE 1000
-
-LOOP
-----
-
-=== Praxisprojekt: Messwerte mit Zeitstempel
-
-Stellen wir uns vor, ein Sensor liefert Messwerte.
-
-Dann könnte jeder Datensatz mit Datum und Uhrzeit gespeichert werden.
-
-[source,basic]
-----
-OPEN "MESSUNG.TXT" FOR APPEND AS #1
-
-PRINT #1, DATE$; ";"; TIME$; ";"; temperatur
+PRINT #1, "Hallo vom PicoMite"
 
 CLOSE #1
 ----
 
-Die Datei könnte später so aussehen:
+Wird nun ein Terminalprogramm gestartet, erscheint die gesendete Nachricht auf dem Bildschirm.
+
+=== Praxisprojekt: Zwei PicoMites verbinden
+
+Nun verbinden wir zwei MMBasic-Systeme miteinander.
+
+=== Sender
+
+[source,basic]
+----
+OPEN "COM1:9600" AS #1
+
+DO
+
+  PRINT #1, "Hallo"
+
+  PAUSE 1000
+
+LOOP
+----
+
+=== Empfänger
+
+[source,basic]
+----
+OPEN "COM1:9600" AS #1
+
+DO
+
+  LINE INPUT #1, text$
+
+  PRINT text$
+
+LOOP
+----
+
+Der Empfänger zeigt nun jede Sekunde:
 
 [source]
 ----
-17-07-2026;21:30:15;23.5
-17-07-2026;21:35:15;23.7
-17-07-2026;21:40:15;23.8
+Hallo
 ----
 
-Dieses Verfahren wird in Datenloggern häufig eingesetzt.
+an.
 
-=== Die analoge Bahnhofsuhr revisited
+=== Ein einfacher Chat
 
-Erinnerst du dich an die Bahnhofsuhr aus Kapitel 24?
+Interessanter wird es, wenn beide Seiten senden und empfangen können.
 
-Damals haben wir die Zeiger mit Hilfe von Variablen bewegt.
+Damit entsteht ein einfacher Chat.
 
-Mit den Funktionen DATE$ und TIME$ könnte die Uhr nun die tatsächliche Uhrzeit anzeigen.
+=== Sender
 
-Damit würde aus der Animation eine echte Uhr.
+[source,basic]
+----
+OPEN "COM1:9600" AS #1
 
-=== Datum und Uhrzeit in eigenen Projekten
+DO
 
-Typische Anwendungen sind:
+  INPUT "Text"; text$
 
-* Alarmanlagen
-* Bewässerungssteuerungen
-* Datenlogger
-* Wecker
-* Zeiterfassung
-* Hausautomatisierung
+  PRINT #1, text$
 
-Fast jedes größere Projekt benötigt früher oder später Datum und Uhrzeit.
+LOOP
+----
+
+=== Empfänger
+
+[source,basic]
+----
+OPEN "COM1:9600" AS #1
+
+DO
+
+  LINE INPUT #1, text$
+
+  PRINT text$
+
+LOOP
+----
+
+Nun können Nachrichten zwischen zwei Geräten ausgetauscht werden.
+
+=== Nachrichten strukturieren
+
+Bei größeren Projekten empfiehlt es sich, feste Nachrichtenformate zu verwenden.
+
+Beispiel:
+
+[source]
+----
+TEMP:23.5
+
+LED:ON
+
+LED:OFF
+----
+
+Das empfangende Programm kann diese Nachrichten gezielt auswerten.
+
+=== Praxisprojekt: Fernsteuerung einer LED
+
+Sender:
+
+[source,basic]
+----
+OPEN "COM1:9600" AS #1
+
+PRINT #1, "LEDON"
+----
+
+Empfänger:
+
+[source,basic]
+----
+OPEN "COM1:9600" AS #1
+
+SETPIN GP15, DOUT
+
+DO
+
+  LINE INPUT #1, text$
+
+  IF text$ = "LEDON" THEN
+    PIN(GP15)=1
+  ENDIF
+
+LOOP
+----
+
+Damit kann ein Mikrocontroller einen anderen fernsteuern.
+
+=== Retrocomputer und serielle Kommunikation
+
+Viele klassische Computer verfügen über serielle Schnittstellen.
+
+Beispiele:
+
+* AC1
+* Z1013
+* C64 mit RS232-Adapter
+* Apple II
+* CP/M-Rechner
+* Siemens PGs
+* Eigenbaucomputer
+
+Ein PicoMite kann dadurch als moderne Erweiterung dienen.
+
+=== Praktische Anwendungen
+
+Beispielsweise:
+
+* Programme übertragen
+* Messdaten speichern
+* SD-Karten-Zugriff ermöglichen
+* Terminalfunktionen bereitstellen
+* Sensorwerte anzeigen
+
+Dadurch lassen sich moderne und historische Systeme miteinander verbinden.
+
+=== Ein Blick in die Zukunft
+
+Serielle Kommunikation bildet die Grundlage vieler weiterer Technologien.
+
+Dazu gehören:
+
+* Bluetooth-Module
+* WLAN-Module
+* GPS-Empfänger
+* Funkmodule
+* industrielle Feldbusse
+
+Wer UART versteht, versteht auch viele andere Kommunikationssysteme deutlich schneller.
 
 === Tipps aus der Praxis
 
-* Verwende TIMER für Zeitmessungen.
-* Verwende DATE$ und TIME$ für Anzeigen.
-* Speichere Messwerte immer mit Zeitstempel.
-* Aktualisiere Uhren höchstens einmal pro Sekunde.
-* Nutze die RTC für langfristige Zeitmessungen.
+* Sender und Empfänger müssen dieselbe Baudrate verwenden.
+* TX und RX werden gekreuzt verbunden.
+* Vergiss die gemeinsame Masse nicht.
+* Beginne mit 9600 Baud.
+* Verwende einfache Textprotokolle.
 
 === Probier's selbst!
 
-. Erstelle eine digitale Uhr.
-. Baue eine Stoppuhr.
-. Miss deine Reaktionszeit.
-. Erweitere die Bahnhofsuhr um die aktuelle Uhrzeit.
-. Speichere Datum und Uhrzeit in einer Datei.
+. Verbinde PicoMite und PC.
+. Sende eine Textnachricht.
+. Verbinde zwei PicoMites miteinander.
+. Baue einen einfachen Chat.
+. Schalte über die serielle Verbindung eine LED ein und aus.
 
 === Zusammenfassung
 
 In diesem Kapitel hast du gelernt:
 
-* Datum mit DATE$ auszulesen
-* Uhrzeiten mit TIME$ anzuzeigen
-* Zeitmessungen mit TIMER durchzuführen
-* Stoppuhren zu programmieren
-* Zeitstempel in Dateien zu speichern
-* eigene Projekte um Datum und Uhrzeit zu erweitern
+* wie serielle Kommunikation funktioniert
+* was eine UART ist
+* Daten zu senden und zu empfangen
+* einen PicoMite mit einem PC zu verbinden
+* zwei MMBasic-Systeme miteinander kommunizieren zu lassen
+* einfache Kommunikationsprotokolle zu entwickeln
 
-Datum und Uhrzeit gehören zu den wichtigsten Informationen in technischen Anwendungen und eröffnen viele neue Möglichkeiten für praktische Projekte.
+Serielle Schnittstellen gehören zu den wichtigsten Werkzeugen der Elektronik und ermöglichen den Datenaustausch zwischen unterschiedlichsten Geräten.
