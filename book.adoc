@@ -161,6 +161,8 @@ include::kapitel/47-serielle-kommunikation.adoc[]
 
 include::kapitel/48-ws2812-rgb-leds.adoc[]
 
-include::kapitel/49-sprites-und-blit.adoc[]
+include::kapitel/49-spielcontroller-und-gamepads.adoc[]
 
-include::kapitel/50-spielcontroller-und-gamepads.adoc[]
+include::kapitel/50-sprites-und-blit.adoc[]
+
+include::kapitel/51-von-der-idee-zum-fertigen-spiel.adoc[]
