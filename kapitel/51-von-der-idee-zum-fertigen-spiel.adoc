@@ -748,3 +748,623 @@ Der Punktestand verändert sich.
 
 Und aus vielen einzelnen Programmbausteinen entsteht Schritt für Schritt ein vollständiges Computerspiel.
 
+=== Schritt 4: Die Game Loop
+
+Jetzt beginnt das eigentliche Spiel.
+
+Alle bisherigen Schritte dienten nur der Vorbereitung. Wir haben Konstanten festgelegt, Variablen vorbereitet, Gegner erzeugt, Münzen verteilt und die benötigten Sprites geladen.
+
+Nun müssen diese Bestandteile miteinander arbeiten.
+
+Das übernimmt die *Game Loop*.
+
+Sie ist das Herzstück unseres Spiels.
+
+Solange der Spieler noch mindestens ein Leben besitzt, wird dieselbe Abfolge immer wieder ausgeführt:
+
+. Gamepad auslesen
+. Spieler bewegen
+. Gegner bewegen
+. Münzen überprüfen
+. Kollisionen erkennen
+. Anzeige aktualisieren
+. kurze Pause bis zum nächsten Bild
+
+Der grundsätzliche Aufbau sieht so aus:
+
+[source,basic]
+----
+DO WHILE Lives > 0
+
+    ReadGamepad
+
+    MovePlayer
+
+    MoveEnemies
+
+    CheckCoins
+
+    CheckEnemyCollisions
+
+    UpdateDisplay
+
+    PAUSE 16
+
+LOOP
+----
+
+Vielleicht wirkt diese Schleife überraschend kurz.
+
+Das ist beabsichtigt.
+
+Jede einzelne Aufgabe wird in einem eigenen Unterprogramm erledigt. Dadurch bleibt die Game Loop übersichtlich und lässt sich fast wie eine Beschreibung des Spielablaufs lesen.
+
+[TIP]
+====
+Eine gute Game Loop sollte möglichst leicht verständlich sein.
+
+Details wie Kollisionsberechnungen oder das Bewegen einzelner Gegner gehören in eigene Unterprogramme. Dadurch bleibt das Hauptprogramm auch dann übersichtlich, wenn das Spiel später erweitert wird.
+====
+
+==== Eingaben lesen
+
+Zu Beginn jedes Schleifendurchlaufs fragen wir den aktuellen Zustand des Gamepads ab.
+
+[source,basic]
+----
+ReadGamepad
+----
+
+Dabei werden unter anderem
+
+* die Stellung des Analogsticks,
+* das Steuerkreuz
+* und die Tasten
+
+eingelesen.
+
+Diese Werte stehen anschließend für die Bewegung des Spielers zur Verfügung.
+
+Die Eingabe wird in jeder Runde erneut geprüft. Dadurch reagiert die Spielfigur unmittelbar auf die Steuerung.
+
+==== Spieler bewegen
+
+Nach dem Einlesen des Gamepads wird die Position des Spielers aktualisiert.
+
+[source,basic]
+----
+MovePlayer
+----
+
+Das zugehörige Unterprogramm könnte zunächst so aufgebaut sein:
+
+[source,basic]
+----
+SUB MovePlayer
+
+    ' TODO:
+    ' Werte des linken Analogsticks verwenden
+
+    PlayerX = PlayerX + StickX * PlayerSpeed
+    PlayerY = PlayerY + StickY * PlayerSpeed
+
+END SUB
+----
+
+Die Variablen `StickX` und `StickY` enthalten die aktuelle Auslenkung des Analogsticks.
+
+Steht der Stick in der Mitte, ändern sich die Koordinaten nicht.
+
+Wird er nach rechts bewegt, erhöht sich `PlayerX`. Bei einer Bewegung nach links wird der Wert kleiner.
+
+Dasselbe gilt für die vertikale Bewegung.
+
+==== Spielfeld begrenzen
+
+Ohne zusätzliche Prüfung könnte die Spielfigur den sichtbaren Bildschirm verlassen.
+
+Deshalb begrenzen wir ihre Koordinaten.
+
+[source,basic]
+----
+IF PlayerX < 0 THEN PlayerX = 0
+IF PlayerY < PlayfieldTop THEN PlayerY = PlayfieldTop
+
+IF PlayerX > MM.HRES - PlayerWidth THEN
+    PlayerX = MM.HRES - PlayerWidth
+ENDIF
+
+IF PlayerY > MM.VRES - PlayerHeight THEN
+    PlayerY = MM.VRES - PlayerHeight
+ENDIF
+----
+
+`PlayfieldTop` bezeichnet den Bereich unterhalb der Statusanzeige.
+
+Dadurch kann die Spielfigur nicht über Punktestand, Level und Lebensanzeige laufen.
+
+Anschließend wird das Sprite an seine neue Position verschoben.
+
+[source,basic]
+----
+' TODO:
+' Spieler-Sprite verschieben
+
+MoveSprite PlayerSprite, PlayerX, PlayerY
+----
+
+==== Gegner bewegen
+
+Nachdem der Spieler bewegt wurde, sind die Gegner an der Reihe.
+
+Da wir mehrere Gegner besitzen, bearbeiten wir sie in einer Schleife.
+
+[source,basic]
+----
+SUB MoveEnemies
+
+    FOR i = 1 TO MaxEnemies
+
+        EnemyX(i) = EnemyX(i) + EnemyDX(i)
+        EnemyY(i) = EnemyY(i) + EnemyDY(i)
+
+        ' Bildschirmränder prüfen
+
+        IF EnemyX(i) < 0 THEN
+            EnemyX(i) = 0
+            EnemyDX(i) = -EnemyDX(i)
+        ENDIF
+
+        IF EnemyX(i) > MM.HRES - EnemyWidth THEN
+            EnemyX(i) = MM.HRES - EnemyWidth
+            EnemyDX(i) = -EnemyDX(i)
+        ENDIF
+
+        IF EnemyY(i) < PlayfieldTop THEN
+            EnemyY(i) = PlayfieldTop
+            EnemyDY(i) = -EnemyDY(i)
+        ENDIF
+
+        IF EnemyY(i) > MM.VRES - EnemyHeight THEN
+            EnemyY(i) = MM.VRES - EnemyHeight
+            EnemyDY(i) = -EnemyDY(i)
+        ENDIF
+
+        ' TODO:
+        ' Gegner-Sprite verschieben
+
+        MoveSprite EnemySprite(i), EnemyX(i), EnemyY(i)
+
+    NEXT i
+
+END SUB
+----
+
+Jeder Gegner besitzt eine eigene Position und eine eigene Bewegungsrichtung.
+
+Erreicht ein Gegner einen Bildschirmrand, wird die jeweilige Richtung umgekehrt.
+
+Aus
+
+[source,basic]
+----
+EnemyDX(i) = 2
+----
+
+wird dadurch
+
+[source,basic]
+----
+EnemyDX(i) = -2
+----
+
+Der Gegner bewegt sich anschließend in die entgegengesetzte Richtung.
+
+==== Warum besitzt jeder Gegner ein eigenes Sprite?
+
+Obwohl alle Gegner dasselbe Bild verwenden, müssen sie unabhängig voneinander bewegt werden können.
+
+Deshalb benötigt jeder Gegner eine eigene Sprite-Nummer.
+
+Das Bild kann gemeinsam verwendet werden, die Position und der sichtbare Zustand gehören jedoch immer zum jeweiligen Gegner.
+
+Eine mögliche Zuordnung könnte so aussehen:
+
+[cols="1,2"]
+|===
+|Sprite-Nummer |Verwendung
+
+|1
+|Spieler
+
+|2 bis 5
+|Gegner
+
+|6 bis 15
+|Münzen
+|===
+
+Eine klare Zuordnung verhindert später Verwechslungen.
+
+==== Münzen überprüfen
+
+Nach der Bewegung prüfen wir, ob der Spieler eine Münze berührt.
+
+[source,basic]
+----
+CheckCoins
+----
+
+Da mehrere Münzen vorhanden sind, verwenden wir erneut eine Schleife.
+
+[source,basic]
+----
+SUB CheckCoins
+
+    FOR i = 1 TO MaxCoins
+
+        IF CoinVisible(i) THEN
+
+            IF SpritesOverlap(PlayerX, PlayerY, _
+                              PlayerWidth, PlayerHeight, _
+                              CoinX(i), CoinY(i), _
+                              CoinWidth, CoinHeight) THEN
+
+                CoinVisible(i) = FALSE
+
+                Score = Score + CoinPoints
+
+                ' TODO:
+                ' Münz-Sprite ausblenden
+
+                HideSprite CoinSprite(i)
+
+                PLAY SOUND 1, L, N, 1000, 60
+
+            ENDIF
+
+        ENDIF
+
+    NEXT i
+
+END SUB
+----
+
+Das Unterprogramm `SpritesOverlap` prüft, ob sich zwei rechteckige Bereiche überschneiden.
+
+Wird eine Münze eingesammelt,
+
+* wird sie als unsichtbar markiert,
+* ihr Sprite ausgeblendet,
+* der Punktestand erhöht
+* und ein kurzer Ton abgespielt.
+
+Damit reagiert das Spiel nicht nur optisch, sondern auch akustisch.
+
+==== Rechteckige Kollisionen
+
+Für viele Spiele genügt eine einfache rechteckige Kollisionsprüfung.
+
+Jedes Sprite wird dabei gedanklich von einem unsichtbaren Rechteck umgeben.
+
+[source]
+----
++-----------+
+|  Spieler  |
++-----------+
+
+        +--------+
+        | Münze  |
+        +--------+
+----
+
+Überschneiden sich diese Rechtecke, liegt eine Kollision vor.
+
+Das passende Unterprogramm könnte so aussehen:
+
+[source,basic]
+----
+FUNCTION SpritesOverlap(x1, y1, w1, h1, _
+                        x2, y2, w2, h2)
+
+    SpritesOverlap = _
+        x1 < x2 + w2 AND _
+        x1 + w1 > x2 AND _
+        y1 < y2 + h2 AND _
+        y1 + h1 > y2
+
+END FUNCTION
+----
+
+Die Funktion liefert `TRUE`, wenn sich beide Rechtecke überschneiden.
+
+Andernfalls liefert sie `FALSE`.
+
+[NOTE]
+====
+Eine rechteckige Kollisionsprüfung ist sehr schnell und für viele Spiele vollkommen ausreichend.
+
+Bei unregelmäßig geformten Sprites kann sie manchmal eine Berührung melden, obwohl sich nur die unsichtbaren Randbereiche überschneiden. Für unser Spiel ist diese Vereinfachung jedoch sinnvoll.
+====
+
+==== Kollision mit Gegnern
+
+Nun prüfen wir, ob der Spieler einen Gegner berührt.
+
+[source,basic]
+----
+SUB CheckEnemyCollisions
+
+    FOR i = 1 TO MaxEnemies
+
+        IF SpritesOverlap(PlayerX, PlayerY, _
+                          PlayerWidth, PlayerHeight, _
+                          EnemyX(i), EnemyY(i), _
+                          EnemyWidth, EnemyHeight) THEN
+
+            Lives = Lives - 1
+
+            PLAY SOUND 1, L, N, 150, 250
+
+            ResetPlayerPosition
+
+            EXIT SUB
+
+        ENDIF
+
+    NEXT i
+
+END SUB
+----
+
+Nach einer Kollision verliert der Spieler ein Leben.
+
+Anschließend wird seine Figur zurück in die Bildschirmmitte gesetzt.
+
+[source,basic]
+----
+SUB ResetPlayerPosition
+
+    PlayerX = MM.HRES / 2 - PlayerWidth / 2
+    PlayerY = MM.VRES / 2 - PlayerHeight / 2
+
+    ' TODO:
+    ' Spieler-Sprite neu positionieren
+
+    MoveSprite PlayerSprite, PlayerX, PlayerY
+
+    PAUSE 500
+
+END SUB
+----
+
+Die kurze Pause verhindert, dass der Spieler unmittelbar nach dem Zurücksetzen erneut mit demselben Gegner kollidiert.
+
+Später könnten wir stattdessen eine kurze Unverwundbarkeit einbauen.
+
+==== Statusanzeige aktualisieren
+
+Nach allen Bewegungen und Kollisionsprüfungen wird die Statusanzeige erneuert.
+
+[source,basic]
+----
+SUB UpdateDisplay
+
+    BOX 0, 0, MM.HRES, PlayfieldTop - 1, 0, RGB(BLACK), RGB(BLACK)
+
+    TEXT 10, 10, "Punkte: " + STR$(Score), L, 1, 1, RGB(WHITE)
+
+    TEXT MM.HRES / 2, 10, _
+         "Level: " + STR$(Level), C, 1, 1, RGB(WHITE)
+
+    TEXT MM.HRES - 10, 10, _
+         "Leben: " + STR$(Lives), R, 1, 1, RGB(WHITE)
+
+END SUB
+----
+
+Dabei wird nur der obere Anzeigebereich gelöscht und neu gezeichnet.
+
+Das Spielfeld selbst bleibt unverändert.
+
+So vermeiden wir unnötiges Flackern.
+
+==== Sind alle Münzen eingesammelt?
+
+Nach jedem Schleifendurchlauf müssen wir prüfen, ob noch Münzen vorhanden sind.
+
+[source,basic]
+----
+IF CoinsRemaining() = 0 THEN
+    StartNextLevel
+ENDIF
+----
+
+Die Funktion zählt alle noch sichtbaren Münzen.
+
+[source,basic]
+----
+FUNCTION CoinsRemaining()
+
+    Count = 0
+
+    FOR i = 1 TO MaxCoins
+
+        IF CoinVisible(i) THEN
+            Count = Count + 1
+        ENDIF
+
+    NEXT i
+
+    CoinsRemaining = Count
+
+END FUNCTION
+----
+
+Sind keine Münzen mehr sichtbar, beginnt das nächste Level.
+
+[source,basic]
+----
+SUB StartNextLevel
+
+    Level = Level + 1
+
+    EnemySpeedNow = EnemySpeed + Level - 1
+
+    PlaceCoins
+
+    SetEnemySpeed
+
+    PLAY SOUND 1, L, N, 1200, 100
+    PLAY SOUND 1, L, N, 1600, 150
+
+END SUB
+----
+
+Mit jedem neuen Level erhöht sich die Geschwindigkeit der Gegner.
+
+Dadurch steigt der Schwierigkeitsgrad schrittweise an.
+
+==== Eine vollständige Game Loop
+
+Fassen wir nun alle Bestandteile zusammen.
+
+[source,basic]
+----
+DO WHILE Lives > 0
+
+    ReadGamepad
+
+    MovePlayer
+
+    MoveEnemies
+
+    CheckCoins
+
+    CheckEnemyCollisions
+
+    IF CoinsRemaining() = 0 THEN
+        StartNextLevel
+    ENDIF
+
+    UpdateDisplay
+
+    PAUSE 16
+
+LOOP
+----
+
+Das ist das Herz unseres Spiels.
+
+Obwohl im Hintergrund viele Dinge geschehen, bleibt die zentrale Schleife leicht verständlich.
+
+Sie liest sich beinahe wie eine Aufgabenliste:
+
+[source]
+----
+Eingabe lesen
+
+Spieler bewegen
+
+Gegner bewegen
+
+Münzen prüfen
+
+Kollisionen prüfen
+
+Level prüfen
+
+Anzeige aktualisieren
+----
+
+Genau darin liegt der Vorteil einer guten Programmstruktur.
+
+==== Warum verwenden wir `PAUSE 16`?
+
+Ohne eine kleine Pause würde die Schleife so schnell ausgeführt, wie es der Computer erlaubt.
+
+Dadurch könnte das Spiel auf unterschiedlichen Geräten verschieden schnell laufen.
+
+Mit
+
+[source,basic]
+----
+PAUSE 16
+----
+
+warten wir ungefähr 16 Millisekunden zwischen zwei Durchläufen.
+
+Das entspricht theoretisch etwa 60 Bildern pro Sekunde.
+
+[source]
+----
+1000 ms / 16 ms ≈ 62,5 Bilder pro Sekunde
+----
+
+In der Praxis benötigt auch die Programmausführung etwas Zeit. Die tatsächliche Bildrate fällt deshalb etwas niedriger aus.
+
+Für unser Spiel ist das vollkommen ausreichend.
+
+[IMPORTANT]
+====
+Die Spielgeschwindigkeit sollte möglichst nicht allein davon abhängen, wie schnell die Hauptschleife ausgeführt wird.
+
+Für einfache Spiele genügt eine feste Pause. Anspruchsvollere Spiele berechnen Bewegungen anhand der tatsächlich vergangenen Zeit.
+====
+
+==== Wenn die Game Loop endet
+
+Die Schleife läuft nur, solange der Spieler noch mindestens ein Leben besitzt.
+
+[source,basic]
+----
+DO WHILE Lives > 0
+    ...
+LOOP
+----
+
+Sobald `Lives` den Wert `0` erreicht, wird die Schleife verlassen.
+
+Danach kann das Spiel den Endbildschirm anzeigen.
+
+[source,basic]
+----
+CLS
+
+TEXT MM.HRES / 2, MM.VRES / 2 - 20, _
+     "GAME OVER", C, 2, 2, RGB(RED)
+
+TEXT MM.HRES / 2, MM.VRES / 2 + 20, _
+     "Punkte: " + STR$(Score), C, 1, 1, RGB(WHITE)
+
+TEXT MM.HRES / 2, MM.VRES / 2 + 50, _
+     "START für ein neues Spiel", C, 1, 1, RGB(WHITE)
+----
+
+Damit besitzt unser Programm erstmals einen vollständigen Ablauf:
+
+[source]
+----
+Spiel starten
+
+↓
+
+Game Loop ausführen
+
+↓
+
+Spielende erkennen
+
+↓
+
+Ergebnis anzeigen
+----
+
+Aus einer einfachen Idee ist nun ein spielbares Grundgerüst entstanden.
+
+Noch fehlen einige Details und die tatsächlichen MMBasic-Befehle für Gamepad und Sprites müssen beim Praxistest ergänzt werden.
+
+Die wichtigste Struktur steht jedoch bereits.
+
+Und genau diese Struktur findest du in ähnlicher Form in nahezu jedem Computerspiel wieder.
+
