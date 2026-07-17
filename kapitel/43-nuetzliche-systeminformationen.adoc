@@ -1,0 +1,354 @@
+== Nützliche Systeminformationen
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* wichtige Systeminformationen abzufragen
+* Programme an unterschiedliche Hardware anzupassen
+* Bildschirmgrößen automatisch zu erkennen
+* Informationen über Speicher, Laufwerke und Dateien auszulesen
+* die Funktion MM.INFO() zu verwenden
+
+Am Ende des Kapitels kannst du Programme schreiben, die sich automatisch an ihre Umgebung anpassen.
+
+=== Warum Systeminformationen wichtig sind
+
+In den bisherigen Kapiteln haben wir häufig feste Werte verwendet.
+
+Beispielsweise:
+
+[source,basic]
+----
+CIRCLE 400,300,100
+----
+
+Das funktioniert zwar, setzt aber eine bestimmte Bildschirmauflösung voraus.
+
+Eleganter ist es, Informationen direkt vom System abzufragen.
+
+Dadurch werden Programme flexibler und auf unterschiedlichen Geräten lauffähig.
+
+=== Bildschirmauflösung ermitteln
+
+Eine der wichtigsten Informationen ist die aktuelle Bildschirmgröße.
+
+MMBasic stellt dafür zwei schreibgeschützte Variablen bereit:
+
+[source,basic]
+----
+PRINT MM.HRES
+PRINT MM.VRES
+----
+
+Dabei bedeutet:
+
+[cols="1,3"]
+|===
+|Variable |Bedeutung
+
+|MM.HRES
+|Bildschirmbreite in Pixeln
+
+|MM.VRES
+|Bildschirmhöhe in Pixeln
+|===
+
+=== Beispiel
+
+Auf einem System könnte die Ausgabe lauten:
+
+[source]
+----
+800
+600
+----
+
+Auf einem anderen:
+
+[source]
+----
+1024
+768
+----
+
+Das Programm kann dadurch automatisch auf unterschiedliche Auflösungen reagieren.
+
+=== Objekte zentrieren
+
+Anstatt feste Koordinaten zu verwenden:
+
+[source,basic]
+----
+CIRCLE 400,300,100
+----
+
+kann das Objekt automatisch zentriert werden:
+
+[source,basic]
+----
+CIRCLE MM.HRES/2, MM.VRES/2, 100
+----
+
+Dieses Verfahren haben wir bereits in mehreren Grafikprojekten verwendet.
+
+=== Die aktuelle Position
+
+Bei Grafikoperationen sind häufig auch die aktuellen Zeichenpositionen interessant.
+
+MMBasic stellt dafür weitere Informationen bereit.
+
+Diese werden vor allem in komplexeren Grafikprogrammen verwendet.
+
+=== Informationen mit MM.INFO()
+
+Viele Systeminformationen können mit der Funktion MM.INFO() abgefragt werden.
+
+Das allgemeine Format lautet:
+
+[source,basic]
+----
+PRINT MM.INFO(parameter)
+----
+
+Je nach Parameter liefert die Funktion unterschiedliche Informationen zurück.
+
+=== Freien Speicher anzeigen
+
+Ein häufig benötigter Wert ist der freie Speicher.
+
+[source,basic]
+----
+PRINT MM.INFO(FREE MEMORY)
+----
+
+Die Ausgabe erfolgt in Byte.
+
+Je größer ein Projekt wird, desto interessanter wird diese Information.
+
+=== CPU-Geschwindigkeit anzeigen
+
+[source,basic]
+----
+PRINT MM.INFO(CPUSPEED)
+----
+
+Beispiel:
+
+[source]
+----
+252000000
+----
+
+Dies entspricht einer CPU-Geschwindigkeit von 252 MHz.
+
+=== Aktives Laufwerk anzeigen
+
+[source,basic]
+----
+PRINT MM.INFO(DRIVE)
+----
+
+Beispiel:
+
+[source]
+----
+A:
+----
+
+oder:
+
+[source]
+----
+B:
+----
+
+Diese Information ist besonders auf dem PicoMite nützlich.
+
+=== Verfügbaren Speicherplatz anzeigen
+
+[source,basic]
+----
+PRINT MM.INFO(FREE SPACE)
+----
+
+Die Funktion liefert den freien Speicherplatz auf dem aktuellen Laufwerk.
+
+=== Größe des Laufwerks anzeigen
+
+[source,basic]
+----
+PRINT MM.INFO(DISK SIZE)
+----
+
+Damit kann die Gesamtkapazität des aktiven Laufwerks ermittelt werden.
+
+=== Existiert eine Datei?
+
+Oft soll geprüft werden, ob eine Datei vorhanden ist.
+
+Beispiel:
+
+[source,basic]
+----
+IF MM.INFO(EXISTS FILE "PONG.BAS") THEN
+  PRINT "Datei gefunden"
+ELSE
+  PRINT "Datei nicht gefunden"
+ENDIF
+----
+
+Diese Technik verhindert viele Fehlermeldungen.
+
+=== Existiert ein Verzeichnis?
+
+Auch Verzeichnisse können geprüft werden.
+
+[source,basic]
+----
+IF MM.INFO(EXISTS DIR "SPIELE") THEN
+  PRINT "Verzeichnis vorhanden"
+ENDIF
+----
+
+=== Das aktuelle Verzeichnis
+
+Mit der Funktion:
+
+[source,basic]
+----
+PRINT CWD$
+----
+
+(Current Working Directory)
+
+wird das aktuelle Arbeitsverzeichnis angezeigt.
+
+Beispiel:
+
+[source]
+----
+/SPIELE
+----
+
+=== Informationen über das aktuelle Programm
+
+Viele MMBasic-Versionen können Informationen über das aktuell laufende Programm bereitstellen.
+
+Dadurch lassen sich beispielsweise Dateien relativ zum Speicherort des Programms öffnen.
+
+=== Beispiel: Systemübersicht
+
+Das folgende Programm erzeugt eine kleine Systemübersicht:
+
+[source,basic]
+----
+CLS
+
+PRINT "Systeminformationen"
+PRINT "-------------------"
+
+PRINT "Breite      : "; MM.HRES
+PRINT "Hoehe       : "; MM.VRES
+
+PRINT
+PRINT "CPU-Speed   : "; MM.INFO(CPUSPEED)
+
+PRINT
+PRINT "Laufwerk    : "; MM.INFO(DRIVE)
+
+PRINT
+PRINT "Verzeichnis : "; CWD$
+----
+
+=== Programme anpassen
+
+Mit diesen Informationen lassen sich Programme deutlich flexibler gestalten.
+
+Beispiel:
+
+[source,basic]
+----
+IF MM.HRES >= 1024 THEN
+
+  PRINT "Grosse Aufloesung"
+
+ELSE
+
+  PRINT "Kleine Aufloesung"
+
+ENDIF
+----
+
+Dasselbe Prinzip kann für viele andere Eigenschaften verwendet werden.
+
+=== Warum schreibgeschützte Variablen?
+
+Variablen wie:
+
+[source]
+----
+MM.HRES
+MM.VRES
+----
+
+werden vom System bereitgestellt.
+
+Sie enthalten wichtige Informationen über die aktuelle Umgebung.
+
+Eine Änderung durch den Benutzer würde keinen Sinn ergeben.
+
+Deshalb sind sie schreibgeschützt.
+
+Folgender Befehl erzeugt beispielsweise einen Fehler:
+
+[source,basic]
+----
+MM.HRES = 800
+----
+
+=== PicoMite und Colour Maximite 2
+
+Die meisten hier vorgestellten Informationen stehen sowohl auf dem PicoMite als auch auf dem Colour Maximite 2 zur Verfügung.
+
+Einzelne Werte können sich unterscheiden.
+
+Besonders bei:
+
+* Bildschirmauflösungen
+* Laufwerken
+* Speichergrößen
+
+gibt es plattformabhängige Unterschiede.
+
+=== Tipps aus der Praxis
+
+* Verwende MM.HRES und MM.VRES statt fester Bildschirmkoordinaten.
+* Prüfe vor dem Öffnen einer Datei, ob sie existiert.
+* Nutze CWD$ bei größeren Projekten.
+* Zeige Systeminformationen während der Entwicklung an.
+* Verwende MM.INFO(), um Programme robuster zu machen.
+
+=== Probier's selbst!
+
+Schreibe ein kleines Programm, das folgende Informationen ausgibt:
+
+* Bildschirmbreite
+* Bildschirmhöhe
+* CPU-Geschwindigkeit
+* aktuelles Laufwerk
+* aktuelles Verzeichnis
+
+Erweitere anschließend die Ausgabe um weitere Informationen aus dem Handbuch.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt:
+
+* Bildschirmgrößen mit MM.HRES und MM.VRES abzufragen
+* Systeminformationen mit MM.INFO() auszulesen
+* Dateien und Verzeichnisse zu prüfen
+* das aktuelle Verzeichnis mit CWD$ anzuzeigen
+* Programme an unterschiedliche Hardware anzupassen
+
+Diese Techniken helfen dabei, professionelle und flexible MMBasic-Programme zu entwickeln, die auf unterschiedlichen Systemen zuverlässig funktionieren.
