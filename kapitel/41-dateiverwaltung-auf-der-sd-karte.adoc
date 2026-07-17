@@ -1,0 +1,374 @@
+== Dateiverwaltung auf der SD-Karte
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* Verzeichnisse anzulegen
+* zwischen Verzeichnissen zu wechseln
+* Dateien umzubenennen
+* Dateien zu kopieren
+* Dateien zu löschen
+* eine sinnvolle Projektstruktur aufzubauen
+
+Am Ende des Kapitels kannst du auch größere Projekte übersichtlich organisieren.
+
+=== Warum Verzeichnisse?
+
+In den ersten Kapiteln bestand ein Projekt meist nur aus einer einzelnen Datei.
+
+Beispiel:
+
+[source]
+----
+PONG.BAS
+----
+
+Mit zunehmender Erfahrung entstehen jedoch immer mehr Programme.
+
+Beispielsweise:
+
+[source]
+----
+PONG.BAS
+SENSO.BAS
+AMPEL.BAS
+UHR.BAS
+TEST.BAS
+----
+
+Irgendwann wird es schwierig, den Überblick zu behalten.
+
+Deshalb bieten PicoMite und Colour Maximite 2 Verzeichnisse an.
+
+=== Eine sinnvolle Projektstruktur
+
+Ein möglicher Aufbau könnte so aussehen:
+
+[source]
+----
+SPIELE
+│
+├── PONG.BAS
+├── SENSO.BAS
+│
+PROJEKTE
+│
+├── AMPEL.BAS
+├── UHR.BAS
+│
+TEST
+│
+└── EXPERIMENT.BAS
+----
+
+Dadurch bleiben Programme übersichtlich organisiert.
+
+=== Verzeichnisse anlegen
+
+Mit MKDIR wird ein neues Verzeichnis erstellt.
+
+Beispiel:
+
+[source,basic]
+----
+MKDIR "SPIELE"
+----
+
+Danach existiert das neue Verzeichnis:
+
+[source]
+----
+SPIELE
+----
+
+=== Verzeichnis wechseln
+
+Mit CHDIR wird das aktuelle Arbeitsverzeichnis geändert.
+
+Beispiel:
+
+[source,basic]
+----
+CHDIR "SPIELE"
+----
+
+Alle folgenden Dateibefehle beziehen sich nun auf dieses Verzeichnis.
+
+=== Das aktuelle Verzeichnis
+
+Auf beiden Plattformen gibt es spezielle Verzeichnisnamen:
+
+[cols="1,3"]
+|===
+|Eintrag |Bedeutung
+
+|.
+|Aktuelles Verzeichnis
+
+|..
+|Eine Ebene nach oben
+
+|/
+|Wurzelverzeichnis
+|===
+
+=== Zum Hauptverzeichnis zurückkehren
+
+Mit:
+
+[source,basic]
+----
+CHDIR "/"
+----
+
+wechselst du zurück in das Wurzelverzeichnis.
+
+=== Eine Ebene nach oben
+
+Mit:
+
+[source,basic]
+----
+CHDIR ".."
+----
+
+wechselst du in das übergeordnete Verzeichnis.
+
+Beispiel:
+
+[source]
+----
+/
+└── SPIELE
+    └── PONG.BAS
+----
+
+Befindest du dich in:
+
+[source]
+----
+/SPIELE
+----
+
+führt:
+
+[source,basic]
+----
+CHDIR ".."
+----
+
+zurück nach:
+
+[source]
+----
+/
+----
+
+=== Dateien umbenennen
+
+Mit RENAME kann eine Datei einen neuen Namen erhalten.
+
+Beispiel:
+
+[source,basic]
+----
+RENAME "PONG.BAS" AS "PONG_V1.BAS"
+----
+
+Danach heißt die Datei:
+
+[source]
+----
+PONG_V1.BAS
+----
+
+=== Dateien verschieben
+
+RENAME kann gleichzeitig zum Verschieben verwendet werden.
+
+Beispiel:
+
+[source,basic]
+----
+RENAME "PONG.BAS" AS "/SPIELE/PONG.BAS"
+----
+
+Die Datei wird dabei in das Verzeichnis SPIELE verschoben.
+
+=== Dateien kopieren
+
+Mit COPY wird eine Datei dupliziert.
+
+Beispiel:
+
+[source,basic]
+----
+COPY "PONG.BAS" TO "PONG_ALT.BAS"
+----
+
+Danach existieren beide Dateien:
+
+[source]
+----
+PONG.BAS
+PONG_ALT.BAS
+----
+
+=== Warum Kopien sinnvoll sind
+
+Vor größeren Änderungen kann eine Sicherheitskopie erstellt werden.
+
+Beispiel:
+
+[source,basic]
+----
+COPY "SENSO.BAS" TO "SENSO_BAK.BAS"
+----
+
+Falls etwas schiefgeht, steht die ursprüngliche Version weiterhin zur Verfügung.
+
+=== Dateien löschen
+
+Mit KILL wird eine Datei gelöscht.
+
+Beispiel:
+
+[source,basic]
+----
+KILL "TEST.BAS"
+----
+
+Danach ist die Datei nicht mehr vorhanden.
+
+[WARNING]
+====
+Gelöschte Dateien können in der Regel nicht wiederhergestellt werden.
+
+Verwende KILL deshalb mit Vorsicht.
+====
+
+=== Verzeichnisse löschen
+
+Mit RMDIR wird ein Verzeichnis entfernt.
+
+Beispiel:
+
+[source,basic]
+----
+RMDIR "TEST"
+----
+
+Das Verzeichnis muss leer sein.
+
+Existieren darin noch Dateien, wird eine Fehlermeldung erzeugt.
+
+=== Beispielprojekt anlegen
+
+Erstellen wir eine kleine Projektstruktur:
+
+[source,basic]
+----
+MKDIR "SPIELE"
+MKDIR "PROJEKTE"
+MKDIR "TEST"
+----
+
+Danach könnte die Struktur so aussehen:
+
+[source]
+----
+/
+├── SPIELE
+├── PROJEKTE
+└── TEST
+----
+
+=== Dateien organisieren
+
+Wechseln wir zunächst in das Verzeichnis SPIELE:
+
+[source,basic]
+----
+CHDIR "SPIELE"
+----
+
+Nun speichern wir dort beispielsweise:
+
+[source,basic]
+----
+SAVE "PONG.BAS"
+SAVE "SENSO.BAS"
+----
+
+Die Programme bleiben dadurch sauber von anderen Projekten getrennt.
+
+=== Vollständige Pfadangaben
+
+Dateibefehle können auch mit vollständigen Pfaden verwendet werden.
+
+Beispiel:
+
+[source,basic]
+----
+LOAD "/SPIELE/PONG.BAS"
+----
+
+oder:
+
+[source,basic]
+----
+COPY "/SPIELE/PONG.BAS" TO "/TEST/PONG.BAS"
+----
+
+Dies ist besonders praktisch bei größeren Projekten.
+
+=== PicoMite und Colour Maximite 2
+
+Die meisten Verzeichnisbefehle funktionieren auf beiden Plattformen nahezu identisch.
+
+Dazu gehören:
+
+* CHDIR
+* MKDIR
+* RMDIR
+* COPY
+* RENAME
+* KILL
+
+Dadurch lassen sich Projekte leicht zwischen PicoMite und Colour Maximite 2 übertragen.
+
+=== Tipps aus der Praxis
+
+* Lege für jedes Projekt ein eigenes Verzeichnis an.
+* Verwende aussagekräftige Dateinamen.
+* Erstelle vor größeren Änderungen Sicherheitskopien.
+* Lösche Dateien erst, wenn du sicher bist, dass sie nicht mehr benötigt werden.
+* Halte die Verzeichnisstruktur möglichst einfach.
+
+=== Probier's selbst!
+
+Versuche folgende Aufgaben:
+
+. Erstelle ein Verzeichnis SPIELE.
+. Wechsle in dieses Verzeichnis.
+. Speichere dort ein kleines Testprogramm.
+. Erstelle eine Sicherheitskopie mit COPY.
+. Benenne die Kopie um.
+. Lösche die Kopie wieder.
+. Wechsle zurück ins Wurzelverzeichnis.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt:
+
+* Verzeichnisse mit MKDIR anzulegen
+* mit CHDIR zwischen Verzeichnissen zu wechseln
+* Dateien mit COPY zu kopieren
+* Dateien mit RENAME umzubenennen
+* Dateien mit KILL zu löschen
+* Verzeichnisse mit RMDIR zu entfernen
+
+Mit diesen Befehlen kannst du auch größere MMBasic-Projekte übersichtlich organisieren und verwalten.
+
+Im nächsten Kapitel lernen wir mit CHAIN eine Möglichkeit kennen, mehrere Programme miteinander zu verbinden.
