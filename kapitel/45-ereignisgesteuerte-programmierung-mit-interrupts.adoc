@@ -1,0 +1,404 @@
+== Ereignisgesteuerte Programmierung mit Interrupts
+
+=== Das lernst du
+
+In diesem Kapitel lernst du:
+
+* den Unterschied zwischen Polling und Interrupts kennen
+* auf Ereignisse automatisch zu reagieren
+* Taster ohne ständige Abfrage auszuwerten
+* Interrupt-Routinen zu schreiben
+* ereignisgesteuerte Programme zu entwickeln
+
+Am Ende des Kapitels kannst du Programme schreiben, die auf Ereignisse reagieren, ohne ständig auf Eingaben warten zu müssen.
+
+=== Was bedeutet ereignisgesteuert?
+
+Bisher haben wir Taster meist in einer Schleife abgefragt.
+
+Beispiel:
+
+[source,basic]
+----
+DO
+
+  IF PIN(GP14) = 0 THEN
+    PRINT "Taster gedrueckt"
+  ENDIF
+
+LOOP
+----
+
+Dieses Verfahren nennt man *Polling*.
+
+Das Programm fragt ständig:
+
+[source]
+----
+Taster gedrückt?
+Taster gedrückt?
+Taster gedrückt?
+...
+----
+
+Das funktioniert, ist aber nicht besonders elegant.
+
+=== Das Problem mit Polling
+
+Stellen wir uns vor, unser Programm soll gleichzeitig:
+
+* eine Uhr anzeigen
+* Messwerte erfassen
+* LEDs steuern
+* auf einen Taster reagieren
+
+Dann muss ständig geprüft werden:
+
+[source]
+----
+Taster gedrückt?
+Messwert vorhanden?
+Zeit abgelaufen?
+...
+----
+
+Je größer das Programm wird, desto unübersichtlicher wird diese Vorgehensweise.
+
+=== Die Idee eines Interrupts
+
+Ein Interrupt arbeitet genau andersherum.
+
+Anstatt ständig zu fragen:
+
+[source]
+----
+"Taster gedrückt?"
+----
+
+sagt man MMBasic:
+
+[source]
+----
+"Wenn der Taster gedrückt wird,
+dann rufe automatisch eine Subroutine auf."
+----
+
+Das Hauptprogramm kann in der Zwischenzeit ganz normal weiterlaufen.
+
+=== Ein Vergleich aus dem Alltag
+
+Polling ist vergleichbar mit einem Kind, das ständig fragt:
+
+[source]
+----
+Sind wir schon da?
+Sind wir schon da?
+Sind wir schon da?
+----
+ 
+Ein Interrupt entspricht eher einer Türklingel.
+
+Du musst nicht ständig zur Haustür laufen und nachsehen.
+
+Die Klingel meldet sich von selbst, wenn jemand vor der Tür steht.
+
+=== Interrupts sind kein Multitasking
+
+Ein häufiger Irrtum ist:
+
+[source]
+----
+Interrupt = zweites Programm
+----
+
+Das stimmt nicht.
+
+Ein Interrupt unterbricht das laufende Programm nur kurz.
+
+[source]
+----
+Hauptprogramm
+      ↓
+Interrupt
+      ↓
+Hauptprogramm läuft weiter
+----
+
+Danach geht das Programm an der ursprünglichen Stelle weiter.
+
+=== Ein erster Interrupt
+
+Für einen Taster an GP14:
+
+[source,basic]
+----
+SETPIN GP14, DIN, TasterGedrueckt
+----
+
+wird eine Interrupt-Routine definiert:
+
+[source,basic]
+----
+SUB TasterGedrueckt
+
+  PRINT "Taster gedrueckt"
+
+END SUB
+----
+
+Das Hauptprogramm könnte nun so aussehen:
+
+[source,basic]
+----
+SETPIN GP14, DIN, TasterGedrueckt
+
+PRINT "Warte auf Taster..."
+
+DO
+  PAUSE 100
+LOOP
+
+SUB TasterGedrueckt
+
+  PRINT "Taster gedrueckt"
+
+END SUB
+----
+
+Sobald der Taster betätigt wird, ruft MMBasic automatisch die Subroutine auf.
+
+=== Was passiert im Hintergrund?
+
+Beim Start:
+
+[source,basic]
+----
+SETPIN GP14, DIN, TasterGedrueckt
+----
+
+merkt sich MMBasic:
+
+[source]
+----
+Wenn sich GP14 ändert,
+dann SUB TasterGedrueckt aufrufen.
+----
+
+Der Programmierer muss sich danach um nichts mehr kümmern.
+
+=== Praxisbeispiel: Ereigniszähler
+
+Wir zählen, wie oft ein Taster betätigt wurde.
+
+[source,basic]
+----
+DIM anzahl = 0
+
+SETPIN GP14, DIN, Zaehler
+
+DO
+
+  CLS
+  PRINT "Tastendruecke: "; anzahl
+
+  PAUSE 500
+
+LOOP
+
+SUB Zaehler
+
+  anzahl = anzahl + 1
+
+END SUB
+----
+
+Jeder Tastendruck erhöht den Zähler automatisch.
+
+=== Praxisbeispiel: LED umschalten
+
+Eine LED an GP15 soll bei jedem Tastendruck ihren Zustand wechseln.
+
+[source,basic]
+----
+SETPIN GP14, DIN, Taster
+
+SETPIN GP15, DOUT
+
+DIM led = 0
+
+DO
+LOOP
+
+SUB Taster
+
+  led = NOT led
+
+  PIN(GP15) = led
+
+END SUB
+----
+
+Jeder Tastendruck schaltet die LED ein oder aus.
+
+=== Vorsicht beim Prellen
+
+Im Kapitel über Taster haben wir bereits das sogenannte Prellen kennengelernt.
+
+Ein einzelner Tastendruck erzeugt oft mehrere schnelle Signalwechsel.
+
+Bei Interrupts macht sich dieses Verhalten besonders bemerkbar.
+
+Statt:
+
+[source]
+----
+1 Tastendruck
+----
+ 
+erkennt das Programm möglicherweise:
+
+[source]
+----
+3 Tastendrücke
+----
+ 
+oder mehr.
+
+=== Entprellen mit PAUSE
+
+Eine einfache Lösung besteht darin, weitere Interrupts kurzzeitig zu ignorieren.
+
+[source,basic]
+----
+SUB Taster
+
+  PRINT "Gedrueckt"
+
+  PAUSE 50
+
+END SUB
+----
+
+Dies genügt für viele Anwendungen.
+
+=== Eine bessere Entprellung
+
+Noch besser ist die Verwendung eines Zeitstempels.
+
+[source,basic]
+----
+DIM letzteZeit = 0
+
+SUB Taster
+
+  IF TIMER - letzteZeit < 50 THEN EXIT SUB
+
+  letzteZeit = TIMER
+
+  PRINT "Taster"
+
+END SUB
+----
+
+Dadurch werden zu schnelle Mehrfachauslösungen unterdrückt.
+
+=== Praxisprojekt: Reaktionstest
+
+Nun bauen wir einen einfachen Reaktionstest.
+
+Eine LED wird zufällig eingeschaltet.
+
+Der Benutzer muss möglichst schnell reagieren.
+
+=== Schaltung
+
+* Taster an GP14
+* LED an GP15
+
+=== Programm
+
+[source,basic]
+----
+SETPIN GP14, DIN, Reaktion
+
+SETPIN GP15, DOUT
+
+DIM startZeit
+DIM messung
+
+RANDOMIZE TIMER
+
+PAUSE INT(RND * 5000)
+
+PIN(GP15) = 1
+
+startZeit = TIMER
+
+DO
+LOOP
+
+SUB Reaktion
+
+  messung = TIMER - startZeit
+
+  PIN(GP15) = 0
+
+  PRINT "Reaktionszeit: "; messung; " ms"
+
+END SUB
+----
+
+=== Warum Interrupts so nützlich sind
+
+Interrupts eignen sich besonders für:
+
+* Taster
+* Drehgeber
+* Sensoren
+* Lichtschranken
+* Frequenzmessungen
+* Kommunikation
+
+Immer dann, wenn ein Ereignis spontan auftreten kann.
+
+=== Interrupts in größeren Projekten
+
+Später können Interrupts beispielsweise verwendet werden für:
+
+* Menüsysteme
+* Alarmanlagen
+* Datenlogger
+* Roboter
+* Retrocomputer-Projekte
+* serielle Kommunikation
+
+Viele professionelle Embedded-Systeme arbeiten überwiegend ereignisgesteuert.
+
+=== Tipps aus der Praxis
+
+* Halte Interrupt-Routinen möglichst kurz.
+* Vermeide lange Schleifen innerhalb eines Interrupts.
+* Vermeide aufwendige Berechnungen.
+* Denke an das Prellen von Tastern.
+* Verwende Interrupts nur dort, wo sie wirklich Vorteile bringen.
+
+=== Probier's selbst!
+
+. Baue den Ereigniszähler nach.
+. Erweitere ihn auf zwei Taster.
+. Schalte mehrere LEDs.
+. Miss deine Reaktionszeit.
+. Speichere die beste Zeit in einer Datei.
+
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt:
+
+* was Interrupts sind
+* wie sie sich von Polling unterscheiden
+* auf Ereignisse automatisch zu reagieren
+* Interrupt-Routinen mit SETPIN einzurichten
+* Taster zu entprellen
+* Interrupts in praktischen Projekten einzusetzen
+
+Interrupts gehören zu den wichtigsten Werkzeugen moderner Mikrocontroller-Programmierung. Sie ermöglichen Programme, die schnell, effizient und elegant auf Ereignisse reagieren.
