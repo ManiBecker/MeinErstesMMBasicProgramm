@@ -220,7 +220,531 @@ Zunächst legen wir die benötigten Konstanten und Variablen an und initialisier
 
 Anschließend laden wir die Sprites und erzeugen unser Spielfeld.
 
+=== Schritt 1: Welche Daten benötigen wir?
+
+Bevor wir mit dem eigentlichen Programm beginnen, überlegen wir uns, welche Informationen unser Spiel verwalten muss.
+
+Diese Überlegung spart später viel Arbeit und führt zu einem übersichtlichen Programm.
+
+Schauen wir uns unsere Spielidee noch einmal an.
+
+Wir haben
+
+* einen Spieler,
+* mehrere Gegner,
+* mehrere Münzen,
+* einen Punktestand,
+* mehrere Leben
+* und verschiedene Level.
+
+Für jedes dieser Objekte müssen wir bestimmte Informationen speichern.
+
+Der Spieler besitzt beispielsweise eine Position auf dem Bildschirm.
+
+Diese besteht aus einer X- und einer Y-Koordinate.
+
+Außerdem benötigen wir die aktuelle Anzahl der Leben sowie den Punktestand.
+
+Auch jeder Gegner besitzt eine Position.
+
+Zusätzlich muss seine Bewegungsrichtung gespeichert werden.
+
+Bei den Münzen genügt dagegen zunächst ihre Position sowie die Information, ob sie bereits eingesammelt wurde.
+
+Damit erhalten wir bereits einen guten Überblick über die benötigten Daten.
+
+[cols="1,3"]
+|===
+|Information |Bedeutung
+
+|PlayerX
+|X-Koordinate des Spielers
+
+|PlayerY
+|Y-Koordinate des Spielers
+
+|Score
+|Aktueller Punktestand
+
+|Lives
+|Verbleibende Leben
+
+|Level
+|Aktuelles Spiellevel
+
+|EnemyX()
+|X-Koordinaten aller Gegner
+
+|EnemyY()
+|Y-Koordinaten aller Gegner
+
+|EnemyDX()
+|Bewegungsrichtung in X-Richtung
+
+|EnemyDY()
+|Bewegungsrichtung in Y-Richtung
+
+|CoinX()
+|X-Koordinaten aller Münzen
+
+|CoinY()
+|Y-Koordinaten aller Münzen
+
+|CoinVisible()
+|Ist die Münze noch vorhanden?
+|===
+
+Vielleicht wunderst du dich über die Klammern hinter einigen Variablennamen.
+
+Dabei handelt es sich um Arrays.
+
+Anstatt für jeden Gegner eigene Variablen wie
+
+[source,basic]
+----
+Enemy1X
+Enemy2X
+Enemy3X
+Enemy4X
+----
+
+anzulegen, verwenden wir ein gemeinsames Array.
+
+[source,basic]
+----
+EnemyX(1)
+EnemyX(2)
+EnemyX(3)
+EnemyX(4)
+----
+
+Das macht unser Programm wesentlich übersichtlicher.
+
+Außerdem können wir die Gegner später ganz einfach in einer Schleife bearbeiten.
+
+Genau deshalb kommen Arrays in der Spieleprogrammierung besonders häufig zum Einsatz.
+
+=== Schritt 2: Konstanten festlegen
+
+Viele Werte unseres Spiels ändern sich während des Programms nie.
+
+Dazu gehören beispielsweise
+
+* die Anzahl der Gegner,
+* die Anzahl der Münzen,
+* die Größe des Spielfeldes,
+* oder die Startgeschwindigkeit.
+
+Solche Werte legt man am besten als Konstanten fest.
+
+Dadurch lassen sich spätere Änderungen besonders einfach durchführen.
+
+[source,basic]
+----
+CONST MaxEnemies = 4
+CONST MaxCoins   = 10
+CONST StartLives = 3
+CONST CoinPoints = 10
+----
+
+
 Danach folgt die eigentliche Spielschleife, in der alle Bestandteile unseres Spiels zusammenarbeiten.
 
 Aus vielen kleinen Programmbausteinen entsteht nun Schritt für Schritt ein vollständiges Computerspiel.
+
+[NOTE]
+.Warum machen wir das?
+====
+Professionelle Software entsteht selten in einem einzigen Schritt.
+
+Zunächst werden die benötigten Daten geplant.
+
+Erst danach beginnt die eigentliche Programmierung.
+
+Genau diese Vorgehensweise verwenden wir auch in diesem Kapitel.
+====
+
+=== Schritt 2: Konstanten festlegen
+
+Im vorherigen Abschnitt haben wir überlegt, welche Informationen unser Spiel verwalten muss.
+
+Bevor wir nun mit dem eigentlichen Programm beginnen, legen wir einige Konstanten fest.
+
+Konstanten sind Werte, die sich während der Programmausführung niemals ändern.
+
+Dadurch wird unser Programm nicht nur übersichtlicher, sondern spätere Änderungen lassen sich ebenfalls wesentlich einfacher durchführen.
+
+Stell dir vor, unser Spiel besitzt zunächst vier Gegner.
+
+Später stellst du fest, dass sechs Gegner spannender wären.
+
+Hast du überall im Programm einfach die Zahl `4` verwendet, musst du sämtliche Programmzeilen durchsuchen und ändern.
+
+Verwendest du dagegen eine Konstante, genügt eine einzige Änderung.
+
+[source,basic]
+----
+CONST MaxEnemies = 4
+----
+
+Ab sofort verwendet das gesamte Programm automatisch den neuen Wert.
+
+Dieses Verfahren macht Programme übersichtlicher und reduziert die Gefahr von Fehlern.
+
+==== Welche Konstanten benötigen wir?
+
+Für unser Spiel benötigen wir zunächst einige feste Werte.
+
+[source,basic]
+----
+CONST MaxEnemies = 4
+CONST MaxCoins   = 10
+
+CONST StartLives = 3
+
+CONST CoinPoints = 10
+
+CONST EnemySpeed = 2
+
+CONST PlayerSpeed = 4
+----
+
+Diese Konstanten legen fest,
+
+* wie viele Gegner gleichzeitig vorhanden sind,
+* wie viele Münzen auf dem Spielfeld liegen,
+* mit wie vielen Leben das Spiel beginnt,
+* wie viele Punkte eine Münze wert ist,
+* wie schnell sich Gegner bewegen,
+* und mit welcher Geschwindigkeit der Spieler läuft.
+
+Alle diese Werte können später problemlos angepasst werden.
+
+==== Bildschirmgröße
+
+Auch die Größe unseres Spielfeldes sollte nicht an mehreren Stellen im Programm fest eingetragen werden.
+
+MMBasic stellt hierfür bereits passende Systemvariablen zur Verfügung.
+
+[source,basic]
+----
+ScreenWidth  = MM.HRES
+ScreenHeight = MM.VRES
+----
+
+Dadurch funktioniert unser Spiel unabhängig von der gewählten Bildschirmauflösung.
+
+Egal ob VGA-, HDMI- oder TFT-Ausgabe – die Spielfläche passt sich automatisch an.
+
+==== Keine "magischen Zahlen"
+
+Anfänger schreiben Programme häufig so:
+
+[source,basic]
+----
+IF Score >= 500 THEN
+
+    Level = 2
+
+ENDIF
+----
+
+Einige Seiten später steht dann vielleicht
+
+[source,basic]
+----
+IF Score >= 1000 THEN
+
+    EnemySpeed = 4
+
+ENDIF
+----
+
+Woher stammen eigentlich die Werte `500` und `1000`?
+
+Warum nicht `400` oder `1200`?
+
+Solche fest eingetragenen Zahlen bezeichnet man häufig als *magische Zahlen*.
+
+Besser ist es, auch hierfür sprechende Konstanten zu verwenden.
+
+[source,basic]
+----
+CONST NextLevelScore = 500
+
+IF Score >= NextLevelScore THEN
+
+    Level = Level + 1
+
+ENDIF
+----
+
+Jetzt erkennt jeder Leser sofort, welche Bedeutung dieser Wert besitzt.
+
+==== Gute Namen wählen
+
+Konstantennamen sollten möglichst eindeutig sein.
+
+Ein Name wie
+
+[source,basic]
+----
+CONST Speed = 4
+----
+
+ist wenig aussagekräftig.
+
+Handelt es sich um die Geschwindigkeit des Spielers?
+
+Oder eines Gegners?
+
+Oder vielleicht eines Geschosses?
+
+Deutlich besser sind sprechende Namen.
+
+[source,basic]
+----
+CONST PlayerSpeed = 4
+
+CONST EnemySpeed = 2
+
+CONST ShotSpeed = 8
+----
+
+Schon der Name verrät, wofür die jeweilige Konstante verwendet wird.
+
+Dadurch wird das Programm wesentlich leichter lesbar.
+
+[TIP]
+====
+Verwende für Konstanten immer aussagekräftige Namen.
+
+Ein paar zusätzliche Buchstaben sparen später oft viele Minuten Sucharbeit.
+
+Gerade bei größeren Programmen macht sich eine saubere Benennung schnell bezahlt.
+====
+
+=== Unsere ersten Konstanten
+
+Für unser Abschlussprojekt verwenden wir zunächst folgende Konstanten.
+
+[source,basic]
+----
+CONST MaxEnemies    = 4
+CONST MaxCoins      = 10
+
+CONST StartLives    = 3
+
+CONST CoinPoints    = 10
+
+CONST PlayerSpeed   = 4
+CONST EnemySpeed    = 2
+
+CONST NextLevelScore = 100
+----
+
+Im nächsten Schritt werden wir die Variablen und Arrays anlegen, in denen während des Spiels alle Positionsdaten, Punktestände und Spielzustände gespeichert werden.
+
+Damit sind die Vorbereitungen abgeschlossen und wir können mit der eigentlichen Programmierung beginnen.
+
+=== Schritt 3: Das Spiel initialisieren
+
+Unsere Planung ist abgeschlossen.
+
+Wir wissen nun,
+
+* welche Daten wir benötigen,
+* welche Konstanten unser Spiel verwendet
+* und wie der grundsätzliche Programmablauf aussehen soll.
+
+Jetzt beginnen wir mit der eigentlichen Programmierung.
+
+Bevor das Spiel starten kann, müssen jedoch zunächst einige Vorbereitungen getroffen werden.
+
+Dazu gehören beispielsweise
+
+* der Grafikmodus,
+* das Laden der Sprites,
+* die Initialisierung des Zufallszahlengenerators,
+* das Erzeugen der Gegner,
+* das Verteilen der Münzen
+* und das Zurücksetzen aller Spielvariablen.
+
+Diese Aufgaben werden nur einmal beim Programmstart ausgeführt.
+
+Erst danach beginnt die eigentliche Spielschleife.
+
+[source]
+----
+Programmstart
+
+↓
+
+Initialisierung
+
+↓
+
+Game Loop
+
+↓
+
+Spiel beendet
+----
+
+=== Bildschirm vorbereiten
+
+Als Erstes bereiten wir den Bildschirm vor.
+
+Er wird gelöscht und erhält einen passenden Titel.
+
+Später könnten wir hier auch einen Startbildschirm oder ein Menü anzeigen.
+
+[source,basic]
+----
+CLS
+
+TEXT MM.HRES/2,20,"Coin Collector",CM,CENTER
+
+TEXT MM.HRES/2,45,"Bitte START drücken...",CM,CENTER
+----
+
+Nachdem der Spieler die Starttaste gedrückt hat, beginnt das eigentliche Spiel.
+
+=== Zufallszahlen initialisieren
+
+Unsere Münzen und Gegner sollen bei jedem Spiel an unterschiedlichen Positionen erscheinen.
+
+Dazu verwenden wir den Zufallszahlengenerator.
+
+Dieser sollte zu Beginn des Programms einmal initialisiert werden.
+
+[source,basic]
+----
+' TODO
+
+Randomize()
+----
+
+Erst danach erzeugen wir zufällige Positionen für unsere Spielobjekte.
+
+Dadurch verläuft jede Spielrunde etwas anders und das Spiel bleibt interessant.
+
+=== Spielvariablen zurücksetzen
+
+Zu Beginn eines neuen Spiels müssen sämtliche Spielvariablen auf ihre Ausgangswerte gesetzt werden.
+
+Dazu gehören
+
+* Punktestand,
+* Leben,
+* Level
+* und die Startposition des Spielers.
+
+[source,basic]
+----
+Score = 0
+
+Lives = StartLives
+
+Level = 1
+
+PlayerX = MM.HRES / 2
+
+PlayerY = MM.VRES / 2
+----
+
+Jetzt besitzt jedes neue Spiel dieselben Startbedingungen.
+
+=== Gegner erzeugen
+
+Als Nächstes verteilen wir unsere Gegner auf dem Spielfeld.
+
+Dazu verwenden wir die Arrays, die wir bereits vorbereitet haben.
+
+[source,basic]
+----
+FOR i = 1 TO MaxEnemies
+
+    EnemyX(i) = RND * MM.HRES
+
+    EnemyY(i) = RND * MM.VRES
+
+NEXT i
+----
+
+Bei jedem Programmstart erscheinen die Gegner dadurch an anderen Positionen.
+
+Später werden wir zusätzlich ihre Bewegungsrichtung festlegen.
+
+=== Münzen platzieren
+
+Nun erzeugen wir die Münzen.
+
+Auch sie werden zufällig auf dem Spielfeld verteilt.
+
+[source,basic]
+----
+FOR i = 1 TO MaxCoins
+
+    CoinX(i) = RND * MM.HRES
+
+    CoinY(i) = RND * MM.VRES
+
+    CoinVisible(i) = TRUE
+
+NEXT i
+----
+
+Alle Münzen sind damit zunächst sichtbar.
+
+Sammelt der Spieler später eine Münze ein, setzen wir den Eintrag `CoinVisible(i)` einfach auf `FALSE`.
+
+=== Sprites laden
+
+Jetzt fehlen nur noch unsere Spielfiguren.
+
+Beim Programmstart laden wir sämtliche Spritegrafiken in den Speicher.
+
+[source,basic]
+----
+' TODO
+
+LoadSprite(PlayerSprite)
+
+LoadSprite(EnemySprite)
+
+LoadSprite(CoinSprite)
+----
+
+Da dies nur einmal geschieht, stehen die Grafiken anschließend jederzeit zur Verfügung.
+
+Während des Spiels müssen sie lediglich noch an ihrer aktuellen Position dargestellt werden.
+
+=== Die Initialisierung ist abgeschlossen
+
+Nach diesen Vorbereitungen besitzt unser Spiel bereits alle notwendigen Bestandteile.
+
+* Der Bildschirm wurde vorbereitet.
+* Die Spielvariablen wurden zurückgesetzt.
+* Gegner wurden erzeugt.
+* Münzen wurden verteilt.
+* Alle Sprites wurden geladen.
+
+Es fehlt nur noch eines.
+
+Jetzt muss das Spiel laufen.
+
+Und genau das übernimmt im nächsten Abschnitt unsere Game Loop.
+
+Ab diesem Zeitpunkt wiederholt sich derselbe Programmablauf viele Male pro Sekunde.
+
+Die Spielfiguren bewegen sich.
+
+Münzen werden eingesammelt.
+
+Gegner verfolgen den Spieler.
+
+Der Punktestand verändert sich.
+
+Und aus vielen einzelnen Programmbausteinen entsteht Schritt für Schritt ein vollständiges Computerspiel.
 
