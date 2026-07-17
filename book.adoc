@@ -166,3 +166,7 @@ include::kapitel/49-spielcontroller-und-gamepads.adoc[]
 include::kapitel/50-sprites-und-blit.adoc[]
 
 include::kapitel/51-von-der-idee-zum-fertigen-spiel.adoc[]
+
+= Epilog
+
+include::kapitel/52-epilog.adoc[]
