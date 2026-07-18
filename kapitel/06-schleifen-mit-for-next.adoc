@@ -256,13 +256,29 @@ Start!
 
 Schleifen und IF lassen sich hervorragend kombinieren.
 
+Im folgenden Beispiel kommt der Operator `MOD` zum Einsatz. Er berechnet den *Rest einer Division*.
+
+Beispiele:
+
+[source]
+----
+7 MOD 2 = 1
+8 MOD 2 = 0
+9 MOD 2 = 1
+10 MOD 2 = 0
+----
+
+Alle geraden Zahlen ergeben bei der Division durch 2 den Rest 0.
+
+Das können wir nutzen, um nur gerade Zahlen auszugeben.
+
 [source,basic]
 ----
 FOR I=1 TO 10
 
-IF I MOD 2 = 0 THEN
-PRINT I
-ENDIF
+  IF I MOD 2 = 0 THEN
+    PRINT I
+  ENDIF
 
 NEXT I
 ----
