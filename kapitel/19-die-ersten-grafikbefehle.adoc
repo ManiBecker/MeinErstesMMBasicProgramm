@@ -8,6 +8,8 @@ In diesem Kapitel lernst du:
 * einzelne Pixel zu setzen
 * Linien zu zeichnen
 * Koordinaten zu verwenden
+* Grafiken mit Schleifen und Zufallszahlen zu erzeugen
+* wie das Konzept der Turtle-Grafik funktioniert
 
 Am Ende des Kapitels kannst du eigene einfache Zeichnungen erstellen.
 
@@ -352,15 +354,6 @@ CLS RGB(BLACK)
 ----
 ====
 
-=== Experimentiere!
-
-Probiere folgende Änderungen aus:
-
-* Verwende andere Farben.
-* Zeichne ein größeres Haus.
-* Zeichne mehrere Dreiecke.
-* Zeichne ein Gitter aus Linien.
-
 === Probier's selbst!
 
 Versuche folgende Aufgaben:
@@ -371,16 +364,208 @@ Versuche folgende Aufgaben:
 . Zeichne ein Spielfeld für Tic-Tac-Toe.
 . Zeichne die Umrisse eines Briefumschlags.
 
+=== Experimentiere!
+
+Probiere folgende Änderungen aus:
+
+* Verwende andere Farben.
+* Zeichne ein größeres Haus.
+* Zeichne mehrere Dreiecke.
+* Zeichne ein Gitter aus Linien.
+
+=== Turtle-Grafik
+
+In den bisherigen Beispielen haben wir Linien gezeichnet, indem wir ihre Anfangs- und Endpunkte angegeben haben.
+
+Es gibt jedoch noch eine andere Möglichkeit, Grafiken zu erzeugen.
+
+Stell dir vor, auf dem Bildschirm befindet sich eine kleine Schildkröte. Sie kennt ihre aktuelle Position und ihre Blickrichtung.
+
+Sie kann nur drei Dinge tun:
+
+* vorwärts laufen
+* sich nach links drehen
+* sich nach rechts drehen
+
+Während sie sich bewegt, zeichnet sie eine Linie.
+
+Auf diese Weise entstehen nach und nach geometrische Figuren.
+
+[NOTE]
+.Geschichte
+====
+Die Turtle-Grafik wurde Ende der 1960er-Jahre von **Seymour Papert** im Zusammenhang mit der Programmiersprache **LOGO** entwickelt.
+
+Anstatt Koordinaten und mathematische Formeln in den Mittelpunkt zu stellen, sollten Kinder spielerisch lernen, wie Programme aufgebaut sind. Die kleine "Schildkröte" machte das Ergebnis jedes Befehls sofort sichtbar.
+
+Viele Programmierer kamen auf diese Weise zum ersten Mal mit Computergrafik und Programmierung in Berührung.
+====
+
+=== Eine virtuelle Schildkröte
+
+Unsere Schildkröte besitzt drei Eigenschaften:
+
+* ihre X-Koordinate
+* ihre Y-Koordinate
+* ihre Blickrichtung
+
+Zu Beginn steht sie in der Bildschirmmitte und blickt nach rechts.
+
+Jedes Mal, wenn sie vorwärts läuft, berechnen wir ihre neue Position und zeichnen eine Linie.
+
+=== Ein Quadrat zeichnen
+
+Ein Quadrat besteht aus vier gleich langen Linien.
+
+Nach jeder Linie dreht sich die Schildkröte um 90 Grad.
+
+[source]
+----
+Vorwärts
+Rechts drehen
+
+Vorwärts
+Rechts drehen
+
+Vorwärts
+Rechts drehen
+
+Vorwärts
+----
+
+==== Beispielprogramm
+
+[source,basic]
+----
+CLS
+
+x = MM.HRES / 2
+y = MM.VRES / 2
+
+winkel = 0
+laenge = 100
+
+FOR i = 1 TO 4
+
+  x2 = x + laenge * COS(RAD(winkel))
+  y2 = y + laenge * SIN(RAD(winkel))
+
+  LINE x, y, x2, y2
+
+  x = x2
+  y = y2
+
+  winkel = winkel + 90
+
+NEXT i
+----
+
+Das Programm berechnet nach jeder Bewegung die neue Position der Schildkröte.
+
+Die Funktion `COS()` bestimmt dabei die horizontale Bewegung, `SIN()` die vertikale Bewegung.
+
+Anschließend wird eine Linie zwischen alter und neuer Position gezeichnet.
+
+=== Experimentiere!
+
+Ändere die Seitenlänge:
+
+[source]
+----
+laenge = 150
+----
+
+oder den Drehwinkel:
+
+[source]
+----
+winkel = winkel + 60
+----
+
+Welche Figur entsteht?
+
+=== Vieleck statt Quadrat
+
+Ersetzen wir den Winkel von 90° durch kleinere Werte, entstehen regelmäßige Vielecke.
+
+Zum Beispiel:
+
+* 120° → Dreieck
+* 72° → Fünfeck
+* 60° → Sechseck
+
+Je kleiner der Drehwinkel wird, desto mehr Seiten besitzt die Figur.
+
+=== Eine Spirale
+
+Noch spannender wird es, wenn die Schrittlänge nach jeder Bewegung etwas größer wird.
+
+[source,basic]
+----
+CLS
+
+x = MM.HRES / 2
+y = MM.VRES / 2
+
+winkel = 0
+laenge = 5
+
+FOR i = 1 TO 80
+
+  x2 = x + laenge * COS(RAD(winkel))
+  y2 = y + laenge * SIN(RAD(winkel))
+
+  LINE x, y, x2, y2
+
+  x = x2
+  y = y2
+
+  laenge = laenge + 2
+
+  winkel = winkel + 20
+
+NEXT i
+----
+
+Mit nur wenigen Zeilen Programmcode entsteht eine beeindruckende Spiralfigur.
+
+=== Warum ist Turtle-Grafik so interessant?
+
+Die Turtle-Grafik verbindet viele Themen, die wir bereits kennengelernt haben:
+
+* Variablen
+* Schleifen
+* Winkel
+* Sinus und Kosinus
+* Linien zeichnen
+
+Schon mit wenigen Befehlen lassen sich erstaunlich komplexe Bilder erzeugen.
+
+Viele Fraktale, Sterne, Spiralen oder sogar Schriftarten können nach diesem Prinzip konstruiert werden.
+
 === Zusammenfassung
 
-In diesem Kapitel hast du die ersten Grafikbefehle kennengelernt.
+In diesem Kapitel hast du die Grundlagen der Grafikprogrammierung mit MMBasic kennengelernt.
 
-Du kennst nun:
+Du kennst nun die wichtigsten Grafikbefehle:
 
-* CLS
-* PIXEL
-* LINE
+* `CLS`
+* `PIXEL`
+* `LINE`
 
-Außerdem hast du gelernt, mit Bildschirmkoordinaten zu arbeiten.
+Außerdem hast du gelernt:
 
-Im nächsten Kapitel werden wir weitere Grafikbefehle kennenlernen und Rechtecke, Kreise sowie frei positionierbare Texte zeichnen.
+* den Bildschirm zu löschen
+* einzelne Pixel zu setzen
+* Linien in verschiedenen Farben zu zeichnen
+* mit Bildschirmkoordinaten zu arbeiten
+* die Bildschirmmitte mit `MM.HRES` und `MM.VRES` zu berechnen
+* einfache Zeichnungen aus mehreren Linien zusammenzusetzen
+* Grafiken mit Schleifen und Zufallszahlen zu erzeugen
+* wie das Konzept der Turtle-Grafik funktioniert
+* wie mit Winkeln sowie den Funktionen `SIN()` und `COS()` neue Positionen berechnet werden
+* wie sich mit wenigen Befehlen Quadrate, Vielecke und Spiralen zeichnen lassen
+
+Damit verfügst du bereits über alle Grundlagen, um eigene kleine Grafikprogramme zu entwickeln und geometrische Figuren zu zeichnen.
+
+Im nächsten Kapitel erweitern wir diese Möglichkeiten und lernen weitere Grafikbefehle kennen. Damit zeichnen wir Rechtecke, Kreise sowie frei positionierbare Texte und erstellen noch anspruchsvollere Grafiken.
