@@ -293,6 +293,47 @@ Colour Maximite 2:
 PIN(32)=0
 ----
 
+=== Mehr als nur LEDs schalten
+
+Ein GPIO-Ausgang kann nur einen kleinen Strom liefern. Das reicht für LEDs, Taster oder einfache Piezo-Lautsprecher, nicht jedoch für größere Verbraucher wie Motoren, Relais oder Magnetspulen.
+
+In solchen Fällen verwendet man eine **Treiber- oder Verstärkerschaltung**. Sie sorgt dafür, dass der Mikrocontroller nur ein kleines Steuersignal liefern muss, während die eigentliche Last aus einer separaten Spannungsquelle versorgt wird.
+
+Ein häufig verwendeter Aufbau besteht aus einem NPN-Transistor oder einem MOSFET.
+
+[source]
+----
+                 +12 V
+                   │
+                 Verbraucher
+                   │
+                   │
+                  C
+GPIO ──1 kΩ──B   NPN-Transistor
+                  E
+                   │
+                  GND
+----
+
+Der GPIO-Ausgang schaltet dabei lediglich den Transistor ein oder aus. Dieser übernimmt das Schalten des eigentlichen Verbrauchers.
+
+Mit einer solchen Schaltung lassen sich beispielsweise ansteuern:
+
+* Relais
+* Magnetspulen
+* Ventile
+* Motoren
+* Lampen
+* Modelleisenbahn-Signale
+* größere LED-Leisten
+
+[NOTE]
+====
+Beim Schalten von Spulen, Relais oder Motoren entsteht beim Ausschalten eine hohe Spannungsspitze. Deshalb wird parallel zur Spule eine sogenannte **Freilaufdiode** angeschlossen, um den Transistor und den Mikrocontroller zu schützen.
+
+Dieses Thema werden wir später noch ausführlicher behandeln.
+====
+
 === Das erste Blinkprogramm
 
 PicoMite:
