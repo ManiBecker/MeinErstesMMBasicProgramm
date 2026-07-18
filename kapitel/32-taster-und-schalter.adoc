@@ -72,6 +72,34 @@ gedrückt     -> EIN
 losgelassen  -> AUS
 ----
 
+=== Mehr als nur ein Taster
+
+Taster und Schalter gibt es in vielen verschiedenen Bauformen. Je nach Anwendung kommen unterschiedliche Varianten zum Einsatz.
+
+Die wichtigsten Typen sind:
+
+[cols="1,3"]
+|===
+|Bauteil |Verwendung
+
+|Drucktaster
+|Schließt den Kontakt nur während des Drückens. Er wird beispielsweise für Klingeln, Tastaturen oder Starttasten verwendet.
+
+|Mikroschalter
+|Besitzt einen definierten Schaltpunkt und wird häufig als Endschalter oder Positionssensor eingesetzt.
+
+|Kippschalter
+|Bleibt nach dem Betätigen in seiner Stellung. Er eignet sich zum Ein- und Ausschalten von Geräten.
+
+|Reedkontakt
+|Wird durch ein Magnetfeld betätigt. Er findet sich beispielsweise in Alarmanlagen, Türkontakten oder Drehzahlmessern.
+
+|Relais
+|Ein elektrisch betätigter Schalter. Damit können auch höhere Spannungen oder Ströme geschaltet werden, ohne den Mikrocontroller direkt zu belasten.
+|===
+
+Für unsere ersten Programme genügt ein einfacher Drucktaster. Je nach Projekt können jedoch auch andere Schaltertypen die bessere Wahl sein.
+
 === Pull-Up und Pull-Down
 
 Ein Eingang darf niemals "in der Luft hängen".
