@@ -183,9 +183,8 @@ Für unsere Beispiele verwenden wir:
 Dieser Wert ist ein guter Kompromiss zwischen Helligkeit und Sicherheit.
 
 [NOTE]
+.LEDs mit eingebautem Vorwiderstand
 ====
-=== LEDs mit eingebautem Vorwiderstand
-
 Neben gewöhnlichen LEDs gibt es auch LEDs mit **eingebautem Vorwiderstand**. Sie werden häufig als "3,3-V-LED", "5-V-LED" oder "12-V-LED" angeboten und können direkt an die entsprechende Betriebsspannung angeschlossen werden.
 
 Bei diesen LEDs ist der notwendige Vorwiderstand bereits im Gehäuse oder im Anschlusskabel integriert. Ein zusätzlicher Vorwiderstand ist daher normalerweise nicht erforderlich.
