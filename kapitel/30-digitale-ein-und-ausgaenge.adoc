@@ -305,6 +305,19 @@ Höhere Spannungen dürfen nicht direkt angeschlossen werden.
 
 Eine falsche Verdrahtung kann den Mikrocontroller beschädigen.
 
+[NOTE]
+====
+=== 3,3 Volt oder 5 Volt?
+
+Heute arbeiten die meisten modernen Mikrocontroller – darunter auch der PicoMite und der Colour Maximite 2 – mit einer Betriebsspannung von **3,3 Volt**.
+
+Das war jedoch nicht immer so. Über viele Jahre waren **5 Volt** der Standard. Zahlreiche klassische Mikrocontroller und Logikbausteine, wie beispielsweise der Z80, der 6502, der 8085 oder viele Bausteine der 74xx- und 74LS-Serie, wurden ausschließlich mit 5 Volt betrieben.
+
+Deshalb findest du auch heute noch viele Schaltungen, Sensoren und Erweiterungsmodule, die für 5 Volt ausgelegt sind.
+
+**Achtung:** Die GPIO-Pins des PicoMite dürfen in der Regel **nicht direkt mit 5-Volt-Signalen verbunden werden**, da sie beschädigt werden können. Prüfe deshalb immer, mit welcher Spannung ein Bauteil arbeitet, bevor du es anschließt.
+====
+
 === Noch keine Hardware?
 
 Falls du momentan keine Hardware angeschlossen hast, ist das kein Problem.
