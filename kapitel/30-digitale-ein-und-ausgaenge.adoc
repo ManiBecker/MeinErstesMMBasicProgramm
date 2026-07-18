@@ -307,7 +307,7 @@ Eine falsche Verdrahtung kann den Mikrocontroller beschädigen.
 
 [NOTE]
 ====
-=== 3,3 Volt oder 5 Volt?
+3,3 Volt oder 5 Volt?
 
 Heute arbeiten die meisten modernen Mikrocontroller – darunter auch der PicoMite und der Colour Maximite 2 – mit einer Betriebsspannung von **3,3 Volt**.
 
