@@ -305,10 +305,10 @@ Höhere Spannungen dürfen nicht direkt angeschlossen werden.
 
 Eine falsche Verdrahtung kann den Mikrocontroller beschädigen.
 
+=== 3,3 Volt oder 5 Volt?
+
 [NOTE]
 ====
-3,3 Volt oder 5 Volt?
-
 Heute arbeiten die meisten modernen Mikrocontroller – darunter auch der PicoMite und der Colour Maximite 2 – mit einer Betriebsspannung von **3,3 Volt**.
 
 Das war jedoch nicht immer so. Über viele Jahre waren **5 Volt** der Standard. Zahlreiche klassische Mikrocontroller und Logikbausteine, wie beispielsweise der Z80, der 6502, der 8085 oder viele Bausteine der 74xx- und 74LS-Serie, wurden ausschließlich mit 5 Volt betrieben.
