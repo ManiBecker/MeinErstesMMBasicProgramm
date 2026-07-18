@@ -14,7 +14,9 @@ Am Ende des Kapitels kannst du eigene Geräte miteinander Daten austauschen lass
 
 === Eine der ältesten Computerschnittstellen
 
-Bereits in den 1970er- und 1980er-Jahren kommunizierten Computer über serielle Schnittstellen miteinander.
+Die serielle Datenübertragung ist deutlich älter als der Personal Computer. Bereits Anfang des 20. Jahrhunderts wurde sie bei Fernschreibern eingesetzt. Das heute noch gebräuchliche Start-/Stopbit-Verfahren entstand bereits in den 1920er-Jahren.
+
+Mit dem Aufkommen der Mikrocomputer setzte sich in den 1970er- und 1980er-Jahren vor allem die RS-232-Schnittstelle als Standard für die serielle Kommunikation zwischen Computern und Peripheriegeräten durch.
 
 Viele bekannte Systeme nutzten diese Technik:
 
@@ -199,6 +201,25 @@ Geeignete Terminalprogramme sind beispielsweise:
 * MobaXterm
 
 Diese Programme können serielle Daten anzeigen und senden.
+
+=== Mehr als nur Text: VT100-Terminals
+
+Viele Terminalprogramme unterstützen den sogenannten *VT100-Standard* bzw. ANSI-Steuersequenzen. Ursprünglich wurde dieser Standard Ende der 1970er-Jahre für Computerterminals von Digital Equipment Corporation (DEC) entwickelt.
+
+Dadurch kann ein Programm nicht nur Text ausgeben, sondern auch den Bildschirm löschen, den Cursor an eine bestimmte Position setzen oder farbigen Text anzeigen.
+
+MMBasic kann diese Steuersequenzen wie gewöhnlichen Text über die serielle Schnittstelle senden. Dadurch lassen sich komfortable textbasierte Benutzeroberflächen erstellen – ganz ohne grafisches Display.
+
+Zum Beispiel:
+
+[source,basic]
+----
+PRINT #1, CHR$(27) + "[2J"    ' Bildschirm löschen
+PRINT #1, CHR$(27) + "[H"     ' Cursor nach links oben
+PRINT #1, "Hallo VT100!"
+----
+
+TIP: Im Anhang findest du eine Übersicht der wichtigsten ASCII-Zeichen sowie der gebräuchlichsten VT100-/ANSI-Steuersequenzen.
 
 === Testprogramm
 
