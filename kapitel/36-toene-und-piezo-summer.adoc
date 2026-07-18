@@ -85,6 +85,32 @@ GPIO ----- Piezo ----- GND
 
 Für erste Versuche genügt dieser einfache Aufbau.
 
+=== Der TONE-Befehl
+
+Zum Erzeugen von Tönen stellt MMBasic den Befehl `TONE` zur Verfügung.
+
+Der allgemeine Aufbau lautet:
+
+[source,basic]
+----
+TONE Frequenz, Dauer
+----
+
+Die beiden Parameter haben folgende Bedeutung:
+
+[cols="1,3"]
+|===
+|Parameter |Bedeutung
+
+|Frequenz
+|Tonhöhe in Hertz (Hz)
+
+|Dauer
+|Spieldauer des Tons in Millisekunden (ms)
+|===
+
+Je höher die Frequenz, desto höher klingt der Ton. Über die Dauer wird festgelegt, wie lange der Ton ausgegeben wird.
+
 === Der erste Ton
 
 Mit MMBasic lassen sich Töne sehr einfach erzeugen.
@@ -319,6 +345,32 @@ Das Ergebnis entspricht der vorherigen Tonleiter.
 
 Der Quelltext ist jedoch wesentlich übersichtlicher.
 
+=== Melodien mit Notennamen
+
+Eine Melodie lässt sich noch übersichtlicher schreiben, wenn die einzelnen Noten Namen erhalten.
+
+Dazu definieren wir zunächst Konstanten für die Positionen im Noten-Array.
+
+[source,basic]
+----
+CONST C1 = 1
+CONST D1 = 2
+CONST E1 = 3
+CONST F1 = 4
+CONST G1 = 5
+CONST A1 = 6
+CONST H1 = 7
+----
+
+Nun kann eine Melodie wesentlich leichter gelesen werden:
+
+[source,basic]
+----
+DATA C1,D1,E1,F1,G1,G1,H1,H1,G1
+----
+
+Der eigentliche Frequenzwert wird weiterhin aus dem Array `NOTE()` entnommen. Dadurch lassen sich Melodien später einfacher ändern oder sogar auf andere Tonlagen übertragen.
+
 === Praxisprojekt: Alle meine Entchen
 
 Nun spielen wir die ersten Takte eines bekannten Kinderlieds.
@@ -442,6 +494,11 @@ Nun beherrschst du:
 * Töne
 
 Im nächsten Kapitel werden wir daraus ein vollständiges elektronisches Spiel entwickeln.
+
+[TIP]
+====
+Der `TONE`-Befehl eignet sich nicht nur für Melodien. Kurze Signaltöne geben dem Benutzer eine akustische Rückmeldung, beispielsweise beim Drücken einer Taste, beim Erreichen eines Messwertes oder wenn ein Fehler aufgetreten ist. Schon ein einzelner kurzer Ton kann die Bedienung eines Programms deutlich angenehmer machen.
+====
 
 === Zusammenfassung
 
