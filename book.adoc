@@ -171,6 +171,10 @@ include::kapitel/51-von-der-idee-zum-fertigen-spiel.adoc[]
 
 include::kapitel/52-epilog.adoc[]
 
+= Anhang
+
+include::anhang/anhang-a-mmbasic-befehlsreferenz.adoc[]
+
 <<<
 
 image::bilder/back.png[pdfwidth=100%,align=center]
