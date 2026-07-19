@@ -1,0 +1,4553 @@
+[appendix]
+== Anhang A – MMBasic-Befehlsreferenz
+
+Diese Referenz enthält die MMBasic-Befehle in alphabetischer Reihenfolge.
+
+Zu jedem Befehl werden die Syntax, die Behandlung im Buch und die unterstützten Plattformen angegeben.
+
+[NOTE]
+====
+Die vollständige Beschreibung der Syntax und aller Parameter findest du im jeweiligen MMBasic-Handbuch.
+====
+
+[cols="2,5,2,1,1,1,1,1",options="header"]
+.Legende der Plattformen
+|===
+|Abkürzung |Plattform |Abkürzung |Plattform |Abkürzung |Plattform |Abkürzung |Plattform
+
+|P |PicoMite
+|V |PicoMite VGA
+|H |PicoMite HDMI
+|W |WebMite
+|K |PicoCalc
+| |
+| |
+| |
+|===
+
+=== Sonderzeichen
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`'`
+|`‘ (single quotation mark)`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`*file`
+|`*file`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`/* ... */`
+|`/*`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`?`
+|`? (question mark)`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|===
+
+=== A
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`A: / B:`
+|`A: or B:`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ADC`
+|`ADC`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ADC CLOSE`
+|`ADC CLOSE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ADC FREQUENCY`
+|`ADC FREQUENCY freq`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ADC OPEN`
+|`ADC OPEN freq, n_channels [,interrupt]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ADC RUN`
+|`ADC RUN array1%(),array2%)`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ADC START`
+|`ADC START array1!() [,array2!()] [,array3!()] [,array4!()] [,C1min] [,C1max] [,C2min] [,C2max] [,C3min]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ARC`
+|`ARC x, y, r1, [r2], a1, a2 [, c]`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`ARRAY ADD`
+|`ARRAY ADD in(), value ,out()`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ARRAY INSERT`
+|`ARRAY INSERT targetarray(), [d1] [,d2] [,d3] [,d4] [,d5] , sourcearray()`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ARRAY SET`
+|`ARRAY SET value, array()`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ARRAY SLICE`
+|`ARRAY SLICE sourcearray(), [d1] [,d2] [,d3] [,d4] [,d5] destinationarray()`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`AUTOSAVE`
+|`AUTOSAVE or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`AUTOSAVE APPEND`
+|`AUTOSAVE APPEND or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`AUTOSAVE CRUNCH`
+|`AUTOSAVE CRUNCH or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`AUTOSAVE N`
+|`AUTOSAVE N`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|===
+
+=== B
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`BACKLIGHT`
+|`BACKLIGHT n [,DEFAULT] BACKLIGHT n [,FreqInHz]`
+|-
+|-
+|-
+|-
+|-
+|X
+
+|`BEZIER`
+|`BEZIER x%(),y%() [,n] [,colour]`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`BIT()`
+|`BIT(var%, bitno) = value`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`BITSTREAM`
+|`BITSTREAM pin1, count1, array1() [, mode1] [,pin2, [,logic]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`BLIT`
+|`BLIT BLIT LOAD[BMP] [#]b, BLIT x1, y1, x2, y2, w, h`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`BLIT CLOSE`
+|`BLIT CLOSE [#]b`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`BLIT COMPRESSED`
+|`BLIT COMPRESSED`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`BLIT FLASH`
+|`BLIT FLASH from, to, xin, [,colour]`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`BLIT FRAMEBUFFER`
+|`BLIT FRAMEBUFFER from, to, xin, yin, xout, yout, width, height [,colour]`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`BLIT MEMORY`
+|`BLIT MEMORY address, x, y [,col]`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`BLIT MERGE`
+|`BLIT MERGE colour, x, y, w, h`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`BLIT READ`
+|`BLIT READ [#]b, x, y, w, h`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`BLIT WRITE`
+|`BLIT WRITE [#]b, x, y [,mode]`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`BOX`
+|`BOX x, y, w, h [, lw] [,c] [,fill]`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`BYTE()`
+|`BYTE(var$, byteno)=value`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|===
+
+=== C
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`CALL`
+|`CALL usersubname$ [,usersubparameters,..]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`CAMERA`
+|`CAMERA`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`CAMERA CAPTURE`
+|`CAMERA CAPTURE [scale, [x , y]]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`CAMERA CHANGE`
+|`CAMERA CHANGE ,y]]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`CAMERA CLOSE`
+|`CAMERA CLOSE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`CAMERA OPEN`
+|`CAMERA OPEN XLKpin,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`CAMERA REGISTER`
+|`CAMERA REGISTER reg%,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`CAMERA TEST`
+|`CAMERA TEST tnum`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`CHAIN`
+|`CHAIN fname$ [cmdline$]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`CHDIR`
+|`CHDIR dir$`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`CIRCLE`
+|`CIRCLE x, y, r [,lw] [, a] [,`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`CLEAR`
+|`CLEAR`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`CLOSE`
+|`CLOSE [#]fnbr [,[#]fnbr] …`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`CLS`
+|`CLS [colour]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`CMM2 LOAD`
+|`CMM2 LOAD or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`CMM2 RUN`
+|`CMM2 RUN`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`COLOR`
+|`COLOR fore [, back]`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`COLOUR`
+|`COLOUR fore [, back] or`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`COLOUR MAP`
+|`COLOUR MAP inarray%(),`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`CONFIGURE`
+|`CONFIGURE cfg`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`CONTINUE`
+|`CONTINUE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`CONTINUE DO`
+|`CONTINUE DO or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`CONTINUE FOR`
+|`CONTINUE FOR`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`COPY`
+|`COPY fname1$ TO fname2$ COPY fname$ TO dirname$`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`CPU RESTART`
+|`CPU RESTART`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`CPU SLEEP`
+|`CPU SLEEP n`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`CSUB`
+|`CSUB name [type [, type] hex [[ hex[…] hex [[ hex[…]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|===
+
+=== D
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`DATA`
+|`DATA constant[,constant]..`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`DATE$`
+|`DATE$ = "DD-MM-YY[YY]" or DATE$ = "DD/MM/YY[YY]" or DATE$ =”YYYY-MM-DD” or DATE$=”YYYY/MM/DD”`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`DEFINEFONT`
+|`DEFINEFONT #Nbr hex [[ hex[…] hex [[ hex[…]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`DEVICE BITSTREAM`
+|`DEVICE BITSTREAM`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`DEVICE CAMERA`
+|`DEVICE CAMERA`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`DEVICE KEYPAD`
+|`DEVICE KEYPAD`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`DEVICE LCD`
+|`DEVICE LCD`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`DEVICE MOUSE`
+|`DEVICE MOUSE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`DEVICE SERIALRX`
+|`DEVICE SERIALRX pinno, [,terminators$]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`DEVICE SERIALTX`
+|`DEVICE SERIALTX pinno,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`DEVICE WII`
+|`DEVICE WII`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`DEVICE WS2812`
+|`DEVICE WS2812`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`DIM`
+|`DIM [type] decl [,decl].. DIM nbr(50) DIM a(5,5,5), b(1000) DIM strn$(200) LENGTH 20 DIM a = 1234, b = 345 …`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`DIM INTEGER`
+|`DIM INTEGER nbr(50)`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`DIM STRING`
+|`DIM STRING strn(200) DIM STRING strn = "text"`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`DO`
+|`DO`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`DO WHILE`
+|`DO WHILE expression`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`DRAW3D`
+|`DRAW3D`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`DRIVE`
+|`DRIVE drive$`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|===
+
+=== E
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`EDIT`
+|`EDIT or EDIT fname$ or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`EDIT FILE`
+|`EDIT FILE fname$`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ELSE`
+|`ELSE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ELSE IF`
+|`ELSE IF expression THEN`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ELSEIF`
+|`ELSEIF expression THEN or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`END`
+|`END cmd$`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`END CSUB`
+|`END CSUB`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`END DEFINEFONT`
+|`END DEFINEFONT`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`END FUNCTION`
+|`END FUNCTION`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`END IF`
+|`END IF`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`END SELECT`
+|`END SELECT`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`END SUB`
+|`END SUB`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`END TYPE`
+|`END TYPE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ENDIF`
+|`ENDIF or ENDIF`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ERASE`
+|`ERASE variable [,variable]..`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ERROR`
+|`ERROR [error_msg$]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`EXECUTE`
+|`EXECUTE command$`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`EXIT FOR`
+|`EXIT FOR`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`EXIT FUNCTION`
+|`EXIT FUNCTION`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`EXIT SUB`
+|`EXIT SUB`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|===
+
+=== F
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`FILES`
+|`FILES [fspec$] [,sort]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`FILL`
+|`FILL x, y, fillcolour [,bordercolour]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`FLAG()`
+|`FLAG(n%)=value`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`FLASH`
+|`FLASH`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`FLASH CHAIN`
+|`FLASH CHAIN n`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`FLASH DISK LOAD`
+|`FLASH DISK LOAD n,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`FLASH ERASE`
+|`FLASH ERASE n`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`FLASH ERASE ALL`
+|`FLASH ERASE ALL`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`FLASH LIST`
+|`FLASH LIST FLASH LIST n [,all]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`FLASH LOAD IMAGE`
+|`FLASH LOAD IMAGE n,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`FLASH OVERWRITE`
+|`FLASH OVERWRITE n`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`FLASH SAVE`
+|`FLASH SAVE n`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`FLUSH`
+|`FLUSH [#]fnbr`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`FONT`
+|`FONT [#]font-number, scaling`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`FOR`
+|`FOR counter = start TO finish [STEP increment]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`FRAME`
+|`FRAME`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`FRAMEBUFFER`
+|`FRAMEBUFFER`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`FRAMEBUFFER CLOSE`
+|`FRAMEBUFFER CLOSE [which]`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`FRAMEBUFFER COPY`
+|`FRAMEBUFFER COPY`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`FRAMEBUFFER CREATE`
+|`FRAMEBUFFER CREATE FRAMEBUFFER CREATE 2`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`FRAMEBUFFER LAYER`
+|`FRAMEBUFFER LAYER FRAMEBUFFER LAYER [colour]`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`FRAMEBUFFER MERGE`
+|`FRAMEBUFFER MERGE [colour] [,mode] [,updaterate]`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`FRAMEBUFFER SYNC`
+|`FRAMEBUFFER SYNC`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`FRAMEBUFFER WAIT`
+|`FRAMEBUFFER WAIT`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`FRAMEBUFFER WRITE`
+|`FRAMEBUFFER WRITE`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`FUNCTION`
+|`FUNCTION xxx (arg1 [,arg2, …]) [AS <type>}`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|===
+
+=== G
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`GAMEPAD COLOUR`
+|`GAMEPAD COLOUR`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`GAMEPAD CONFIGURE`
+|`GAMEPAD CONFIGURE`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`GAMEPAD HAPTIC`
+|`GAMEPAD HAPTIC channel`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`GAMEPAD INTERRUPT`
+|`GAMEPAD INTERRUPT`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`GAMEPAD MONITOR`
+|`GAMEPAD MONITOR`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`GOTO`
+|`GOTO target`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`GUI BITMAP`
+|`GUI BITMAP x, y, bits [,`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`GUI CALIBRATE`
+|`GUI CALIBRATE or GUI CALIBRATE a,b,c,d,d`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`GUI RESET LCDPANEL`
+|`GUI RESET LCDPANEL`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`GUI TEST LCDPANEL`
+|`GUI TEST LCDPANEL`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`GUI TEST TOUCH`
+|`GUI TEST TOUCH`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|===
+
+=== H
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`HEARTBEAT`
+|`HEARTBEAT`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`HELP`
+|`HELP searchtext`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`HUMID`
+|`HUMID pin, tvar, hvar [,DHT11]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|===
+
+=== I
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`I2C`
+|`I2C`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`I2C CHECK`
+|`I2C CHECK addr`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`I2C CLOSE`
+|`I2C CLOSE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`I2C OPEN`
+|`I2C OPEN speed, timeout`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`I2C SLAVE`
+|`I2C SLAVE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`I2C WRITE`
+|`I2C WRITE addr, option,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`I2C2`
+|`I2C2`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`I2CLCD`
+|`I2CLCD I2CLCD line, position, string$ I2CLCD line, Cn, string$`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`I2CLCD BACKLIGHT`
+|`I2CLCD BACKLIGHT state`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`I2CLCD CLEAR`
+|`I2CLCD CLEAR`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`I2CLCD CLOSE`
+|`I2CLCD CLOSE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`I2CLCD CMD`
+|`I2CLCD CMD byte [, byte ...]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`I2CLCD CREATECHAR`
+|`I2CLCD CREATECHAR`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`I2CLCD CURSOR`
+|`I2CLCD CURSOR state [, BLINK]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`I2CLCD DATA`
+|`I2CLCD DATA byte [, byte`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`I2CLCD INIT`
+|`I2CLCD INIT address`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`IF`
+|`IF expr THEN stmt [: stmt] or IF expr THEN stmt ELSE stmt IF expression THEN [ELSEIF expression THEN [ELSE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`IMAGE`
+|`IMAGE file$ [,x, y, w, h]`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`INC`
+|`INC var [,increment]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`INPUT`
+|`INPUT ["prompt$";] var1 [,var2 [, var3 [, etc]]] INPUT #nbr,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`IR`
+|`IR dev, key , int or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`IR CLOSE`
+|`IR CLOSE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`IR SEND`
+|`IR SEND pin, dev, key`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|===
+
+=== K
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`KEYPAD`
+|`KEYPAD var, int, r1, r2, r3, or KEYPAD keymapmap!(),`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`KEYPAD CLOSE`
+|`KEYPAD CLOSE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`KILL`
+|`KILL file$ [,all]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|===
+
+=== L
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`LCD`
+|`LCD line, pos, text$ or`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`LCD CLEAR`
+|`LCD CLEAR or`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`LCD CLOSE`
+|`LCD CLOSE`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`LCD DATA`
+|`LCD DATA d1 [, d2 [, etc]]`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`LCD INIT`
+|`LCD INIT d4, d5, d6, d7, rs, or`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`LET`
+|`LET variable = expression`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LIBRARY DELETE`
+|`LIBRARY DELETE or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LIBRARY DISK LOAD`
+|`LIBRARY DISK LOAD`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LIBRARY DISK SAVE`
+|`LIBRARY DISK SAVE or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LIBRARY LIST`
+|`LIBRARY LIST or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LIBRARY LIST ALL`
+|`LIBRARY LIST ALL or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LIBRARY SAVE`
+|`LIBRARY SAVE or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LINE`
+|`LINE x1, y1, x2, y2 [,[-] LW [, C]]`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`LINE GRAPH`
+|`LINE GRAPH x(), y(), colour`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`LINE INPUT`
+|`LINE INPUT [prompt$,] LINE INPUT #nbr,`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`LINE PLOT`
+|`LINE PLOT ydata() [,nbr] [,xstart] [,xinc] [,ystart] [,yinc] [,colour]`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`LIST`
+|`LIST [fname$] or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LIST ALL`
+|`LIST ALL [fname$]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LIST COMMANDS`
+|`LIST COMMANDS or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LIST FUNCTIONS`
+|`LIST FUNCTIONS`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LIST PINS`
+|`LIST PINS`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LIST SYSTEM I2C`
+|`LIST SYSTEM I2C`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LIST VARIABLES`
+|`LIST VARIABLES [s%()]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LMID()`
+|`LMID(array%(),start [,num])=string$`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LOAD`
+|`LOAD IMAGE/BMP fname$ [,x] [,y] [,mode] [,ximage] [,yimage]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LOAD CONTEXT`
+|`LOAD CONTEXT [KEEP]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LOAD DATA`
+|`LOAD DATA fname$, address`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LOAD JPG`
+|`LOAD JPG file$ [, x] [, y] [,mode] [,ximage] [,yimage]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LOAD PNG`
+|`LOAD PNG fname$ [, x] [, y] [,transparent] [,alphacut]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LOCAL`
+|`LOCAL variable [, variables]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LOCATION`
+|`LOCATION`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LONGSTRING`
+|`LONGSTRING`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LONGSTRING AES128`
+|`LONGSTRING AES128`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LONGSTRING APPEND`
+|`LONGSTRING APPEND array%(), string$`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LONGSTRING BASE64`
+|`LONGSTRING BASE64`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LONGSTRING CLEAR`
+|`LONGSTRING CLEAR array%()`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LONGSTRING CONCAT`
+|`LONGSTRING CONCAT`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LONGSTRING COPY`
+|`LONGSTRING COPY`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LONGSTRING LEFT`
+|`LONGSTRING LEFT`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LONGSTRING LOAD`
+|`LONGSTRING LOAD array%(), nbr, string$`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LONGSTRING MID`
+|`LONGSTRING MID dest%(),`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LONGSTRING PRINT`
+|`LONGSTRING PRINT [#n,]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LONGSTRING REPLACE`
+|`LONGSTRING REPLACE array%() , string$, start`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LONGSTRING RESIZE`
+|`LONGSTRING RESIZE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LONGSTRING RIGHT`
+|`LONGSTRING RIGHT`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LONGSTRING SETBYTE`
+|`LONGSTRING SETBYTE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LONGSTRING TRIM`
+|`LONGSTRING TRIM array%(), nbr`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LONGSTRING UCASE`
+|`LONGSTRING UCASE array%()`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LOOP`
+|`LOOP LOOP [UNTIL expression]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LOOP UNTIL`
+|`LOOP UNTIL expression`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`LOOP WHILE`
+|`LOOP WHILE expression`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|===
+
+=== M
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`MAP`
+|`MAP`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`MAP GREYSCALE`
+|`MAP GREYSCALE`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`MAP MAXIMITE`
+|`MAP MAXIMITE`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`MAP RESET`
+|`MAP RESET`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`MAP SET`
+|`MAP SET`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`MAP()=`
+|`MAP( n ) = rgb%`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`MATH ADD`
+|`MATH ADD in(), num ,out()`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH AES128`
+|`MATH AES128`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH C_ADD`
+|`MATH C_ADD array1(), array2(),`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH C_AND`
+|`MATH C_AND array1(), array2(),`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH C_DIV`
+|`MATH C_DIV array1(), array2(),`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH C_MUL`
+|`MATH C_MUL array1(), array2(),`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH C_OR`
+|`MATH C_OR array1(), array2(),`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH C_SUB`
+|`MATH C_SUB array1(), array2(),`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH C_XOR`
+|`MATH C_XOR array1(), array2(),`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH FFT`
+|`MATH FFT signalarray!(),`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH FFT INVERSE`
+|`MATH FFT INVERSE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH FFT MAGNITUDE`
+|`MATH FFT MAGNITUDE ()`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH FFT PHASE`
+|`MATH FFT PHASE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH INSERT`
+|`MATH INSERT targetarray(), [d1] [,d2] [,d3] [,d4] [,d5] ,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH INTERPOLATE`
+|`MATH INTERPOLATE in1(),`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH M_INVERSE`
+|`MATH M_INVERSE array!(),`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH M_MULT`
+|`MATH M_MULT in1(), in2(),`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH M_PRINT`
+|`MATH M_PRINT array()`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH M_TRANSPOSE`
+|`MATH M_TRANSPOSE in(),`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH PID INIT`
+|`MATH PID INIT channel,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH PID START`
+|`MATH PID START channel`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH PID STOP`
+|`MATH PID STOP channel`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH POWER`
+|`MATH POWER inarray(),`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH Q_CREATE`
+|`MATH Q_CREATE theta, x,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH Q_EULER`
+|`MATH Q_EULER yaw, pitch,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH Q_INVERT`
+|`MATH Q_INVERT inQ(),`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH Q_ROTATE`
+|`MATH Q_ROTATE , RQ(),`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH Q_VECTOR`
+|`MATH Q_VECTOR x, y, z,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH RANDOMIZE`
+|`MATH RANDOMIZE [n]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH SCALE`
+|`MATH SCALE in(), scale ,out()`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH SENSORFUSION`
+|`MATH SENSORFUSION [,p2]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH SET`
+|`MATH SET nbr, array()`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH SHIFT`
+|`MATH SHIFT inarray%(),`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH SINC`
+|`MATH SINC x_in(), y_in(), n , m, window, freq, x_out(), MATH SINC x_in(), y_in(), n,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH SLICE`
+|`MATH SLICE sourcearray(), [d1] [,d2] [,d3] [,d4] [,d5] , destinationarray()`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH V_CROSS`
+|`MATH V_CROSS inV1(),`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH V_MULT`
+|`MATH V_MULT matrix(),`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH V_NORMALISE`
+|`MATH V_NORMALISE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH V_PRINT`
+|`MATH V_PRINT array() [,hex]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH V_ROTATE`
+|`MATH V_ROTATE x, y, a,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MATH WINDOW`
+|`MATH WINDOW in(),`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MEMORY`
+|`MEMORY`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MEMORY COPY`
+|`MEMORY COPY [,sourceincrement][,destination`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MEMORY COPY FLOAT`
+|`MEMORY COPY FLOAT [,sourceincrement][,destination`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MEMORY COPY INTEGER`
+|`MEMORY COPY INTEGER [,sourceincrement][,destination`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MEMORY INPUT`
+|`MEMORY INPUT [#]fnbr ,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MEMORY PACK`
+|`MEMORY PACK`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MEMORY PRINT`
+|`MEMORY PRINT #]fnbr ,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MEMORY SET BYTE`
+|`MEMORY SET BYTE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MEMORY SET FLOAT`
+|`MEMORY SET FLOAT ,numberofloats [,increment]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MEMORY SET INTEGER`
+|`MEMORY SET INTEGER ,numberofintegers [,increment]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MEMORY SET SHORT`
+|`MEMORY SET SHORT`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MEMORY SET WORD`
+|`MEMORY SET WORD`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MID$()=`
+|`MID$( str$, start, num) = str2$`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MKDIR`
+|`MKDIR dir$`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`MODE`
+|`MODE 1 or MODE 2 MODE 3 (RP2350 only) MODE n MODE 400 or …`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`MOUSE`
+|`MOUSE`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`MOUSE CLOSE`
+|`MOUSE CLOSE channel`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`MOUSE INTERRUPT`
+|`MOUSE INTERRUPT`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`MOUSE OPEN`
+|`MOUSE OPEN channel,`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`MOUSE SET`
+|`MOUSE SET channel, x-`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|===
+
+=== N
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`NEW`
+|`NEW`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|===
+
+=== O
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`ON ERROR ABORT`
+|`ON ERROR ABORT or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ON ERROR CLEAR`
+|`ON ERROR CLEAR`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ON ERROR IGNORE`
+|`ON ERROR IGNORE or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ON ERROR RESTART`
+|`ON ERROR RESTART`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ON ERROR SKIP`
+|`ON ERROR SKIP [nn] or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ON KEY`
+|`ON KEY target or ON KEY ASCIIcode, target`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ON PS2`
+|`ON PS2 target`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`ONESHOT`
+|`ONESHOT triggerPin, sense,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ONESHOT DISABLE`
+|`ONESHOT DISABLE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ONESHOT R`
+|`ONESHOT R triggerPin,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ONEWIRE RESET`
+|`ONEWIRE RESET pin or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`ONEWIRE WRITE`
+|`ONEWIRE WRITE pin, flag, or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`OPEN`
+|`OPEN fname$ FOR mode AS [#]fnbr OPEN comspec$ AS [#]fnbr OPEN comspec$ AS GPS [,timezone_offset] [,monitor]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`OPTION`
+|`OPTION`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|===
+
+=== P
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`PAUSE`
+|`PAUSE delay`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PIN()=`
+|`PIN( pin ) = value`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PIO`
+|`PIO PIO assemble pio,linedata$`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PIO CLEAR`
+|`PIO CLEAR pio`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PIO CONFIGURE`
+|`PIO CONFIGURE pio, sm, [,sidesetbase] [,sidesetno] [,sidesetout] [,setbase] [,setno] [,setout] [,outbase] [,outno] [,outout] [,inbase] [,jmppin] [,wraptarget] [,wrap]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PIO DMA RX`
+|`PIO DMA RX pio, sm, nbr, [,transfersize] [,loopbackcount]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PIO DMA RX OFF`
+|`PIO DMA RX OFF`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PIO DMA TX`
+|`PIO DMA TX pio, sm, nbr, [,transfersize] [,loopbackcount]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PIO DMA TX OFF`
+|`PIO DMA TX OFF`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PIO INIT MACHINE`
+|`PIO INIT MACHINE pio%, [,pinctrl] [,execctrl] [,shiftctrl] [,startinstruction] [,sideout [,setout] [,outout]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PIO INTERRUPT`
+|`PIO INTERRUPT pio, sm [,RXinterrupt] [,TXinterrupt]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PIO PROGRAM`
+|`PIO PROGRAM pio PIO PROGRAM pio,array%()`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PIO PROGRAM LINE`
+|`PIO PROGRAM LINE pio,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PIO READ`
+|`PIO READ pio,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PIO SET BASE`
+|`PIO SET BASE 0/16`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PIO START`
+|`PIO START pio, statemachine`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PIO STOP`
+|`PIO STOP pio, statemachine`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PIO SYNC`
+|`PIO SYNC pio, statemachines, [,prevstatemachines] [,nextstatemachines]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PIO WRITE`
+|`PIO WRITE pio, [,data1..]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PIO WRITEFIFO`
+|`PIO WRITEFIFO a,b,c,d`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PIXEL`
+|`PIXEL x, y [,c]`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`PLAY ARRAY`
+|`PLAY ARRAY l%(), r%(), [,terminationinterrupt]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY CONTINUE`
+|`PLAY CONTINUE track$`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY FLAC`
+|`PLAY FLAC file$ [, interrupt]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY HALT`
+|`PLAY HALT`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY LOAD SOUND`
+|`PLAY LOAD SOUND array%()`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY MIDI`
+|`PLAY MIDI`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY MIDI CMD`
+|`PLAY MIDI CMD cmd%,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY MIDIFILE`
+|`PLAY MIDIFILE file$ [,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY MODFILE`
+|`PLAY MODFILE file$ [,interrupt]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY MODSAMPLE`
+|`PLAY MODSAMPLE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY MP3`
+|`PLAY MP3 file$ [, interrupt]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY NEXT`
+|`PLAY NEXT`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY NOTE OFF`
+|`PLAY NOTE OFF channel%,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY NOTE ON`
+|`PLAY NOTE ON channel%,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY PAUSE`
+|`PLAY PAUSE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY PREVIOUS`
+|`PLAY PREVIOUS`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY RELEASE`
+|`PLAY RELEASE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY RESUME`
+|`PLAY RESUME`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY SAMPLE`
+|`PLAY SAMPLE left%(), or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY SOUND`
+|`PLAY SOUND soundno, [,volume]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY STOP`
+|`PLAY STOP`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY STREAM`
+|`PLAY STREAM buffer%(),`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY TONE`
+|`PLAY TONE left, right [,dur] [,interrupt]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PLAY WAV`
+|`PLAY WAV file$ [, interrupt]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`POKE BYTE`
+|`POKE BYTE addr%, byte or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`POKE DISPLAY`
+|`POKE DISPLAY command [,data1] [,data2] [,datan]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`POKE DISPLAY HRES`
+|`POKE DISPLAY HRES n`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`POKE DISPLAY VRES`
+|`POKE DISPLAY VRES n`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`POKE FLOAT`
+|`POKE FLOAT addr%, float! or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`POKE INTEGER`
+|`POKE INTEGER addr%, int% or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`POKE SHORT`
+|`POKE SHORT addr%, short% or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`POKE VAR`
+|`POKE VAR var, offset, byte or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`POKE VARTBL`
+|`POKE VARTBL, offset, byte`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`POKE WORD`
+|`POKE WORD addr%, word% or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`POLYGON`
+|`POLYGON n, xarray%(), POLYGON n(), xarray%(),`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`PORT()=`
+|`PORT(start, nbr [,start, nbr]…)`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PRINT`
+|`PRINT expression [[,; ]expression] … etc PRINT #nbr, expression [[,; ]expression] … etc PRINT #GPS, expression [[,; ]expression] … etc PRINT @(x [, y]) expression or PRINT @(x, [y], m)`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PULSE`
+|`PULSE pin, width`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PWM`
+|`PWM channel, frequency, [dutyA] [,dutyB][,phase][,defer] PWM channel, OFF`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`PWM SYNC`
+|`PWM SYNC s0 [,s1][,s2][,s3][,s4][,s5][,s6][,s7`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|===
+
+=== R
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`RAM`
+|`RAM`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`RAM CHAIN`
+|`RAM CHAIN n`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`RAM ERASE`
+|`RAM ERASE n`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`RAM ERASE ALL`
+|`RAM ERASE ALL`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`RAM FILE LOAD`
+|`RAM FILE LOAD n,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`RAM LIST`
+|`RAM LIST RAM LIST n [,all]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`RAM LOAD`
+|`RAM LOAD n`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`RAM OVERWRITE`
+|`RAM OVERWRITE n`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`RAM RUN`
+|`RAM RUN n`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`RAM SAVE`
+|`RAM SAVE n`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`RANDOMIZE`
+|`RANDOMIZE nbr`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`RAY`
+|`RAY`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`RBOX`
+|`RBOX x, y, w, h [, r] [,c] [,fill]`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`READ`
+|`READ variable[, variable]..`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`READ RESTORE`
+|`READ RESTORE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`READ SAVE`
+|`READ SAVE or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`REDIM`
+|`REDIM [PRESERVE] array1(dimensions) [, array2(dimensions]…[,arrayn(`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`REFRESH`
+|`REFRESH`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`REM`
+|`REM string`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`RESTORE`
+|`RESTORE [line]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`RMDIR`
+|`RMDIR dir$`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`RTC GETREG`
+|`RTC GETREG reg, var`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`RTC GETTIME`
+|`RTC GETTIME`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`RTC SETREG`
+|`RTC SETREG reg, value`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`RTC SETTIME`
+|`RTC SETTIME year, month,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`RUN`
+|`RUN or RUN [file$] [, cmdline$]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|===
+
+=== S
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`SAVE`
+|`SAVE file$`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`SAVE COMPRESSED`
+|`SAVE COMPRESSED`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`SAVE CONTEXT`
+|`SAVE CONTEXT [CLEAR]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`SAVE IMAGE`
+|`SAVE IMAGE file$ [,x, y, w, h] or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`SAVE PERSISTENT`
+|`SAVE PERSISTENT n%`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`SEEK`
+|`SEEK [#]fnbr, pos`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`SELECT CASE`
+|`SELECT CASE value`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`SERVO`
+|`SERVO channel [positionA] [,positionB]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`SETPIN`
+|`SETPIN pin, cfg [, option] SETPIN pin, cfg, target [, SETPIN p1[, p2 [, p3]], device SETPIN rx, tx, COM1 SETPIN rx, tx, COM2 …`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`SETTICK`
+|`SETTICK period, target [, nbr]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`SETTICK PAUSE`
+|`SETTICK PAUSE, target [, nbr] or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`SETTICK RESUME`
+|`SETTICK RESUME, target [, nbr]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`SPI CLOSE`
+|`SPI CLOSE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`SPI OPEN`
+|`SPI OPEN speed, mode, bits or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`SPI READ`
+|`SPI READ nbr, array() or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`SPI WRITE`
+|`SPI WRITE nbr, data1, data2, SPI WRITE nbr, array() or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`SPI2`
+|`SPI2`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`SPRITE`
+|`SPRITE`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`STAR`
+|`STAR`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`STATIC`
+|`STATIC variable [, variables]`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`STEPPER`
+|`STEPPER`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`STRUCT`
+|`STRUCT`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`SUB`
+|`SUB xxx (arg1 [,arg2, …])`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`SYNC`
+|`SYNC time% [,period] or SYNC`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|===
+
+=== T
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`TEMPR START`
+|`TEMPR START pin [,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`TILE`
+|`TILE x, y [,foreground] [,background] [,nbr_tiles_wide] [,nbr_tiles_high]`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`TILE HEIGHT`
+|`TILE HEIGHT n`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`TILEMAP`
+|`TILEMAP`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`TIME$`
+|`TIME$ = "HH:MM:SS" or TIME$ = "HH:MM" or TIME$ = "HH"`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`TIMER`
+|`TIMER = msec`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`TRACE LIST`
+|`TRACE LIST nn`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`TRACE OFF`
+|`TRACE OFF or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`TRIANGLE RESTORE`
+|`TRIANGLE RESTORE [#]n`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`TRIANGLE SAVE`
+|`TRIANGLE SAVE [#]n,`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`TRIANGLE X1 Y1 X2 Y2`
+|`TRIANGLE X1, Y1, X2, Y2,`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`TURTLE`
+|`TURTLE`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`TYPE`
+|`TYPE struct-name`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|===
+
+=== U
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`UPDATE FIRMWARE`
+|`UPDATE FIRMWARE`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|===
+
+=== V
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`VAR CLEAR`
+|`VAR CLEAR`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`VAR RESTORE`
+|`VAR RESTORE or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`VAR SAVE`
+|`VAR SAVE var [, var]… or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|===
+
+=== W
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`WATCHDOG`
+|`WATCHDOG timeout or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`WATCHDOG HW`
+|`WATCHDOG HW timeout or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`WATCHDOG HW OFF`
+|`WATCHDOG HW OFF`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`WATCHDOG OFF`
+|`WATCHDOG OFF or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`WEB`
+|`WEB`
+|-
+|-
+|-
+|-
+|X
+|-
+
+|`WEB CLOSE TCP CLIENT`
+|`WEB CLOSE TCP CLIENT`
+|-
+|-
+|-
+|-
+|X
+|-
+
+|`WEB CONNECT`
+|`WEB CONNECT [ssid$, [,ipaddress$, mask$,`
+|-
+|-
+|-
+|-
+|X
+|-
+
+|`WEB MQTT CLOSE`
+|`WEB MQTT CLOSE`
+|-
+|-
+|-
+|-
+|X
+|-
+
+|`WEB MQTT CONNECT`
+|`WEB MQTT CONNECT`
+|-
+|-
+|-
+|-
+|X
+|-
+
+|`WEB MQTT PUBLISH`
+|`WEB MQTT PUBLISH`
+|-
+|-
+|-
+|-
+|X
+|-
+
+|`WEB MQTT SUBSCRIBE`
+|`WEB MQTT SUBSCRIBE`
+|-
+|-
+|-
+|-
+|X
+|-
+
+|`WEB MQTT UNSUBSCRIBE`
+|`WEB MQTT UNSUBSCRIBE`
+|-
+|-
+|-
+|-
+|X
+|-
+
+|`WEB NTP`
+|`WEB NTP [timeoffset [,`
+|-
+|-
+|-
+|-
+|X
+|-
+
+|`WEB OPEN TCP CLIENT`
+|`WEB OPEN TCP CLIENT`
+|-
+|-
+|-
+|-
+|X
+|-
+
+|`WEB OPEN TCP STREAM`
+|`WEB OPEN TCP STREAM`
+|-
+|-
+|-
+|-
+|X
+|-
+
+|`WEB SCAN`
+|`WEB SCAN [array%()]`
+|-
+|-
+|-
+|-
+|X
+|-
+
+|`WEB TCP CLIENT STREAM`
+|`WEB TCP CLIENT STREAM`
+|-
+|-
+|-
+|-
+|X
+|-
+
+|`WEB TCP CLOSE`
+|`WEB TCP CLOSE cb%`
+|-
+|-
+|-
+|-
+|X
+|-
+
+|`WEB TCP INTERRUPT`
+|`WEB TCP INTERRUPT`
+|-
+|-
+|-
+|-
+|X
+|-
+
+|`WEB TCP READ`
+|`WEB TCP READ cb%,`
+|-
+|-
+|-
+|-
+|X
+|-
+
+|`WEB TCP SEND`
+|`WEB TCP SEND cb%,`
+|-
+|-
+|-
+|-
+|X
+|-
+
+|`WEB TRANSMIT CODE`
+|`WEB TRANSMIT CODE`
+|-
+|-
+|-
+|-
+|X
+|-
+
+|`WEB TRANSMIT FILE`
+|`WEB TRANSMIT FILE cb%,`
+|-
+|-
+|-
+|-
+|X
+|-
+
+|`WEB UDP INTERRUPT`
+|`WEB UDP INTERRUPT`
+|-
+|-
+|-
+|-
+|X
+|-
+
+|`WEB UDP SEND`
+|`WEB UDP SEND addr$, port,`
+|-
+|-
+|-
+|-
+|X
+|-
+
+|`WII`
+|`WII [CLASSIC] OPEN [,interrupt] WII [CLASSIC] CLOSE`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`WII NUNCHUCK CLOSE`
+|`WII NUNCHUCK CLOSE`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`WII NUNCHUCK OPEN`
+|`WII NUNCHUCK OPEN [,interrupt]`
+|-
+|X
+|X
+|X
+|-
+|X
+
+|`WS2812`
+|`WS2812 type, pin, nbr,`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|===
+
+=== X
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`XMODEM CRUNCH`
+|`XMODEM CRUNCH`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`XMODEM RECEIVE`
+|`XMODEM RECEIVE or XMODEM RECEIVE file$ or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`XMODEM SEND`
+|`XMODEM SEND or XMODEM SEND file$ or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|===
+
+=== Y
+
+[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+|===
+|Befehl
+|Syntax
+|Im Buch
+|P
+|V
+|H
+|W
+|K
+
+|`YMODEM CRUNCH`
+|`YMODEM CRUNCH`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`YMODEM RECEIVE`
+|`YMODEM RECEIVE or YMODEM RECEIVE file$ or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|`YMODEM SEND`
+|`YMODEM SEND or YMODEM SEND file$ or`
+|-
+|X
+|X
+|X
+|X
+|X
+
+|===
