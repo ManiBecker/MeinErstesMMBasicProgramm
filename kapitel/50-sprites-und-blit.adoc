@@ -485,7 +485,7 @@ Bewegt sich die Figur nach rechts, bleibt an ihrer alten Position zunächst eine
 🌳🌳🌳🌳🌳
 
       🙂
-```
+----
 
 Was muss nun an der alten Stelle erscheinen?
 
