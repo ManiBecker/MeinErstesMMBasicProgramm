@@ -377,171 +377,156 @@ Probiere folgende Änderungen aus:
 
 In den bisherigen Beispielen haben wir Linien gezeichnet, indem wir ihre Anfangs- und Endpunkte angegeben haben.
 
-Es gibt jedoch noch eine andere Möglichkeit, Grafiken zu erzeugen.
+MMBasic bietet dafür noch eine zweite, besonders anschauliche Möglichkeit: die **Turtle-Grafik**.
 
-Stell dir vor, auf dem Bildschirm befindet sich eine kleine Schildkröte. Sie kennt ihre aktuelle Position und ihre Blickrichtung.
+Dabei stellst du dir vor, dass sich auf dem Bildschirm eine kleine Schildkröte befindet. Sie kennt ihre aktuelle Position und ihre Blickrichtung.
 
-Sie kann nur drei Dinge tun:
+Anstatt Koordinaten anzugeben, erteilst du ihr einfache Befehle:
 
 * vorwärts laufen
-* sich nach links drehen
-* sich nach rechts drehen
+* rückwärts laufen
+* nach links drehen
+* nach rechts drehen
 
-Während sie sich bewegt, zeichnet sie eine Linie.
+Während sich die Schildkröte bewegt, zeichnet sie – sofern der Zeichenstift abgesenkt ist – automatisch eine Linie.
 
-Auf diese Weise entstehen nach und nach geometrische Figuren.
+Auf diese Weise entstehen Schritt für Schritt geometrische Figuren.
 
 [NOTE]
 .Geschichte
 ====
 Die Turtle-Grafik wurde Ende der 1960er-Jahre von **Seymour Papert** im Zusammenhang mit der Programmiersprache **LOGO** entwickelt.
 
-Anstatt Koordinaten und mathematische Formeln in den Mittelpunkt zu stellen, sollten Kinder spielerisch lernen, wie Programme aufgebaut sind. Die kleine "Schildkröte" machte das Ergebnis jedes Befehls sofort sichtbar.
+Anstatt Koordinaten und mathematische Formeln in den Mittelpunkt zu stellen, sollten Kinder spielerisch lernen, wie Programme aufgebaut sind. Die kleine „Schildkröte“ machte das Ergebnis jedes Befehls sofort sichtbar.
 
 Viele Programmierer kamen auf diese Weise zum ersten Mal mit Computergrafik und Programmierung in Berührung.
+
+Heute gehört die Turtle-Grafik auch zum Funktionsumfang von MMBasic und eignet sich hervorragend für den Einstieg in die Grafikprogrammierung.
 ====
 
-=== Eine virtuelle Schildkröte
+=== Die Schildkröte zurücksetzen
 
-Unsere Schildkröte besitzt drei Eigenschaften:
-
-* ihre X-Koordinate
-* ihre Y-Koordinate
-* ihre Blickrichtung
-
-Zu Beginn steht sie in der Bildschirmmitte und blickt nach rechts.
-
-Jedes Mal, wenn sie vorwärts läuft, berechnen wir ihre neue Position und zeichnen eine Linie.
-
-=== Ein Quadrat zeichnen
-
-Ein Quadrat besteht aus vier gleich langen Linien.
-
-Nach jeder Linie dreht sich die Schildkröte um 90 Grad.
-
-[source]
-----
-Vorwärts
-Rechts drehen
-
-Vorwärts
-Rechts drehen
-
-Vorwärts
-Rechts drehen
-
-Vorwärts
-----
-
-==== Beispielprogramm
+Mit `TURTLE RESET` wird die Turtle in ihre Ausgangsposition zurückgesetzt.
 
 [source,basic]
 ----
 CLS
-
-x = MM.HRES / 2
-y = MM.VRES / 2
-
-winkel = 0
-laenge = 100
-
-FOR i = 1 TO 4
-
-  x2 = x + laenge * COS(RAD(winkel))
-  y2 = y + laenge * SIN(RAD(winkel))
-
-  LINE x, y, x2, y2
-
-  x = x2
-  y = y2
-
-  winkel = winkel + 90
-
-NEXT i
+TURTLE RESET
 ----
 
-Das Programm berechnet nach jeder Bewegung die neue Position der Schildkröte.
+Danach befindet sie sich automatisch in der Mitte des Bildschirms und blickt nach oben.
 
-Die Funktion `COS()` bestimmt dabei die horizontale Bewegung, `SIN()` die vertikale Bewegung.
+Der Zeichenstift ist abgesenkt, sodass jede Bewegung eine Linie zeichnet.
 
-Anschließend wird eine Linie zwischen alter und neuer Position gezeichnet.
+=== Ein Quadrat zeichnen
+
+Mit nur zwei Turtle-Befehlen lässt sich bereits ein Quadrat zeichnen.
+
+[source,basic]
+----
+CLS
+TURTLE RESET
+
+FOR I = 1 TO 4
+
+  TURTLE FORWARD 100
+  TURTLE RIGHT 90
+
+NEXT I
+----
+
+Die Schildkröte läuft viermal jeweils 100 Pixel geradeaus und dreht sich anschließend um 90 Grad nach rechts.
+
+Nach der vierten Seite erreicht sie wieder ihren Ausgangspunkt.
+
+=== Das Programm verstehen
+
+`TURTLE FORWARD` bewegt die Schildkröte in ihrer aktuellen Blickrichtung.
+
+[source,basic]
+----
+TURTLE FORWARD 100
+----
+
+Mit `TURTLE RIGHT` oder `TURTLE LEFT` wird die Blickrichtung geändert.
+
+[source,basic]
+----
+TURTLE RIGHT 90
+----
+
+Da das Programm diese beiden Befehle viermal wiederholt, entsteht ein Quadrat.
 
 === Experimentiere!
 
-Ändere die Seitenlänge:
+Verändere die Seitenlänge:
 
-[source]
+[source,basic]
 ----
-laenge = 150
+TURTLE FORWARD 150
 ----
 
-oder den Drehwinkel:
+Oder ändere den Drehwinkel:
 
-[source]
+[source,basic]
 ----
-winkel = winkel + 60
+TURTLE RIGHT 60
 ----
 
 Welche Figur entsteht?
 
-=== Vieleck statt Quadrat
+=== Vielecke zeichnen
 
-Ersetzen wir den Winkel von 90° durch kleinere Werte, entstehen regelmäßige Vielecke.
+Der Drehwinkel bestimmt, welche Figur gezeichnet wird.
 
-Zum Beispiel:
+Probiere zum Beispiel folgende Winkel aus:
 
 * 120° → Dreieck
+* 90° → Quadrat
 * 72° → Fünfeck
 * 60° → Sechseck
+* 170° → Stern- bzw. Rosettenfigur
 
-Je kleiner der Drehwinkel wird, desto mehr Seiten besitzt die Figur.
+Je kleiner der Drehwinkel ist, desto mehr Seiten besitzt die Figur.
 
 === Eine Spirale
 
-Noch spannender wird es, wenn die Schrittlänge nach jeder Bewegung etwas größer wird.
+Noch interessanter wird das Ergebnis, wenn die Schrittlänge nach jeder Bewegung etwas größer wird.
 
 [source,basic]
 ----
 CLS
+TURTLE RESET
 
-x = MM.HRES / 2
-y = MM.VRES / 2
+FOR I = 1 TO 80
 
-winkel = 0
-laenge = 5
+  TURTLE FORWARD I * 3
+  TURTLE RIGHT 20
 
-FOR i = 1 TO 80
-
-  x2 = x + laenge * COS(RAD(winkel))
-  y2 = y + laenge * SIN(RAD(winkel))
-
-  LINE x, y, x2, y2
-
-  x = x2
-  y = y2
-
-  laenge = laenge + 2
-
-  winkel = winkel + 20
-
-NEXT i
+NEXT I
 ----
 
-Mit nur wenigen Zeilen Programmcode entsteht eine beeindruckende Spiralfigur.
+Mit nur wenigen Programmzeilen entsteht eine eindrucksvolle Spiralfigur.
 
-=== Warum ist Turtle-Grafik so interessant?
+=== Noch mehr Möglichkeiten
 
-Die Turtle-Grafik verbindet viele Themen, die wir bereits kennengelernt haben:
+Die Turtle-Grafik von MMBasic bietet weit mehr als nur Vorwärtslaufen und Drehen.
 
-* Variablen
-* Schleifen
-* Winkel
-* Sinus und Kosinus
-* Linien zeichnen
+Du kannst unter anderem:
 
-Schon mit wenigen Befehlen lassen sich erstaunlich komplexe Bilder erzeugen.
+* den Zeichenstift anheben und absenken,
+* Farben und Linienstärken ändern,
+* Kreise und Kreisbögen zeichnen,
+* gefüllte Flächen erzeugen,
+* Bézier-Kurven zeichnen,
+* die Schildkröte ein- und ausblenden.
 
-Viele Fraktale, Sterne, Spiralen oder sogar Schriftarten können nach diesem Prinzip konstruiert werden.
+[TIP]
+====
+Für dieses Tutorial haben wir nur die wichtigsten Turtle-Befehle verwendet.
+
+Eine vollständige Beschreibung aller `TURTLE`-Befehle findest du im MMBasic-Handbuch. Dort werden auch fortgeschrittene Funktionen wie Füllmuster, Bézier-Kurven oder das Arbeiten mit Zustandsstapeln (`PUSH` und `POP`) beschrieben.
+====
 
 === Zusammenfassung
 
@@ -552,6 +537,7 @@ Du kennst nun die wichtigsten Grafikbefehle:
 * `CLS`
 * `PIXEL`
 * `LINE`
+* `TURTLE`
 
 Außerdem hast du gelernt:
 
@@ -563,7 +549,6 @@ Außerdem hast du gelernt:
 * einfache Zeichnungen aus mehreren Linien zusammenzusetzen
 * Grafiken mit Schleifen und Zufallszahlen zu erzeugen
 * wie das Konzept der Turtle-Grafik funktioniert
-* wie mit Winkeln sowie den Funktionen `SIN()` und `COS()` neue Positionen berechnet werden
 * wie sich mit wenigen Befehlen Quadrate, Vielecke und Spiralen zeichnen lassen
 
 Damit verfügst du bereits über alle Grundlagen, um eigene kleine Grafikprogramme zu entwickeln und geometrische Figuren zu zeichnen.
