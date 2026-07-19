@@ -1,3 +1,4 @@
+[preface]
 == Willkommen zu MMBasic
 
 Willkommen zu diesem MMBasic-Tutorial.
