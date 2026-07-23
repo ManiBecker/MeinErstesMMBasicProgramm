@@ -55,7 +55,11 @@ MMBasic fragt anschließend nach, ob das Programm wirklich gelöscht werden soll
 
 Nachdem du dein Programm eingegeben hast, speicherst du es mit **F1**.
 
+Das Programm bleibt auch nach dem Ausschalten des PicoMite erhalten.
+
 Mit **F2** verlässt du anschließend den Editor und kehrst zur MMBasic-Eingabeaufforderung zurück.
+
+Später in diesem Buch lernst du außerdem, wie Programme als Dateien im Dateisystem oder auf einer SD-Karte gespeichert und wieder geladen werden können.
 
 === Programme starten
 
