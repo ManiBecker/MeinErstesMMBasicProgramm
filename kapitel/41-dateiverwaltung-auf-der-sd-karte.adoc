@@ -15,7 +15,14 @@ Am Ende des Kapitels kannst du auch größere Projekte übersichtlich organisier
 
 === Warum Verzeichnisse?
 
-In den ersten Kapiteln bestand ein Projekt meist nur aus einer einzelnen Datei.
+Im vorherigen Kapitel hast du gelernt, Programme sinnvoll zu organisieren und
+mit `SAVE` und `LOAD` zu verwalten.
+
+Sobald mehrere Projekte entstehen, reicht es jedoch nicht mehr aus, alle
+Dateien in einem einzigen Verzeichnis abzulegen.
+
+Mit Verzeichnissen kannst du deine Programme thematisch ordnen und behältst
+auch bei einer größeren Programmsammlung den Überblick.
 
 Beispiel:
 
@@ -47,22 +54,35 @@ Ein möglicher Aufbau könnte so aussehen:
 
 [source]
 ----
-SPIELE
+/
+├── SPIELE
+│   ├── PONG.BAS
+│   └── SENSO.BAS
 │
-├── PONG.BAS
-├── SENSO.BAS
+├── LERNPROGRAMME
+│   ├── HANGMAN.BAS
+│   └── LITTLEPROFESSOR.BAS
 │
-PROJEKTE
+├── ELEKTRONIK
+│   ├── AMPEL.BAS
+│   └── UHR.BAS
 │
-├── AMPEL.BAS
-├── UHR.BAS
-│
-TEST
-│
-└── EXPERIMENT.BAS
+└── TEST
 ----
 
 Dadurch bleiben Programme übersichtlich organisiert.
+
+[TIP]
+====
+Bei größeren Projekten können Programme auch auf mehrere Quelldateien
+aufgeteilt werden.
+
+MMBasic unterstützt dies über `#INCLUDE` in Verbindung mit `CMM2 LOAD`
+oder `CMM2 RUN`.
+
+Diese Funktion eignet sich vor allem für umfangreiche Projekte und zur
+Portierung von Colour-Maximite-2-Programmen.
+====
 
 === Verzeichnisse anlegen
 
@@ -340,7 +360,11 @@ Dadurch lassen sich Projekte leicht zwischen PicoMite und Colour Maximite 2 übe
 
 === Tipps aus der Praxis
 
-* Lege für jedes Projekt ein eigenes Verzeichnis an.
+* Verwende für jedes Projekt ein eigenes Verzeichnis.
+* Lege wiederverwendbare Bibliotheken getrennt von deinen Projekten ab.
+* Sichere wichtige Projekte regelmäßig auf deinem PC.
+* Verwende keine Leerzeichen in Dateinamen.
+* Halte Verzeichnisnamen möglichst kurz und eindeutig.
 * Verwende aussagekräftige Dateinamen.
 * Erstelle vor größeren Änderungen Sicherheitskopien.
 * Lösche Dateien erst, wenn du sicher bist, dass sie nicht mehr benötigt werden.
@@ -371,4 +395,8 @@ In diesem Kapitel hast du gelernt:
 
 Mit diesen Befehlen kannst du auch größere MMBasic-Projekte übersichtlich organisieren und verwalten.
 
-Im nächsten Kapitel lernen wir mit CHAIN eine Möglichkeit kennen, mehrere Programme miteinander zu verbinden.
+Mit einer guten Verzeichnisstruktur lassen sich auch umfangreiche Projekte
+übersichtlich verwalten.
+
+Im nächsten Kapitel lernst du mit `CHAIN` eine Möglichkeit kennen,
+mehrere Programme miteinander zu verbinden.
