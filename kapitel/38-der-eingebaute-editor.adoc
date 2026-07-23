@@ -14,6 +14,13 @@ In diesem Kapitel lernst du:
 
 Am Ende des Kapitels kannst du Programme komfortabel direkt auf deinem MMBasic-System entwickeln.
 
+[NOTE]
+====
+In den vorherigen Kapiteln hast du den Editor bereits Schritt für Schritt
+kennengelernt. Dieses Kapitel dient als Nachschlagewerk und beschreibt alle
+wichtigen Funktionen des Editors im Zusammenhang.
+====
+
 === Programmieren direkt auf dem MMBasic-System
 
 Viele Programmiersprachen benötigen einen separaten Computer zum Erstellen von Programmen.
