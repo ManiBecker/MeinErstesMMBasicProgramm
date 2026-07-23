@@ -627,6 +627,35 @@ Auch umfangreiche Programme mit mehreren hundert Zeilen lassen sich bequem
 direkt auf dem PicoMite entwickeln und pflegen.
 ====
 
+[TIP]
+====
+*Programme automatisch starten*
+
+Viele PicoMite-Projekte sollen nach dem Einschalten sofort einsatzbereit sein,
+zum Beispiel eine Uhr, ein Spiel, ein Messgerät oder eine Haussteuerung.
+
+Mit folgendem Befehl wird das aktuell gespeicherte Programm nach jedem
+Einschalten oder Reset automatisch gestartet:
+
+[source,basic]
+----
+OPTION AUTORUN ON
+----
+
+Während der Entwicklung empfiehlt es sich, diese Funktion zunächst
+ausgeschaltet zu lassen. Starte dein Programm in dieser Phase lieber manuell
+mit `RUN`. Erst wenn das Programm zuverlässig funktioniert, solltest du den
+automatischen Start aktivieren.
+
+Falls du den automatischen Programmstart später wieder deaktivieren möchtest,
+verwendest du:
+
+[source,basic]
+----
+OPTION AUTORUN OFF
+----
+====
+
 [NOTE]
 ====
 Auch dieses Tutorial wurde zu großen Teilen mit dem eingebauten Editor von
