@@ -2,344 +2,517 @@
 
 === Das lernst du
 
-In diesem Kapitel lernst du:
+In diesem Kapitel vertiefst du den Umgang mit Programmen und Dateien.
 
-* Programme dauerhaft zu speichern
-* gespeicherte Programme wieder zu laden
-* den Inhalt von Laufwerken anzuzeigen
-* zwischen verschiedenen Laufwerken zu wechseln
-* die Dateiauswahl des Colour Maximite 2 zu verwenden
+Du lernst,
 
-Am Ende des Kapitels kannst du deine Programme sicher verwalten und jederzeit wiederverwenden.
+* den Unterschied zwischen dem Programmspeicher und gespeicherten Dateien kennen,
+* mehrere Programme gleichzeitig zu verwalten,
+* Programme sinnvoll zu organisieren und
+* einen bewährten Arbeitsablauf für größere Projekte.
 
-=== Warum Programme speichern?
+=== Warum dieses Kapitel?
 
-In den bisherigen Kapiteln haben wir viele Programme entwickelt.
+In Kapitel 8 hast du bereits gelernt, Programme mit `SAVE` als Datei zu speichern
+und mit `LOAD` wieder zu laden.
 
-Dazu gehören beispielsweise:
+Für die bisherigen Beispiele war das vollkommen ausreichend.
 
-* Zahlenraten
-* Little Professor
-* Pong
-* Senso
+Mit der Zeit entstehen jedoch mehrere Programme gleichzeitig. Vielleicht
+entwickelst du ein Spiel, arbeitest parallel an einem Messprogramm oder möchtest
+ältere Versionen deiner Programme aufbewahren.
 
-Diese Programme möchten wir natürlich nicht nach jedem Neustart erneut eingeben.
+Jetzt ist der richtige Zeitpunkt, den Umgang mit Programmen und Dateien etwas
+genauer kennenzulernen.
 
-Deshalb bietet MMBasic die Möglichkeit, Programme dauerhaft auf einem Datenträger zu speichern.
+=== Programmspeicher und Dateien
 
-=== Flüchtiger und dauerhafter Speicher
+Bisher haben wir unsere Programme direkt mit dem integrierten Editor erstellt
+und anschließend mit **F1** gespeichert.
 
-Beim Einschalten befindet sich MMBasic zunächst im Arbeitsspeicher.
+Dadurch wird das Programm im Programmspeicher des PicoMite abgelegt. Dieses
+Programm bleibt auch nach dem Ausschalten erhalten und kann jederzeit mit `RUN`
+gestartet werden.
 
-Programme, die dort abgelegt sind, gehen verloren, wenn:
+Zusätzlich kannst du Programme als Dateien speichern. Dadurch lassen sich
+beliebig viele Programme archivieren, sichern oder später erneut laden.
 
-* das System ausgeschaltet wird
-* ein anderes Programm geladen wird
-* der Speicher gelöscht wird
+[NOTE]
+====
+Der Programmspeicher enthält immer genau **ein aktuelles Arbeitsprogramm**.
 
-Deshalb sollten wichtige Programme regelmäßig gespeichert werden.
+Im Dateisystem können dagegen beliebig viele Programme gespeichert werden.
+====
 
 === Programme speichern
 
-Zum Speichern eines Programms wird der Befehl SAVE verwendet.
-
-Beispiel:
+Mit `SAVE` wird das aktuelle Arbeitsprogramm als Datei gespeichert.
 
 [source,basic]
 ----
-SAVE "HALLO.BAS"
+SAVE "HANGMAN.BAS"
 ----
 
-Das aktuelle Programm wird unter dem angegebenen Namen gespeichert.
-
-=== Dateinamen
-
-Dateinamen sollten möglichst aussagekräftig gewählt werden.
-
-Gute Beispiele:
-
-[source]
-----
-PONG.BAS
-SENSO.BAS
-AMPEL.BAS
-----
-
-Weniger hilfreich:
-
-[source]
-----
-TEST1.BAS
-NEU.BAS
-PROGRAMM.BAS
-----
-
-Je größer die Programmsammlung wird, desto wichtiger werden aussagekräftige Namen.
+Das Programm befindet sich anschließend sowohl im Programmspeicher als auch als
+Datei im Dateisystem.
 
 === Programme laden
 
-Mit LOAD wird ein zuvor gespeichertes Programm geladen.
-
-Beispiel:
+Mit `LOAD` wird eine gespeicherte Datei wieder in den Programmspeicher geladen.
 
 [source,basic]
 ----
-LOAD "PONG.BAS"
+LOAD "HANGMAN.BAS"
 ----
 
-Das Programm befindet sich anschließend wieder im Programmspeicher und kann ausgeführt werden.
+Danach kannst du das Programm sofort mit `RUN` starten oder weiter bearbeiten.
 
-=== Programme starten
+=== Programme direkt bearbeiten
 
-Nach dem Laden wird ein Programm mit RUN gestartet.
-
-Beispiel:
+Statt ein Programm zuerst zu laden, kannst du es auch direkt im Editor öffnen.
 
 [source,basic]
 ----
-LOAD "PONG.BAS"
-RUN
+EDIT "HANGMAN.BAS"
 ----
 
-Viele Anwender verwenden diese beiden Befehle häufig hintereinander.
+Das spart einen Arbeitsschritt und ist besonders praktisch, wenn du ein
+bestehendes Programm ändern möchtest.
 
-=== Programme überschreiben
+=== Programme organisieren
 
-Wird ein Programm unter einem bereits vorhandenen Dateinamen gespeichert, überschreibt MMBasic die vorhandene Datei.
+Mit zunehmender Erfahrung wächst auch deine Programmsammlung.
 
-Beispiel:
+Eine gute Organisation hilft dir dabei, jederzeit den Überblick zu behalten.
+
+==== Aussagekräftige Dateinamen
+
+Verwende möglichst sprechende Dateinamen.
+
+Gut geeignet sind beispielsweise:
+
+* `HANGMAN.BAS`
+* `LITTLEPROFESSOR.BAS`
+* `REAKTIONSTEST.BAS`
+
+Weniger hilfreich sind Namen wie:
+
+* `TEST.BAS`
+* `NEU.BAS`
+* `SPIEL1.BAS`
+
+Schon nach kurzer Zeit wirst du Programme anhand ihres Dateinamens schneller
+wiederfinden.
+
+==== Sicherheitskopien anlegen
+
+Vor größeren Änderungen empfiehlt es sich, eine Sicherheitskopie anzulegen.
+
+Beispielsweise:
+
+----
+PONG_V1.BAS
+PONG_V2.BAS
+----
+
+So kannst du jederzeit zu einer funktionierenden Version zurückkehren.
+
+==== Ordner verwenden
+
+Bei einer größeren Programmsammlung lohnt es sich, eigene Ordner anzulegen.
+
+Zum Beispiel:
+
+----
+/Spiele
+/Lernprogramme
+/Elektronik
+/Experimente
+----
+
+Dadurch bleiben deine Projekte dauerhaft übersichtlich.
+
+[TIP]
+====
+MMBasic unterstützt auch das Aufteilen eines Projekts auf mehrere
+Quelldateien. Hierzu können beim Laden mit `CMM2 LOAD` oder `CMM2 RUN`
+`#INCLUDE`-Dateien verwendet werden.
+
+Diese Funktion dient in erster Linie der Kompatibilität zum Colour Maximite 2
+(CMM2) und eignet sich für größere Projekte mit mehreren Modulen.
+
+Da die Quelldateien beim Laden zusammengeführt und komprimiert werden,
+sollten sie ausschließlich als Dateien auf dem Datenträger bearbeitet
+werden. Die im Speicher erzeugte Programmversion lässt sich nicht wieder in
+die ursprünglichen Einzeldateien zerlegen.
+====
+
+=== Wiederverwendbare Programmteile
+
+In größeren Projekten werden bestimmte Unterprogramme und Funktionen häufig
+mehrfach benötigt.
+
+Vielleicht hast du beispielsweise Routinen geschrieben, die
+
+* Texte auf dem Bildschirm positionieren,
+* Messwerte umrechnen,
+* Eingaben überprüfen oder
+* wiederkehrende Berechnungen durchführen.
+
+Du könntest diese Routinen in jedes neue Programm kopieren. Das wird jedoch
+schnell unübersichtlich. Außerdem müsstest du Fehlerkorrekturen anschließend
+in allen Kopien nachtragen.
+
+MMBasic bietet dafür eine Library. Darin gespeicherte Routinen stehen allen
+Programmen zur Verfügung und können wie eingebaute Befehle oder Funktionen
+verwendet werden.
+
+==== Eine Library-Routine erstellen
+
+Library-Routinen werden zunächst wie gewöhnliche Bestandteile eines
+MMBasic-Programms geschrieben und getestet.
+
+Ein einfaches Beispiel:
 
 [source,basic]
 ----
-SAVE "PONG.BAS"
+SUB Begruessung
+  PRINT "Willkommen bei MMBasic!"
+END SUB
+
+FUNCTION Quadrat(Zahl)
+  Quadrat = Zahl * Zahl
+END FUNCTION
 ----
 
-Existiert die Datei bereits, wird sie durch die neue Version ersetzt.
-
-Deshalb empfiehlt es sich, wichtige Projekte regelmäßig zu sichern.
-
-=== Welche Dateien gibt es?
-
-Mit FILES kann der Inhalt des aktuellen Laufwerks angezeigt werden.
+Teste die Routinen zunächst mit einem kleinen Hauptprogramm:
 
 [source,basic]
 ----
-FILES
+Begruessung
+PRINT "Das Quadrat von 7 ist"; Quadrat(7)
+
+SUB Begruessung
+  PRINT "Willkommen bei MMBasic!"
+END SUB
+
+FUNCTION Quadrat(Zahl)
+  Quadrat = Zahl * Zahl
+END FUNCTION
 ----
 
-Die Ausgabe könnte beispielsweise so aussehen:
-
-[source]
-----
-PONG.BAS
-SENSO.BAS
-AMPEL.BAS
-UHR.BAS
-----
-
-Dadurch erhält man einen schnellen Überblick über die vorhandenen Dateien.
-
-=== Der Befehl CAT
-
-Viele MMBasic-Systeme unterstützen zusätzlich den Befehl CAT.
-
-CAT steht für:
-
-[source]
-----
-Catalog
-----
-
-und zeigt den Inhalt des aktuellen Verzeichnisses an.
+Wenn alles fehlerfrei funktioniert, speicherst du den Quelltext zuerst als
+normale BASIC-Datei:
 
 [source,basic]
 ----
-CAT
+SAVE "MEINELIB.BAS"
 ----
 
-Je nach Plattform werden dabei zusätzliche Informationen angezeigt.
-
-=== FILES oder CAT?
-
-In der Praxis erfüllen beide Befehle einen ähnlichen Zweck:
-
-* vorhandene Dateien anzeigen
-* Dateinamen kontrollieren
-* Programme auswählen
-
-Welche Variante verwendet wird, ist häufig Geschmackssache.
-
-=== Laufwerke
-
-MMBasic kennt verschiedene Laufwerke.
-
-Typische Beispiele sind:
-
-[source]
-----
-A:
-B:
-----
-
-Welches Laufwerk welche Funktion besitzt, hängt von der verwendeten Plattform ab.
-
-=== Aktuelles Laufwerk anzeigen
-
-Der Befehl DRIVE zeigt das aktuelle Laufwerk an.
+Danach überträgst du den Inhalt des Programmspeichers mit
 
 [source,basic]
 ----
-DRIVE
+LIBRARY SAVE
 ----
 
-Beispielausgabe:
+in die Library.
 
-[source]
-----
-A:
-----
+MMBasic komprimiert den Quelltext und speichert ihn in einem besonderen
+Bereich des Flash-Speichers. Anschließend wird der normale Programmspeicher
+geleert.
 
-=== Laufwerk wechseln
+[IMPORTANT]
+====
+Speichere den Quelltext vor `LIBRARY SAVE` immer zusätzlich als normale
+BASIC-Datei.
 
-Mit DRIVE kann auch das aktuelle Laufwerk geändert werden.
+Beim Übertragen in die Library entfernt MMBasic unter anderem Kommentare,
+Leerzeilen und überflüssige Leerzeichen. Die Library ist deshalb nicht als
+Ersatz für die ursprüngliche Quelltextdatei gedacht.
+====
 
-Beispiel:
+==== Library-Routinen verwenden
+
+Nach dem Speichern stehen die Routinen allen BASIC-Programmen zur Verfügung.
+
+Ein neues Programm kann sie direkt aufrufen:
 
 [source,basic]
 ----
-DRIVE "B:"
+Begruessung
+
+PRINT "Das Quadrat von 12 ist"; Quadrat(12)
 ----
 
-Ab diesem Zeitpunkt arbeiten Dateibefehle auf dem neuen Laufwerk.
+Die Definitionen von `Begruessung` und `Quadrat` müssen nicht mehr im
+Hauptprogramm enthalten sein.
 
-=== Beispiel
+Die Routinen bleiben auch dann erhalten, wenn du mit `NEW` den
+Programmspeicher löschst oder ein anderes Programm lädst.
+
+Du kannst sie sogar direkt an der Eingabeaufforderung verwenden:
 
 [source,basic]
 ----
-DRIVE "A:"
-SAVE "TEST.BAS"
-
-DRIVE "B:"
-FILES
+PRINT Quadrat(9)
 ----
 
-Hier wird das Programm auf Laufwerk A gespeichert und anschließend der Inhalt von Laufwerk B angezeigt.
+MMBasic behandelt Library-Routinen damit fast wie zusätzliche Bestandteile
+der Programmiersprache.
 
-=== Programme auf SD-Karten
+==== Die Library erweitern
 
-Sowohl PicoMite-Systeme als auch der Colour Maximite 2 verwenden häufig SD-Karten.
+Du kannst `LIBRARY SAVE` mehrfach verwenden.
 
-Die Vorteile sind:
+Bei jedem Aufruf wird der aktuelle Inhalt des Programmspeichers an die
+bereits vorhandene Library angehängt.
 
-* große Speicherkapazität
-* einfache Datensicherung
-* einfacher Datenaustausch mit dem PC
+So kannst du deine Library schrittweise um weitere Routinen ergänzen.
 
-Viele Anwender speichern sämtliche Projekte auf der SD-Karte.
+[CAUTION]
+====
+Achte darauf, keine Routinen mit bereits verwendeten Namen erneut
+hinzuzufügen. Da die neuen Bestandteile an die vorhandene Library angehängt
+werden, solltest du deine Library sorgfältig planen und den vollständigen
+Quelltext aufbewahren.
+====
 
-=== Die Dateiauswahl des Colour Maximite 2
+==== Inhalt der Library anzeigen
 
-Eine besonders praktische Funktion besitzt der Colour Maximite 2.
-
-Wird an der Eingabeaufforderung die Taste:
-
-----
-F1
-----
-
-gedrückt, erscheint eine Dateiauswahl.
-
-Der Benutzer kann nun bequem ein Programm aus einer Liste auswählen.
-
-=== Warum ist F1 so praktisch?
-
-Bei einer großen Programmsammlung müssen Dateinamen nicht mehr vollständig eingegeben werden.
-
-Statt:
+Mit
 
 [source,basic]
 ----
-LOAD "SENSO.BAS"
+LIBRARY LIST
 ----
 
-genügt:
+kannst du dir den Inhalt der Library anzeigen lassen.
 
-[source]
+Bei einem normalen
+
+[source,basic]
 ----
-F1 drücken
-Programm auswählen
-Enter
+LIST
 ----
 
-Das erinnert an klassische Heimcomputer und macht die Bedienung besonders komfortabel.
+werden die Library-Routinen dagegen nicht angezeigt. `LIST` zeigt nur das
+aktuell geladene Hauptprogramm.
 
-=== Der tägliche Arbeitsablauf
+==== Library sichern und wiederherstellen
 
-Ein typischer Entwicklungsablauf könnte so aussehen:
+Die gesamte Library kann als Datei gesichert werden:
 
-[source]
+[source,basic]
+----
+LIBRARY DISK SAVE "MEINELIB.LIB"
+----
+
+Mit
+
+[source,basic]
+----
+LIBRARY DISK LOAD "MEINELIB.LIB"
+----
+
+kannst du sie später wiederherstellen.
+
+Diese Sicherung ist beispielsweise nützlich, wenn du die Firmware
+aktualisieren oder dieselbe Library auf einem anderen PicoMite verwenden
+möchtest.
+
+==== Library löschen
+
+Mit
+
+[source,basic]
+----
+LIBRARY DELETE
+----
+
+wird die gesamte Library gelöscht.
+
+Der dafür verwendete Flash-Speicher steht anschließend wieder für normale
+Programme zur Verfügung.
+
+[NOTE]
+====
+Die Library verwendet den Flash-Slot 3. Solange eine Library installiert
+ist, kann dieser Slot nicht zum Speichern eines normalen Programms verwendet
+werden.
+====
+
+==== Was kann eine Library enthalten?
+
+Eine Library kann mehr als nur `SUB`- und `FUNCTION`-Routinen enthalten.
+
+Möglich sind unter anderem:
+
+* Unterprogramme,
+* Funktionen,
+* eingebettete C-Routinen,
+* eingebettete Fonts und
+* Initialisierungscode.
+
+Für den Einstieg sind wiederverwendbare Unterprogramme und Funktionen jedoch
+am wichtigsten.
+
+=== Automatisch ausgeführter Library-Code
+
+Eine Library kann auch Anweisungen enthalten, die sich nicht innerhalb einer
+`SUB` oder `FUNCTION` befinden.
+
+Solcher Code wird automatisch ausgeführt, bevor ein Programm mit `RUN`
+gestartet wird.
+
+Damit können beispielsweise Konstanten bereitgestellt werden:
+
+[source,basic]
+----
+CONST TRUE = 1
+CONST FALSE = 0
+----
+
+Nach dem Speichern in der Library stehen `TRUE` und `FALSE` allen
+Programmen zur Verfügung.
+
+[NOTE]
+====
+Initialisierungscode in der Library wird vor jedem mit `RUN` gestarteten
+Programm ausgeführt.
+
+Er ist nicht mit der besonderen Routine `MM.STARTUP` zu verwechseln, die nur
+beim Einschalten oder Zurücksetzen des PicoMite ausgeführt wird.
+====
+
+==== Besondere Systemroutinen
+
+MMBasic kennt einige besondere Namen für Unterprogramme.
+
+`MM.STARTUP`::
+Wird einmal nach dem Einschalten oder einem Reset ausgeführt. Damit kann
+beispielsweise eine angeschlossene Echtzeituhr eingelesen werden.
+
+[source,basic]
+----
+SUB MM.STARTUP
+  RTC GETTIME
+END SUB
+----
+
+[CAUTION]
+====
+Verwende `MM.STARTUP` nicht zur allgemeinen Vorbereitung eines später mit
+`RUN` gestarteten Programms, beispielsweise zum Dimensionieren von Arrays
+oder zum Öffnen von Kommunikationskanälen.
+
+Beim Start mit `RUN` setzt MMBasic den Zustand des Interpreters für einen
+neuen Programmlauf zurück. Solche Vorbereitungen gehören deshalb in den
+normalen Initialisierungsteil des Hauptprogramms oder in den automatisch vor
+`RUN` ausgeführten Library-Code.
+====
+
+`MM.PROMPT`::
+Wird anstelle der normalen Eingabeaufforderung ausgeführt. Damit lässt sich
+beispielsweise eine eigene Eingabeaufforderung anzeigen.
+
+[source,basic]
+----
+SUB MM.PROMPT
+  PRINT TIME$ "> ";
+END SUB
+----
+
+`MM.END`::
+Wird ausgeführt, wenn ein Programm durch `END` oder durch das Erreichen des
+Programmendes beendet wird.
+
+Diese Routinen sind für besondere Anwendungen gedacht. Für gewöhnliche
+Initialisierungen innerhalb eines Programms ist weiterhin normaler
+Programmcode besser geeignet.
+
+=== Ein typischer Arbeitsablauf
+
+Viele MMBasic-Anwender arbeiten nach einem einfachen Schema:
+
 ----
 EDIT
-  ↓
-Programm schreiben
-  ↓
-SAVE
-  ↓
+ ↓
+Programm entwickeln
+ ↓
+F1
+ ↓
+RUN
+ ↓
+SAVE "MEINPROGRAMM.BAS"
+----
+
+Zu einem späteren Zeitpunkt:
+
+----
+LOAD "MEINPROGRAMM.BAS"
+ ↓
+EDIT
+ ↓
+Programm erweitern
+ ↓
+F1
+ ↓
 RUN
 ----
 
-Später:
+Dieser Arbeitsablauf hat sich in der Praxis sehr bewährt.
 
-[source]
-----
-LOAD
-  ↓
-RUN
-----
+=== Profitipps
 
-Dadurch können Programme jederzeit weiterentwickelt werden.
+[TIP]
+====
+**Programme automatisch starten**
 
-=== Tipps aus der Praxis
-
-* Speichere wichtige Programme regelmäßig.
-* Verwende aussagekräftige Dateinamen.
-* Lege verschiedene Projekte in getrennten Verzeichnissen ab.
-* Sichere wichtige Projekte zusätzlich auf dem PC.
-* Nutze die Dateiauswahl des Colour Maximite 2 bei größeren Programmsammlungen.
-
-=== Probier's selbst!
-
-Erstelle ein kleines Testprogramm:
+Soll dein Programm nach jedem Einschalten des PicoMite automatisch gestartet
+werden, kannst du dies mit folgendem Befehl aktivieren:
 
 [source,basic]
 ----
-PRINT "Hallo MMBasic"
+OPTION AUTORUN ON
 ----
 
-Speichere es anschließend:
+Während der Entwicklung empfiehlt es sich, diese Funktion zunächst deaktiviert
+zu lassen und Programme manuell mit `RUN` zu starten.
 
-[source,basic]
-----
-SAVE "HALLO.BAS"
-----
-
-Lade es erneut:
+Mit
 
 [source,basic]
 ----
-LOAD "HALLO.BAS"
+OPTION AUTORUN OFF
 ----
 
-Zeige danach mit FILES oder CAT die vorhandenen Dateien an.
+wird der automatische Start wieder abgeschaltet.
+====
+
+[TIP]
+====
+**Programme regelmäßig sichern**
+
+Speichere wichtige Programme zusätzlich auf deinem PC oder in einem Cloud-Speicher.
+Eine SD-Karte kann verloren gehen oder beschädigt werden.
+====
+
+[TIP]
+====
+**Ordnung spart Zeit**
+
+Eine sinnvolle Ordnerstruktur und aussagekräftige Dateinamen helfen dir, auch
+bei vielen Projekten den Überblick zu behalten.
+====
 
 === Zusammenfassung
 
-In diesem Kapitel hast du gelernt:
+Du kennst nun den Unterschied zwischen dem Programmspeicher des PicoMite und
+Programmen, die als Dateien gespeichert werden.
 
-* Programme mit SAVE zu speichern
-* Programme mit LOAD zu laden
-* Dateien mit FILES und CAT anzuzeigen
-* Laufwerke mit DRIVE auszuwählen
-* die Dateiauswahl des Colour Maximite 2 zu nutzen
+Außerdem weißt du, wie du Programme sinnvoll organisierst, Sicherheitskopien
+anlegst und mehrere Projekte gleichzeitig verwaltest.
 
-Im nächsten Kapitel beschäftigen wir uns mit Verzeichnissen und der Dateiverwaltung auf SD-Karten.
+Mit diesen Techniken behältst du auch bei größeren BASIC-Projekten jederzeit
+den Überblick.
