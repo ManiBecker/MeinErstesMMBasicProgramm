@@ -246,6 +246,8 @@ Weitere Möglichkeiten des Editors lernst du später im Kapitel
 
 [TIP]
 ====
+*Mit der Maus arbeiten*
+
 Der integrierte Editor unterstützt auch eine USB-Maus. Damit kannst du den
 Cursor bequem positionieren, Text markieren und durch größere Programme
 navigieren.
