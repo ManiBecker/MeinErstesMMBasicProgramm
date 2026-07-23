@@ -134,17 +134,20 @@ Dadurch bleiben deine Projekte dauerhaft übersichtlich.
 
 [TIP]
 ====
-MMBasic unterstützt auch das Aufteilen eines Projekts auf mehrere
-Quelldateien. Hierzu können beim Laden mit `CMM2 LOAD` oder `CMM2 RUN`
-`#INCLUDE`-Dateien verwendet werden.
+**Programme auf mehrere Dateien aufteilen**
 
-Diese Funktion dient in erster Linie der Kompatibilität zum Colour Maximite 2
-(CMM2) und eignet sich für größere Projekte mit mehreren Modulen.
+Bei größeren Projekten kann es sinnvoll sein, den Quelltext auf mehrere
+Dateien zu verteilen. So lassen sich beispielsweise Grafikroutinen,
+Hilfsfunktionen oder die Spiellogik in getrennten Dateien verwalten.
 
-Da die Quelldateien beim Laden zusammengeführt und komprimiert werden,
-sollten sie ausschließlich als Dateien auf dem Datenträger bearbeitet
-werden. Die im Speicher erzeugte Programmversion lässt sich nicht wieder in
-die ursprünglichen Einzeldateien zerlegen.
+MMBasic unterstützt dies über `#INCLUDE` in Verbindung mit `CMM2 LOAD` bzw.
+`CMM2 RUN`.
+
+Diese Funktion stammt ursprünglich vom Colour Maximite 2 und wird vor allem
+für größere Projekte oder zur Portierung von CMM2-Programmen verwendet.
+
+Für die meisten PicoMite-Projekte reicht jedoch ein einzelnes Programm oder
+eine Library völlig aus.
 ====
 
 === Wiederverwendbare Programmteile
