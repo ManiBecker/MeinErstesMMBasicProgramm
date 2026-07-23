@@ -4,217 +4,193 @@
 
 In diesem Kapitel lernst du:
 
-* wie Programme Entscheidungen treffen
-* wie die Anweisung IF verwendet wird
-* wie Werte miteinander verglichen werden
-* wie Programme unterschiedlich auf Eingaben reagieren
+* den integrierten Editor von MMBasic kennen
+* Programme zu speichern und auszuführen
+* Entscheidungen mit `IF` zu treffen
+* `ELSE` und `ELSEIF` zu verwenden
+* Bedingungen mit Vergleichsoperatoren zu formulieren
 
-Am Ende des Kapitels kannst du Programme schreiben, die auf Benutzereingaben reagieren und unterschiedliche Aktionen ausführen.
+Am Ende des Kapitels kannst du Programme schreiben, die auf unterschiedliche Situationen reagieren.
+
+=== Programme werden größer
+
+Bisher haben wir alle Beispiele direkt an der MMBasic-Eingabeaufforderung eingegeben.
+
+Das war ideal, um einzelne Befehle auszuprobieren und ihre Wirkung sofort zu sehen.
+
+Ab diesem Kapitel werden unsere Programme jedoch umfangreicher. Sie bestehen aus mehreren zusammengehörenden Zeilen und enthalten Programmstrukturen wie `IF`, `FOR` oder `DO...LOOP`.
+
+Solche Programme schreibt man am einfachsten im integrierten Editor von MMBasic.
+
+Keine Sorge – der Editor ist bewusst einfach gehalten und schnell zu erlernen.
+
+=== Den Editor starten
+
+Den Editor startest du mit dem Befehl:
+
+[source,basic]
+----
+EDIT
+----
+
+Nun kannst du dein Programm Zeile für Zeile eingeben.
+
+Während der Eingabe kannst du den Cursor mit den Pfeiltasten bewegen und den Text jederzeit ändern.
+
+[TIP]
+====
+Falls sich bereits ein anderes Programm im Speicher befindet, kannst du es vorher mit
+
+[source,basic]
+----
+NEW
+----
+
+löschen.
+
+MMBasic fragt anschließend nach, ob das Programm wirklich gelöscht werden soll.
+====
+
+=== Programme speichern
+
+Nachdem du dein Programm eingegeben hast, speicherst du es mit **F1**.
+
+Mit **F2** verlässt du anschließend den Editor und kehrst zur MMBasic-Eingabeaufforderung zurück.
+
+=== Programme starten
+
+Ein im Speicher befindliches Programm wird mit dem Befehl
+
+[source,basic]
+----
+RUN
+----
+
+gestartet.
+
+Möchtest du das Programm später ändern, öffnest du den Editor einfach erneut mit
+
+[source,basic]
+----
+EDIT
+----
 
 === Warum Entscheidungen wichtig sind
 
-Bisher wurden unsere Programme immer von oben nach unten ausgeführt.
+Bis jetzt wurden alle Programmzeilen nacheinander ausgeführt.
 
-Ein Programm soll aber oft unterschiedlich reagieren.
+Oft soll ein Programm jedoch unterschiedlich reagieren.
 
 Zum Beispiel:
 
-* Ist ein Benutzer volljährig?
-* Wurde die richtige Antwort eingegeben?
 * Ist eine Zahl größer als 100?
+* Wurde ein Taster gedrückt?
+* Ist eine Datei vorhanden?
+* Hat der Benutzer die richtige Antwort eingegeben?
 
-Für solche Aufgaben verwendet man die Anweisung `IF`.
+Für solche Entscheidungen gibt es den `IF`-Befehl.
 
 === Unsere erste Entscheidung
 
-Gib folgendes Programm ein:
+Das folgende Programm überprüft, ob die Variable `A` den Wert 10 besitzt.
 
 [source,basic]
 ----
-A=10
+A = 10
 
-IF A=10 THEN
-  PRINT "Richtig!"
+IF A = 10 THEN
+  PRINT "A hat den Wert 10."
 ENDIF
 ----
 
-Ausgabe:
+Die Bedingung hinter `IF` wird geprüft.
 
-[source]
-----
-Richtig!
-----
+Ist sie wahr, werden die Anweisungen zwischen `THEN` und `ENDIF` ausgeführt.
 
-Die Bedingung ist erfüllt.
+Ist sie falsch, werden diese Zeilen übersprungen.
 
-Deshalb wird die Anweisung zwischen `THEN` und `ENDIF` ausgeführt.
+=== Was bedeutet IF?
 
-=== Wenn die Bedingung nicht erfüllt ist
+`IF` bedeutet auf Deutsch **wenn**.
 
-Ändere das Programm:
+Die allgemeine Schreibweise lautet:
 
 [source,basic]
 ----
-A=5
+IF Bedingung THEN
 
-IF A=10 THEN
-  PRINT "Richtig!"
+  Anweisungen
+
 ENDIF
 ----
 
-Ausgabe:
+Das Programm kann dadurch unterschiedliche Wege einschlagen.
 
-[source]
-----
-----
+=== ELSE – der andere Fall
 
-Es erscheint keine Ausgabe.
-
-Die Bedingung ist nicht erfüllt.
-
-Deshalb wird der Bereich zwischen THEN und ENDIF übersprungen.
-
-=== ELSE - Was passiert sonst?
-
-Oft soll ein Programm nicht nur auf richtige Eingaben reagieren.
-
-Es soll auch etwas tun, wenn die Bedingung nicht erfüllt ist.
-
-Dafür gibt es ELSE.
+Mit `ELSE` kann festgelegt werden, was passieren soll, wenn die Bedingung nicht erfüllt ist.
 
 [source,basic]
 ----
-A=5
+A = 5
 
-IF A=10 THEN
-PRINT "Richtig!"
+IF A = 10 THEN
+  PRINT "A ist 10."
 ELSE
-PRINT "Falsch!"
+  PRINT "A ist nicht 10."
 ENDIF
 ----
 
-Ausgabe:
+Da `A` den Wert 5 besitzt, erscheint:
 
 [source]
 ----
-Falsch!
+A ist nicht 10.
 ----
 
-Ändere nun den Wert von A auf 10.
+=== Vergleichsoperatoren
 
-Welche Ausgabe erscheint jetzt?
+Für Bedingungen werden Vergleichsoperatoren verwendet.
 
-=== Werte vergleichen
+[cols="1,3",options="header"]
+|===
+|Operator
+|Bedeutung
 
-Mit IF können verschiedene Vergleiche durchgeführt werden.
+|=
+|gleich
 
-Gleich:
+|<>
+|ungleich
 
-[source,basic]
-----
-IF A=10 THEN
-PRINT "Gleich"
-ENDIF
-----
+|<
+|kleiner
 
-Ungleich:
+|>
+|größer
 
-[source,basic]
-----
-IF A<>10 THEN
-PRINT "Ungleich"
-ENDIF
-----
+|<=
+|kleiner oder gleich
 
-Größer:
-
-[source,basic]
-----
-IF A>10 THEN
-PRINT "Groesser"
-ENDIF
-----
-
-Kleiner:
-
-[source,basic]
-----
-IF A<10 THEN
-PRINT "Kleiner"
-ENDIF
-----
-
-Größer oder gleich:
-
-[source,basic]
-----
-IF A>=10 THEN
-PRINT "Groesser oder gleich"
-ENDIF
-----
-
-Kleiner oder gleich:
-
-[source,basic]
-----
-IF A<=10 THEN
-PRINT "Kleiner oder gleich"
-ENDIF
-----
-
-=== Alter prüfen
-
-Mit Benutzereingaben werden Entscheidungen besonders interessant.
-
-[source,basic]
-----
-PRINT "Wie alt bist du?"
-INPUT ALTER
-
-IF ALTER>=18 THEN
-PRINT "Du bist volljaehrig."
-ELSE
-PRINT "Du bist minderjaehrig."
-ENDIF
-----
-
-Beispiel:
-
-[source]
-----
-Wie alt bist du?
-? 25
-
-Du bist volljaehrig.
-----
-
-=== Texte vergleichen
-
-Auch Texte können verglichen werden.
-
-[source,basic]
-----
-PRINT "Wie heisst du?"
-INPUT NAME$
-
-IF NAME$="MANFRED" THEN
-PRINT "Hallo Manfred!"
-ELSE
-PRINT "Hallo unbekannter Besucher!"
-ENDIF
-----
+|>=
+|größer oder gleich
+|===
 
 === Unser erstes Quiz
+
+Mit `IF` können Programme auf Benutzereingaben reagieren.
+
+Das folgende Programm stellt eine einfache Rechenaufgabe.
 
 [source,basic]
 ----
 PRINT "Wieviel ist 2+3?"
 INPUT ANTWORT
 
-IF ANTWORT=5 THEN
-PRINT "Richtig!"
+IF ANTWORT = 5 THEN
+  PRINT "Richtig!"
 ELSE
-PRINT "Leider falsch."
+  PRINT "Leider falsch."
 ENDIF
 ----
 
@@ -228,42 +204,48 @@ Wieviel ist 2+3?
 Richtig!
 ----
 
+Obwohl das Programm nur aus wenigen Zeilen besteht, trifft es bereits eine Entscheidung.
+
+Genau dieses Prinzip wird später in Spielen, Menüs oder Messprogrammen verwendet.
+
 === Mehrere Entscheidungen
 
 Ein Programm kann beliebig viele Entscheidungen enthalten.
 
+Im folgenden Beispiel wird für jede Schulnote eine eigene `IF`-Anweisung verwendet.
+
 [source,basic]
 ----
 INPUT NOTE
 
-IF NOTE=1 THEN
-PRINT "Sehr gut"
+IF NOTE = 1 THEN
+  PRINT "Sehr gut"
 ENDIF
 
-IF NOTE=2 THEN
-PRINT "Gut"
+IF NOTE = 2 THEN
+  PRINT "Gut"
 ENDIF
 
-IF NOTE=3 THEN
-PRINT "Befriedigend"
+IF NOTE = 3 THEN
+  PRINT "Befriedigend"
 ENDIF
 ----
+
+Das funktioniert zwar, ist bei vielen Möglichkeiten jedoch etwas umständlich.
 
 === ELSEIF verwenden
 
-Oft müssen mehrere Möglichkeiten geprüft werden.
-
-Dafür eignet sich `ELSEIF`.
+Mehrere Möglichkeiten lassen sich deutlich übersichtlicher mit `ELSEIF` formulieren.
 
 [source,basic]
 ----
 INPUT NOTE
 
-IF NOTE=1 THEN
+IF NOTE = 1 THEN
   PRINT "Sehr gut"
-ELSEIF NOTE=2 THEN
+ELSEIF NOTE = 2 THEN
   PRINT "Gut"
-ELSEIF NOTE=3 THEN
+ELSEIF NOTE = 3 THEN
   PRINT "Befriedigend"
 ELSE
   PRINT "Unbekannte Note"
@@ -279,42 +261,61 @@ Beispiel:
 Gut
 ----
 
-=== Experimentiere!
+Sobald eine Bedingung erfüllt ist, werden die restlichen `ELSEIF`-Bedingungen nicht mehr geprüft.
 
-Probiere folgende Beispiele aus:
+Programme werden dadurch übersichtlicher und leichter zu erweitern.
+
+=== Verschachtelte Entscheidungen
+
+Auch innerhalb eines `IF`-Blocks kann sich eine weitere Entscheidung befinden.
 
 [source,basic]
 ----
-INPUT ZAHL
+ALTER = 20
 
-IF ZAHL>100 THEN
-PRINT "Die Zahl ist groesser als 100."
-ELSE
-PRINT "Die Zahl ist kleiner oder gleich 100."
+IF ALTER >= 18 THEN
+
+  PRINT "Volljährig"
+
+  IF ALTER >= 67 THEN
+    PRINT "Rentenalter erreicht"
+  ENDIF
+
 ENDIF
 ----
 
-Was passiert bei verschiedenen Eingaben?
+Solche verschachtelten Entscheidungen kommen in größeren Programmen häufig vor.
+
+=== Häufige Fehler
+
+Beim Arbeiten mit `IF` passieren Anfängern häufig dieselben Fehler.
+
+Achte besonders auf folgende Punkte:
+
+* Nach der Bedingung muss `THEN` stehen.
+* Jeder `IF`-Block benötigt ein passendes `ENDIF`.
+* Für Vergleiche wird `=` verwendet.
+* Die Anweisungen zwischen `THEN` und `ENDIF` sollten eingerückt werden. Dadurch werden Programme wesentlich übersichtlicher.
 
 === Probier's selbst!
 
 Versuche folgende Aufgaben:
 
-. Frage das Alter ab und prüfe, ob die Person volljährig ist.
-. Frage einen Namen ab und gib eine persönliche Begrüßung aus.
-. Prüfe, ob eine Zahl größer als 100 ist.
-. Erstelle ein kleines Rechenquiz.
-. Erweitere das Quiz um eine Ausgabe für falsche Antworten.
+. Schreibe ein Programm, das prüft, ob eine Zahl größer als 100 ist.
+. Gib aus, ob eine Zahl gerade oder ungerade ist.
+. Vergleiche zwei Zahlen miteinander.
+. Erweitere das Quiz um weitere Rechenaufgaben.
+. Gib abhängig vom Alter unterschiedliche Texte aus.
 
 === Zusammenfassung
 
-In diesem Kapitel hast du die Anweisung IF kennengelernt.
+In diesem Kapitel hast du gelernt,
 
-Du kannst nun:
+* den Editor von MMBasic zu verwenden,
+* Programme zu speichern und auszuführen,
+* Entscheidungen mit `IF` zu treffen,
+* `ELSE` und `ELSEIF` einzusetzen,
+* Bedingungen mit Vergleichsoperatoren zu formulieren,
+* Programme durch Einrückungen übersichtlich zu gestalten.
 
-Werte vergleichen
-Entscheidungen treffen
-auf Benutzereingaben reagieren
-unterschiedliche Programmabläufe mit ELSE erstellen
-
-Im nächsten Kapitel lernen wir Schleifen mit FOR ... NEXT kennen.
+Im nächsten Kapitel lernst du Schleifen kennen. Damit können Programmteile beliebig oft wiederholt werden.
