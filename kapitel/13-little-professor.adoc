@@ -206,6 +206,64 @@ ENDIF
 
 Dadurch erhält der Spieler eine direkte Rückmeldung über seine Leistung.
 
+=== Effizient mit dem Editor arbeiten
+
+Unser Little-Professor-Programm ist inzwischen deutlich größer geworden. Bei
+umfangreicheren Programmen lohnt es sich, die wichtigsten Funktionen des
+Editors kennenzulernen. Dadurch kannst du Änderungen schneller durchführen und
+behältst auch bei vielen Programmzeilen den Überblick.
+
+==== Cursor bewegen
+
+Mit den Pfeiltasten bewegst du den Cursor wie gewohnt durch den Quelltext.
+Die Tasten **Pos1 (Home)** und **Ende (End)** springen an den Anfang bzw. das
+Ende der aktuellen Zeile. Mit **Bild↑** und **Bild↓** kannst du schneller durch
+längere Programme blättern.
+
+==== Zeilen einfügen und ändern
+
+Du kannst den Cursor an eine beliebige Stelle setzen und dort sofort mit dem
+Schreiben beginnen. Bestehende Zeilen lassen sich jederzeit ändern oder
+ergänzen. So musst du ein Programm nicht von vorne beginnen, wenn du eine Idee
+verbessern möchtest.
+
+==== Kopieren und Einfügen
+
+Wenn sich Programmteile wiederholen, musst du sie nicht erneut eintippen.
+Markiere den gewünschten Bereich und kopiere ihn mit den üblichen
+Tastenkombinationen **Strg+C** und **Strg+V**. Das spart Zeit und vermeidet
+Tippfehler.
+
+==== Suchen
+
+In längeren Programmen kann es schwierig werden, eine bestimmte Variable oder
+eine IF-Anweisung wiederzufinden. Die Suchfunktion des Editors hilft dir dabei,
+gesuchte Begriffe schnell zu finden.
+
+Mit diesen wenigen Funktionen lässt sich bereits sehr komfortabel arbeiten.
+Weitere Möglichkeiten des Editors lernst du später im Kapitel
+»Der eingebaute Editor« kennen.
+
+[TIP]
+====
+Der integrierte Editor unterstützt auch eine USB-Maus. Damit kannst du den
+Cursor bequem positionieren, Text markieren und durch größere Programme
+navigieren.
+
+Damit die Maus verwendet werden kann, muss sie zunächst aktiviert werden:
+
+[source,basic]
+----
+OPTION MOUSE ON
+----
+
+Diese Einstellung muss nur einmal vorgenommen werden und bleibt dauerhaft
+gespeichert.
+
+Natürlich funktioniert der Editor auch vollständig ohne Maus – alle Funktionen
+lassen sich ebenso mit der Tastatur bedienen.
+====
+
 === Verbesserungsmöglichkeiten
 
 Unser Little Professor funktioniert bereits erstaunlich gut.
