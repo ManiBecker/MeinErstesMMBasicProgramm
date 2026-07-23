@@ -28,6 +28,19 @@ Mit MMBasic lassen sich nicht nur Konsolenprogramme entwickeln, sondern auch:
 * Mess- und Steueranwendungen
 * Netzwerkanwendungen
 
+=== Die Entwickler hinter MMBasic
+
+MMBasic wurde von Geoff Graham entwickelt. Die Sprache entstand ursprünglich
+für den Maximite, einen kleinen Computer, der nach dem Einschalten direkt mit
+einer BASIC-Eingabeaufforderung startet.
+
+Peter Mather entwickelte MMBasic für weitere leistungsfähige Plattformen
+weiter. Dazu gehören unter anderem der Colour Maximite 2 sowie die
+PicoMite-Familie für den Raspberry Pi Pico und Pico 2.
+
+Ohne ihre langjährige Entwicklungsarbeit, ihre ausführlichen Handbücher und
+die kontinuierliche Pflege der Firmware wäre dieses Buch nicht möglich.
+
 === Warum dieses Tutorial?
 
 Viele Programmierbücher konzentrieren sich auf die Beschreibung einzelner Befehle.
