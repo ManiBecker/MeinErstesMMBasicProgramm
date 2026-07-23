@@ -4,45 +4,49 @@
 
 In diesem Kapitel lernst du:
 
-* was CHAIN macht
-* wann CHAIN sinnvoll eingesetzt wird
-* wie mehrere Programme zusammenarbeiten können
-* einfache Menüsysteme zu erstellen
-* größere Projekte in mehrere Dateien aufzuteilen
+* was `CHAIN` macht,
+* wann `CHAIN` sinnvoll eingesetzt wird,
+* wie du mehrere Programme miteinander verbindest,
+* wie du ein gemeinsames Menü für deine Programme erstellst und
+* wie Daten zwischen getrennten Programmen ausgetauscht werden können.
 
-Am Ende des Kapitels kannst du mehrere MMBasic-Programme zu einer gemeinsamen Anwendung verbinden.
+Am Ende des Kapitels kannst du mehrere eigenständige MMBasic-Programme zu
+einer gemeinsamen Anwendung verbinden.
 
-=== Warum mehrere Programme?
+=== Ein gemeinsames Menü
 
-In den bisherigen Kapiteln bestand ein Projekt meist aus einer einzigen Datei.
+In den bisherigen Kapiteln hast du bereits mehrere Programme entwickelt,
+zum Beispiel:
 
-Beispiele:
+* Pong,
+* Senso,
+* Little Professor und
+* die Bahnhofsuhr.
 
-* Zahlenraten
-* Little Professor
-* Pong
-* Senso
+Wäre es nicht praktisch, wenn du alle diese Programme über ein gemeinsames
+Hauptmenü starten könntest?
 
-Mit zunehmender Projektgröße kann es jedoch sinnvoll sein, Funktionen auf mehrere Programme aufzuteilen.
+Genau dafür gibt es den Befehl `CHAIN`.
 
-Beispielsweise:
+Mit `CHAIN` lassen sich mehrere eigenständige Programme miteinander verbinden.
+Dadurch können übersichtliche Anwendungen entstehen, deren einzelne Programme
+jeweils eine bestimmte Aufgabe übernehmen.
+
+Ein solches Projekt könnte beispielsweise aus folgenden Dateien bestehen:
 
 [source]
 ----
 HAUPTMENU.BAS
-
 PONG.BAS
-
 SENSO.BAS
-
+LITTLEPROFESSOR.BAS
 UHR.BAS
+RECHNER.BAS
 ----
-
-Jedes Programm übernimmt dabei eine bestimmte Aufgabe.
 
 === Was macht CHAIN?
 
-Mit CHAIN wird ein anderes BASIC-Programm geladen und gestartet.
+Mit `CHAIN` wird ein anderes BASIC-Programm geladen und sofort gestartet.
 
 Beispiel:
 
@@ -51,26 +55,30 @@ Beispiel:
 CHAIN "PONG.BAS"
 ----
 
-Das aktuell laufende Programm wird beendet.
+Das aktuell laufende Programm wird beendet. Anschließend wird `PONG.BAS`
+geladen und gestartet.
 
-Anschließend wird PONG.BAS geladen und gestartet.
+[NOTE]
+====
+`CHAIN` startet das neue Programm so, als wäre es gerade frisch geladen
+worden. Variablen des vorherigen Programms stehen deshalb im neuen Programm
+nicht mehr zur Verfügung.
+====
 
 === CHAIN oder RUN?
 
-Auf den ersten Blick scheint CHAIN dem Befehl RUN ähnlich zu sein.
+Auf den ersten Blick scheint `CHAIN` dem Befehl `RUN` ähnlich zu sein. Es gibt
+jedoch einen wichtigen Unterschied.
 
-Es gibt jedoch einen wichtigen Unterschied.
-
-RUN wird typischerweise an der Eingabeaufforderung verwendet:
+`RUN` wird normalerweise verwendet, um ein Programm an der
+MMBasic-Eingabeaufforderung zu starten:
 
 [source,basic]
 ----
 RUN "PONG.BAS"
 ----
 
-CHAIN wird dagegen innerhalb eines laufenden Programms eingesetzt.
-
-Beispiel:
+`CHAIN` wird dagegen innerhalb eines bereits laufenden Programms eingesetzt:
 
 [source,basic]
 ----
@@ -79,28 +87,28 @@ IF taste$ = "P" THEN
 ENDIF
 ----
 
+Damit kann ein Programm gezielt ein anderes Programm aufrufen.
+
 === Ein einfaches Hauptmenü
 
-Erstellen wir ein kleines Menüsystem.
+Erstellen wir ein Menü, über das sich einige unserer bisherigen Programme
+starten lassen.
 
-Datei:
-
-[source]
-----
-HAUPTMENU.BAS
-----
+Speichere das folgende Programm als `HAUPTMENU.BAS`:
 
 [source,basic]
 ----
 CLS
 
-PRINT "===================="
-PRINT " MMBASIC SPIELE "
-PRINT "===================="
+PRINT "========================"
+PRINT "   MMBASIC-SAMMLUNG"
+PRINT "========================"
 PRINT
 PRINT "1 - Pong"
 PRINT "2 - Senso"
-PRINT "3 - Bahnhofsuhr"
+PRINT "3 - Little Professor"
+PRINT "4 - Bahnhofsuhr"
+PRINT "5 - Rechner"
 PRINT
 PRINT "0 - Ende"
 
@@ -115,44 +123,62 @@ SELECT CASE wahl
     CHAIN "SENSO.BAS"
 
   CASE 3
+    CHAIN "LITTLEPROFESSOR.BAS"
+
+  CASE 4
     CHAIN "UHR.BAS"
 
-END SELECT
+  CASE 5
+    CHAIN "RECHNER.BAS"
 
-END
+  CASE 0
+    END
+
+  CASE ELSE
+    PRINT "Ungültige Auswahl"
+
+END SELECT
 ----
+
+Wählt der Benutzer einen Menüpunkt aus, lädt `CHAIN` das zugehörige Programm
+und startet es.
 
 === Die Struktur des Projekts
 
+Die Dateien können gemeinsam in einem Projektverzeichnis abgelegt werden:
+
 [source]
 ----
-SPIELE
+MMBASIC-SAMMLUNG
 │
 ├── HAUPTMENU.BAS
 ├── PONG.BAS
 ├── SENSO.BAS
-└── UHR.BAS
+├── LITTLEPROFESSOR.BAS
+├── UHR.BAS
+└── RECHNER.BAS
 ----
 
-Der Benutzer startet lediglich:
+Der Benutzer startet nur das Hauptmenü:
 
 [source,basic]
 ----
 RUN "HAUPTMENU.BAS"
 ----
 
-Danach erfolgt die Navigation über das Menü.
+Alle weiteren Programme werden anschließend über das Menü aufgerufen.
 
 === Zurück zum Hauptmenü
 
-Ein Spiel kann jederzeit wieder zum Hauptmenü zurückkehren.
+Damit eine zusammenhängende Anwendung entsteht, sollten die aufgerufenen
+Programme wieder zum Hauptmenü zurückkehren können.
 
-Beispiel:
+Am Ende eines Spiels könnte beispielsweise stehen:
 
 [source,basic]
 ----
 PRINT
-PRINT "Taste drücken..."
+PRINT "Beliebige Taste für das Hauptmenü ..."
 
 DO
 LOOP UNTIL INKEY$ <> ""
@@ -160,21 +186,31 @@ LOOP UNTIL INKEY$ <> ""
 CHAIN "HAUPTMENU.BAS"
 ----
 
-Dadurch entsteht eine vollständige Anwendung aus mehreren Einzelprogrammen.
+Nach dem Tastendruck wird das Hauptmenü erneut geladen und gestartet.
 
 === Vorteile von CHAIN
 
-Die Aufteilung in mehrere Programme bietet viele Vorteile:
+Die Verbindung mehrerer Programme bietet einige Vorteile:
 
-* kleinere Quelldateien
-* bessere Übersicht
-* einfachere Wartung
-* getrennte Entwicklung einzelner Module
-* Wiederverwendbarkeit
+* Die einzelnen Programme bleiben überschaubar.
+* Jedes Programm kann unabhängig entwickelt und getestet werden.
+* Fehler lassen sich leichter eingrenzen.
+* Einzelne Programme können ausgetauscht oder erweitert werden.
+* Ein zentrales Menü kann verschiedene Programme zu einer gemeinsamen
+  Anwendung verbinden.
+
+[TIP]
+====
+`CHAIN` eignet sich besonders für Programme, die weitgehend unabhängig
+voneinander arbeiten.
+
+Sollen dagegen mehrere Programme dieselben Unterprogramme oder Funktionen
+verwenden, ist häufig die MMBasic-Library die bessere Wahl.
+====
 
 === Ein Beispiel aus der Praxis
 
-Stellen wir uns vor, wir möchten eine kleine Programmsammlung erstellen.
+Auch eine kleine Werkzeugsammlung lässt sich mit `CHAIN` aufbauen:
 
 [source]
 ----
@@ -187,17 +223,16 @@ TOOLS
 └── NOTIZEN.BAS
 ----
 
-Das Menü übernimmt die Auswahl.
-
-Die einzelnen Programme bleiben unabhängig voneinander.
+Das Menü übernimmt nur die Auswahl. Die einzelnen Programme bleiben
+unabhängig voneinander und können jeweils separat gestartet und getestet
+werden.
 
 === Grenzen von CHAIN
 
-CHAIN lädt das neue Programm vollständig.
+`CHAIN` lädt das neue Programm vollständig und beendet das aktuell laufende
+Programm.
 
-Dabei wird das aktuell laufende Programm beendet.
-
-Alle Variablen gehen verloren.
+Dadurch gehen alle Variablen des bisherigen Programms verloren.
 
 Beispiel:
 
@@ -208,28 +243,27 @@ punkte = 100
 CHAIN "SPIEL2.BAS"
 ----
 
-In SPIEL2.BAS existiert die Variable:
+Im Programm `SPIEL2.BAS` existiert die Variable `punkte` nicht mehr.
 
-[source,basic]
-----
-punkte
-----
-
-nicht mehr.
+`CHAIN` verbindet also den Ablauf mehrerer Programme, aber nicht deren
+Variablen oder Programmspeicher.
 
 === Daten zwischen Programmen austauschen
 
-Sollen Daten erhalten bleiben, gibt es verschiedene Möglichkeiten:
+Sollen Daten über einen Programmwechsel hinweg erhalten bleiben, müssen sie
+vorher gespeichert werden.
 
-* Dateien verwenden
-* Einstellungen speichern
-* Daten neu berechnen
+Dafür gibt es verschiedene Möglichkeiten:
 
-Für viele Anwendungen genügt bereits das Speichern einer kleinen Datei.
+* Daten in einer Datei speichern,
+* Einstellungen dauerhaft ablegen oder
+* benötigte Werte im neuen Programm erneut berechnen.
 
-=== Beispiel: Spielstand speichern
+Für viele Anwendungen genügt eine kleine Datei.
 
-Programm 1:
+==== Beispiel: Spielstand speichern
+
+Das erste Programm speichert den Punktestand:
 
 [source,basic]
 ----
@@ -242,7 +276,7 @@ CLOSE #1
 CHAIN "SPIEL2.BAS"
 ----
 
-Programm 2:
+Das zweite Programm liest ihn wieder ein:
 
 [source,basic]
 ----
@@ -255,11 +289,11 @@ CLOSE #1
 PRINT "Punkte:"; punkte
 ----
 
-So können Informationen zwischen Programmen übertragen werden.
+So können Informationen von einem Programm an das nächste übergeben werden.
 
 === CHAIN und Verzeichnisse
 
-CHAIN kann auch mit Pfadangaben verwendet werden.
+`CHAIN` kann auch mit vollständigen Pfadangaben verwendet werden.
 
 Beispiel:
 
@@ -275,67 +309,87 @@ oder:
 CHAIN "/TOOLS/UHR.BAS"
 ----
 
-Dadurch lassen sich auch größere Projektstrukturen organisieren.
+Dadurch lassen sich auch größere Programmsammlungen übersichtlich in
+verschiedenen Verzeichnissen organisieren.
 
-=== Ein Blick auf klassische Heimcomputer
+=== Historischer Hintergrund
 
-Viele klassische BASIC-Systeme boten ähnliche Möglichkeiten.
+Schon viele klassische BASIC-Systeme kannten Befehle, mit denen zwischen
+mehreren Programmen gewechselt werden konnte.
 
-Beispiele:
+Dadurch konnten auch auf Computern mit wenig Speicher umfangreichere
+Anwendungen entstehen. MMBasic führt dieses bewährte Konzept auf modernen
+Systemen fort.
 
-* Commodore 64
-* Atari
-* Schneider CPC
-* BBC Micro
+=== Praxisprojekt: Deine MMBasic-Sammlung
 
-Auch dort wurden größere Anwendungen häufig in mehrere Programme aufgeteilt.
+Erstelle eine gemeinsame Programmsammlung aus einigen Programmen, die du in
+den bisherigen Kapiteln entwickelt hast.
 
-CHAIN führt dieses Konzept auf modernen MMBasic-Systemen fort.
-
-=== Praxisprojekt: Die MMBasic-Spielesammlung
-
-Nutze die bereits erstellten Programme:
-
-* Pong
-* Senso
-* Bahnhofsuhr
-
-und erstelle ein gemeinsames Hauptmenü.
-
-Erweitere das Menü beispielsweise um:
+Eine mögliche Struktur ist:
 
 [source]
 ----
-4 - Rechner
-5 - Little Professor
+MMBasic-Sammlung
+│
+├── Hauptmenü
+├── Spiele
+├── Lernprogramme
+└── Werkzeuge
 ----
 
-Je größer die Sammlung wird, desto wertvoller wird ein zentrales Menü.
+Das Hauptmenü könnte beispielsweise folgende Einträge enthalten:
+
+[source]
+----
+1 - Pong
+2 - Senso
+3 - Little Professor
+4 - Bahnhofsuhr
+5 - Rechner
+----
+
+Jedes aufgerufene Programm sollte am Ende wieder mit
+
+[source,basic]
+----
+CHAIN "HAUPTMENU.BAS"
+----
+
+zum Hauptmenü zurückkehren.
+
+Je größer deine Sammlung wird, desto nützlicher wird ein zentrales Menü.
 
 === Tipps aus der Praxis
 
-* Verwende CHAIN für größere Projekte.
-* Halte einzelne Programme überschaubar.
-* Verwende aussagekräftige Dateinamen.
-* Speichere wichtige Daten vor dem Wechsel in Dateien.
-* Plane eine klare Verzeichnisstruktur.
+* Verwende `CHAIN` für Programme, die weitgehend unabhängig voneinander
+  arbeiten.
+* Teste jedes Programm zunächst einzeln.
+* Verwende aussagekräftige Datei- und Verzeichnisnamen.
+* Speichere wichtige Daten vor dem Programmwechsel in einer Datei.
+* Sorge dafür, dass jedes Unterprogramm wieder zum Hauptmenü zurückkehren kann.
+* Plane frühzeitig eine klare Verzeichnisstruktur.
 
 === Probier's selbst!
 
 . Erstelle ein Hauptmenü.
 . Lege zwei kleine Testprogramme an.
-. Starte die Programme über CHAIN.
-. Baue eine Rückkehr zum Hauptmenü ein.
+. Starte beide Programme über `CHAIN`.
+. Baue in jedes Programm eine Rückkehr zum Hauptmenü ein.
 . Erweitere das Menü um weitere Programme.
+. Übertrage einen Wert mithilfe einer Datei von einem Programm zum nächsten.
 
 === Zusammenfassung
 
 In diesem Kapitel hast du gelernt:
 
-* Programme mit CHAIN zu starten
-* größere Projekte in mehrere Dateien aufzuteilen
-* Menüsysteme zu erstellen
-* Programme miteinander zu verbinden
-* Daten zwischen Programmen auszutauschen
+* Programme mit `CHAIN` zu starten,
+* mehrere eigenständige Programme miteinander zu verbinden,
+* ein gemeinsames Menü zu erstellen,
+* jedes Programm unabhängig zu entwickeln und zu testen und
+* Daten mithilfe einer Datei zwischen Programmen auszutauschen.
 
-Mit CHAIN steht dir nun ein wichtiges Werkzeug zur Verfügung, um größere und besser strukturierte MMBasic-Anwendungen zu entwickeln.
+`CHAIN` verbindet keine Quelltextmodule, sondern startet nacheinander
+vollständige Programme. Damit eignet sich der Befehl besonders für
+Menüsysteme und Programmsammlungen, deren einzelne Bestandteile weitgehend
+unabhängig voneinander arbeiten.
