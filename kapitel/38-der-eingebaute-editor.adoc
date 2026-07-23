@@ -458,18 +458,36 @@ Aktivieren:
 OPTION COLOURCODE ON
 ----
 
-=== Mausunterstützung
+=== Arbeiten mit der Maus
 
-Verfügt das System über eine Maus, kann diese ebenfalls verwendet werden.
+Der integrierte Editor unterstützt auch eine USB-Maus. Gerade bei größeren
+Programmen erleichtert sie das Positionieren des Cursors, das Markieren von
+Text und die Navigation im Quellcode.
 
-Mögliche Aktionen:
+Damit die Maus verwendet werden kann, muss sie einmalig aktiviert werden:
 
-* Cursor positionieren
-* Text markieren
-* Scrollen
-* Bereiche auswählen
+[source,basic]
+----
+OPTION MOUSE ON
+----
 
-Der Editor verhält sich dabei ähnlich wie moderne Desktop-Anwendungen.
+Diese Einstellung wird dauerhaft gespeichert und bleibt auch nach einem
+Neustart des PicoMite erhalten.
+
+Soll die Maus später wieder deaktiviert werden, verwendest du:
+
+[source,basic]
+----
+OPTION MOUSE OFF
+----
+
+Die Bedienung mit der Tastatur steht unabhängig davon jederzeit zur Verfügung.
+
+[TIP]
+====
+Falls nach dem Anschließen einer USB-Maus kein Mauszeiger erscheint,
+überprüfe zuerst, ob `OPTION MOUSE ON` aktiviert wurde.
+====
 
 === Automatische Sicherung
 
@@ -545,6 +563,70 @@ Hier kommen Programme wie MMEdit oder Visual Studio Code ins Spiel.
 * Behalte die automatisch erzeugten .BAK-Dateien als Sicherheitskopie.
 * Nutze F2 für einen schnellen Entwicklungszyklus.
 
+=== Profitipps
+
+Mit der Zeit entwickelt jeder Programmierer seinen eigenen Arbeitsstil.
+Die folgenden Tipps haben sich in der Praxis besonders bewährt.
+
+[TIP]
+====
+*Regelmäßig testen*
+
+Gewöhne dir an, nach jeder kleinen Änderung das Programm sofort zu starten.
+So entdeckst du Fehler frühzeitig und findest ihre Ursache deutlich schneller.
+====
+
+[TIP]
+====
+*Vor größeren Änderungen sichern*
+
+Bevor du umfangreiche Änderungen vornimmst, solltest du dein Programm unter
+einem neuen Dateinamen speichern. So kannst du jederzeit auf eine
+funktionierende Version zurückgreifen.
+====
+
+[TIP]
+====
+*Die Suchfunktion verwenden*
+
+Bei größeren Programmen ist die Suchfunktion häufig schneller als langes
+Scrollen. So findest du Variablen, Unterprogramme oder Kommentare in wenigen
+Sekunden.
+====
+
+[TIP]
+====
+*Die integrierte Hilfe nutzen*
+
+Falls du die Syntax eines BASIC-Befehls vergessen hast, positioniere den Cursor
+auf dem Befehl und drücke **F12**. Dadurch öffnet sich sofort die passende
+Dokumentation.
+====
+
+[TIP]
+====
+*Maus und Tastatur kombinieren*
+
+Viele Anwender verwenden sowohl Tastatur als auch Maus. Während die Tastatur
+für das Schreiben meist schneller ist, erleichtert die Maus das Navigieren und
+Markieren von Text erheblich.
+====
+
+[TIP]
+====
+*Der eingebaute Editor ist leistungsfähiger als viele vermuten.*
+
+Auch umfangreiche Programme mit mehreren hundert Zeilen lassen sich bequem
+direkt auf dem PicoMite entwickeln und pflegen.
+====
+
+[NOTE]
+====
+Auch dieses Tutorial wurde zu großen Teilen mit dem eingebauten Editor von
+MMBasic erstellt und getestet. Probiere ihn ruhig intensiv aus – du wirst
+überrascht sein, wie leistungsfähig er ist.
+====
+
 === Probier's selbst!
 
 Versuche folgende Aufgaben:
@@ -556,16 +638,18 @@ Versuche folgende Aufgaben:
 . Kopiere ein Unterprogramm mit F4 und F5.
 . Rufe die Hilfe zu PRINT auf.
 
-=== Zusammenfassung
+== Zusammenfassung
 
-In diesem Kapitel hast du gelernt:
+Der integrierte Editor von MMBasic bietet alle wichtigen Funktionen zum
+Erstellen und Bearbeiten von BASIC-Programmen direkt auf dem PicoMite.
 
-* den eingebauten Vollbild-Editor zu verwenden
-* Programme zu erstellen und zu bearbeiten
-* Such- und Kopierfunktionen einzusetzen
-* die integrierte Hilfe zu nutzen
-* Sicherungskopien zu verwenden
+Du kannst Programme schreiben, bearbeiten, durchsuchen und speichern, ohne
+einen PC zu benötigen. Mit einer USB-Maus lässt sich der Editor bei Bedarf
+noch komfortabler bedienen.
 
-Der eingebaute Editor ist eines der produktivsten Werkzeuge von MMBasic und ermöglicht die komplette Programmentwicklung direkt auf dem Zielsystem.
+Für viele Projekte ist der eingebaute Editor vollkommen ausreichend und wird
+von zahlreichen erfahrenen MMBasic-Anwendern täglich eingesetzt.
 
-Im nächsten Kapitel lernen wir mit MMEdit ein leistungsfähiges Entwicklungswerkzeug für den PC kennen.
+Im nächsten Kapitel lernst du mit **MMEdit** eine komfortable
+Entwicklungsumgebung für den PC kennen, die den eingebauten Editor sinnvoll
+ergänzt.
