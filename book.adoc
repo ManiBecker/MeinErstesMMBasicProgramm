@@ -41,7 +41,12 @@ https://github.com/ManiBecker/MeinErstesMMBasicProgramm
 
 Dieses Tutorial entsteht Schritt für Schritt öffentlich auf GitHub.
 
-MMBasic wurde von Geoff Graham entwickelt und von der MMBasic-Community weitergeführt und erweitert.
+Mein besonderer Dank gilt Geoff Graham, dem Entwickler von MMBasic, sowie
+Peter Mather, der MMBasic für den Colour Maximite 2 und die PicoMite-Familie
+entscheidend weiterentwickelt hat.
+
+Ohne ihre jahrelange Arbeit und die frei verfügbaren Handbücher wäre dieses
+Tutorial nicht möglich.
 
 <<<
 
