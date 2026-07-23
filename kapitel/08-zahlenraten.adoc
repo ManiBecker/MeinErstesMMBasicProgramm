@@ -11,6 +11,41 @@ In diesem Kapitel lernst du:
 
 Am Ende des Kapitels hast du dein erstes kleines Spiel programmiert.
 
+=== Programme als Dateien speichern
+
+Bis jetzt haben wir immer mit dem Programm gearbeitet, das sich im PicoMite befindet.
+Bei größeren Projekten ist es jedoch praktisch, mehrere Programme als Dateien zu speichern.
+
+Mit dem Befehl `SAVE` speicherst du das aktuelle Programm unter einem Namen:
+
+[source,basic]
+----
+SAVE "ZAHLENRATEN.BAS"
+----
+
+Mit `FILES` kannst du dir alle gespeicherten Dateien anzeigen lassen:
+
+[source,basic]
+----
+FILES
+----
+
+Um ein gespeichertes Programm später wieder zu laden, verwendest du `LOAD`:
+
+[source,basic]
+----
+LOAD "ZAHLENRATEN.BAS"
+----
+
+Du kannst ein gespeichertes Programm auch direkt zum Bearbeiten öffnen:
+
+[source,basic]
+----
+EDIT "ZAHLENRATEN.BAS"
+----
+
+Damit kannst du beliebig viele Programme aufbewahren und jederzeit weiterentwickeln.
+
 === Die Spielidee
 
 Der Computer denkt sich eine Zahl aus.
