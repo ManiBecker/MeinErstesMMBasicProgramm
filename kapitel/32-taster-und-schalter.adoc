@@ -1,5 +1,7 @@
 == Taster und Schalter
 
+image::bilder/32_taster_und_schalter.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
