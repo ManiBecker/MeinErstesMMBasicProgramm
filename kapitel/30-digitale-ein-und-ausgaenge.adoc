@@ -1,5 +1,7 @@
 == Digitale Ein- und Ausgänge
 
+image::bilder/30_digitale_ein_und_ausgaenge.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
