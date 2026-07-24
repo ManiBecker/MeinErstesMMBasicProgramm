@@ -1,5 +1,7 @@
 == Pong – das Spiel der Spiele
 
+image::bilder/29_pong.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel entwickelst du ein vollständiges kleines Arcade-Spiel.
