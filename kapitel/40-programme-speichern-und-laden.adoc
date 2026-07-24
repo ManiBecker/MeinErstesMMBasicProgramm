@@ -1,5 +1,7 @@
 == Programme speichern und laden
 
+image::bilder/40_programme_speichern_und_laden.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel vertiefst du den Umgang mit Programmen und Dateien.
