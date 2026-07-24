@@ -1,5 +1,7 @@
 == Von der Idee zum fertigen Spiel
 
+image::bilder/51_von_der_idee_zum_fertigen_programm.png[align=center]
+
 === Willkommen zum Finale
 
 Herzlichen Glückwunsch!
