@@ -1,6 +1,8 @@
 [preface]
 == Willkommen zu MMBasic
 
+image::bilder/00_willkommen.png[align=center]
+
 Willkommen zu diesem MMBasic-Tutorial.
 
 Dieses Buch richtet sich an alle, die MMBasic kennenlernen und damit eigene Programme entwickeln möchten.
