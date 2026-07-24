@@ -1,5 +1,7 @@
 == Eine LED zum Blinken bringen
 
+image::bilder/31_eine_led_blinkt.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
