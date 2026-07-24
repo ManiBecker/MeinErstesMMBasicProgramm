@@ -1,5 +1,7 @@
 == WS2812 RGB-LEDs
 
+image::bilder/48_rgb_leds.png[align=center]
+
 === Das lernst du
 
 WS2812-LEDs gehören zu den beliebtesten Bausteinen im Mikrocontroller-Bereich.
