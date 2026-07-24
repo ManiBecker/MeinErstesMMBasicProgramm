@@ -1,5 +1,7 @@
 == Dateiverwaltung auf der SD-Karte
 
+image::bilder/41_dateiverwaltung_sd_karte.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
