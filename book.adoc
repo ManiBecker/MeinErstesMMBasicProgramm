@@ -31,6 +31,8 @@ Version {revnumber} +
 
 <<<
 
+image::bilder/00_hallo.png[align=center]
+
 [colophon]
 == Impressum
 
