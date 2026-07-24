@@ -1,5 +1,7 @@
 == Programme strukturieren mit SUB und FUNCTION
 
+image::bilder/10_sub_und_function.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
