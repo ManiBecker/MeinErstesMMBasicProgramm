@@ -1,5 +1,7 @@
 == Layerbuffer und bewegliche Objekte
 
+image::bilder/28_layerbuffer.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
