@@ -1,5 +1,7 @@
 == Serielle Kommunikation
 
+image::bilder/47_serielle_kommunikation.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
