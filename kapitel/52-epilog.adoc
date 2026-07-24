@@ -1,5 +1,7 @@
 == Wie geht es jetzt weiter?
 
+image::bilder/50_epilog.png[align=center]
+
 Herzlichen Glückwunsch!
 
 Wenn du dieses Buch bis hierhin durchgearbeitet hast, hast du einen wichtigen Meilenstein erreicht.
@@ -106,3 +108,5 @@ ____
 Vielen Dank, dass ich dich auf deinem Einstieg in die Welt von MMBasic begleiten durfte.
 
 Ich wünsche dir viel Erfolg – und vor allem viel Freude – bei deinen eigenen Projekten.
+
+image::bilder/50_epilog_ende.png[align=center]
