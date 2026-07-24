@@ -1,5 +1,7 @@
 == Mit Texten arbeiten
 
+image::bilder/12_texte.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
