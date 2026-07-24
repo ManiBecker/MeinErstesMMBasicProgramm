@@ -1,5 +1,7 @@
 == Analoge Eingänge
 
+image::bilder/34_analoge_eingaenge.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
