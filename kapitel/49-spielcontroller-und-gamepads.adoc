@@ -1,5 +1,7 @@
 == Spielcontroller und Gamepads
 
+image::bilder/49_spielcontroller_und_gamepads.png[align=center]
+
 === Das lernst du
 
 In den bisherigen Kapiteln wurden unsere Programme hauptsächlich über die Tastatur gesteuert. Das funktioniert für viele Anwendungen hervorragend, bei Spielen stößt man jedoch schnell an Grenzen.
