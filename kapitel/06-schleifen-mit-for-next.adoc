@@ -1,5 +1,7 @@
 == Schleifen mit FOR ... NEXT
 
+image::bilder/06_schleifen_mit_for_next.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
