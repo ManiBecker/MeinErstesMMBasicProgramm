@@ -2,13 +2,14 @@
 
 Dieser Ordner enthält alle Programmbeispiele des Tutorials.
 
-Die Programme sind nach Kapiteln organisiert.
+Die Programme sind nach Kapiteln organisiert. Die Kapitelnummer wird als Prefix vor den Dateinamens geschrieben.
 
 Beispiel:
 
 programme/
-├── kap01/
-├── kap02/
+├── 01_hallo_welt.bas
+├── 02_rechenarten.bas
+├── 03_variablen.bas
 └── ...
 
 Jedes Programm aus dem Tutorial sollte hier als separate Datei gespeichert werden.
