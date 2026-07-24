@@ -1,5 +1,7 @@
 == Rechtecke, Kreise und Texte
 
+image::bilder/20_rechtecke_kreise_texte.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
