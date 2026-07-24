@@ -1,5 +1,7 @@
 == Entscheidungen mit IF
 
+image::bilder/05_entscheidungen_mit_if.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
