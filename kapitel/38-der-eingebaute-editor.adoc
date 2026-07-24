@@ -674,7 +674,7 @@ Versuche folgende Aufgaben:
 . Kopiere ein Unterprogramm mit F4 und F5.
 . Rufe die Hilfe zu PRINT auf.
 
-== Zusammenfassung
+=== Zusammenfassung
 
 Der integrierte Editor von MMBasic bietet alle wichtigen Funktionen zum
 Erstellen und Bearbeiten von BASIC-Programmen direkt auf dem PicoMite.
