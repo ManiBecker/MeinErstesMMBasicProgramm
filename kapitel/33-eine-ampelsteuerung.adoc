@@ -1,5 +1,7 @@
 == Eine Ampelsteuerung
 
+image::bilder/33_ampelsteuerung.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
