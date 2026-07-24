@@ -1,5 +1,7 @@
 == Flackerfreie Grafik mit Framebuffer
 
+image::bilder/27_flackerfreie_grafik.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
