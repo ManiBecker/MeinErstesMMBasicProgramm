@@ -1,5 +1,7 @@
 == Little Professor Version 3
 
+image::bilder/15_little_professor_v3.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel erweitern wir unseren Little Professor erneut.
