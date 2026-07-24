@@ -1,5 +1,7 @@
 == Sprites und BLIT
 
+image::bilder/50_sprites.png[align=center]
+
 === Das lernst du
 
 Fast jedes Computerspiel besteht aus denselben grundlegenden Bausteinen. Es gibt Spielfiguren, Gegner, Hindernisse, Hintergründe und Animationen. All diese Objekte müssen gezeichnet, bewegt und miteinander in Beziehung gesetzt werden.
