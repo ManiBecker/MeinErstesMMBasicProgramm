@@ -1,5 +1,7 @@
 == Animationen und bewegte Grafiken
 
+image::bilder/26_animationen.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
