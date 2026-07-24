@@ -86,7 +86,7 @@ PRINT "10.16. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"
 PRINT "1. Schreibe eine Funktion zur Berechnung des Würfels einer Zahl."
 PRINT "2. Schreibe eine Funktion zur Berechnung des Umfangs eines Quadrats."
-PRINT "3. Erstelle eine SUB, die fünfmal "MMBasic" ausgibt."
+PRINT "3. Erstelle eine SUB, die fünfmal ""MMBasic"" ausgibt."
 PRINT "4. Verwende eine Funktion innerhalb einer FOR-Schleife."
 PRINT "5. Baue die Funktion NeueZahl() in dein Zahlenratespiel ein."
 
