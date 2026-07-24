@@ -1,5 +1,7 @@
 == Die verschiedenen Grafikmodi
 
+image::bilder/17_grafikmodi.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
