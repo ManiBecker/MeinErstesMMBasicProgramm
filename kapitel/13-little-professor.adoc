@@ -1,5 +1,7 @@
 == Little Professor
 
+image::bilder/13_little_professor.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel verwendest du viele der bisher gelernten Befehle, um ein vollständiges Programm zu entwickeln.
