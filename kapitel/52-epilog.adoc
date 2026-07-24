@@ -2,7 +2,7 @@
 
 image::bilder/50_epilog.png[align=center]
 
-Herzlichen Glückwunsch!
+=== Herzlichen Glückwunsch!
 
 Wenn du dieses Buch bis hierhin durchgearbeitet hast, hast du einen wichtigen Meilenstein erreicht.
 
