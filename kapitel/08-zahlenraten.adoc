@@ -1,5 +1,7 @@
 == Unser erstes Spiel: Zahlenraten
 
+image::bilder/08_zahlenraten.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
