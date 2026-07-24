@@ -1,5 +1,7 @@
 == Die ersten Grafikbefehle
 
+image::bilder/19_grafikbefehle.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
