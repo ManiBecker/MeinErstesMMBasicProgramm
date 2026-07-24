@@ -1,5 +1,7 @@
 == Programmieren mit MMEdit
 
+image::bilder/39_mmedit.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
