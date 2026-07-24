@@ -1,5 +1,7 @@
 == Mit MMBasic rechnen
 
+image::bilder/02_mit_mmbasic_rechnen.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
