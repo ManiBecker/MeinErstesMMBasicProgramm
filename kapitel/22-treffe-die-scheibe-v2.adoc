@@ -1,5 +1,7 @@
 == Treffe die Scheibe – Version 2
 
+image::bilder/22_treffe_die_scheibe_v2.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
