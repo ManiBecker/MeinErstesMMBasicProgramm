@@ -1,5 +1,7 @@
 == Zufallszahlen
 
+image::bilder/07_zufallszahlen.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
