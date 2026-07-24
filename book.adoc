@@ -29,9 +29,9 @@ Manfred Becker
 Version {revnumber} +
 {revdate}
 
-<<<
-
 image::bilder/00_hallo.png[align=center]
+
+<<<
 
 [colophon]
 == Impressum

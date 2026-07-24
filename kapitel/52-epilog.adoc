@@ -1,6 +1,6 @@
 == Wie geht es jetzt weiter?
 
-image::bilder/50_epilog.png[align=center]
+image::bilder/52_epilog.png[align=center]
 
 === Herzlichen Glückwunsch!
 
@@ -109,4 +109,4 @@ Vielen Dank, dass ich dich auf deinem Einstieg in die Welt von MMBasic begleiten
 
 Ich wünsche dir viel Erfolg – und vor allem viel Freude – bei deinen eigenen Projekten.
 
-image::bilder/50_epilog_ende.png[align=center]
+image::bilder/52_epilog_ende.png[align=center]
