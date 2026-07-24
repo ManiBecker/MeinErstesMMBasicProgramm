@@ -1,5 +1,7 @@
 == Senso – Das elektronische Gedächtnisspiel
 
+image::bilder/37_senso.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
