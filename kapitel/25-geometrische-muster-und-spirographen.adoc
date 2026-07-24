@@ -1,5 +1,7 @@
 == Geometrische Muster und Spirographen
 
+image::bilder/25_geometrische_muster.png[align=center]
+
 === Das lernst du
 
 In diesem Kapitel lernst du:
