@@ -132,6 +132,44 @@ RX → TX
 
 Sender und Empfänger werden gekreuzt verbunden.
 
+=== COM1 und COM2 den GPIO-Pins zuordnen
+
+Bevor eine serielle Schnittstelle verwendet werden kann, muss MMBasic wissen, welche GPIO-Pins für Senden (TX) und Empfangen (RX) verwendet werden sollen.
+
+Hierzu dient der Befehl `SETPIN`.
+
+Beispiel:
+
+[source,basic]
+----
+SETPIN GP0, GP1, COM1
+----
+
+Dabei gilt:
+
+[cols="1,3"]
+|===
+|Parameter |Bedeutung
+
+|GP0
+|TX-Leitung (Senden)
+
+|GP1
+|RX-Leitung (Empfangen)
+
+|COM1
+|Verwendete serielle Schnittstelle
+|===
+
+Für eine zweite UART könnte beispielsweise folgende Zuordnung verwendet werden:
+
+[source,basic]
+----
+SETPIN GP4, GP5, COM2
+----
+
+TIP: Die verwendbaren GPIO-Pins hängen von der jeweiligen PicoMite-Firmware und der verwendeten Hardware ab. Eine Übersicht findest du im PicoMite User Manual.
+
 === Verbindung zweier Systeme
 
 [source]
