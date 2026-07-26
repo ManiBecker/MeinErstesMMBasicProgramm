@@ -19,9 +19,6 @@ END SUB
 Begruessung
 
 PRINT "4. Eine SUB mehrfach aufrufen"
-SUB Begruessung
-  PRINT "Hallo Welt!"
-END SUB
 Begruessung
 Begruessung
 Begruessung
@@ -47,9 +44,6 @@ END FUNCTION
 PRINT Verdoppeln(10)
 
 PRINT "9. Funktionen in Berechnungen verwenden"
-FUNCTION Quadrat(X)
-  Quadrat=X*X
-END FUNCTION
 PRINT Quadrat(5)+Quadrat(3)
 
 PRINT "10. Eine Würfelfunktion"
