@@ -43,6 +43,36 @@ PicoMite-Familie für den Raspberry Pi Pico und Pico 2.
 Ohne ihre langjährige Entwicklungsarbeit, ihre ausführlichen Handbücher und
 die kontinuierliche Pflege der Firmware wäre dieses Buch nicht möglich.
 
+=== Welche MMBasic-Systeme gibt es?
+
+MMBasic ist keine Programmiersprache für nur einen bestimmten Computer.
+
+Sie läuft heute auf verschiedenen Plattformen – vom einfachen Raspberry Pi Pico bis hin zu leistungsfähigen Komplettsystemen mit Grafik, Sound und Massenspeicher.
+
+Für Einsteiger gibt es mehrere Möglichkeiten:
+
+* *MMBasic for Windows (MMB4W)* +
+  Ideal, um die Programmiersprache kennenzulernen. Es wird keine zusätzliche Hardware benötigt.
+
+* *DOS MMBasic* +
+  Eine MMBasic-Version für DOS, die auch unter DOSBox verwendet werden kann.
+
+* *MMBasic for Linux (MMB4L)* +
+  Die Linux-Version von MMBasic eignet sich hervorragend für Linux-PCs und Raspberry-Pi-Systeme.
+
+* *Raspberry Pi Pico mit USB-Anschluss* +
+  Bereits ein einzelner Raspberry Pi Pico genügt, um erste Programme zu schreiben. Über eine USB-Verbindung und ein Terminalprogramm kann direkt mit MMBasic gearbeitet werden.
+
+* *PicoMite VGA oder PicoMite HDMI* +
+  Diese Systeme werden direkt an Monitor, Tastatur und Maus angeschlossen und bieten eine komfortable Entwicklungsumgebung mit Grafik, Sound und Zugriff auf SD-Karten.
+
+* *Colour Maximite 2* +
+  Ein leistungsfähiger Einplatinencomputer mit MMBasic als fest integriertem Betriebssystem. Er eignet sich besonders für grafikintensive Anwendungen und Spiele.
+
+Dieses Tutorial verwendet überwiegend den PicoMite als Referenzsystem. Die meisten Programme laufen jedoch auch auf anderen MMBasic-Systemen mit wenigen oder gar keinen Änderungen.
+
+TIP: Wenn du zunächst nur die Programmiersprache kennenlernen möchtest, kannst du mit MMB4W oder DOS MMBasic direkt auf deinem PC beginnen. Für die Hardwareprojekte in den späteren Kapiteln benötigst du allerdings ein MMBasic-System mit Ein- und Ausgängen, beispielsweise einen PicoMite.
+
 === Warum dieses Tutorial?
 
 Viele Programmierbücher konzentrieren sich auf die Beschreibung einzelner Befehle.
@@ -127,6 +157,8 @@ Hallo Welt
 ----
 
 Viele Beispiele der ersten Kapitel können deshalb direkt am Prompt ausprobiert werden.
+
+Und genau das ist einer der großen Vorteile von MMBasic: Du kannst neue Befehle sofort ausprobieren und erhältst unmittelbar eine Rückmeldung. So lernst du die Sprache besonders schnell kennen.
 
 === Befehle und Programme
 
