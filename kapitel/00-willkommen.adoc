@@ -96,6 +96,14 @@ Dieses Tutorial verwendet überwiegend den PicoMite als Referenzsystem. Die meis
 
 TIP: Wenn du zunächst nur die Programmiersprache kennenlernen möchtest, kannst du mit MMB4W, MMB4L oder DOS MMBasic direkt auf deinem Computer beginnen. Für die Hardwareprojekte in den späteren Kapiteln benötigst du allerdings ein MMBasic-System mit Ein- und Ausgängen, beispielsweise einen PicoMite.
 
+=== Welche Plattform ist die richtige für dich?
+
+Wenn du einfach nur die Programmiersprache MMBasic kennenlernen möchtest, kannst du mit MMB4W, MMB4L oder DOS MMBasic direkt auf deinem Computer beginnen.
+
+Möchtest du dagegen auch LEDs, Taster, Sensoren und andere elektronische Bauteile anschließen, empfiehlt sich ein PicoMite-System. Alle Hardwarebeispiele in diesem Tutorial wurden auf einem PicoMite entwickelt und getestet.
+
+Besitzt du einen Colour Maximite 2, kannst du den größten Teil der Programme ebenfalls ohne Änderungen oder mit nur geringfügigen Anpassungen ausführen.
+
 === Warum dieses Tutorial?
 
 Viele Programmierbücher konzentrieren sich auf die Beschreibung einzelner Befehle.
