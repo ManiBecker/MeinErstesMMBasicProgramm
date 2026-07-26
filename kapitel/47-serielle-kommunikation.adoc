@@ -142,6 +142,7 @@ Beispiel:
 
 [source,basic]
 ----
+' COM1 konfigurieren
 SETPIN GP0, GP1, COM1
 ----
 
@@ -165,6 +166,7 @@ Für eine zweite UART könnte beispielsweise folgende Zuordnung verwendet werden
 
 [source,basic]
 ----
+' COM2 konfigurieren
 SETPIN GP4, GP5, COM2
 ----
 
@@ -185,6 +187,16 @@ GND -------------- GND
 
 Zusätzlich müssen beide Geräte eine gemeinsame Masse besitzen.
 
+Merke:
+
+Die GPIO-Nummern geben immer die Pins des eigenen PicoMite an.
+
+Beim Verbinden zweier Geräte gilt:
+
+TX → RX
+
+RX → TX
+
 === Die erste Ausgabe
 
 MMBasic behandelt eine serielle Schnittstelle ähnlich wie eine Datei.
@@ -199,6 +211,8 @@ Beispiel:
 
 [source,basic]
 ----
+' COM1 konfigurieren
+SETPIN GP0, GP1, COM1
 OPEN "COM1:9600" AS #1
 
 PRINT #1, "Hallo Welt"
@@ -231,6 +245,31 @@ Die empfangene Zeile wird in einer Variablen gespeichert.
 === Praxisprojekt: PicoMite und PC verbinden
 
 Ein besonders nützliches Experiment ist die Verbindung mit einem PC.
+
+=== Verdrahtung
+
+Für dieses Beispiel verwenden wir:
+
+[source]
+----
+PicoMite          USB-Seriell-Adapter
+
+GP0 (TX) -------- RX
+
+GP1 (RX) -------- TX
+
+GND ------------- GND
+----
+
+Anschließend wird die Schnittstelle mit
+
+[source,basic]
+----
+' COM1 konfigurieren
+SETPIN GP0, GP1, COM1
+----
+
+aktiviert.
 
 === Benötigte Software
 
@@ -265,6 +304,8 @@ TIP: Im Anhang findest du eine Übersicht der wichtigsten ASCII-Zeichen sowie de
 
 [source,basic]
 ----
+' COM1 konfigurieren
+SETPIN GP0, GP1, COM1
 OPEN "COM1:9600" AS #1
 
 PRINT #1, "Hallo vom PicoMite"
@@ -282,6 +323,8 @@ Nun verbinden wir zwei MMBasic-Systeme miteinander.
 
 [source,basic]
 ----
+' COM1 konfigurieren
+SETPIN GP0, GP1, COM1
 OPEN "COM1:9600" AS #1
 
 DO
@@ -297,6 +340,8 @@ LOOP
 
 [source,basic]
 ----
+' COM1 konfigurieren
+SETPIN GP0, GP1, COM1
 OPEN "COM1:9600" AS #1
 
 DO
@@ -327,6 +372,8 @@ Damit entsteht ein einfacher Chat.
 
 [source,basic]
 ----
+' COM1 konfigurieren
+SETPIN GP0, GP1, COM1
 OPEN "COM1:9600" AS #1
 
 DO
@@ -342,6 +389,8 @@ LOOP
 
 [source,basic]
 ----
+' COM1 konfigurieren
+SETPIN GP0, GP1, COM1
 OPEN "COM1:9600" AS #1
 
 DO
@@ -378,6 +427,8 @@ Sender:
 
 [source,basic]
 ----
+' COM1 konfigurieren
+SETPIN GP0, GP1, COM1
 OPEN "COM1:9600" AS #1
 
 PRINT #1, "LEDON"
@@ -387,6 +438,8 @@ Empfänger:
 
 [source,basic]
 ----
+' COM1 konfigurieren
+SETPIN GP0, GP1, COM1
 OPEN "COM1:9600" AS #1
 
 SETPIN GP15, DOUT
