@@ -5,6 +5,7 @@ REM Titel: Kapitel 10: Programme strukturieren mit SUB und FUNCTION
 REM Buch:  Mein erstes MMBasic Programm
 REM Autor: Manfred Becker
 REM Datum: 24.07.2026
+REM Letzte Änderung: 26.7.2026: Doppelte SUBs gelöscht.
 REM
 REM Beschreibung: Programme in kleinere Bausteine aufzuteilen
 REM
