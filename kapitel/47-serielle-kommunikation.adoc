@@ -170,7 +170,7 @@ Für eine zweite UART könnte beispielsweise folgende Zuordnung verwendet werden
 SETPIN GP4, GP5, COM2
 ----
 
-TIP: Die verwendbaren GPIO-Pins hängen von der jeweiligen PicoMite-Firmware und der verwendeten Hardware ab. Eine Übersicht findest du im PicoMite User Manual.
+TIP: Die verfügbaren GPIO-Pins hängen von der jeweiligen PicoMite-Firmware und der verwendeten Hardware ab. Eine Übersicht findest du im PicoMite User Manual.
 
 === Verbindung zweier Systeme
 
@@ -197,13 +197,34 @@ TX → RX
 
 RX → TX
 
-=== Die erste Ausgabe
+=== Das erste UART-Programm
+
+Nachdem COM1 den GPIO-Pins zugeordnet wurde, kann die serielle Schnittstelle sofort verwendet werden.
 
 MMBasic behandelt eine serielle Schnittstelle ähnlich wie eine Datei.
 
-Zunächst wird die Schnittstelle geöffnet.
+Das folgende Programm sendet den Text "Hallo Welt!" über COM1.
 
-Anschließend können Daten geschrieben oder gelesen werden.
+[source,basic]
+----
+' COM1 konfigurieren
+SETPIN GP0, GP1, COM1
+
+OPEN "COM1:9600" AS #1
+
+PRINT #1, "Hallo Welt!"
+
+CLOSE #1
+----
+
+Dieses kleine Programm zeigt bereits den grundsätzlichen Ablauf:
+
+* COM1 konfigurieren
+* Schnittstelle öffnen
+* Daten senden
+* Schnittstelle schließen
+
+In den folgenden Abschnitten werden wir diese Schritte im Detail kennenlernen.
 
 === Daten senden
 
