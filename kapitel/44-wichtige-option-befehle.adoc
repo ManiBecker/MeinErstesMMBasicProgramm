@@ -338,7 +338,7 @@ Auf VGA-, HDMI- und Colour-Maximite-Systemen wird die Taktfrequenz durch die Fir
 
 === OPTION RESET
 
-Mit:
+Mit `OPTION RESET` werden alle gespeicherten Optionen auf ihre Standardwerte zurückgesetzt.
 
 [source,basic]
 ----
@@ -356,12 +356,20 @@ Dies betrifft beispielsweise:
 * OPTION COLOURCODE
 * OPTION CPUSPEED
 
-[WARNING]
-====
-OPTION RESET wirkt dauerhaft.
+Dieser Befehl kann nur an der MMBasic-Eingabeaufforderung verwendet werden und nicht innerhalb eines Programms.
 
-Alle zuvor vorgenommenen Anpassungen gehen verloren.
-====
+Nach dem Zurücksetzen startet der PicoMite bzw. Colour Maximite automatisch neu.
+
+TIP: Fortgeschrittene Anwender können mit `OPTION RESET LIST` die verfügbaren Konfigurationen anzeigen oder mit `OPTION RESET <cfg>` gezielt eine bestimmte Konfiguration zurücksetzen. Für den Einstieg genügt jedoch in der Regel `OPTION RESET`.
+
+Hier ein Beispiel für  `OPTION RESET <cfg>`:
+
+[source,basic]
+----
+OPTION RESET HDMIUSB
+----
+
+Dieser Befehl richtet alle erforderlichen Optionen für ein PicoMite HDMI/USB-System automatisch ein. Solche vordefinierten Konfigurationen sind besonders hilfreich, wenn ein PicoMite nach dem Flashen einer neuen UF2-Firmware zum ersten Mal eingerichtet wird.
 
 === Wann sollte man OPTION-Befehle verwenden?
 
