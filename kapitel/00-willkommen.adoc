@@ -49,29 +49,52 @@ MMBasic ist keine Programmiersprache für nur einen bestimmten Computer.
 
 Sie läuft heute auf verschiedenen Plattformen – vom einfachen Raspberry Pi Pico bis hin zu leistungsfähigen Komplettsystemen mit Grafik, Sound und Massenspeicher.
 
-Für Einsteiger gibt es mehrere Möglichkeiten:
+Wenn du gerade erst mit MMBasic beginnst, hilft dir die folgende Übersicht bei der Auswahl der passenden Plattform.
 
-* *MMBasic for Windows (MMB4W)* +
-  Ideal, um die Programmiersprache kennenzulernen. Es wird keine zusätzliche Hardware benötigt.
+[cols="2,2,1,1,2",options="header"]
+|===
+|Plattform |Benötigte Hardware |Grafik |GPIO |Empfehlung
 
-* *DOS MMBasic* +
-  Eine MMBasic-Version für DOS, die auch unter DOSBox verwendet werden kann.
+|MMBasic for Windows (MMB4W)
+|Windows-PC
+|Ja
+|Nein
+|Ideal zum Erlernen der Programmiersprache.
 
-* *MMBasic for Linux (MMB4L)* +
-  Die Linux-Version von MMBasic eignet sich hervorragend für Linux-PCs und Raspberry-Pi-Systeme.
+|MMBasic for Linux (MMB4L)
+|Linux-PC oder Raspberry Pi
+|Ja
+|Nein
+|Ideal für Linux-Anwender.
 
-* *Raspberry Pi Pico mit USB-Anschluss* +
-  Bereits ein einzelner Raspberry Pi Pico genügt, um erste Programme zu schreiben. Über eine USB-Verbindung und ein Terminalprogramm kann direkt mit MMBasic gearbeitet werden.
+|DOS MMBasic
+|DOS-PC oder DOSBox
+|Text
+|Nein
+|Gut für ältere PCs oder DOSBox.
 
-* *PicoMite VGA oder PicoMite HDMI* +
-  Diese Systeme werden direkt an Monitor, Tastatur und Maus angeschlossen und bieten eine komfortable Entwicklungsumgebung mit Grafik, Sound und Zugriff auf SD-Karten.
+|Raspberry Pi Pico + Terminal
+|Pico + USB-Kabel
+|Text
+|Ja
+|Perfekt für erste Hardware-Experimente.
 
-* *Colour Maximite 2* +
-  Ein leistungsfähiger Einplatinencomputer mit MMBasic als fest integriertem Betriebssystem. Er eignet sich besonders für grafikintensive Anwendungen und Spiele.
+|PicoMite VGA oder HDMI
+|PicoMite-System
+|Ja
+|Ja
+|Empfohlene Plattform für dieses Tutorial.
+
+|Colour Maximite 2
+|Colour Maximite 2
+|Ja
+|Ja
+|Leistungsfähiges Komplettsystem.
+|===
 
 Dieses Tutorial verwendet überwiegend den PicoMite als Referenzsystem. Die meisten Programme laufen jedoch auch auf anderen MMBasic-Systemen mit wenigen oder gar keinen Änderungen.
 
-TIP: Wenn du zunächst nur die Programmiersprache kennenlernen möchtest, kannst du mit MMB4W oder DOS MMBasic direkt auf deinem PC beginnen. Für die Hardwareprojekte in den späteren Kapiteln benötigst du allerdings ein MMBasic-System mit Ein- und Ausgängen, beispielsweise einen PicoMite.
+TIP: Wenn du zunächst nur die Programmiersprache kennenlernen möchtest, kannst du mit MMB4W, MMB4L oder DOS MMBasic direkt auf deinem Computer beginnen. Für die Hardwareprojekte in den späteren Kapiteln benötigst du allerdings ein MMBasic-System mit Ein- und Ausgängen, beispielsweise einen PicoMite.
 
 === Warum dieses Tutorial?
 
