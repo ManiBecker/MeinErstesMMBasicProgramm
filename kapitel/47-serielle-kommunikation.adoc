@@ -201,8 +201,6 @@ RX → TX
 
 Nachdem COM1 den GPIO-Pins zugeordnet wurde, kann die serielle Schnittstelle sofort verwendet werden.
 
-MMBasic behandelt eine serielle Schnittstelle ähnlich wie eine Datei.
-
 Das folgende Programm sendet den Text "Hallo Welt!" über COM1.
 
 [source,basic]
@@ -224,7 +222,7 @@ Dieses kleine Programm zeigt bereits den grundsätzlichen Ablauf:
 * Daten senden
 * Schnittstelle schließen
 
-In den folgenden Abschnitten werden wir diese Schritte im Detail kennenlernen.
+In den folgenden Abschnitten werden wir diese Schritte im Detail kennenlernen. MMBasic behandelt eine serielle Schnittstelle dabei ähnlich wie eine Datei: Sie wird mit OPEN geöffnet, anschließend können Daten gesendet oder empfangen werden und zum Schluss wird sie mit CLOSE wieder geschlossen.
 
 === Daten senden
 
