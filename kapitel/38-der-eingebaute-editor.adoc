@@ -520,24 +520,13 @@ Dadurch kann bei Problemen jederzeit auf die vorherige Version zurückgegriffen 
 
 === Der Edit-Run-Zyklus
 
-Viele Entwickler arbeiten nach folgendem Muster:
+Beim Programmieren wirst du dein Programm immer wieder ändern, testen und anschließend erneut verbessern. Dieser ständige Wechsel zwischen Bearbeiten und Ausführen wird als *Edit-Run-Zyklus* bezeichnet.
 
-[source]
-----
-EDIT
-  ↓
-Programm ändern
-  ↓
-F2
-  ↓
-Programm testen
-  ↓
-Fehler beheben
-  ↓
-F2
-----
+Der eingebaute MMBasic-Editor unterstützt diesen Arbeitsablauf besonders komfortabel. Nach jeder Änderung genügt ein Druck auf *F2*, um das Programm zu speichern und sofort auszuführen. Treten Fehler auf oder möchtest du etwas verändern, gelangst du mit `EDIT` wieder zurück in den Editor.
 
-Dieser Zyklus ist sehr schnell und produktiv.
+Gerade beim Lernen ist dieser schnelle Wechsel ein großer Vorteil. Kleine Änderungen können sofort ausprobiert werden, und ihre Auswirkungen sind unmittelbar sichtbar. So lassen sich neue Befehle und Programmiertechniken Schritt für Schritt erkunden.
+
+Dieser einfache Arbeitsablauf erinnert viele langjährige Programmierer an klassische Entwicklungsumgebungen wie Turbo Pascal, bei denen ebenfalls das Bearbeiten, Übersetzen und Testen mit wenigen Tastendrücken möglich war.
 
 === Wann sollte man den eingebauten Editor verwenden?
 
