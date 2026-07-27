@@ -338,9 +338,10 @@ Du kennst nun:
 
 * OPEN
 * CLOSE
-* PRINT
-* WRITE
-* LINE INPUT
+* PRINT #
+* WRITE #
+* READ #
+* LINE INPUT #
 
 Damit können deine Programme Informationen dauerhaft speichern.
 
