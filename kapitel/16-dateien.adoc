@@ -241,18 +241,20 @@ PRINT "Highscore gespeichert."
 ----
 OPEN "highscore.txt" FOR INPUT AS #1
 
-LINE INPUT #1,TEXT$
+READ #1, NAME$, PUNKTE
 
 CLOSE #1
 
-PRINT TEXT$
+PRINT "Name   : "; NAME$
+PRINT "Punkte : "; PUNKTE
 ----
 
 Ausgabe:
 
 [source]
 ----
-"Manfred",8
+Name   : Manfred
+Punkte : 8
 ----
 
 === Dateinamen und Verzeichnisse
