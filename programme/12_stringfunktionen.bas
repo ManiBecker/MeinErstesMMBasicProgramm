@@ -8,7 +8,7 @@ REM Datum: 27.07.2026
 REM
 REM Beschreibung: Texte in Variablen zu speichern
 REM
-REM Hardware/Voraussetzungen: keine/PicoMite/ColourMaxiMite
+REM Hardware/Voraussetzungen: keine
 REM
 REM ====================================================================
 
