@@ -329,11 +329,11 @@ In einer kleinen Notenverwaltung stehen die Zeilen für die Schüler und die Spa
 [source,basic]
 ----
 DIM SCHUELER$(4)
-SCHUELER$(0)="Manfred"
-SCHUELER$(1)="Geoff"
-SCHUELER$(2)="Peter"
-SCHUELER$(3)="Tom"
-SCHUELER$(4)="Sarah"
+SCHUELER$(0)="Anna"
+SCHUELER$(1)="Ben"
+SCHUELER$(2)="Clara"
+SCHUELER$(3)="David"
+SCHUELER$(4)="Emma"
 
 DIM FACH$(2)
 FACH$(0)="Deutsch"
