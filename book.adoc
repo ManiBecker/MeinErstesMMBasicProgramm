@@ -9,7 +9,7 @@ Manfred Becker
 :revnumber: 0.18
 :revdate: 2026-07-26
 
-image::bilder/cover.png[pdfwidth=100%,align=center]
+image::bilder/cover.jpg[pdfwidth=100%,align=center]
 
 <<<
 
@@ -29,7 +29,7 @@ Manfred Becker
 Version {revnumber} +
 {revdate}
 
-image::bilder/00_hallo.png[align=center]
+image::bilder/00_hallo.jpg[align=center]
 
 <<<
 
@@ -184,4 +184,4 @@ include::anhang/anhang-a-mmbasic-befehlsreferenz.adoc[]
 
 <<<
 
-image::bilder/back.png[pdfwidth=100%,align=center]
+image::bilder/back.jpg[pdfwidth=100%,align=center]
