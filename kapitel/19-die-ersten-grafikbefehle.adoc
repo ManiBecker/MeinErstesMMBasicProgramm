@@ -1,6 +1,6 @@
 == Die ersten Grafikbefehle
 
-image::bilder/19_grafikbefehle.png[align=center]
+image::bilder/19_grafikbefehle.jpg[align=center]
 
 === Das lernst du
 

@@ -1,6 +1,6 @@
 == Spielcontroller und Gamepads
 
-image::bilder/49_spielcontroller_und_gamepads.png[align=center]
+image::bilder/49_spielcontroller_und_gamepads.jpg[align=center]
 
 === Das lernst du
 

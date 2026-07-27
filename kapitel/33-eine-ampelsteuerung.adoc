@@ -1,6 +1,6 @@
 == Eine Ampelsteuerung
 
-image::bilder/33_ampelsteuerung.png[align=center]
+image::bilder/33_ampelsteuerung.jpg[align=center]
 
 === Das lernst du
 
@@ -100,7 +100,7 @@ GPIO ----[330 Ω]----|>|---- GND
 
 Die Schaltung wird für jede LED wiederholt.
 
-image::bilder/ampel_drei_leds.png[
+image::bilder/ampel_drei_leds.jpg[
 align=center,
 title="Drei LEDs als Verkehrsampel"
 ]

@@ -1,7 +1,7 @@
 [preface]
 == Willkommen zu MMBasic
 
-image::bilder/00_willkommen.png[align=center]
+image::bilder/00_willkommen.jpg[align=center]
 
 Willkommen zu diesem MMBasic-Tutorial.
 

@@ -1,6 +1,6 @@
 == Töne und Piezo-Summer
 
-image::bilder/36_toene_und_piezo_summer.png[align=center]
+image::bilder/36_toene_und_piezo_summer.jpg[align=center]
 
 === Das lernst du
 

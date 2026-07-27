@@ -1,6 +1,6 @@
 == PWM und LED-Dimmer
 
-image::bilder/35_pwm.png[align=center]
+image::bilder/35_pwm.jpg[align=center]
 
 === Das lernst du
 

@@ -1,6 +1,6 @@
 == Little Professor Version 3
 
-image::bilder/15_little_professor_v3.png[align=center]
+image::bilder/15_little_professor_v3.jpg[align=center]
 
 === Das lernst du
 

@@ -1,6 +1,6 @@
 == Treffe die Scheibe – Version 2
 
-image::bilder/22_treffe_die_scheibe_v2.png[align=center]
+image::bilder/22_treffe_die_scheibe_v2.jpg[align=center]
 
 === Das lernst du
 

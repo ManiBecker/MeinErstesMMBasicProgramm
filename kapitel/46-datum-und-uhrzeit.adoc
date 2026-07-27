@@ -1,6 +1,6 @@
 == Datum und Uhrzeit
 
-image::bilder/46_datum_und_uhrzeit.png[align=center]
+image::bilder/46_datum_und_uhrzeit.jpg[align=center]
 
 === Das lernst du
 

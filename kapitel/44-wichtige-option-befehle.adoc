@@ -1,6 +1,6 @@
 == Wichtige OPTION-Befehle
 
-image::bilder/44_optionen.png[align=center]
+image::bilder/44_optionen.jpg[align=center]
 
 === Das lernst du
 

@@ -1,6 +1,6 @@
 == Arrays
 
-image::bilder/11_arrays.png[align=center]
+image::bilder/11_arrays.jpg[align=center]
 
 === Das lernst du
 

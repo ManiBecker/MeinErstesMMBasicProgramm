@@ -1,6 +1,6 @@
 == Mit Texten arbeiten
 
-image::bilder/12_texte.png[align=center]
+image::bilder/12_texte.jpg[align=center]
 
 === Das lernst du
 

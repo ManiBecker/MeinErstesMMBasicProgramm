@@ -1,6 +1,6 @@
 == Programme verketten mit CHAIN
 
-image::bilder/42_programme_verketten.png[align=center]
+image::bilder/42_programme_verketten.jpg[align=center]
 
 === Das lernst du
 

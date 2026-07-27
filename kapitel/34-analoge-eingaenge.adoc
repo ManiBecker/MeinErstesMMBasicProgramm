@@ -1,6 +1,6 @@
 == Analoge Eingänge
 
-image::bilder/34_analoge_eingaenge.png[align=center]
+image::bilder/34_analoge_eingaenge.jpg[align=center]
 
 === Das lernst du
 

@@ -1,6 +1,6 @@
 == Eine analoge Bahnhofsuhr
 
-image::bilder/24_bahnhofsuhr.png[align=center]
+image::bilder/24_bahnhofsuhr.jpg[align=center]
 
 === Das lernst du
 

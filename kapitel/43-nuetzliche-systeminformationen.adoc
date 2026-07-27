@@ -1,6 +1,6 @@
 == Nützliche Systeminformationen
 
-image::bilder/43_systeminformationen.png[align=center]
+image::bilder/43_systeminformationen.jpg[align=center]
 
 === Das lernst du
 

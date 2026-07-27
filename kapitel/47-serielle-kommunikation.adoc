@@ -1,6 +1,6 @@
 == Serielle Kommunikation
 
-image::bilder/47_serielle_kommunikation.png[align=center]
+image::bilder/47_serielle_kommunikation.jpg[align=center]
 
 === Das lernst du
 

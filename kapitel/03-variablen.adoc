@@ -1,6 +1,6 @@
 == Variablen
 
-image::bilder/03_variablen.png[align=center]
+image::bilder/03_variablen.jpg[align=center]
 
 === Das lernst du
 

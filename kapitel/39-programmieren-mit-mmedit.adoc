@@ -1,6 +1,6 @@
 == Programmieren mit MMEdit
 
-image::bilder/39_mmedit.png[align=center]
+image::bilder/39_mmedit.jpg[align=center]
 
 === Das lernst du
 
@@ -336,8 +336,8 @@ LittleProfessor
 ├── littleprofessor.bas
 ├── fragen.dat
 ├── bilder
-│   ├── logo.png
-│   └── titel.png
+│   ├── logo.jpg
+│   └── titel.jpg
 └── dokumentation
     └── readme.txt
 ----

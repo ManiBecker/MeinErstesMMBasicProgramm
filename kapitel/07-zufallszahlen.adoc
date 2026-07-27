@@ -1,6 +1,6 @@
 == Zufallszahlen
 
-image::bilder/07_zufallszahlen.png[align=center]
+image::bilder/07_zufallszahlen.jpg[align=center]
 
 === Das lernst du
 

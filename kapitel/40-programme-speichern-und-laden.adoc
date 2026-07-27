@@ -1,6 +1,6 @@
 == Programme speichern und laden
 
-image::bilder/40_programme_speichern_und_laden.png[align=center]
+image::bilder/40_programme_speichern_und_laden.jpg[align=center]
 
 === Das lernst du
 

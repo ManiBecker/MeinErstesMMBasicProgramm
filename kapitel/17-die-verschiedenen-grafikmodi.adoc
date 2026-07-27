@@ -1,6 +1,6 @@
 == Die verschiedenen Grafikmodi
 
-image::bilder/17_grafikmodi.png[align=center]
+image::bilder/17_grafikmodi.jpg[align=center]
 
 === Das lernst du
 

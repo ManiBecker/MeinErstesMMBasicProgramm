@@ -1,6 +1,6 @@
 == Dateien speichern und laden
 
-image::bilder/16_dateien.png[align=center]
+image::bilder/16_dateien.jpg[align=center]
 
 === Das lernst du
 

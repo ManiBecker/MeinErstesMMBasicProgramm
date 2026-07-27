@@ -1,6 +1,6 @@
 == Ereignisgesteuerte Programmierung mit Interrupts
 
-image::bilder/45_interrupts.png[align=center]
+image::bilder/45_interrupts.jpg[align=center]
 
 === Das lernst du
 

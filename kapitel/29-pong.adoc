@@ -1,6 +1,6 @@
 == Pong – das Spiel der Spiele
 
-image::bilder/29_pong.png[align=center]
+image::bilder/29_pong.jpg[align=center]
 
 === Das lernst du
 

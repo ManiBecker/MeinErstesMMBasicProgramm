@@ -1,6 +1,6 @@
 == Unser erstes Spiel: Zahlenraten
 
-image::bilder/08_zahlenraten.png[align=center]
+image::bilder/08_zahlenraten.jpg[align=center]
 
 === Das lernst du
 

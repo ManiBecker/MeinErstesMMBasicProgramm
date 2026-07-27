@@ -1,6 +1,6 @@
 == Eine LED zum Blinken bringen
 
-image::bilder/31_eine_led_blinkt.png[align=center]
+image::bilder/31_eine_led_blinkt.jpg[align=center]
 
 === Das lernst du
 
@@ -147,7 +147,7 @@ Bei den meisten LEDs gibt es zwei Merkmale:
 
 Zusätzlich besitzt das Gehäuse häufig eine kleine Abflachung auf der Kathodenseite.
 
-image::bilder/led_polaritaet.png[
+image::bilder/led_polaritaet.jpg[
 align=center,
 title="Anode und Kathode einer LED"
 ]
@@ -216,7 +216,7 @@ Ausgang ----[330 Ω]----|>|---- GND
 
 === Schaltplan
 
-image::bilder/led_blinken_schaltplan.png[
+image::bilder/led_blinken_schaltplan.jpg[
 align=center,
 title="LED mit Vorwiderstand"
 ]

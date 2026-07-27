@@ -1,6 +1,6 @@
 == Hallo Welt!
 
-image::bilder/01_hallo_welt.png[align=center]
+image::bilder/01_hallo_welt.jpg[align=center]
 
 === Das lernst du
 

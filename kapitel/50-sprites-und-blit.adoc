@@ -1,6 +1,6 @@
 == Sprites und BLIT
 
-image::bilder/50_sprites.png[align=center]
+image::bilder/50_sprites.jpg[align=center]
 
 === Das lernst du
 

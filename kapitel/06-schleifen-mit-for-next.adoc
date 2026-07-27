@@ -1,6 +1,6 @@
 == Schleifen mit FOR ... NEXT
 
-image::bilder/06_schleifen_mit_for_next.png[align=center]
+image::bilder/06_schleifen_mit_for_next.jpg[align=center]
 
 === Das lernst du
 

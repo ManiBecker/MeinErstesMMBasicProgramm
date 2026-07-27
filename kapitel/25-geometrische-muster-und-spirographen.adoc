@@ -1,6 +1,6 @@
 == Geometrische Muster und Spirographen
 
-image::bilder/25_geometrische_muster.png[align=center]
+image::bilder/25_geometrische_muster.jpg[align=center]
 
 === Das lernst du
 
@@ -353,7 +353,7 @@ Durch geschickte Kombinationen entstehen:
 
 Die folgenden Abbildungen zeigen einige der Muster, die mit den in diesem Kapitel vorgestellten Techniken erzeugt werden können.
 
-image::bilder/geometrische_muster.png[align=center, title="Stern, Rosette, Blumenmuster und Spirograph"]
+image::bilder/25_geometrische_muster_01.jpg[align=center, title="Stern, Rosette, Blumenmuster und Spirograph"]
 
 === Experimentiere!
 

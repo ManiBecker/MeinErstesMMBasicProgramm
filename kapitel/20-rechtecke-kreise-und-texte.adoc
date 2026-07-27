@@ -1,6 +1,6 @@
 == Rechtecke, Kreise und Texte
 
-image::bilder/20_rechtecke_kreise_texte.png[align=center]
+image::bilder/20_rechtecke_kreise_texte.jpg[align=center]
 
 === Das lernst du
 

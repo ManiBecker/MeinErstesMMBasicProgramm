@@ -1,6 +1,6 @@
 == Mit MMBasic rechnen
 
-image::bilder/02_mit_mmbasic_rechnen.png[align=center]
+image::bilder/02_mit_mmbasic_rechnen.jpg[align=center]
 
 === Das lernst du
 

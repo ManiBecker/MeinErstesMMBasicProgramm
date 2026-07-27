@@ -1,6 +1,6 @@
 == Entscheidungen mit IF
 
-image::bilder/05_entscheidungen_mit_if.png[align=center]
+image::bilder/05_entscheidungen_mit_if.jpg[align=center]
 
 === Das lernst du
 

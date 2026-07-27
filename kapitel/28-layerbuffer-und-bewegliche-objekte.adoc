@@ -1,6 +1,6 @@
 == Layerbuffer und bewegliche Objekte
 
-image::bilder/28_layerbuffer.png[align=center]
+image::bilder/28_layerbuffer.jpg[align=center]
 
 === Das lernst du
 

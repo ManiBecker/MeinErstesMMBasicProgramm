@@ -1,6 +1,6 @@
 == Farben und Schriftarten
 
-image::bilder/18_farben_und_schriftarten.png[align=center]
+image::bilder/18_farben_und_schriftarten.jpg[align=center]
 
 === Das lernst du
 
