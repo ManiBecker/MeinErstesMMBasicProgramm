@@ -324,23 +324,63 @@ Ein Array kann mehrere Dimensionen besitzen.
 
 Stell dir eine Tabelle mit Zeilen und Spalten vor.
 
-Für eine kleine Notentabelle könnte man schreiben:
+In einer kleinen Notenverwaltung stehen die Zeilen für die Schüler und die Spalten für die einzelnen Fächer.
 
 [source,basic]
 ----
+DIM SCHUELER$(4)
+SCHUELER$(0)="Manfred"
+SCHUELER$(1)="Geoff"
+SCHUELER$(2)="Peter"
+SCHUELER$(3)="Tom"
+SCHUELER$(4)="Sarah"
+
+DIM FACH$(2)
+FACH$(0)="Deutsch"
+FACH$(1)="Englisch"
+FACH$(2)="Mathe"
+
 DIM NOTE(4,2)
+
+' Zufällige Noten vergeben
+FOR S=0 TO 4
+  FOR F=0 TO 2
+    NOTE(S,F)=INT(RND*6)+1
+  NEXT F
+NEXT S
+
+' Tabelle ausgeben
+PRINT "Schüler",
+FOR F=0 TO 2
+  PRINT FACH$(F),
+NEXT F
+PRINT
+
+FOR S=0 TO 4
+  PRINT SCHUELER$(S),
+  FOR F=0 TO 2
+    PRINT NOTE(S,F),
+  NEXT F
+  PRINT
+NEXT S
 ----
 
-Der erste Index beschreibt den Schüler.
+Die erste Dimension (`S`) beschreibt den Schüler.
 
-Der zweite Index beschreibt das Fach.
+Die zweite Dimension (`F`) beschreibt das Fach.
+
+Der Zugriff
 
 [source,basic]
 ----
 NOTE(2,1)=1
 ----
 
-Schüler Nummer 2 hat im Fach Nummer 1 die Note 1 erhalten.
+bedeutet:
+
+* Schüler Nummer 2
+* Fach Nummer 1 (Englisch)
+* Note 1
 
 === Experimentiere!
 
