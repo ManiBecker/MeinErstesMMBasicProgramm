@@ -17,6 +17,21 @@ Nicht alle Punkte werden zwingend umgesetzt. Die Liste dient als Ideensammlung.
 
 ---
 
+## Grundlagen
+
+- [ ] Eigenes Kapitel „Datentypen“
+  - Integer
+  - Float
+  - String
+  - Typkennzeichen (`%`, `!`, `$`)
+  - Typkonvertierung
+- [ ] Kapitel „Variablen“ erweitern
+  - Regeln für Variablennamen
+  - Verwendung von `_` und `.`
+  - Empfehlungen für sprechende Variablennamen
+
+---
+
 ## Dokumentation
 
 - [ ] Baumdiagramm der MMBasic-Systeme
@@ -35,6 +50,15 @@ Nicht alle Punkte werden zwingend umgesetzt. Die Liste dient als Ideensammlung.
 
 ---
 
+## Fortgeschrittene Themen
+
+- [ ] Kapitel über benutzerdefinierte Datentypen (`TYPE ... END TYPE`)
+- [ ] Praxisbeispiel: Data Logger mit Zeitstempel und Messwerten
+- [ ] Historischer Exkurs zu BASIC-Zeilennummern
+- [ ] Vergleich: `GOTO` / `GOSUB` und moderne Programmstrukturen (`SUB`, `FUNCTION`, Labels)
+
+---
+
 ## Bilder
 
 - [ ] Weitere Illustrationen erstellen
@@ -50,6 +74,10 @@ Nicht alle Punkte werden zwingend umgesetzt. Die Liste dient als Ideensammlung.
 | Schnellstart für PicoMite (Wolfgang) | ☑ Geplant |
 | Wiedereinstieg nach längerer Pause (Ulrich) | ☑ Geplant |
 | Baumdiagramm der MMBasic-Systeme (PilotPirx) | ☑ Geplant |
+| Kapitel „Datentypen“ (bfwolf) | ☑ Geplant |
+| Regeln für Variablennamen (bfwolf) | ☑ Geplant |
+| `TYPE ... END TYPE` und Data-Logger-Beispiel (bfwolf) | ☑ Geplant |
+| Historischer Exkurs zu BASIC-Zeilennummern (bfwolf) | ☑ Geplant |
 
 ---
 
