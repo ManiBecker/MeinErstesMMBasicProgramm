@@ -4,11 +4,83 @@ REM Datei: 24_bahnhofsuhr.bas
 REM Titel: Kapitel 24: Eine analoge Bahnhofsuhr
 REM Buch:  Mein erstes MMBasic Programm
 REM Autor: Manfred Becker
-REM Datum: 27.07.2026
+REM Datum: 29.07.2026
 REM
-REM Beschreibung:
+REM Beschreibung: Das vollständige Programm
 REM
-REM Hardware/Voraussetzungen: keine/PicoMite/ColourMaxiMite
+REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
 REM
 REM ====================================================================
 
+MITTEX=MM.HRES/2
+MITTEY=MM.VRES/2
+RADIUS=MM.HRES/2-10
+
+IF MM.VRES/2-10<RADIUS THEN
+  RADIUS=MM.VRES/2-10
+ENDIF
+
+ALTEZEIT$=""
+
+DO
+
+  IF TIME$<>ALTEZEIT$ THEN
+    ALTEZEIT$=TIME$
+    STUNDE=VAL(LEFT$(TIME$,2))
+    MINUTE=VAL(MID$(TIME$,4,2))
+    SEKUNDE=VAL(RIGHT$(TIME$,2))
+    CLS RGB(WHITE)
+    ZeichneZifferblatt MITTEX,MITTEY,RADIUS
+    STUNDENWINKEL=((STUNDE MOD 12)*30+MINUTE*0.5)*PI/180
+    MINUTENWINKEL=(MINUTE*6+SEKUNDE*0.1)*PI/180
+    SEKUNDENWINKEL=SEKUNDE*6*PI/180
+    ZeichneStundenzeiger MITTEX,MITTEY,RADIUS,STUNDENWINKEL
+    ZeichneMinutenzeiger MITTEX,MITTEY,RADIUS,MINUTENWINKEL
+    ZeichneSekundenzeiger MITTEX,MITTEY,RADIUS,SEKUNDENWINKEL
+    CIRCLE MITTEX,MITTEY,RADIUS*0.035,1,1,RGB(BLACK),RGB(BLACK)
+  ENDIF
+
+LOOP
+END
+
+SUB ZeichneZifferblatt(X,Y,R)
+  CIRCLE X,Y,R,3,1,RGB(BLACK),RGB(WHITE)
+  FOR I=0 TO 59
+  WINKEL=I*6*PI/180
+  IF I MOD 5=0 THEN
+  INNEN=R*0.78
+  ELSE
+  INNEN=R*0.86
+  ENDIF
+  X1=X+SIN(WINKEL)*INNEN
+  Y1=Y-COS(WINKEL)*INNEN
+  X2=X+SIN(WINKEL)*R*0.92
+  Y2=Y-COS(WINKEL)*R*0.92
+  LINE X1,Y1,X2,Y2,,,RGB(BLACK)
+  NEXT I
+END SUB
+
+SUB ZeichneStundenzeiger(X,Y,R,WINKEL)
+  X2=X+SIN(WINKEL)*R*0.50
+  Y2=Y-COS(WINKEL)*R*0.50
+  LINE X,Y,X2,Y2,,,RGB(BLACK)
+  LINE X-1,Y,X2-1,Y2,,,RGB(BLACK)
+  LINE X+1,Y,X2+1,Y2,,,RGB(BLACK)
+END SUB
+
+SUB ZeichneMinutenzeiger(X,Y,R,WINKEL)
+  X2=X+SIN(WINKEL)*R*0.72
+  Y2=Y-COS(WINKEL)*R*0.72
+  LINE X,Y,X2,Y2,,,RGB(BLACK)
+  LINE X-1,Y,X2-1,Y2,,,RGB(BLACK)
+  LINE X+1,Y,X2+1,Y2,,,RGB(BLACK)
+END SUB
+
+SUB ZeichneSekundenzeiger(X,Y,R,WINKEL)
+  X2=X+SIN(WINKEL)*R*0.84
+  Y2=Y-COS(WINKEL)*R*0.84
+  LINE X,Y,X2,Y2,,,RGB(RED)
+  KX=X+SIN(WINKEL)*R*0.70
+  KY=Y-COS(WINKEL)*R*0.70
+  CIRCLE KX,KY,R*0.035,1,1,RGB(RED),RGB(RED)
+END SUB
