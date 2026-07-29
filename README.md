@@ -49,3 +49,10 @@ Ich freue mich über jedes Feedback und jeden Verbesserungsvorschlag – egal ob
 ## Viel Spaß!
 
 **Manfred Becker**
+
+Weitere Hinweise: 
+## Werkzeuge
+
+Die Einrichtung der Entwicklungsumgebung sowie die Installation der benötigten Werkzeuge ist in
+`werkzeuge/README.md`
+beschrieben.

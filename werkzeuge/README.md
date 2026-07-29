@@ -9,11 +9,25 @@ Beispiele:
 - Vorlagen
 - Konfigurationsdateien
 
-## Entwicklungsumgebung einrichten
+# Entwicklungsumgebung einrichten
 
-### Voraussetzungen
+## Repository klonen
 
-Folgende Software sollte installiert sein:
+Das Repository sollte **nicht** über **"Download ZIP"** heruntergeladen werden, da hierbei die Git-Informationen verloren gehen.
+
+Stattdessen das Repository mit Git klonen:
+
+```bash
+git clone https://github.com/<Benutzer>/<Repository>.git
+```
+
+Anschließend den Projektordner in Visual Studio Code öffnen.
+
+---
+
+## Voraussetzungen
+
+Für die Bearbeitung und den PDF-Build werden folgende Programme benötigt:
 
 - Git
 - Visual Studio Code
@@ -22,11 +36,14 @@ Folgende Software sollte installiert sein:
 - Asciidoctor PDF
 - VS Code Erweiterung **AsciiDoc**
 
-### Ruby + DevKit installieren
+---
 
-Asciidoctor basiert auf Ruby. Installiere daher zunächst **Ruby + DevKit**.
+## Ruby + DevKit installieren
+
+Asciidoctor basiert auf Ruby.
 
 1. Lade den aktuellen **Ruby+Devkit (x64)** Installer von der offiziellen Webseite herunter:
+
    https://rubyinstaller.org/
 
 2. Starte den Installer.
@@ -37,18 +54,28 @@ Asciidoctor basiert auf Ruby. Installiere daher zunächst **Ruby + DevKit**.
    Add Ruby executables to your PATH
    ```
 
-4. Nach Abschluss der Installation öffne ein neues Terminal und überprüfe die Installation:
+4. Nach Abschluss der Installation den Haken bei
 
-   ```bash
-   ruby --version
-   gem --version
+   ```
+   Run 'ridk install' to set up MSYS2 and development toolchain
    ```
 
-> **Hinweis**
->
-> Nach der Installation von Ruby + DevKit muss Visual Studio Code (bzw. das Terminal) neu gestartet werden, damit die neuen PATH-Einstellungen übernommen werden. Erst danach stehen die Befehle `ruby`, `gem`, `asciidoctor` und `asciidoctor-pdf` im Terminal zur Verfügung.
+   aktiviert lassen.
 
-### Asciidoctor installieren
+5. Beim folgenden Dialog einfach **Enter** drücken, um die empfohlene Standardinstallation (`1,3`) auszuführen.
+
+6. Visual Studio Code anschließend neu starten.
+
+Installation überprüfen:
+
+```bash
+ruby --version
+gem --version
+```
+
+---
+
+## Asciidoctor installieren
 
 ```bash
 gem install asciidoctor
@@ -60,7 +87,9 @@ Installation überprüfen:
 asciidoctor --version
 ```
 
-### PDF-Unterstützung installieren
+---
+
+## Asciidoctor PDF installieren
 
 ```bash
 gem install asciidoctor-pdf
@@ -72,40 +101,54 @@ Installation überprüfen:
 asciidoctor-pdf --version
 ```
 
-### VS Code Erweiterung
+---
 
-Für die Bearbeitung der Dokumentation empfiehlt sich die Installation der Erweiterung **AsciiDoc** von **asciidoctor**.
+## Visual Studio Code
 
-Die Erweiterung bietet unter anderem:
+Installiere die Erweiterung:
+
+- **AsciiDoc** (Publisher: **asciidoctor**)
+
+Diese bietet unter anderem:
 
 - Syntax-Highlighting
 - Live-Vorschau
 - Inhaltsverzeichnis
 - Fehlererkennung
 
-### Funktionstest
+---
 
-Erstelle eine Datei `test.adoc` mit folgendem Inhalt:
+## PDF erzeugen
 
-```asciidoc
-= Test
+Das Projekt enthält einen Build-Task für Visual Studio Code.
 
-Hallo Welt!
+Mit
 
-* Punkt 1
-* Punkt 2
+**Strg+Shift+B**
+
+wird automatisch
+
+```text
+book.pdf
 ```
 
-HTML erzeugen:
+aus der Datei
+
+```text
+book.adoc
+```
+
+erzeugt.
+
+---
+
+## Git
+
+Nach Änderungen:
 
 ```bash
-asciidoctor test.adoc
+git status
+git add .
+git commit -m "Beschreibung der Änderung"
+git push
 ```
-
-PDF erzeugen:
-
-```bash
-asciidoctor-pdf test.adoc
-```
-
-Nach erfolgreicher Installation werden die Dateien `test.html` bzw. `test.pdf` erzeugt.
