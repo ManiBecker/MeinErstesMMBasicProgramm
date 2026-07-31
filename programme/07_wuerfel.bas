@@ -20,20 +20,20 @@ FOR I=1 TO 10
   PRINT RND
 NEXT I
 
-PRINT "5. Einen Würfel simulieren"
+PRINT "5. Einen Wuerfel simulieren"
 PRINT INT(RND*6)+1
 
-PRINT "6. Mehrfach würfeln"
+PRINT "6. Mehrfach wuerfeln"
 FOR I=1 TO 10
   PRINT INT(RND*6)+1
 NEXT I
 
-PRINT "6. Mehrfach würfeln"
+PRINT "6. Mehrfach wuerfeln"
 FOR I=1 TO 10
   PRINT INT(RND*6)+1
 NEXT I
 
-PRINT "7. Münze werfen"
+PRINT "7. Muenze werfen"
 IF INT(RND*2)=0 THEN
   PRINT "Kopf"
 ELSE

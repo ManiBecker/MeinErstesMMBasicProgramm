@@ -1,6 +1,6 @@
 # Programme
 
-Dieser Ordner enthält alle Programmbeispiele des Tutorials.
+Dieser Ordner enthaelt alle Programmbeispiele des Tutorials.
 
 Die Programme sind nach Kapiteln organisiert. Die Kapitelnummer wird als Prefix vor den Dateinamens geschrieben.
 
@@ -14,4 +14,4 @@ programme/
 
 Jedes Programm aus dem Tutorial sollte hier als separate Datei gespeichert werden.
 
-Dadurch können die Beispiele unabhängig vom Tutorial getestet, heruntergeladen und weiterverwendet werden.
+Dadurch koennen die Beispiele unabhaengig vom Tutorial getestet, heruntergeladen und weiterverwendet werden.

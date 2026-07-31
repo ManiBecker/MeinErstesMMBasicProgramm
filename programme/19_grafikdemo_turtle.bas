@@ -12,7 +12,7 @@ REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
 REM
 REM ====================================================================
 
-PRINT "24. Die Schildkröte zurücksetzen"
+PRINT "24. Die Schildkroete zuruecksetzen"
 CLS
 TURTLE RESET
 
@@ -25,7 +25,7 @@ FOR I = 1 TO 4
 NEXT I
 
 PRINT "27. Experimentiere!"
-PRINT "Verändere die Seitenlänge:"
+PRINT "Veraendere die Seitenlaenge:"
 CLS
 TURTLE RESET
 FOR I = 1 TO 4
@@ -33,7 +33,7 @@ FOR I = 1 TO 4
   TURTLE RIGHT 90
 NEXT I
 
-PRINT "Oder ändere den Drehwinkel:"
+PRINT "Oder aendere den Drehwinkel:"
 FOR I = 1 TO 6
   TURTLE FORWARD 100
   TURTLE RIGHT 60
@@ -44,7 +44,7 @@ PRINT "Der Drehwinkel bestimmt, welche Figur gezeichnet wird."
 PRINT "Probiere zum Beispiel folgende Winkel aus:"
 PRINT "- 120 grad -> Dreieck"
 PRINT "- 90 grad -> Quadrat"
-PRINT "- 72 grad -> Fünfeck"
+PRINT "- 72 grad -> Fuenfeck"
 PRINT "- 60 grad -> Sechseck"
 PRINT "- 170 grad -> Stern- bzw. Rosettenfigur"
 PRINT "Je kleiner der Drehwinkel ist, desto mehr Seiten besitzt die Figur."

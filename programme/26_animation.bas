@@ -35,7 +35,7 @@ DO
   Y=Y+1
 LOOP WHILE INKEY$=""
 
-PRINT "9. Der erste hüpfende Ball"
+PRINT "9. Der erste huepfende Ball"
 MODE 2
 X=100
 Y=100
@@ -57,7 +57,7 @@ DO WHILE INKEY$<>""
 LOOP
 CLS
 
-PRINT "15. Zehn hüpfende Bälle"
+PRINT "15. Zehn huepfende Baelle"
 MODE 2
 
 DIM X(9)

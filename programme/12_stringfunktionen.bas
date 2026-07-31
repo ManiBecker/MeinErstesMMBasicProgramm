@@ -20,7 +20,7 @@ NAME$="Manfred"
 ORT$="Schwetzingen"
 
 PRINT "3. Wie lang darf ein Text sein?"
-PRINT "Normale Zeichenketten können in MMBasic maximal 255 Zeichen enthalten."
+PRINT "Normale Zeichenketten koennen in MMBasic maximal 255 Zeichen enthalten."
 
 PRINT "4. Texte ausgeben"
 NAME$="Manfred"
@@ -35,7 +35,7 @@ VORNAME$="Manfred"
 NACHNAME$="Becker"
 PRINT VORNAME$;" ";NACHNAME$
 
-PRINT "7. Die Länge eines Textes bestimmen"
+PRINT "7. Die Laenge eines Textes bestimmen"
 NAME$="Manfred"
 PRINT LEN(NAME$)
 
@@ -55,7 +55,7 @@ PRINT "11. Zeichen aus der Mitte lesen"
 NAME$="Manfred"
 PRINT MID$(NAME$,3,2)
 
-PRINT "12. Groß- und Kleinbuchstaben"
+PRINT "12. Gross- und Kleinbuchstaben"
 NAME$="Manfred"
 PRINT UCASE$(NAME$)
 
@@ -68,7 +68,7 @@ IF ANTWORT$="JA" THEN
   PRINT "Richtig"
 ENDIF
 
-PRINT "14. Groß- und Kleinschreibung ignorieren"
+PRINT "14. Gross- und Kleinschreibung ignorieren"
 INPUT ANTWORT$
 IF UCASE$(ANTWORT$)="JA" THEN
   PRINT "Richtig"
@@ -98,7 +98,7 @@ PRINT TIME$
 PRINT "Heute ist ";DATE$
 PRINT "Es ist ";TIME$
 
-PRINT "18. Begrüßung abhängig von der Uhrzeit"
+PRINT "18. Begruessung abhaengig von der Uhrzeit"
 STUNDE=VAL(LEFT$(TIME$,2))
 IF STUNDE<12 THEN
   PRINT "Guten Morgen!"
@@ -128,10 +128,10 @@ ELSE
 ENDIF
 
 PRINT "20. Experimentiere!"
-PRINT "Probiere folgende Änderungen aus:"
+PRINT "Probiere folgende Aenderungen aus:"
 PRINT "- Gib die ersten drei Zeichen eines Namens aus."
 PRINT "- Gib die letzten drei Zeichen aus."
-PRINT "- Wandle einen Namen in Großbuchstaben um."
+PRINT "- Wandle einen Namen in Grossbuchstaben um."
 PRINT "- Wandle einen Namen in Kleinbuchstaben um."
 PRINT "- Suche nach einem Wort in einem Text."
 
@@ -141,6 +141,6 @@ PRINT "1. Frage den Namen des Benutzers ab."
 PRINT "2. Gib die Anzahl der Zeichen aus."
 PRINT "3. Gib den ersten Buchstaben aus."
 PRINT "4. Gib den letzten Buchstaben aus."
-PRINT "5. Gib den Namen komplett in Großbuchstaben aus."
+PRINT "5. Gib den Namen komplett in Grossbuchstaben aus."
 PRINT "6. Suche nach einem bestimmten Wort in einem Satz."
 PRINT "7. Gib Datum und Uhrzeit aus."

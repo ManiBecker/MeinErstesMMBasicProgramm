@@ -15,7 +15,7 @@ REM ====================================================================
 PRINT "2. Unser erstes Programm"
 PRINT "Hallo Welt!"
 
-PRINT "3. Schritt für Schritt erklärt"
+PRINT "3. Schritt fuer Schritt erklaert"
 PRINT "Hallo Welt!"
 PRINT "Hallo MMBasic!"
 PRINT "Ich programmiere einen PicoMite."

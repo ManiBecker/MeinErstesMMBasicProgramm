@@ -107,7 +107,7 @@ NEXT I
 
 PAUSE 1000
 
-PRINT "11. Das Muster verändern"
+PRINT "11. Das Muster veraendern"
 CLS RGB(BLACK)
 MX=MM.HRES/2
 MY=MM.VRES/2
@@ -120,7 +120,7 @@ NEXT I
 
 PAUSE 1000
 
-PRINT "12. Ein spektakulärer Spirograph"
+PRINT "12. Ein spektakulaerer Spirograph"
 CLS RGB(BLACK)
 MX=MM.HRES/2
 MY=MM.VRES/2

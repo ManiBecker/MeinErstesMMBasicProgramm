@@ -44,7 +44,7 @@ PRINT "Cyanfarbener Text"
 COLOUR RGB(RED), RGB(BLACK)
 PRINT "Roter Text"
 
-PRINT "9. Schriftart auswählen"
+PRINT "9. Schriftart auswaehlen"
 FONT 1
 PRINT "Schriftart 1"
 FONT 2
@@ -52,7 +52,7 @@ PRINT "Schriftart 2"
 FONT 3
 PRINT "Schriftart 3"
 
-PRINT "11. Schriftgröße ausprobieren"
+PRINT "11. Schriftgroesse ausprobieren"
 CLS
 FONT 1
 PRINT "Kleine Schrift"
@@ -63,7 +63,7 @@ PRINT "Grosse Schrift"
 FONT 5
 PRINT "Sehr grosse Schrift"
 
-PRINT "12. Große Zahlen darstellen"
+PRINT "12. Grosse Zahlen darstellen"
 CLS
 FONT 6
 PRINT "12:45"
@@ -79,7 +79,7 @@ FONT 6
 PRINT TIME$
 
 PRINT "15. Experimentiere!"
-PRINT "Probiere folgende Änderungen aus:"
+PRINT "Probiere folgende Aenderungen aus:"
 PRINT "- Verwende andere Farben."
 PRINT "- Teste verschiedene Schriftarten."
 PRINT "- Kombiniere unterschiedliche Vorder- und Hintergrundfarben."
@@ -87,9 +87,9 @@ PRINT "- Zeige das aktuelle Datum an."
 
 PRINT "18.16. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"
-PRINT "1. Gib deinen Namen in einer großen Schrift aus."
+PRINT "1. Gib deinen Namen in einer grossen Schrift aus."
 PRINT "2. Zeige Datum und Uhrzeit gleichzeitig an."
-PRINT "3. Verwende eine andere Farbe für jede Zeile."
+PRINT "3. Verwende eine andere Farbe fuer jede Zeile."
 PRINT "4. Erstelle eine einfache digitale Uhr."
 
 

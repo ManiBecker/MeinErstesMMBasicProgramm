@@ -12,7 +12,7 @@ REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
 REM
 REM ====================================================================
 
-PRINT "3. Den Bildschirm löschen"
+PRINT "3. Den Bildschirm loeschen"
 CLS
 
 PRINT "4. Ein einzelner Pixel"
@@ -72,7 +72,7 @@ LINE 50,80,100,30
 LINE 100,30,150,80
 
 PRINT "16. Das Haus vom Nikolaus"
-PRINT "Eine bekannte Zeichenübung ist das Haus vom Nikolaus."
+PRINT "Eine bekannte Zeichenuebung ist das Haus vom Nikolaus."
 PRINT "Versuche, es selbst mit LINE zu zeichnen."
 
 PRINT "17. Bildschirmmitte berechnen"
@@ -93,13 +93,13 @@ PRINT "Versuche folgende Aufgaben:"
 PRINT "1. Zeichne ein Quadrat aus vier Linien."
 PRINT "2. Zeichne einen Stern."
 PRINT "3. Zeichne ein eigenes Haus."
-PRINT "4. Zeichne ein Spielfeld für Tic-Tac-Toe."
+PRINT "4. Zeichne ein Spielfeld fuer Tic-Tac-Toe."
 PRINT "5. Zeichne die Umrisse eines Briefumschlags."
 
 PRINT "22. Experimentiere!"
-PRINT "Probiere folgende Änderungen aus:"
+PRINT "Probiere folgende Aenderungen aus:"
 PRINT "- Verwende andere Farben."
-PRINT "- Zeichne ein größeres Haus."
+PRINT "- Zeichne ein groesseres Haus."
 PRINT "- Zeichne mehrere Dreiecke."
 PRINT "- Zeichne ein Gitter aus Linien."
 

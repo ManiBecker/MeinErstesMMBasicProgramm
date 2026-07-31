@@ -6,7 +6,7 @@ REM Buch:  Mein erstes MMBasic Programm
 REM Autor: Manfred Becker
 REM Datum: 24.07.2026
 REM
-REM Beschreibung: wie mehrere Befehle zu einem vollständigen Programm
+REM Beschreibung: wie mehrere Befehle zu einem vollstaendigen Programm
 REM               kombiniert werden.
 REM
 REM Hardware/Voraussetzungen: keine
@@ -53,29 +53,29 @@ NEXT RUNDE
 PRINT
 PRINT "Du hast ";PUNKTE;" Punkte erreicht."
 
-PRINT "10. Ideen für Erweiterungen"
-PRINT "Vielleicht möchtest du das Spiel bereits jetzt erweitern."
+PRINT "10. Ideen fuer Erweiterungen"
+PRINT "Vielleicht moechtest du das Spiel bereits jetzt erweitern."
 PRINT "Zum Beispiel:"
 PRINT "- Zahlen von 1 bis 20 verwenden"
 PRINT "- Zahlen von 1 bis 100 verwenden"
-PRINT "- zehn Spielrunden durchführen"
-PRINT "- zwei Punkte für einen Treffer vergeben"
+PRINT "- zehn Spielrunden durchfuehren"
+PRINT "- zwei Punkte fuer einen Treffer vergeben"
 
 PRINT "11. Experimentiere!"
-PRINT "Probiere folgende Änderungen aus:"
-PRINT "- Erhöhe den Zahlenbereich auf 20."
-PRINT "- Erhöhe den Zahlenbereich auf 100."
-PRINT "- Spiele zehn Runden statt fünf."
-PRINT "- Vergib zwei Punkte für jeden Treffer."
-PRINT "Welche Auswirkungen haben die Änderungen?"
+PRINT "Probiere folgende Aenderungen aus:"
+PRINT "- Erhoehe den Zahlenbereich auf 20."
+PRINT "- Erhoehe den Zahlenbereich auf 100."
+PRINT "- Spiele zehn Runden statt fuenf."
+PRINT "- Vergib zwei Punkte fuer jeden Treffer."
+PRINT "Welche Auswirkungen haben die Aenderungen?"
 
 PRINT "12. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"
 PRINT "1. Erweitere das Spiel auf zehn Runden."
-PRINT "2. Zähle die Treffer."
+PRINT "2. Zaehle die Treffer."
 PRINT "3. Gib die Gesamtpunktzahl aus."
 PRINT "4. Verwende Zahlen von 1 bis 50."
-PRINT "5. Frage den Namen des Spielers ab und begrüße ihn persönlich."
+PRINT "5. Frage den Namen des Spielers ab und begruesse ihn persoenlich."
 
 
 

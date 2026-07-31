@@ -20,7 +20,7 @@ DIM LOESUNG(9)
 DIM EINGABE(9)
 DIM TYP(9)
 
-PRINT "4. Die Arrays füllen"
+PRINT "4. Die Arrays fuellen"
 AUFGABE$(RUNDE-1)=TEXT$
 LOESUNG(RUNDE-1)=ERG
 EINGABE(RUNDE-1)=ANTWORT
@@ -95,7 +95,7 @@ SUB NeueAufgabe
   ENDIF
 END SUB
 
-PRINT "9. Fehler nach Rechenart zählen"
+PRINT "9. Fehler nach Rechenart zaehlen"
 ADD=0
 SUB=0
 MUL=0
@@ -117,11 +117,11 @@ PRINT "Multiplikation:  ";MUL
 PRINT "Divisionen:      ";DIV
 
 PRINT "11. Experimentiere!"
-PRINT "Probiere folgende Änderungen aus:"
-PRINT "- Erhöhe die Anzahl der Aufgaben auf 20."
-PRINT "- Speichere zusätzlich die benötigte Zeit."
+PRINT "Probiere folgende Aenderungen aus:"
+PRINT "- Erhoehe die Anzahl der Aufgaben auf 20."
+PRINT "- Speichere zusaetzlich die benoetigte Zeit."
 PRINT "- Gib nur die falsch beantworteten Aufgaben aus."
-PRINT "- Zähle richtige Antworten je Rechenart."
+PRINT "- Zaehle richtige Antworten je Rechenart."
 
 PRINT "12. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"

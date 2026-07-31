@@ -18,7 +18,7 @@ PRINT
 PRINT "Hallo ";NAME$
 PRINT
 
-PRINT "4. Zufällig eine Rechenart auswählen"
+PRINT "4. Zufaellig eine Rechenart auswaehlen"
 OP=INT(RND*4)
 PRINT "Die Werte bedeuten:"
 PRINT "0 = Addition"
@@ -55,7 +55,7 @@ B=INT(RND*10)+1
 A=ERG*B
 PRINT A;" / ";B;" = ?"
 
-PRINT "10. Die SUB vervollständigen
+PRINT "10. Die SUB vervollstaendigen
 SUB NeueAufgabe
   OP=INT(RND*4)
   IF OP=0 THEN
@@ -85,17 +85,17 @@ PRINT "11. Das komplette Programm"
 PRINT "Findest du in 14_little_professor_v2_final.bas"
 
 PRINT "14. Experimentiere!"
-PRINT "Probiere folgende Änderungen aus:"
+PRINT "Probiere folgende Aenderungen aus:"
 PRINT "- Verwende Zahlen bis 20."
 PRINT "- Stelle 20 Aufgaben."
 PRINT "- Verwende nur Multiplikationsaufgaben."
 PRINT "- Verwende nur Divisionsaufgaben."
-PRINT "- Ändere die Bewertung am Ende."
+PRINT "- Aendere die Bewertung am Ende."
 
 PRINT "15. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"
-PRINT "1. Füge eine Schwierigkeitsstufe hinzu."
-PRINT "2. Lasse den Spieler die Anzahl der Aufgaben wählen."
-PRINT "3. Vergib Bonuspunkte für besonders schnelle Lösungen."
+PRINT "1. Fuege eine Schwierigkeitsstufe hinzu."
+PRINT "2. Lasse den Spieler die Anzahl der Aufgaben waehlen."
+PRINT "3. Vergib Bonuspunkte fuer besonders schnelle Loesungen."
 PRINT "4. Speichere die Anzahl richtiger und falscher Antworten getrennt."
 PRINT "5. Zeige am Ende die erreichte Prozentzahl an."

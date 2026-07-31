@@ -5,7 +5,7 @@ REM Titel: Kapitel 10: Programme strukturieren mit SUB und FUNCTION
 REM Buch:  Mein erstes MMBasic Programm
 REM Autor: Manfred Becker
 REM Datum: 24.07.2026
-REM Letzte Änderung: 26.7.2026: Doppelte SUBs gelöscht.
+REM Letzte Aenderung: 26.7.2026: Doppelte SUBs geloescht.
 REM
 REM Beschreibung: Programme in kleinere Bausteine aufzuteilen
 REM
@@ -47,7 +47,7 @@ PRINT Verdoppeln(10)
 PRINT "9. Funktionen in Berechnungen verwenden"
 PRINT Quadrat(5)+Quadrat(3)
 
-PRINT "10. Eine Würfelfunktion"
+PRINT "10. Eine Wuerfelfunktion"
 FUNCTION Wuerfel()
   Wuerfel=INT(RND*6)+1
 END FUNCTION
@@ -71,17 +71,17 @@ GEHEIM=NeueZahl()
 PRINT GEHEIM
 
 PRINT "15. Experimentiere!"
-PRINT "Probiere folgende Änderungen aus:"
+PRINT "Probiere folgende Aenderungen aus:"
 PRINT "- Schreibe eine Funktion zur Berechnung des Dreifachen einer Zahl."
-PRINT "- Schreibe eine Funktion für die Berechnung eines Kreises."
-PRINT "- Erweitere die Würfelfunktion."
-PRINT "- Erstelle eine SUB für eine persönliche Begrüßung."
+PRINT "- Schreibe eine Funktion fuer die Berechnung eines Kreises."
+PRINT "- Erweitere die Wuerfelfunktion."
+PRINT "- Erstelle eine SUB fuer eine persoenliche Begruessung."
 
 PRINT "10.16. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"
-PRINT "1. Schreibe eine Funktion zur Berechnung des Würfels einer Zahl."
+PRINT "1. Schreibe eine Funktion zur Berechnung des Wuerfels einer Zahl."
 PRINT "2. Schreibe eine Funktion zur Berechnung des Umfangs eines Quadrats."
-PRINT "3. Erstelle eine SUB, die fünfmal ""MMBasic"" ausgibt."
+PRINT "3. Erstelle eine SUB, die fuenfmal ""MMBasic"" ausgibt."
 PRINT "4. Verwende eine Funktion innerhalb einer FOR-Schleife."
 PRINT "5. Baue die Funktion NeueZahl() in dein Zahlenratespiel ein."
 

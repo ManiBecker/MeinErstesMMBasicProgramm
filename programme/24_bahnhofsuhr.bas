@@ -6,7 +6,7 @@ REM Buch:  Mein erstes MMBasic Programm
 REM Autor: Manfred Becker
 REM Datum: 29.07.2026
 REM
-REM Beschreibung: Das vollständige Programm
+REM Beschreibung: Das vollstaendige Programm
 REM
 REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
 REM

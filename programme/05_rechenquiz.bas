@@ -62,7 +62,7 @@ ENDIF
 PRINT "14. Verschachtelte Entscheidungen"
 ALTER = 20
 IF ALTER >= 18 THEN
-  PRINT "Volljährig"
+  PRINT "Volljaehrig"
   IF ALTER >= 67 THEN
   PRINT "Rentenalter erreicht"
   ENDIF
@@ -70,9 +70,9 @@ ENDIF
 
 PRINT "16. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"
-PRINT "1. Schreibe ein Programm, das prüft, ob eine Zahl größer als 100 ist."
+PRINT "1. Schreibe ein Programm, das prueft, ob eine Zahl groesser als 100 ist."
 PRINT "2. Gib aus, ob eine Zahl gerade oder ungerade ist."
 PRINT "3. Vergleiche zwei Zahlen miteinander."
 PRINT "4. Erweitere das Quiz um weitere Rechenaufgaben."
-PRINT "5. Gib abhängig vom Alter unterschiedliche Texte aus."
+PRINT "5. Gib abhaengig vom Alter unterschiedliche Texte aus."
 

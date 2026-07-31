@@ -23,7 +23,7 @@ PRINT "5. Ein farbiges Rechteck"
 CLS RGB(BLACK)
 BOX 50,40,200,100,3,RGB(YELLOW),RGB(BLUE)
 
-PRINT "6. Ein Rechteck ohne Füllung"
+PRINT "6. Ein Rechteck ohne Fuellung"
 BOX 50,40,200,100,3,RGB(YELLOW)
 
 PRINT "7. Mehrere Rechtecke zeichnen"
@@ -63,12 +63,12 @@ CIRCLE X,Y,75,2,1,RGB(YELLOW)
 CIRCLE X,Y,50,2,1,RGB(RED)
 CIRCLE X,Y,25,2,1,RGB(GREEN)
 
-PRINT "14. Kreisbögen zeichnen"
+PRINT "14. Kreisboegen zeichnen"
 PRINT "ARC X,Y,INNENRADIUS,AUSSENRADIUS,STARTWINKEL,ENDWINKEL,FARBE"
 CLS RGB(BLACK)
 ARC 160,120,45,55,0,180,RGB(YELLOW)
 
-PRINT "15. Mehrere Kreisbögen kombinieren"
+PRINT "15. Mehrere Kreisboegen kombinieren"
 CLS RGB(BLACK)
 X=MM.HRES/2
 Y=MM.VRES/2
@@ -84,12 +84,12 @@ TEXT 50,40,"Hallo MMBasic"
 
 PRINT "17. Text ausrichten"
 PRINT "TEXT X,Y,""Text"",""AUSRICHTUNG"""
-PRINT "Für die horizontale Ausrichtung stehen zur Verfügung:"
+PRINT "Fuer die horizontale Ausrichtung stehen zur Verfuegung:"
 PRINT "Buchstabe Bedeutung"
-PRINT "L Linksbündig"
+PRINT "L Linksbuendig"
 PRINT "C Zentriert"
-PRINT "R Rechtsbündig"
-PRINT "Für die vertikale Ausrichtung stehen zur Verfügung:"
+PRINT "R Rechtsbuendig"
+PRINT "Fuer die vertikale Ausrichtung stehen zur Verfuegung:"
 PRINT "Buchstabe Bedeutung"
 PRINT "T Oben"
 PRINT "M Mittig"
@@ -140,18 +140,18 @@ CIRCLE X+35,Y-30,10,1,1,RGB(WHITE),RGB(WHITE)
 ARC X,Y+10,45,50,120,240,RGB(YELLOW)
 
 PRINT "25. Experimentiere!"
-PRINT "Probiere folgende Änderungen aus:"
+PRINT "Probiere folgende Aenderungen aus:"
 PRINT "- Zeichne Rechtecke mit verschiedenen Rahmenbreiten."
-PRINT "- Verwende unterschiedliche Füllfarben."
+PRINT "- Verwende unterschiedliche Fuellfarben."
 PRINT "- Erzeuge Kreise mit verschiedenen Radien."
-PRINT "- Zeichne Ellipsen mit unterschiedlichen Seitenverhältnissen."
-PRINT "- Positioniere Texte an verschiedenen Bildschirmrändern."
-PRINT "- Drehe einen Text in alle verfügbaren Richtungen."
+PRINT "- Zeichne Ellipsen mit unterschiedlichen Seitenverhaeltnissen."
+PRINT "- Positioniere Texte an verschiedenen Bildschirmraendern."
+PRINT "- Drehe einen Text in alle verfuegbaren Richtungen."
 
 PRINT "26. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"
 PRINT "1. Zeichne eine Ampel aus einem Rechteck und drei Kreisen."
-PRINT "2. Gestalte eine Schaltfläche mit RBOX und TEXT."
+PRINT "2. Gestalte eine Schaltflaeche mit RBOX und TEXT."
 PRINT "3. Zeichne eine Zielscheibe."
 PRINT "4. Erzeuge eine digitale Uhr mit Rahmen."
 PRINT "5. Zeichne ein einfaches Gesicht."

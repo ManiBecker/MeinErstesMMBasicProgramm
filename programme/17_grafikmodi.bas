@@ -12,7 +12,7 @@ REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
 REM
 REM ====================================================================
 
-PRINT "5. Die Bildschirmgröße"
+PRINT "5. Die Bildschirmgroesse"
 PRINT MM.HRES
 PRINT MM.VRES
 
@@ -40,16 +40,16 @@ PRINT "Fontbreite  : ";MM.INFO(FONTWIDTH)
 PRINT "Fonthoehe   : ";MM.INFO(FONTHEIGHT)
 
 PRINT "12. Experimentiere!"
-PRINT "Probiere folgende Änderungen aus:"
-PRINT "- Führe das Programm auf verschiedenen Geräten aus."
+PRINT "Probiere folgende Aenderungen aus:"
+PRINT "- Fuehre das Programm auf verschiedenen Geraeten aus."
 PRINT "- Vergleiche HDMI und VGA."
-PRINT "- Ändere die Schriftart und beobachte die Werte."
-PRINT "- Notiere die Bildschirmgröße deines Systems."
+PRINT "- Aendere die Schriftart und beobachte die Werte."
+PRINT "- Notiere die Bildschirmgroesse deines Systems."
 
 PRINT "17.13. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"
 PRINT "1. Gib die Bildschirmbreite aus."
-PRINT "2. Gib die Bildschirmhöhe aus."
+PRINT "2. Gib die Bildschirmhoehe aus."
 PRINT "3. Gib die Fontbreite aus."
-PRINT "4. Gib die Fonthöhe aus."
+PRINT "4. Gib die Fonthoehe aus."
 PRINT "5. Berechne die Bildschirmmitte."

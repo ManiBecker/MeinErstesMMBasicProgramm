@@ -34,32 +34,32 @@ INPUT A
 INPUT B
 PRINT A+B
 
-PRINT "7. Eine persönliche Begrüßung"
+PRINT "7. Eine persoenliche Begruessung"
 INPUT N$
 PRINT "Hallo ";N$
 
 PRINT "8. Texte und Variablen kombinieren"
 INPUT NAME$
 PRINT "Willkommen ";NAME$
-PRINT "Schön, dass du da bist."
+PRINT "Schoen, dass du da bist."
 
 PRINT "9. Unser erstes interaktives Programm"
-PRINT "Wie heißt du?"
+PRINT "Wie heisst du?"
 INPUT NAME$
 PRINT "Hallo ";NAME$
 PRINT "Willkommen bei MMBasic!"
 
 PRINT "10. Experimentiere!"
-PRINT "Probiere folgende Änderungen aus:"
+PRINT "Probiere folgende Aenderungen aus:"
 PRINT "- Gib dein Alter ein."
 PRINT "- Addiere zwei eingegebene Zahlen."
 PRINT "- Gib deinen Wohnort ein."
-PRINT "- Erweitere die Begrüßung um weitere Texte."
+PRINT "- Erweitere die Begruessung um weitere Texte."
 
 PRINT "11. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"
 PRINT "1. Frage den Benutzer nach seinem Namen."
 PRINT "2. Frage den Benutzer nach seinem Alter."
 PRINT "3. Addiere zwei eingegebene Zahlen."
-PRINT "4. Gib eine persönliche Begrüßung aus."
+PRINT "4. Gib eine persoenliche Begruessung aus."
 

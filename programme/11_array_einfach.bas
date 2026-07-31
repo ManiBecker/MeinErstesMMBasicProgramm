@@ -66,7 +66,7 @@ FOR I=0 TO 4
   PRINT SPIELER$(I)
 NEXT I
 
-PRINT "12. Würfelergebnisse speichern"
+PRINT "12. Wuerfelergebnisse speichern"
 DIM WURF(9)
 FOR I=0 TO 9
   WURF(I)=INT(RND*6)+1
@@ -99,7 +99,7 @@ FACH$(2)="Mathe"
 
 DIM NOTE(4,2)
 
-' Zufällige Noten vergeben
+' Zufaellige Noten vergeben
 FOR S=0 TO 4
   FOR F=0 TO 2
     NOTE(S,F)=INT(RND*6)+1
@@ -107,7 +107,7 @@ FOR S=0 TO 4
 NEXT S
 
 ' Tabelle ausgeben
-PRINT "Schüler",
+PRINT "Schueler",
 FOR F=0 TO 2
   PRINT FACH$(F),
 NEXT F
@@ -122,16 +122,16 @@ FOR S=0 TO 4
 NEXT S
 
 PRINT "15. Experimentiere!"
-PRINT "Probiere folgende Änderungen aus:"
-PRINT "- Speichere zehn Würfelergebnisse."
+PRINT "Probiere folgende Aenderungen aus:"
+PRINT "- Speichere zehn Wuerfelergebnisse."
 PRINT "- Speichere die Punkte von zehn Spielern."
 PRINT "- Berechne einen Durchschnitt."
-PRINT "- Vergrößere ein Array."
+PRINT "- Vergroessere ein Array."
 PRINT "16. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"
-PRINT "1. Speichere die Alter von fünf Personen."
+PRINT "1. Speichere die Alter von fuenf Personen."
 PRINT "2. Gib alle Werte mit einer FOR-Schleife aus."
 PRINT "3. Berechne die Summe aller Werte."
-PRINT "4. Ermittle den größten Wert."
-PRINT "5. Speichere fünf Namen in einem Textarray."
+PRINT "4. Ermittle den groessten Wert."
+PRINT "5. Speichere fuenf Namen in einem Textarray."
 

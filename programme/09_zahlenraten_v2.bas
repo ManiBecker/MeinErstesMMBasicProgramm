@@ -36,7 +36,7 @@ DO
   ENDIF
 LOOP UNTIL TIPP=GEHEIM
 
-PRINT "8. Die Anzahl der Versuche zählen"
+PRINT "8. Die Anzahl der Versuche zaehlen"
 VERSUCHE=0
 DO
   VERSUCHE=VERSUCHE+1
@@ -52,7 +52,7 @@ LOOP UNTIL TIPP=GEHEIM
 PRINT
 PRINT "Du hast ";VERSUCHE;" Versuche benoetigt."
 
-PRINT "10. Eine persönliche Begrüßung"
+PRINT "10. Eine persoenliche Begruessung"
 PRINT "Wie heisst du?"
 INPUT NAME$
 PRINT
@@ -74,17 +74,17 @@ PRINT
 PRINT "Du hast ";VERSUCHE;" Versuche benoetigt."
 
 PRINT "11. Experimentiere!"
-PRINT "Probiere folgende Änderungen aus:"
+PRINT "Probiere folgende Aenderungen aus:"
 PRINT "- Verwende Zahlen von 1 bis 50."
 PRINT "- Verwende Zahlen von 1 bis 1000."
 PRINT "- Begrenze die Anzahl der Versuche."
-PRINT "- Vergib Punkte für besonders gute Ergebnisse."
+PRINT "- Vergib Punkte fuer besonders gute Ergebnisse."
 
 PRINT "12. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"
 PRINT "1. Begrenze die Anzahl der Versuche auf 10."
 PRINT "2. Gib nach dem Spiel die geheime Zahl aus."
-PRINT "3. Vergib Punkte abhängig von der Anzahl der Versuche."
+PRINT "3. Vergib Punkte abhaengig von der Anzahl der Versuche."
 PRINT "4. Frage nach jedem Spiel, ob noch einmal gespielt werden soll."
 PRINT "5. Erweitere das Spiel um einen Highscore."
 

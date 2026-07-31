@@ -38,11 +38,11 @@ FOR RUNDE=1 TO 10
   ENDIF
 NEXT RUNDE
 
-PRINT "6. Punkte zählen"
+PRINT "6. Punkte zaehlen"
 PUNKTE=0
 PUNKTE=PUNKTE+1
 
-PRINT "7. Die richtige Lösung anzeigen"
+PRINT "7. Die richtige Loesung anzeigen"
 IF ANTWORT=A+B THEN
   PRINT "Richtig!"
   PUNKTE=PUNKTE+1

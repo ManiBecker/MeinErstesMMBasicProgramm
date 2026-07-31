@@ -12,13 +12,13 @@ REM Hardware/Voraussetzungen: keine
 REM
 REM ====================================================================
 
-PRINT "4. Eine Datei öffnen"
+PRINT "4. Eine Datei oeffnen"
 OPEN "test.txt" FOR OUTPUT AS #1
 
 PRINT "5. Eine Datei schreiben"
 PRINT #1,"Hallo Welt"
 
-PRINT "6. Dateien immer schließen"
+PRINT "6. Dateien immer schliessen"
 CLOSE #1
 
 PRINT "7. Eine Datei lesen"
@@ -34,7 +34,7 @@ PRINT #1,"Geoff"
 PRINT #1,"Peter"
 CLOSE #1
 
-PRINT "10. Daten anhängen"
+PRINT "10. Daten anhaengen"
 OPEN "namen.txt" FOR APPEND AS #1
 PRINT #1,"Sarah"
 CLOSE #1
@@ -60,11 +60,11 @@ PRINT "Name   : "; NAME$
 PRINT "Punkte : "; PUNKTE
 
 PRINT "18. Experimentiere!"
-PRINT "Probiere folgende Änderungen aus:"
+PRINT "Probiere folgende Aenderungen aus:"
 PRINT "- Speichere mehrere Namen in einer Datei."
 PRINT "- Speichere mehrere Punktzahlen."
 PRINT "- Verwende APPEND statt OUTPUT."
-PRINT "- Ändere den Dateinamen."
+PRINT "- Aendere den Dateinamen."
 
 PRINT "16.19. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"

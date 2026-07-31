@@ -29,12 +29,12 @@ FOR I=1 TO 10
   PRINT "Hallo Welt!"
 NEXT I
 
-PRINT "5. Die Zählvariable ausgeben"
+PRINT "5. Die Zaehlvariable ausgeben"
 FOR I=1 TO 10
   PRINT I
 NEXT I
 
-PRINT "6. Mit der Zählvariable rechnen"
+PRINT "6. Mit der Zaehlvariable rechnen"
 FOR I=1 TO 10
   PRINT I*I
 NEXT I
@@ -44,12 +44,12 @@ FOR I=1 TO 10
   PRINT I;" x 5 = ";I*5
 NEXT I
 
-PRINT "8. Rückwärts zählen"
+PRINT "8. Rueckwaerts zaehlen"
 FOR I=10 TO 1 STEP -1
   PRINT I
 NEXT I
 
-PRINT "9. Größere Schritte"
+PRINT "9. Groessere Schritte"
 FOR I=0 TO 20 STEP 2
   PRINT I
 NEXT I
@@ -74,8 +74,8 @@ FOR X=0 TO 10
 NEXT X
 
 PRINT "13. Experimentiere!"
-PRINT "Probiere folgende Änderungen aus:"
-PRINT "Gib die Zahlen von 1 bis 20 aus. Zähle von 100 bis 0 herunter. Gib alle Vielfachen von 3 aus."
+PRINT "Probiere folgende Aenderungen aus:"
+PRINT "Gib die Zahlen von 1 bis 20 aus. Zaehle von 100 bis 0 herunter. Gib alle Vielfachen von 3 aus."
 PRINT "Berechne die Quadratzahlen von 1 bis 20."
 
 PRINT "14. Probier’s selbst!"

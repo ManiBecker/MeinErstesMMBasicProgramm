@@ -27,7 +27,7 @@ A=10
 B=20
 PRINT A+B
 
-PRINT "6. Variablen verändern"
+PRINT "6. Variablen veraendern"
 A=10
 PRINT A
 A=25
@@ -38,7 +38,7 @@ A=10
 A=A+1
 PRINT A
 
-PRINT "8. Zähler erstellen"
+PRINT "8. Zaehler erstellen"
 A=0
 A=A+1
 PRINT A
