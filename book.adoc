@@ -50,6 +50,22 @@ entscheidend weiterentwickelt hat.
 Ohne ihre jahrelange Arbeit und die frei verfügbaren Handbücher wäre dieses
 Tutorial nicht möglich.
 
+=== Hinweis zur Entstehung des Tutorials
+
+Dieses Tutorial wurde vom Autor erstellt und wird kontinuierlich weiterentwickelt.
+
+Bei der Ausarbeitung der Texte, der sprachlichen Überarbeitung sowie der Strukturierung einzelner Kapitel kamen Werkzeuge auf Basis generativer Künstlicher Intelligenz (KI) unterstützend zum Einsatz.
+
+Alle fachlichen Inhalte, Programmbeispiele und technischen Aussagen wurden vom Autor ausgewählt, geprüft und für die Veröffentlichung freigegeben.
+
+=== Hinweis zu den Illustrationen
+
+Viele der Illustrationen in diesem Tutorial wurden mit Unterstützung generativer Künstlicher Intelligenz (KI) erstellt.
+
+Die Bildideen, die fachlichen Inhalte sowie die Auswahl der endgültigen Illustrationen stammen vom Autor. Die KI wurde ausschließlich als Werkzeug zur Erstellung der Abbildungen eingesetzt.
+
+Ziel war es, technische Sachverhalte anschaulich zu vermitteln und den Einstieg in MMBasic zu erleichtern.
+
 <<<
 
 toc::[]
