@@ -11,7 +11,7 @@ Schwerpunkt dieser Version ist die Bereitstellung und Verifizierung aller Beispi
 
 ### Geplant
 
-- [ ] Alle 52 BASIC-Beispielprogramme als *.bas-Dateien bereitstellen
+- [ ] Alle 52 BASIC-Beispielprogramme als *.bas-Dateien bereitstellen [Programmbeispiele](./programme/)
 - [ ] Alle Programme auf PicoMite testen und verifizieren
 - [ ] Einheitliche Dateinamen vergeben
 - [ ] Download-Paket erstellen
