@@ -90,9 +90,41 @@ Wenn später eine Linie oder ein Kreis gezeichnet wird, erfolgt dies immer anhan
 
 === Die Bildschirmgröße
 
-Nicht jeder Bildschirm besitzt dieselbe Auflösung.
+Je nach verwendetem PicoMite-System stehen unterschiedliche Bildschirmauflösungen zur Verfügung. Bei PicoMite-Systemen mit HDMI- oder VGA-Ausgabe wird die gewünschte Auflösung mit dem Befehl `OPTION RESOLUTION` festgelegt.
 
-MMBasic stellt deshalb zwei Variablen bereit.
+[source,basic]
+----
+OPTION RESOLUTION 800
+----
+
+Je nach Hardware werden unter anderem folgende Bildschirmauflösungen unterstützt:
+
+[cols="2,3",options="header"]
+|===
+|Auflösung |Bemerkung
+
+|640 x 480
+|Standardauflösung für HDMI und VGA
+
+|720 x 400
+|Alternative Bildschirmauflösung
+
+|800 x 600
+|Nur auf RP2350-Systemen verfügbar
+
+|848 x 480
+|Nur auf RP2350-Systemen verfügbar
+
+|1024 x 768
+|Nur HDMI
+
+|1280 x 720
+|Nur HDMI (HD-Auflösung)
+|===
+
+Eine höhere Bildschirmauflösung bietet mehr Platz für Grafiken und Texte. Gleichzeitig steigt jedoch auch der Speicherbedarf der Grafikausgabe. Dadurch stehen einem MMBasic-Programm weniger Programm- und Variablenspeicher zur Verfügung.
+
+Welche Bildschirmauflösungen aktuell am System eingestellt ist, kann anhand zweier Variable ermittelt werden, die MMBasic bereitstellt.
 
 [source,basic]
 ----
@@ -124,6 +156,61 @@ Die Variablen haben folgende Bedeutung:
 
 |MM.VRES
 |Vertikale Auflösung (Höhe)
+|===
+
+Die Bildschirmauflösung bestimmt also die Größe des Zeichenbereichs. Wie dieser Zeichenbereich anschließend von MMBasic genutzt wird, legen wir im nächsten Abschnitt mit dem Befehl `MODE` fest.
+
+=== Der Grafikmodus
+
+Bevor wir Grafiken zeichnen können, muss zunächst ein geeigneter Grafikmodus ausgewählt werden.
+
+Dies geschieht mit dem Befehl `MODE`.
+
+[source,basic]
+----
+MODE 2
+----
+
+Der Grafikmodus legt fest, wie der Bildschirm verwendet wird. Dazu gehören unter anderem:
+
+* die Bildschirmauflösung
+* die Anzahl der darstellbaren Farben
+* die verfügbare Bildschirmfläche
+* die Größe der Schrift
+
+Welche Grafikmodi verfügbar sind, hängt von der verwendeten Hardware ab.
+Ein PicoMite mit HDMI-Ausgabe bietet beispielsweise andere Grafikmodi als ein PicoMite mit VGA-Ausgabe oder ein Colour Maximite 2.
+
+Die meisten Grafikprogramme in diesem Tutorial verwenden `MODE 2`. Dieser Modus eignet sich besonders gut für die gezeigten Beispiele und steht auf den meisten PicoMite-Systemen zur Verfügung.
+
+[cols="1,2,2,4",options="header"]
+|===
+|MODE |Auflösung |Farben |Verwendung
+
+|1
+|640 x 480
+|2
+|Monochrome Darstellung, Standardmodus nach dem Einschalten
+
+|2
+|320 x 240
+|16
+|Einfacher Farbmodus, ideal für erste Grafikprogramme
+
+|3
+|640 x 480
+|16
+|Höhere Auflösung bei 16 Farben
+
+|4
+|320 x 240
+|32.768
+|RGB555-Farbmodus für hochwertige Farbgrafiken
+
+|5
+|320 x 240
+|256
+|256 Farben mit frei belegbarer Farbpalette
 |===
 
 === Bildschirminformationen anzeigen
@@ -283,3 +370,9 @@ Du weißt nun:
 * wie Farben beschrieben werden
 
 Im nächsten Kapitel werden wir die ersten grafischen Objekte auf dem Bildschirm zeichnen.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/17_grafikmodi.bas[17_grafikmodi.bas]
