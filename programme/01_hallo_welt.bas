@@ -15,10 +15,14 @@ REM ====================================================================
 PRINT "2. Unser erstes Programm"
 PRINT "Hallo Welt!"
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "3. Schritt fuer Schritt erklaert"
 PRINT "Hallo Welt!"
 PRINT "Hallo MMBasic!"
 PRINT "Ich programmiere einen PicoMite."
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "4. Experimentiere!"
 PRINT "Hallo Colour Maximite!"

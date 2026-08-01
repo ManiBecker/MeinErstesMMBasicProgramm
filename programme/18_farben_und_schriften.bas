@@ -17,6 +17,8 @@ PRINT "RGB(255,0,0): ";RGB(255,0,0)
 PRINT "RGB(0,255,0): ";RGB(0,255,0)
 PRINT "RGB(0,0,255): ";RGB(0,0,255)
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "4. Farbkonstanten verwenden"
 PRINT "RGB(RED):    ";RGB(RED)
 PRINT "RGB(GREEN):  ";RGB(GREEN)
@@ -27,13 +29,19 @@ PRINT "RGB(MAGENTA):";RGB(MAGENTA)
 PRINT "RGB(WHITE):  ";RGB(WHITE)
 PRINT "RGB(BLACK):  ";RGB(BLACK)
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "5. Vorder- und Hintergrundfarbe"
 CLS
 COLOUR RGB(YELLOW), RGB(BLUE)
 PRINT "Hallo MMBasic"
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "6. Der Bildschirmhintergrund"
 CLS RGB(BLACK)
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "7. Ein kleines Farbexperiment"
 CLS RGB(BLACK)
@@ -44,6 +52,8 @@ PRINT "Cyanfarbener Text"
 COLOUR RGB(RED), RGB(BLACK)
 PRINT "Roter Text"
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "9. Schriftart auswaehlen"
 FONT 1
 PRINT "Schriftart 1"
@@ -51,6 +61,8 @@ FONT 2
 PRINT "Schriftart 2"
 FONT 3
 PRINT "Schriftart 3"
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "11. Schriftgroesse ausprobieren"
 CLS
@@ -63,6 +75,8 @@ PRINT "Grosse Schrift"
 FONT 5
 PRINT "Sehr grosse Schrift"
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "12. Grosse Zahlen darstellen"
 CLS
 FONT 6
@@ -72,11 +86,15 @@ PRINT "13. Informationen zur aktuellen Schrift"
 PRINT "MM.INFO(FONTWIDTH):  ";MM.INFO(FONTWIDTH)
 PRINT "MM.INFO(FONTHEIGHT): ";MM.INFO(FONTHEIGHT)
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "14. Ein digitales Display"
 CLS RGB(BLACK)
 COLOUR RGB(GREEN), RGB(BLACK)
 FONT 6
 PRINT TIME$
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "15. Experimentiere!"
 PRINT "Probiere folgende Aenderungen aus:"
@@ -84,6 +102,8 @@ PRINT "- Verwende andere Farben."
 PRINT "- Teste verschiedene Schriftarten."
 PRINT "- Kombiniere unterschiedliche Vorder- und Hintergrundfarben."
 PRINT "- Zeige das aktuelle Datum an."
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "18.16. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"

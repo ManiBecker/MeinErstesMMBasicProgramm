@@ -16,6 +16,8 @@ PRINT "5. Die Bildschirmgroesse"
 PRINT MM.HRES
 PRINT MM.VRES
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "6. Bildschirminformationen anzeigen"
 CLS
 PRINT "Bildschirminformationen"
@@ -24,9 +26,13 @@ PRINT "Breite : ";MM.HRES
 PRINT "Hoehe  : ";MM.VRES
 
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "7. Schriftarten"
 PRINT MM.INFO(FONTWIDTH)
 PRINT MM.INFO(FONTHEIGHT)
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "11. Ein erstes Informationsprogramm"
 CLS
@@ -39,12 +45,16 @@ PRINT
 PRINT "Fontbreite  : ";MM.INFO(FONTWIDTH)
 PRINT "Fonthoehe   : ";MM.INFO(FONTHEIGHT)
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "12. Experimentiere!"
 PRINT "Probiere folgende Aenderungen aus:"
 PRINT "- Fuehre das Programm auf verschiedenen Geraeten aus."
 PRINT "- Vergleiche HDMI und VGA."
 PRINT "- Aendere die Schriftart und beobachte die Werte."
 PRINT "- Notiere die Bildschirmgroesse deines Systems."
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "17.13. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"

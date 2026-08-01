@@ -50,7 +50,7 @@ entscheidend weiterentwickelt hat.
 Ohne ihre jahrelange Arbeit und die frei verfügbaren Handbücher wäre dieses
 Tutorial nicht möglich.
 
-=== Hinweis zur Entstehung des Tutorials
+**Hinweis zur Entstehung des Tutorials**
 
 Dieses Tutorial wurde vom Autor erstellt und wird kontinuierlich weiterentwickelt.
 
@@ -58,7 +58,7 @@ Bei der Ausarbeitung der Texte, der sprachlichen Überarbeitung sowie der Strukt
 
 Alle fachlichen Inhalte, Programmbeispiele und technischen Aussagen wurden vom Autor ausgewählt, geprüft und für die Veröffentlichung freigegeben.
 
-=== Hinweis zu den Illustrationen
+**Hinweis zu den Illustrationen**
 
 Viele der Illustrationen in diesem Tutorial wurden mit Unterstützung generativer Künstlicher Intelligenz (KI) erstellt.
 

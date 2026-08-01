@@ -21,7 +21,7 @@ FOR I=1 TO 1000
   PIXEL X,Y,FARBE
 NEXT I
 
-PAUSE 1000
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "1000 zufaellige Kreise"
 FOR I=1 TO 1000
@@ -32,7 +32,7 @@ FOR I=1 TO 1000
   CIRCLE X,Y,RADIUS,1,1,FARBE
 NEXT I
 
-PAUSE 1000
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "1000 zufaellige Rechtecke"
 FOR I=1 TO 1000

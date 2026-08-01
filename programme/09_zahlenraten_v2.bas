@@ -17,10 +17,14 @@ DO
   PRINT "Hallo Welt!"
 LOOP
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "5. Die Schleife beenden"
 DO
   INPUT A
 LOOP UNTIL A=10
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "6. Das neue Zahlenratespiel"
 GEHEIM=INT(RND*100)+1
@@ -35,6 +39,8 @@ DO
   PRINT "Richtig!"
   ENDIF
 LOOP UNTIL TIPP=GEHEIM
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "8. Die Anzahl der Versuche zaehlen"
 VERSUCHE=0
@@ -51,6 +57,8 @@ DO
 LOOP UNTIL TIPP=GEHEIM
 PRINT
 PRINT "Du hast ";VERSUCHE;" Versuche benoetigt."
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "10. Eine persoenliche Begruessung"
 PRINT "Wie heisst du?"
@@ -73,12 +81,16 @@ LOOP UNTIL TIPP=GEHEIM
 PRINT
 PRINT "Du hast ";VERSUCHE;" Versuche benoetigt."
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "11. Experimentiere!"
 PRINT "Probiere folgende Aenderungen aus:"
 PRINT "- Verwende Zahlen von 1 bis 50."
 PRINT "- Verwende Zahlen von 1 bis 1000."
 PRINT "- Begrenze die Anzahl der Versuche."
 PRINT "- Vergib Punkte fuer besonders gute Ergebnisse."
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "12. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"

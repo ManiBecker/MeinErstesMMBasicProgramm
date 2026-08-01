@@ -23,6 +23,8 @@ ELSE
   PRINT "Leider falsch!"
 ENDIF
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "5. Mehrere Aufgaben hintereinander"
 FOR RUNDE=1 TO 10
   A=INT(RND*10)
@@ -38,9 +40,13 @@ FOR RUNDE=1 TO 10
   ENDIF
 NEXT RUNDE
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "6. Punkte zaehlen"
 PUNKTE=0
 PUNKTE=PUNKTE+1
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "7. Die richtige Loesung anzeigen"
 IF ANTWORT=A+B THEN
@@ -51,7 +57,10 @@ ELSE
   PRINT "Richtig waere ";A+B
 ENDIF
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "8. Das komplette Programm"
+CLS
 PUNKTE=0
 FOR RUNDE=1 TO 10
   A=INT(RND*10)

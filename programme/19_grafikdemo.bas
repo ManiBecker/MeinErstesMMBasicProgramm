@@ -15,15 +15,23 @@ REM ====================================================================
 PRINT "3. Den Bildschirm loeschen"
 CLS
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "4. Ein einzelner Pixel"
 PIXEL 100,100
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "5. Ein farbiger Pixel"
 PIXEL 100,100,RGB(RED)
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "6. Unser erstes Grafikprogramm"
 CLS RGB(BLACK)
 PIXEL 100,100,RGB(RED)
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "7. Mehrere Pixel zeichnen"
 CLS RGB(BLACK)
@@ -33,34 +41,50 @@ PIXEL 102,100,RGB(RED)
 PIXEL 103,100,RGB(RED)
 PIXEL 104,100,RGB(RED)
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "8. Linien zeichnen"
 LINE 10,10,200,10
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "9. Horizontale Linien"
 CLS
 LINE 10,50,200,50
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "10. Vertikale Linien"
 CLS
 LINE 100,20,100,200
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "11. Diagonale Linien"
 CLS
 LINE 10,10,200,150
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "12. Linienfarben"
 LINE 10,10,200,100,,RGB(RED)
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "13. Mehrere Linien kombinieren"
 CLS
 LINE 50,100,250,100
 LINE 150,20,150,180
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "14. Ein Dreieck zeichnen"
 CLS
 LINE 100,50,50,150
 LINE 50,150,150,150
 LINE 150,150,100,50
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "15. Ein Haus zeichnen"
 CLS
@@ -71,22 +95,32 @@ LINE 50,80,50,150
 LINE 50,80,100,30
 LINE 100,30,150,80
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "16. Das Haus vom Nikolaus"
 PRINT "Eine bekannte Zeichenuebung ist das Haus vom Nikolaus."
 PRINT "Versuche, es selbst mit LINE zu zeichnen."
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "17. Bildschirmmitte berechnen"
 MITTEX=MM.HRES/2
 MITTEY=MM.VRES/2
 PIXEL MITTEX,MITTEY,RGB(RED)
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "18. Ein Fadenkreuz zeichnen"
 CLS
 LINE MM.HRES/2,0,MM.HRES/2,MM.VRES
 LINE 0,MM.VRES/2,MM.HRES,MM.VRES/2
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "19. Ein kleines Grafik-Testprogramm"
 PRINT "Lade 19_grafikdemo_test_1.bas"
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "21. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"
@@ -95,6 +129,8 @@ PRINT "2. Zeichne einen Stern."
 PRINT "3. Zeichne ein eigenes Haus."
 PRINT "4. Zeichne ein Spielfeld fuer Tic-Tac-Toe."
 PRINT "5. Zeichne die Umrisse eines Briefumschlags."
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "22. Experimentiere!"
 PRINT "Probiere folgende Aenderungen aus:"

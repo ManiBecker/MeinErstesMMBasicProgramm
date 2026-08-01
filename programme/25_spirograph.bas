@@ -23,7 +23,7 @@ FOR I=0 TO 360
   PIXEL X,Y,RGB(YELLOW)
 NEXT I
 
-PAUSE 1000
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "5. Ein Sonnenstrahlen-Muster"
 CLS RGB(BLACK)
@@ -36,7 +36,7 @@ FOR I=0 TO 360 STEP 5
   LINE MX,MY,X,Y,,,RGB(YELLOW)
 NEXT I
 
-PAUSE 1000
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "6. Ein Stern"
 CLS RGB(BLACK)
@@ -52,7 +52,7 @@ FOR I=0 TO 4
   LINE X(I),Y(I),X(J),Y(J),,,RGB(CYAN)
 NEXT I
 
-PAUSE 1000
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "7. Ein Stern mit zehn Spitzen"
 CLS RGB(BLACK)
@@ -70,7 +70,7 @@ FOR I=0 TO 9
   LINE X(I),Y(I),X(J),Y(J),,,RGB(GREEN)
 NEXT I
 
-PAUSE 1000
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "8. Eine Rosette"
 CLS RGB(BLACK)
@@ -86,13 +86,15 @@ FOR I=0 TO 355 STEP 5
   LINE X1,Y1,X2,Y2,,,RGB(YELLOW)
 NEXT I
 
-PAUSE 1000
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "9. Farben ins Spiel bringen"
 FARBE=RGB( _
   INT(RND*256), _
   INT(RND*256), _
   INT(RND*256))
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "10. Ein einfacher Spirograph"
 CLS RGB(BLACK)
@@ -105,7 +107,7 @@ FOR I=0 TO 1440 STEP 2
   PIXEL X,Y,RGB(CYAN)
 NEXT I
 
-PAUSE 1000
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "11. Das Muster veraendern"
 CLS RGB(BLACK)
@@ -118,7 +120,7 @@ FOR I=0 TO 1440 STEP 2
   PIXEL X,Y,RGB(CYAN)
 NEXT I
 
-PAUSE 1000
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "12. Ein spektakulaerer Spirograph"
 CLS RGB(BLACK)
@@ -135,7 +137,7 @@ FOR I=0 TO 3600 STEP 1
   PIXEL X,Y,FARBE
 NEXT I
 
-PAUSE 1000
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "13. Ein Blumenmuster"
 CLS RGB(BLACK)

@@ -18,10 +18,14 @@ FOR I=0 TO 4
   INPUT VERSUCH(I)
 NEXT I
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "7. Alle Werte ausgeben"
 FOR I=0 TO 4
   PRINT VERSUCH(I)
 NEXT I
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "8. Den Durchschnitt berechnen"
 DIM VERSUCH(4)
@@ -33,6 +37,8 @@ NEXT I
 PRINT
 PRINT "Durchschnitt:"
 PRINT SUMME/5
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "9. Den besten Spieler finden"
 DIM VERSUCH(4)
@@ -49,11 +55,15 @@ PRINT
 PRINT "Bester Spieler:"
 PRINT BEST;" Versuche"
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "10. Arrays initialisieren"
 DIM NAME$(2)=("Manfred","Geoff","Peter")
 PRINT NAME$(0)
 PRINT NAME$(1)
 PRINT NAME$(2)
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "11. Textarrays"
 DIM SPIELER$(4)
@@ -66,6 +76,8 @@ FOR I=0 TO 4
   PRINT SPIELER$(I)
 NEXT I
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "12. Wuerfelergebnisse speichern"
 DIM WURF(9)
 FOR I=0 TO 9
@@ -75,6 +87,8 @@ FOR I=0 TO 9
   PRINT WURF(I)
 NEXT I
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "13. Eine Wertetabelle speichern"
 DIM Y(10)
 FOR X=0 TO 10
@@ -83,6 +97,8 @@ NEXT X
 FOR X=0 TO 10
   PRINT X;" ";Y(X)
 NEXT X
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "14. Mehrdimensionale Arrays"
 DIM SCHUELER$(4)
@@ -121,12 +137,17 @@ FOR S=0 TO 4
   PRINT
 NEXT S
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "15. Experimentiere!"
 PRINT "Probiere folgende Aenderungen aus:"
 PRINT "- Speichere zehn Wuerfelergebnisse."
 PRINT "- Speichere die Punkte von zehn Spielern."
 PRINT "- Berechne einen Durchschnitt."
 PRINT "- Vergroessere ein Array."
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "16. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"
 PRINT "1. Speichere die Alter von fuenf Personen."

@@ -16,6 +16,8 @@ PRINT "24. Die Schildkroete zuruecksetzen"
 CLS
 TURTLE RESET
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "25. Ein Quadrat zeichnen"
 CLS
 TURTLE RESET
@@ -23,6 +25,8 @@ FOR I = 1 TO 4
   TURTLE FORWARD 100
   TURTLE RIGHT 90
 NEXT I
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "27. Experimentiere!"
 PRINT "Veraendere die Seitenlaenge:"
@@ -39,6 +43,8 @@ FOR I = 1 TO 6
   TURTLE RIGHT 60
 NEXT I
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "28. Vielecke zeichnen"
 PRINT "Der Drehwinkel bestimmt, welche Figur gezeichnet wird."
 PRINT "Probiere zum Beispiel folgende Winkel aus:"
@@ -48,6 +54,8 @@ PRINT "- 72 grad -> Fuenfeck"
 PRINT "- 60 grad -> Sechseck"
 PRINT "- 170 grad -> Stern- bzw. Rosettenfigur"
 PRINT "Je kleiner der Drehwinkel ist, desto mehr Seiten besitzt die Figur."
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "29. Eine Spirale"
 CLS

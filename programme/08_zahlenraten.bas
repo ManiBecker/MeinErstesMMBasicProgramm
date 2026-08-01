@@ -23,6 +23,8 @@ ELSE
   PRINT "Leider falsch."
 ENDIF
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "7. Mehrere Spielrunden"
 FOR RUNDE=1 TO 5
   GEHEIM=INT(RND*10)+1
@@ -35,6 +37,8 @@ FOR RUNDE=1 TO 5
   PRINT "Leider falsch."
   ENDIF
 NEXT RUNDE
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "8. Punkte sammeln"
 PUNKTE=0
@@ -52,6 +56,8 @@ FOR RUNDE=1 TO 5
 NEXT RUNDE
 PRINT
 PRINT "Du hast ";PUNKTE;" Punkte erreicht."
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "10. Ideen fuer Erweiterungen"
 PRINT "Vielleicht moechtest du das Spiel bereits jetzt erweitern."

@@ -18,13 +18,17 @@ IF A = 10 THEN
   PRINT "A hat den Wert 10."
 ENDIF
 
-PRINT "9. ELSE – der andere Fall"
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
+PRINT "9. ELSE - der andere Fall"
 A = 5
 IF A = 10 THEN
   PRINT "A ist 10."
 ELSE
   PRINT "A ist nicht 10."
 ENDIF
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "11. Unser erstes Quiz"
 PRINT "Wieviel ist 2+3?"
@@ -35,8 +39,10 @@ ELSE
   PRINT "Leider falsch."
 ENDIF
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "12. Mehrere Entscheidungen"
-INPUT NOTE
+INPUT "Schulnote";NOTE
 IF NOTE = 1 THEN
   PRINT "Sehr gut"
 ENDIF
@@ -47,8 +53,10 @@ IF NOTE = 3 THEN
   PRINT "Befriedigend"
 ENDIF
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "13. ELSEIF verwenden"
-INPUT NOTE
+INPUT "Schulnote";NOTE
 IF NOTE = 1 THEN
   PRINT "Sehr gut"
 ELSEIF NOTE = 2 THEN
@@ -59,14 +67,18 @@ ELSE
   PRINT "Unbekannte Note"
 ENDIF
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "14. Verschachtelte Entscheidungen"
-ALTER = 20
+INPUT "Alter"; ALTER
 IF ALTER >= 18 THEN
   PRINT "Volljaehrig"
   IF ALTER >= 67 THEN
-  PRINT "Rentenalter erreicht"
+    PRINT "Rentenalter erreicht"
   ENDIF
 ENDIF
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "16. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"

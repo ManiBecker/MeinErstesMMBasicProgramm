@@ -19,41 +19,61 @@ PUNKTE=125
 NAME$="Manfred"
 ORT$="Schwetzingen"
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "3. Wie lang darf ein Text sein?"
 PRINT "Normale Zeichenketten koennen in MMBasic maximal 255 Zeichen enthalten."
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "4. Texte ausgeben"
 NAME$="Manfred"
 PRINT NAME$
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "5. Texte eingeben"
 INPUT NAME$
 PRINT "Hallo ";NAME$
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "6. Texte verbinden"
 VORNAME$="Manfred"
 NACHNAME$="Becker"
 PRINT VORNAME$;" ";NACHNAME$
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "7. Die Laenge eines Textes bestimmen"
 NAME$="Manfred"
 PRINT LEN(NAME$)
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "8. Das erste Zeichen ermitteln"
 NAME$="Manfred"
 PRINT LEFT$(NAME$,1)
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "9. Mehrere Zeichen vom Anfang lesen"
 NAME$="Manfred"
 PRINT LEFT$(NAME$,3)
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "10. Zeichen vom Ende lesen"
 NAME$="Manfred"
 PRINT RIGHT$(NAME$,3)
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "11. Zeichen aus der Mitte lesen"
 NAME$="Manfred"
 PRINT MID$(NAME$,3,2)
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "12. Gross- und Kleinbuchstaben"
 NAME$="Manfred"
@@ -62,17 +82,23 @@ PRINT UCASE$(NAME$)
 PRINT "NAME$="Manfred"
 PRINT LCASE$(NAME$)
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "13. Texte vergleichen"
 INPUT ANTWORT$
 IF ANTWORT$="JA" THEN
   PRINT "Richtig"
 ENDIF
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "14. Gross- und Kleinschreibung ignorieren"
 INPUT ANTWORT$
 IF UCASE$(ANTWORT$)="JA" THEN
   PRINT "Richtig"
 ENDIF
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "15. In einem Text suchen"
 TEXT$="MMBasic macht Spass"
@@ -84,6 +110,8 @@ IF INSTR(TEXT$,"Basic")>0 THEN
 ELSE
   PRINT "Text nicht gefunden"
 ENDIF
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "16. Zahlen und Texte umwandeln"
 ZAHL=VAL("123")
@@ -98,6 +126,8 @@ PRINT TIME$
 PRINT "Heute ist ";DATE$
 PRINT "Es ist ";TIME$
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "18. Begruessung abhaengig von der Uhrzeit"
 STUNDE=VAL(LEFT$(TIME$,2))
 IF STUNDE<12 THEN
@@ -107,6 +137,8 @@ ELSEIF STUNDE<18 THEN
 ELSE
   PRINT "Guten Abend!"
 ENDIF
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "19. Ein kleines Praxisprogramm"
 INPUT NAME$
@@ -127,6 +159,8 @@ ELSE
   PRINT "Guten Abend!"
 ENDIF
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "20. Experimentiere!"
 PRINT "Probiere folgende Aenderungen aus:"
 PRINT "- Gib die ersten drei Zeichen eines Namens aus."
@@ -134,6 +168,8 @@ PRINT "- Gib die letzten drei Zeichen aus."
 PRINT "- Wandle einen Namen in Grossbuchstaben um."
 PRINT "- Wandle einen Namen in Kleinbuchstaben um."
 PRINT "- Suche nach einem Wort in einem Text."
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "21. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"

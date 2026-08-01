@@ -17,49 +17,57 @@ A=10
 B=20
 PRINT A+B
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "3. Unsere erste Eingabe"
 INPUT A
 PRINT A
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "4. Eingaben in Variablen speichern"
 INPUT A
 PRINT A
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "5. Mit Eingaben rechnen"
 INPUT A
 PRINT A*2
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "6. Zwei Werte eingeben"
-INPUT A
-INPUT B
+INPUT A, B
 PRINT A+B
 
-PRINT "7. Eine persoenliche Begruessung"
-INPUT N$
-PRINT "Hallo ";N$
+INPUT "Bitte gebe zwei Zahlen ein, getrennt durch ein Komma: "; A, B
+PRINT "Die Summe der zwei Zahlen ist: "; A+B
 
-PRINT "8. Texte und Variablen kombinieren"
-INPUT NAME$
-PRINT "Willkommen ";NAME$
-PRINT "Schoen, dass du da bist."
+INPUT "Bitte gebe zwei Zahlen ein, getrennt durch ein Komma: ", A, B
+PRINT "Die Summe der zwei Zahlen ist: "; A+B
 
-PRINT "9. Unser erstes interaktives Programm"
-PRINT "Wie heisst du?"
-INPUT NAME$
-PRINT "Hallo ";NAME$
-PRINT "Willkommen bei MMBasic!"
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
-PRINT "10. Experimentiere!"
-PRINT "Probiere folgende Aenderungen aus:"
+PRINT "7. Eine persoenliche Begrueßung"
+INPUT "Wie heisst du";N$
+PRINT "Hallo ";N$;", schön, dass du da bist."
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
+PRINT "8. Experimentiere!"
+PRINT "Probiere folgende Änderungen aus:"
 PRINT "- Gib dein Alter ein."
 PRINT "- Addiere zwei eingegebene Zahlen."
 PRINT "- Gib deinen Wohnort ein."
-PRINT "- Erweitere die Begruessung um weitere Texte."
+PRINT "- Erweitere die Begrueßung um weitere Texte."
 
-PRINT "11. Probier’s selbst!"
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
+PRINT "9. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"
 PRINT "1. Frage den Benutzer nach seinem Namen."
 PRINT "2. Frage den Benutzer nach seinem Alter."
 PRINT "3. Addiere zwei eingegebene Zahlen."
-PRINT "4. Gib eine persoenliche Begruessung aus."
+PRINT "4. Gib eine persoenliche Begrueßung aus."
 

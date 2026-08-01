@@ -106,8 +106,7 @@ Natürlich können auch mehrere Werte eingegeben werden.
 
 [source,basic]
 ----
-INPUT A
-INPUT B
+INPUT A, B
 
 PRINT A+B
 ----
@@ -116,9 +115,47 @@ Beispiel:
 
 [source]
 ----
-? 10
-? 20
+? 10, 20
 30
+----
+
+Da ein Benutzer nicht erkennen kann, in welcher Form die Eingabe nach dem ? Prompt anzugeben ist, kann dem INPUT Befehl auch ein Fragetext mitgegeben werden. Die Syntax ist dabei:
+
+[source]
+----
+INPUT ["prompt$(;|,)] var1 [, var2[, var3[, etc]]]
+----
+
+Normalerweise wird der Fragetext mit dem Semicolon (;) abgeschlossen. In diesem Fall wird hinter dem Fragetext ein Fragezeichen angezeigt. 
+
+[source,basic]
+----
+INPUT "Bitte gebe zwei Zahlen ein, getrennt durch ein Komma: "; A, B
+PRINT "Die Summe der zwei Zahlen ist: "; A+B
+----
+
+Beispiel:
+
+[source]
+----
+Bitte gebe zwei Zahlen ein, getrennt durch ein Komma: ? 10,20
+Die Summe der zwei Zahlen ist: 30
+----
+
+Wenn der Fragetext mit einem Komma (,) abgeschlossen wird, wird das Fragezeichen unterdrückt.
+
+[source,basic]
+----
+INPUT "Bitte gebe zwei Zahlen ein, getrennt durch ein Komma: ", A, B
+PRINT "Die Summe der zwei Zahlen ist: "; A+B
+----
+
+Beispiel:
+
+[source]
+----
+Bitte gebe zwei Zahlen ein, getrennt durch ein Komma: 10,20
+Die Summe der zwei Zahlen ist: 30
 ----
 
 === Eine persönliche Begrüßung
@@ -131,16 +168,16 @@ String-Variablen erkennt man am Dollarzeichen am Ende des Namens.
 
 [source,basic]
 ----
-INPUT N$
-PRINT "Hallo ";N$
+INPUT "Wie heisst du";N$
+PRINT "Hallo ";N$;", schön, dass du da bist."
 ----
 
 Beispiel:
 
 [source]
 ----
-? Manfred
-Hallo Manfred
+Wie heisst du? Manfred
+Hallo Manfred, schön, dass du da bist.
 ----
 
 [NOTE]
@@ -177,39 +214,6 @@ WOHNORT$
 TEXT$
 ----
 ====
-
-=== Texte und Variablen kombinieren
-
-Mit einem Semikolon können Texte und Variablen gemeinsam ausgegeben werden.
-
-[source,basic]
-----
-INPUT NAME$
-PRINT "Willkommen ";NAME$
-PRINT "Schön, dass du da bist."
-----
-
-=== Unser erstes interaktives Programm
-
-[source,basic]
-----
-PRINT "Wie heißt du?"
-INPUT NAME$
-
-PRINT "Hallo ";NAME$
-PRINT "Willkommen bei MMBasic!"
-----
-
-Beispiel:
-
-[source]
-----
-Wie heißt du?
-? Manfred
-
-Hallo Manfred
-Willkommen bei MMBasic!
-----
 
 === Experimentiere!
 

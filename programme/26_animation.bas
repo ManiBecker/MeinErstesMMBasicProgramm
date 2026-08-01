@@ -16,33 +16,37 @@ PRINT "3. Unser erstes bewegtes Objekt"
 MODE 2
 X=50
 Y=100
-DO
+FOR J = 1 TO 100
   CLS
   CIRCLE X,Y,10,,,RGB(YELLOW),RGB(YELLOW)
   PAUSE 20
   X=X+2
-LOOP WHILE INKEY$=""
+NEXT J
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
+CLS
 PRINT "6. Bewegung in zwei Richtungen"
 MODE 2
 X=50
 Y=50
-DO
-  CLS
+FOR J = 1 TO 100  CLS
   CIRCLE X,Y,10,,,RGB(CYAN),RGB(CYAN)
   PAUSE 20
   X=X+2
   Y=Y+1
-LOOP WHILE INKEY$=""
+NEXT J
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
+CLS
 PRINT "9. Der erste huepfende Ball"
 MODE 2
 X=100
 Y=100
 DX=3
 DY=2
-DO
-  CLS
+FOR J = 1 TO 100  CLS
   CIRCLE X,Y,10,,,RGB(YELLOW),RGB(YELLOW)
   PAUSE 15
   X=X+DX
@@ -51,12 +55,11 @@ DO
   IF X>MM.HRES-10 THEN DX=-DX
   IF Y<10 THEN DY=-DY
   IF Y>MM.VRES-10 THEN DY=-DY
-LOOP WHILE INKEY$=""
+NEXT J
 
-DO WHILE INKEY$<>""
-LOOP
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 CLS
-
 PRINT "15. Zehn huepfende Baelle"
 MODE 2
 
@@ -65,7 +68,7 @@ DIM Y(9)
 DIM DX(9)
 DIM DY(9)
 
-FOR I=0 TO 9
+FOR I = 0 TO 9
   X(I)=10+INT(RND*(MM.HRES-20))
   Y(I)=10+INT(RND*(MM.VRES-20))
 
@@ -76,7 +79,7 @@ FOR I=0 TO 9
   IF RND<0.5 THEN DY(I)=-DY(I)
 NEXT I
 
-DO
+FOR J = 1 TO 100
   CLS
 
   FOR I=0 TO 9
@@ -92,10 +95,10 @@ DO
   NEXT I
 
   PAUSE 20
-LOOP WHILE INKEY$=""
+NEXT J
 
-DO WHILE INKEY$<>""
-LOOP
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 CLS
 
 PRINT "16. Ein kleiner Bildschirmschoner"

@@ -24,41 +24,57 @@ PRINT "Hallo Welt!"
 PRINT "Hallo Welt!"
 PRINT "Hallo Welt!"
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "3. Unsere erste Schleife"
 FOR I=1 TO 10
   PRINT "Hallo Welt!"
 NEXT I
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "5. Die Zaehlvariable ausgeben"
 FOR I=1 TO 10
   PRINT I
 NEXT I
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "6. Mit der Zaehlvariable rechnen"
 FOR I=1 TO 10
   PRINT I*I
 NEXT I
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "7. Das kleine Einmaleins"
 FOR I=1 TO 10
   PRINT I;" x 5 = ";I*5
 NEXT I
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "8. Rueckwaerts zaehlen"
 FOR I=10 TO 1 STEP -1
   PRINT I
 NEXT I
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "9. Groessere Schritte"
 FOR I=0 TO 20 STEP 2
   PRINT I
 NEXT I
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "10. Unser erster Countdown"
 FOR I=10 TO 1 STEP -1
   PRINT I
 NEXT I
 PRINT "Start!"
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "11. Schleifen und Entscheidungen"
 FOR I=1 TO 10
@@ -67,11 +83,15 @@ FOR I=1 TO 10
   ENDIF
 NEXT I
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "12. Eine mathematische Funktion berechnen"
 FOR X=0 TO 10
   Y=0.5*X^2+X+0.5
   PRINT "X=";X;" Y=";Y
 NEXT X
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "13. Experimentiere!"
 PRINT "Probiere folgende Aenderungen aus:"

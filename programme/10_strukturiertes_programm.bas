@@ -19,10 +19,14 @@ SUB Begruessung
 END SUB
 Begruessung
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "4. Eine SUB mehrfach aufrufen"
 Begruessung
 Begruessung
 Begruessung
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "5. Eine SUB mit Parametern"
 SUB Begruessung(NAME$)
@@ -32,11 +36,15 @@ Begruessung("Manfred")
 Begruessung("Geoff")
 Begruessung("Peter")
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "7. Unsere erste FUNCTION"
 FUNCTION Quadrat(X)
   Quadrat=X*X
 END FUNCTION
 PRINT Quadrat(5)
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "8. Weitere Funktionen"
 FUNCTION Verdoppeln(X)
@@ -44,8 +52,12 @@ FUNCTION Verdoppeln(X)
 END FUNCTION
 PRINT Verdoppeln(10)
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "9. Funktionen in Berechnungen verwenden"
 PRINT Quadrat(5)+Quadrat(3)
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "10. Eine Wuerfelfunktion"
 FUNCTION Wuerfel()
@@ -55,6 +67,8 @@ PRINT Wuerfel()
 PRINT Wuerfel()
 PRINT Wuerfel()
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "11. Eine mathematische Funktion"
 FUNCTION F(X)
   F=0.5*X^2+X+0.5
@@ -63,12 +77,16 @@ FOR X=0 TO 10
   PRINT X;" ";F(X)
 NEXT X
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "12. Das Zahlenratespiel verbessern"
 FUNCTION NeueZahl()
   NeueZahl=INT(RND*100)+1
 END FUNCTION
 GEHEIM=NeueZahl()
 PRINT GEHEIM
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "15. Experimentiere!"
 PRINT "Probiere folgende Aenderungen aus:"

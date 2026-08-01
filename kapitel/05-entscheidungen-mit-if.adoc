@@ -132,7 +132,7 @@ ENDIF
 
 Das Programm kann dadurch unterschiedliche Wege einschlagen.
 
-=== ELSE – der andere Fall
+=== ELSE - der andere Fall
 
 Mit `ELSE` kann festgelegt werden, was passieren soll, wenn die Bedingung nicht erfüllt ist.
 
@@ -222,7 +222,7 @@ Im folgenden Beispiel wird für jede Schulnote eine eigene `IF`-Anweisung verwen
 
 [source,basic]
 ----
-INPUT NOTE
+INPUT "Schulnote"; NOTE
 
 IF NOTE = 1 THEN
   PRINT "Sehr gut"
@@ -245,7 +245,7 @@ Mehrere Möglichkeiten lassen sich deutlich übersichtlicher mit `ELSEIF` formul
 
 [source,basic]
 ----
-INPUT NOTE
+INPUT "Schulnote"; NOTE
 
 IF NOTE = 1 THEN
   PRINT "Sehr gut"
@@ -262,7 +262,7 @@ Beispiel:
 
 [source]
 ----
-? 2
+Schulnote? 2
 
 Gut
 ----
@@ -277,7 +277,7 @@ Auch innerhalb eines `IF`-Blocks kann sich eine weitere Entscheidung befinden.
 
 [source,basic]
 ----
-ALTER = 20
+INPUT "Alter"; ALTER
 
 IF ALTER >= 18 THEN
 

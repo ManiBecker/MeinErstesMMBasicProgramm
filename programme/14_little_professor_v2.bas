@@ -18,6 +18,8 @@ PRINT
 PRINT "Hallo ";NAME$
 PRINT
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "4. Zufaellig eine Rechenart auswaehlen"
 OP=INT(RND*4)
 PRINT "Die Werte bedeuten:"
@@ -26,10 +28,14 @@ PRINT "1 = Subtraktion"
 PRINT "2 = Multiplikation"
 PRINT "3 = Division"
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "5. Eine Aufgabe erzeugen"
 SUB NeueAufgabe
   OP=INT(RND*4)
 END SUB
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "6. Additionsaufgaben"
 A=INT(RND*10)
@@ -37,11 +43,15 @@ B=INT(RND*10)
 ERG=A+B
 PRINT A;" + ";B;" = ?"
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "7. Subtraktionsaufgaben
 A=INT(RND*10)+10
 B=INT(RND*10)
 ERG=A-B
 PRINT A;" - ";B;" = ?"
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "8. Multiplikationsaufgaben
 A=INT(RND*10)
@@ -49,11 +59,15 @@ B=INT(RND*10)
 ERG=A*B
 PRINT A;" * ";B;" = ?"
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "9. Divisionsaufgaben"
 ERG=INT(RND*10)+1
 B=INT(RND*10)+1
 A=ERG*B
 PRINT A;" / ";B;" = ?"
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "10. Die SUB vervollstaendigen
 SUB NeueAufgabe
@@ -81,6 +95,8 @@ SUB NeueAufgabe
   ENDIF
 END SUB
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "11. Das komplette Programm"
 PRINT "Findest du in 14_little_professor_v2_final.bas"
 
@@ -91,6 +107,8 @@ PRINT "- Stelle 20 Aufgaben."
 PRINT "- Verwende nur Multiplikationsaufgaben."
 PRINT "- Verwende nur Divisionsaufgaben."
 PRINT "- Aendere die Bewertung am Ende."
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "15. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"

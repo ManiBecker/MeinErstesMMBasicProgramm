@@ -15,23 +15,33 @@ REM ====================================================================
 PRINT "3. Eine Zufallszahl erzeugen"
 PRINT RND
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "4. Zufallszahlen mehrfach erzeugen"
 FOR I=1 TO 10
   PRINT RND
 NEXT I
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "5. Einen Wuerfel simulieren"
 PRINT INT(RND*6)+1
 
-PRINT "6. Mehrfach wuerfeln"
-FOR I=1 TO 10
-  PRINT INT(RND*6)+1
-NEXT I
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "6. Mehrfach wuerfeln"
 FOR I=1 TO 10
   PRINT INT(RND*6)+1
 NEXT I
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
+PRINT "6. Mehrfach wuerfeln"
+FOR I=1 TO 10
+  PRINT INT(RND*6)+1
+NEXT I
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "7. Muenze werfen"
 IF INT(RND*2)=0 THEN
@@ -40,10 +50,14 @@ ELSE
   PRINT "Zahl"
 ENDIF
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "8. Lottozahlen erzeugen"
 FOR I=1 TO 6
   PRINT INT(RND*49)+1
 NEXT I
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "9. Ein Ratespiel"
 GEHEIM=INT(RND*10)+1

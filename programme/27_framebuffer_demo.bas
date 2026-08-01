@@ -21,7 +21,8 @@ FOR I=1 TO 1000
   Y=INT(RND*MM.VRES)
   PIXEL X,Y,RGB(YELLOW)
 NEXT I
-PAUSE 3000
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "9. Das Bild anzeigen"
 CLS RGB(BLACK)
@@ -33,6 +34,8 @@ FOR I=1 TO 1000
   PIXEL X,Y,RGB(YELLOW)
 NEXT I
 FRAMEBUFFER COPY F,N
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "11. Ein komplettes Bild vorbereiten"
 FRAMEBUFFER CREATE
@@ -47,5 +50,7 @@ TEXT MM.HRES/2,20, _
   "Framebuffer Demo", _
   "CT"
 FRAMEBUFFER COPY F,N
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "12. Die Bahnhofsuhr verbessern"

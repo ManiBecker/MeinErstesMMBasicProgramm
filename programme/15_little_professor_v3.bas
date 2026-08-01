@@ -20,15 +20,21 @@ DIM LOESUNG(9)
 DIM EINGABE(9)
 DIM TYP(9)
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "4. Die Arrays fuellen"
 AUFGABE$(RUNDE-1)=TEXT$
 LOESUNG(RUNDE-1)=ERG
 EINGABE(RUNDE-1)=ANTWORT
 TYP(RUNDE-1)=OP
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "5. Eine Aufgabe als Text speichern"
 TEXT$=STR$(A)+" + "+STR$(B)
 TEXT$=STR$(A)+" * "+STR$(B)
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "6. Das komplette Programm"
 PRINT "Findest du in 15_little_professor_v3_final.bas"
@@ -95,6 +101,8 @@ SUB NeueAufgabe
   ENDIF
 END SUB
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "9. Fehler nach Rechenart zaehlen"
 ADD=0
 SUB=0
@@ -116,12 +124,16 @@ PRINT "Subtraktionen:   ";SUB
 PRINT "Multiplikation:  ";MUL
 PRINT "Divisionen:      ";DIV
 
+PRINT "Press any key...": Do: Loop While Inkey$=""
+
 PRINT "11. Experimentiere!"
 PRINT "Probiere folgende Aenderungen aus:"
 PRINT "- Erhoehe die Anzahl der Aufgaben auf 20."
 PRINT "- Speichere zusaetzlich die benoetigte Zeit."
 PRINT "- Gib nur die falsch beantworteten Aufgaben aus."
 PRINT "- Zaehle richtige Antworten je Rechenart."
+
+PRINT "Press any key...": Do: Loop While Inkey$=""
 
 PRINT "12. Probier’s selbst!"
 PRINT "Versuche folgende Aufgaben:"
