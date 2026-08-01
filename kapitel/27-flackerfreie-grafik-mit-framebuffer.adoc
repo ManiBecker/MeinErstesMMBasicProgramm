@@ -100,17 +100,19 @@ Ab jetzt werden alle Grafiken unsichtbar aufgebaut.
 
 === Unser erstes Beispiel
 
-Das folgende Programm zeichnet 1000 zufällige Punkte.
+Das folgende Programm zeichnet 25000 zufällige Punkte.
 
 [source,basic]
 ----
+MODE 3
+
 CLS RGB(BLACK)
 
 FRAMEBUFFER CREATE
 
 FRAMEBUFFER WRITE F
 
-FOR I=1 TO 1000
+FOR I=1 TO 25000
 
   X=INT(RND*MM.HRES)
   Y=INT(RND*MM.VRES)
@@ -118,8 +120,6 @@ FOR I=1 TO 1000
   PIXEL X,Y,RGB(YELLOW)
 
 NEXT I
-
-PAUSE 3000
 ----
 
 Was passiert?
@@ -162,13 +162,15 @@ Erweitern wir das Programm:
 
 [source,basic]
 ----
+MODE 3
+
 CLS RGB(BLACK)
 
 FRAMEBUFFER CREATE
 
 FRAMEBUFFER WRITE F
 
-FOR I=1 TO 1000
+FOR I=1 TO 25000
 
   X=INT(RND*MM.HRES)
   Y=INT(RND*MM.VRES)
