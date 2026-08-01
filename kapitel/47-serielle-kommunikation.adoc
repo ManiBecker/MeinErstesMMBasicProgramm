@@ -736,3 +736,9 @@ In diesem Kapitel hast du gelernt:
 * einfache Kommunikationsprotokolle zu entwickeln
 
 Serielle Schnittstellen gehören zu den wichtigsten Werkzeugen der Elektronik und ermöglichen den Datenaustausch zwischen unterschiedlichsten Geräten.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/47_seriell_empfangen.bas[47_seriell_empfangen.bas]

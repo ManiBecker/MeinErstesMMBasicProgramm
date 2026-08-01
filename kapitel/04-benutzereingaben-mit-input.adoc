@@ -245,3 +245,9 @@ Du kannst nun:
 * Eingaben weiterverarbeiten
 
 Im nächsten Kapitel lernen wir Entscheidungen mit `IF ... THEN` kennen.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/04_persoenliche_begruessung.bas[04_persoenliche_begruessung.bas]

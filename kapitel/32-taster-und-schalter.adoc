@@ -614,3 +614,9 @@ Damit beherrschst du nun die beiden wichtigsten Hardwarefunktionen eines Mikroco
 * Eingänge auswerten
 
 Im nächsten Kapitel werden wir dieses Wissen nutzen und eine Ampelsteuerung entwickeln.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/32_taster_led.bas[32_taster_led.bas]

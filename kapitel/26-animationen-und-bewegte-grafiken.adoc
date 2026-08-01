@@ -421,3 +421,9 @@ Damit hast du einen wichtigen Schritt gemacht:
 Aus statischen Bildern sind erstmals lebendige Programme geworden.
 
 Im nächsten Kapitel werden wir lernen, wie Animationen mit Hilfe von Framebuffern deutlich flüssiger dargestellt werden können.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/26_animation.bas[26_animation.bas]

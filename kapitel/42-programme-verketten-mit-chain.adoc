@@ -395,3 +395,11 @@ In diesem Kapitel hast du gelernt:
 vollständige Programme. Damit eignet sich der Befehl besonders für
 Menüsysteme und Programmsammlungen, deren einzelne Bestandteile weitgehend
 unabhängig voneinander arbeiten.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/42_chain_start.bas[42_chain_start.bas]
+* {github-programme}/42_chain_spiel.bas[42_chain_spiel.bas]
+* {github-programme}/42_chain_ende.bas[42_chain_ende.bas]

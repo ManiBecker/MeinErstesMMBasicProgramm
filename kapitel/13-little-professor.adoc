@@ -320,3 +320,9 @@ Dabei wurden viele der bisher gelernten Befehle verwendet:
 Du hast gesehen, wie aus vielen kleinen Bausteinen ein nützliches Programm entsteht.
 
 Im nächsten Kapitel werden wir den Little Professor weiter verbessern und um zusätzliche Funktionen erweitern.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/13_little_professor.bas[13_little_professor.bas]

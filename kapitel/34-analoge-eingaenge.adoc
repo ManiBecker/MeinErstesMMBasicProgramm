@@ -560,3 +560,9 @@ In diesem Kapitel hast du gelernt:
 Damit kann dein Mikrocontroller nun nicht nur digitale Zustände erkennen, sondern auch kontinuierliche Messwerte erfassen.
 
 Im nächsten Kapitel werden wir PWM kennenlernen und die Helligkeit einer LED stufenlos steuern.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/34_adc_einlesen.bas[34_adc_einlesen.bas]

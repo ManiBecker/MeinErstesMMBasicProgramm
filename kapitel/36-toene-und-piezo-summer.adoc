@@ -515,3 +515,9 @@ In diesem Kapitel hast du gelernt:
 Damit hast du die letzte wichtige Hardwarefunktion kennengelernt, die wir für unser nächstes Projekt benötigen.
 
 Im nächsten Kapitel entwickeln wir ein elektronisches Gedächtnisspiel nach dem Vorbild von Simon beziehungsweise Senso.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/36_kleine_melodie.bas[36_kleine_melodie.bas]

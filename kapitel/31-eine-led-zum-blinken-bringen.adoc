@@ -573,3 +573,9 @@ In diesem Kapitel hast du gelernt:
 Zum ersten Mal hat dein MMBasic-Programm direkt mit der realen Welt kommuniziert.
 
 Im nächsten Kapitel werden wir digitale Eingänge kennenlernen und einen Taster abfragen.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/31_led_blinken.bas[31_led_blinken.bas]

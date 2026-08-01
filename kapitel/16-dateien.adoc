@@ -346,3 +346,9 @@ Du kennst nun:
 Damit können deine Programme Informationen dauerhaft speichern.
 
 Im nächsten Kapitel werden wir die grafischen Möglichkeiten des PicoMite kennenlernen und erste Zeichnungen auf dem Bildschirm erzeugen.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/16_highscore_speichern.bas[16_highscore_speichern.bas]

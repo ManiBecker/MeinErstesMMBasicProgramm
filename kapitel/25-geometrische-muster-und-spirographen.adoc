@@ -387,3 +387,9 @@ In diesem Kapitel hast du gelernt:
 Du hast außerdem gesehen, dass Mathematik nicht nur für Berechnungen nützlich ist, sondern auch faszinierende Bilder erzeugen kann.
 
 Im nächsten Kapitel werden wir die Grafiken zum Leben erwecken und erste Animationen programmieren.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/25_spirograph.bas[25_spirograph.bas]

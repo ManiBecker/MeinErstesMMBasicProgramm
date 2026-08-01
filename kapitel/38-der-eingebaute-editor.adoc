@@ -680,3 +680,9 @@ von zahlreichen erfahrenen MMBasic-Anwendern täglich eingesetzt.
 Im nächsten Kapitel lernst du mit **MMEdit** eine komfortable
 Entwicklungsumgebung für den PC kennen, die den eingebauten Editor sinnvoll
 ergänzt.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/38_editor_test.bas[38_editor_test.bas]

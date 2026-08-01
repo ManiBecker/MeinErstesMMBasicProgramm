@@ -317,3 +317,9 @@ Du hast gelernt:
 Das Spiel fühlt sich nun deutlich mehr wie ein echtes Computerspiel an.
 
 Im nächsten Kapitel werden wir die Steuerung weiter verbessern und die Zielscheibe direkt mit der Maus anvisieren.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/22_treffe_die_scheibe_v2.bas[22_treffe_die_scheibe_v2.bas]

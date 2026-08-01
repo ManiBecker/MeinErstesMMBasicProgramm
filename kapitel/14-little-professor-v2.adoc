@@ -384,3 +384,10 @@ Du hast gelernt:
 Das Programm ist nun deutlich leistungsfähiger und ähnelt bereits einem echten Lerncomputer.
 
 Im nächsten Kapitel werden wir weitere Verbesserungen einbauen und erstmals Arrays verwenden, um Statistiken über die gelösten Aufgaben zu speichern.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/14_little_professor_v2.bas[14_little_professor_v2.bas]
+* {github-programme}/14_little_professor_v2_final.bas[14_little_professor_v2_final.bas]

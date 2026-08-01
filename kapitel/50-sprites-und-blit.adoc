@@ -1032,3 +1032,9 @@ Und genau das ist das eigentliche Ziel dieses Buches:
 Nicht einzelne BASIC-Befehle auswendig zu lernen, sondern Programme zu entwickeln, die Spaß machen und die eigene Kreativität zum Leben erwecken.
 
 Ich freue mich darauf, im nächsten Kapitel gemeinsam mit dir unser erstes vollständiges Spiel zu programmieren.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/50_sprite_demo.bas[50_sprite_demo.bas]

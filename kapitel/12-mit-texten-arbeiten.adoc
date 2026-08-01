@@ -493,3 +493,9 @@ Du kennst nun:
 Damit kannst du Texte speichern, verändern und auswerten.
 
 Im nächsten Kapitel werden wir das bisher Gelernte in einem größeren Praxisprojekt einsetzen.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/12_stringfunktionen.bas[12_stringfunktionen.bas]

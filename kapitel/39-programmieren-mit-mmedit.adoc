@@ -529,3 +529,9 @@ MMEdit ist eines der wichtigsten Werkzeuge für die Entwicklung größerer MMBas
 Zusammen mit dem eingebauten Editor besitzt du nun zwei leistungsfähige Werkzeuge für die tägliche Arbeit mit MMBasic.
 
 Damit endet der Teil *Werkzeuge und Entwicklung* und du verfügst nun über das notwendige Rüstzeug, um auch größere MMBasic-Projekte erfolgreich umzusetzen.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/39_mmedit_blinken.bas[39_mmedit_blinken.bas]

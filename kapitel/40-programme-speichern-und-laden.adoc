@@ -521,3 +521,9 @@ anlegst und mehrere Projekte gleichzeitig verwaltest.
 
 Mit diesen Techniken behältst du auch bei größeren BASIC-Projekten jederzeit
 den Überblick.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/40_library_test.bas[40_library_test.bas]

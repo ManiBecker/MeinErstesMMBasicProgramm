@@ -528,3 +528,9 @@ Du hast gelernt:
 * mehrere Highscores dauerhaft zu sichern
 
 Aus einem einfachen Koordinatenexperiment ist damit Schritt für Schritt ein vollständiges kleines Grafikspiel entstanden.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/23_treffe_die_scheibe_v3.bas[23_treffe_die_scheibe_v3.bas]

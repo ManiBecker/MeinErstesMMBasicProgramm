@@ -380,3 +380,9 @@ Schrittweiten mit STEP verwenden
 Schleifen mit IF kombinieren
 
 Im nächsten Kapitel schreiben wir unser erstes größeres Programm.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/06_schleifen.bas[06_schleifen.bas]

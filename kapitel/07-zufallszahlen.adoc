@@ -138,3 +138,9 @@ In diesem Kapitel hast du gelernt:
 * kleine Spiele zu programmieren
 
 Im nächsten Kapitel schreiben wir unser erstes größeres Programm.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/07_wuerfel.bas[07_wuerfel.bas]

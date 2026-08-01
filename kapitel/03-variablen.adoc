@@ -212,3 +212,9 @@ Du kannst nun:
 * mit Variablen rechnen
 
 Im nächsten Kapitel lernen wir Benutzereingaben mit INPUT kennen.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/03_variablen.bas[03_variablen.bas]

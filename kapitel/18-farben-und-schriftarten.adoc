@@ -277,3 +277,9 @@ In diesem Kapitel hast du gelernt:
 * Informationen über die aktuelle Schrift abzurufen
 
 Im nächsten Kapitel werden wir die ersten grafischen Objekte auf dem Bildschirm zeichnen und lernen PIXEL, LINE und BOX kennen.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/18_farben_und_schriften.bas[18_farben_und_schriften.bas]

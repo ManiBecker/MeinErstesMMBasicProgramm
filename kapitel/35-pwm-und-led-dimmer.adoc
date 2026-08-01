@@ -499,3 +499,9 @@ Analoge Eingänge
 PWM-Ausgänge
 
 Im nächsten Kapitel werden wir Töne erzeugen und einen Piezo-Summer ansteuern.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/35_led_dimmer.bas[35_led_dimmer.bas]

@@ -258,3 +258,9 @@ Du kennst nun:
 * die Funktionen `SQR()` und `ABS()`
 
 Im nächsten Kapitel lernen wir Variablen kennen. Damit können wir Werte speichern und später wiederverwenden.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/02_rechenarten.bas[02_rechenarten.bas]

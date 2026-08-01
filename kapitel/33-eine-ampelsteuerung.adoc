@@ -561,3 +561,9 @@ In diesem Kapitel hast du gelernt:
 Du hast damit dein erstes kleines Automatisierungsprojekt entwickelt.
 
 Im nächsten Kapitel werden wir analoge Eingänge kennenlernen und kontinuierliche Messwerte auswerten.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/33_ampelsteuerung.bas[33_ampelsteuerung.bas]

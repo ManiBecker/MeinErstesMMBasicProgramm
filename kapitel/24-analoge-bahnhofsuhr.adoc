@@ -537,3 +537,9 @@ Du hast gelernt:
 * ein dynamisches Grafikprogramm zu strukturieren
 
 Die Bahnhofsuhr verbindet Grafik, Mathematik, Zeichenketten, Schleifen und Unterprogramme zu einer vollständigen Anwendung.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/24_bahnhofsuhr.bas[24_bahnhofsuhr.bas]

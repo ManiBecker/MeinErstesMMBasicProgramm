@@ -284,3 +284,9 @@ Du hast gelernt,
 * und Gamepads als universelle Eingabegeräte eingesetzt.
 
 Im nächsten Kapitel werden wir diese Eingaben verwenden, um Sprites und Spielfiguren komfortabel zu steuern.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/49_gamepad_test.bas[49_gamepad_test.bas]

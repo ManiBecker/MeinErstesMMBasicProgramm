@@ -358,3 +358,9 @@ In diesem Kapitel hast du gelernt:
 Damit beginnt ein neuer Abschnitt des Tutorials.
 
 Ab jetzt verlassen wir den Bildschirm und steuern echte Hardware.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/30_ein_ausgang_test.bas[30_ein_ausgang_test.bas]

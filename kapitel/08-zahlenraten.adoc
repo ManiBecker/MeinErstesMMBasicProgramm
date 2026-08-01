@@ -229,3 +229,9 @@ Dabei wurden viele der bisher gelernten Befehle verwendet:
 Du hast gesehen, wie aus einzelnen Befehlen ein vollständiges Programm entsteht.
 
 Im nächsten Kapitel werden wir das Spiel weiter verbessern und dem Spieler Hinweise geben, ob sein Tipp zu groß oder zu klein war.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/08_zahlenraten.bas[08_zahlenraten.bas]

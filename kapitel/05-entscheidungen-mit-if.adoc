@@ -325,3 +325,9 @@ In diesem Kapitel hast du gelernt,
 * Programme durch Einrückungen übersichtlich zu gestalten.
 
 Im nächsten Kapitel lernst du Schleifen kennen. Damit können Programmteile beliebig oft wiederholt werden.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/05_rechenquiz.bas[05_rechenquiz.bas]

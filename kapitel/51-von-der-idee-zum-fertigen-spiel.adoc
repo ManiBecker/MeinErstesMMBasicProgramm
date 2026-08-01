@@ -1370,3 +1370,8 @@ Die wichtigste Struktur steht jedoch bereits.
 
 Und genau diese Struktur findest du in ähnlicher Form in nahezu jedem Computerspiel wieder.
 
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/51_abschlussspiel.bas[51_abschlussspiel.bas]

@@ -695,3 +695,9 @@ Du hast damit dein erstes vollständiges elektronisches Spiel entwickelt.
 Herzlichen Glückwunsch!
 
 Viele professionelle Softwareprojekte bestehen aus genau den Bausteinen, die du in diesem Kapitel verwendet hast.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/37_senso.bas[37_senso.bas]

@@ -573,3 +573,9 @@ In diesem Kapitel hast du gelernt:
 * eigene Projekte um Datum und Uhrzeit zu erweitern
 
 Datum und Uhrzeit gehören zu den wichtigsten Informationen in technischen Anwendungen und eröffnen viele neue Möglichkeiten für praktische Projekte.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/46_datum_uhrzeit.bas[46_datum_uhrzeit.bas]

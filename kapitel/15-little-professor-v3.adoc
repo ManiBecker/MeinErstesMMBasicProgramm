@@ -330,3 +330,9 @@ Der Little Professor ist damit von einem einfachen Übungsprogramm zu einem echt
 
 Im nächsten Kapitel werden wir lernen Dateien anzulegen, Daten in Dateien zu speichern und diese wieder auszulesen.
 
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/15_little_professor_v3.bas[15_little_professor_v3.bas]
+* {github-programme}/15_little_professor_v3_final.bas[15_little_professor_v3_final.bas]

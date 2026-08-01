@@ -354,3 +354,9 @@ In diesem Kapitel hast du gelernt:
 * Programme an unterschiedliche Hardware anzupassen
 
 Diese Techniken helfen dabei, professionelle und flexible MMBasic-Programme zu entwickeln, die auf unterschiedlichen Systemen zuverlässig funktionieren.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/43_systembericht.bas[43_systembericht.bas]

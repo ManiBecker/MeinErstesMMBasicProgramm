@@ -402,3 +402,9 @@ Mit einer guten Verzeichnisstruktur lassen sich auch umfangreiche Projekte
 
 Im nächsten Kapitel lernst du mit `CHAIN` eine Möglichkeit kennen,
 mehrere Programme miteinander zu verbinden.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/41_dateiverwaltung_demo.bas[41_dateiverwaltung_demo.bas]

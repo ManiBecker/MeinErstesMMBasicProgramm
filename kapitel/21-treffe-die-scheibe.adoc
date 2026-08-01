@@ -261,3 +261,9 @@ Du hast damit einen wichtigen Meilenstein erreicht:
 Nicht mehr einzelne Befehle stehen im Mittelpunkt, sondern ein vollständiges Programm.
 
 Im nächsten Kapitel werden wir dieses Spiel weiter ausbauen und beispielsweise mehrere Schüsse, Highscores und Schwierigkeitsstufen hinzufügen.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/21_treffe_die_scheibe.bas[21_treffe_die_scheibe.bas]

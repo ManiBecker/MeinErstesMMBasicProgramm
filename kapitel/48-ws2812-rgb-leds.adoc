@@ -312,3 +312,9 @@ Mit nur einer Datenleitung lassen sich ganze LED-Ketten individuell steuern.
 Bereits wenige BASIC-Zeilen genügen, um farbenfrohe Animationen und professionelle Beleuchtungseffekte zu erzeugen.
 
 Im nächsten Kapitel lernen wir eine weitere Technik kennen, mit der sich auf dem Bildschirm flüssige Animationen und Spiele realisieren lassen.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/48_ws2812_regenbogen.bas[48_ws2812_regenbogen.bas]

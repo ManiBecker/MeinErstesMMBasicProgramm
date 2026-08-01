@@ -223,3 +223,9 @@ Du hast gelernt:
 * Programme schrittweise zu erweitern
 
 Im nächsten Kapitel lernen wir Unterprogramme kennen. Damit können größere Programme übersichtlicher aufgebaut werden.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/09_zahlenraten_v2.bas[09_zahlenraten_v2.bas]

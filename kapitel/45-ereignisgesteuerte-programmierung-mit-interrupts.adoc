@@ -404,3 +404,9 @@ In diesem Kapitel hast du gelernt:
 * Interrupts in praktischen Projekten einzusetzen
 
 Interrupts gehören zu den wichtigsten Werkzeugen moderner Mikrocontroller-Programmierung. Sie ermöglichen Programme, die schnell, effizient und elegant auf Ereignisse reagieren.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/45_interrupt_demo.bas[45_interrupt_demo.bas]

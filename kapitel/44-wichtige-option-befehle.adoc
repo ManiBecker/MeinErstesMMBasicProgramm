@@ -421,3 +421,9 @@ In diesem Kapitel hast du gelernt:
 * alle Optionen mit OPTION RESET zurückzusetzen
 
 OPTION-Befehle helfen dabei, MMBasic optimal an die eigenen Bedürfnisse anzupassen und Programme robuster zu machen.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/44_option_informationen.bas[44_option_informationen.bas]

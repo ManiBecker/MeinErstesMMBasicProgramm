@@ -108,3 +108,9 @@ In diesem Kapitel hast du die Anweisung `PRINT` kennengelernt.
 Mit `PRINT` können Texte auf dem Bildschirm ausgegeben werden.
 
 Im nächsten Kapitel lernen wir den integrierten Editor kennen und schreiben unsere ersten mehrzeiligen Programme.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/01_hallo_welt.bas[01_hallo_welt.bas]

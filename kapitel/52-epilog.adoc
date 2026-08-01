@@ -112,3 +112,9 @@ Ich wünsche dir viel Erfolg – und vor allem viel Freude – bei deinen eigene
 image::bilder/52_epilog_ende.jpg[align=center]
 
 "Dies ist nicht das Ende. Es ist der Anfang deiner eigenen Programme."
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/52_dein_naechstes_programm.bas[52_dein_naechstes_programm.bas]

@@ -556,3 +556,11 @@ Außerdem hast du gelernt:
 Damit verfügst du bereits über alle Grundlagen, um eigene kleine Grafikprogramme zu entwickeln und geometrische Figuren zu zeichnen.
 
 Im nächsten Kapitel erweitern wir diese Möglichkeiten und lernen weitere Grafikbefehle kennen. Damit zeichnen wir Rechtecke, Kreise sowie frei positionierbare Texte und erstellen noch anspruchsvollere Grafiken.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/19_grafikdemo.bas[19_grafikdemo.bas]
+* {github-programme}/19_grafikdemo_test_1.bas[19_grafikdemo_test_1.bas]
+* {github-programme}/19_grafikdemo_turtle.bas[19_grafikdemo_turtle.bas]
