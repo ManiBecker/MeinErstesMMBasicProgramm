@@ -10,6 +10,7 @@ In diesem Kapitel lernst du:
 * was Pixel sind
 * wie Bildschirmkoordinaten funktionieren
 * wie die Bildschirmgröße ermittelt werden kann
+* wie der Grafikmodus festgelegt wird
 * welche Informationen MMBasic über den Bildschirm bereitstellt
 
 Am Ende des Kapitels verstehst du die wichtigsten Grundlagen für die Grafikprogrammierung.
@@ -215,11 +216,11 @@ Die meisten Grafikprogramme in diesem Tutorial verwenden `MODE 2`. Dieser Modus 
 
 === Bildschirminformationen anzeigen
 
-Mit dem folgenden Programm kann die aktuelle Bildschirmgröße ausgegeben werden.
+Mit dem folgenden Programm kann die aktuelle Bildschirmgröße beim Grafikmodus MODE 2 ausgegeben werden.
 
 [source,basic]
 ----
-CLS
+MODE 2
 
 PRINT "Bildschirminformationen"
 PRINT
@@ -310,15 +311,12 @@ Das folgende Programm zeigt einige wichtige Informationen über den aktuell verw
 
 [source,basic]
 ----
-CLS
-
+MODE 2
 PRINT "Grafiksystem"
 PRINT "------------"
 PRINT
-
 PRINT "Breite      : ";MM.HRES
 PRINT "Hoehe       : ";MM.VRES
-
 PRINT
 PRINT "Fontbreite  : ";MM.INFO(FONTWIDTH)
 PRINT "Fonthoehe   : ";MM.INFO(FONTHEIGHT)
@@ -331,11 +329,11 @@ Eine mögliche Ausgabe könnte so aussehen:
 Grafiksystem
 ------------
 
-Breite      : 640
-Hoehe       : 480
+Breite      : 320
+Hoehe       : 240
 
-Fontbreite  : 8
-Fonthoehe   : 12
+Fontbreite  : 6
+Fonthoehe   : 8
 ----
 
 === Experimentiere!
@@ -367,6 +365,7 @@ Du weißt nun:
 * wie das Koordinatensystem funktioniert
 * wie die Bildschirmgröße bestimmt wird
 * wie Schriftgrößen abgefragt werden können
+* wie der Grafikmodus festgelegt wird
 * wie Farben beschrieben werden
 
 Im nächsten Kapitel werden wir die ersten grafischen Objekte auf dem Bildschirm zeichnen.

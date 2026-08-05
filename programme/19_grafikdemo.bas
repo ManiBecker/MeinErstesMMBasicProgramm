@@ -122,7 +122,7 @@ PRINT "Lade 19_grafikdemo_test_1.bas"
 
 PRINT "Press any key...": Do: Loop While Inkey$=""
 
-PRINT "21. Probier’s selbst!"
+PRINT "21. Probier's selbst!"
 PRINT "Versuche folgende Aufgaben:"
 PRINT "1. Zeichne ein Quadrat aus vier Linien."
 PRINT "2. Zeichne einen Stern."
