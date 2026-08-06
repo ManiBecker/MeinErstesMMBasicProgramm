@@ -1,87 +1,86 @@
-REM ====================================================================
-REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
-REM Datei: 08_zahlenraten.bas
-REM Titel: Kapitel 8: Unser erstes Spiel: Zahlenraten
-REM Buch:  Mein erstes MMBasic Programm
-REM Autor: Manfred Becker
-REM Datum: 24.07.2026
-REM
-REM Beschreibung: wie mehrere Befehle zu einem vollstaendigen Programm
-REM               kombiniert werden.
-REM
-REM Hardware/Voraussetzungen: keine
-REM
-REM ====================================================================
+Rem ====================================================================
+Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+Rem Datei: 08_zahlenraten.bas
+Rem Titel: Kapitel 8: Unser erstes Spiel: Zahlenraten
+Rem Buch:  Mein erstes MMBasic Programm
+Rem Autor: Manfred Becker
+Rem Datum: 24.07.2026
+Rem
+Rem Beschreibung: wie mehrere Befehle zu einem vollstaendigen Programm
+Rem               kombiniert werden.
+Rem
+Rem Hardware/Voraussetzungen: keine
+Rem
+Rem ====================================================================
 
-PRINT "4. Das komplette Programm"
-GEHEIM=INT(RND*10)+1
-PRINT "Ich habe mir eine Zahl von 1 bis 10 ausgedacht."
-INPUT TIPP
-IF TIPP=GEHEIM THEN
-  PRINT "Richtig!"
-ELSE
-  PRINT "Leider falsch."
-ENDIF
+Print "4. Das komplette Programm"
+GEHEIM=Int(Rnd*10)+1
+Print "Ich habe mir eine Zahl von 1 bis 10 ausgedacht."
+Input "Dein Tipp";TIPP
+If TIPP=GEHEIM Then
+  Print "Richtig!"
+Else
+  Print "Leider falsch."
+EndIf
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "7. Mehrere Spielrunden"
-FOR RUNDE=1 TO 5
-  GEHEIM=INT(RND*10)+1
-  PRINT
-  PRINT "Runde ";RUNDE
-  INPUT TIPP
-  IF TIPP=GEHEIM THEN
-  PRINT "Richtig!"
-  ELSE
-  PRINT "Leider falsch."
-  ENDIF
-NEXT RUNDE
+Print "7. Mehrere Spielrunden"
+For RUNDE=1 To 5
+  GEHEIM=Int(Rnd*10)+1
+  Print
+  Print "Runde ";RUNDE
+  Input "Dein Tipp";TIPP
+  If TIPP=GEHEIM Then
+    Print "Richtig!"
+  Else
+    Print "Leider falsch."
+  EndIf
+Next RUNDE
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "8. Punkte sammeln"
+Print "8. Punkte sammeln"
 PUNKTE=0
-FOR RUNDE=1 TO 5
-  GEHEIM=INT(RND*10)+1
-  PRINT
-  PRINT "Runde ";RUNDE
-  INPUT TIPP
-  IF TIPP=GEHEIM THEN
-  PRINT "Richtig!"
-  PUNKTE=PUNKTE+1
-  ELSE
-  PRINT "Leider falsch."
-  ENDIF
-NEXT RUNDE
-PRINT
-PRINT "Du hast ";PUNKTE;" Punkte erreicht."
+For RUNDE=1 To 5
+  GEHEIM=Int(Rnd*10)+1
+  Print
+  Print "Runde ";RUNDE
+  Input "Dein Tipp";TIPP
+  If TIPP=GEHEIM Then
+    Print "Richtig!"
+    PUNKTE=PUNKTE+1
+  Else
+    Print "Leider falsch."
+  EndIf
+Next RUNDE
+Print
+Print "Du hast ";PUNKTE;" Punkte erreicht."
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "10. Ideen fuer Erweiterungen"
-PRINT "Vielleicht moechtest du das Spiel bereits jetzt erweitern."
-PRINT "Zum Beispiel:"
-PRINT "- Zahlen von 1 bis 20 verwenden"
-PRINT "- Zahlen von 1 bis 100 verwenden"
-PRINT "- zehn Spielrunden durchfuehren"
-PRINT "- zwei Punkte fuer einen Treffer vergeben"
-
-PRINT "11. Experimentiere!"
-PRINT "Probiere folgende Aenderungen aus:"
-PRINT "- Erhoehe den Zahlenbereich auf 20."
-PRINT "- Erhoehe den Zahlenbereich auf 100."
-PRINT "- Spiele zehn Runden statt fuenf."
-PRINT "- Vergib zwei Punkte fuer jeden Treffer."
-PRINT "Welche Auswirkungen haben die Aenderungen?"
-
-PRINT "12. Probier’s selbst!"
-PRINT "Versuche folgende Aufgaben:"
-PRINT "1. Erweitere das Spiel auf zehn Runden."
-PRINT "2. Zaehle die Treffer."
-PRINT "3. Gib die Gesamtpunktzahl aus."
-PRINT "4. Verwende Zahlen von 1 bis 50."
-PRINT "5. Frage den Namen des Spielers ab und begruesse ihn persoenlich."
-
-
-
+Print "10. Ideen fuer Erweiterungen"
+Print "Vielleicht moechtest du das Spiel bereits jetzt erweitern."
+Print "Zum Beispiel:"
+Print "- Zahlen von 1 bis 20 verwenden"
+Print "- Zahlen von 1 bis 100 verwenden"
+Print "- zehn Spielrunden durchfuehren"
+Print "- zwei Punkte fuer einen Treffer vergeben"
+Print
+Print "11. Experimentiere!"
+Print "Probiere folgende Aenderungen aus:"
+Print "- Erhoehe den Zahlenbereich auf 20."
+Print "- Erhoehe den Zahlenbereich auf 100."
+Print "- Spiele zehn Runden statt fuenf."
+Print "- Vergib zwei Punkte fuer jeden Treffer."
+Print "Welche Auswirkungen haben die Aenderungen?"
+Print
+Print "12. Probier's selbst!"
+Print "Versuche folgende Aufgaben:"
+Print "1. Erweitere das Spiel auf zehn Runden."
+Print "2. Zaehle die Treffer."
+Print "3. Gib die Gesamtpunktzahl aus."
+Print "4. Verwende Zahlen von 1 bis 50."
+Print "5. Frage den Namen des Spielers ab und begruesse ihn persoenlich."
+Print
+Print "Ready.."

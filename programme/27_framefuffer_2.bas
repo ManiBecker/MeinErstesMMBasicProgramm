@@ -1,0 +1,21 @@
+MODE 4
+FRAMEBUFFER create
+bcolor=RGB(Int(Rnd*255),Int(Rnd*255),Int(Rnd*255))
+fcolor=RGB(Int(Rnd*255),Int(Rnd*255),Int(Rnd*255))
+x=Int(MM.HRES/2)
+y=Int(MM.VRES/2)
+dx=2:dy=2:rx=1:ry=1:r=10
+Print "Animation eines Balles"
+For i=1 To 30000
+  FRAMEBUFFER write f
+  CLS RGB(BLUE)
+  Circle x,y,r,,,fcolor,bcolor
+  FRAMEBUFFER copy f,n
+  x=x+dx*rx
+  If x>MM.HRES-r Then x=MM.HRES-r:rx=rx*-1:dx=Int(Rnd*5)+1
+  If x<r Then x=r:rx=rx*-1:dx=Int(Rnd*5)+1
+  y=y+dy*ry
+  If y>MM.VRES-r Then y=MM.VRES-r:ry=ry*-1:dy=Int(Rnd*5)+1
+  If y<r Then y=r:ry=ry*-1:dy=Int(Rnd*5)+1
+Next i
+FRAMEBUFFER close

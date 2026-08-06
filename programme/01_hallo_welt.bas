@@ -1,30 +1,31 @@
-REM ====================================================================
-REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
-REM Datei: 01_hallo_welt.bas
-REM Titel: Kapitel 1: Hallo Welt
-REM Buch:  Mein erstes MMBasic Programm
-REM Autor: Manfred Becker
-REM Datum: 24.07.2026
-REM
-REM Beschreibung: Unser erstes Programm
-REM
-REM Hardware/Voraussetzungen: keine
-REM
-REM ====================================================================
+Rem ====================================================================
+Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+Rem Datei: 01_hallo_welt.bas
+Rem Titel: Kapitel 1: Hallo Welt
+Rem Buch:  Mein erstes MMBasic Programm
+Rem Autor: Manfred Becker
+Rem Datum: 24.07.2026
+Rem
+Rem Beschreibung: Unser erstes Programm
+Rem
+Rem Hardware/Voraussetzungen: keine
+Rem
+Rem ====================================================================
 
-PRINT "2. Unser erstes Programm"
-PRINT "Hallo Welt!"
+Print "2. Unser erstes Programm"
+Print "Hallo Welt!"
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "3. Schritt fuer Schritt erklaert"
-PRINT "Hallo Welt!"
-PRINT "Hallo MMBasic!"
-PRINT "Ich programmiere einen PicoMite."
+Print "3. Schritt fuer Schritt erklaert"
+Print "Hallo Welt!"
+Print "Hallo MMBasic!"
+Print "Ich programmiere einen PicoMite."
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "4. Experimentiere!"
-PRINT "Hallo Colour Maximite!"
-PRINT "Heute lerne ich MMBasic.
-
+Print "4. Experimentiere!"
+Print "Hallo Colour Maximite!"
+Print "Heute lerne ich MMBasic."
+Print
+Print "Ready..."

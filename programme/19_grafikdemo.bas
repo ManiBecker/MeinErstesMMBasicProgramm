@@ -1,142 +1,151 @@
-REM ====================================================================
-REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
-REM Datei: 19_grafikdemo.bas
-REM Titel: Kapitel 19: Die ersten Grafikbefehle
-REM Buch:  Mein erstes MMBasic Programm
-REM Autor: Manfred Becker
-REM Datum: 28.07.2026
-REM
-REM Beschreibung: Pixel und Linien zeichnen
-REM
-REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
-REM
-REM ====================================================================
+Rem ====================================================================
+Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+Rem Datei: 19_grafikdemo.bas
+Rem Titel: Kapitel 19: Die ersten Grafikbefehle
+Rem Buch:  Mein erstes MMBasic Programm
+Rem Autor: Manfred Becker
+Rem Datum: 28.07.2026
+Rem
+Rem Beschreibung: Pixel und Linien zeichnen
+Rem
+Rem Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
+Rem
+Rem ====================================================================
 
-PRINT "3. Den Bildschirm loeschen"
+MODE 2
+
 CLS
+Print "3. Den Bildschirm loeschen"
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "4. Ein einzelner Pixel"
-PIXEL 100,100
+CLS
+Print "4. Ein einzelner Pixel"
+Pixel 100,100
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "5. Ein farbiger Pixel"
-PIXEL 100,100,RGB(RED)
+CLS
+Print "5. Ein farbiger Pixel"
+Pixel 100,100,RGB(RED)
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "6. Unser erstes Grafikprogramm"
 CLS RGB(BLACK)
-PIXEL 100,100,RGB(RED)
+Print "6. Unser erstes Grafikprogramm"
+Pixel 100,100,RGB(RED)
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "7. Mehrere Pixel zeichnen"
 CLS RGB(BLACK)
-PIXEL 100,100,RGB(RED)
-PIXEL 101,100,RGB(RED)
-PIXEL 102,100,RGB(RED)
-PIXEL 103,100,RGB(RED)
-PIXEL 104,100,RGB(RED)
+Print "7. Mehrere Pixel zeichnen"
+Pixel 100,100,RGB(RED)
+Pixel 101,100,RGB(RED)
+Pixel 102,100,RGB(RED)
+Pixel 103,100,RGB(RED)
+Pixel 104,100,RGB(RED)
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "8. Linien zeichnen"
-LINE 10,10,200,10
-
-PRINT "Press any key...": Do: Loop While Inkey$=""
-
-PRINT "9. Horizontale Linien"
 CLS
-LINE 10,50,200,50
+Print "8. Linien zeichnen"
+Line 10,10,200,10
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "10. Vertikale Linien"
 CLS
-LINE 100,20,100,200
+Print "9. Horizontale Linien"
+Line 10,50,200,50
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "11. Diagonale Linien"
 CLS
-LINE 10,10,200,150
+Print "10. Vertikale Linien"
+Line 100,20,100,200
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "12. Linienfarben"
-LINE 10,10,200,100,,RGB(RED)
-
-PRINT "Press any key...": Do: Loop While Inkey$=""
-
-PRINT "13. Mehrere Linien kombinieren"
 CLS
-LINE 50,100,250,100
-LINE 150,20,150,180
+Print "11. Diagonale Linien"
+Line 10,10,200,150
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "14. Ein Dreieck zeichnen"
 CLS
-LINE 100,50,50,150
-LINE 50,150,150,150
-LINE 150,150,100,50
+Print "12. Linienfarben"
+Line 10,10,200,100,,RGB(RED)
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "15. Ein Haus zeichnen"
 CLS
-LINE 50,150,150,150
-LINE 150,150,150,80
-LINE 150,80,50,80
-LINE 50,80,50,150
-LINE 50,80,100,30
-LINE 100,30,150,80
+Print "13. Mehrere Linien kombinieren"
+Line 50,100,250,100
+Line 150,20,150,180
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "16. Das Haus vom Nikolaus"
-PRINT "Eine bekannte Zeichenuebung ist das Haus vom Nikolaus."
-PRINT "Versuche, es selbst mit LINE zu zeichnen."
+CLS
+Print "14. Ein Dreieck zeichnen"
+Line 100,50,50,150
+Line 50,150,150,150
+Line 150,150,100,50
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "17. Bildschirmmitte berechnen"
+CLS
+Print "15. Ein Haus zeichnen"
+Line 50,150,150,150
+Line 150,150,150,80
+Line 150,80,50,80
+Line 50,80,50,150
+Line 50,80,100,30
+Line 100,30,150,80
+
+Print "Press any key...": Do : Loop While Inkey$=""
+
+CLS
+Print "16. Das Haus vom Nikolaus"
+Print "Eine bekannte Zeichenuebung ist das Haus vom Nikolaus."
+Print "Versuche, es selbst mit LINE zu zeichnen."
+
+Print "Press any key...": Do : Loop While Inkey$=""
+
+CLS
+Print "17. Bildschirmmitte berechnen"
 MITTEX=MM.HRES/2
 MITTEY=MM.VRES/2
-PIXEL MITTEX,MITTEY,RGB(RED)
+Pixel MITTEX,MITTEY,RGB(RED)
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "18. Ein Fadenkreuz zeichnen"
 CLS
-LINE MM.HRES/2,0,MM.HRES/2,MM.VRES
-LINE 0,MM.VRES/2,MM.HRES,MM.VRES/2
+Print "18. Ein Fadenkreuz zeichnen"
+Line MM.HRES/2,0,MM.HRES/2,MM.VRES
+Line 0,MM.VRES/2,MM.HRES,MM.VRES/2
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "19. Ein kleines Grafik-Testprogramm"
-PRINT "Lade 19_grafikdemo_test_1.bas"
+CLS
+Print "19. Ein kleines Grafik-Testprogramm"
+Print "Lade 19_grafikdemo_test_1.bas"
+Print
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "21. Probier's selbst!"
+Print
+Print "Versuche folgende Aufgaben:"
+Print "1. Zeichne ein Quadrat aus vier Linien."
+Print "2. Zeichne einen Stern."
+Print "3. Zeichne ein eigenes Haus."
+Print "4. Zeichne ein Spielfeld fuer Tic-Tac-Toe."
+Print "5. Zeichne die Umrisse eines Briefumschlags."
 
-PRINT "21. Probier's selbst!"
-PRINT "Versuche folgende Aufgaben:"
-PRINT "1. Zeichne ein Quadrat aus vier Linien."
-PRINT "2. Zeichne einen Stern."
-PRINT "3. Zeichne ein eigenes Haus."
-PRINT "4. Zeichne ein Spielfeld fuer Tic-Tac-Toe."
-PRINT "5. Zeichne die Umrisse eines Briefumschlags."
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
-
-PRINT "22. Experimentiere!"
-PRINT "Probiere folgende Aenderungen aus:"
-PRINT "- Verwende andere Farben."
-PRINT "- Zeichne ein groesseres Haus."
-PRINT "- Zeichne mehrere Dreiecke."
-PRINT "- Zeichne ein Gitter aus Linien."
-
-
+Print "22. Experimentiere!"
+Print
+Print "Probiere folgende Aenderungen aus:"
+Print "- Verwende andere Farben."
+Print "- Zeichne ein groesseres Haus."
+Print "- Zeichne mehrere Dreiecke."
+Print "- Zeichne ein Gitter aus Linien."

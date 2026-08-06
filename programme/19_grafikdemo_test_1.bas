@@ -1,45 +1,51 @@
-REM ====================================================================
-REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
-REM Datei: 19_grafikdemo_test_1.bas
-REM Titel: Kapitel 19: Die ersten Grafikbefehle
-REM Buch:  Mein erstes MMBasic Programm
-REM Autor: Manfred Becker
-REM Datum: 28.07.2026
-REM
-REM Beschreibung: Ein kleines Grafik-Testprogramm
-REM
-REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
-REM
-REM ====================================================================
+Rem ====================================================================
+Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+Rem Datei: 19_grafikdemo_test_1.bas
+Rem Titel: Kapitel 19: Die ersten Grafikbefehle
+Rem Buch:  Mein erstes MMBasic Programm
+Rem Autor: Manfred Becker
+Rem Datum: 28.07.2026
+Rem
+Rem Beschreibung: Ein kleines Grafik-Testprogramm
+Rem
+Rem Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
+Rem
+Rem ====================================================================
+
+MODE 2
 
 CLS RGB(BLACK)
-PRINT "1000 zufaellige Punkte"
-FOR I=1 TO 1000
-  X=INT(RND*MM.HRES)
-  Y=INT(RND*MM.VRES)
-  FARBE=RGB(INT(RND*256),INT(RND*256),INT(RND*256))
-  PIXEL X,Y,FARBE
-NEXT I
+Print "1000 zufaellige Punkte"
+For I=1 To 1000
+  X=Int(Rnd*MM.HRES)
+  Y=2*MM.Info(FONTHEIGHT)+Int(Rnd*MM.VRES)
+  FARBE=RGB(Int(Rnd*256),Int(Rnd*256),Int(Rnd*256))
+  Pixel X,Y,FARBE
+Next I
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "1000 zufaellige Kreise"
-FOR I=1 TO 1000
-  RADIUS=INT(RND*20)+2
-  X=INT(RND*(MM.HRES-2*RADIUS))+RADIUS
-  Y=INT(RND*(MM.VRES-2*RADIUS))+RADIUS
-  FARBE=RGB(INT(RND*256),INT(RND*256),INT(RND*256))
-  CIRCLE X,Y,RADIUS,1,1,FARBE
-NEXT I
+CLS RGB(BLACK)
+Print "1000 zufaellige Kreise"
+For I=1 To 1000
+  RADIUS=Int(Rnd*20)+2
+  X=Int(Rnd*(MM.HRES-2*RADIUS))+RADIUS
+  Y=2*MM.Info(FONTHEIGHT)+Int(Rnd*(MM.VRES-2*RADIUS))+RADIUS
+  FARBE1=RGB(Int(Rnd*256),Int(Rnd*256),Int(Rnd*256))
+  FARBE2=RGB(Int(Rnd*256),Int(Rnd*256),Int(Rnd*256))
+  Circle X,Y,RADIUS,1,1,FARBE1,FARBE2
+Next I
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "1000 zufaellige Rechtecke"
-FOR I=1 TO 1000
-  BREITE=INT(RND*50)+5
-  HOEHE=INT(RND*50)+5
-  X=INT(RND*(MM.HRES-BREITE))
-  Y=INT(RND*(MM.VRES-HOEHE))
-  FARBE=RGB(INT(RND*256),INT(RND*256),INT(RND*256))
-  BOX X,Y,BREITE,HOEHE,1,FARBE
-NEXT I
+CLS RGB(BLACK)
+Print "1000 zufaellige Rechtecke"
+For I=1 To 1000
+  BREITE=Int(Rnd*50)+5
+  HOEHE=Int(Rnd*50)+5
+  X=Int(Rnd*(MM.HRES-BREITE))
+  Y=2*MM.Info(FONTHEIGHT)+Int(Rnd*(MM.VRES-HOEHE))
+  FARBE1=RGB(Int(Rnd*256),Int(Rnd*256),Int(Rnd*256))
+  FARBE2=RGB(Int(Rnd*256),Int(Rnd*256),Int(Rnd*256))
+  Box X,Y,BREITE,HOEHE,1,FARBE1,FARBE2
+Next I

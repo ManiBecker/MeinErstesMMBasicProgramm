@@ -1,66 +1,89 @@
-REM ====================================================================
-REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
-REM Datei: 19_grafikdemo.bas
-REM Titel: Kapitel 19: Die ersten Grafikbefehle
-REM Buch:  Mein erstes MMBasic Programm
-REM Autor: Manfred Becker
-REM Datum: 28.07.2026
-REM
-REM Beschreibung: Turtle-Grafik
-REM
-REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
-REM
-REM ====================================================================
+Rem ====================================================================
+Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+Rem Datei: 19_grafikdemo_turtle.bas
+Rem Titel: Kapitel 19: Die ersten Grafikbefehle
+Rem Buch:  Mein erstes MMBasic Programm
+Rem Autor: Manfred Becker
+Rem Datum: 28.07.2026
+Rem
+Rem Beschreibung: Turtle-Grafik
+Rem
+Rem Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
+Rem
+Rem ====================================================================
 
-PRINT "24. Die Schildkroete zuruecksetzen"
+MODE 2
+Print "24. Die Schildkroete zuruecksetzen"
+
+Turtle RESET
+
+Print "Press any key...": Do : Loop While Inkey$=""
+
 CLS
-TURTLE RESET
+Print "25. Ein Quadrat zeichnen"
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Turtle RESET
+For I = 1 To 4
+  Turtle FORWARD 10
+  Turtle RIGHT 90
+Next I
 
-PRINT "25. Ein Quadrat zeichnen"
+Print "Press any key...": Do : Loop While Inkey$=""
+
 CLS
-TURTLE RESET
-FOR I = 1 TO 4
-  TURTLE FORWARD 100
-  TURTLE RIGHT 90
-NEXT I
+Print "27. Experimentiere!"
+Print "Veraendere die Seitenlaenge:"
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Turtle RESET
+For I = 1 To 4
+  Turtle FORWARD 30
+  Turtle RIGHT 90
+Next I
 
-PRINT "27. Experimentiere!"
-PRINT "Veraendere die Seitenlaenge:"
+Print "Press any key...": Do : Loop While Inkey$=""
+
 CLS
-TURTLE RESET
-FOR I = 1 TO 4
-  TURTLE FORWARD 150
-  TURTLE RIGHT 90
-NEXT I
+Print "Oder aendere den Drehwinkel:"
+Turtle RESET
+For I = 1 To 6
+  Turtle FORWARD 10
+  Turtle RIGHT 60
+Next I
 
-PRINT "Oder aendere den Drehwinkel:"
-FOR I = 1 TO 6
-  TURTLE FORWARD 100
-  TURTLE RIGHT 60
-NEXT I
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
-
-PRINT "28. Vielecke zeichnen"
-PRINT "Der Drehwinkel bestimmt, welche Figur gezeichnet wird."
-PRINT "Probiere zum Beispiel folgende Winkel aus:"
-PRINT "- 120 grad -> Dreieck"
-PRINT "- 90 grad -> Quadrat"
-PRINT "- 72 grad -> Fuenfeck"
-PRINT "- 60 grad -> Sechseck"
-PRINT "- 170 grad -> Stern- bzw. Rosettenfigur"
-PRINT "Je kleiner der Drehwinkel ist, desto mehr Seiten besitzt die Figur."
-
-PRINT "Press any key...": Do: Loop While Inkey$=""
-
-PRINT "29. Eine Spirale"
 CLS
-TURTLE RESET
-FOR I = 1 TO 80
-  TURTLE FORWARD I * 3
-  TURTLE RIGHT 20
-NEXT I
+Print "28. Vielecke zeichnen"
+Print
+Print "Der Drehwinkel bestimmt, welche Figur gezeichnet wird."
+Print "Probiere zum Beispiel folgende Winkel aus:"
+Print "- 120 grad -> Dreieck"
+Print "- 90 grad -> Quadrat"
+Print "- 72 grad -> Fuenfeck"
+Print "- 60 grad -> Sechseck"
+Print "- 170 grad -> Stern- bzw. Rosettenfigur"
+Print "Je kleiner der Drehwinkel ist, desto mehr Seiten besitzt die Figur."
+
+Print "Press any key...": Do : Loop While Inkey$=""
+
+CLS
+Print "29. Eine Spirale"
+
+Turtle RESET
+
+For I = 1 To 80
+  Turtle FORWARD I * 2
+  Turtle RIGHT 50
+Next I
+
+Print "Press any key...": Do : Loop While Inkey$=""
+
+CLS
+Print "30. Ein Stern"
+
+Turtle RESET
+
+For I = 1 To 80
+  Turtle FORWARD I * 2
+  Turtle RIGHT 120 + I
+Next I

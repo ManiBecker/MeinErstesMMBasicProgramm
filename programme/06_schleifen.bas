@@ -1,107 +1,109 @@
-REM ====================================================================
-REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
-REM Datei: 06_einmaleins.bas
-REM Titel: Kapitel 6: Schleifen mit FOR NEXT
-REM Buch:  Mein erstes MMBasic Programm
-REM Autor: Manfred Becker
-REM Datum: 24.07.2026
-REM
-REM Beschreibung: wie Schleifen funktionieren
-REM
-REM Hardware/Voraussetzungen: keine
-REM
-REM ====================================================================
+Rem ====================================================================
+Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+Rem Datei: 06_einmaleins.bas
+Rem Titel: Kapitel 6: Schleifen mit FOR NEXT
+Rem Buch:  Mein erstes MMBasic Programm
+Rem Autor: Manfred Becker
+Rem Datum: 24.07.2026
+Rem
+Rem Beschreibung: wie Schleifen funktionieren
+Rem
+Rem Hardware/Voraussetzungen: keine
+Rem
+Rem ====================================================================
 
-PRINT "2. Warum Schleifen wichtig sind"
-PRINT "Hallo Welt!"
-PRINT "Hallo Welt!"
-PRINT "Hallo Welt!"
-PRINT "Hallo Welt!"
-PRINT "Hallo Welt!"
-PRINT "Hallo Welt!"
-PRINT "Hallo Welt!"
-PRINT "Hallo Welt!"
-PRINT "Hallo Welt!"
-PRINT "Hallo Welt!"
+Print "2. Warum Schleifen wichtig sind"
+Print "Hallo Welt!"
+Print "Hallo Welt!"
+Print "Hallo Welt!"
+Print "Hallo Welt!"
+Print "Hallo Welt!"
+Print "Hallo Welt!"
+Print "Hallo Welt!"
+Print "Hallo Welt!"
+Print "Hallo Welt!"
+Print "Hallo Welt!"
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "3. Unsere erste Schleife"
-FOR I=1 TO 10
-  PRINT "Hallo Welt!"
-NEXT I
+Print "3. Unsere erste Schleife"
+For I=1 To 10
+  Print "Hallo Welt!"
+Next I
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "5. Die Zaehlvariable ausgeben"
-FOR I=1 TO 10
-  PRINT I
-NEXT I
+Print "5. Die Zaehlvariable ausgeben"
+For I=1 To 10
+  Print I
+Next I
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "6. Mit der Zaehlvariable rechnen"
-FOR I=1 TO 10
-  PRINT I*I
-NEXT I
+Print "6. Mit der Zaehlvariable rechnen"
+For I=1 To 10
+  Print I*I
+Next I
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "7. Das kleine Einmaleins"
-FOR I=1 TO 10
-  PRINT I;" x 5 = ";I*5
-NEXT I
+Print "7. Das kleine Einmaleins"
+For I=1 To 10
+  Print I;" x 5 = ";I*5
+Next I
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "8. Rueckwaerts zaehlen"
-FOR I=10 TO 1 STEP -1
-  PRINT I
-NEXT I
+Print "8. Rueckwaerts zaehlen"
+For I=10 To 1 Step -1
+  Print I
+Next I
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "9. Groessere Schritte"
-FOR I=0 TO 20 STEP 2
-  PRINT I
-NEXT I
+Print "9. Groessere Schritte"
+For I=0 To 20 Step 2
+  Print I
+Next I
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "10. Unser erster Countdown"
-FOR I=10 TO 1 STEP -1
-  PRINT I
-NEXT I
-PRINT "Start!"
+Print "10. Unser erster Countdown"
+For I=10 To 1 Step -1
+  Print I
+Next I
+Print "Start!"
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "11. Schleifen und Entscheidungen"
-FOR I=1 TO 10
-  IF I MOD 2 = 0 THEN
-    PRINT I
-  ENDIF
-NEXT I
+Print "11. Schleifen und Entscheidungen"
+For I=1 To 10
+  If I Mod 2 = 0 Then
+    Print I
+  EndIf
+Next I
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "12. Eine mathematische Funktion berechnen"
-FOR X=0 TO 10
+Print "12. Eine mathematische Funktion berechnen"
+For X=0 To 10
   Y=0.5*X^2+X+0.5
-  PRINT "X=";X;" Y=";Y
-NEXT X
+  Print "X=";X;" Y=";Y
+Next X
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "13. Experimentiere!"
-PRINT "Probiere folgende Aenderungen aus:"
-PRINT "Gib die Zahlen von 1 bis 20 aus. Zaehle von 100 bis 0 herunter. Gib alle Vielfachen von 3 aus."
-PRINT "Berechne die Quadratzahlen von 1 bis 20."
-
-PRINT "14. Probier’s selbst!"
-PRINT "Versuche folgende Aufgaben:"
-PRINT "1. Gib die Zahlen von 1 bis 50 aus."
-PRINT "2. Gib nur die geraden Zahlen von 1 bis 20 aus."
-PRINT "3. Erstelle einen Countdown von 20 bis 1."
-PRINT "4. Erzeuge das Einmaleins der Zahl 7."
-PRINT "5. Berechne die Quadratzahlen von 1 bis 15."
+Print "13. Experimentiere!"
+Print "Probiere folgende Aenderungen aus:"
+Print "Gib die Zahlen von 1 bis 20 aus. Zaehle von 100 bis 0 herunter. Gib alle Vielfachen von 3 aus."
+Print "Berechne die Quadratzahlen von 1 bis 20."
+Print
+Print "14. Probier's selbst!"
+Print "Versuche folgende Aufgaben:"
+Print "1. Gib die Zahlen von 1 bis 50 aus."
+Print "2. Gib nur die geraden Zahlen von 1 bis 20 aus."
+Print "3. Erstelle einen Countdown von 20 bis 1."
+Print "4. Erzeuge das Einmaleins der Zahl 7."
+Print "5. Berechne die Quadratzahlen von 1 bis 15."
+Print
+Print "Ready..."

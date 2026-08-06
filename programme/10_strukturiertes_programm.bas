@@ -1,106 +1,130 @@
-REM ====================================================================
-REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
-REM Datei: 10_strukturiertes_programm.bas
-REM Titel: Kapitel 10: Programme strukturieren mit SUB und FUNCTION
-REM Buch:  Mein erstes MMBasic Programm
-REM Autor: Manfred Becker
-REM Datum: 24.07.2026
-REM Letzte Aenderung: 26.7.2026: Doppelte SUBs geloescht.
-REM
-REM Beschreibung: Programme in kleinere Bausteine aufzuteilen
-REM
-REM Hardware/Voraussetzungen: keine
-REM
-REM ====================================================================
+Rem ====================================================================
+Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+Rem Datei: 10_strukturiertes_programm.bas
+Rem Titel: Kapitel 10: Programme strukturieren mit SUB und FUNCTION
+Rem Buch:  Mein erstes MMBasic Programm
+Rem Autor: Manfred Becker
+Rem Datum: 24.07.2026
+Rem Letzte Aenderung: 26.7.2026: Doppelte SUBs geloescht.
+Rem
+Rem Beschreibung: Programme in kleinere Bausteine aufzuteilen
+Rem
+Rem Hardware/Voraussetzungen: keine
+Rem
+Rem ====================================================================
 
-PRINT "3. Unsere erste SUB"
-SUB Begruessung
-  PRINT "Hallo Welt!"
-END SUB
+Print "3. Unsere erste SUB"
+Sub Begruessung
+  Print "Hallo Welt!"
+End Sub
 Begruessung
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "4. Eine SUB mehrfach aufrufen"
+Print "4. Eine SUB mehrfach aufrufen"
 Begruessung
 Begruessung
 Begruessung
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "5. Eine SUB mit Parametern"
-SUB Begruessung(NAME$)
-  PRINT "Hallo ";NAME$
-END SUB
-Begruessung("Manfred")
-Begruessung("Geoff")
-Begruessung("Peter")
+Print "5. Eine SUB mit Parametern"
+Sub Begruessung2(NAME$)
+  Print "Hallo ";NAME$
+End Sub
+Begruessung2("Manfred")
+Begruessung2("Geoff")
+Begruessung2("Peter")
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "7. Unsere erste FUNCTION"
-FUNCTION Quadrat(X)
+Print "7. Unsere erste FUNCTION"
+Function Quadrat(X)
   Quadrat=X*X
-END FUNCTION
-PRINT Quadrat(5)
+End Function
+Print Quadrat(5)
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "8. Weitere Funktionen"
-FUNCTION Verdoppeln(X)
+Print "8. Weitere Funktionen"
+Function Verdoppeln(X)
   Verdoppeln=X*2
-END FUNCTION
-PRINT Verdoppeln(10)
+End Function
+Print Verdoppeln(10)
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "9. Funktionen in Berechnungen verwenden"
-PRINT Quadrat(5)+Quadrat(3)
+Print "9. Funktionen in Berechnungen verwenden"
+Print Quadrat(5)+Quadrat(3)
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "10. Eine Wuerfelfunktion"
-FUNCTION Wuerfel()
-  Wuerfel=INT(RND*6)+1
-END FUNCTION
-PRINT Wuerfel()
-PRINT Wuerfel()
-PRINT Wuerfel()
+Print "10. Eine Wuerfelfunktion"
+Function Wuerfel()
+  Wuerfel=Int(Rnd*6)+1
+End Function
+Print Wuerfel()
+Print Wuerfel()
+Print Wuerfel()
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "11. Eine mathematische Funktion"
-FUNCTION F(X)
+Print "11. Eine mathematische Funktion"
+Print "F(x)=0.5*X^2+X+0.5"
+Function F(X)
   F=0.5*X^2+X+0.5
-END FUNCTION
-FOR X=0 TO 10
-  PRINT X;" ";F(X)
-NEXT X
+End Function
+For X=0 To 10
+  Print X;" ";F(X)
+Next X
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "12. Das Zahlenratespiel verbessern"
-FUNCTION NeueZahl()
-  NeueZahl=INT(RND*100)+1
-END FUNCTION
-GEHEIM=NeueZahl()
-PRINT GEHEIM
+CLS
+Print "12. Das Zahlenratespiel verbessern"
+Function NeueZahl()
+  NeueZahl=Int(Rnd*100)+1
+End Function
+Function VergleicheZahl$(t,z)
+  If t>z Then
+    VergleicheZahl$="zu gross"
+  ElseIf t<z Then
+    VergleicheZahl$="zu klein"
+  Else
+    VergleicheZahl$="gleich"
+  EndIf
+  Print "Deine Zahl ist ";VergleicheZahl$;"."
+End Function
+Function Nochmal$()
+  Input "Nochmal (j/n)";i$
+  If i$="j" Or i$="J" Then
+    Nochmal$="J"
+  Else
+    Nochmal$="N"
+  EndIf
+End Function
+Do
+  geheimzahl=NeueZahl()
+  Do
+    Input "Rate meine Geheinzahl zwischn 1 und 100";tipp
+  Loop While VergleicheZahl$(tipp,geheimzahl)<>"gleich"
+Loop While Nochmal$()="J"
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "15. Experimentiere!"
-PRINT "Probiere folgende Aenderungen aus:"
-PRINT "- Schreibe eine Funktion zur Berechnung des Dreifachen einer Zahl."
-PRINT "- Schreibe eine Funktion fuer die Berechnung eines Kreises."
-PRINT "- Erweitere die Wuerfelfunktion."
-PRINT "- Erstelle eine SUB fuer eine persoenliche Begruessung."
+Print "15. Experimentiere!"
+Print "Probiere folgende Aenderungen aus:"
+Print "- Schreibe eine Funktion zur Berechnung des Dreifachen einer Zahl."
+Print "- Schreibe eine Funktion fuer die Berechnung eines Kreises."
+Print "- Erweitere die Wuerfelfunktion."
+Print "- Erstelle eine SUB fuer eine persoenliche Begruessung."
 
-PRINT "10.16. Probier’s selbst!"
-PRINT "Versuche folgende Aufgaben:"
-PRINT "1. Schreibe eine Funktion zur Berechnung des Wuerfels einer Zahl."
-PRINT "2. Schreibe eine Funktion zur Berechnung des Umfangs eines Quadrats."
-PRINT "3. Erstelle eine SUB, die fuenfmal ""MMBasic"" ausgibt."
-PRINT "4. Verwende eine Funktion innerhalb einer FOR-Schleife."
-PRINT "5. Baue die Funktion NeueZahl() in dein Zahlenratespiel ein."
-
-
+Print "10.16. Probier's selbst!"
+Print "Versuche folgende Aufgaben:"
+Print "1. Schreibe eine Funktion zur Berechnung des Wuerfels einer Zahl."
+Print "2. Schreibe eine Funktion zur Berechnung des Umfangs eines Quadrats."
+Print "3. Erstelle eine SUB, die fuenfmal ""MMBasic"" ausgibt."
+Print "4. Verwende eine Funktion innerhalb einer FOR-Schleife."
+Print "5. Baue die Funktion NeueZahl() in dein Zahlenratespiel ein."
+Print
+Print "Ready..."

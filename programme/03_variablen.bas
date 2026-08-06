@@ -1,67 +1,69 @@
-REM ====================================================================
-REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
-REM Datei: 03_variablen.bas
-REM Titel: Kapitel 3: Variablen
-REM Buch:  Mein erstes MMBasic Programm
-REM Autor: Manfred Becker
-REM Datum: 24.07.2026
-REM
-REM Beschreibung: Variablen
-REM
-REM Hardware/Voraussetzungen: keine
-REM
-REM ====================================================================
+Rem ====================================================================
+Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+Rem Datei: 03_variablen.bas
+Rem Titel: Kapitel 3: Variablen
+Rem Buch:  Mein erstes MMBasic Programm
+Rem Autor: Manfred Becker
+Rem Datum: 24.07.2026
+Rem
+Rem Beschreibung: Variablen
+Rem
+Rem Hardware/Voraussetzungen: keine
+Rem
+Rem ====================================================================
 
-PRINT "3. Unsere erste Variable"
-A=10
-PRINT A
+Print "3. Unsere erste Variable"
+Print "A=10":A=10
+Print "Print A":Print A
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "4. Mehrere Variablen verwenden"
-A=10
-B=20
-PRINT A
-PRINT B
+Print "4. Mehrere Variablen verwenden"
+Print "A=10":A=10
+Print "B=20":B=20
+Print "Print A":Print A
+Print "Print B":Print B
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "5. Mit Variablen rechnen"
-A=10
-B=20
-PRINT A+B
+Print "5. Mit Variablen rechnen"
+Print "A=10":A=10
+Print "B=20":B=20
+Print "Print A+B":Print A+B
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "6. Variablen veraendern"
-A=10
-PRINT A
-A=25
-PRINT A
+Print "6. Variablen veraendern"
+Print "A=10":A=10
+Print "Print A":Print A
+Print "A=25":A=25
+Print "Print A":Print A
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "7. Der Inhalt einer Variablen kann berechnet werden"
-A=10
-A=A+1
-PRINT A
+Print "7. Der Inhalt einer Variablen kann berechnet werden"
+Print "A=10":A=10
+Print "A=A+1":A=A+1
+Print "Print A":Print A
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "8. Zaehler erstellen"
-A=0
-A=A+1
-PRINT A
-A=A+1
-PRINT A
-A=A+1
-PRINT A
+Print "8. Zaehler erstellen"
+Print "A=0":A=0
+Print "A=A+1":A=A+1
+Print "Print A":Print A
+Print "A=A+1":A=A+1
+Print "Print A":Print A
+Print "A=A+1":A=A+1
+Print "Print A":Print A
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "9. Experimentiere!"
-A=100
-B=50
-PRINT A+B
-PRINT A-B
-PRINT A*B
+Print "9. Experimentiere!"
+Print "A=100":A=100
+Print "B=50":B=50
+Print "Print A+B":Print A+B
+Print "A-B":Print A-B
+Print "Print A*B":Print A*B
+Print
+Print "Ready..."

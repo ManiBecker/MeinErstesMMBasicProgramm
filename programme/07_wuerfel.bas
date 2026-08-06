@@ -1,70 +1,65 @@
-REM ====================================================================
-REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
-REM Datei: 07_wuerfel.bas
-REM Titel: Kapitel 7: Zufallszahlen
-REM Buch:  Mein erstes MMBasic Programm
-REM Autor: Manfred Becker
-REM Datum: 24.07.2026
-REM
-REM Beschreibung: wie Zufallszahlen erzeugt werden
-REM
-REM Hardware/Voraussetzungen: keine
-REM
-REM ====================================================================
+Rem ====================================================================
+Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+Rem Datei: 07_wuerfel.bas
+Rem Titel: Kapitel 7: Zufallszahlen
+Rem Buch:  Mein erstes MMBasic Programm
+Rem Autor: Manfred Becker
+Rem Datum: 24.07.2026
+Rem
+Rem Beschreibung: wie Zufallszahlen erzeugt werden
+Rem
+Rem Hardware/Voraussetzungen: keine
+Rem
+Rem ====================================================================
 
-PRINT "3. Eine Zufallszahl erzeugen"
-PRINT RND
+Print "3. Eine Zufallszahl erzeugen"
+Print "Print Rnd":Print Rnd
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "4. Zufallszahlen mehrfach erzeugen"
-FOR I=1 TO 10
-  PRINT RND
-NEXT I
+Print "4. Zufallszahlen mehrfach erzeugen"
+For I=1 To 10
+  Print Rnd
+Next I
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "5. Einen Wuerfel simulieren"
-PRINT INT(RND*6)+1
+Print "5. Einen Wuerfel simulieren"
+Print "Print Int(Rnd*6)+1":Print Int(Rnd*6)+1
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "6. Mehrfach wuerfeln"
-FOR I=1 TO 10
-  PRINT INT(RND*6)+1
-NEXT I
+Print "6. Mehrfach wuerfeln"
+For I=1 To 10
+  Print Int(Rnd*6)+1
+Next I
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "6. Mehrfach wuerfeln"
-FOR I=1 TO 10
-  PRINT INT(RND*6)+1
-NEXT I
+Print "7. Muenze werfen"
+If Int(Rnd*2)=0 Then
+  Print "Kopf"
+Else
+  Print "Zahl"
+EndIf
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "7. Muenze werfen"
-IF INT(RND*2)=0 THEN
-  PRINT "Kopf"
-ELSE
-  PRINT "Zahl"
-ENDIF
+Print "8. Lottozahlen erzeugen"
+For I=1 To 6
+  Print Int(Rnd*49)+1
+Next I
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "8. Lottozahlen erzeugen"
-FOR I=1 TO 6
-  PRINT INT(RND*49)+1
-NEXT I
+Print "9. Ein Ratespiel"
+GEHEIM=Int(Rnd*10)+1
+Print "Rate eine Zahl von 1 bis 10"
+Input TIPP
+If TIPP=GEHEIM Then
+  Print "Richtig!"
+Else
+  Print "Leider falsch."
+EndIf
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
-
-PRINT "9. Ein Ratespiel"
-GEHEIM=INT(RND*10)+1
-PRINT "Rate eine Zahl von 1 bis 10"
-INPUT TIPP
-IF TIPP=GEHEIM THEN
-  PRINT "Richtig!"
-ELSE
-  PRINT "Leider falsch."
-ENDIF
+Print "Ready..."

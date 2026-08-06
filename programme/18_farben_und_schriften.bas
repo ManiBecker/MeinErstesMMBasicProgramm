@@ -1,116 +1,133 @@
-REM ====================================================================
-REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
-REM Datei: 18_farben_und_schriften.bas
-REM Titel: Kapitel 18: Farben und Schriftarten
-REM Buch:  Mein erstes MMBasic Programm
-REM Autor: Manfred Becker
-REM Datum: 27.07.2026
-REM
-REM Beschreibung:  Funktion RGB()
-REM
-REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
-REM
-REM ====================================================================
+Rem ====================================================================
+Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+Rem Datei: 18_farben_und_schriften.bas
+Rem Titel: Kapitel 18: Farben und Schriftarten
+Rem Buch:  Mein erstes MMBasic Programm
+Rem Autor: Manfred Becker
+Rem Datum: 27.07.2026
+Rem
+Rem Beschreibung:  Funktion RGB()
+Rem
+Rem Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
+Rem
+Rem ====================================================================
 
-PRINT "3. Farben mit RGB() erzeugen"
-PRINT "RGB(255,0,0): ";RGB(255,0,0)
-PRINT "RGB(0,255,0): ";RGB(0,255,0)
-PRINT "RGB(0,0,255): ";RGB(0,0,255)
+MODE 2
+Print "3. Farben mit RGB() erzeugen"
+Print
+Print "RGB(255,0,0): ";RGB(255,0,0)
+Print "RGB(0,255,0): ";RGB(0,255,0)
+Print "RGB(0,0,255): ";RGB(0,0,255)
+Print
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "4. Farbkonstanten verwenden"
+Print
+Print "RGB(RED):    ";RGB(RED)
+Print "RGB(GREEN):  ";RGB(GREEN)
+Print "RGB(BLUE):   ";RGB(BLUE)
+Print "RGB(YELLOW): ";RGB(YELLOW)
+Print "RGB(CYAN):   ";RGB(CYAN)
+Print "RGB(MAGENTA):";RGB(MAGENTA)
+Print "RGB(WHITE):  ";RGB(WHITE)
+Print "RGB(BLACK):  ";RGB(BLACK)
+Print
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "4. Farbkonstanten verwenden"
-PRINT "RGB(RED):    ";RGB(RED)
-PRINT "RGB(GREEN):  ";RGB(GREEN)
-PRINT "RGB(BLUE):   ";RGB(BLUE)
-PRINT "RGB(YELLOW): ";RGB(YELLOW)
-PRINT "RGB(CYAN):   ";RGB(CYAN)
-PRINT "RGB(MAGENTA):";RGB(MAGENTA)
-PRINT "RGB(WHITE):  ";RGB(WHITE)
-PRINT "RGB(BLACK):  ";RGB(BLACK)
-
-PRINT "Press any key...": Do: Loop While Inkey$=""
-
-PRINT "5. Vorder- und Hintergrundfarbe"
 CLS
-COLOUR RGB(YELLOW), RGB(BLUE)
-PRINT "Hallo MMBasic"
+Print "5. Vorder- und Hintergrundfarbe"
+Colour RGB(YELLOW), RGB(BLUE)
+Print "Hallo MMBasic"
+Print
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
-
-PRINT "6. Der Bildschirmhintergrund"
 CLS RGB(BLACK)
+Print "6. Der Bildschirmhintergrund"
+Print
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
-
-PRINT "7. Ein kleines Farbexperiment"
 CLS RGB(BLACK)
-COLOUR RGB(YELLOW), RGB(BLACK)
-PRINT "Gelber Text"
-COLOUR RGB(CYAN), RGB(BLACK)
-PRINT "Cyanfarbener Text"
-COLOUR RGB(RED), RGB(BLACK)
-PRINT "Roter Text"
+Print "7. Ein kleines Farbexperiment"
+Colour RGB(YELLOW), RGB(BLACK)
+Print "Gelber Text"
+Colour RGB(CYAN), RGB(BLACK)
+Print "Cyanfarbener Text"
+Colour RGB(RED), RGB(BLACK)
+Print "Roter Text"
+Print
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
-
-PRINT "9. Schriftart auswaehlen"
-FONT 1
-PRINT "Schriftart 1"
-FONT 2
-PRINT "Schriftart 2"
-FONT 3
-PRINT "Schriftart 3"
-
-PRINT "Press any key...": Do: Loop While Inkey$=""
-
-PRINT "11. Schriftgroesse ausprobieren"
 CLS
-FONT 1
-PRINT "Kleine Schrift"
-FONT 2
-PRINT "Mittlere Schrift"
-FONT 3
-PRINT "Grosse Schrift"
-FONT 5
-PRINT "Sehr grosse Schrift"
+Print "9. Schriftart auswaehlen"
+Font 1
+Print "Schriftart 1"
+Font 2
+Print "Schriftart 2"
+Font 3
+Print "Schriftart 3"
+Print
+Font 1
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
-
-PRINT "12. Grosse Zahlen darstellen"
 CLS
-FONT 6
-PRINT "12:45"
+Print "11. Schriftgroesse ausprobieren"
+Font 1
+Print "Kleine Schrift"
+Font 2
+Print "Mittlere Schrift"
+Font 3
+Print "Grosse Schrift"
+Font 5
+Print "Sehr grosse Schrift"
+Print
+Font 1
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "13. Informationen zur aktuellen Schrift"
-PRINT "MM.INFO(FONTWIDTH):  ";MM.INFO(FONTWIDTH)
-PRINT "MM.INFO(FONTHEIGHT): ";MM.INFO(FONTHEIGHT)
+CLS
+Print "12. Grosse Zahlen darstellen"
+Font 6
+Print "12:45"
+Font 1
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+CLS
+Print "13. Informationen zur aktuellen Schrift"
+Font 1
+Print "MM.INFO(FONTWIDTH):  ";MM.Info(FONTWIDTH)
+Print "MM.INFO(FONTHEIGHT): ";MM.Info(FONTHEIGHT)
+Font 2
+Print "MM.INFO(FONTWIDTH):  ";MM.Info(FONTWIDTH)
+Print "MM.INFO(FONTHEIGHT): ";MM.Info(FONTHEIGHT)
+Font 3
+Print "MM.INFO(FONTWIDTH):  ";MM.Info(FONTWIDTH)
+Print "MM.INFO(FONTHEIGHT): ";MM.Info(FONTHEIGHT)
+Font 1
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "14. Ein digitales Display"
 CLS RGB(BLACK)
-COLOUR RGB(GREEN), RGB(BLACK)
-FONT 6
-PRINT TIME$
+Print "14. Ein digitales Display"
+Colour RGB(GREEN), RGB(BLACK)
+Font 6
+Print Time$
+Print
+Font 1
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
-
-PRINT "15. Experimentiere!"
-PRINT "Probiere folgende Aenderungen aus:"
-PRINT "- Verwende andere Farben."
-PRINT "- Teste verschiedene Schriftarten."
-PRINT "- Kombiniere unterschiedliche Vorder- und Hintergrundfarben."
-PRINT "- Zeige das aktuelle Datum an."
-
-PRINT "Press any key...": Do: Loop While Inkey$=""
-
-PRINT "18.16. Probier’s selbst!"
-PRINT "Versuche folgende Aufgaben:"
-PRINT "1. Gib deinen Namen in einer grossen Schrift aus."
-PRINT "2. Zeige Datum und Uhrzeit gleichzeitig an."
-PRINT "3. Verwende eine andere Farbe fuer jede Zeile."
-PRINT "4. Erstelle eine einfache digitale Uhr."
-
-
-
+MODE 1
+Print "15. Experimentiere!"
+Print
+Print "Probiere folgende Aenderungen aus:"
+Print "- Verwende andere Farben."
+Print "- Teste verschiedene Schriftarten."
+Print "- Kombiniere unterschiedliche Vorder- und Hintergrundfarben."
+Print "- Zeige das aktuelle Datum an."
+Print
+Print "Press any key...": Do : Loop While Inkey$=""
+Print
+Print "18.16. Probier's selbst!"
+Print
+Print "Versuche folgende Aufgaben:"
+Print "1. Gib deinen Namen in einer grossen Schrift aus."
+Print "2. Zeige Datum und Uhrzeit gleichzeitig an."
+Print "3. Verwende eine andere Farbe fuer jede Zeile."
+Print "4. Erstelle eine einfache digitale Uhr."
