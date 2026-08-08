@@ -39,17 +39,17 @@ Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS RGB(BLACK)
 Print "7. Mehrere Pixel zeichnen"
+Pixel  96,100,RGB(YELLOW)
+Pixel  98,100,RGB(GREEN)
 Pixel 100,100,RGB(RED)
-Pixel 101,100,RGB(RED)
-Pixel 102,100,RGB(RED)
-Pixel 103,100,RGB(RED)
-Pixel 104,100,RGB(RED)
+Pixel 102,100,RGB(WHITE)
+Pixel 104,100,RGB(BLUE)
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
 Print "8. Linien zeichnen"
-Line 10,10,200,10
+Line 0,20,100,20
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
@@ -149,3 +149,5 @@ Print "- Verwende andere Farben."
 Print "- Zeichne ein groesseres Haus."
 Print "- Zeichne mehrere Dreiecke."
 Print "- Zeichne ein Gitter aus Linien."
+Print
+Print "Ready..."

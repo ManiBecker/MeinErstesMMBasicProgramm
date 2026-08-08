@@ -1,81 +1,83 @@
-REM ====================================================================
-REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
-REM Datei: 13_little_professor.bas
-REM Titel: Kapitel 13: Little Professor
-REM Buch:  Mein erstes MMBasic Programm
-REM Autor: Manfred Becker
-REM Datum: 27.07.2026
-REM
-REM Beschreibung:  eigenen kleinen Mathematiktrainer programmieren
-REM
-REM Hardware/Voraussetzungen: keine
-REM
-REM ====================================================================
+Rem ====================================================================
+Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+Rem Datei: 13_little_professor.bas
+Rem Titel: Kapitel 13: Little Professor
+Rem Buch:  Mein erstes MMBasic Programm
+Rem Autor: Manfred Becker
+Rem Datum: 27.07.2026
+Rem
+Rem Beschreibung:  eigenen kleinen Mathematiktrainer programmieren
+Rem
+Rem Hardware/Voraussetzungen: keine
+Rem
+Rem ====================================================================
 
-PRINT "3. Unsere erste Rechenaufgabe"
-A=INT(RND*10)
-B=INT(RND*10)
-PRINT A;" + ";B;" = ?"
-INPUT ANTWORT
-IF ANTWORT=A+B THEN
-  PRINT "Richtig!"
-ELSE
-  PRINT "Leider falsch!"
-ENDIF
+Print "3. Unsere erste Rechenaufgabe"
+A=Int(Rnd*10)+1
+B=Int(Rnd*10)+1
+Print A;" + ";B;" = ";
+Input ANTWORT
+If ANTWORT=A+B Then
+  Print "Richtig!"
+Else
+  Print "Leider falsch!"
+EndIf
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "5. Mehrere Aufgaben hintereinander"
-FOR RUNDE=1 TO 10
-  A=INT(RND*10)
-  B=INT(RND*10)
-  PRINT
-  PRINT "Aufgabe ";RUNDE
-  PRINT A;" + ";B;" = ?"
-  INPUT ANTWORT
-  IF ANTWORT=A+B THEN
-    PRINT "Richtig!"
-  ELSE
-    PRINT "Leider falsch!"
-  ENDIF
-NEXT RUNDE
+Print "5. Mehrere Aufgaben hintereinander"
+For RUNDE=1 To 3
+  A=Int(Rnd*10)+1
+  B=Int(Rnd*10)+1
+  Print
+  Print "Aufgabe ";RUNDE
+  Print A;" + ";B;" = ";
+  Input ANTWORT
+  If ANTWORT=A+B Then
+    Print "Richtig!"
+  Else
+    Print "Leider falsch!"
+  EndIf
+Next RUNDE
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "6. Punkte zaehlen"
+Print "6. Punkte zaehlen"
 PUNKTE=0
 PUNKTE=PUNKTE+1
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "7. Die richtige Loesung anzeigen"
-IF ANTWORT=A+B THEN
-  PRINT "Richtig!"
+Print "7. Die richtige Loesung anzeigen"
+If ANTWORT=A+B Then
+  Print "Richtig!"
   PUNKTE=PUNKTE+1
-ELSE
-  PRINT "Leider falsch!"
-  PRINT "Richtig waere ";A+B
-ENDIF
+Else
+  Print "Leider falsch!"
+  Print "Richtig waere ";A+B
+EndIf
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "8. Das komplette Programm"
+Print "8. Das komplette Programm"
 CLS
 PUNKTE=0
-FOR RUNDE=1 TO 10
-  A=INT(RND*10)
-  B=INT(RND*10)
-  PRINT
-  PRINT "Aufgabe ";RUNDE
-  PRINT A;" + ";B;" = ?"
-  INPUT ANTWORT
-  IF ANTWORT=A+B THEN
-    PRINT "Richtig!"
+For RUNDE=1 To 5
+  A=Int(Rnd*10)
+  B=Int(Rnd*10)
+  Print
+  Print "Aufgabe ";RUNDE
+  Print A;" + ";B;" = ";
+  Input ANTWORT
+  If ANTWORT=A+B Then
+    Print "Richtig!"
     PUNKTE=PUNKTE+1
-  ELSE
-    PRINT "Leider falsch!"
-    PRINT "Richtig waere ";A+B
-  ENDIF
-NEXT RUNDE
-PRINT
-PRINT "Du hast ";PUNKTE;" von 10 Punkten erreicht."
+  Else
+    Print "Leider falsch!"
+    Print "Richtig waere ";A+B
+  EndIf
+Next RUNDE
+Print
+Print "Du hast";PUNKTE;" von 10 Punkten erreicht."
+Print
+Print "Ready..."

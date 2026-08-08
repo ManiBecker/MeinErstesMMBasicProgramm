@@ -1,86 +1,102 @@
-REM ====================================================================
-REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
-REM Datei: 24_bahnhofsuhr.bas
-REM Titel: Kapitel 24: Eine analoge Bahnhofsuhr
-REM Buch:  Mein erstes MMBasic Programm
-REM Autor: Manfred Becker
-REM Datum: 29.07.2026
-REM
-REM Beschreibung: Das vollstaendige Programm
-REM
-REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
-REM
-REM ====================================================================
+Rem ====================================================================
+Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+Rem Datei: 24_bahnhofsuhr.bas
+Rem Titel: Kapitel 24: Eine analoge Bahnhofsuhr
+Rem Buch:  Mein erstes MMBasic Programm
+Rem Autor: Manfred Becker
+Rem Datum: 29.07.2026
+Rem
+Rem Beschreibung: Das vollstaendige Programm
+Rem
+Rem Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
+Rem
+Rem ====================================================================
 
-MITTEX=MM.HRES/2
-MITTEY=MM.VRES/2
-RADIUS=MM.HRES/2-10
+MODE 3
 
-IF MM.VRES/2-10<RADIUS THEN
-  RADIUS=MM.VRES/2-10
-ENDIF
+mitteX=MM.HRES/2
+mitteY=MM.VRES/2
+radius=MM.HRES/2-10
 
-ALTEZEIT$=""
+If MM.VRES/2-10<radius Then
+  radius=MM.VRES/2-10
+EndIf
 
-DO
+CLS RGB(BLACK)
 
-  IF TIME$<>ALTEZEIT$ THEN
-    ALTEZEIT$=TIME$
-    STUNDE=VAL(LEFT$(TIME$,2))
-    MINUTE=VAL(MID$(TIME$,4,2))
-    SEKUNDE=VAL(RIGHT$(TIME$,2))
-    CLS RGB(WHITE)
-    ZeichneZifferblatt MITTEX,MITTEY,RADIUS
-    STUNDENWINKEL=((STUNDE MOD 12)*30+MINUTE*0.5)*PI/180
-    MINUTENWINKEL=(MINUTE*6+SEKUNDE*0.1)*PI/180
-    SEKUNDENWINKEL=SEKUNDE*6*PI/180
-    ZeichneStundenzeiger MITTEX,MITTEY,RADIUS,STUNDENWINKEL
-    ZeichneMinutenzeiger MITTEX,MITTEY,RADIUS,MINUTENWINKEL
-    ZeichneSekundenzeiger MITTEX,MITTEY,RADIUS,SEKUNDENWINKEL
-    CIRCLE MITTEX,MITTEY,RADIUS*0.035,1,1,RGB(BLACK),RGB(BLACK)
-  ENDIF
+Do
+  If alteZeit$<>Time$ Then
+    alteZeit$=Time$
+    Berechne Time$
+    ZeichneZifferblatt mitteX,mitteY,radius
+    ZeichneText mitteX,mitteY,radius
+    ZeichneStundenzeiger mitteX,mitteY,radius,stundenWinkel
+    ZeichneMinutenzeiger mitteX,mitteY,radius,minutenWinkel
+    ZeichneSekundenzeiger mitteX,mitteY,radius,sekundenWinkel
+  EndIf
+Loop While Inkey$=""
 
-LOOP
-END
+Print
+Print "Ready..."
+End
 
-SUB ZeichneZifferblatt(X,Y,R)
-  CIRCLE X,Y,R,3,1,RGB(BLACK),RGB(WHITE)
-  FOR I=0 TO 59
-  WINKEL=I*6*PI/180
-  IF I MOD 5=0 THEN
-  INNEN=R*0.78
-  ELSE
-  INNEN=R*0.86
-  ENDIF
-  X1=X+SIN(WINKEL)*INNEN
-  Y1=Y-COS(WINKEL)*INNEN
-  X2=X+SIN(WINKEL)*R*0.92
-  Y2=Y-COS(WINKEL)*R*0.92
-  LINE X1,Y1,X2,Y2,,,RGB(BLACK)
-  NEXT I
-END SUB
+Sub Berechne(t$)
+    stunde=Val(Left$(t$,2))
+    minute=Val(Mid$(t$,4,2))
+    sekunde=Val(Right$(t$,2))
+    stundenWinkel=((stunde Mod 12)*30+minute*0.5)*Pi/180
+    minutenWinkel=(minute*6+sekunde*0.1)*Pi/180
+    sekundenWinkel=sekunde*6*Pi/180
+End Sub
 
-SUB ZeichneStundenzeiger(X,Y,R,WINKEL)
-  X2=X+SIN(WINKEL)*R*0.50
-  Y2=Y-COS(WINKEL)*R*0.50
-  LINE X,Y,X2,Y2,,,RGB(BLACK)
-  LINE X-1,Y,X2-1,Y2,,,RGB(BLACK)
-  LINE X+1,Y,X2+1,Y2,,,RGB(BLACK)
-END SUB
+Sub ZeichneZifferblatt(x,y,r)
+  Circle x,y,r,5,1,RGB(BLUE),RGB(WHITE)
+  Circle x,y,r-5,5,1,RGB(BLACK),RGB(WHITE)
+  For i=0 To 59
+    winkel=i*6*Pi/180
+    If i Mod 5=0 Then
+      innen=r*0.78
+      t=3
+    Else
+      innen=r*0.86
+      t=1
+    EndIf
+    x1=x+Sin(winkel)*innen
+    y1=y-Cos(winkel)*innen
+    x2=x+Sin(winkel)*r*0.92
+    y2=y-Cos(winkel)*r*0.92
+    Line x1,y1,x2,y2,t,RGB(BLACK)
+  Next i
+End Sub
 
-SUB ZeichneMinutenzeiger(X,Y,R,WINKEL)
-  X2=X+SIN(WINKEL)*R*0.72
-  Y2=Y-COS(WINKEL)*R*0.72
-  LINE X,Y,X2,Y2,,,RGB(BLACK)
-  LINE X-1,Y,X2-1,Y2,,,RGB(BLACK)
-  LINE X+1,Y,X2+1,Y2,,,RGB(BLACK)
-END SUB
+Sub ZeichneText(x,y,r)
+    Color RGB(BLACK),RGB(WHITE)
+    Text x-MM.Info(FONTWIDTH)*4,y-r*0.6,"MMBasic!"
+    Text x-MM.Info(FONTWIDTH)*4,y+r*0.53,Time$
+    Text x-MM.Info(FONTWIDTH)*5,y+r*0.6,Date$
+End Sub
 
-SUB ZeichneSekundenzeiger(X,Y,R,WINKEL)
-  X2=X+SIN(WINKEL)*R*0.84
-  Y2=Y-COS(WINKEL)*R*0.84
-  LINE X,Y,X2,Y2,,,RGB(RED)
-  KX=X+SIN(WINKEL)*R*0.70
-  KY=Y-COS(WINKEL)*R*0.70
-  CIRCLE KX,KY,R*0.035,1,1,RGB(RED),RGB(RED)
-END SUB
+Sub ZeichneStundenzeiger(x,y,r,winkel)
+  x2=x+Sin(winkel)*r*0.55
+  y2=y-Cos(winkel)*r*0.55
+  Line x,y,x2,y2,5,RGB(MIDGREEN)
+  Circle mitteX,mitteY,radius*0.045,4,1,RGB(MIDGREEN),RGB(BLUE)
+End Sub
+
+Sub ZeichneMinutenzeiger(x,y,r,winkel)
+  x2=x+Sin(winkel)*R*0.84
+  y2=y-Cos(winkel)*R*0.84
+  Line x,y,x2,y2,3,RGB(BLUE)
+  Circle mitteX,mitteY,radius*0.035,4,1,RGB(BLUE),RGB(RED)
+End Sub
+
+Sub ZeichneSekundenzeiger(x,y,r,winkel)
+  x1=x-Sin(winkel)*r*0.14
+  y1=y+Cos(winkel)*r*0.14
+  x2=x+Sin(winkel)*r*0.84
+  y2=y-Cos(winkel)*r*0.84
+  Line x1,y1,x2,y2,1,RGB(RED)
+  xk=x+Sin(winkel)*r*0.70
+  yk=y-Cos(winkel)*r*0.70
+  Circle xk,yk,r*0.035,1,1,RGB(RED),RGB(WHITE)
+End Sub

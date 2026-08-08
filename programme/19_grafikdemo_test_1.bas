@@ -26,6 +26,20 @@ Next I
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS RGB(BLACK)
+Print "1000 zufaellige Linien"
+For I=1 To 1000
+  X1=Int(Rnd*MM.HRES)
+  Y1=2*MM.Info(FONTHEIGHT)+Int(Rnd*MM.VRES)
+  X2=Int(Rnd*MM.HRES)
+  Y2=2*MM.Info(FONTHEIGHT)+Int(Rnd*MM.VRES)
+  LW=Int(Rnd*3)+1
+  FARBE=RGB(Int(Rnd*256),Int(Rnd*256),Int(Rnd*256))
+  Line X1,Y1,X2,Y2,LW,FARBE
+Next I
+
+Print "Press any key...": Do : Loop While Inkey$=""
+
+CLS RGB(BLACK)
 Print "1000 zufaellige Kreise"
 For I=1 To 1000
   RADIUS=Int(Rnd*20)+2
@@ -49,3 +63,5 @@ For I=1 To 1000
   FARBE2=RGB(Int(Rnd*256),Int(Rnd*256),Int(Rnd*256))
   Box X,Y,BREITE,HOEHE,1,FARBE1,FARBE2
 Next I
+
+Print "Ready..."

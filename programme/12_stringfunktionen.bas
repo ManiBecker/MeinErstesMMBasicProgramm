@@ -160,6 +160,11 @@ ElseIf Val(Left$(Time$,2))<18 Then
 Else
   Print "Guten Abend!"
 EndIf
+Print "So sieht dein Name in Spiegelschrift aus: ";
+For i = Len(NAME$) To 1 Step -1
+  Print UCase$(Mid$(NAME$,i,1));
+Next i
+Print
 
 Print "Press any key...": Do : Loop While Inkey$=""
 

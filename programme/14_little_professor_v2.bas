@@ -1,119 +1,123 @@
-REM ====================================================================
-REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
-REM Datei: 14_little_professor_v2.bas
-REM Titel: Kapitel 14: Little Professor Version 2
-REM Buch:  Mein erstes MMBasic Programm
-REM Autor: Manfred Becker
-REM Datum: 27.07.2026
-REM
-REM Beschreibung: eigenen kleinen Mathematiktrainer programmieren
-REM
-REM Hardware/Voraussetzungen: keine
-REM
-REM ====================================================================
+Rem ====================================================================
+Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+Rem Datei: 14_little_professor_v2.bas
+Rem Titel: Kapitel 14: Little Professor Version 2
+Rem Buch:  Mein erstes MMBasic Programm
+Rem Autor: Manfred Becker
+Rem Datum: 27.07.2026
+Rem
+Rem Beschreibung: eigenen kleinen Mathematiktrainer programmieren
+Rem
+Rem Hardware/Voraussetzungen: keine
+Rem
+Rem ====================================================================
 
-PRINT "3. Der Spielername"
-INPUT "Wie heisst du ";NAME$
-PRINT
-PRINT "Hallo ";NAME$
-PRINT
+Print "3. Der Spielername"
+Do
+  Input "Wie heisst du ";NAME$
+Loop While NAME$=""
+Print
+Print "Hallo ";NAME$
+Print
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "4. Zufaellig eine Rechenart auswaehlen"
-OP=INT(RND*4)
-PRINT "Die Werte bedeuten:"
-PRINT "0 = Addition"
-PRINT "1 = Subtraktion"
-PRINT "2 = Multiplikation"
-PRINT "3 = Division"
+Print "4. Zufaellig eine Rechenart auswaehlen"
+OP=Int(Rnd*4)
+Print "Die Werte bedeuten:"
+Print "0 = Addition"
+Print "1 = Subtraktion"
+Print "2 = Multiplikation"
+Print "3 = Division"
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "5. Eine Aufgabe erzeugen"
-SUB NeueAufgabe
-  OP=INT(RND*4)
-END SUB
+Print "5. Eine Aufgabe erzeugen"
+Sub NeueAufgabe
+  OP=Int(Rnd*4)
+End Sub
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "6. Additionsaufgaben"
-A=INT(RND*10)
-B=INT(RND*10)
+Print "6. Additionsaufgaben"
+A=Int(Rnd*10)
+B=Int(Rnd*10)
 ERG=A+B
-PRINT A;" + ";B;" = ?"
+Print A;" + ";B;" = ?"
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "7. Subtraktionsaufgaben
-A=INT(RND*10)+10
-B=INT(RND*10)
+Print "7. Subtraktionsaufgaben"
+A=Int(Rnd*10)+10
+B=Int(Rnd*10)
 ERG=A-B
-PRINT A;" - ";B;" = ?"
+Print A;" - ";B;" = ?"
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "8. Multiplikationsaufgaben
-A=INT(RND*10)
-B=INT(RND*10)
+Print "8. Multiplikationsaufgaben"
+A=Int(Rnd*10)
+B=Int(Rnd*10)
 ERG=A*B
-PRINT A;" * ";B;" = ?"
+Print A;" * ";B;" = ?"
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "9. Divisionsaufgaben"
-ERG=INT(RND*10)+1
-B=INT(RND*10)+1
+Print "9. Divisionsaufgaben"
+ERG=Int(Rnd*10)+1
+B=Int(Rnd*10)+1
 A=ERG*B
-PRINT A;" / ";B;" = ?"
+Print A;" / ";B;" = ?"
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "10. Die SUB vervollstaendigen
-SUB NeueAufgabe
-  OP=INT(RND*4)
-  IF OP=0 THEN
-    A=INT(RND*10)
-    B=INT(RND*10)
+Print "10. Die SUB vervollstaendigen"
+Sub NeueAufgabe2
+  OP=Int(Rnd*4)
+  If OP=0 Then
+    A=Int(Rnd*10)
+    B=Int(Rnd*10)
     ERG=A+B
-    PRINT A;" + ";B;" = ?"
-  ELSEIF OP=1 THEN
-    A=INT(RND*10)+10
-    B=INT(RND*10)
+    Print A;" + ";B;" = ?"
+  ElseIf OP=1 Then
+    A=Int(Rnd*10)+10
+    B=Int(Rnd*10)
     ERG=A-B
-    PRINT A;" - ";B;" = ?"
-  ELSEIF OP=2 THEN
-    A=INT(RND*10)
-    B=INT(RND*10)
+    Print A;" - ";B;" = ?"
+  ElseIf OP=2 Then
+    A=Int(Rnd*10)
+    B=Int(Rnd*10)
     ERG=A*B
-    PRINT A;" * ";B;" = ?"
-  ELSE
-    ERG=INT(RND*10)+1
-    B=INT(RND*10)+1
+    Print A;" * ";B;" = ?"
+  Else
+    ERG=Int(Rnd*10)+1
+    B=Int(Rnd*10)+1
     A=ERG*B
-    PRINT A;" / ";B;" = ?"
-  ENDIF
-END SUB
+    Print A;" / ";B;" = ?"
+  EndIf
+End Sub
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "11. Das komplette Programm"
-PRINT "Findest du in 14_little_professor_v2_final.bas"
+Print "11. Das komplette Programm"
+Print "Findest du in 14_little_professor_v2_final.bas"
 
-PRINT "14. Experimentiere!"
-PRINT "Probiere folgende Aenderungen aus:"
-PRINT "- Verwende Zahlen bis 20."
-PRINT "- Stelle 20 Aufgaben."
-PRINT "- Verwende nur Multiplikationsaufgaben."
-PRINT "- Verwende nur Divisionsaufgaben."
-PRINT "- Aendere die Bewertung am Ende."
+Print "14. Experimentiere!"
+Print "Probiere folgende Aenderungen aus:"
+Print "- Verwende Zahlen bis 20."
+Print "- Stelle 20 Aufgaben."
+Print "- Verwende nur Multiplikationsaufgaben."
+Print "- Verwende nur Divisionsaufgaben."
+Print "- Aendere die Bewertung am Ende."
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
-PRINT "15. Probier’s selbst!"
-PRINT "Versuche folgende Aufgaben:"
-PRINT "1. Fuege eine Schwierigkeitsstufe hinzu."
-PRINT "2. Lasse den Spieler die Anzahl der Aufgaben waehlen."
-PRINT "3. Vergib Bonuspunkte fuer besonders schnelle Loesungen."
-PRINT "4. Speichere die Anzahl richtiger und falscher Antworten getrennt."
-PRINT "5. Zeige am Ende die erreichte Prozentzahl an."
+Print "15. Probier's selbst!"
+Print "Versuche folgende Aufgaben:"
+Print "1. Fuege eine Schwierigkeitsstufe hinzu."
+Print "2. Lasse den Spieler die Anzahl der Aufgaben waehlen."
+Print "3. Vergib Bonuspunkte fuer besonders schnelle Loesungen."
+Print "4. Speichere die Anzahl richtiger und falscher Antworten getrennt."
+Print "5. Zeige am Ende die erreichte Prozentzahl an."
+Print
+Print "Ready..."

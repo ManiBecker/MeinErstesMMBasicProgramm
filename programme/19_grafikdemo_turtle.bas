@@ -13,43 +13,38 @@ Rem
 Rem ====================================================================
 
 MODE 2
-Print "24. Die Schildkroete zuruecksetzen"
 
 Turtle RESET
-
+CLS
+Print "24. Die Schildkroete zuruecksetzen"
 Print "Press any key...": Do : Loop While Inkey$=""
 
+Turtle RESET
 CLS
 Print "25. Ein Quadrat zeichnen"
-
-Turtle RESET
 For I = 1 To 4
   Turtle FORWARD 10
   Turtle RIGHT 90
 Next I
-
 Print "Press any key...": Do : Loop While Inkey$=""
 
+Turtle RESET
 CLS
 Print "27. Experimentiere!"
 Print "Veraendere die Seitenlaenge:"
-
-Turtle RESET
 For I = 1 To 4
   Turtle FORWARD 30
   Turtle RIGHT 90
 Next I
-
 Print "Press any key...": Do : Loop While Inkey$=""
 
+Turtle RESET
 CLS
 Print "Oder aendere den Drehwinkel:"
-Turtle RESET
 For I = 1 To 6
   Turtle FORWARD 10
   Turtle RIGHT 60
 Next I
-
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
@@ -63,27 +58,24 @@ Print "- 72 grad -> Fuenfeck"
 Print "- 60 grad -> Sechseck"
 Print "- 170 grad -> Stern- bzw. Rosettenfigur"
 Print "Je kleiner der Drehwinkel ist, desto mehr Seiten besitzt die Figur."
-
+Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
-CLS
-Print "29. Eine Spirale"
 
 Turtle RESET
-
+CLS
+Print "29. Eine Spirale"
 For I = 1 To 80
   Turtle FORWARD I * 2
   Turtle RIGHT 50
 Next I
-
 Print "Press any key...": Do : Loop While Inkey$=""
 
+Turtle RESET
 CLS
 Print "30. Ein Stern"
-
-Turtle RESET
-
 For I = 1 To 80
   Turtle FORWARD I * 2
   Turtle RIGHT 120 + I
 Next I
+Print "Ready..."
