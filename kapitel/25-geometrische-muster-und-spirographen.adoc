@@ -198,10 +198,7 @@ Jetzt erhält jede Linie eine zufällige Farbe.
 
 [source,basic]
 ----
-FARBE=RGB( _
-  INT(RND*256), _
-  INT(RND*256), _
-  INT(RND*256))
+FARBE=RGB( INT(RND*256), INT(RND*256), INT(RND*256) )
 ----
 
 Setze die Farbe direkt beim Zeichnen der Linie ein.
@@ -294,10 +291,7 @@ FOR I=0 TO 3600 STEP 1
 
   Y=MY+SIN(W)*120+SIN(W*7)*50
 
-  FARBE=RGB( _
-    INT(RND*256), _
-    INT(RND*256), _
-    INT(RND*256))
+  FARBE=RGB( INT(RND*256), INT(RND*256), INT(RND*256) )
 
   PIXEL X,Y,FARBE
 
