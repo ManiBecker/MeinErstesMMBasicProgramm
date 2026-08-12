@@ -150,7 +150,7 @@ Y1=MITTEY-COS(WINKEL)*INNEN
 X2=MITTEX+SIN(WINKEL)*RADIUS*0.92
 Y2=MITTEY-COS(WINKEL)*RADIUS*0.92
 
-LINE X1,Y1,X2,Y2,,,RGB(BLACK)
+LINE X1,Y1,X2,Y2,,RGB(BLACK)
 ----
 
 === Die Uhrzeit aus TIME$ auslesen
@@ -250,7 +250,7 @@ Anschließend wird die Linie vom Mittelpunkt zum Endpunkt gezeichnet:
 
 [source,basic]
 ----
-LINE MITTEX,MITTEY,X,Y,,,RGB(BLACK)
+LINE MITTEX,MITTEY,X,Y,,RGB(BLACK)
 ----
 
 Der Minutenzeiger ist länger:
@@ -275,7 +275,7 @@ Der rote Sekundenzeiger ist ein besonders auffälliges Merkmal klassischer Bahnh
 
 [source,basic]
 ----
-LINE MITTEX,MITTEY,X,Y,,,RGB(RED)
+LINE MITTEX,MITTEY,X,Y,,RGB(RED)
 ----
 
 Zusätzlich zeichnen wir kurz vor der Spitze einen roten Kreis.
@@ -368,7 +368,7 @@ SUB ZeichneZifferblatt(X,Y,R)
     X2=X+SIN(WINKEL)*R*0.92
     Y2=Y-COS(WINKEL)*R*0.92
 
-    LINE X1,Y1,X2,Y2,,,RGB(BLACK)
+    LINE X1,Y1,X2,Y2,,RGB(BLACK)
 
   NEXT I
 
@@ -381,10 +381,10 @@ SUB ZeichneStundenzeiger(X,Y,R,WINKEL)
   X2=X+SIN(WINKEL)*R*0.50
   Y2=Y-COS(WINKEL)*R*0.50
 
-  LINE X,Y,X2,Y2,,,RGB(BLACK)
+  LINE X,Y,X2,Y2,,RGB(BLACK)
 
-  LINE X-1,Y,X2-1,Y2,,,RGB(BLACK)
-  LINE X+1,Y,X2+1,Y2,,,RGB(BLACK)
+  LINE X-1,Y,X2-1,Y2,,RGB(BLACK)
+  LINE X+1,Y,X2+1,Y2,,RGB(BLACK)
 
 END SUB
 
@@ -395,10 +395,10 @@ SUB ZeichneMinutenzeiger(X,Y,R,WINKEL)
   X2=X+SIN(WINKEL)*R*0.72
   Y2=Y-COS(WINKEL)*R*0.72
 
-  LINE X,Y,X2,Y2,,,RGB(BLACK)
+  LINE X,Y,X2,Y2,,RGB(BLACK)
 
-  LINE X-1,Y,X2-1,Y2,,,RGB(BLACK)
-  LINE X+1,Y,X2+1,Y2,,,RGB(BLACK)
+  LINE X-1,Y,X2-1,Y2,,RGB(BLACK)
+  LINE X+1,Y,X2+1,Y2,,RGB(BLACK)
 
 END SUB
 
@@ -409,7 +409,7 @@ SUB ZeichneSekundenzeiger(X,Y,R,WINKEL)
   X2=X+SIN(WINKEL)*R*0.84
   Y2=Y-COS(WINKEL)*R*0.84
 
-  LINE X,Y,X2,Y2,,,RGB(RED)
+  LINE X,Y,X2,Y2,,RGB(RED)
 
   KX=X+SIN(WINKEL)*R*0.70
   KY=Y-COS(WINKEL)*R*0.70

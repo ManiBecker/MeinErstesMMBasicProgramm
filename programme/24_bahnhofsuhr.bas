@@ -4,7 +4,7 @@ Rem Datei: 24_bahnhofsuhr.bas
 Rem Titel: Kapitel 24: Eine analoge Bahnhofsuhr
 Rem Buch:  Mein erstes MMBasic Programm
 Rem Autor: Manfred Becker
-Rem Datum: 29.07.2026
+Rem Datum: 09.08.2026
 Rem
 Rem Beschreibung: Das vollstaendige Programm
 Rem
@@ -71,7 +71,9 @@ End Sub
 
 Sub ZeichneText(x,y,r)
     Color RGB(BLACK),RGB(WHITE)
-    Text x-MM.Info(FONTWIDTH)*4,y-r*0.6,"MMBasic!"
+    version$ = "MMBasic "+Str$(MM.Info(Version))
+    Text x-MM.Info(FONTWIDTH)*Len(version$)/2,y-r*0.6,version$
+    Text x-MM.Info(FONTWIDTH)*Len(MM.DEVICE$)/2,y-r*0.53,MM.DEVICE$
     Text x-MM.Info(FONTWIDTH)*4,y+r*0.53,Time$
     Text x-MM.Info(FONTWIDTH)*5,y+r*0.6,Date$
 End Sub
