@@ -1,128 +1,210 @@
-REM ====================================================================
-REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
-REM Datei: 26_animation.bas
-REM Titel: Kapitel 26: Animationen und bewegte Grafiken
-REM Buch:  Mein erstes MMBasic Programm
-REM Autor: Manfred Becker
-REM Datum: 29.07.2026
-REM
-REM Beschreibung: Objekte zu bewegen
-REM
-REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
-REM
-REM ====================================================================
+Rem ====================================================================
+Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+Rem Datei: 26_animation.bas
+Rem Titel: Kapitel 26: Animationen und bewegte Grafiken
+Rem Buch:  Mein erstes MMBasic Programm
+Rem Autor: Manfred Becker
+Rem Datum: 13.08.2026
+Rem
+Rem Beschreibung: Beispiele fuer Animationen und bewegte Grafiken
+Rem
+Rem Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
+Rem
+Rem ====================================================================
 
-PRINT "3. Unser erstes bewegtes Objekt"
 MODE 2
+
+CLS
+Print "3. Unser erstes bewegtes Objekt"
+Pause 1000
+
 X=50
 Y=100
-FOR J = 1 TO 100
-  CLS
-  CIRCLE X,Y,10,,,RGB(YELLOW),RGB(YELLOW)
-  PAUSE 20
-  X=X+2
-NEXT J
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+For J=1 To 100
+  CLS
+  Circle X,Y,10,,,RGB(YELLOW),RGB(YELLOW)
+  Pause 20
+  X=X+2
+Next J
+
+Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-PRINT "6. Bewegung in zwei Richtungen"
-MODE 2
+Print "6. Bewegung in zwei Richtungen"
+Pause 1000
+
 X=50
 Y=50
-FOR J = 1 TO 100  CLS
-  CIRCLE X,Y,10,,,RGB(CYAN),RGB(CYAN)
-  PAUSE 20
+
+For J=1 To 100
+  CLS
+  Circle X,Y,10,,,RGB(CYAN),RGB(CYAN)
+  Pause 20
   X=X+2
   Y=Y+1
-NEXT J
+Next J
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-PRINT "9. Der erste huepfende Ball"
-MODE 2
+Print "9. Der erste huepfende Ball"
+Pause 1000
+
 X=100
 Y=100
 DX=3
 DY=2
-FOR J = 1 TO 100  CLS
-  CIRCLE X,Y,10,,,RGB(YELLOW),RGB(YELLOW)
-  PAUSE 15
+
+For J=1 To 200
+  CLS
+  Circle X,Y,10,,,RGB(YELLOW),RGB(YELLOW)
+  Pause 15
+
   X=X+DX
   Y=Y+DY
-  IF X<10 THEN DX=-DX
-  IF X>MM.HRES-10 THEN DX=-DX
-  IF Y<10 THEN DY=-DY
-  IF Y>MM.VRES-10 THEN DY=-DY
-NEXT J
 
-PRINT "Press any key...": Do: Loop While Inkey$=""
+  If X<10 Then DX=-DX
+  If X>MM.HRES-10 Then DX=-DX
+  If Y<10 Then DY=-DY
+  If Y>MM.VRES-10 Then DY=-DY
+Next J
 
-CLS
-PRINT "15. Zehn huepfende Baelle"
-MODE 2
-
-DIM X(9)
-DIM Y(9)
-DIM DX(9)
-DIM DY(9)
-
-FOR I = 0 TO 9
-  X(I)=10+INT(RND*(MM.HRES-20))
-  Y(I)=10+INT(RND*(MM.VRES-20))
-
-  DX(I)=INT(RND*5)+1
-  DY(I)=INT(RND*5)+1
-
-  IF RND<0.5 THEN DX(I)=-DX(I)
-  IF RND<0.5 THEN DY(I)=-DY(I)
-NEXT I
-
-FOR J = 1 TO 100
-  CLS
-
-  FOR I=0 TO 9
-    CIRCLE X(I),Y(I),10,,,RGB(YELLOW),RGB(YELLOW)
-
-    X(I)=X(I)+DX(I)
-    Y(I)=Y(I)+DY(I)
-
-    IF X(I)<10 THEN DX(I)=-DX(I)
-    IF X(I)>MM.HRES-10 THEN DX(I)=-DX(I)
-    IF Y(I)<10 THEN DY(I)=-DY(I)
-    IF Y(I)>MM.VRES-10 THEN DY(I)=-DY(I)
-  NEXT I
-
-  PAUSE 20
-NEXT J
-
-PRINT "Press any key...": Do: Loop While Inkey$=""
+Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
+Print "15. Zehn huepfende Baelle"
+Pause 1000
 
-PRINT "16. Ein kleiner Bildschirmschoner"
-MODE 2
-DIM X(9)
-DIM Y(9)
-DIM DX(9)
-DIM DY(9)
-FOR I=0 TO 9
-  X(I)=INT(RND*MM.HRES)
-  Y(I)=INT(RND*MM.VRES)
-  DX(I)=INT(RND*5)+1
-  DY(I)=INT(RND*5)+1
-NEXT I
-DO
+Dim aX(9)
+Dim aY(9)
+Dim aDX(9)
+Dim aDY(9)
+Dim aC(9)
+Dim aCB(9)
+
+For I=0 To 9
+  aX(I)=10+Int(Rnd*(MM.HRES-20))
+  aY(I)=10+Int(Rnd*(MM.VRES-20))
+
+  aDX(I)=Int(Rnd*5)+1
+  aDY(I)=Int(Rnd*5)+1
+
+  If Rnd<0.5 Then aDX(I)=-aDX(I)
+  If Rnd<0.5 Then aDY(I)=-aDY(I)
+
+  aC(I)=RGB(Int(Rnd*255),Int(Rnd*255),Int(Rnd*255))
+  aCB(I)=RGB(Int(Rnd*255),Int(Rnd*255),Int(Rnd*255))
+Next I
+
+For J=1 To 200
   CLS
-  FOR I=0 TO 9
-    TEXT X(I),Y(I),"MMBasic"
-    X(I)=X(I)+DX(I)
-    Y(I)=Y(I)+DY(I)
-    IF X(I)<10 THEN DX(I)=-DX(I)
-    IF X(I)>MM.HRES-10 THEN DX(I)=-DX(I)
-    IF Y(I)<10 THEN DY(I)=-DY(I)
-    IF Y(I)>MM.VRES-10 THEN DY(I)=-DY(I)
-  NEXT I
-  PAUSE 20
-LOOP WHILE INKEY$=""
+
+  For I=0 To 9
+    Circle aX(I),aY(I),10,,,aC(I),aCB(I)
+
+    aX(I)=aX(I)+aDX(I)
+    aY(I)=aY(I)+aDY(I)
+
+    If aX(I)<10 Then aDX(I)=-aDX(I)
+    If aX(I)>MM.HRES-10 Then aDX(I)=-aDX(I)
+    If aY(I)<10 Then aDY(I)=-aDY(I)
+    If aY(I)>MM.VRES-10 Then aDY(I)=-aDY(I)
+  Next I
+
+  Pause 20
+Next J
+
+Print "Press any key...": Do : Loop While Inkey$=""
+
+CLS
+Print "16. Ein kleiner Bildschirmschoner"
+Pause 1000
+
+For I=0 To 9
+  aX(I)=Int(Rnd*MM.HRES)
+  aY(I)=Int(Rnd*MM.VRES)
+
+  aDX(I)=Int(Rnd*5)+1
+  aDY(I)=Int(Rnd*5)+1
+
+  If Rnd<0.5 Then aDX(I)=-aDX(I)
+  If Rnd<0.5 Then aDY(I)=-aDY(I)
+
+  aC(I)=RGB(Int(Rnd*255),Int(Rnd*255),Int(Rnd*255))
+Next I
+
+For J=0 To 500
+  CLS
+
+  For I=0 To 9
+    Text aX(I),aY(I),"MMBasic",,,,aC(I)
+
+    aX(I)=aX(I)+aDX(I)
+    aY(I)=aY(I)+aDY(I)
+
+    If aX(I)<10 Then aDX(I)=-aDX(I)
+    If aX(I)>MM.HRES-10 Then aDX(I)=-aDX(I)
+    If aY(I)<10 Then aDY(I)=-aDY(I)
+    If aY(I)>MM.VRES-10 Then aDY(I)=-aDY(I)
+  Next I
+
+  Pause 20
+Next J
+
+Print "Press any key...": Do : Loop While Inkey$=""
+
+CLS
+Print "17. Ein weiterer Bildschirmschoner"
+Pause 1000
+
+Dim aX1(9)
+Dim aY1(9)
+Dim aX2(9)
+Dim aY2(9)
+Dim aDX1(9)
+Dim aDY1(9)
+Dim aDX2(9)
+Dim aDY2(9)
+
+For I=0 To 9
+  aX1(I)=Int(Rnd*MM.HRES)
+  aY1(I)=Int(Rnd*MM.VRES)
+  aX2(I)=aX1(I)
+  aY2(I)=aY1(I)
+
+  aDX1(I)=(Int(Rnd*5)+1)*Sgn(Rnd-0.5)
+  aDY1(I)=(Int(Rnd*5)+1)*Sgn(Rnd-0.5)
+  aDX2(I)=(Int(Rnd*5)+1)*Sgn(Rnd-0.5)
+  aDY2(I)=(Int(Rnd*5)+1)*Sgn(Rnd-0.5)
+
+  aC(I)=RGB(Int(Rnd*255),Int(Rnd*255),Int(Rnd*255))
+Next I
+
+For J=0 To 500
+  CLS
+
+  For I=0 To 9
+    Line aX1(I),aY1(I),aX2(I),aY2(I),1,aC(I)
+
+    aX1(I)=aX1(I)+aDX1(I)
+    aY1(I)=aY1(I)+aDY1(I)
+
+    If aX1(I)<1 Then aDX1(I)=Int(Rnd*5)+1
+    If aX1(I)>MM.HRES-1 Then aDX1(I)=-(Int(Rnd*5)+1)
+    If aY1(I)<1 Then aDY1(I)=Int(Rnd*5)+1
+    If aY1(I)>MM.VRES-1 Then aDY1(I)=-(Int(Rnd*5)+1)
+
+    aX2(I)=aX2(I)+aDX2(I)
+    aY2(I)=aY2(I)+aDY2(I)
+
+    If aX2(I)<1 Then aDX2(I)=Int(Rnd*5)+1
+    If aX2(I)>MM.HRES-1 Then aDX2(I)=-(Int(Rnd*5)+1)
+    If aY2(I)<1 Then aDY2(I)=Int(Rnd*5)+1
+    If aY2(I)>MM.VRES-1 Then aDY2(I)=-(Int(Rnd*5)+1)
+  Next I
+
+  Pause 20
+Next J
+
+Print "Ready..."

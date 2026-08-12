@@ -7,18 +7,20 @@ image::bilder/26_animationen.jpg[align=center]
 In diesem Kapitel lernst du:
 
 * Objekte über den Bildschirm zu bewegen
-* Geschwindigkeiten zu verwenden
+* Geschwindigkeiten und Bewegungsrichtungen zu verwenden
 * Kollisionen mit dem Bildschirmrand zu erkennen
 * Animationen mit Schleifen zu erzeugen
-* mehrere bewegte Objekte darzustellen
+* mehrere bewegte Objekte mit Arrays zu verwalten
+* zufällige Positionen, Geschwindigkeiten und Farben zu verwenden
+* mehrere frühere Positionen für einen Nachzieheffekt zu speichern
 
-Am Ende des Kapitels kannst du eigene kleine Animationen programmieren.
+Am Ende des Kapitels kannst du eigene kleine Animationen und einfache Bildschirmschoner programmieren.
 
 === Von Bildern zu Bewegung
 
 Bisher haben wir Grafiken gezeichnet, die sich nicht verändern.
 
-Eine Animation entsteht dadurch, dass ein Bild immer wieder neu gezeichnet wird.
+Eine Animation entsteht dadurch, dass ein Bild immer wieder neu gezeichnet wird. Zwischen zwei Bildern wird die Position eines Objekts verändert.
 
 Der Ablauf sieht dabei vereinfacht so aus:
 
@@ -51,15 +53,10 @@ X=50
 Y=100
 
 DO
-
   CLS
-
   CIRCLE X,Y,10,,,RGB(YELLOW),RGB(YELLOW)
-
   PAUSE 20
-
   X=X+2
-
 LOOP
 ----
 
@@ -75,25 +72,20 @@ X
 Y
 ----
 
-Nach jedem Schleifendurchlauf wird X erhöht:
+`X` bestimmt die horizontale und `Y` die vertikale Position.
+
+Nach jedem Schleifendurchlauf wird `X` erhöht:
 
 [source,basic]
 ----
 X=X+2
 ----
 
-Dadurch verschiebt sich der Ball nach rechts.
+Dadurch verschiebt sich der Ball bei jedem neuen Bild um zwei Pixel nach rechts.
 
 === Die Geschwindigkeit ändern
 
-Der Wert
-
-[source,basic]
-----
-2
-----
-
-bestimmt die Geschwindigkeit.
+Der Wert `2` bestimmt hier, wie weit der Ball bei jedem Schleifendurchlauf bewegt wird.
 
 [source,basic]
 ----
@@ -109,6 +101,8 @@ X=X+1
 
 macht ihn langsamer.
 
+Die tatsächliche Geschwindigkeit hängt zusätzlich von der Pause und damit von der Bildwiederholrate ab.
+
 === Bewegung in zwei Richtungen
 
 Nun bewegen wir den Ball gleichzeitig nach rechts und nach unten.
@@ -121,20 +115,15 @@ X=50
 Y=50
 
 DO
-
   CLS
-
   CIRCLE X,Y,10,,,RGB(CYAN),RGB(CYAN)
-
   PAUSE 20
-
   X=X+2
   Y=Y+1
-
 LOOP
 ----
 
-Jetzt bewegt sich der Ball diagonal.
+Jetzt bewegt sich der Ball diagonal über den Bildschirm.
 
 === Geschwindigkeiten als Variablen
 
@@ -154,34 +143,22 @@ X=X+DX
 Y=Y+DY
 ----
 
-Das macht das Programm deutlich flexibler.
+`DX` steht für die Änderung der X-Position und `DY` für die Änderung der Y-Position. Positive Werte bewegen das Objekt nach rechts beziehungsweise unten, negative Werte nach links beziehungsweise oben.
+
+Das macht das Programm deutlich flexibler, denn die Bewegungsrichtung kann nun einfach durch das Vorzeichen der Geschwindigkeit geändert werden.
 
 === Am Bildschirmrand abprallen
 
-Ein Ball soll nicht einfach verschwinden.
+Ein Ball soll nicht einfach aus dem sichtbaren Bereich verschwinden.
 
-Trifft er den Rand des Bildschirms, ändern wir seine Bewegungsrichtung.
+Trifft er den Rand des Bildschirms, ändern wir seine Bewegungsrichtung. Für den linken Rand genügt zunächst:
 
 [source,basic]
 ----
 IF X<10 THEN DX=-DX
 ----
 
-Dadurch wird aus:
-
-[source]
-----
-+2
-----
-
-automatisch:
-
-[source]
-----
--2
-----
-
-Der Ball bewegt sich nun in die Gegenrichtung.
+Aus `+2` wird dadurch `-2`, aus `-2` entsprechend `+2`. Der Ball bewegt sich anschließend in die Gegenrichtung.
 
 === Der erste hüpfende Ball
 
@@ -191,42 +168,48 @@ MODE 2
 
 X=100
 Y=100
-
 DX=3
 DY=2
 
 DO
-
   CLS
-
   CIRCLE X,Y,10,,,RGB(YELLOW),RGB(YELLOW)
-
   PAUSE 15
 
   X=X+DX
   Y=Y+DY
 
-  IF X<10 THEN DX=-DX
-  IF X>MM.HRES-10 THEN DX=-DX
-
-  IF Y<10 THEN DY=-DY
-  IF Y>MM.VRES-10 THEN DY=-DY
-
+  IF X<10 THEN X=10: DX=ABS(DX)
+  IF X>MM.HRES-10 THEN X=MM.HRES-10: DX=-ABS(DX)
+  IF Y<10 THEN Y=10: DY=ABS(DY)
+  IF Y>MM.VRES-10 THEN Y=MM.VRES-10: DY=-ABS(DY)
 LOOP
 ----
 
 Der Ball prallt nun an allen vier Bildschirmrändern ab.
 
+Bei einer Kollision wird nicht nur die Richtung geändert. Die Position wird gleichzeitig auf den zulässigen Randwert gesetzt. Dadurch kann der Ball auch bei größeren Geschwindigkeiten nicht teilweise außerhalb des Bildschirms stehen bleiben.
+
 === Warum 10?
 
-Der Ball besitzt einen Radius von 10 Pixeln.
+Der Ball besitzt einen Radius von 10 Pixeln:
 
 [source,basic]
 ----
 CIRCLE X,Y,10
 ----
 
-Der Mittelpunkt darf deshalb nicht näher als 10 Pixel an den Rand gelangen.
+`X` und `Y` geben aber den Mittelpunkt des Kreises an. Dieser Mittelpunkt darf deshalb nicht näher als 10 Pixel an einen Bildschirmrand gelangen.
+
+Für den rechten und unteren Rand verwenden wir außerdem die beiden Systemvariablen:
+
+[source,basic]
+----
+MM.HRES
+MM.VRES
+----
+
+`MM.HRES` enthält die horizontale und `MM.VRES` die vertikale Bildschirmauflösung.
 
 === Eine Spur hinterlassen
 
@@ -237,150 +220,443 @@ Entfernen wir das Löschen des Bildschirms:
 ' CLS
 ----
 
-Dann bleibt jede Position sichtbar.
-
-Es entstehen interessante Muster.
+Dann bleibt jede zuvor gezeichnete Position sichtbar. Auf diese Weise entstehen interessante Muster und Bewegungsspuren.
 
 === Ein Farbwechsel bei jeder Kollision
 
-Jedes Mal, wenn der Ball den Rand berührt, erhält er eine neue Farbe.
+Auch die Farbe eines Objekts kann während einer Animation verändert werden. Eine zufällige Farbe lässt sich zum Beispiel so erzeugen:
 
 [source,basic]
 ----
 FARBE=RGB( _
- INT(RND*256), _
- INT(RND*256), _
- INT(RND*256))
+  INT(RND*256), _
+  INT(RND*256), _
+  INT(RND*256))
 ----
 
-Diese Anweisung wird innerhalb der Kollisionsabfrage eingefügt.
+Jeder der drei Farbanteile Rot, Grün und Blau erhält dabei einen zufälligen Wert von 0 bis 255.
+
+Wird diese Anweisung innerhalb einer Kollisionsabfrage ausgeführt, erhält der Ball bei jedem Aufprall eine neue Farbe.
 
 === Mehrere Bälle gleichzeitig
 
-Nun verwenden wir Arrays.
+Für mehrere bewegte Objekte benötigen wir für jedes Objekt eine eigene Position und Geschwindigkeit. Dafür eignen sich Arrays.
 
 [source,basic]
 ----
-DIM X(9)
-DIM Y(9)
-
-DIM DX(9)
-DIM DY(9)
+DIM aX(9)
+DIM aY(9)
+DIM aDX(9)
+DIM aDY(9)
+DIM aC(9)
+DIM aCB(9)
 ----
 
-Damit können wir zehn Bälle gleichzeitig verwalten.
+Da die Indizes von `0` bis `9` reichen, können wir damit zehn Bälle verwalten.
+
+Die Namen beginnen hier mit einem kleinen `a`. Das ist keine Vorgabe von MMBasic, sondern dient nur als Hinweis darauf, dass es sich um Arrays handelt.
+
+`aC()` speichert die Randfarbe und `aCB()` die Füllfarbe jedes Balls.
 
 === Die Startwerte erzeugen
+
+Jeder Ball erhält eine zufällige Startposition, eine eigene Geschwindigkeit und eigene Farben.
 
 [source,basic]
 ----
 FOR I=0 TO 9
+  aX(I)=10+INT(RND*(MM.HRES-20))
+  aY(I)=10+INT(RND*(MM.VRES-20))
 
-  X(I)=INT(RND*MM.HRES)
-  Y(I)=INT(RND*MM.VRES)
+  aDX(I)=INT(RND*5)+1
+  aDY(I)=INT(RND*5)+1
 
-  DX(I)=INT(RND*5)+1
-  DY(I)=INT(RND*5)+1
+  IF RND<0.5 THEN aDX(I)=-aDX(I)
+  IF RND<0.5 THEN aDY(I)=-aDY(I)
 
+  aC(I)=RGB(INT(RND*256),INT(RND*256),INT(RND*256))
+  aCB(I)=RGB(INT(RND*256),INT(RND*256),INT(RND*256))
 NEXT I
 ----
 
-Jeder Ball erhält eine eigene Position und Geschwindigkeit.
+Die Startposition berücksichtigt bereits den Radius von 10 Pixeln. Dadurch beginnt kein Ball außerhalb des sichtbaren Bereichs.
+
+Mit
+
+[source,basic]
+----
+INT(RND*5)+1
+----
+
+entstehen Geschwindigkeiten von 1 bis 5 Pixeln pro Schleifendurchlauf. Anschließend entscheidet eine weitere Zufallszahl, ob das Vorzeichen umgedreht wird:
+
+[source,basic]
+----
+IF RND<0.5 THEN aDX(I)=-aDX(I)
+----
+
+Dadurch kann ein Ball von Anfang an sowohl nach rechts als auch nach links fliegen. Dasselbe gilt für die vertikale Richtung.
 
 === Zehn hüpfende Bälle
+
+Jetzt setzen wir alles zusammen:
 
 [source,basic]
 ----
 MODE 2
 
-DIM X(9)
-DIM Y(9)
-
-DIM DX(9)
-DIM DY(9)
+DIM aX(9)
+DIM aY(9)
+DIM aDX(9)
+DIM aDY(9)
+DIM aC(9)
+DIM aCB(9)
 
 FOR I=0 TO 9
+  aX(I)=10+INT(RND*(MM.HRES-20))
+  aY(I)=10+INT(RND*(MM.VRES-20))
 
-  X(I)=INT(RND*MM.HRES)
-  Y(I)=INT(RND*MM.VRES)
+  aDX(I)=INT(RND*5)+1
+  aDY(I)=INT(RND*5)+1
 
-  DX(I)=INT(RND*5)+1
-  DY(I)=INT(RND*5)+1
+  IF RND<0.5 THEN aDX(I)=-aDX(I)
+  IF RND<0.5 THEN aDY(I)=-aDY(I)
 
+  aC(I)=RGB(INT(RND*256),INT(RND*256),INT(RND*256))
+  aCB(I)=RGB(INT(RND*256),INT(RND*256),INT(RND*256))
 NEXT I
 
 DO
-
   CLS
 
   FOR I=0 TO 9
+    CIRCLE aX(I),aY(I),10,,,aC(I),aCB(I)
 
-    CIRCLE X(I),Y(I),10,,,RGB(YELLOW),RGB(YELLOW)
+    aX(I)=aX(I)+aDX(I)
+    aY(I)=aY(I)+aDY(I)
 
-    X(I)=X(I)+DX(I)
-    Y(I)=Y(I)+DY(I)
-
-    IF X(I)<10 THEN DX(I)=-DX(I)
-    IF X(I)>MM.HRES-10 THEN DX(I)=-DX(I)
-
-    IF Y(I)<10 THEN DY(I)=-DY(I)
-    IF Y(I)>MM.VRES-10 THEN DY(I)=-DY(I)
-
+    IF aX(I)<10 THEN aX(I)=10: aDX(I)=ABS(aDX(I))
+    IF aX(I)>MM.HRES-10 THEN aX(I)=MM.HRES-10: aDX(I)=-ABS(aDX(I))
+    IF aY(I)<10 THEN aY(I)=10: aDY(I)=ABS(aDY(I))
+    IF aY(I)>MM.VRES-10 THEN aY(I)=MM.VRES-10: aDY(I)=-ABS(aDY(I))
   NEXT I
 
   PAUSE 20
-
 LOOP
 ----
 
-Jetzt ist richtig Bewegung auf dem Bildschirm.
+Nun bewegen sich zehn Bälle unabhängig voneinander. Jeder besitzt eine eigene Position, Geschwindigkeit, Bewegungsrichtung sowie Rand- und Füllfarbe.
 
 === Ein kleiner Bildschirmschoner
 
-Mit wenigen Änderungen entsteht ein einfacher Bildschirmschoner.
+Das gleiche Prinzip funktioniert nicht nur mit Kreisen. Ersetzen wir die Bälle durch Text, entsteht ein einfacher Bildschirmschoner mit zehn unabhängig bewegten `MMBasic`-Schriftzügen.
+
+Für die Randprüfung gibt es dabei einen wichtigen Unterschied: `X` und `Y` bezeichnen bei `TEXT` die Position des Textes. Deshalb müssen wir seine Breite und Höhe berücksichtigen.
+
+MMBasic stellt mit `MM.FONTWIDTH` und `MM.FONTHEIGHT` die Abmessungen der aktuell verwendeten Schrift in Pixeln bereit. Damit müssen wir die Zeichengröße nicht fest im Programm vorgeben:
 
 [source,basic]
 ----
-TEXT X,Y,"MMBasic"
+text$="MMBasic"
+textWidth=LEN(text$)*MM.FONTWIDTH
+textHeight=MM.FONTHEIGHT
 ----
 
-anstelle von
+Damit können die Startpositionen so gewählt werden, dass der komplette Schriftzug sichtbar ist:
 
 [source,basic]
 ----
-CIRCLE X,Y,10
+aX(I)=INT(RND*(MM.HRES-textWidth+1))
+aY(I)=INT(RND*(MM.VRES-textHeight+1))
 ----
 
-Der Schriftzug wandert nun über den Bildschirm.
+Die Randprüfung sieht dann beispielsweise für die horizontale Bewegung so aus:
+
+[source,basic]
+----
+IF aX(I)<0 THEN aX(I)=0: aDX(I)=ABS(aDX(I))
+IF aX(I)>MM.HRES-textWidth THEN _
+  aX(I)=MM.HRES-textWidth: aDX(I)=-ABS(aDX(I))
+----
+
+Der komplette Bildschirmschoner verwendet wieder die bereits vorhandenen Arrays `aX()`, `aY()`, `aDX()`, `aDY()` und `aC()`.
+
+[source,basic]
+----
+text$="MMBasic"
+textWidth=LEN(text$)*MM.FONTWIDTH
+textHeight=MM.FONTHEIGHT
+
+FOR I=0 TO 9
+  aX(I)=INT(RND*(MM.HRES-textWidth+1))
+  aY(I)=INT(RND*(MM.VRES-textHeight+1))
+
+  aDX(I)=INT(RND*5)+1
+  aDY(I)=INT(RND*5)+1
+
+  IF RND<0.5 THEN aDX(I)=-aDX(I)
+  IF RND<0.5 THEN aDY(I)=-aDY(I)
+
+  aC(I)=RGB(INT(RND*256),INT(RND*256),INT(RND*256))
+NEXT I
+
+DO
+  CLS
+
+  FOR I=0 TO 9
+    TEXT aX(I),aY(I),text$,,,,aC(I)
+
+    aX(I)=aX(I)+aDX(I)
+    aY(I)=aY(I)+aDY(I)
+
+    IF aX(I)<0 THEN aX(I)=0: aDX(I)=ABS(aDX(I))
+    IF aX(I)>MM.HRES-textWidth THEN aX(I)=MM.HRES-textWidth: aDX(I)=-ABS(aDX(I))
+    IF aY(I)<0 THEN aY(I)=0: aDY(I)=ABS(aDY(I))
+    IF aY(I)>MM.VRES-textHeight THEN aY(I)=MM.VRES-textHeight: aDY(I)=-ABS(aDY(I))
+  NEXT I
+
+  PAUSE 20
+LOOP
+----
+
+=== Ein weiterer Bildschirmschoner
+
+Auch Linien lassen sich animieren. Für jede Linie speichern wir zwei Endpunkte:
+
+[source,basic]
+----
+aX1(I), aY1(I)
+aX2(I), aY2(I)
+----
+
+Jeder Endpunkt besitzt eine eigene horizontale und vertikale Geschwindigkeit. Dadurch verändern die Linien während der Bewegung ständig ihre Länge und Richtung.
+
+Gezeichnet wird eine Linie mit:
+
+[source,basic]
+----
+LINE aX1(I),aY1(I),aX2(I),aY2(I),1,aC(I)
+----
+
+An den Bildschirmrändern wird die Bewegungsrichtung wieder umgekehrt. Im Unterschied zu den Bällen wird beim Aufprall zusätzlich eine neue zufällige Geschwindigkeit zwischen 1 und 5 gewählt:
+
+[source,basic]
+----
+IF aX1(I)<0 THEN aX1(I)=0: aDX1(I)=INT(RND*5)+1
+IF aX1(I)>MM.HRES-1 THEN _
+  aX1(I)=MM.HRES-1: aDX1(I)=-(INT(RND*5)+1)
+----
+
+Da beide Endpunkte unabhängig voneinander bewegt werden, entstehen ständig wechselnde geometrische Muster.
+
+Das vollständige Beispiel findest du ebenfalls in `26_animation.bas`.
+
+=== Abschlussprojekt: Mystify – ein klassischer Bildschirmschoner
+
+Zum Abschluss dieses Kapitels bauen wir einen Bildschirmschoner nach, der an den bekannten Windows-Bildschirmschoner *Mystify* erinnert. Dieses Beispiel ist bewusst umfangreicher als die bisherigen Programme. Es führt viele Techniken zusammen, die du in diesem Kapitel kennengelernt hast.
+
+Du musst dabei nicht jede einzelne Programmzeile sofort auswendig verstehen. Wichtig ist zunächst zu erkennen, wie die einzelnen Bausteine zusammenspielen.
+
+Unser Mystify-Programm zeichnet zwei vierseitige Figuren. Die vier Eckpunkte jeder Figur bewegen sich unabhängig voneinander über den Bildschirm und prallen an dessen Rändern ab. Zusätzlich bleiben mehrere ältere Positionen der Figur sichtbar. Dadurch entsteht der typische Nachzieheffekt.
+
+==== Die wichtigsten Einstellungen
+
+Am Anfang legen wir drei Konstanten fest:
+
+[source,basic]
+----
+CONST cFigures = 2
+CONST cTrail   = 7
+CONST cSpeed   = 10
+----
+
+`cFigures` bestimmt die Anzahl der gleichzeitig bewegten Figuren. `cTrail` legt fest, wie viele Positionen für den Nachzieheffekt gespeichert werden. `cSpeed` gibt die maximale Geschwindigkeit eines Eckpunktes an.
+
+Durch diese Konstanten können wir das Verhalten des Bildschirmschoners später leicht verändern.
+
+==== Vier bewegte Eckpunkte
+
+Eine Figur besteht aus vier Eckpunkten. Für jeden Punkt benötigen wir eine X- und eine Y-Koordinate. Zusätzlich speichern wir nicht nur die aktuelle Position, sondern auch die letzten Positionen:
+
+[source,basic]
+----
+DIM aX1(cFigures-1,cTrail-1), aY1(cFigures-1,cTrail-1)
+DIM aX2(cFigures-1,cTrail-1), aY2(cFigures-1,cTrail-1)
+DIM aX3(cFigures-1,cTrail-1), aY3(cFigures-1,cTrail-1)
+DIM aX4(cFigures-1,cTrail-1), aY4(cFigures-1,cTrail-1)
+----
+
+Hier verwenden wir zweidimensionale Arrays. Der erste Index bezeichnet die Figur, der zweite Index eine Position im Nachziehspeicher.
+
+Zum Beispiel bezeichnet
+
+[source,basic]
+----
+aX1(0,0)
+----
+
+die aktuelle X-Koordinate des ersten Eckpunktes der ersten Figur. `aX1(0,1)` enthält dagegen dessen vorherige Position.
+
+Die Geschwindigkeiten müssen wir nur für die aktuellen Eckpunkte speichern:
+
+[source,basic]
+----
+DIM aDX1(cFigures-1), aDY1(cFigures-1)
+DIM aDX2(cFigures-1), aDY2(cFigures-1)
+DIM aDX3(cFigures-1), aDY3(cFigures-1)
+DIM aDX4(cFigures-1), aDY4(cFigures-1)
+----
+
+Die älteren Positionen werden nur noch gezeichnet. Sie bewegen sich nicht mehr und benötigen deshalb keine eigenen Geschwindigkeiten.
+
+==== Aus vier Punkten wird eine Figur
+
+Die vier Punkte verbinden wir mit vier Linien:
+
+[source,basic]
+----
+LINE aX1(i,j),aY1(i,j),aX2(i,j),aY2(i,j),1,col
+LINE aX2(i,j),aY2(i,j),aX3(i,j),aY3(i,j),1,col
+LINE aX3(i,j),aY3(i,j),aX4(i,j),aY4(i,j),1,col
+LINE aX4(i,j),aY4(i,j),aX1(i,j),aY1(i,j),1,col
+----
+
+Die letzte Linie verbindet den vierten Punkt wieder mit dem ersten und schließt die Figur. Da sich alle vier Eckpunkte unabhängig bewegen, ändert sich ihre Form ständig.
+
+==== Der Nachzieheffekt
+
+Der entscheidende Unterschied zu unseren bisherigen Animationen ist der Nachziehspeicher. Nach jedem Bild werden die gespeicherten Positionen um einen Platz nach hinten verschoben:
+
+[source,basic]
+----
+FOR j=cTrail-1 TO 1 STEP -1
+  aX1(i,j)=aX1(i,j-1)
+  aY1(i,j)=aY1(i,j-1)
+  ...
+NEXT j
+----
+
+Die Schleife läuft absichtlich rückwärts. Würden wir bei `1` beginnen, würden wir einen Wert überschreiben, bevor er an die nächste Position kopiert wurde.
+
+Nach dem Verschieben steht der Index `0` wieder für die aktuelle Position. Die höheren Indizes enthalten immer ältere Zustände der Figur.
+
+==== Die älteste Figur wieder löschen
+
+Anders als bei den bisherigen Beispielen löschen wir den Bildschirm nicht mit `CLS`. Stattdessen wird nur die älteste gespeicherte Figur mit schwarzer Farbe überzeichnet:
+
+[source,basic]
+----
+IF j=cTrail-1 THEN
+  col=RGB(BLACK)
+ELSE
+  col=aC(i)
+ENDIF
+----
+
+Anschließend werden die übrigen Positionen wieder in der aktuellen Farbe gezeichnet. So verschwinden alte Linien nach und nach, ohne dass der gesamte Bildschirm neu aufgebaut werden muss.
+
+Das ist das Grundprinzip des Nachzieheffekts:
+
+[source]
+----
+neue Position zeichnen
+ältere Positionen behalten
+älteste Position löschen
+Positionen im Speicher verschieben
+Eckpunkte bewegen
+----
+
+==== Bewegung und Randkollision
+
+Die aktuellen Eckpunkte werden genauso bewegt wie die Bälle und Linien aus den vorherigen Beispielen:
+
+[source,basic]
+----
+aX1(i,0)=aX1(i,0)+aDX1(i)
+aY1(i,0)=aY1(i,0)+aDY1(i)
+----
+
+Beim Erreichen eines Bildschirmrandes wird der Punkt auf den zulässigen Rand gesetzt und erhält eine neue Geschwindigkeit in die entgegengesetzte Richtung:
+
+[source,basic]
+----
+IF aX1(i,0)<0 THEN _
+  aX1(i,0)=0 : aDX1(i)=INT(RND*cSpeed)+1
+
+IF aX1(i,0)>MM.HRES-1 THEN _
+  aX1(i,0)=MM.HRES-1 : aDX1(i)=-(INT(RND*cSpeed)+1)
+----
+
+Dadurch ändert sich beim Aufprall nicht nur die Bewegungsrichtung, sondern gelegentlich auch die Geschwindigkeit. Das sorgt dafür, dass die Animation weniger regelmäßig wirkt.
+
+==== Zufällige Farbwechsel
+
+Jede Figur besitzt eine eigene Farbe. Gelegentlich wird eine neue Farbe erzeugt:
+
+[source,basic]
+----
+IF INT(RND*100)=0 THEN
+  aC(i)=RGB(INT(RND*200)+55, _
+            INT(RND*200)+55, _
+            INT(RND*200)+55)
+ENDIF
+----
+
+Die Bedingung ist nur selten erfüllt. Deshalb bleibt eine Farbe eine Weile erhalten, bevor sie wechselt. Durch `+55` werden sehr dunkle Farbanteile vermieden, damit die Linien auf dem schwarzen Hintergrund gut sichtbar bleiben.
+
+==== Die Hauptschleife
+
+Die Animation läuft so lange, bis eine Taste gedrückt wird:
+
+[source,basic]
+----
+DO
+  ...
+  PAUSE 50
+LOOP WHILE INKEY$=""
+----
+
+Damit unterscheidet sich das Abschlussprojekt von den kleinen Endlosbeispielen am Anfang des Kapitels: Der Bildschirmschoner kann jederzeit durch einen Tastendruck beendet werden.
+
+==== Was kommt hier alles zusammen?
+
+Im Mystify-Projekt verwenden wir fast alle Techniken dieses Kapitels gleichzeitig:
+
+* X- und Y-Koordinaten für bewegte Punkte
+* getrennte Geschwindigkeiten für beide Richtungen
+* positive und negative Bewegungsrichtungen
+* Kollisionen mit allen vier Bildschirmrändern
+* Zufallszahlen für Positionen, Geschwindigkeiten und Farben
+* ein- und zweidimensionale Arrays
+* mehrere gleichzeitig bewegte Figuren
+* Liniengrafik
+* gespeicherte ältere Positionen für einen Nachzieheffekt
+* Beenden einer Animation mit `INKEY$`
+
+Das vollständige Programm findest du in `26_animation_2.bas`. Probiere anschließend ruhig andere Werte für `cFigures`, `cTrail` und `cSpeed` aus. Schon kleine Änderungen erzeugen deutlich andere Muster.
 
 === Das DVD-Logo
 
-Vielleicht kennst du den berühmten Bildschirmschoner mit dem DVD-Logo.
+Vielleicht kennst du den bekannten Bildschirmschoner mit dem DVD-Logo. Ein Schriftzug bewegt sich über den Bildschirm und prallt an den Rändern ab.
 
-Ein Schriftzug bewegt sich über den Bildschirm und prallt an den Rändern ab.
-
-Mit dem Wissen aus diesem Kapitel kannst du ihn bereits selbst programmieren.
+Mit dem Wissen aus diesem Kapitel kannst du ihn bereits selbst programmieren. Besonders wichtig ist dabei die Randprüfung aus dem vorherigen Beispiel: Die Breite und Höhe des Logos müssen berücksichtigt werden, damit es vollständig sichtbar bleibt.
 
 === Warum flackert das Bild?
 
-Jeder Schleifendurchlauf beginnt mit:
+Unsere Animationen beginnen jeden Schleifendurchlauf mit:
 
 [source,basic]
 ----
 CLS
 ----
 
-Dadurch wird der Bildschirm ständig gelöscht und neu aufgebaut.
-
-Je nach Hardware kann das zu leichtem Flackern führen.
+Dadurch wird der Bildschirm ständig gelöscht und anschließend vollständig neu aufgebaut. Je nach Hardware und Umfang der Grafik kann das zu sichtbarem Flackern führen.
 
 [NOTE]
 ====
 MMBasic unterstützt Framebuffer.
 
-Damit kann das Bild zunächst unsichtbar aufgebaut und anschließend in einem Schritt angezeigt werden.
-
-Dadurch lassen sich Animationen deutlich flüssiger darstellen.
+Damit kann das nächste Bild zunächst unsichtbar aufgebaut und anschließend in einem Schritt angezeigt werden. Dadurch lassen sich Animationen deutlich flüssiger darstellen.
 
 Dieses Thema werden wir in einem späteren Kapitel behandeln.
 ====
@@ -390,35 +666,40 @@ Dieses Thema werden wir in einem späteren Kapitel behandeln.
 Probiere folgende Änderungen aus:
 
 * Verändere die Ballgröße.
-* Verwende unterschiedliche Farben.
+* Verwende andere oder wechselnde Farben.
 * Erhöhe die Anzahl der Bälle.
 * Lasse eine Spur sichtbar.
 * Verändere die Geschwindigkeiten.
+* Ändere den Text des Bildschirmschoners.
+* Verwende mehr oder weniger bewegte Linien.
 
 === Probier's selbst!
 
 Versuche folgende Aufgaben:
 
 . Programmiere einen DVD-Bildschirmschoner.
-. Verwende zufällige Farben.
+. Lasse beim DVD-Bildschirmschoner bei jeder Kollision die Farbe wechseln.
 . Erzeuge 20 statt 10 Bälle.
 . Lasse die Bälle ihre Größe ändern.
 . Zeichne statt Kreisen kleine Sterne.
 . Ergänze eine Anzeige der aktuellen Anzahl von Kollisionen.
+. Verändere beim Linien-Bildschirmschoner die Geschwindigkeit nach jedem Aufprall.
 
 === Zusammenfassung
 
 In diesem Kapitel hast du gelernt:
 
-* Objekte zu bewegen
-* Geschwindigkeiten zu verwenden
-* Bildschirmränder zu erkennen
-* Kollisionen auszuwerten
-* mehrere Objekte gleichzeitig zu animieren
+* Objekte durch wiederholtes Zeichnen zu bewegen
+* Geschwindigkeiten und Bewegungsrichtungen zu verwenden
+* die Größe eines Objekts bei der Randprüfung zu berücksichtigen
+* Bildschirmränder zu erkennen und Kollisionen auszuwerten
+* mehrere Objekte mit Arrays gleichzeitig zu animieren
+* zufällige Positionen, Richtungen, Geschwindigkeiten und Farben zu erzeugen
+* einfache Text- und Linien-Bildschirmschoner zu programmieren
+* frühere Positionen in zweidimensionalen Arrays für einen Nachzieheffekt zu speichern
+* mehrere Animationstechniken in einem größeren Abschlussprojekt zu kombinieren
 
-Damit hast du einen wichtigen Schritt gemacht:
-
-Aus statischen Bildern sind erstmals lebendige Programme geworden.
+Damit hast du einen wichtigen Schritt gemacht: Aus statischen Bildern sind erstmals lebendige Programme geworden.
 
 Im nächsten Kapitel werden wir lernen, wie Animationen mit Hilfe von Framebuffern deutlich flüssiger dargestellt werden können.
 
@@ -427,3 +708,6 @@ Im nächsten Kapitel werden wir lernen, wie Animationen mit Hilfe von Framebuffe
 Das vollständige BASIC-Programm findest du hier:
 
 * {github-programme}/26_animation.bas[26_animation.bas]
+* {github-programme}/26_animation_2.bas[26_animation_2.bas] – Abschlussprojekt Mystify
+
+Im Kapitel verwenden die kurzen Einstiegsbeispiele bewusst Endlosschleifen mit `DO ... LOOP`, damit das jeweilige Prinzip möglichst einfach zu erkennen ist. Das vollständige Programm verwendet dagegen begrenzte `FOR ... NEXT`-Schleifen, damit die einzelnen Demonstrationen nacheinander ausgeführt werden können.
