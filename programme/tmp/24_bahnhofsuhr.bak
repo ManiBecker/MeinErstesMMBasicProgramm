@@ -1,0 +1,93 @@
+Rem ====================================================================
+Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+Rem Datei: 24_bahnhofsuhr.bas
+Rem Titel: Kapitel 24: Eine analoge Bahnhofsuhr
+Rem Buch:  Mein erstes MMBasic Programm
+Rem Autor: Manfred Becker
+Rem Datum: 29.07.2026
+Rem
+Rem Beschreibung: Das vollstaendige Programm
+Rem
+Rem Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
+Rem
+Rem ====================================================================
+
+MODE 3
+
+MITTEX=MM.HRES/2
+MITTEY=MM.VRES/2
+RADIUS=MM.HRES/2-10
+
+If MM.VRES/2-10<RADIUS Then
+  RADIUS=MM.VRES/2-10
+EndIf
+
+ALTEZEIT$=""
+
+Do
+
+  If Time$<>ALTEZEIT$ Then
+    ALTEZEIT$=Time$
+    STUNDE=Val(Left$(Time$,2))
+    MINUTE=Val(Mid$(Time$,4,2))
+    SEKUNDE=Val(Right$(Time$,2))
+    CLS RGB(BLUE)
+    ZeichneZifferblatt MITTEX,MITTEY,RADIUS
+    Color RGB(black),RGB(white)
+    Text mittex-25,mittey-radius*0.6,"MMBasic!"
+    Text mittex-25,mittey+radius*0.6,Time$
+    Text mittex-35,mittey+radius*0.65,Date$
+    STUNDENWINKEL=((STUNDE Mod 12)*30+MINUTE*0.5)*Pi/180
+    MINUTENWINKEL=(MINUTE*6+SEKUNDE*0.1)*Pi/180
+    SEKUNDENWINKEL=SEKUNDE*6*Pi/180
+    ZeichneStundenzeiger MITTEX,MITTEY,RADIUS,STUNDENWINKEL
+    ZeichneMinutenzeiger MITTEX,MITTEY,RADIUS,MINUTENWINKEL
+    ZeichneSekundenzeiger MITTEX,MITTEY,RADIUS,SEKUNDENWINKEL
+    Circle MITTEX,MITTEY,RADIUS*0.035,1,1,RGB(BLACK),RGB(BLACK)
+  EndIf
+
+Loop
+End
+
+Sub ZeichneZifferblatt(X,Y,R)
+  Circle X,Y,R,3,1,RGB(BLACK),RGB(WHITE)
+  For I=0 To 59
+  WINKEL=I*6*Pi/180
+  If I Mod 5=0 Then
+  INNEN=R*0.78
+  Else
+  INNEN=R*0.86
+  EndIf
+  X1=X+Sin(WINKEL)*INNEN
+  Y1=Y-Cos(WINKEL)*INNEN
+  X2=X+Sin(WINKEL)*R*0.92
+  Y2=Y-Cos(WINKEL)*R*0.92
+  Line X1,Y1,X2,Y2,,RGB(BLACK)
+  Next I
+End Sub
+
+Sub ZeichneStundenzeiger(X,Y,R,WINKEL)
+  X2=X+Sin(WINKEL)*R*0.55
+  Y2=Y-Cos(WINKEL)*R*0.55
+  'Line X,Y,X2,Y2,1,RGB(BLACK)
+  'Line X-1,Y,X2-1,Y2,,RGB(BLACK)
+  'Line X+1,Y,X2+1,Y2,,RGB(BLACK)
+  Line X+2,Y,X2+2,Y2,5,RGB(BLue)
+End Sub
+
+Sub ZeichneMinutenzeiger(X,Y,R,WINKEL)
+  X2=X+Sin(WINKEL)*R*0.84
+  Y2=Y-Cos(WINKEL)*R*0.84
+  'Line X,Y,X2,Y2,1,RGB(BLACK)
+  'Line X-1,Y,X2-1,Y2,3,RGB(BLACK)
+  Line X+1,Y,X2+1,Y2,3,RGB(BLACK)
+End Sub
+
+Sub ZeichneSekundenzeiger(X,Y,R,WINKEL)
+  X2=X+Sin(WINKEL)*R*0.84
+  Y2=Y-Cos(WINKEL)*R*0.84
+  Line X,Y,X2,Y2,,RGB(RED)
+  KX=X+Sin(WINKEL)*R*0.70
+  KY=Y-Cos(WINKEL)*R*0.70
+  Circle KX,KY,R*0.035,1,1,RGB(RED),RGB(RED)
+End Sub
