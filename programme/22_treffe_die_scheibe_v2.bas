@@ -1,120 +1,122 @@
-REM ====================================================================
-REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
-REM Datei: 22_treffe_die_scheibe_v2.bas
-REM Titel: Kapitel 22: Treffe die Scheibe Version 2
-REM Buch:  Mein erstes MMBasic Programm
-REM Autor: Manfred Becker
-REM Datum: 28.07.2026
-REM
-REM Beschreibung: Unser erstes Grafikspiel, Version 2
-REM
-REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
-REM
-REM ====================================================================
+Rem ====================================================================
+Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+Rem Datei: 22_treffe_die_scheibe_v2.bas
+Rem Titel: Kapitel 22: Treffe die Scheibe Version 2
+Rem Buch:  Mein erstes MMBasic Programm
+Rem Autor: Manfred Becker
+Rem Datum: 14.08.2026
+Rem
+Rem Beschreibung: Unser erstes Grafikspiel, Version 2
+Rem
+Rem Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
+Rem
+Rem ====================================================================
 
 MODE 2
 
 CLS RGB(BLACK)
 
-INPUT "Name ";NAME$
+Input "Name ";NAME$
 
-PRINT
-PRINT "1 = Leicht"
-PRINT "2 = Mittel"
-PRINT "3 = Schwer"
+Print
+Print "1 = Leicht"
+Print "2 = Mittel"
+Print "3 = Schwer"
 
-INPUT "Schwierigkeit ";LEVEL
+Input "Schwierigkeit ";LEVEL
 
-IF LEVEL=1 THEN
+If LEVEL=1 Then
   RADIUS=60
-ELSEIF LEVEL=2 THEN
+ElseIf LEVEL=2 Then
   RADIUS=40
-ELSE
+Else
   RADIUS=25
-ENDIF
+EndIf
 
-DIM TREFFER(9)
+Dim TREFFER(9)
 
 GESAMTPUNKTE=0
 
-FOR RUNDE=1 TO 10
+For RUNDE=1 To 10
 
   CLS RGB(BLACK)
 
-  TX=INT(RND*(MM.HRES-2*RADIUS))+RADIUS
-  TY=INT(RND*(MM.VRES-2*RADIUS))+RADIUS
+  TX=Int(Rnd*(MM.HRES-2*RADIUS))+RADIUS
+  TY=Int(Rnd*(MM.VRES-2*RADIUS))+RADIUS
 
   ZeichneScheibe TX,TY,RADIUS
-  PRINT
+  Print
 
-  PRINT "Schuss ";RUNDE;" von 10"
+  Print "Schuss ";RUNDE;" von 10"
 
-  INPUT "X ";SX
-  INPUT "Y ";SY
+  Input "X ";SX
+  Input "Y ";SY
 
-  DIST=SQR((SX-TX)^2+(SY-TY)^2)
+  DIST=Sqr((SX-TX)^2+(SY-TY)^2)
 
   TREFFER(RUNDE-1)=DIST
 
-  CIRCLE SX,SY,4,1,1,RGB(RED),RGB(RED)
+  Circle SX,SY,4,1,1,RGB(RED),RGB(RED)
 
-  PUNKTE=100-INT(DIST)
+  PUNKTE=100-Int(DIST)
 
-  IF PUNKTE<0 THEN
+  If PUNKTE<0 Then
     PUNKTE=0
-  ENDIF
+  EndIf
 
   GESAMTPUNKTE=GESAMTPUNKTE+PUNKTE
 
-  PRINT
-  PRINT "Entfernung : ";INT(DIST);" Pixel"
-  PRINT "Punkte : ";PUNKTE
+  Print
+  Print "Entfernung : ";Int(DIST);" Pixel"
+  Print "Punkte : ";PUNKTE
 
-  PAUSE 1500
+  Pause 1500
 
-NEXT RUNDE
+Next RUNDE
 
 CLS RGB(BLACK)
 
-PRINT
-PRINT "===================="
-PRINT " SPIEL BEENDET"
-PRINT "===================="
-PRINT
-PRINT NAME$
-PRINT
-PRINT "Gesamtpunkte : ";GESAMTPUNKTE
+Print
+Print "===================="
+Print " SPIEL BEENDET"
+Print "===================="
+Print
+Print NAME$
+Print
+Print "Gesamtpunkte : ";GESAMTPUNKTE
 
 BEST=TREFFER(0)
 
-FOR I=1 TO 9
-  IF TREFFER(I)<BEST THEN
+For I=1 To 9
+  If TREFFER(I)<BEST Then
   BEST=TREFFER(I)
-  ENDIF
-NEXT I
+  EndIf
+Next I
 
-PRINT
-PRINT "Bester Schuss : ";INT(BEST);" Pixel"
-PRINT
-PRINT "Alle Schuesse"
+Print
+Print "Bester Schuss : ";Int(BEST);" Pixel"
+Print
+Print "Alle Schuesse"
 
-FOR I=0 TO 9
-  PRINT I+1;". ";INT(TREFFER(I));" Pixel"
-NEXT I
+For I=0 To 9
+  Print I+1;". ";Int(TREFFER(I));" Pixel"
+Next I
 
-OPEN "highscore.txt" FOR OUTPUT AS #1
+Open "highscore.txt" For OUTPUT As #1
 
-WRITE #1,NAME$,GESAMTPUNKTE
+Print #1,NAME$,GESAMTPUNKTE
 
-CLOSE #1
+Close #1
 
-PRINT
-PRINT "Highscore gespeichert"
+Print
+Print "Highscore gespeichert"
+Print
+Print "Ready..."
 
-END
+End
 
-SUB ZeichneScheibe(X,Y,R)
-  CIRCLE X,Y,R,2,1,RGB(WHITE)
-  CIRCLE X,Y,R*0.66,2,1,RGB(WHITE)
-  CIRCLE X,Y,R*0.33,2,1,RGB(WHITE)
-END SUB
+Sub ZeichneScheibe(X,Y,R)
+  Circle X,Y,R,2,1,RGB(WHITE)
+  Circle X,Y,R*0.66,2,1,RGB(WHITE)
+  Circle X,Y,R*0.33,2,1,RGB(WHITE)
+End Sub

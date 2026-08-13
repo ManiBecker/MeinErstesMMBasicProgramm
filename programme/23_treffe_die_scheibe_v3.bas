@@ -1,158 +1,148 @@
-REM ====================================================================
-REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
-REM Datei: 23_treffe_die_scheibe_v3.bas
-REM Titel: Kapitel 23: Treffe die Scheibe Version 3
-REM Buch:  Mein erstes MMBasic Programm
-REM Autor: Manfred Becker
-REM Datum: 28.07.2026
-REM
-REM Beschreibung: Unser erstes Grafikspiel, Version 3
-REM
-REM Hardware/Voraussetzungen: keine/PicoMite/ColourMaxiMite
-REM
-REM ====================================================================
+Rem ====================================================================
+Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+Rem Datei: 23_treffe_die_scheibe_v3.bas
+Rem Titel: Kapitel 23: Treffe die Scheibe Version 3
+Rem Buch:  Mein erstes MMBasic Programm
+Rem Autor: Manfred Becker
+Rem Datum: 14.08.2026
+Rem
+Rem Beschreibung: Unser erstes Grafikspiel, Version 3
+Rem
+Rem Hardware/Voraussetzungen: keine/PicoMite/ColourMaxiMite
+Rem
+Rem ====================================================================
 
+Option Continuation Lines On
 MODE 2
 
-INPUT "Name ";NAME$
+Input "Name ";NAME$
 
-PRINT
-PRINT "1 = Leicht"
-PRINT "2 = Mittel"
-PRINT "3 = Schwer"
+Print
+Print "1 = Leicht"
+Print "2 = Mittel"
+Print "3 = Schwer"
 
-INPUT "Schwierigkeit ";LEVEL
+Input "Schwierigkeit ";LEVEL
 
-IF LEVEL=1 THEN
+If LEVEL=1 Then
   RADIUS=60
-ELSEIF LEVEL=2 THEN
+ElseIf LEVEL=2 Then
   RADIUS=40
-ELSE
+Else
   RADIUS=25
-ENDIF
+EndIf
 
-DIM TREFFER(9)
-DIM PUNKTE(9)
+Dim TREFFER(9)
+Dim PUNKTE(9)
 
 GESAMTPUNKTE=0
 
-FOR RUNDE=1 TO 10
+For RUNDE=1 To 10
 
   CLS RGB(BLACK)
 
-  TX=INT(RND*(MM.HRES-2*RADIUS))+RADIUS
-  TY=INT(RND*(MM.VRES-2*RADIUS))+RADIUS
+  TX=Int(Rnd*(MM.HRES-2*RADIUS))+RADIUS
+  TY=Int(Rnd*(MM.VRES-2*RADIUS))+RADIUS
 
   ZeichneScheibe TX,TY,RADIUS
 
-  TEXT MM.HRES/2,15,"Schuss "+STR$(RUNDE)+" von 10","CT",1,1,RGB(WHITE),-1
-  TEXT MM.HRES/2,MM.VRES-20,"Klicke auf die Zielscheibe","CB",1,1,RGB(YELLOW),-1
+  Text MM.HRES/2,15,"Schuss "+Str$(RUNDE)+" von 10","CT",1,1,RGB(WHITE),-1
+  Text MM.HRES/2,MM.VRES-20,"Klicke auf die Zielscheibe","CB",1,1,RGB(YELLOW),-1
 
-  DO
-  LOOP UNTIL MOUSE(L)<>0
+  Do
+  Loop Until DEVICE(MOUSE 2, L)<>0
 
-  SX=MOUSE(X)
-  SY=MOUSE(Y)
+  SX=DEVICE(MOUSE 2, X)
+  SY=DEVICE(MOUSE 2, Y)
 
-  DO
-  LOOP UNTIL MOUSE(L)=0
+  Do
+  Loop Until DEVICE(MOUSE 2, L)=0
 
-  DIST=SQR((SX-TX)^2+(SY-TY)^2)
+  DIST=Sqr((SX-TX)^2+(SY-TY)^2)
 
   TREFFER(RUNDE-1)=DIST
 
-  PUNKTE(RUNDE-1)=100-INT(DIST)
+  PUNKTE(RUNDE-1)=100-Int(DIST)
 
-  IF PUNKTE(RUNDE-1)<0 THEN
+  If PUNKTE(RUNDE-1)<0 Then
     PUNKTE(RUNDE-1)=0
-  ENDIF
+  EndIf
 
   GESAMTPUNKTE=GESAMTPUNKTE+PUNKTE(RUNDE-1)
 
   ZeichneTreffer SX,SY
 
-  TEXT MM.HRES/2,MM.VRES-55, _
-       STR$(INT(DIST))+" Pixel entfernt","CB", _
-       1,1,RGB(WHITE),-1
+  t$=Str$(Int(DIST))+" Pixel entfernt"
+  Text MM.HRES/2,MM.VRES-55,t$,"CB",1,1,RGB(WHITE),-1
+  t$=Str$(PUNKTE(RUNDE-1))+" Punkte"
+  Text MM.HRES/2,MM.VRES-35,t$,"CB",1,1,RGB(CYAN),-1
 
-  TEXT MM.HRES/2,MM.VRES-35, _
-       STR$(PUNKTE(RUNDE-1))+" Punkte","CB", _
-       1,1,RGB(CYAN),-1
+  If DIST<=RADIUS*0.33 Then
+    Text MM.HRES/2,MM.VRES/2,"VOLLTREFFER!","CM",2,2,RGB(YELLOW),-1
+  ElseIf DIST<=RADIUS*0.66 Then
+    Text MM.HRES/2,MM.VRES/2,"SEHR GUT!","CM",2,2,RGB(GREEN),-1
+  ElseIf DIST<=RADIUS Then
+    Text MM.HRES/2,MM.VRES/2,"GETROFFEN!","CM",2,2,RGB(CYAN),-1
+  Else
+   Text MM.HRES/2,MM.VRES/2,"DANEBEN!","CM",2,2,RGB(RED),-1
+  EndIf
 
-  IF DIST<=RADIUS*0.33 THEN
-    TEXT MM.HRES/2,MM.VRES/2, _
-         "VOLLTREFFER!","CM",2,2,RGB(YELLOW),-1
-  ELSEIF DIST<=RADIUS*0.66 THEN
-    TEXT MM.HRES/2,MM.VRES/2, _
-         "SEHR GUT!","CM",2,2,RGB(GREEN),-1
-  ELSEIF DIST<=RADIUS THEN
-    TEXT MM.HRES/2,MM.VRES/2, _
-         "GETROFFEN!","CM",2,2,RGB(CYAN),-1
-  ELSE
-   TEXT MM.HRES/2,MM.VRES/2, _
-        "DANEBEN!","CM",2,2,RGB(RED),-1
-  ENDIF
+  Pause 1500
 
-  PAUSE 1500
-
-NEXT RUNDE
+Next RUNDE
 
 ZeigeAuswertung
 
 SpeichereErgebnis
 
-END
+End
 
-SUB ZeichneScheibe(X,Y,R)
-  CIRCLE X,Y,R,2,1,RGB(WHITE),RGB(BLUE)
-  CIRCLE X,Y,R*0.66,2,1,RGB(WHITE),RGB(RED)
-  CIRCLE X,Y,R*0.33,2,1,RGB(WHITE),RGB(YELLOW)
-  CIRCLE X,Y,3,1,1,RGB(BLACK),RGB(BLACK)
-END SUB
+Sub ZeichneScheibe(X,Y,R)
+  Circle X,Y,R,2,1,RGB(WHITE),RGB(BLUE)
+  Circle X,Y,R*0.66,2,1,RGB(WHITE),RGB(RED)
+  Circle X,Y,R*0.33,2,1,RGB(WHITE),RGB(YELLOW)
+  Circle X,Y,3,1,1,RGB(BLACK),RGB(BLACK)
+End Sub
 
-SUB ZeichneTreffer(X,Y)
-  LINE X-7,Y,X+7,Y,2,RGB(WHITE)
-  LINE X,Y-7,X,Y+7,2,RGB(WHITE)
-  CIRCLE X,Y,4,1,1,RGB(BLACK),RGB(RED)
-END SUB
+Sub ZeichneTreffer(X,Y)
+  Line X-7,Y,X+7,Y,2,RGB(WHITE)
+  Line X,Y-7,X,Y+7,2,RGB(WHITE)
+  Circle X,Y,4,1,1,RGB(BLACK),RGB(RED)
+End Sub
 
-SUB ZeigeAuswertung
+Sub ZeigeAuswertung
+  MODE 3
   CLS RGB(BLACK)
-  TEXT MM.HRES/2,20,"SPIEL BEENDET","CT",2,2,RGB(YELLOW),-1
-  TEXT MM.HRES/2,65,NAME$,"CT",1,2,RGB(WHITE),-1
-  TEXT MM.HRES/2,100, _
-       "Gesamtpunkte: "+STR$(GESAMTPUNKTE), _
-       "CT",1,2,RGB(CYAN),-1
+  Text MM.HRES/2,20,"SPIEL BEENDET","CT",2,2,RGB(YELLOW),-1
+  Text MM.HRES/2,65,NAME$,"CT",1,2,RGB(WHITE),-1
+  Text MM.HRES/2,100,"Gesamtpunkte: "+Str$(GESAMTPUNKTE),"CT",1,2,RGB(CYAN),-1
   BEST=TREFFER(0)
   SUMME=0
-  FOR I=0 TO 9
+  For I=0 To 9
     SUMME=SUMME+TREFFER(I)
-    IF TREFFER(I)<BEST THEN
+    If TREFFER(I)<BEST Then
       BEST=TREFFER(I)
-    ENDIF
-  NEXT I
+    EndIf
+  Next I
 
   DURCHSCHNITT=SUMME/10
-  TEXT MM.HRES/2,135, _
-       "Bester Schuss: "+STR$(INT(BEST))+" Pixel",_
-       "CT",1,1,RGB(GREEN),-1
-  TEXT MM.HRES/2,160, _
-       "Durchschnitt: "+ _
-       STR$(INT(DURCHSCHNITT))+" Pixel", _
-       "CT",1,1,RGB(WHITE),-1
+  t$="Bester Schuss: "+Str$(Int(BEST))+" Pixel"
+  Text MM.HRES/2,135,t$,"CT",1,1,RGB(GREEN),-1
+  t$="Durchschnitt: "+Str$(Int(DURCHSCHNITT))+"Pixel"
+  Text MM.HRES/2,160,t$,"CT",1,1,RGB(WHITE),-1
   Y=200
-  FOR I=0 TO 9
-    TEXT MM.HRES/2,Y, _
-         STR$(I+1)+". Schuss: "+ _
-         STR$(INT(TREFFER(I)))+" Pixel, "+ _
-         STR$(PUNKTE(I))+" Punkte", _
-         "CT",1,1,RGB(WHITE),-1
+  t1$=". Schuss: "
+  t2$=" Pixel, "
+  t3$=" Punkte"
+  For I=0 To 9
+    t$=Str$(I+1)+t1$+Str$(Int(TREFFER(I)))+t2$+Str$(PUNKTE(I))+t3$
+    Text MM.HRES/2,Y,t$,"CT",1,1,RGB(WHITE),-1
     Y=Y+18
-  NEXT I
-END SUB
+  Next I
+End Sub
 
-SUB SpeichereErgebnis
-  OPEN "highscore.txt" FOR APPEND AS #1
-  WRITE #1,DATE$,TIME$,NAME$,LEVEL,GESAMTPUNKTE
-  CLOSE #1
-END SUB
+Sub SpeichereErgebnis
+  Open "highscore.txt" For APPEND As #1
+  Print #1,Date$,Time$,NAME$,LEVEL,GESAMTPUNKTE
+  Close #1
+End Sub

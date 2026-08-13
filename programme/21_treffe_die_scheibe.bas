@@ -1,53 +1,55 @@
-REM ====================================================================
-REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
-REM Datei: 21_treffe_die_scheibe.bas
-REM Titel: Kapitel 21: Treffe die Scheibe
-REM Buch:  Mein erstes MMBasic Programm
-REM Autor: Manfred Becker
-REM Datum: 28.07.2026
-REM
-REM Beschreibung: Unser erstes Grafikspiel
-REM
-REM Hardware/Voraussetzungen: keine/PicoMite/ColourMaxiMite
-REM
-REM ====================================================================
+Rem ====================================================================
+Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+Rem Datei: 21_treffe_die_scheibe.bas
+Rem Titel: Kapitel 21: Treffe die Scheibe
+Rem Buch:  Mein erstes MMBasic Programm
+Rem Autor: Manfred Becker
+Rem Datum: 14.08.2026
+Rem
+Rem Beschreibung: Unser erstes Grafikspiel
+Rem
+Rem Hardware/Voraussetzungen: keine/PicoMite/ColourMaxiMite
+Rem
+Rem ====================================================================
 
 MODE 2
 
 CLS RGB(BLACK)
 
-TX=INT(RND*(MM.HRES-120))+60
-TY=INT(RND*(MM.VRES-120))+60
+TX=Int(Rnd*(MM.HRES-120))+60
+TY=Int(Rnd*(MM.VRES-120))+60
 
 ZeichneScheibe TX,TY
 
-PRINT
-PRINT "Treffe die Scheibe!"
-PRINT
+Print
+Print "Treffe die Scheibe!"
+Print
 
-INPUT "X ";SX
-INPUT "Y ";SY
+Input "X ";SX
+Input "Y ";SY
 
-DIST=SQR((SX-TX)^2+(SY-TY)^2)
+DIST=Sqr((SX-TX)^2+(SY-TY)^2)
 
-CIRCLE SX,SY,4,1,1,RGB(RED),RGB(RED)
+Circle SX,SY,4,1,1,RGB(RED),RGB(RED)
 
-PRINT
-PRINT "Abstand: ";INT(DIST);" Pixel"
+Print
+Print "Abstand: ";Int(DIST);" Pixel"
 
-IF DIST<10 THEN
-  PRINT "Volltreffer!"
-ELSEIF DIST<25 THEN
-  PRINT "Sehr gut!"
-ELSEIF DIST<50 THEN
-  PRINT "Gut getroffen!"
-ELSE
-  PRINT "Daneben!"
-ENDIF
-END
+If DIST<10 Then
+  Print "Volltreffer!"
+ElseIf DIST<25 Then
+  Print "Sehr gut!"
+ElseIf DIST<50 Then
+  Print "Gut getroffen!"
+Else
+  Print "Daneben!"
+EndIf
+Print
+Print "Ready..."
+End
 
-SUB ZeichneScheibe(X,Y)
-  CIRCLE X,Y,60,2,1,RGB(WHITE)
-  CIRCLE X,Y,40,2,1,RGB(WHITE)
-  CIRCLE X,Y,20,2,1,RGB(WHITE)
-END SUB
+Sub ZeichneScheibe(X,Y)
+  Circle X,Y,60,2,1,RGB(WHITE)
+  Circle X,Y,40,2,1,RGB(WHITE)
+  Circle X,Y,20,2,1,RGB(WHITE)
+End Sub
