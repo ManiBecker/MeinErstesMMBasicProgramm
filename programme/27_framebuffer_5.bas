@@ -40,6 +40,8 @@ Do
   EndIf
 Loop While Inkey$=""
 
+FRAMEBUFFER CLOSE
+
 Print
 Print "Ready..."
 End
