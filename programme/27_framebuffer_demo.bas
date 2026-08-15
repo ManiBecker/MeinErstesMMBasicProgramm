@@ -12,8 +12,8 @@ REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
 REM
 REM ====================================================================
 
-PRINT "7. Unser erstes Beispiel"
 CLS RGB(BLACK)
+PRINT "7. Unser erstes Beispiel"
 FRAMEBUFFER CREATE
 FRAMEBUFFER WRITE F
 FOR I=1 TO 1000
@@ -24,8 +24,8 @@ NEXT I
 
 PRINT "Press any key...": Do: Loop While Inkey$=""
 
-PRINT "9. Das Bild anzeigen"
 CLS RGB(BLACK)
+PRINT "9. Das Bild anzeigen"
 FRAMEBUFFER CREATE
 FRAMEBUFFER WRITE F
 FOR I=1 TO 1000
@@ -37,10 +37,10 @@ FRAMEBUFFER COPY F,N
 
 PRINT "Press any key...": Do: Loop While Inkey$=""
 
+CLS RGB(BLACK)
 PRINT "11. Ein komplettes Bild vorbereiten"
 FRAMEBUFFER CREATE
 FRAMEBUFFER WRITE F
-CLS RGB(BLACK)
 FOR I=1 TO 100
   X=INT(RND*MM.HRES)
   Y=INT(RND*MM.VRES)
@@ -53,4 +53,34 @@ FRAMEBUFFER COPY F,N
 
 PRINT "Press any key...": Do: Loop While Inkey$=""
 
+CLS RGB(BLACK)
+
 PRINT "12. Die Bahnhofsuhr verbessern"
+
+mitteX=MM.HRES/2
+mitteY=MM.VRES/2
+radius=MM.HRES/2-10
+
+If MM.VRES/2-10<radius Then
+  radius=MM.VRES/2-10
+EndIf
+
+FRAMEBUFFER CREATE
+FRAMEBUFFER WRITE F
+
+Do
+  If alteZeit$<>Time$ Then
+    alteZeit$=Time$
+    Berechne Time$
+    ZeichneZifferblatt mitteX,mitteY,radius
+    ZeichneText mitteX,mitteY,radius
+    ZeichneStundenzeiger mitteX,mitteY,radius,stundenWinkel
+    ZeichneMinutenzeiger mitteX,mitteY,radius,minutenWinkel
+    ZeichneSekundenzeiger mitteX,mitteY,radius,sekundenWinkel
+    FRAMEBUFFER COPY F,N
+  EndIf
+Loop While Inkey$=""
+
+Print
+Print "Ready..."
+End
