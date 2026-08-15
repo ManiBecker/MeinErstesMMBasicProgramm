@@ -1,3 +1,17 @@
+REM ====================================================================
+REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+REM Datei: 27_framebuffer_2.bas
+REM Titel: Kapitel 27: Flackerfreie Grafik mit Framebuffer
+REM Buch:  Mein erstes MMBasic Programm
+REM Autor: Manfred Becker
+REM Datum: 15.08.2026
+REM
+REM Beschreibung: Framebuffer, flackerfreie Animationen
+REM               
+REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
+REM
+REM ====================================================================
+
 MODE 4
 FRAMEBUFFER create
 bcolor=RGB(Int(Rnd*255),Int(Rnd*255),Int(Rnd*255))
