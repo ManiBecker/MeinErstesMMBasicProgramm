@@ -4,11 +4,11 @@ REM Datei: 28_layer_animation.bas
 REM Titel: Kapitel 28: Layerbuffer und bewegliche Objekte
 REM Buch:  Mein erstes MMBasic Programm
 REM Autor: Manfred Becker
-REM Datum: 27.07.2026
+REM Datum: 15.08.2026
 REM
 REM Beschreibung:
 REM
-REM Hardware/Voraussetzungen: keine/PicoMite/ColourMaxiMite
+REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
 REM
 REM ====================================================================
 
