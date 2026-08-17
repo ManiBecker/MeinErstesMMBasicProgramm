@@ -1,29 +1,29 @@
-REM ====================================================================
-REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
-REM Datei: 29_pong.bas
-REM Titel: Kapitel 29: Pong - das Spiel der Spiele
-REM Buch:  Mein erstes MMBasic Programm
-REM Autor: Manfred Becker
-REM Datum: 15.08.2026
-REM
-REM Beschreibung:
-REM
-REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
-REM
-REM ====================================================================
+Rem ====================================================================
+Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+Rem Datei: 29_pong.bas
+Rem Titel: Kapitel 29: Pong - das Spiel der Spiele
+Rem Buch:  Mein erstes MMBasic Programm
+Rem Autor: Manfred Becker
+Rem Datum: 16.08.2026
+Rem
+Rem Beschreibung:
+Rem
+Rem Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
+Rem
+Rem ====================================================================
 
 Option Continuation Lines On
 
 MODE 2
 
-CONST SCHLAEGERBREITE=6
-CONST SCHLAEGERHOEHE=50
-CONST BALLRADIUS=5
+Const SCHLAEGERBREITE=6
+Const SCHLAEGERHOEHE=50
+Const BALLRADIUS=5
 
-CONST SCHLAEGERGESCHWINDIGKEIT=4
-CONST COMPUTERGESCHWINDIGKEIT=2
+Const SCHLAEGERGESCHWINDIGKEIT=4
+Const COMPUTERGESCHWINDIGKEIT=2
 
-CONST GEWINNPUNKTE=10
+Const GEWINNPUNKTE=10
 
 SPIELERX=15
 COMPUTERX=MM.HRES-15-SCHLAEGERBREITE
@@ -40,21 +40,21 @@ NeuerBall 1
 
 SPIELEN=1
 
-DO WHILE SPIELEN=1
+Do While SPIELEN=1
 
-  TASTE$=UCASE$(INKEY$)
+  TASTE$=UCase$(Inkey$)
 
-  IF TASTE$="W" THEN
+  If TASTE$="W" Then
     SPIELERY=SPIELERY-SCHLAEGERGESCHWINDIGKEIT
-  ENDIF
+  EndIf
 
-  IF TASTE$="S" THEN
+  If TASTE$="S" Then
     SPIELERY=SPIELERY+SCHLAEGERGESCHWINDIGKEIT
-  ENDIF
+  EndIf
 
-  IF TASTE$=CHR$(27) THEN
+  If TASTE$=Chr$(27) Then
     SPIELEN=0
-  ENDIF
+  EndIf
 
   BegrenzeSpieler
 
@@ -70,8 +70,7 @@ DO WHILE SPIELEN=1
 
   ZeichneSpiel
 
-  IF SPIELERPUNKTE>=GEWINNPUNKTE OR          _
-     COMPUTERPUNKTE>=GEWINNPUNKTE THEN
+  If SPIELERPUNKTE>=GEWINNPUNKTE Or COMPUTERPUNKTE>=GEWINNPUNKTE Then
 
     ZeigeSpielende
 
@@ -83,173 +82,163 @@ DO WHILE SPIELEN=1
 
     NeuerBall 1
 
-  ENDIF
+  EndIf
 
-  PAUSE 10
+  Pause 10
 
-LOOP
+Loop
 
 FRAMEBUFFER WRITE N
 FRAMEBUFFER CLOSE
 
 CLS RGB(BLACK)
 
-PRINT "Pong wurde beendet."
+Print "Pong wurde beendet."
 
-END
+End
 
 
 
-SUB BegrenzeSpieler
+Sub BegrenzeSpieler
 
-  IF SPIELERY<0 THEN
+  If SPIELERY<0 Then
     SPIELERY=0
-  ENDIF
+  EndIf
 
-  IF SPIELERY>MM.VRES-SCHLAEGERHOEHE THEN
+  If SPIELERY>MM.VRES-SCHLAEGERHOEHE Then
     SPIELERY=MM.VRES-SCHLAEGERHOEHE
-  ENDIF
+  EndIf
 
-END SUB
+End Sub
 
 
 
-SUB BewegeComputer
+Sub BewegeComputer
 
   MITTE=COMPUTERY+SCHLAEGERHOEHE/2
 
-  IF BALLY<MITTE-3 THEN
+  If BALLY<MITTE-3 Then
     COMPUTERY=COMPUTERY-COMPUTERGESCHWINDIGKEIT
-  ELSEIF BALLY>MITTE+3 THEN
+  ElseIf BALLY>MITTE+3 Then
     COMPUTERY=COMPUTERY+COMPUTERGESCHWINDIGKEIT
-  ENDIF
+  EndIf
 
-  IF COMPUTERY<0 THEN
+  If COMPUTERY<0 Then
     COMPUTERY=0
-  ENDIF
+  EndIf
 
-  IF COMPUTERY>MM.VRES-SCHLAEGERHOEHE THEN
+  If COMPUTERY>MM.VRES-SCHLAEGERHOEHE Then
     COMPUTERY=MM.VRES-SCHLAEGERHOEHE
-  ENDIF
+  EndIf
 
-END SUB
+End Sub
 
 
 
-SUB BewegeBall
+Sub BewegeBall
 
   BALLX=BALLX+BALLDX
   BALLY=BALLY+BALLDY
 
-END SUB
+End Sub
 
 
 
-SUB PruefeWaende
+Sub PruefeWaende
 
-  IF BALLY-BALLRADIUS<=0 THEN
+  If BALLY-BALLRADIUS<=0 Then
 
     BALLY=BALLRADIUS
     BALLDY=-BALLDY
 
-  ENDIF
+  EndIf
 
-  IF BALLY+BALLRADIUS>=MM.VRES-1 THEN
+  If BALLY+BALLRADIUS>=MM.VRES-1 Then
 
     BALLY=MM.VRES-1-BALLRADIUS
     BALLDY=-BALLDY
 
-  ENDIF
+  EndIf
 
-END SUB
+End Sub
 
 
 
-SUB PruefeSchlaeger
+Sub PruefeSchlaeger
 
-  IF BALLDX<0 THEN
+  If BALLDX<0 Then
 
-    IF BALLX-BALLRADIUS<=                    _
-       SPIELERX+SCHLAEGERBREITE THEN
+    If BALLX-BALLRADIUS <= SPIELERX+SCHLAEGERBREITE Then
 
-      IF BALLX>=SPIELERX THEN
+      If BALLX>=SPIELERX Then
 
-        IF BALLY>=SPIELERY AND               _
-           BALLY<=SPIELERY+SCHLAEGERHOEHE THEN
+        If BALLY>=SPIELERY And BALLY<=SPIELERY+SCHLAEGERHOEHE Then
 
-          BALLX=SPIELERX+                    _
-                SCHLAEGERBREITE+BALLRADIUS
+          BALLX=SPIELERX+SCHLAEGERBREITE+BALLRADIUS
 
           BALLDX=-BALLDX
 
-          TREFFER=(BALLY-                    _
-                   (SPIELERY+                _
-                    SCHLAEGERHOEHE/2)) /     _
-                  (SCHLAEGERHOEHE/2)
+          TREFFER=(BALLY-(SPIELERY+SCHLAEGERHOEHE/2)) / (SCHLAEGERHOEHE/2)
 
           BALLDY=BALLDY+TREFFER*2
 
           BegrenzeBallgeschwindigkeit
 
-        ENDIF
+        EndIf
 
-      ENDIF
+      EndIf
 
-    ENDIF
+    EndIf
 
-  ENDIF
+  EndIf
 
-  IF BALLDX>0 THEN
+  If BALLDX>0 Then
 
-    IF BALLX+BALLRADIUS>=COMPUTERX THEN
+    If BALLX+BALLRADIUS>=COMPUTERX Then
 
-      IF BALLX<=COMPUTERX+SCHLAEGERBREITE THEN
+      If BALLX<=COMPUTERX+SCHLAEGERBREITE Then
 
-        IF BALLY>=COMPUTERY AND              _
-           BALLY<=COMPUTERY+SCHLAEGERHOEHE THEN
+        If BALLY>=COMPUTERY And BALLY<=COMPUTERY+SCHLAEGERHOEHE Then
 
           BALLX=COMPUTERX-BALLRADIUS
 
           BALLDX=-BALLDX
 
-          TREFFER=(BALLY-                    _
-                   (COMPUTERY+               _
-                    SCHLAEGERHOEHE/2)) /     _
-                  (SCHLAEGERHOEHE/2)
+          TREFFER=(BALLY-(COMPUTERY+SCHLAEGERHOEHE/2)) / (SCHLAEGERHOEHE/2)
 
           BALLDY=BALLDY+TREFFER*2
 
           BegrenzeBallgeschwindigkeit
 
-        ENDIF
+        EndIf
 
-      ENDIF
+      EndIf
 
-    ENDIF
+    EndIf
 
-  ENDIF
+  EndIf
 
-END SUB
+End Sub
 
 
 
-SUB BegrenzeBallgeschwindigkeit
+Sub BegrenzeBallgeschwindigkeit
 
-  IF BALLDY>5 THEN
+  If BALLDY>5 Then
     BALLDY=5
-  ENDIF
+  EndIf
 
-  IF BALLDY<-5 THEN
+  If BALLDY<-5 Then
     BALLDY=-5
-  ENDIF
+  EndIf
 
-END SUB
+End Sub
 
 
 
-SUB PruefePunkt
+Sub PruefePunkt
 
-  IF BALLX<0 THEN
+  If BALLX<0 Then
 
     COMPUTERPUNKTE=COMPUTERPUNKTE+1
 
@@ -257,9 +246,9 @@ SUB PruefePunkt
 
     NeuerBall 1
 
-  ENDIF
+  EndIf
 
-  IF BALLX>MM.HRES THEN
+  If BALLX>MM.HRES Then
 
     SPIELERPUNKTE=SPIELERPUNKTE+1
 
@@ -267,32 +256,32 @@ SUB PruefePunkt
 
     NeuerBall -1
 
-  ENDIF
+  EndIf
 
-END SUB
+End Sub
 
 
 
-SUB NeuerBall(RICHTUNG)
+Sub NeuerBall(RICHTUNG)
 
   BALLX=MM.HRES/2
   BALLY=MM.VRES/2
 
   BALLDX=3*RICHTUNG
 
-  BALLDY=INT(RND*5)-2
+  BALLDY=Int(Rnd*5)-2
 
-  IF BALLDY=0 THEN
+  If BALLDY=0 Then
     BALLDY=1
-  ENDIF
+  EndIf
 
-  PAUSE 500
+  Pause 500
 
-END SUB
+End Sub
 
 
 
-SUB ZeichneSpiel
+Sub ZeichneSpiel
 
   FRAMEBUFFER WRITE F
 
@@ -300,107 +289,84 @@ SUB ZeichneSpiel
 
   ZeichneMittellinie
 
-  BOX SPIELERX,SPIELERY,                    _
-      SCHLAEGERBREITE,SCHLAEGERHOEHE,       _
-      0,RGB(WHITE),RGB(WHITE)
+  Box SPIELERX,SPIELERY,SCHLAEGERBREITE,SCHLAEGERHOEHE,0,RGB(WHITE),      RGB(WHITE)
 
-  BOX COMPUTERX,COMPUTERY,                  _
-      SCHLAEGERBREITE,SCHLAEGERHOEHE,       _
-      0,RGB(WHITE),RGB(WHITE)
+  Box COMPUTERX,COMPUTERY,SCHLAEGERBREITE,SCHLAEGERHOEHE,0,RGB(WHITE),      RGB(WHITE)
 
-  CIRCLE BALLX,BALLY,BALLRADIUS,            _
-         1,1,RGB(WHITE),RGB(WHITE)
+  Circle BALLX,BALLY,BALLRADIUS,1,1,RGB(WHITE),RGB(WHITE)
 
-  TEXT MM.HRES/2-40,20,                     _
-       STR$(SPIELERPUNKTE),                 _
-       "CT",2,2,RGB(WHITE),-1
+  Text MM.HRES/2-40,20,Str$(SPIELERPUNKTE),"CT",2,2,RGB(WHITE),-1
 
-  TEXT MM.HRES/2+40,20,                     _
-       STR$(COMPUTERPUNKTE),                _
-       "CT",2,2,RGB(WHITE),-1
+  Text MM.HRES/2+40,20,Str$(COMPUTERPUNKTE),"CT",2,2,RGB(WHITE),-1
 
   FRAMEBUFFER COPY F,N,B
 
-END SUB
+End Sub
 
 
 
-SUB ZeichneMittellinie
+Sub ZeichneMittellinie
 
-  FOR Y=0 TO MM.VRES-1 STEP 20
+  For Y=0 To MM.VRES-1 Step 20
 
     Y2=Y+10
 
-    IF Y2>MM.VRES-1 THEN
+    If Y2>MM.VRES-1 Then
       Y2=MM.VRES-1
-    ENDIF
+    EndIf
 
-    LINE MM.HRES/2,Y,                       _
-         MM.HRES/2,Y2,                     _
-         1,RGB(GREY)
+    Line MM.HRES/2,Y,MM.HRES/2,Y2,1,RGB(GREY)
 
-  NEXT Y
+  Next Y
 
-END SUB
+End Sub
 
 
 
-SUB ZeigePunkt(TEXT$)
+Sub ZeigePunkt(TEXT$)
 
   FRAMEBUFFER WRITE F
 
   CLS RGB(BLACK)
 
-  TEXT MM.HRES/2,MM.VRES/2,                 _
-       TEXT$,"CM",1,2,RGB(YELLOW),-1
+  Text MM.HRES/2,MM.VRES/2,TEXT$,"CM",1,1,RGB(YELLOW),-1
 
   FRAMEBUFFER COPY F,N,B
 
-  PAUSE 800
+  Pause 800
 
-END SUB
+End Sub
 
 
 
-SUB ZeigeSpielende
+Sub ZeigeSpielende
 
   FRAMEBUFFER WRITE F
 
   CLS RGB(BLACK)
 
-  TEXT MM.HRES/2,MM.VRES/2-50,              _
-       "SPIEL BEENDET",                     _
-       "CM",2,2,RGB(YELLOW),-1
+  Text MM.HRES/2,MM.VRES/2-50,"SPIEL BEENDET","CM",2,2,RGB(YELLOW),-1
 
-  IF SPIELERPUNKTE>COMPUTERPUNKTE THEN
+  If SPIELERPUNKTE>COMPUTERPUNKTE Then
 
-    TEXT MM.HRES/2,MM.VRES/2,               _
-         "DU HAST GEWONNEN!",               _
-         "CM",1,2,RGB(GREEN),-1
+    Text MM.HRES/2,MM.VRES/2,"DU HAST GEWONNEN!","CM",1,2,RGB(GREEN),-1
 
-  ELSE
+  Else
 
-    TEXT MM.HRES/2,MM.VRES/2,               _
-         "DER COMPUTER GEWINNT",            _
-         "CM",1,2,RGB(RED),-1
+    Text MM.HRES/2,MM.VRES/2,"DER COMPUTER GEWINNT","CM",1,2,RGB(RED),-1
 
-  ENDIF
+  EndIf
 
-  TEXT MM.HRES/2,MM.VRES/2+45,              _
-       STR$(SPIELERPUNKTE)+" : "+           _
-       STR$(COMPUTERPUNKTE),                _
-       "CM",2,2,RGB(WHITE),-1
+  Text MM.HRES/2,MM.VRES/2+45,Str$(SPIELERPUNKTE)+" : "+               Str$(COMPUTERPUNKTE),"CM",2,2,RGB(WHITE),-1
 
-  TEXT MM.HRES/2,MM.VRES-25,                _
-       "Taste fuer ein neues Spiel",        _
-       "CB",1,1,RGB(CYAN),-1
+  Text MM.HRES/2,MM.VRES-25,"Taste fuer ein neues Spiel","CB",1,1,RGB(CYAN),-1
 
   FRAMEBUFFER COPY F,N,B
 
-  DO
+  Do
 
-    T$=INKEY$
+    T$=Inkey$
 
-  LOOP UNTIL T$<>""
+  Loop Until T$<>""
 
-END SUB
+End Sub
