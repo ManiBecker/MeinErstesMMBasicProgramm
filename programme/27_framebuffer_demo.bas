@@ -57,32 +57,36 @@ Print "Press any key...": Do : Loop While Inkey$=""
 CLS RGB(BLACK)
 
 Print "12. Die Bahnhofsuhr verbessern"
+Print
+Print "FRAMEBUFFER CREATE"
+Print "FRAMEBUFFER WRITE F"
+Print "Do"
+Print "  If alteZeit$<>Time$ Then"
+Print "    alteZeit$=Time$"
+Print "    Berechne Time$"
+Print "    ZeichneZifferblatt mitteX,mitteY,radius"
+Print "    ZeichneText mitteX,mitteY,radius"
+Print "    ZeichneStundenzeiger mitteX,mitteY,radius,stundenWinkel"
+Print "    ZeichneMinutenzeiger mitteX,mitteY,radius,minutenWinkel"
+Print "    ZeichneSekundenzeiger mitteX,mitteY,radius,sekundenWinkel"
+Print "    FRAMEBUFFER COPY F,N"
+Print "  EndIf"
+Print "Loop While Inkey$="""
+Print "FRAMEBUFFER CLOSE"
+Print
+Print "Das komplette Programm zur verbesserten Bahnhofsuhr befindet sich hier:"
+Print "- 27_framebuffer_5.bas"
+Print
 
-mitteX=MM.HRES/2
-mitteY=MM.VRES/2
-radius=MM.HRES/2-10
+Print "Press any key...": Do : Loop While Inkey$=""
 
-If MM.VRES/2-10<radius Then
-  radius=MM.VRES/2-10
-EndIf
+CLS RGB(BLACK)
 
-FRAMEBUFFER CREATE
-FRAMEBUFFER WRITE F
-
-Do
-  If alteZeit$<>Time$ Then
-    alteZeit$=Time$
-    Berechne Time$
-    ZeichneZifferblatt mitteX,mitteY,radius
-    ZeichneText mitteX,mitteY,radius
-    ZeichneStundenzeiger mitteX,mitteY,radius,stundenWinkel
-    ZeichneMinutenzeiger mitteX,mitteY,radius,minutenWinkel
-    ZeichneSekundenzeiger mitteX,mitteY,radius,sekundenWinkel
-    FRAMEBUFFER COPY F,N
-  EndIf
-Loop While Inkey$=""
-
-FRAMEBUFFER CLOSE
+Print "Weitere Programme zum FRAMEBUFFER sind:"
+Print "- 27_framebuffer_1.bas"
+Print "- 27_framebuffer_2.bas"
+Print "- 27_framebuffer_3.bas"
+Print "- 27_framebuffer_4.bas"
 
 Print
 Print "Ready..."
