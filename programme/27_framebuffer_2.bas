@@ -7,7 +7,7 @@ REM Autor: Manfred Becker
 REM Datum: 15.08.2026
 REM
 REM Beschreibung: Framebuffer, flackerfreie Animationen
-REM               
+REM               Animation eines Balles v1.0
 REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
 REM
 REM ====================================================================
@@ -19,7 +19,7 @@ fcolor=RGB(Int(Rnd*255),Int(Rnd*255),Int(Rnd*255))
 x=Int(MM.HRES/2)
 y=Int(MM.VRES/2)
 dx=2:dy=2:rx=1:ry=1:r=10
-Print "Animation eines Balles"
+Print "Animation eines Balles v1.0"
 For i=1 To 30000
   FRAMEBUFFER write f
   CLS RGB(BLUE)

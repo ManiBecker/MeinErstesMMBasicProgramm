@@ -7,7 +7,7 @@ REM Autor: Manfred Becker
 REM Datum: 15.08.2026
 REM
 REM Beschreibung: Framebuffer, flackerfreie Animationen
-REM               Die Bahnhofsuhr verbessern
+REM               Flackerfreie Bahnhofsuhr
 REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
 REM
 REM ====================================================================

@@ -275,9 +275,11 @@ ZeichneSekundenzeiger
 FRAMEBUFFER COPY F,N
 ----
 
-Das Ergebnis wirkt deutlich ruhiger.
+Das Ergebnis wirkt deutlich ruhiger. Das komplette Basic Programm befindet sich im Programmverzeichnis:
 
-=== Ein hüpfender Ball mit Framebuffer
+* Flackerfreie Bahnhofsuhr (27_framebuffer_5.bas)
+
+=== Ein animierter Ball mit Framebuffer
 
 Auch Animationen profitieren von dieser Technik.
 
@@ -313,6 +315,13 @@ FRAMEBUFFER CLOSE
 ----
 
 Dadurch steht der Speicher wieder für Programme und Variablen zur Verfügung.
+
+Im Programmverzeichnis finden sich noch weitere Beispiels von Animationen:
+
+* 10.000 Punkte (27_framebuffer_1.bas)
+* Animation eines Balles v1.0 (27_framebuffer_2.bas)
+* Animation eines Balles v2.0 (27_framebuffer_3.bas)
+* Animation eines Balles v3.0 (27_framebuffer_4.bas)
 
 [NOTE]
 ====
@@ -386,3 +395,8 @@ Im nächsten Kapitel werden wir Layerbuffer kennenlernen und bewegliche Objekte 
 Das vollständige BASIC-Programm findest du hier:
 
 * {github-programme}/27_framebuffer_demo.bas[27_framebuffer_demo.bas]
+* {github-programme}/27_framebuffer_1.bas[27_framebuffer_1.bas]
+* {github-programme}/27_framebuffer_2.bas[27_framebuffer_2.bas]
+* {github-programme}/27_framebuffer_3.bas[27_framebuffer_3.bas]
+* {github-programme}/27_framebuffer_4.bas[27_framebuffer_4.bas]
+* {github-programme}/27_framebuffer_5.bas[27_framebuffer_5.bas]

@@ -75,18 +75,19 @@ Print "Loop While Inkey$="""
 Print "FRAMEBUFFER CLOSE"
 Print
 Print "Das komplette Programm zur verbesserten Bahnhofsuhr befindet sich hier:"
-Print "- 27_framebuffer_5.bas"
+Print "- Flackerfreie Bahnhofsuhr (27_framebuffer_5.bas)"
 Print
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS RGB(BLACK)
 
-Print "Weitere Programme zum FRAMEBUFFER sind:"
-Print "- 27_framebuffer_1.bas"
-Print "- 27_framebuffer_2.bas"
-Print "- 27_framebuffer_3.bas"
-Print "- 27_framebuffer_4.bas"
+Print "14. Weitere Beispielprogramme zum FRAMEBUFFER sind:"
+Print
+Print "- 10.000 Punkte (27_framebuffer_1.bas)"
+Print "- Animation eines Balles v1.0 (27_framebuffer_2.bas)"
+Print "- Animation eines Balles v2.0 (27_framebuffer_3.bas"
+Print "- Animation eines Balles v3.0 (27_framebuffer_4.bas"
 
 Print
 Print "Ready..."
