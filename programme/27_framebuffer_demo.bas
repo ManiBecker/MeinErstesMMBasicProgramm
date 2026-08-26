@@ -4,7 +4,7 @@ Rem Datei: 27_framebuffer_demo.bas
 Rem Titel: Kapitel 27: Flackerfreie Grafik mit Framebuffer
 Rem Buch:  Mein erstes MMBasic Programm
 Rem Autor: Manfred Becker
-Rem Datum: 31.07.2026
+Rem Datum: 26.08.2026
 Rem
 Rem Beschreibung: Framebuffer, flackerfreie Animationen
 Rem
