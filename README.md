@@ -46,13 +46,24 @@ Fehler gefunden oder eine Idee zur Verbesserung?
 
 Ich freue mich über jedes Feedback und jeden Verbesserungsvorschlag – egal ob es sich um einen Tippfehler, ein Beispiel oder ein neues Kapitel handelt.
 
-## Viel Spaß!
+Wie du zum Projekt beitragen kannst, ist in [CONTRIBUTING.md](CONTRIBUTING.md) beschrieben.
 
-**Manfred Becker**
-
-Weitere Hinweise: 
 ## Werkzeuge
 
 Die Einrichtung der Entwicklungsumgebung sowie die Installation der benötigten Werkzeuge ist in
 `werkzeuge/README.md`
 beschrieben.
+
+## Lizenz
+
+Dieses Projekt verwendet getrennte Lizenzen für das Tutorial und die enthaltenen MMBasic-Beispielprogramme:
+
+* **Tutorial und Dokumentation:** [Creative Commons Namensnennung – Weitergabe unter gleichen Bedingungen 4.0 International (CC BY-SA 4.0)](LICENSE-CC-BY-SA-4.0)
+* **MMBasic-Beispielprogramme (`*.bas`):** [MIT License](LICENSE-MIT)
+
+Weitere Informationen darüber, welche Lizenz für welchen Teil des Projekts gilt, findest du in der Datei [LICENSE](LICENSE).
+
+## Viel Spaß!
+
+**Manfred Becker**
+
