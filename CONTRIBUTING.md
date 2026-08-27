@@ -61,6 +61,8 @@ Bitte achte darauf:
 
 ## Pull Requests
 
+Wenn du eine konkrete Änderung beitragen möchtest, kannst du einen [Pull Request](https://github.com/ManiBecker/MeinErstesMMBasicProgramm/pulls) erstellen.
+
 Bevor du einen Pull Request einreichst, stelle bitte sicher, dass:
 
 * das Beispiel getestet wurde.
