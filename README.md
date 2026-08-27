@@ -50,9 +50,7 @@ Wie du zum Projekt beitragen kannst, ist in [CONTRIBUTING.md](CONTRIBUTING.md) b
 
 ## Werkzeuge
 
-Die Einrichtung der Entwicklungsumgebung sowie die Installation der benötigten Werkzeuge ist in
-`werkzeuge/README.md`
-beschrieben.
+Die Einrichtung der Entwicklungsumgebung sowie die Installation der benötigten Werkzeuge ist in [werkzeuge/README.md](werkzeuge/README.md) beschrieben.
 
 ## Lizenz
 
