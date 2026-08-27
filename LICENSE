@@ -1,0 +1,35 @@
+LIZENZ
+
+Dieses Repository verwendet unterschiedliche Lizenzen für die Dokumentation und die enthaltenen Beispielprogramme.
+
+TUTORIAL UND DOKUMENTATION
+
+Alle Texte, Kapitel und sonstigen Dokumentationsinhalte dieses Projekts stehen, sofern nicht anders angegeben, unter der:
+
+Creative Commons Attribution-ShareAlike 4.0 International
+(CC BY-SA 4.0)
+
+Copyright (c) Manfred Becker
+
+Die vollständigen Lizenzbedingungen befinden sich in der Datei:
+
+LICENSE-CC-BY-SA-4.0
+
+MMBASIC-BEISPIELPROGRAMME
+
+Die in diesem Repository enthaltenen MMBasic-Beispielprogramme (*.bas) stehen, sofern in der jeweiligen Datei nicht anders angegeben, unter der:
+
+MIT License
+
+Copyright (c) Manfred Becker
+
+Die vollständigen Lizenzbedingungen befinden sich in der Datei:
+
+LICENSE-MIT
+
+BEITRÄGE
+
+Mit dem Einreichen eines Beitrags zu diesem Repository erklärst du dich damit einverstanden, dass dein Beitrag unter der für den jeweiligen Bereich geltenden Lizenz veröffentlicht wird:
+
+* Beiträge zur Dokumentation unter CC BY-SA 4.0
+* Beiträge zu den MMBasic-Beispielprogrammen unter der MIT License
