@@ -239,6 +239,7 @@ Beispielsweise:
 GP26
 GP27
 GP28
+GP40
 ----
 
 Diese Pins sind gleichzeitig ADC-Eingänge.
@@ -257,7 +258,7 @@ PicoMite:
 
 [source,basic]
 ----
-SETPIN GP26,AIN
+SETPIN GP40,AIN
 ----
 
 Das Kürzel bedeutet:
@@ -273,7 +274,7 @@ Analog Input
 
 [source,basic]
 ----
-WERT=PIN(GP26)
+WERT=PIN(GP40)
 ----
 
 Der Rückgabewert liegt typischerweise zwischen:
@@ -289,11 +290,11 @@ und
 
 [source,basic]
 ----
-SETPIN GP26,AIN
+SETPIN GP40,AIN
 
 DO
 
-  PRINT PIN(GP26)
+  PRINT PIN(GP40)
 
   PAUSE 200
 
@@ -361,11 +362,11 @@ Beispiele:
 
 [source,basic]
 ----
-SETPIN GP26,AIN
+SETPIN GP40,AIN
 
 DO
 
-  WERT=PIN(GP26)
+  WERT=PIN(GP40)
 
   PROZENT=WERT*100/1023
 
@@ -386,11 +387,11 @@ Messwerte lassen sich oft besser grafisch darstellen.
 ----
 MODE 2
 
-SETPIN GP26,AIN
+SETPIN GP40,AIN
 
 DO
 
-  WERT=PIN(GP26)
+  WERT=PIN(GP40)
 
   BREITE=WERT*MM.HRES/1023
 
@@ -440,7 +441,7 @@ SUMME=0
 
 FOR I=1 TO 10
 
-  SUMME=SUMME+PIN(GP26)
+  SUMME=SUMME+PIN(GP40)
 
 NEXT I
 
@@ -472,11 +473,11 @@ Tankinhalt
 ----
 MODE 2
 
-SETPIN GP26,AIN
+SETPIN GP40,AIN
 
 DO
 
-  WERT=PIN(GP26)
+  WERT=PIN(GP40)
 
   PROZENT=WERT*100/1023
 
