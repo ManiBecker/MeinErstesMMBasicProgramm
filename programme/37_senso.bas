@@ -1,118 +1,157 @@
-REM ====================================================================
-REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
-REM Datei: 37_senso.bas
-REM Titel: Kapitel 37: Senso - das elektronische Gedaechtnisspiel
-REM Buch:  Mein erstes MMBasic Programm
-REM Autor: Manfred Becker
-REM Datum: 31.08.2026
-REM
-REM Beschreibung: Ein vollstaendiges elektronisches Gedaechtnisspiel
-REM
-REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
-REM
-REM ====================================================================
+Rem ====================================================================
+Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+Rem Datei: 37_senso.bas
+Rem Titel: Kapitel 37: Senso - das elektronische Gedaechtnisspiel
+Rem Buch:  Mein erstes MMBasic Programm
+Rem Autor: Manfred Becker
+Rem Datum: 31.08.2026
+Rem
+Rem Beschreibung: Ein vollstaendiges elektronisches Gedaechtnisspiel
+Rem
+Rem Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
+Rem
+Rem ====================================================================
 
-DIM FOLGE(100)
-LEVEL=1
-DO
-  FOLGE(LEVEL)=INT(RND*4)+1
-  FOR I=1 TO LEVEL
-    ZeigeFarbe FOLGE(I)
-  NEXT I
-  FEHLER=0
-  FOR I=1 TO LEVEL
-    TASTE=HoleTaste()
-    IF TASTE<>FOLGE(I) THEN
-      FEHLER=1
-      EXIT FOR
-    ENDIF
-  NEXT I
-  IF FEHLER=1 THEN
-    Call Fehleranimation 3
-    EXIT DO
-  ENDIF
-  LEVEL=LEVEL+1
-LOOP
+SetPin GP0, DOUT 'LED 1
+SetPin GP1, DOUT 'LED 2
+SetPin GP2, DOUT 'LED 3
+SetPin GP3, DOUT 'LED 4
+SetPin GP4, DIN  'Taster 1
+SetPin GP5, DIN  'Taster 2
+SetPin GP6, DIN  'Taster 3
+SetPin GP7, DIN  'Taster 4
 
-PRINT
-PRINT "Spiel beendet"
-PRINT "Erreichte Runde:"
-PRINT LEVEL
+Dim FOLGE(100)
 
-IF LEVEL>BESTE_RUNDE THEN
-  BESTE_RUNDE=LEVEL
-ENDIF
+Do
 
+  LEVEL=1
+  CLS RGB(BLACK)
+  Print "Senso - das elektronische Gedaechtnisspiel"
+  Print
+  Print "Druecke Taste ";
+  For i=1 To 4
+    Print i;
+    ZeigeFarbe i
+    Pause 300
+  Next i
+  Pause 300
+  Do
+    Print
+    Print "Runde: ";level
+    Pause 300
+    FOLGE(LEVEL)=Int(Rnd*4)+1
+    For I=1 To LEVEL
+      ZeigeFarbe FOLGE(I)
+    Next I
+    FEHLER=0
+    For I=1 To LEVEL
+      TASTE=HoleTaste()
+      If TASTE<>FOLGE(I) Then
+        FEHLER=1
+        Exit For
+      EndIf
+    Next I
+    If FEHLER=1 Then
+      Fehleranimation 3
+      Exit Do
+    EndIf
+    LEVEL=LEVEL+1
+    Pause 500
+  Loop
+
+  Print
+  Print "Spiel beendet"
+  Print "Erreichte Runde:"
+  Print LEVEL
+
+  If LEVEL>BESTE_RUNDE Then
+    BESTE_RUNDE=LEVEL
+    Print "Beste Rundenamzahl!"
+  EndIf
+
+  Print
+  Print "Noch einmal? (J/N)"
+  Do : t$=Inkey$ : Loop While t$=""
+
+Loop While t$="j" Or t$="J"
+
+Print
+Print "Ready..."
 End
 
-SUB ZeigeFarbe(FARBE)
-  SELECT CASE FARBE
-  CASE 1
-    PIN(GP0)=1
-    TONE 262,300
-    PIN(GP0)=0
-  CASE 2
-    PIN(GP1)=1
-    TONE 330,300
-    PIN(GP1)=0
-  CASE 3
-    PIN(GP2)=1
-    TONE 392,300
-    PIN(GP2)=0
-  CASE 4
-    PIN(GP3)=1
-    TONE 523,300
-    PIN(GP3)=0
-  END SELECT
-  PAUSE 150
-END SUB
+Sub ZeigeFarbe(FARBE)
+  Select Case FARBE
+  Case 1
+    Pin(GP0)=1
+    Play TONE 262,262,250
+    Pin(GP0)=0
+  Case 2
+    Pin(GP1)=1
+    Play TONE 330,330,250
+    Pin(GP1)=0
+  Case 3
+    Pin(GP2)=1
+    Play TONE 392,392,250
+    Pin(GP2)=0
+  Case 4
+    Pin(GP3)=1
+    Play TONE 523,523,250
+    Pin(GP3)=0
+  End Select
+  Pause 300
+End Sub
 
-FUNCTION HoleTaste()
-  DO
-    IF PIN(GP4)=0 THEN
+Function HoleTaste()
+  Do
+    t$=Inkey$
+    If Pin(GP4)=1 Or t$="1" Then
+      Print ".";
+      Do : Loop While Pin(GP4)=1 Or KeyDown(0)>0
       HoleTaste=1
       ZeigeFarbe 1
-      WarteAufLoslassen GP4
-      EXIT FUNCTION
-    ENDIF
-    IF PIN(GP5)=0 THEN
+      Exit Function
+    EndIf
+    If Pin(GP5)=1 Or t$="2" Then
+      Print ".";
+      Do : Loop While Pin(GP5)=1 Or KeyDown(0)>0
       HoleTaste=2
       ZeigeFarbe 2
-      WarteAufLoslassen GP5
-      EXIT FUNCTION
-    ENDIF
-    IF PIN(GP6)=0 THEN
+      Exit Function
+    EndIf
+    If Pin(GP6)=1 Or t$="3" Then
+      Print ".";
+      Do : Loop While Pin(GP6)=1 Or KeyDown(0)>0
       HoleTaste=3
       ZeigeFarbe 3
-      WarteAufLoslassen GP6
-      EXIT FUNCTION
-    ENDIF
-    IF PIN(GP7)=0 THEN
+      Exit Function
+    EndIf
+    If Pin(GP7)=1 Or t$="4" Then
+      Print ".";
+      Do : Loop While Pin(GP7)=1 Or KeyDown(0)>0
       HoleTaste=4
       ZeigeFarbe 4
-      WarteAufLoslassen GP7
-      EXIT FUNCTION
-    ENDIF
-  LOOP
-END FUNCTION
+      Exit Function
+    EndIf
+  Loop
+End Function
 
-SUB WarteAufLoslassen(PINNUMMER)
-  DO
-  LOOP UNTIL PIN(PINNUMMER)=1
-  PAUSE 30
-END SUB
-
-SUB Fehleranimation(ANZAHL)
-  FOR I=1 TO ANZAHL
-    PIN(GP0)=1
-    PIN(GP1)=1
-    PIN(GP2)=1
-    PIN(GP3)=1
-    PAUSE 200
-    PIN(GP0)=0
-    PIN(GP1)=0
-    PIN(GP2)=0
-    PIN(GP3)=0
-    PAUSE 200
-  NEXT I
-END SUB
+Sub Fehleranimation(ANZAHL)
+  Print
+  Print "Falsche Taste!"
+  Print
+  For I=1 To ANZAHL
+    Pin(GP0)=1
+    Pin(GP1)=1
+    Pin(GP2)=1
+    Pin(GP3)=1
+    Play tone 300,300,250
+    Pause 200
+    Pin(GP0)=0
+    Pin(GP1)=0
+    Pin(GP2)=0
+    Pin(GP3)=0
+    Play tone 500,500,250
+    Pause 200
+  Next I
+End Sub
