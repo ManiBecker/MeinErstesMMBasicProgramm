@@ -67,7 +67,7 @@ Do
 
   If LEVEL>BESTE_RUNDE Then
     BESTE_RUNDE=LEVEL
-    Print "Beste Rundenamzahl!"
+    Print "Beste Rundenanzahl!"
   EndIf
 
   Print
@@ -85,18 +85,22 @@ Sub ZeigeFarbe(FARBE)
   Case 1
     Pin(GP0)=1
     Play TONE 262,262,250
+    Pause 250
     Pin(GP0)=0
   Case 2
     Pin(GP1)=1
     Play TONE 330,330,250
+    Pause 250
     Pin(GP1)=0
   Case 3
     Pin(GP2)=1
     Play TONE 392,392,250
+    Pause 250
     Pin(GP2)=0
   Case 4
     Pin(GP3)=1
     Play TONE 523,523,250
+    Pause 250
     Pin(GP3)=0
   End Select
   Pause 300
