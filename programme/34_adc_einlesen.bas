@@ -4,11 +4,11 @@ Rem Datei: 34_adc_einlesen.bas
 Rem Titel: Kapitel 34: Analoge Eingaenge
 Rem Buch:  Mein erstes MMBasic Programm
 Rem Autor: Manfred Becker
-Rem Datum: 31.08.2026
+Rem Datum: 03.09.2026
 Rem
-Rem Beschreibung: Unterschied zwischen digitalen und analogen Eingaengen
+Rem Beschreibung: Analoge Spannungen mit einem ADC-Eingang messen
 Rem
-Rem Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
+Rem Hardware/Voraussetzungen: PicoMite/Colour Maximite 2
 Rem
 Rem ====================================================================
 
@@ -27,12 +27,12 @@ Print "Press any key...": Do : Loop While Inkey$=""
 CLS
 Print "17. Was bedeutet der Messwert?"
 Print
-Print "Je groesser die gemessene Spannung ist, desto groesser wird der"
-Print "Zahlenwert."
-Print "Wert Bedeutung"
-Print "0    0 Volt"
-Print "512  etwa halbe Spannung"
-Print "1023 maximale Spannung"
+Print "PIN() liefert die gemessene Spannung direkt in Volt."
+Print "Bei einem Messbereich von 0 bis 3,3 V gilt zum Beispiel:"
+Print "Spannung Bedeutung"
+Print "0,0 V     minimale Spannung"
+Print "1,65 V    etwa halbe Spannung"
+Print "3,3 V     maximale Spannung"
 Print
 
 Print "Press any key...": Do : Loop While Inkey$=""
@@ -41,12 +41,12 @@ CLS
 Print "18. Messwerte auf Prozent umrechnen"
 Print
 Print "Haeufig sind Prozentwerte einfacher zu verstehen."
-Print "PROZENT=WERT*100/1023"
+Print "PROZENT=WERT*100/3.3"
 Print "Beispiele:"
-Print "Messwert Prozent"
-Print "0        0 %"
-Print "512      50 %"
-Print "1023     100 %"
+Print "Spannung Prozent"
+Print "0,0 V      0 %"
+Print "1,65 V    50 %"
+Print "3,3 V    100 %"
 Print
 
 Print "Press any key...": Do : Loop While Inkey$=""
@@ -57,7 +57,7 @@ Print "19. Eine Prozentanzeige"
 SetPin GP40,AIN
 Do
   WERT=Pin(GP40)
-  PROZENT=WERT*100/1023
+  PROZENT=WERT*100/3.3
   'CLS
   Print Int(PROZENT);" %"
   Pause 200
@@ -74,10 +74,10 @@ Print "Der Balken waechst und schrumpft nun beim Drehen des Potentiometers."
 SetPin GP40,AIN
 Do
   WERT=Pin(GP40)
-  BREITE=WERT*MM.HRES/1023
+  BREITE=WERT*MM.HRES/3.3
   'CLS RGB(BLACK)
   Box 20,50,BREITE,40,0,RGB(GREEN),RGB(GREEN)
-  Text 20,110,Str$(Int(WERT*100/1023))+" %"
+  Text 20,110,Str$(Int(WERT*100/3.3))+" %"
   Pause 50
 Loop While Inkey$=""
 
@@ -89,7 +89,7 @@ Print "21. Schwankende Messwerte"
 Print
 Print "Manche Sensoren liefern leicht schwankende Werte."
 Print "Beispielsweise:"
-Print "512, 513, 511, 514, 512"
+Print "1.648, 1.651, 1.647, 1.652, 1.650"
 Print "Das ist voellig normal."
 Print "Ursachen koennen sein:"
 Print "- elektrisches Rauschen"
@@ -126,7 +126,7 @@ SetPin GP40,AIN
 
 Do
   WERT=Pin(GP40)
-  PROZENT=WERT*100/1023
+  PROZENT=WERT*100/3.3
   'CLS RGB(BLACK)
 
   Text MM.HRES/2,20,"Tankanzeige","CT"
@@ -146,7 +146,7 @@ Print "Press any key...": Do : Loop While Inkey$=""
 CLS
 MODE 1
 
-Print "25. Wo werden analoge Eingaenge verwendet?"
+Print "24. Wo werden analoge Eingaenge verwendet?"
 Print
 Print "Analoge Eingaenge findet man ueberall:"
 Print "- Temperaturfuehler"
@@ -162,12 +162,12 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "26. Typische Fehler"
+Print "25. Typische Fehler"
 Print
 Print "Wenn keine sinnvollen Werte erscheinen:"
 Print "1. Ist das Potentiometer richtig angeschlossen?"
 Print "2. Wurde der richtige ADC-Pin verwendet?"
-Print "3. Wurde SETPIN b&,AIN aufgerufen?"
+Print "3. Wurde SETPIN GP40,AIN aufgerufen?"
 Print "4. Sind 3,3 V und GND korrekt verbunden?"
 Print
 
@@ -175,19 +175,19 @@ Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
 
-Print "27. Experimentiere!"
+Print "26. Experimentiere!"
 Print
 Print "Probiere folgende Aenderungen aus:"
 Print "- andere Potentiometer"
 Print "- andere Farben"
-Print "- groeCere Balkenanzeigen"
+Print "- groessere Balkenanzeigen"
 Print "- Prozentanzeige mit einer Nachkommastelle"
 Print
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "28. Probierbs selbst!"
+Print "27. Probiers selbst!"
 Print
 Print "Versuche folgende Aufgaben:"
 Print "1. Baue eine Temperaturanzeige mit einem geeigneten Sensor."
@@ -197,4 +197,4 @@ Print "4. Erstelle eine Tankwarnung unter 20 %."
 Print "5. Zeige den Messwert zusaetzlich als Zahl an."
 Print
 
-Print "Ready..."
+Print "Ready..." 
