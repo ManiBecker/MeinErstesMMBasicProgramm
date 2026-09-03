@@ -234,7 +234,7 @@ Print "SETPIN GP40,AIN"
 Print "SETPIN GP0,PWM0A"
 Print "DO"
 Print "  WERT=PIN(GP40)"
-Print "  HELLIGKEIT=WERT*100/1023"
+Print "  HELLIGKEIT=WERT*100/3.3"
 Print "  PWM 0,1000,HELLIGKEIT"
 Print "  PAUSE 20"
 Print "LOOP"
@@ -247,7 +247,7 @@ SetPin GP40,AIN
 SetPin GP0,PWM0A
 Do
   WERT=Pin(GP40)
-  HELLIGKEIT=WERT*100/1023
+  HELLIGKEIT=WERT*100/3.3
   PWM 0,1000,HELLIGKEIT
   Pause 20
 Loop While Inkey$=""
@@ -261,7 +261,7 @@ Print "SETPIN GP40,AIN"
 Print "SETPIN GP0,PWM0A"
 Print "DO"
 Print "  WERT=PIN(GP40)"
-Print "  HELLIGKEIT=WERT*100/1023"
+Print "  HELLIGKEIT=WERT*100/3.3"
 Print "  PWM 0,1000,HELLIGKEIT"
 Print "  CLS"
 Print "  PRINT ""Helligkeit:"";"
@@ -276,7 +276,7 @@ SetPin GP40,AIN
 SetPin GP0,PWM0A
 Do
   WERT=Pin(GP40)
-  HELLIGKEIT=WERT*100/1023
+  HELLIGKEIT=WERT*100/3.3
   PWM 0,1000,HELLIGKEIT
   CLS
   Print "Helligkeit:";
@@ -311,7 +311,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "25. Probierbs selbst!"
+Print "25. Probiers selbst!"
 Print
 Print "Versuche folgende Aufgaben:"
 Print "1. Erzeuge einen sanften Sonnenaufgang."
@@ -320,4 +320,4 @@ Print "3. Verwende zwei Potentiometer fuer zwei LEDs."
 Print "4. Baue eine einfache Instrumentenbeleuchtung."
 Print "5. Simuliere das Blinken einer Warnleuchte."
 Print
-Print "Ready..."
+Print "Ready..." 
