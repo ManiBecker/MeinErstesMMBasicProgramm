@@ -71,29 +71,77 @@ FOR I=1 TO 10
 NEXT I
 ----
 
-=== Speichern und Beenden
+=== Die Funktionstasten des Editors
 
-Die wichtigsten Funktionstasten sind:
+Beim PicoMite werden die wichtigsten Editorfunktionen über die Funktionstasten
+`F1` bis `F10` aufgerufen.
 
-[cols="1,3"]
+Die in manchen Texteditoren üblichen Tastenkombinationen mit `CTRL` stehen im
+PicoMite-Editor für diese Funktionen nicht zur Verfügung.
+
+Die folgende Tabelle zeigt die auf dem PicoMite getestete Belegung:
+
+[cols="1,3",options="header"]
 |===
 |Taste |Funktion
 
-|ESC
-|Editor verlassen ohne Speichern
-
 |F1
-|Speichern und zum Kommando-Prompt zurückkehren
+|Save – Programm speichern
 
 |F2
-|Speichern und Programm sofort starten
+|Run – Programm speichern und ausführen
+
+|F3
+|Find – Text suchen
+
+|F4
+|Mark – Text markieren
+
+|F5
+|Paste – markierten bzw. kopierten Text einfügen
+
+|F6
+|Find next – nächste Fundstelle suchen
+
+|Shift+F3
+|Find next – ebenfalls nächste Fundstelle suchen
+
+|F7
+|Repl – Text suchen und ersetzen
+
+|F8
+|Rpl/r – Suchen und Ersetzen wiederholen
+
+|F9
+|Import File – Inhalt einer Datei importieren
+
+|F10
+|Export to File – Inhalt in eine Datei exportieren
+
+|F11
+|nicht belegt
+
+|F12
+|nicht belegt
 |===
+
+NOTE: Diese Tastenbelegung wurde auf dem PicoMite überprüft. Bei anderen
+MMBasic-Systemen kann die Belegung abweichen.
+
+=== Speichern und Ausführen
+
+Mit `F1` wird das Programm gespeichert.
+
+Mit `F2` wird es gespeichert und anschließend sofort ausgeführt.
+
+Gerade beim Entwickeln ist `F2` besonders praktisch, weil Änderungen sehr
+schnell ausprobiert werden können.
 
 === Der Turbo-Pascal-Effekt
 
 Viele Entwickler schätzen kurze Entwicklungszyklen.
 
-Mit der Taste F2 kann ein Programm gespeichert und sofort gestartet werden.
+Mit der Taste `F2` kann ein Programm gespeichert und sofort gestartet werden.
 
 Dadurch entsteht ein schneller Arbeitsablauf:
 
@@ -105,7 +153,9 @@ F2 drücken
        ↓
 Programm testen
        ↓
-Programm ändern
+EDIT
+       ↓
+Programm weiter ändern
 ----
 
 Wer früher mit Turbo Pascal gearbeitet hat, wird sich schnell zuhause fühlen.
@@ -123,7 +173,7 @@ EDIT "TEST.BAS"
 
 Existiert die Datei bereits, wird sie geladen.
 
-Existiert sie noch nicht, wird sie beim Speichern automatisch angelegt.
+Existiert sie noch nicht, wird sie beim Speichern angelegt.
 
 === Dateiendungen
 
@@ -134,12 +184,7 @@ Wird keine Dateiendung angegeben:
 EDIT "TEST"
 ----
 
-ergänzt MMBasic automatisch:
-
-[source]
-----
-TEST.BAS
-----
+kann für ein BASIC-Programm die Dateiendung `.BAS` verwendet werden.
 
 === Nicht-BASIC-Dateien bearbeiten
 
@@ -156,15 +201,13 @@ EDIT "SPRITES.TXT"
 EDIT "CONFIG.INI"
 ----
 
-In diesem Fall wird die BASIC-Farbhervorhebung automatisch deaktiviert.
-
 === Cursor bewegen
 
 Der Editor arbeitet ähnlich wie bekannte Texteditoren.
 
 Die wichtigsten Tasten:
 
-[cols="1,3"]
+[cols="1,3",options="header"]
 |===
 |Taste |Funktion
 
@@ -195,45 +238,29 @@ Die wichtigsten Tasten:
 
 === Schnell zum Programmanfang
 
-Eine praktische Besonderheit:
+Eine praktische Möglichkeit ist das zweimalige Drücken von `HOME`:
 
 [source]
 ----
 HOME HOME
 ----
 
-springt direkt zum Programmanfang.
+Damit kann schnell zum Programmanfang gesprungen werden.
 
-Ebenso führt:
+Entsprechend führt:
 
 [source]
 ----
 END END
 ----
 
-direkt zum Programmende.
-
-Bei größeren Programmen spart das viel Zeit.
+zum Programmende.
 
 === Suchen im Programm
 
-Mit:
+Mit `F3` wird die Suchfunktion gestartet.
 
-[source]
-----
-F3
-----
-
-oder:
-
-[source]
-----
-CTRL-F
-----
-
-wird die Suchfunktion gestartet.
-
-Nach Eingabe eines Suchbegriffs springt der Cursor automatisch zur ersten Fundstelle.
+Nach Eingabe eines Suchbegriffs springt der Cursor zur Fundstelle.
 
 Beispiel:
 
@@ -242,201 +269,133 @@ Beispiel:
 PRINT
 ----
 
-Der Editor sucht nun nach allen Vorkommen von PRINT.
+Mit `F6` oder `Shift+F3` wird anschließend nach dem nächsten Vorkommen gesucht.
 
 === Text markieren
 
-Mit:
+Mit `F4` wird der Markiermodus aktiviert.
 
-[source]
-----
-F4
-----
+Danach kann der gewünschte Bereich mit den Cursor-Tasten ausgewählt werden.
 
-oder:
+=== Text einfügen
 
-[source]
-----
-CTRL-S
-----
+Mit `F5` wird der zuvor markierte bzw. für das Einfügen vorgesehene Text an der
+aktuellen Cursorposition eingefügt.
 
-wird der Auswahlmodus aktiviert.
+=== Suchen und Ersetzen
 
-Nun kann mit den Cursor-Tasten ein Bereich markiert werden.
-
-Die Markierung wird hervorgehoben dargestellt.
-
-=== Kopieren
-
-Ist Text markiert:
-
-[source]
-----
-F5
-----
-
-oder:
-
-[source]
-----
-CTRL-C
-----
-
-kopiert den markierten Bereich in die Zwischenablage.
-
-=== Ausschneiden
-
-Alternativ kann der markierte Bereich ausgeschnitten werden.
-
-[source]
-----
-CTRL-X
-----
-
-Der Text wird dabei entfernt und in die Zwischenablage übernommen.
-
-=== Einfügen
-
-Mit:
-
-[source]
-----
-F5
-----
-
-oder:
-
-[source]
-----
-CTRL-V
-----
-
-wird der Inhalt der Zwischenablage an der Cursorposition eingefügt.
-
-=== Arbeiten mit Programmbausteinen
-
-Diese Funktionen sind besonders hilfreich bei:
-
-* Unterprogrammen
-* Funktionen
-* Tabellen
-* Datenblöcken
-
-Dadurch können größere Programme deutlich einfacher umstrukturiert werden.
-
-=== Zeilenende löschen
-
-Mit:
-
-[source]
-----
-CTRL-K
-----
-
-wird alles vom Cursor bis zum Ende der aktuellen Zeile gelöscht.
-
-Beispiel:
-
-Vorher:
-
-[source,basic]
-----
-PRINT "Hallo Welt" : PRINT "Test"
-----
-
-Cursor vor dem Doppelpunkt:
-
-[source]
-----
-PRINT "Hallo Welt"| : PRINT "Test"
-----
-
-Nach CTRL-K:
-
-[source,basic]
-----
-PRINT "Hallo Welt"
-----
-
-=== Datei unter anderem Namen speichern
-
-Mit:
-
-[source]
-----
-CTRL-W
-----
-
-kann eine Kopie unter einem anderen Dateinamen gespeichert werden.
-
-Das Original bleibt dabei unverändert.
-
-=== Datei einfügen
-
-Mit:
+Mit `F7` steht eine Funktion zum Suchen und Ersetzen zur Verfügung:
 
 [source]
 ----
 F7
 ----
 
-kann der Inhalt einer anderen Datei an der aktuellen Cursorposition eingefügt werden.
+Mit `F8` kann der Ersetzungsvorgang wiederholt werden.
 
-Das eignet sich hervorragend für:
+Damit lassen sich beispielsweise Variablennamen oder andere wiederkehrende
+Texte in einem Programm ändern.
 
-* Programmbausteine
-* Include-Dateien
-* Vorlagen
+=== Datei importieren
 
-=== Markierte Blöcke speichern
-
-Mit:
+Mit `F9` kann der Inhalt einer Datei in den Editor importiert werden.
 
 [source]
 ----
-F8
+F9
 ----
 
-kann ein markierter Block direkt in eine Datei geschrieben werden.
+Das ist beispielsweise nützlich, wenn ein vorhandener Programmbaustein in das
+aktuelle Programm übernommen werden soll.
 
-Dadurch lassen sich Programmteile einfach zwischen Projekten austauschen.
+=== In eine Datei exportieren
 
-=== Die integrierte Hilfe
-
-Eine besonders praktische Funktion ist die Hilfe.
-
-Mit:
+Mit `F10` kann Inhalt aus dem Editor in eine Datei exportiert werden.
 
 [source]
 ----
-F12
+F10
 ----
 
-wird die Hilfe geöffnet.
+Damit können Programmteile oder Texte in einer separaten Datei gespeichert
+werden.
 
-Befindet sich der Cursor auf einem BASIC-Befehl, wird automatisch danach gesucht.
+=== F11 und F12
 
-Beispiel:
+Die Funktionstasten `F11` und `F12` sind beim getesteten PicoMite-Editor nicht
+belegt.
+
+Eine zuvor in diesem Kapitel beschriebene Hilfe über `F12` steht daher auf dem
+PicoMite nicht zur Verfügung.
+
+=== Hilfe zu Befehlen und Funktionen
+
+Der PicoMite besitzt mit `HELP` eine praktische Hilfe zu MMBasic-Befehlen
+und -Funktionen.
+
+IMPORTANT: Damit `HELP` verwendet werden kann, muss sich eine entsprechend
+formatierte Datei `help.txt` auf Laufwerk `A:` befinden. Die Hilfetexte sind
+nicht fest in der PicoMite-Firmware gespeichert. Die Datei kann selbst erstellt
+oder aus einem Community-Projekt übernommen werden und sollte zur verwendeten
+MMBasic-Version passen.
+
+Die allgemeine Syntax lautet:
 
 [source,basic]
 ----
-PRINT
+HELP Suchtext
 ----
 
-Cursor auf PRINT positionieren und F12 drücken.
+In der Praxis ist es sinnvoll, am Ende des Suchbegriffs ein `*` anzugeben.
+Beispielsweise:
 
-=== Hilfe übernehmen
-
-Nach dem Schließen der Hilfe kann mit:
-
-[source]
+[source,basic]
 ----
-F11
+HELP PRINT*
 ----
 
-der oberste Hilfeneintrag direkt in das Programm übernommen werden.
+oder:
 
-Diese Funktion wird oft übersehen, ist aber äußerst praktisch.
+[source,basic]
+----
+HELP PLAY*
+----
+
+Das `*` steht für beliebig viele Zeichen. Dadurch werden auch Einträge gefunden,
+deren interner Suchbegriff nach dem eingegebenen Befehlsnamen noch weitere
+Zeichen enthält.
+
+Auch `?` kann als Platzhalter verwendet werden:
+
+[cols="1,3",options="header"]
+|===
+|Platzhalter |Bedeutung
+
+|`*`
+|Beliebig viele Zeichen oder auch kein Zeichen
+
+|`?`
+|Genau ein beliebiges Zeichen
+|===
+
+Welche Suchbegriffe ohne `*` einen Treffer liefern, hängt davon ab, wie die
+jeweilige `help.txt` aufgebaut ist. Bei der für dieses Tutorial getesteten
+Hilfedatei ist deshalb die Schreibweise mit abschließendem `*` empfehlenswert.
+
+[TIP]
+====
+Wenn beispielsweise `HELP PRINT` keinen Treffer liefert, probiere:
+
+[source,basic]
+----
+HELP PRINT*
+----
+====
+
+Die Datei `help.txt` ist keine fest zur Firmware gehörende Hilfedatei.
+Community-Versionen wurden unter anderem im *The Back Shed Forum* veröffentlicht.
+Da MMBasic weiterentwickelt wird, sollte darauf geachtet werden, dass die
+verwendete Hilfedatei möglichst zur installierten MMBasic-Version passt.
 
 === Farbsyntax
 
@@ -556,8 +515,7 @@ Hier kommen Programme wie MMEdit oder Visual Studio Code ins Spiel.
 === Tipps aus der Praxis
 
 * Speichere regelmäßig mit F1 oder F2.
-* Nutze F3 zum schnellen Auffinden von Variablen.
-* Verwende F12 für unbekannte Befehle.
+* Nutze F3 zum schnellen Auffinden von Variablen und F6 für die nächste Fundstelle.
 * Behalte die automatisch erzeugten .BAK-Dateien als Sicherheitskopie.
 * Nutze F2 für einen schnellen Entwicklungszyklus.
 
@@ -590,15 +548,6 @@ funktionierende Version zurückgreifen.
 Bei größeren Programmen ist die Suchfunktion häufig schneller als langes
 Scrollen. So findest du Variablen, Unterprogramme oder Kommentare in wenigen
 Sekunden.
-====
-
-[TIP]
-====
-*Die integrierte Hilfe nutzen*
-
-Falls du die Syntax eines BASIC-Befehls vergessen hast, positioniere den Cursor
-auf dem Befehl und drücke **F12**. Dadurch öffnet sich sofort die passende
-Dokumentation.
 ====
 
 [TIP]
@@ -662,16 +611,20 @@ Versuche folgende Aufgaben:
 . Speichere es mit F1.
 . Starte es mit F2.
 . Suche mit F3 nach einer Variablen.
-. Kopiere ein Unterprogramm mit F4 und F5.
-. Rufe die Hilfe zu PRINT auf.
+. Suche mit F6 nach der nächsten Fundstelle.
+. Markiere mit F4 einen Textbereich und füge ihn mit F5 ein.
+. Probiere Suchen und Ersetzen mit F7 und F8 aus.
+. Importiere testweise eine Datei mit F9.
+. Rufe mit `HELP PRINT*` die Hilfe zum `PRINT`-Befehl auf.
+. Suche mit `HELP PLAY*` nach den `PLAY`-Befehlen.
 
 === Zusammenfassung
 
 Der integrierte Editor von MMBasic bietet alle wichtigen Funktionen zum
 Erstellen und Bearbeiten von BASIC-Programmen direkt auf dem PicoMite.
 
-Du kannst Programme schreiben, bearbeiten, durchsuchen und speichern, ohne
-einen PC zu benötigen. Mit einer USB-Maus lässt sich der Editor bei Bedarf
+Du kannst Programme schreiben, bearbeiten, durchsuchen, ersetzen, importieren,
+exportieren und speichern, ohne einen PC zu benötigen. Mit einer USB-Maus lässt sich der Editor bei Bedarf
 noch komfortabler bedienen.
 
 Für viele Projekte ist der eingebaute Editor vollkommen ausreichend und wird
