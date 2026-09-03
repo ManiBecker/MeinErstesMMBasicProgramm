@@ -37,8 +37,6 @@ Zum ersten Mal erzeugt unser Programm Töne.
 
 Ein Piezo-Summer ist ein kleines Bauteil zur Tonerzeugung.
 
-Er ist preiswert, leicht erhältlich und benötigt nur wenig Strom.
-
 Piezo-Summer werden häufig verwendet in:
 
 * Alarmanlagen
@@ -51,89 +49,113 @@ Piezo-Summer werden häufig verwendet in:
 
 Es gibt zwei unterschiedliche Varianten.
 
-=== Aktiver Summer
+==== Aktiver Summer
 
 Ein aktiver Summer besitzt einen eingebauten Oszillator.
 
-Legt man eine Spannung an:
+Wird er mit der vorgesehenen Spannung versorgt, erzeugt er selbstständig einen Ton.
+Die Tonhöhe ist dabei normalerweise fest vorgegeben.
 
-[source]
-----
-3.3V
-----
-    
-ertönt sofort ein Piepton.
+Ein aktiver Summer eignet sich deshalb gut für einfache Signaltöne, aber nicht zum
+Spielen unterschiedlicher Noten.
 
-Der Ton ist fest vorgegeben.
+==== Passiver Piezo-Schallwandler
 
-=== Passiver Piezo-Lautsprecher
+Ein passiver Piezo-Schallwandler besitzt keinen eingebauten Tongenerator.
+Er benötigt ein wechselndes elektrisches Signal. Dessen Frequenz bestimmt die Tonhöhe.
 
-Ein passiver Piezo besitzt keinen eingebauten Tongenerator.
+Damit lassen sich unterschiedliche Töne und einfache Melodien erzeugen.
 
-Der Mikrocontroller muss selbst ein Wechsel- oder PWM-Signal erzeugen.
+=== Die Audioausgabe von MMBasic
 
-Dafür können unterschiedliche Tonhöhen ausgegeben werden.
+Für die folgenden Beispiele verwenden wir die Audioausgabe des jeweiligen
+MMBasic-Systems.
 
-Für die Beispiele dieses Kapitels eignet sich ein passiver Piezo-Lautsprecher besonders gut.
+IMPORTANT: `PLAY TONE` gibt den Ton über die von MMBasic konfigurierte Audioausgabe
+aus. Der Befehl erzeugt nicht einfach an einem beliebigen GPIO-Pin ein Tonsignal.
+Welche Anschlüsse für die Audioausgabe verwendet werden, hängt deshalb von der
+verwendeten PicoMite- oder Colour-Maximite-Hardware und deren Konfiguration ab.
 
-=== Anschluss
+Die Beispiele dieses Kapitels wurden auf einem *PicoMite HDMI/USB* überprüft.
 
-Ein Piezo-Lautsprecher besitzt normalerweise zwei Anschlüsse.
+NOTE: Beim PicoMite wird ein Ton mit `PLAY TONE` erzeugt.
+Ein eigenständiger Befehl `TONE` ist nicht vorhanden.
 
-[source]
-----
-GPIO ----- Piezo ----- GND
-----
+=== Der `PLAY TONE`-Befehl
 
-Für erste Versuche genügt dieser einfache Aufbau.
-
-=== Der TONE-Befehl
-
-Zum Erzeugen von Tönen stellt MMBasic den Befehl `TONE` zur Verfügung.
+Zum Erzeugen von Tönen stellt MMBasic den Befehl `PLAY TONE` zur Verfügung.
 
 Der allgemeine Aufbau lautet:
 
 [source,basic]
 ----
-TONE Frequenz, Dauer
+PLAY TONE FrequenzLinks [, FrequenzRechts [, Dauer [, Interrupt]]]
 ----
 
-Die beiden Parameter haben folgende Bedeutung:
+Die Parameter haben folgende Bedeutung:
 
-[cols="1,3"]
+[cols="1,3",options="header"]
 |===
 |Parameter |Bedeutung
 
-|Frequenz
-|Tonhöhe in Hertz (Hz)
+|FrequenzLinks
+|Tonhöhe des linken Kanals in Hertz (Hz)
+
+|FrequenzRechts
+|Tonhöhe des rechten Kanals in Hertz (Hz)
 
 |Dauer
 |Spieldauer des Tons in Millisekunden (ms)
+
+|Interrupt
+|Optionale Subroutine, die nach Ablauf der Spieldauer aufgerufen wird
 |===
 
-Je höher die Frequenz, desto höher klingt der Ton. Über die Dauer wird festgelegt, wie lange der Ton ausgegeben wird.
+Je höher die Frequenz ist, desto höher klingt der Ton.
 
-=== Der erste Ton
+`PLAY TONE` arbeitet im Hintergrund. Das Programm läuft also weiter, während der
+Ton ausgegeben wird. Deshalb verwenden wir in vielen Beispielen zusätzlich `PAUSE`,
+wenn der nächste Programmschritt erst nach dem Ton ausgeführt werden soll.
 
-Mit MMBasic lassen sich Töne sehr einfach erzeugen.
+Wird keine Dauer angegeben, läuft der Ton weiter, bis er beispielsweise mit
 
 [source,basic]
 ----
-TONE 1000,500
+PLAY TONE 0,0,0
+----
+
+gestoppt oder das Programm beendet wird.
+
+=== Der erste Ton
+
+Mit MMBasic lässt sich ein Ton sehr einfach erzeugen:
+
+[source,basic]
+----
+PLAY PLAY TONE 1000,1000,100 : PAUSE 1000,500
+PAUSE 500
 ----
 
 Das bedeutet:
 
-[cols="1,3"]
+[cols="1,3",options="header"]
 |===
 |Parameter |Bedeutung
 
-|1000
-|Frequenz in Hertz
+|erstes `1000`
+|Frequenz des linken Kanals in Hertz
 
-|500
+|zweites `1000`
+|Frequenz des rechten Kanals in Hertz
+
+|`500`
 |Dauer in Millisekunden
 |===
+
+Da beide Kanäle dieselbe Frequenz erhalten, wird auf beiden Kanälen derselbe Ton
+ausgegeben.
+
+Die anschließende Pause sorgt dafür, dass unser Programm auf das Ende des Tons wartet.
 
 === Was ist eine Frequenz?
 
@@ -172,13 +194,13 @@ Probiere verschiedene Frequenzen aus:
 
 [source,basic]
 ----
-TONE 200,500
+PLAY TONE 200,200,500 : PAUSE 500
 
-TONE 500,500
+PLAY TONE 500,500,500 : PAUSE 500
 
-TONE 1000,500
+PLAY PLAY TONE 1000,1000,100 : PAUSE 1000,500 : PAUSE 500
 
-TONE 2000,500
+PLAY TONE 2000,2000,500 : PAUSE 500
 ----
 
 Wie verändert sich der Klang?
@@ -189,14 +211,14 @@ Die folgenden Frequenzen entsprechen ungefähr einer Tonleiter.
 
 [source,basic]
 ----
-TONE 262,500
-TONE 294,500
-TONE 330,500
-TONE 349,500
-TONE 392,500
-TONE 440,500
-TONE 494,500
-TONE 523,500
+PLAY TONE 262,262,500 : PAUSE 500
+PLAY TONE 294,294,500 : PAUSE 500
+PLAY TONE 330,330,500 : PAUSE 500
+PLAY TONE 349,349,500 : PAUSE 500
+PLAY TONE 392,392,500 : PAUSE 500
+PLAY TONE 440,440,500 : PAUSE 500
+PLAY TONE 494,494,500 : PAUSE 500
+PLAY TONE 523,523,500 : PAUSE 500
 ----
 
 Spiele das Programm ab.
@@ -213,7 +235,7 @@ SETPIN GP0,DOUT
 
 PIN(GP0)=1
 
-TONE 1000,500
+PLAY PLAY TONE 1000,1000,100 : PAUSE 1000,500 : PAUSE 500
 
 PIN(GP0)=0
 ----
@@ -228,20 +250,20 @@ DO
 
   FOR F=500 TO 1500 STEP 20
 
-    TONE F,10
+    PLAY TONE F,F,10 : PAUSE 10
 
   NEXT F
 
   FOR F=1500 TO 500 STEP -20
 
-    TONE F,10
+    PLAY TONE F,F,10 : PAUSE 10
 
   NEXT F
 
-LOOP
+LOOP WHILE INKEY$=""
 ----
 
-Die Tonhöhe steigt und fällt nun ständig.
+Die Tonhöhe steigt und fällt, bis eine Taste gedrückt wird.
 
 === Eine einfache Klingel
 
@@ -249,11 +271,11 @@ Viele Türklingeln verwenden zwei Töne.
 
 [source,basic]
 ----
-TONE 800,300
+PLAY TONE 800,800,300 : PAUSE 300
 
 PAUSE 50
 
-TONE 600,500
+PLAY TONE 600,600,500 : PAUSE 500
 ----
 
 Das ergibt:
@@ -269,7 +291,7 @@ Ding-Dong
 ----
 FOR I=1 TO 5
 
-  TONE 1000,100
+  PLAY TONE 1000,1000,100 : PAUSE 100
 
   PAUSE 100
 
@@ -291,11 +313,11 @@ Beispiel:
 
 [source,basic]
 ----
-TONE 262,500
+PLAY TONE 262,262,500 : PAUSE 500
 
-TONE 294,500
+PLAY TONE 294,294,500 : PAUSE 500
 
-TONE 330,500
+PLAY TONE 330,330,500 : PAUSE 500
 ----
 
 === Arrays für Notenfolgen
@@ -338,7 +360,7 @@ NOTE(8)=523
 
 FOR I=1 TO 8
 
-  TONE NOTE(I),400
+  PLAY TONE NOTE(I),NOTE(I),400 : PAUSE 400
 
 NEXT I
 ----
@@ -389,14 +411,14 @@ NOTE(5)=392
 NOTE(6)=440
 NOTE(7)=494
 
-TONE NOTE(1),400
-TONE NOTE(2),400
-TONE NOTE(3),400
-TONE NOTE(4),400
+PLAY TONE NOTE(1),NOTE(1),400 : PAUSE 400
+PLAY TONE NOTE(2),NOTE(2),400 : PAUSE 400
+PLAY TONE NOTE(3),NOTE(3),400 : PAUSE 400
+PLAY TONE NOTE(4),NOTE(4),400 : PAUSE 400
 
-TONE NOTE(5),800
+PLAY TONE NOTE(5),NOTE(5),800 : PAUSE 800
 
-TONE NOTE(5),800
+PLAY TONE NOTE(5),NOTE(5),800 : PAUSE 800
 ----
 
 Die Melodie ist noch nicht vollständig, aber bereits gut erkennbar.
@@ -411,37 +433,31 @@ DO
 
   INPUT A$
 
-  TONE 800,300
+  PLAY TONE 800,800,300 : PAUSE 300
 
   PAUSE 50
 
-  TONE 600,500
+  PLAY TONE 600,600,500 : PAUSE 500
 
-LOOP
+LOOP WHILE A$=CHR$(13)
 ----
 
 Jedes Drücken der ENTER-Taste löst die Klingel aus.
 
 === Mehr als nur Pieptöne
 
-Die in diesem Kapitel gezeigten Beispiele funktionieren bereits mit einem einfachen Piezo-Lautsprecher.
+`PLAY TONE` ist nur eine der Audiofunktionen von MMBasic.
 
-Viele MMBasic-Systeme bieten jedoch deutlich umfangreichere Audiofunktionen.
+Je nach MMBasic-System und verwendeter Hardware stehen weitere Möglichkeiten zur
+Verfügung, beispielsweise die Wiedergabe von Audiodateien oder andere Formen der
+Klangerzeugung.
 
-Je nach Hardware können Musikdateien abgespielt, mehrere Stimmen gleichzeitig erzeugt oder komplette Soundeffekte ausgegeben werden.
+Welche Audioausgänge und Funktionen zur Verfügung stehen, hängt vom jeweiligen
+Gerät ab. Deshalb sollte bei Audio-Projekten immer das Handbuch der verwendeten
+PicoMite- oder Colour-Maximite-Variante herangezogen werden.
 
-Für erste Experimente genügt ein einfacher Piezo-Summer vollkommen.
-
-[NOTE]
-====
-Einige MMBasic-Systeme besitzen zusätzliche Audiomöglichkeiten.
-
-Der Colour Maximite 2 verfügt über spezielle Hardware für die Audioausgabe und kann deutlich komplexere Klänge erzeugen als ein einfacher Piezo-Lautsprecher.
-
-Auch verschiedene PicoMite-Varianten unterstützen erweiterte Audiofunktionen über PWM, DACs oder externe Audiobausteine.
-
-Diese Themen würden den Rahmen dieses Kapitels sprengen und werden später separat behandelt.
-====
+Für dieses Kapitel genügt `PLAY TONE`, um die Grundlagen von Frequenz, Tonhöhe,
+Tondauer und einfachen Melodien kennenzulernen.
 
 === Wo werden Töne verwendet?
 
@@ -464,7 +480,7 @@ Wenn kein Ton hörbar ist:
 . Wird ein passiver Piezo verwendet?
 . Ist die Lautstärke ausreichend?
 . Wird die richtige Frequenz verwendet?
-. Unterstützt das verwendete System den TONE-Befehl?
+. Unterstützt das verwendete System `PLAY TONE` und ist die Audioausgabe richtig konfiguriert?
 
 === Experimentiere!
 
@@ -499,7 +515,7 @@ Im nächsten Kapitel werden wir daraus ein vollständiges elektronisches Spiel e
 
 [TIP]
 ====
-Der `TONE`-Befehl eignet sich nicht nur für Melodien. Kurze Signaltöne geben dem Benutzer eine akustische Rückmeldung, beispielsweise beim Drücken einer Taste, beim Erreichen eines Messwertes oder wenn ein Fehler aufgetreten ist. Schon ein einzelner kurzer Ton kann die Bedienung eines Programms deutlich angenehmer machen.
+Der `PLAY TONE`-Befehl eignet sich nicht nur für Melodien. Kurze Signaltöne geben dem Benutzer eine akustische Rückmeldung, beispielsweise beim Drücken einer Taste, beim Erreichen eines Messwertes oder wenn ein Fehler aufgetreten ist. Schon ein einzelner kurzer Ton kann die Bedienung eines Programms deutlich angenehmer machen.
 ====
 
 === Zusammenfassung
@@ -510,9 +526,9 @@ In diesem Kapitel hast du gelernt:
 * was Frequenzen bedeuten
 * wie Melodien programmiert werden
 * wie Arrays für Notenfolgen eingesetzt werden
-* wie Piezo-Lautsprecher verwendet werden
+* wie `PLAY TONE` zur Tonerzeugung verwendet wird
 
-Damit hast du die letzte wichtige Hardwarefunktion kennengelernt, die wir für unser nächstes Projekt benötigen.
+Damit hast du eine weitere wichtige MMBasic-Funktion kennengelernt, die wir für unser nächstes Projekt verwenden können.
 
 Im nächsten Kapitel entwickeln wir ein elektronisches Gedächtnisspiel nach dem Vorbild von Simon beziehungsweise Senso.
 
