@@ -342,12 +342,12 @@ DO
 
   NEXT H
 
-LOOP
+LOOP WHILE INKEY$=""
 ----
 
 Die LED wirkt nun, als würde sie atmen.
 
-=== PWM als analoger Ausgang
+=== PWM und die mittlere Ausgangsspannung
 
 PWM wird häufig verwendet, um analoge Spannungen zu simulieren.
 
@@ -394,13 +394,13 @@ PWM steuert die Helligkeit.
 
 Benötigt werden:
 
-* Potentiometer an GP26
+* Potentiometer an GP40
 * LED an GP0
 * Vorwiderstand 330 Ω
 
 [source]
 ----
-GP26 -> Potentiometer
+GP40 -> Potentiometer
 
 GP0 -> LED
 ----
@@ -409,14 +409,14 @@ GP0 -> LED
 
 [source,basic]
 
-SETPIN GP26,AIN
+SETPIN GP40,AIN
 SETPIN GP0,PWM0A
 
 DO
 
-WERT=PIN(GP26)
+WERT=PIN(GP40)
 
-HELLIGKEIT=WERT*100/1023
+HELLIGKEIT=WERT*100/3.3
 
 PWM 0,1000,HELLIGKEIT
 
@@ -430,14 +430,14 @@ Nun kann die Helligkeit der LED mit dem Potentiometer eingestellt werden.
 
 [source,basic]
 
-SETPIN GP26,AIN
+SETPIN GP40,AIN
 SETPIN GP0,PWM0A
 
 DO
 
-WERT=PIN(GP26)
+WERT=PIN(GP40)
 
-HELLIGKEIT=WERT*100/1023
+HELLIGKEIT=WERT*100/3.3
 
 PWM 0,1000,HELLIGKEIT
 
