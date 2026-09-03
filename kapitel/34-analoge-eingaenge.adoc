@@ -248,7 +248,27 @@ GP40
 
 Dieser Pin steht beim für das Beispiel verwendeten PicoMite HDMI/USB als ADC-Eingang zur Verfügung.
 
-Andere PicoMite-Varianten können andere ADC-Pins besitzen. Welche Pins verwendet werden können, findest du in der Pinbelegung bzw. im Handbuch deiner PicoMite-Version.
+Beim RP2350 hängt die Lage der ADC-Eingänge von der verwendeten Chipvariante ab:
+
+[cols="1,2",options="header"]
+|===
+| RP2350-Variante
+| ADC-Pins
+
+| RP2350A
+| GP26 bis GP29
+
+| RP2350B
+| GP40 bis GP47
+|===
+
+Der in diesem Tutorial verwendete PicoMite HDMI/USB besitzt einen RP2350B. Deshalb verwenden wir für unsere Beispiele GP40.
+
+Bei einem PicoMite mit RP2350A muss stattdessen ein geeigneter ADC-Pin aus dem Bereich GP26 bis GP29 verwendet werden.
+
+NOTE: Welche GPIO-Pins als ADC-Eingänge zur Verfügung stehen, hängt von
+der verwendeten Hardware ab. Prüfe deshalb im Zweifelsfall die Pinbelegung
+deines PicoMite.
 
 === Anschluss am Colour Maximite 2
 
@@ -290,6 +310,56 @@ Der Messbereich reicht von ungefähr:
 0.0
 bis
 3.3
+----
+
+=== GPIO-Nummer und Pinnummer
+
+In den bisherigen Beispielen verwenden wir direkt die GPIO-Bezeichnung:
+
+[source,basic]
+----
+SETPIN GP40,AIN
+WERT=PIN(GP40)
+----
+
+Dabei bezeichnet `GP40` den GPIO-Pin. `PIN()` ist dagegen eine
+MMBasic-Funktion, mit der der Wert eines Pins gelesen wird.
+
+Bei vielen MMBasic-Befehlen kann die `GPxx`-Schreibweise direkt verwendet
+werden. Es gibt jedoch auch Situationen, in denen eine numerische
+Pinnummer benötigt wird.
+
+Mit `MM.INFO(PINNO GP40)` kann die GPIO-Bezeichnung in die entsprechende
+Pinnummer umgewandelt werden:
+
+[source,basic]
+----
+PRINT MM.INFO(PINNO GP40)
+----
+
+Bei größeren Programmen kann es sinnvoll sein, die verwendeten Pins am
+Anfang des Programms als Konstanten festzulegen:
+
+[source,basic]
+----
+CONST VinPin=MM.INFO(PINNO GP40)
+
+SETPIN VinPin,AIN
+Battery=PIN(VinPin)
+
+PRINT Battery
+----
+
+Dadurch wird die Hardwarebelegung an einer zentralen Stelle im Programm
+festgelegt. Soll später ein anderer Pin verwendet werden, muss nur die
+Definition der Konstanten geändert werden.
+
+Für unsere einfachen Beispiele verwenden wir weiterhin direkt `GP40`:
+
+[source,basic]
+----
+SETPIN GP40,AIN
+WERT=PIN(GP40)
 ----
 
 === Unser erstes Messprogramm
