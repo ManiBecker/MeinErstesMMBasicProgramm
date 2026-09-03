@@ -10,15 +10,17 @@ In diesem Kapitel lernst du:
 * den Unterschied zwischen digitalen und analogen Eingängen
 * wie ein Analog-Digital-Wandler arbeitet
 * wie ein Potentiometer angeschlossen wird
-* analoge Werte einzulesen
+* analoge Spannungen einzulesen
+* Messwerte in Prozent umzurechnen
 * Messwerte grafisch darzustellen
+* mehrere Messungen zu mitteln
 * analoge Sensoren auszuwerten
 
 Am Ende des Kapitels kannst du kontinuierliche Messwerte erfassen und für eigene Projekte verwenden.
 
 === Von der Ampel zur Messtechnik
 
-Bisher kannten unsere Programme nur zwei Zustände:
+Bisher kannten unsere Programme bei Eingängen hauptsächlich zwei Zustände:
 
 * Ein
 * Aus
@@ -29,7 +31,7 @@ Ein Temperaturfühler liefert beispielsweise nicht nur "warm" oder "kalt".
 
 Ein Potentiometer kennt nicht nur "links" oder "rechts".
 
-Stattdessen werden kontinuierliche Messwerte erfasst.
+Stattdessen können sich die Messwerte kontinuierlich verändern.
 
 Genau dafür gibt es analoge Eingänge.
 
@@ -45,7 +47,7 @@ Ein digitaler Eingang kennt nur zwei Zustände:
 1
 ----
 
-Das genügt für:
+Das genügt zum Beispiel für:
 
 * Taster
 * Schalter
@@ -78,15 +80,15 @@ Aus
 
 Das entspricht einem digitalen Signal.
 
-Ein Lichtdimmer dagegen kann viele Zwischenstellungen besitzen.
+Ein Lichtdimmer dagegen kann viele Zwischenstellungen besitzen:
 
 [source]
 ----
-0%
-10%
-20%
+0 %
+10 %
+20 %
 ...
-100%
+100 %
 ----
 
 Das entspricht einem analogen Signal.
@@ -95,24 +97,22 @@ Das entspricht einem analogen Signal.
 
 Ein analoger Eingang misst eine Spannung.
 
-Beim PicoMite und Colour Maximite 2 liegt diese typischerweise zwischen:
+Beim PicoMite und Colour Maximite 2 reicht der Messbereich der analogen Eingänge von:
 
 [source]
 ----
 0 Volt
-und
+bis
 3,3 Volt
 ----
 
-Jede Spannung innerhalb dieses Bereichs kann gemessen werden.
+IMPORTANT: An einem analogen Eingang darf keine Spannung über 3,3 V anliegen. Höhere Spannungen müssen beispielsweise mit einem geeigneten Spannungsteiler reduziert werden.
 
 === Der Analog-Digital-Wandler
 
-Ein Mikrocontroller arbeitet intern digital.
+Ein Mikrocontroller arbeitet intern digital. Eine analoge Spannung muss deshalb zunächst in einen digitalen Wert umgewandelt werden.
 
-Er kann keine analogen Spannungen direkt verarbeiten.
-
-Deshalb besitzt er einen sogenannten:
+Dafür besitzt er einen sogenannten:
 
 [source]
 ----
@@ -126,69 +126,78 @@ oft auch kurz:
 A/D-Wandler
 ----
 
+oder:
+
+[source]
+----
+ADC
+----
+
 genannt.
+
+ADC steht für _Analog-to-Digital Converter_.
 
 === Was macht ein A/D-Wandler?
 
-Der A/D-Wandler misst die anliegende Spannung.
+Der A/D-Wandler misst die anliegende Spannung und wandelt sie intern in einen digitalen Wert um.
 
-Anschließend wandelt er diese in einen Zahlenwert um.
+MMBasic nimmt uns bei einem mit `AIN` konfigurierten Eingang die weitere Umrechnung ab: Die Funktion `PIN()` liefert die gemessene Spannung direkt in Volt zurück.
 
-Beispielsweise:
+Beispiele:
 
 [cols="1,2"]
 |===
-|Spannung |Messwert
+|Spannung am Eingang |Rückgabewert von `PIN()`
 
 |0,0 V
-|0
+|0.0
 
 |1,65 V
-|512
+|etwa 1.65
 
 |3,3 V
-|1023
+|etwa 3.3
 |===
 
-=== Warum gerade 1023?
+Wir müssen den internen ADC-Zahlenwert für normale Spannungsmessungen also nicht selbst auswerten.
 
-Viele Mikrocontroller verwenden einen 10-Bit-A/D-Wandler.
+==== Zusatzwissen: Rohwert beim PicoMite
 
-10 Bit ergeben:
+Beim PicoMite kann ein ADC-Eingang alternativ mit `ARAW` konfiguriert werden:
+
+[source,basic]
+----
+SETPIN GP40,ARAW
+----
+
+In diesem Modus liefert `PIN()` einen einzelnen, unbearbeiteten ADC-Messwert im Bereich:
 
 [source]
 ----
-2^10 = 1024
+0 bis 4095
 ----
 
-verschiedene Werte.
+Für unsere Beispiele verwenden wir jedoch `AIN`, weil wir damit direkt mit Spannungen in Volt arbeiten können.
 
-Da bei 0 begonnen wird, lautet der Bereich:
-
-[source]
-----
-0 bis 1023
-----
+NOTE: `ARAW` ist eine PicoMite-Funktion. Beim Colour Maximite 2 verwenden wir für die hier gezeigten Messungen `AIN`.
 
 === Das Potentiometer
 
 Für erste Experimente eignet sich ein Potentiometer hervorragend.
 
-Ein Potentiometer ist ein verstellbarer Widerstand.
-
-Es besitzt drei Anschlüsse.
+Ein Potentiometer ist ein verstellbarer Widerstand. Es besitzt drei Anschlüsse.
 
 [source]
 ----
-3.3V ----+
-          \
-           ) Potentiometer
-          /
-GND  -----+
+3,3 V ----+
+           \
+            ) Potentiometer
+           /
+GND  ------+
 
 Mittelanschluss
      |
-     +---- Analog Eingang
+     +---- Analogeingang
 ----
 
 === Das Potentiometer als Spannungsteiler
@@ -201,23 +210,21 @@ Beispiele:
 ----
 Linksanschlag     0,0 V
 
-Mittelstellung    1,65 V
+Mittelstellung    etwa 1,65 V
 
-Rechtsanschlag    3,3 V
+Rechtsanschlag    etwa 3,3 V
 ----
 
-Der Analog-Eingang kann diese Spannung messen.
+Der Analogeingang kann diese Spannung messen.
 
 === Geeignete Potentiometer
 
-Für unsere Versuche eignen sich:
+Für unsere Versuche eignen sich Potentiometer beispielsweise im Bereich:
 
 [source]
 ----
 1 kΩ bis 100 kΩ
 ----
-
-besonders gut.
 
 Sehr häufig verwendet werden:
 
@@ -230,60 +237,59 @@ Potentiometer.
 
 === Anschluss am PicoMite
 
-Viele PicoMite-Varianten besitzen analoge Eingänge.
+Für einen analogen Eingang muss ein Pin verwendet werden, der beim jeweiligen PicoMite als ADC-Eingang zur Verfügung steht.
 
-Beispielsweise:
+In unserem Beispielprogramm verwenden wir:
 
 [source]
 ----
-GP26
-GP27
-GP28
 GP40
 ----
 
-Diese Pins sind gleichzeitig ADC-Eingänge.
+Dieser Pin steht beim für das Beispiel verwendeten PicoMite HDMI/USB als ADC-Eingang zur Verfügung.
+
+Andere PicoMite-Varianten können andere ADC-Pins besitzen. Welche Pins verwendet werden können, findest du in der Pinbelegung bzw. im Handbuch deiner PicoMite-Version.
 
 === Anschluss am Colour Maximite 2
 
-Der Colour Maximite 2 besitzt ebenfalls mehrere analoge Eingänge.
+Der Colour Maximite 2 besitzt ebenfalls analoge Eingänge.
 
-Die genaue Pinnummer hängt vom verwendeten Anschluss ab.
+Dort werden die entsprechenden Pinnummern anstelle von `GP40` verwendet. Die genaue Pinbelegung findest du im Handbuch des Colour Maximite 2.
 
-Details findest du im Handbuch deines Systems.
+=== Einen Analogeingang konfigurieren
 
-=== Einen Analog-Eingang konfigurieren
-
-PicoMite:
+Beim PicoMite konfigurieren wir unseren Beispielpin so:
 
 [source,basic]
 ----
 SETPIN GP40,AIN
 ----
 
-Das Kürzel bedeutet:
+Das Kürzel `AIN` bedeutet:
 
 [source]
 ----
-AIN
-=
 Analog Input
 ----
 
-=== Den Messwert lesen
+=== Die Spannung lesen
+
+Anschließend kann die Spannung mit `PIN()` gelesen werden:
 
 [source,basic]
 ----
 WERT=PIN(GP40)
 ----
 
-Der Rückgabewert liegt typischerweise zwischen:
+Bei `AIN` liefert `PIN()` die gemessene Spannung direkt in Volt.
+
+Der Messbereich reicht von ungefähr:
 
 [source]
 ----
-0
-und
-1023
+0.0
+bis
+3.3
 ----
 
 === Unser erstes Messprogramm
@@ -293,68 +299,68 @@ und
 SETPIN GP40,AIN
 
 DO
-
   PRINT PIN(GP40)
-
   PAUSE 200
-
 LOOP WHILE INKEY$=""
 ----
 
-Drehst du am Potentiometer, ändern sich die Werte.
+Drehst du am Potentiometer, ändern sich die angezeigten Spannungswerte.
 
 Beispiel:
 
 [source]
 ----
-12
-97
-348
-512
-734
-1001
+0.124
+0.736
+1.648
+2.315
+3.102
 ----
+
+Mit einer Taste wird die Schleife beendet.
 
 === Was bedeutet der Messwert?
 
-Je größer die gemessene Spannung ist, desto größer wird der Zahlenwert.
+Je größer die Spannung am Analogeingang ist, desto größer ist der von `PIN()` zurückgegebene Spannungswert.
 
 [cols="1,2"]
 |===
 |Wert |Bedeutung
 
-|0
+|0.0
 |0 Volt
 
-|512
-|etwa halbe Spannung
+|etwa 1.65
+|etwa halbe Eingangsspannung
 
-|1023
-|maximale Spannung
+|etwa 3.3
+|maximale Eingangsspannung
 |===
 
 === Messwerte auf Prozent umrechnen
 
 Häufig sind Prozentwerte einfacher zu verstehen.
 
+Bei einem Messbereich von 0 bis 3,3 V können wir die Spannung so in Prozent umrechnen:
+
 [source,basic]
 ----
-PROZENT=WERT*100/1023
+PROZENT=WERT*100/3.3
 ----
 
 Beispiele:
 
 [cols="1,2"]
 |===
-|Messwert |Prozent
+|Spannung |Prozent
 
-|0
+|0,0 V
 |0 %
 
-|512
+|1,65 V
 |50 %
 
-|1023
+|3,3 V
 |100 %
 |===
 
@@ -365,19 +371,14 @@ Beispiele:
 SETPIN GP40,AIN
 
 DO
-
   WERT=PIN(GP40)
-
-  PROZENT=WERT*100/1023
-
-  CLS
-
+  PROZENT=WERT*100/3.3
   PRINT INT(PROZENT);" %"
-
   PAUSE 200
-
 LOOP WHILE INKEY$=""
 ----
+
+Nun wird die Stellung des Potentiometers als Prozentwert angezeigt.
 
 === Eine grafische Balkenanzeige
 
@@ -390,19 +391,13 @@ MODE 2
 SETPIN GP40,AIN
 
 DO
-
   WERT=PIN(GP40)
-
-  BREITE=WERT*MM.HRES/1023
-
-  CLS RGB(BLACK)
+  BREITE=WERT*MM.HRES/3.3
 
   BOX 20,50,BREITE,40,0,RGB(GREEN),RGB(GREEN)
-
-  TEXT 20,110,STR$(INT(WERT*100/1023))+" %"
+  TEXT 20,110,STR$(INT(WERT*100/3.3))+" %"
 
   PAUSE 50
-
 LOOP WHILE INKEY$=""
 ----
 
@@ -410,53 +405,53 @@ Der Balken wächst und schrumpft nun beim Drehen des Potentiometers.
 
 === Schwankende Messwerte
 
-Manche Sensoren liefern leicht schwankende Werte.
+Auch bei einer eigentlich konstanten Eingangsspannung können Messwerte leicht schwanken.
 
 Beispielsweise:
 
 [source]
 ----
-512
-513
-511
-514
-512
+1.648
+1.651
+1.647
+1.652
+1.650
 ----
 
-Das ist völlig normal.
+Das ist bei analogen Messungen normal.
 
-Ursachen können sein:
+Ursachen können beispielsweise sein:
 
 * elektrisches Rauschen
-* Versorgungsspannung
+* kleine Schwankungen der Versorgungsspannung
 * Sensorungenauigkeiten
+
+Beim PicoMite führt MMBasic bei `AIN` bereits mehrere Messungen durch. Der Eingang wird zehnmal abgetastet. Die beiden höchsten und die beiden niedrigsten Werte werden verworfen und die verbleibenden sechs Werte gemittelt.
+
+Dadurch ist der von `PIN()` gelieferte Spannungswert bereits geglättet.
 
 === Mehrere Messungen mitteln
 
-Um stabilere Werte zu erhalten, kann man mehrere Messungen mitteln.
+Falls wir eine noch stärkere Glättung benötigen, können wir zusätzlich mehrere mit `PIN()` gelesene Spannungswerte mitteln.
 
 [source,basic]
 ----
+SETPIN GP40,AIN
+
 SUMME=0
 
 FOR I=1 TO 10
-
   WERT=PIN(GP40)
-
   PRINT WERT
-
   SUMME=SUMME+WERT
-
   PAUSE 200
-
 NEXT I
 
 WERT=SUMME/10
-
 PRINT WERT
 ----
 
-Dadurch werden Schwankungen reduziert.
+Das Programm zeigt zunächst die zehn einzelnen Spannungswerte an. Anschließend wird deren Mittelwert berechnet und ausgegeben.
 
 === Praxisprojekt: Elektronische Tankanzeige
 
@@ -470,7 +465,7 @@ Potentiometer
 =
 Tankgeber
 
-Messwert
+Spannung
 =
 Tankinhalt
 ----
@@ -484,39 +479,26 @@ MODE 2
 SETPIN GP40,AIN
 
 DO
-
   WERT=PIN(GP40)
+  PROZENT=WERT*100/3.3
 
-  PROZENT=WERT*100/1023
-
-  CLS RGB(BLACK)
-
-  TEXT MM.HRES/2,20,      _
-       "Tankanzeige",     _
-       "CT"
+  TEXT MM.HRES/2,20,"Tankanzeige","CT"
 
   BOX 40,80,200,30
 
-  BOX 40,80,              _
-      PROZENT*2,30,       _
-      0,                  _
-      RGB(GREEN),         _
-      RGB(GREEN)
+  BOX 40,80,PROZENT*2,30,0,RGB(GREEN),RGB(GREEN)
 
-  TEXT MM.HRES/2,140,     _
-       STR$(INT(PROZENT))+" %", _
-       "CT"
+  TEXT MM.HRES/2,140,STR$(INT(PROZENT))+" %","CT"
 
   PAUSE 100
-
 LOOP WHILE INKEY$=""
 ----
 
-Beim Drehen des Potentiometers verändert sich nun der Tankfüllstand.
+Beim Drehen des Potentiometers verändert sich nun der angezeigte Tankfüllstand.
 
 === Wo werden analoge Eingänge verwendet?
 
-Analoge Eingänge findet man überall:
+Analoge Eingänge findet man in vielen Anwendungen:
 
 * Temperaturfühler
 * Helligkeitssensoren
@@ -533,9 +515,10 @@ Sie gehören zu den wichtigsten Funktionen moderner Mikrocontroller.
 Wenn keine sinnvollen Werte erscheinen:
 
 . Ist das Potentiometer richtig angeschlossen?
-. Wurde der richtige ADC-Pin verwendet?
+. Wurde ein für Analogmessungen geeigneter ADC-Pin verwendet?
 . Wurde `SETPIN ...,AIN` aufgerufen?
 . Sind 3,3 V und GND korrekt verbunden?
+. Liegt die Eingangsspannung wirklich zwischen 0 und 3,3 V?
 
 === Experimentiere!
 
@@ -550,21 +533,25 @@ Probiere folgende Änderungen aus:
 
 Versuche folgende Aufgaben:
 
-. Baue eine Temperaturanzeige mit einem geeigneten Sensor.
+. Baue eine Temperaturanzeige mit einem geeigneten analogen Sensor.
 . Zeichne einen horizontalen Balken.
 . Zeichne einen vertikalen Balken.
 . Erstelle eine Tankwarnung unter 20 %.
-. Zeige den Messwert zusätzlich als Zahl an.
+. Zeige den Messwert zusätzlich als Spannung in Volt an.
 
 === Zusammenfassung
 
 In diesem Kapitel hast du gelernt:
 
 * was analoge Signale sind
-* wie ein A/D-Wandler arbeitet
-* wie analoge Eingänge verwendet werden
-* wie ein Potentiometer angeschlossen wird
-* wie Messwerte verarbeitet werden
+* wozu ein A/D-Wandler benötigt wird
+* wie ein Analogeingang mit `AIN` konfiguriert wird
+* dass `PIN()` bei `AIN` die gemessene Spannung direkt in Volt liefert
+* wie ein Potentiometer als Spannungsteiler angeschlossen wird
+* wie Spannungswerte in Prozent umgerechnet werden
+* wie Messwerte grafisch dargestellt und zusätzlich gemittelt werden
+
+Beim PicoMite hast du außerdem `ARAW` als Möglichkeit kennengelernt, den direkten ADC-Rohwert von 0 bis 4095 einzulesen.
 
 Damit kann dein Mikrocontroller nun nicht nur digitale Zustände erkennen, sondern auch kontinuierliche Messwerte erfassen.
 
