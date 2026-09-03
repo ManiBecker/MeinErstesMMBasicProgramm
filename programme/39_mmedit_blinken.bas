@@ -8,7 +8,14 @@ REM Datum: 27.07.2026
 REM
 REM Beschreibung:
 REM
-REM Hardware/Voraussetzungen: keine/PicoMite/ColourMaxiMite
+REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
 REM
 REM ====================================================================
 
+DO
+
+  PRINT "Hallo MMBasic"
+
+  PAUSE 1000
+
+LOOP
