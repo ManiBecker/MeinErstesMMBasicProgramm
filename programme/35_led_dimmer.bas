@@ -32,7 +32,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "9. PWM-AusgC$nge konfigurieren"
+Print "9. PWM-Ausgaenge konfigurieren"
 Print "Bevor ein GPIO-Pin verwendet werden kann, muss er einem "
 Print "PWM-Kanal zugeordnet werden."
 Print "Beispiel:"
@@ -98,7 +98,7 @@ Print
 Print "PWM 1,1000,50"
 Print "Dadurch wird auf dem ersten PWM-Ausgang ein Signal mit:"
 Print "- 1000 Hz"
-Print "- 50 % TastverhC$ltnis"
+Print "- 50 % Tastverhaeltnis"
 Print "erzeugt."
 Print "Die Grundidee ist auf beiden Plattformen identisch."
 Print
@@ -179,7 +179,7 @@ Print "Press any key...": Do : Loop While Inkey$=""
 CLS
 Print "17. PWM als analoger Ausgang"
 Print
-Print "PWM wird hC$ufig verwendet, um analoge Spannungen zu simulieren."
+Print "PWM wird haeufig verwendet, um analoge Spannungen zu simulieren."
 Print "Betrachten wir folgende Werte:"
 Print "PWM Mittlere Spannung"
 Print "0 % 0,0 V"
@@ -201,7 +201,7 @@ Print "- Luefterregelungen"
 Print "- Servoansteuerungen"
 Print "- Audioausgabe"
 Print "- Netzteile"
-Print "Es gehC6rt zu den wichtigsten Techniken moderner Mikrocontroller."
+Print "Es gehoert zu den wichtigsten Techniken moderner Mikrocontroller."
 Print
 
 Print "Press any key...": Do : Loop While Inkey$=""
