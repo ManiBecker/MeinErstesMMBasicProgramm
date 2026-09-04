@@ -461,32 +461,57 @@ Unser Mystify-Programm zeichnet zwei vierseitige Figuren. Die vier Eckpunkte jed
 
 ==== Die wichtigsten Einstellungen
 
-Am Anfang legen wir drei Konstanten fest:
+Das Abschlussprojekt verwendet zunächst `OPTION BASE 0`. Damit ist ausdrücklich festgelegt, dass die Arrayindizes bei `0` beginnen:
 
 [source,basic]
 ----
-CONST cFigures = 2
-CONST cTrail   = 7
-CONST cSpeed   = 10
+OPTION BASE 0
 ----
 
-`cFigures` bestimmt die Anzahl der gleichzeitig bewegten Figuren. `cTrail` legt fest, wie viele Positionen für den Nachzieheffekt gespeichert werden. `cSpeed` gibt die maximale Geschwindigkeit eines Eckpunktes an.
+Anschließend legen wir fünf Konstanten fest:
 
-Durch diese Konstanten können wir das Verhalten des Bildschirmschoners später leicht verändern.
+[source,basic]
+----
+CONST cFigures   = 2
+CONST cTrail     = 5
+CONST cSpeed     = 10
+CONST cDelay     = 50
+CONST cBackColor = RGB(BLACK)
+----
+
+`cFigures` bestimmt die Anzahl der gleichzeitig bewegten Figuren. `cTrail` gibt an, wie viele Positionen einer Figur sichtbar bleiben. `cSpeed` legt die maximale Geschwindigkeit eines Eckpunktes fest. Mit `cDelay` bestimmen wir die Pause zwischen zwei Bildern und `cBackColor` enthält die Hintergrundfarbe.
+
+Das Programm verwendet `MODE 3` und löscht den Bildschirm zu Beginn mit der festgelegten Hintergrundfarbe:
+
+[source,basic]
+----
+MODE 3
+CLS cBackColor
+----
+
+Durch die Konstanten können wir das Verhalten des Bildschirmschoners später leicht verändern.
 
 ==== Vier bewegte Eckpunkte
 
-Eine Figur besteht aus vier Eckpunkten. Für jeden Punkt benötigen wir eine X- und eine Y-Koordinate. Zusätzlich speichern wir nicht nur die aktuelle Position, sondern auch die letzten Positionen:
+Eine Figur besteht aus vier Eckpunkten. Für jeden Punkt benötigen wir eine X- und eine Y-Koordinate. Zusätzlich speichern wir nicht nur die aktuelle Position, sondern auch frühere Positionen:
 
 [source,basic]
 ----
-DIM aX1(cFigures-1,cTrail-1), aY1(cFigures-1,cTrail-1)
-DIM aX2(cFigures-1,cTrail-1), aY2(cFigures-1,cTrail-1)
-DIM aX3(cFigures-1,cTrail-1), aY3(cFigures-1,cTrail-1)
-DIM aX4(cFigures-1,cTrail-1), aY4(cFigures-1,cTrail-1)
+DIM aX1(cFigures-1,cTrail), aY1(cFigures-1,cTrail)
+DIM aX2(cFigures-1,cTrail), aY2(cFigures-1,cTrail)
+DIM aX3(cFigures-1,cTrail), aY3(cFigures-1,cTrail)
+DIM aX4(cFigures-1,cTrail), aY4(cFigures-1,cTrail)
 ----
 
-Hier verwenden wir zweidimensionale Arrays. Der erste Index bezeichnet die Figur, der zweite Index eine Position im Nachziehspeicher.
+Hier verwenden wir zweidimensionale Arrays. Der erste Index bezeichnet die Figur. Weil `cFigures=2` ist und die Indizes bei `0` beginnen, reichen die Figurenindizes von `0` bis `cFigures-1`, also von `0` bis `1`.
+
+Der zweite Index bezeichnet die Position im Nachziehspeicher. Dabei hat er eine besondere Bedeutung:
+
+* Index `0` enthält die aktuelle Position.
+* Die Indizes `1` bis `cTrail-1` enthalten die sichtbaren älteren Positionen.
+* Index `cTrail` enthält die älteste Position, die im nächsten Bild gelöscht wird.
+
+Bei `cTrail=5` sind damit fünf Positionen sichtbar. Der zusätzliche Arrayplatz mit dem Index `5` wird zum Löschen der ältesten Position benötigt.
 
 Zum Beispiel bezeichnet
 
@@ -496,6 +521,15 @@ aX1(0,0)
 ----
 
 die aktuelle X-Koordinate des ersten Eckpunktes der ersten Figur. `aX1(0,1)` enthält dagegen dessen vorherige Position.
+
+Auch die Farbe wird für jede gespeicherte Position abgelegt:
+
+[source,basic]
+----
+DIM aC(cFigures-1,cTrail)
+----
+
+Dadurch kann ein Farbwechsel zusammen mit der Figur durch den Nachzieheffekt wandern.
 
 Die Geschwindigkeiten müssen wir nur für die aktuellen Eckpunkte speichern:
 
@@ -508,6 +542,34 @@ DIM aDX4(cFigures-1), aDY4(cFigures-1)
 ----
 
 Die älteren Positionen werden nur noch gezeichnet. Sie bewegen sich nicht mehr und benötigen deshalb keine eigenen Geschwindigkeiten.
+
+==== Die Startwerte
+
+Für jede Figur werden zunächst zufällige Startpositionen für alle vier Eckpunkte erzeugt. Auch die Geschwindigkeiten und Bewegungsrichtungen werden zufällig gewählt.
+
+Die erste Farbe wird so erzeugt:
+
+[source,basic]
+----
+aC(i,0)=RGB(INT(RND*200)+55, _
+             INT(RND*200)+55, _
+             INT(RND*200)+55)
+----
+
+Durch `+55` werden sehr dunkle Farbanteile vermieden. Anschließend werden alle Plätze des Nachziehspeichers mit derselben Startposition und derselben Farbe gefüllt:
+
+[source,basic]
+----
+FOR j=1 TO cTrail
+  aX1(i,j)=aX1(i,0) : aY1(i,j)=aY1(i,0)
+  aX2(i,j)=aX2(i,0) : aY2(i,j)=aY2(i,0)
+  aX3(i,j)=aX3(i,0) : aY3(i,j)=aY3(i,0)
+  aX4(i,j)=aX4(i,0) : aY4(i,j)=aY4(i,0)
+  aC(i,j)=aC(i,0)
+NEXT j
+----
+
+So enthält der Speicher beim Start keine uninitialisierten alten Positionen.
 
 ==== Aus vier Punkten wird eine Figur
 
@@ -523,46 +585,50 @@ LINE aX4(i,j),aY4(i,j),aX1(i,j),aY1(i,j),1,col
 
 Die letzte Linie verbindet den vierten Punkt wieder mit dem ersten und schließt die Figur. Da sich alle vier Eckpunkte unabhängig bewegen, ändert sich ihre Form ständig.
 
-==== Der Nachzieheffekt
+==== Zeichnen und die älteste Figur löschen
 
-Der entscheidende Unterschied zu unseren bisherigen Animationen ist der Nachziehspeicher. Nach jedem Bild werden die gespeicherten Positionen um einen Platz nach hinten verschoben:
+Anders als bei den bisherigen Beispielen löschen wir den Bildschirm nicht in jedem Schleifendurchlauf mit `CLS`. Stattdessen zeichnen wir zuerst die älteste gespeicherte Position in der Hintergrundfarbe. Dadurch wird nur diese eine alte Figur entfernt:
 
 [source,basic]
 ----
-FOR j=cTrail-1 TO 1 STEP -1
+FOR j=cTrail TO 0 STEP -1
+  IF j=cTrail THEN
+    col=cBackColor
+  ELSE
+    col=aC(i,j)
+  ENDIF
+
+  ... Figur mit col zeichnen ...
+NEXT j
+----
+
+Die Schleife läuft vom ältesten zum neuesten Eintrag. Der Index `cTrail` wird in der Hintergrundfarbe gezeichnet und damit gelöscht. Die Indizes `0` bis `cTrail-1` werden dagegen in ihren gespeicherten Farben gezeichnet.
+
+==== Der Nachzieheffekt
+
+Nach dem Zeichnen werden die gespeicherten Positionen um einen Platz nach hinten verschoben:
+
+[source,basic]
+----
+FOR j=cTrail TO 1 STEP -1
   aX1(i,j)=aX1(i,j-1)
   aY1(i,j)=aY1(i,j-1)
   ...
+  aC(i,j)=aC(i,j-1)
 NEXT j
 ----
 
 Die Schleife läuft absichtlich rückwärts. Würden wir bei `1` beginnen, würden wir einen Wert überschreiben, bevor er an die nächste Position kopiert wurde.
 
-Nach dem Verschieben steht der Index `0` wieder für die aktuelle Position. Die höheren Indizes enthalten immer ältere Zustände der Figur.
+Dabei wird nicht nur die Position, sondern auch die zugehörige Farbe weitergeschoben. Nach dem Verschieben bleibt Index `0` für die neue aktuelle Position reserviert; die höheren Indizes enthalten immer ältere Zustände der Figur.
 
-==== Die älteste Figur wieder löschen
-
-Anders als bei den bisherigen Beispielen löschen wir den Bildschirm nicht mit `CLS`. Stattdessen wird nur die älteste gespeicherte Figur mit schwarzer Farbe überzeichnet:
-
-[source,basic]
-----
-IF j=cTrail-1 THEN
-  col=RGB(BLACK)
-ELSE
-  col=aC(i)
-ENDIF
-----
-
-Anschließend werden die übrigen Positionen wieder in der aktuellen Farbe gezeichnet. So verschwinden alte Linien nach und nach, ohne dass der gesamte Bildschirm neu aufgebaut werden muss.
-
-Das ist das Grundprinzip des Nachzieheffekts:
+Das Grundprinzip lautet damit:
 
 [source]
 ----
-neue Position zeichnen
-ältere Positionen behalten
 älteste Position löschen
-Positionen im Speicher verschieben
+aktuelle und ältere Positionen zeichnen
+Positionen und Farben im Speicher verschieben
 Eckpunkte bewegen
 ----
 
@@ -580,29 +646,33 @@ Beim Erreichen eines Bildschirmrandes wird der Punkt auf den zulässigen Rand ge
 
 [source,basic]
 ----
-IF aX1(i,0)<0 THEN _
-  aX1(i,0)=0 : aDX1(i)=INT(RND*cSpeed)+1
+IF aX1(i,0)<0 THEN
+  aX1(i,0)=0
+  aDX1(i)=INT(RND*cSpeed)+1
+ENDIF
 
-IF aX1(i,0)>MM.HRES-1 THEN _
-  aX1(i,0)=MM.HRES-1 : aDX1(i)=-(INT(RND*cSpeed)+1)
+IF aX1(i,0)>MM.HRES-1 THEN
+  aX1(i,0)=MM.HRES-1
+  aDX1(i)=-(INT(RND*cSpeed)+1)
+ENDIF
 ----
 
-Dadurch ändert sich beim Aufprall nicht nur die Bewegungsrichtung, sondern gelegentlich auch die Geschwindigkeit. Das sorgt dafür, dass die Animation weniger regelmäßig wirkt.
+Dadurch ändert sich beim Aufprall nicht nur die Bewegungsrichtung, sondern auch die Geschwindigkeit. Das sorgt dafür, dass die Animation weniger regelmäßig wirkt.
 
 ==== Zufällige Farbwechsel
 
-Jede Figur besitzt eine eigene Farbe. Gelegentlich wird eine neue Farbe erzeugt:
+Jede aktuelle Figur besitzt eine Farbe in `aC(i,0)`. Gelegentlich wird eine neue Farbe erzeugt:
 
 [source,basic]
 ----
 IF INT(RND*100)=0 THEN
-  aC(i)=RGB(INT(RND*200)+55, _
-            INT(RND*200)+55, _
-            INT(RND*200)+55)
+  aC(i,0)=RGB(INT(RND*200)+55, _
+               INT(RND*200)+55, _
+               INT(RND*200)+55)
 ENDIF
 ----
 
-Die Bedingung ist nur selten erfüllt. Deshalb bleibt eine Farbe eine Weile erhalten, bevor sie wechselt. Durch `+55` werden sehr dunkle Farbanteile vermieden, damit die Linien auf dem schwarzen Hintergrund gut sichtbar bleiben.
+Die Bedingung ist nur selten erfüllt. Deshalb bleibt eine Farbe eine Weile erhalten, bevor sie wechselt. Weil die Farbe zusammen mit den Positionen im Array nach hinten geschoben wird, läuft auch der Farbwechsel durch den Nachzieheffekt.
 
 ==== Die Hauptschleife
 
@@ -612,11 +682,11 @@ Die Animation läuft so lange, bis eine Taste gedrückt wird:
 ----
 DO
   ...
-  PAUSE 50
+  PAUSE cDelay
 LOOP WHILE INKEY$=""
 ----
 
-Damit unterscheidet sich das Abschlussprojekt von den kleinen Endlosbeispielen am Anfang des Kapitels: Der Bildschirmschoner kann jederzeit durch einen Tastendruck beendet werden.
+Mit `cDelay=50` wartet das Programm zwischen zwei Bildern 50 Millisekunden. Der Bildschirmschoner kann jederzeit durch einen Tastendruck beendet werden.
 
 ==== Was kommt hier alles zusammen?
 
@@ -633,7 +703,7 @@ Im Mystify-Projekt verwenden wir fast alle Techniken dieses Kapitels gleichzeiti
 * gespeicherte ältere Positionen für einen Nachzieheffekt
 * Beenden einer Animation mit `INKEY$`
 
-Das vollständige Programm findest du in `26_animation_2.bas`. Probiere anschließend ruhig andere Werte für `cFigures`, `cTrail` und `cSpeed` aus. Schon kleine Änderungen erzeugen deutlich andere Muster.
+Das vollständige Programm findest du in `26_animation_2.bas`. Probiere anschließend ruhig andere Werte für `cFigures`, `cTrail`, `cSpeed` und `cDelay` aus. Schon kleine Änderungen erzeugen deutlich andere Muster.
 
 === Das DVD-Logo
 
