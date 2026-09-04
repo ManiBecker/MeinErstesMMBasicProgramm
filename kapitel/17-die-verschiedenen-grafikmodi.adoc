@@ -10,6 +10,7 @@ In diesem Kapitel lernst du:
 * was Pixel sind
 * wie Bildschirmkoordinaten funktionieren
 * wie die Bildschirmgröße ermittelt werden kann
+* wie Texte mit `PRINT @()` pixelgenau positioniert werden können
 * wie der Grafikmodus festgelegt wird
 * welche Informationen MMBasic über den Bildschirm bereitstellt
 
@@ -262,6 +263,94 @@ Wenn Texte an einer bestimmten Position ausgegeben werden sollen, muss bekannt s
 
 Dadurch können Texte exakt positioniert werden.
 
+=== Text pixelgenau positionieren
+
+Bisher haben wir `PRINT` verwendet, um Texte an der aktuellen Schreibposition auszugeben. MMBasic bietet jedoch auch die Möglichkeit, die Ausgabe von `PRINT` direkt an einer bestimmten Pixelposition zu beginnen.
+
+Dazu wird hinter `PRINT` die Funktion `@()` angegeben:
+
+[source,basic]
+----
+PRINT @(x,y) Ausdruck
+----
+
+`x` und `y` sind dabei die Pixelkoordinaten auf dem Bildschirm.
+
+Ein Beispiel:
+
+[source,basic]
+----
+MODE 1
+CLS
+
+PRINT @(50,50) "Hallo MMBasic!"
+PRINT @(100,100) "X=100, Y=100"
+PRINT @(200,200) "X=200, Y=200"
+----
+
+Die Texte beginnen jeweils an den angegebenen Pixelkoordinaten. Damit können wir das zuvor kennengelernte Koordinatensystem auch für die Textausgabe verwenden.
+
+Wird die Y-Koordinate weggelassen, ändert `@()` nur die horizontale Position. Die aktuelle Zeile bleibt erhalten.
+
+[source,basic]
+----
+PRINT @(100) "Dieser Text beginnt bei X=100"
+----
+
+Die Funktion `@()` kann innerhalb einer `PRINT`-Anweisung auch mehrfach verwendet werden.
+
+[source,basic]
+----
+PRINT @(50,50) "Hallo" @(50,80) "MMBasic"
+----
+
+Dadurch lassen sich mehrere Texte mit einer einzigen `PRINT`-Anweisung an unterschiedlichen Positionen ausgeben.
+
+==== Verschiedene Ausgabemodi
+
+`@()` kann zusätzlich einen dritten Parameter erhalten:
+
+[source,basic]
+----
+PRINT @(x,y,m) Ausdruck
+----
+
+Der Wert `m` bestimmt, wie der Text ausgegeben wird.
+
+[cols="1,4",options="header"]
+|===
+|m |Ausgabe
+
+|0
+|Normale Textausgabe mit Hintergrund
+
+|1
+|Der Hintergrund wird nicht gezeichnet und bleibt transparent
+
+|2
+|Invertierte Textausgabe
+
+|5
+|Die vorhandenen Pixel werden invertiert, der Hintergrund bleibt transparent
+|===
+
+Beispiel:
+
+[source,basic]
+----
+PRINT @(50,50,0) "Normal"
+PRINT @(50,80,1) "Transparent"
+PRINT @(50,110,2) "Invertiert"
+PRINT @(50,140,5) "Pixel invertieren"
+----
+
+`PRINT @()` funktioniert sowohl auf der Terminal-Konsole eines angeschlossenen Computers als auch bei VGA- oder HDMI-Ausgabe. Bei einem LCD-Display kann es verwendet werden, wenn das Display mit `OPTION LCDPANEL CONSOLE` als Konsole eingerichtet wurde.
+
+[NOTE]
+====
+Später lernen wir mit `TEXT` noch einen speziellen Grafikbefehl für Texte kennen. Dieser bietet zusätzliche Möglichkeiten wie Ausrichtung, Skalierung, Farbe und Drehung. Für eine einfache pixelgenaue Textausgabe ist `PRINT @()` jedoch sehr praktisch.
+====
+
 === Verschiedene Ausgabegeräte
 
 MMBasic unterstützt verschiedene Grafiksysteme.
@@ -354,6 +443,7 @@ Versuche folgende Aufgaben:
 . Gib die Fontbreite aus.
 . Gib die Fonthöhe aus.
 . Berechne die Bildschirmmitte.
+. Gib mit `PRINT @()` einen Text ungefähr in der Bildschirmmitte aus.
 
 === Zusammenfassung
 
@@ -365,6 +455,7 @@ Du weißt nun:
 * wie das Koordinatensystem funktioniert
 * wie die Bildschirmgröße bestimmt wird
 * wie Schriftgrößen abgefragt werden können
+* wie Texte mit `PRINT @()` pixelgenau positioniert werden können
 * wie der Grafikmodus festgelegt wird
 * wie Farben beschrieben werden
 
