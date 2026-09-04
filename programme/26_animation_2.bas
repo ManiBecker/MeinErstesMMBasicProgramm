@@ -11,10 +11,12 @@ Rem
 Rem Hardware/Voraussetzungen: PicoMite/Colour Maximite
 Rem ====================================================================
 
-Const cFigures   = 2          ' Anzahl Firugen
-Const cTrail     = 5          ' Anzahl Positionen einer Figur
-Const cSpeed     = 10         ' Maximale Differenz beim Neupositionieren
-Const cDelay     = 50         ' Pause im Millisekunden
+Option Base 0
+
+Const cFigures   = 2          ' Anzahl der Figuren
+Const cTrail     = 5          ' Anzahl der sichtbaren Positionen je Figur
+Const cSpeed     = 10         ' Maximale Geschwindigkeit eines Eckpunkts
+Const cDelay     = 50         ' Pause in Millisekunden
 Const cBackColor = RGB(BLACK) ' Hintergrundfarbe
 
 MODE 3
@@ -22,20 +24,21 @@ CLS cBackColor
 
 
 ' Vier Eckpunkte einer Figur.
-' Der zweite Index speichert die letzten sieben Positionen.
-Dim aX1(cFigures,cTrail), aY1(cFigures,cTrail)
-Dim aX2(cFigures,cTrail), aY2(cFigures,cTrail)
-Dim aX3(cFigures,cTrail), aY3(cFigures,cTrail)
-Dim aX4(cFigures,cTrail), aY4(cFigures,cTrail)
+' Index 0 ist die aktuelle Position. Die Indizes 1 bis cTrail-1
+' bilden den sichtbaren Nachlauf; Index cTrail dient als Loeschposition.
+Dim aX1(cFigures-1,cTrail), aY1(cFigures-1,cTrail)
+Dim aX2(cFigures-1,cTrail), aY2(cFigures-1,cTrail)
+Dim aX3(cFigures-1,cTrail), aY3(cFigures-1,cTrail)
+Dim aX4(cFigures-1,cTrail), aY4(cFigures-1,cTrail)
 
-' Die Farben einer Figur inklusive die Farben der letzten sieben Positionen
-Dim aC(cFigures,cTrail)
+' Zu jeder gespeicherten Position wird auch ihre Farbe gespeichert.
+Dim aC(cFigures-1,cTrail)
 
-' Die Geschwindigkeiten sind fuer alle Positionen einer Figur gleich.
-Dim aDX1(cFigures), aDY1(cFigures)
-Dim aDX2(cFigures), aDY2(cFigures)
-Dim aDX3(cFigures), aDY3(cFigures)
-Dim aDX4(cFigures), aDY4(cFigures)
+' Die Geschwindigkeiten gelten nur fuer die aktuelle Position einer Figur.
+Dim aDX1(cFigures-1), aDY1(cFigures-1)
+Dim aDX2(cFigures-1), aDY2(cFigures-1)
+Dim aDX3(cFigures-1), aDY3(cFigures-1)
+Dim aDX4(cFigures-1), aDY4(cFigures-1)
 
 
 ' Initialisierung der Figuren
@@ -64,7 +67,7 @@ For i=0 To cFigures-1
   ' Zufaellige Farbe der vier Linien
   aC(i,0)=RGB(Int(Rnd*200)+55,Int(Rnd*200)+55,Int(Rnd*200)+55)
 
-  ' Startposition und Farbe sind beim Start identisch
+  ' Alle Speicherpositionen starten an derselben Position und mit derselben Farbe
   For j=1 To cTrail
     aX1(i,j)=aX1(i,0) : aY1(i,j)=aY1(i,0)
     aX2(i,j)=aX2(i,0) : aY2(i,j)=aY2(i,0)
@@ -83,11 +86,11 @@ Do
       aC(i,0)=RGB(Int(Rnd*200)+55,Int(Rnd*200)+55,Int(Rnd*200)+55)
     EndIf
 
-    ' Aelteste Figur loeschen, danach alle sichtbaren Figuren zeichnen
+    ' Aelteste Position loeschen, danach aktuelle Figur und Nachlauf zeichnen
     For j=cTrail To 0 Step -1
       If j=cTrail Then
         ' Das Loeschen erfolgt durch Zeichnen der Figur
-        ' in der Hintergrundbarbe
+        ' in der Hintergrundfarbe
         col=cBackColor
       Else
         col=aC(i,j)
@@ -188,4 +191,4 @@ Do
   Pause cDelay
 Loop While Inkey$=""
 
-Print "Ready..."
+Print "Ready..." 
