@@ -302,9 +302,9 @@ Damit entsteht ein Ring aus vier verschiedenfarbigen Abschnitten.
 
 === Texte frei positionieren
 
-Mit `PRINT` wird Text normalerweise an der aktuellen Schreibposition ausgegeben.
+In Kapitel 17 haben wir mit `PRINT @()` bereits Texte pixelgenau auf dem Bildschirm positioniert. Für die Grafikprogrammierung stellt MMBasic zusätzlich den Befehl `TEXT` zur Verfügung.
 
-Der Befehl `TEXT` ermöglicht dagegen eine pixelgenaue Positionierung.
+Auch `TEXT` arbeitet mit Pixelkoordinaten. Darüber hinaus bietet der Befehl weitere Möglichkeiten, beispielsweise die Ausrichtung, Skalierung, Farbwahl und Drehung des Textes. Damit eignet sich `TEXT` besonders für Texte, die Teil einer Grafik sind.
 
 Die grundlegende Schreibweise lautet:
 
