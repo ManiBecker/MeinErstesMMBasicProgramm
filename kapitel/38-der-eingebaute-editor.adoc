@@ -7,58 +7,50 @@ image::bilder/38_der_eingebaute_editor.jpg[align=center]
 In diesem Kapitel lernst du:
 
 * den eingebauten Vollbild-Editor von MMBasic kennen
-* neue Programme direkt auf dem Gerät zu erstellen
-* bestehende Programme zu bearbeiten
-* Dateien zu speichern und auszuführen
-* Such- und Kopierfunktionen zu verwenden
-* die integrierte Hilfe zu nutzen
-* die Vorteile des eingebauten Editors zu verstehen
+* den Unterschied zwischen `EDIT` und `EDIT "DATEI.BAS"` verstehen
+* Programme direkt auf dem PicoMite zu erstellen, zu speichern und auszuführen
+* Text zu suchen, zu markieren, zu kopieren und zu ersetzen
+* Dateien in den Editor zu importieren und markierten Text zu exportieren
+* Programme mit *Beautify* automatisch zu formatieren
+* die integrierte Hilfe zu verwenden
 
-Am Ende des Kapitels kannst du Programme komfortabel direkt auf deinem MMBasic-System entwickeln.
+Am Ende des Kapitels kannst du den eingebauten Editor sicher für die
+Programmentwicklung direkt auf deinem PicoMite einsetzen.
 
 [NOTE]
 ====
-In den vorherigen Kapiteln hast du den Editor bereits Schritt für Schritt
-kennengelernt. Dieses Kapitel dient als Nachschlagewerk und beschreibt alle
-wichtigen Funktionen des Editors im Zusammenhang.
+Die Editorfunktionen in diesem Kapitel wurden auf einem *PicoMiteHDMIUSB mit
+MMBasic V6.03.01* praktisch überprüft. Bei älteren oder neueren Versionen
+können einzelne Funktionen oder Tastenbelegungen abweichen.
 ====
 
-=== Programmieren direkt auf dem MMBasic-System
+=== Programmieren direkt auf dem PicoMite
 
-Viele Programmiersprachen benötigen einen separaten Computer zum Erstellen von Programmen.
+Beim PicoMite stehen BASIC-Interpreter und Vollbild-Editor unmittelbar auf dem
+Zielsystem zur Verfügung. Für kleine Programme, Experimente oder Änderungen
+wird deshalb kein zusätzlicher PC benötigt.
 
-MMBasic geht einen anderen Weg.
+Du brauchst lediglich:
 
-Der Interpreter enthält bereits einen leistungsfähigen Vollbild-Editor.
+* einen PicoMite
+* eine Tastatur
+* einen Bildschirm
 
-Dadurch können Programme direkt auf dem Zielsystem entwickelt werden.
-
-Besonders bei PicoMite- und Colour-Maximite-Systemen ist dies ein großer Vorteil.
-
-Man benötigt lediglich:
-
-* Tastatur
-* Bildschirm
-* MMBasic-System
-
-und kann sofort mit dem Programmieren beginnen.
+und kannst sofort mit dem Programmieren beginnen.
 
 === Den Editor starten
 
-Der Editor wird mit dem Befehl:
+Mit:
 
 [source,basic]
 ----
 EDIT
 ----
 
-gestartet.
+wird das aktuell im Programmspeicher des PicoMite befindliche BASIC-Programm
+im Vollbild-Editor geöffnet.
 
-Der Bildschirm wechselt nun in den Vollbild-Editor.
-
-=== Ein neues Programm erstellen
-
-Nach dem Start des Editors kann sofort mit dem Schreiben begonnen werden.
+Ist noch kein Programm vorhanden, erscheint ein leeres Editorfenster.
 
 Beispiel:
 
@@ -71,79 +63,108 @@ FOR I=1 TO 10
 NEXT I
 ----
 
-=== Die Funktionstasten des Editors
+=== Die Statuszeile des Editors
 
-Beim PicoMite werden die wichtigsten Editorfunktionen über die Funktionstasten
-`F1` bis `F10` aufgerufen.
+Am unteren Bildschirmrand zeigt der Editor die wichtigsten Funktionen an.
+Bei der getesteten Version V6.03.01 erscheint:
 
-Die in manchen Texteditoren üblichen Tastenkombinationen mit `CTRL` stehen im
-PicoMite-Editor für diese Funktionen nicht zur Verfügung.
+[source]
+----
+F1:Save F2:Run F3:Find F4:Mrk F5:Pst F9:In F10:Out ^A:Btfy
+----
 
-Die folgende Tabelle zeigt die auf dem PicoMite getestete Belegung:
+`^A` bedeutet `Ctrl+A`. Nicht alle verfügbaren Funktionstasten werden in
+dieser kurzen Statuszeile angezeigt.
 
-[cols="1,3",options="header"]
+=== Die Funktionstasten
+
+[cols="1,2,4",options="header"]
 |===
-|Taste |Funktion
+|Taste |Funktion |Bedeutung
 
 |F1
-|Save – Programm speichern
+|Save
+|Änderungen speichern
 
 |F2
-|Run – Programm speichern und ausführen
+|Run
+|Beim normalen `EDIT`: speichern und Programm ausführen
 
 |F3
-|Find – Text suchen
+|Find
+|Text suchen
 
 |F4
-|Mark – Text markieren
+|Mark
+|Markiermodus einschalten
 
 |F5
-|Paste – markierten bzw. kopierten Text einfügen
+|Paste
+|Inhalt der Zwischenablage an der Cursorposition einfügen
 
 |F6
-|Find next – nächste Fundstelle suchen
+|Find next
+|Nächste Fundstelle suchen
 
 |Shift+F3
-|Find next – ebenfalls nächste Fundstelle suchen
+|Find next
+|Wie F6: nächste Fundstelle suchen
 
 |F7
-|Repl – Text suchen und ersetzen
+|Replace
+|Die zuvor gefundene Fundstelle ersetzen
 
 |F8
-|Rpl/r – Suchen und Ersetzen wiederholen
+|Replace again
+|Weitere Fundstelle durch denselben Ersatztext ersetzen
 
 |F9
-|Import File – Inhalt einer Datei importieren
+|Import
+|Inhalt einer Datei an der Cursorposition einfügen
 
 |F10
-|Export to File – Inhalt in eine Datei exportieren
-
-|F11
-|nicht belegt
+|Export
+|Inhalt der Zwischenablage in eine Datei schreiben
 
 |F12
-|nicht belegt
+|Beautify
+|Programm automatisch formatieren; alternativ `Ctrl+A`
 |===
 
-NOTE: Diese Tastenbelegung wurde auf dem PicoMite überprüft. Bei anderen
-MMBasic-Systemen kann die Belegung abweichen.
+NOTE: `F11` ist bei der getesteten Version nicht belegt.
 
-=== Speichern und Ausführen
+=== Zwei unterschiedliche Arten zu editieren
 
-Mit `F1` wird das Programm gespeichert.
+Beim PicoMite ist es wichtig, zwischen:
 
-Mit `F2` wird es gespeichert und anschließend sofort ausgeführt.
+[source,basic]
+----
+EDIT
+----
 
-Gerade beim Entwickeln ist `F2` besonders praktisch, weil Änderungen sehr
-schnell ausprobiert werden können.
+und:
 
-=== Der Turbo-Pascal-Effekt
+[source,basic]
+----
+EDIT "HALLO.BAS"
+----
 
-Viele Entwickler schätzen kurze Entwicklungszyklen.
+zu unterscheiden.
 
-Mit der Taste `F2` kann ein Programm gespeichert und sofort gestartet werden.
+Die beiden Befehle sehen ähnlich aus, arbeiten aber nicht mit demselben
+Programmspeicher.
 
-Dadurch entsteht ein schneller Arbeitsablauf:
+==== EDIT ohne Dateinamen
+
+`EDIT` bearbeitet das aktuelle BASIC-Programm im Programmspeicher des
+PicoMite.
+
+Mit `F1` werden die Änderungen dort gespeichert. Das Programm bleibt auch nach
+einem Reset erhalten.
+
+Mit `F2` wird das Programm gespeichert und anschließend sofort ausgeführt.
+
+Damit entsteht ein sehr schneller Entwicklungszyklus:
 
 [source]
 ----
@@ -158,54 +179,68 @@ EDIT
 Programm weiter ändern
 ----
 
-Wer früher mit Turbo Pascal gearbeitet hat, wird sich schnell zuhause fühlen.
+==== EDIT mit Dateinamen
 
-=== Dateien direkt bearbeiten
-
-Neben dem aktuellen Programm können auch Dateien bearbeitet werden.
-
-Beispiel:
+Mit:
 
 [source,basic]
 ----
-EDIT "TEST.BAS"
+EDIT "HALLO.BAS"
 ----
 
-Existiert die Datei bereits, wird sie geladen.
+wird dagegen direkt eine Datei auf dem aktuellen Laufwerk bearbeitet.
 
-Existiert sie noch nicht, wird sie beim Speichern angelegt.
+Existiert die Datei bereits, wird ihr Inhalt in den Editor geladen. Existiert
+sie noch nicht, beginnt der Editor mit einem leeren Fenster und die Datei wird
+beim Speichern angelegt.
 
-=== Dateiendungen
+[IMPORTANT]
+====
+`EDIT "HALLO.BAS"` lädt die Datei zum Bearbeiten in den Editor, ersetzt aber
+nicht das aktuelle BASIC-Programm im Programmspeicher.
 
-Wird keine Dateiendung angegeben:
+Nach dem Speichern beziehen sich `LIST` und ein `RUN` ohne Dateinamen deshalb
+weiterhin auf das zuvor im Programmspeicher befindliche Programm.
+====
+
+Bei der Bearbeitung einer Datei speichern `F1` und `F2` die Datei. `F2` führt
+in diesem Fall nicht wie beim normalen `EDIT` das gerade bearbeitete
+Dateiprogramm aus.
+
+Soll die Datei anschließend ausgeführt werden, kann sie beispielsweise mit:
 
 [source,basic]
 ----
-EDIT "TEST"
+RUN "HALLO.BAS"
 ----
 
-kann für ein BASIC-Programm die Dateiendung `.BAS` verwendet werden.
+gestartet werden.
 
-=== Nicht-BASIC-Dateien bearbeiten
+Danach befindet sich dieses Programm auch im aktuellen Programmkontext und ein
+`EDIT` ohne Dateinamen zeigt dieses Programm an.
 
-Der Editor kann auch andere Textdateien bearbeiten.
+[TIP]
+====
+Merke dir:
 
-Beispiele:
+* `EDIT` bearbeitet das aktuelle Programm im Programmspeicher.
+* `EDIT "DATEI.BAS"` bearbeitet eine Datei auf dem Laufwerk.
+* `RUN "DATEI.BAS"` startet das Programm aus dieser Datei.
+====
+
+=== Auch andere Textdateien bearbeiten
+
+Der Editor ist nicht auf BASIC-Dateien beschränkt. Auch andere Textdateien
+können direkt bearbeitet werden, zum Beispiel:
 
 [source,basic]
 ----
 EDIT "INDEX.HTML"
-
 EDIT "SPRITES.TXT"
-
 EDIT "CONFIG.INI"
 ----
 
 === Cursor bewegen
-
-Der Editor arbeitet ähnlich wie bekannte Texteditoren.
-
-Die wichtigsten Tasten:
 
 [cols="1,3",options="header"]
 |===
@@ -230,22 +265,19 @@ Die wichtigsten Tasten:
 |Einfüge- oder Überschreibmodus umschalten
 
 |DEL
-|Zeichen löschen
+|Zeichen an der Cursorposition löschen
 
 |BACKSPACE
 |Zeichen links vom Cursor löschen
 |===
 
-=== Schnell zum Programmanfang
-
-Eine praktische Möglichkeit ist das zweimalige Drücken von `HOME`:
+Durch zweimaliges Drücken von `HOME` kann schnell zum Programmanfang
+gesprungen werden:
 
 [source]
 ----
 HOME HOME
 ----
-
-Damit kann schnell zum Programmanfang gesprungen werden.
 
 Entsprechend führt:
 
@@ -256,88 +288,195 @@ END END
 
 zum Programmende.
 
-=== Suchen im Programm
+=== Text suchen
 
-Mit `F3` wird die Suchfunktion gestartet.
+Mit `F3` wird die Suchfunktion gestartet. In der unteren Zeile erscheint:
 
-Nach Eingabe eines Suchbegriffs springt der Cursor zur Fundstelle.
+[source]
+----
+Find (Use SHIFT-F3 to repeat):
+----
 
+Nach Eingabe des Suchbegriffs wird der Cursor auf die erste Fundstelle gesetzt.
+
+Mit `F6` oder `Shift+F3` springst du anschließend zur nächsten Fundstelle.
+Nach der letzten Fundstelle beginnt die Suche wieder bei der ersten.
+
+=== Suchen und Ersetzen
+
+Suchen und Ersetzen baut auf der normalen Suche auf.
+
+Zuerst suchst du mit `F3` nach dem gewünschten Text. Steht der Cursor auf
+einer Fundstelle, kannst du mit `F7` den Ersatzvorgang starten:
+
+[source]
+----
+Replace:
+----
+
+Nach Eingabe des Ersatztextes wird die aktuelle Fundstelle ersetzt.
+
+Mit `F8` kann anschließend eine weitere Fundstelle durch denselben Ersatztext
+ersetzt werden.
+
+[NOTE]
+====
+`F7` und `F8` setzen eine vorherige erfolgreiche Suche voraus. Gibt es keine
+aktuelle Fundstelle, meldet der Editor:
+
+[source]
+----
+NOTHING TO REPLACE
+----
+====
+
+=== Text markieren, kopieren und ausschneiden
+
+Mit `F4` wird der Markiermodus aktiviert. Die Statuszeile zeigt dann:
+
+[source]
+----
+MARK MODE ESC=Exit DEL:Delete F4:Cut F5:Copy F10:Export
+----
+
+Ausgehend von der aktuellen Cursorposition kann der gewünschte Bereich unter
+anderem mit den Pfeiltasten sowie `HOME`, `END`, `PAGE UP` und `PAGE DOWN`
+markiert werden.
+
+Im Markiermodus stehen folgende Funktionen zur Verfügung:
+
+[cols="1,3",options="header"]
+|===
+|Taste |Funktion
+
+|ESC
+|Markiermodus verlassen
+
+|DEL
+|Markierten Text löschen
+
+|F4
+|Markierten Text ausschneiden
+
+|F5
+|Markierten Text in die Zwischenablage kopieren
+
+|F10
+|Markierten Text bzw. den Inhalt der Zwischenablage in eine Datei exportieren
+|===
+
+=== Text einfügen
+
+Mit `F5` wird der Inhalt der Zwischenablage an der aktuellen Cursorposition
+eingefügt.
+
+Ist die Zwischenablage leer, erscheint:
+
+[source]
+----
+CLIPBOARD IS EMPTY
+----
+
+=== Datei importieren
+
+Mit `F9` erscheint die Eingabeaufforderung:
+
+[source]
+----
+Import File:
+----
+
+Der Dateiname wird ohne Anführungszeichen eingegeben, beispielsweise:
+
+[source]
+----
+TEST.BAS
+----
+
+Der Inhalt der Datei wird ab der aktuellen Cursorposition eingefügt.
+Anschließend meldet der Editor die Anzahl der importierten Zeichen, zum
 Beispiel:
 
 [source]
 ----
-PRINT
+IMPORTED 410 CHARS
 ----
 
-Mit `F6` oder `Shift+F3` wird anschließend nach dem nächsten Vorkommen gesucht.
+=== Zwischenablage in eine Datei exportieren
 
-=== Text markieren
+Mit `F10` kann der Inhalt der Zwischenablage in einer Datei gespeichert werden.
 
-Mit `F4` wird der Markiermodus aktiviert.
-
-Danach kann der gewünschte Bereich mit den Cursor-Tasten ausgewählt werden.
-
-=== Text einfügen
-
-Mit `F5` wird der zuvor markierte bzw. für das Einfügen vorgesehene Text an der
-aktuellen Cursorposition eingefügt.
-
-=== Suchen und Ersetzen
-
-Mit `F7` steht eine Funktion zum Suchen und Ersetzen zur Verfügung:
+Der Editor fragt nach dem Dateinamen:
 
 [source]
 ----
-F7
+Export to file:
 ----
 
-Mit `F8` kann der Ersetzungsvorgang wiederholt werden.
-
-Damit lassen sich beispielsweise Variablennamen oder andere wiederkehrende
-Texte in einem Programm ändern.
-
-=== Datei importieren
-
-Mit `F9` kann der Inhalt einer Datei in den Editor importiert werden.
+Ist die Zwischenablage leer, erscheint:
 
 [source]
 ----
-F9
+CLIPBOARD IS EMPTY
 ----
 
-Das ist beispielsweise nützlich, wenn ein vorhandener Programmbaustein in das
-aktuelle Programm übernommen werden soll.
+=== Programme automatisch formatieren
 
-=== In eine Datei exportieren
+MMBasic V6.03 besitzt im Editor die Funktion *Beautify*. Sie wird mit `F12`
+oder `Ctrl+A` aufgerufen. In der Statuszeile wird `Ctrl+A` als `^A:Btfy`
+angezeigt.
 
-Mit `F10` kann Inhalt aus dem Editor in eine Datei exportiert werden.
+Beautify formatiert das gesamte Programm automatisch. Überflüssige führende
+Leerzeichen werden entfernt und verschachtelte Programmblöcke einheitlich
+eingerückt.
 
-[source]
+Aus:
+
+[source,basic]
 ----
-F10
+For i=1 To 3
+Print "Durchlauf";i
+If i=2 Then
+Print "Zwei"
+Else
+Print "Nicht Zwei"
+EndIf
+Next i
 ----
 
-Damit können Programmteile oder Texte in einer separaten Datei gespeichert
-werden.
+wird:
 
-=== F11 und F12
+[source,basic]
+----
+For i=1 To 3
+  Print "Durchlauf";i
+  If i=2 Then
+    Print "Zwei"
+  Else
+    Print "Nicht Zwei"
+  EndIf
+Next i
+----
 
-Die Funktionstasten `F11` und `F12` sind beim getesteten PicoMite-Editor nicht
-belegt.
+Ein erneuter Aufruf von Beautify führt zum gleichen Ergebnis. Auch zuvor
+manuell eingefügte zusätzliche Leerzeichen am Zeilenanfang werden auf die
+einheitliche Einrückung zurückgesetzt.
 
-Eine zuvor in diesem Kapitel beschriebene Hilfe über `F12` steht daher auf dem
-PicoMite nicht zur Verfügung.
+[TIP]
+====
+Beautify ist besonders bei verschachtelten `IF`-Anweisungen und Schleifen
+hilfreich. Eine saubere Einrückung macht die Programmstruktur wesentlich
+leichter erkennbar.
+====
 
 === Hilfe zu Befehlen und Funktionen
 
-Der PicoMite besitzt mit `HELP` eine praktische Hilfe zu MMBasic-Befehlen
-und -Funktionen.
+Der PicoMite besitzt mit `HELP` eine praktische Hilfe zu MMBasic-Befehlen und
+-Funktionen.
 
 IMPORTANT: Damit `HELP` verwendet werden kann, muss sich eine entsprechend
-formatierte Datei `help.txt` auf Laufwerk `A:` befinden. Die Hilfetexte sind
-nicht fest in der PicoMite-Firmware gespeichert. Die Datei kann selbst erstellt
-oder aus einem Community-Projekt übernommen werden und sollte zur verwendeten
-MMBasic-Version passen.
+formatierte Datei `help.txt` im Root-Verzeichnis von Laufwerk `A:` befinden.
+Die Hilfetexte sind nicht fest in der PicoMite-Firmware gespeichert.
 
 Die allgemeine Syntax lautet:
 
@@ -346,8 +485,8 @@ Die allgemeine Syntax lautet:
 HELP Suchtext
 ----
 
-In der Praxis ist es sinnvoll, am Ende des Suchbegriffs ein `*` anzugeben.
-Beispielsweise:
+Bei der für dieses Tutorial getesteten Hilfedatei ist es sinnvoll, am Ende des
+Suchbegriffs ein `*` anzugeben:
 
 [source,basic]
 ----
@@ -361,11 +500,8 @@ oder:
 HELP PLAY*
 ----
 
-Das `*` steht für beliebig viele Zeichen. Dadurch werden auch Einträge gefunden,
-deren interner Suchbegriff nach dem eingegebenen Befehlsnamen noch weitere
-Zeichen enthält.
-
-Auch `?` kann als Platzhalter verwendet werden:
+`*` steht für beliebig viele Zeichen. `?` steht für genau ein beliebiges
+Zeichen.
 
 [cols="1,3",options="header"]
 |===
@@ -378,48 +514,29 @@ Auch `?` kann als Platzhalter verwendet werden:
 |Genau ein beliebiges Zeichen
 |===
 
-Welche Suchbegriffe ohne `*` einen Treffer liefern, hängt davon ab, wie die
-jeweilige `help.txt` aufgebaut ist. Bei der für dieses Tutorial getesteten
-Hilfedatei ist deshalb die Schreibweise mit abschließendem `*` empfehlenswert.
-
-[TIP]
-====
-Wenn beispielsweise `HELP PRINT` keinen Treffer liefert, probiere:
-
-[source,basic]
-----
-HELP PRINT*
-----
-====
-
-Die Datei `help.txt` ist keine fest zur Firmware gehörende Hilfedatei.
-Community-Versionen wurden unter anderem im *The Back Shed Forum* veröffentlicht.
-Da MMBasic weiterentwickelt wird, sollte darauf geachtet werden, dass die
-verwendete Hilfedatei möglichst zur installierten MMBasic-Version passt.
+Welche Suchbegriffe ohne `*` einen Treffer liefern, hängt vom Aufbau der
+verwendeten `help.txt` ab.
 
 === Farbsyntax
 
-Der Editor hebt verschiedene Elemente farbig hervor.
-
-Zum Beispiel:
+Der Editor hebt verschiedene Elemente des BASIC-Programms farbig hervor, zum
+Beispiel:
 
 * BASIC-Schlüsselwörter
 * Zahlen
 * Kommentare
 * Zeichenketten
 
-Dadurch werden Programme leichter lesbar.
+Dadurch wird der Quelltext leichter lesbar.
 
-=== Farbsyntax deaktivieren
-
-Falls gewünscht:
+Die Farbsyntax kann ausgeschaltet werden:
 
 [source,basic]
 ----
 OPTION COLOURCODE OFF
 ----
 
-Aktivieren:
+und wieder eingeschaltet werden:
 
 [source,basic]
 ----
@@ -428,209 +545,114 @@ OPTION COLOURCODE ON
 
 === Arbeiten mit der Maus
 
-Der integrierte Editor unterstützt auch eine USB-Maus. Gerade bei größeren
-Programmen erleichtert sie das Positionieren des Cursors, das Markieren von
-Text und die Navigation im Quellcode.
+Der integrierte Editor unterstützt auf geeigneten PicoMite-Systemen auch eine
+USB-Maus. Sie kann insbesondere bei größeren Programmen die Navigation und das
+Markieren von Text erleichtern.
 
-Damit die Maus verwendet werden kann, muss sie einmalig aktiviert werden:
+Aktiviert wird sie mit:
 
 [source,basic]
 ----
 OPTION MOUSE ON
 ----
 
-Diese Einstellung wird dauerhaft gespeichert und bleibt auch nach einem
-Neustart des PicoMite erhalten.
-
-Soll die Maus später wieder deaktiviert werden, verwendest du:
+Deaktiviert wird sie mit:
 
 [source,basic]
 ----
 OPTION MOUSE OFF
 ----
 
-Die Bedienung mit der Tastatur steht unabhängig davon jederzeit zur Verfügung.
-
-[TIP]
-====
-Falls nach dem Anschließen einer USB-Maus kein Mauszeiger erscheint,
-überprüfe zuerst, ob `OPTION MOUSE ON` aktiviert wurde.
-====
+Die Bedienung mit der Tastatur steht unabhängig davon weiterhin zur Verfügung.
 
 === Automatische Sicherung
 
-Beim Speichern wird automatisch eine Sicherungskopie erzeugt.
+Beim Bearbeiten von Dateien kann MMBasic Sicherungskopien anlegen. Da das
+genaue Verhalten von der verwendeten MMBasic-Version und der Art des
+Editierens abhängen kann, solltest du dich bei wichtigen Programmen nicht
+allein darauf verlassen.
 
-Beispiel:
-
-[source]
-----
-MEINPROG.BAS
-----
-
-führt zu:
-
-[source]
-----
-MEINPROG.BAS.BAK
-----
-
-Dadurch kann bei Problemen jederzeit auf die vorherige Version zurückgegriffen werden.
-
-=== Der Edit-Run-Zyklus
-
-Beim Programmieren wirst du dein Programm immer wieder ändern, testen und anschließend erneut verbessern. Dieser ständige Wechsel zwischen Bearbeiten und Ausführen wird als *Edit-Run-Zyklus* bezeichnet.
-
-Der eingebaute MMBasic-Editor unterstützt diesen Arbeitsablauf besonders komfortabel. Nach jeder Änderung genügt ein Druck auf *F2*, um das Programm zu speichern und sofort auszuführen. Treten Fehler auf oder möchtest du etwas verändern, gelangst du mit `EDIT` wieder zurück in den Editor.
-
-Gerade beim Lernen ist dieser schnelle Wechsel ein großer Vorteil. Kleine Änderungen können sofort ausprobiert werden, und ihre Auswirkungen sind unmittelbar sichtbar. So lassen sich neue Befehle und Programmiertechniken Schritt für Schritt erkunden.
-
-Dieser einfache Arbeitsablauf erinnert viele langjährige Programmierer an klassische Entwicklungsumgebungen wie Turbo Pascal, bei denen ebenfalls das Bearbeiten, Übersetzen und Testen mit wenigen Tastendrücken möglich war.
+Vor größeren Änderungen empfiehlt es sich, eine zusätzliche Kopie des
+Programms unter einem anderen Dateinamen anzulegen.
 
 === Wann sollte man den eingebauten Editor verwenden?
 
-Der Editor eignet sich hervorragend für:
+Der Editor eignet sich besonders für:
 
-* kleine Programme
+* kleine und mittlere Programme
 * Experimente
 * Fehlersuche
-* Unterricht
-* mobile Systeme
+* Unterricht und Lernen
+* Änderungen direkt am PicoMite
 
-Besonders auf einem PicoMite mit HDMI oder VGA kann komplett ohne PC entwickelt werden.
+Auf einem PicoMite mit HDMI oder VGA kann damit vollständig ohne PC
+programmiert werden.
 
 === Grenzen des eingebauten Editors
 
-Bei sehr großen Projekten werden externe Werkzeuge komfortabler.
+Bei größeren Projekten bieten externe Werkzeuge zusätzlichen Komfort, zum
+Beispiel:
 
-Beispiele:
-
-* mehrere Dateien gleichzeitig
+* mehrere Dateien gleichzeitig bearbeiten
 * Projektverwaltung
 * Versionsverwaltung
 * Git-Integration
 
-Hier kommen Programme wie MMEdit oder Visual Studio Code ins Spiel.
+Hier können Programme wie MMEdit oder Visual Studio Code sinnvoll sein.
 
-=== Tipps aus der Praxis
-
-* Speichere regelmäßig mit F1 oder F2.
-* Nutze F3 zum schnellen Auffinden von Variablen und F6 für die nächste Fundstelle.
-* Behalte die automatisch erzeugten .BAK-Dateien als Sicherheitskopie.
-* Nutze F2 für einen schnellen Entwicklungszyklus.
-
-=== Profitipps
-
-Mit der Zeit entwickelt jeder Programmierer seinen eigenen Arbeitsstil.
-Die folgenden Tipps haben sich in der Praxis besonders bewährt.
-
-[TIP]
-====
-*Regelmäßig testen*
-
-Gewöhne dir an, nach jeder kleinen Änderung das Programm sofort zu starten.
-So entdeckst du Fehler frühzeitig und findest ihre Ursache deutlich schneller.
-====
-
-[TIP]
-====
-*Vor größeren Änderungen sichern*
-
-Bevor du umfangreiche Änderungen vornimmst, solltest du dein Programm unter
-einem neuen Dateinamen speichern. So kannst du jederzeit auf eine
-funktionierende Version zurückgreifen.
-====
-
-[TIP]
-====
-*Die Suchfunktion verwenden*
-
-Bei größeren Programmen ist die Suchfunktion häufig schneller als langes
-Scrollen. So findest du Variablen, Unterprogramme oder Kommentare in wenigen
-Sekunden.
-====
-
-[TIP]
-====
-*Maus und Tastatur kombinieren*
-
-Viele Anwender verwenden sowohl Tastatur als auch Maus. Während die Tastatur
-für das Schreiben meist schneller ist, erleichtert die Maus das Navigieren und
-Markieren von Text erheblich.
-====
-
-[TIP]
-====
-*Der eingebaute Editor ist leistungsfähiger als viele vermuten.*
-
-Auch umfangreiche Programme mit mehreren hundert Zeilen lassen sich bequem
-direkt auf dem PicoMite entwickeln und pflegen.
-====
-
-[TIP]
-====
-*Programme automatisch starten*
+=== Programme automatisch starten
 
 Viele PicoMite-Projekte sollen nach dem Einschalten sofort einsatzbereit sein,
-zum Beispiel eine Uhr, ein Spiel, ein Messgerät oder eine Haussteuerung.
+zum Beispiel eine Uhr, ein Spiel oder ein Messgerät.
 
-Mit folgendem Befehl wird das aktuell gespeicherte Programm nach jedem
-Einschalten oder Reset automatisch gestartet:
+Mit:
 
 [source,basic]
 ----
 OPTION AUTORUN ON
 ----
 
-Während der Entwicklung empfiehlt es sich, diese Funktion zunächst
-ausgeschaltet zu lassen. Starte dein Programm in dieser Phase lieber manuell
-mit `RUN`. Erst wenn das Programm zuverlässig funktioniert, solltest du den
-automatischen Start aktivieren.
+wird das aktuell gespeicherte Programm nach dem Einschalten oder Reset
+automatisch gestartet.
 
-Falls du den automatischen Programmstart später wieder deaktivieren möchtest,
-verwendest du:
+Während der Entwicklung ist es meist praktischer, diese Funktion zunächst
+ausgeschaltet zu lassen und das Programm manuell mit `RUN` zu starten.
+
+Deaktivieren kannst du den automatischen Start mit:
 
 [source,basic]
 ----
 OPTION AUTORUN OFF
 ----
-====
-
-[NOTE]
-====
-Auch dieses Tutorial wurde zu großen Teilen mit dem eingebauten Editor von
-MMBasic erstellt und getestet. Probiere ihn ruhig intensiv aus – du wirst
-überrascht sein, wie leistungsfähig er ist.
-====
 
 === Probier's selbst!
 
-Versuche folgende Aufgaben:
-
-. Erstelle ein neues Programm mit EDIT.
-. Speichere es mit F1.
-. Starte es mit F2.
-. Suche mit F3 nach einer Variablen.
-. Suche mit F6 nach der nächsten Fundstelle.
-. Markiere mit F4 einen Textbereich und füge ihn mit F5 ein.
-. Probiere Suchen und Ersetzen mit F7 und F8 aus.
-. Importiere testweise eine Datei mit F9.
+. Starte den Editor mit `EDIT` und gib ein kleines BASIC-Programm ein.
+. Speichere es mit `F1`.
+. Ändere eine Zeile und starte das Programm mit `F2`.
+. Suche mit `F3` nach einem Wort und springe mit `F6` zu weiteren Fundstellen.
+. Ersetze eine Fundstelle mit `F7` und wiederhole das Ersetzen mit `F8`.
+. Markiere mit `F4` einen Textbereich und kopiere ihn im Markiermodus mit `F5`.
+. Füge den kopierten Text an einer anderen Stelle mit `F5` ein.
+. Importiere mit `F9` testweise eine Textdatei.
+. Formatiere ein absichtlich schlecht eingerücktes Programm mit `F12`.
+. Bearbeite mit `EDIT "TEST.BAS"` eine Datei und beobachte anschließend den Unterschied zwischen `LIST`, `RUN` und `RUN "TEST.BAS"`.
 . Rufe mit `HELP PRINT*` die Hilfe zum `PRINT`-Befehl auf.
-. Suche mit `HELP PLAY*` nach den `PLAY`-Befehlen.
 
 === Zusammenfassung
 
-Der integrierte Editor von MMBasic bietet alle wichtigen Funktionen zum
-Erstellen und Bearbeiten von BASIC-Programmen direkt auf dem PicoMite.
+Der PicoMite besitzt einen leistungsfähigen Vollbild-Editor, mit dem
+BASIC-Programme direkt auf dem Zielsystem entwickelt werden können.
 
-Du kannst Programme schreiben, bearbeiten, durchsuchen, ersetzen, importieren,
-exportieren und speichern, ohne einen PC zu benötigen. Mit einer USB-Maus lässt sich der Editor bei Bedarf
-noch komfortabler bedienen.
+Besonders wichtig ist die Unterscheidung zwischen `EDIT` und
+`EDIT "DATEI.BAS"`: Der erste Befehl bearbeitet das aktuelle Programm im
+Programmspeicher, der zweite direkt eine Datei auf dem Laufwerk.
 
-Für viele Projekte ist der eingebaute Editor vollkommen ausreichend und wird
-von zahlreichen erfahrenen MMBasic-Anwendern täglich eingesetzt.
+Neben den grundlegenden Funktionen zum Schreiben und Speichern bietet der
+Editor Suche und Ersetzen, eine Zwischenablage, Dateiimport und -export sowie
+mit MMBasic V6.03 die automatische Formatierung *Beautify*.
 
-Im nächsten Kapitel lernst du mit **MMEdit** eine komfortable
+Im nächsten Kapitel lernst du mit *MMEdit* eine komfortable
 Entwicklungsumgebung für den PC kennen, die den eingebauten Editor sinnvoll
 ergänzt.
 
