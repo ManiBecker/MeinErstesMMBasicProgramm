@@ -4,17 +4,19 @@ image::bilder/49_spielcontroller_und_gamepads.jpg[align=center]
 
 === Das lernst du
 
-In den bisherigen Kapiteln wurden unsere Programme hauptsächlich über die Tastatur gesteuert. Das funktioniert für viele Anwendungen hervorragend, bei Spielen stößt man jedoch schnell an Grenzen.
+In den bisherigen Kapiteln wurden unsere Programme hauptsächlich über die Tastatur gesteuert. Das funktioniert für viele Anwendungen hervorragend, bei Spielen ist ein Gamepad jedoch oft die angenehmere Lösung.
 
-Ein Gamepad liegt gut in der Hand, besitzt zahlreiche Bedienelemente und ermöglicht eine schnelle und intuitive Steuerung. Deshalb gehören Spielcontroller heute zur Standardausstattung vieler Computer und Spielekonsolen.
+Ein moderner Spielcontroller besitzt nicht nur Tasten, sondern meist auch Analogsticks, ein Steuerkreuz und Schultertasten. Einige Controller verfügen zusätzlich über Vibrationsmotoren, Bewegungssensoren oder eine farbige Leuchtanzeige.
 
 In diesem Kapitel lernst du:
 
-* einen USB-Spielcontroller am PicoMite anzuschließen
-* digitale Tasten und Analogsticks auszulesen
-* Eingaben im Programm zu verarbeiten
-* Testprogramme für Gamepads zu entwickeln
-* Gamepads für Spiele und technische Anwendungen einzusetzen
+* welche Gamepads die USB-Versionen des PicoMite unterstützen
+* wie USB-Geräte den Kanälen 1 bis 4 zugeordnet werden
+* wie du mit `MM.INFO(USB n)` erkennst, welches Gerät angeschlossen ist
+* wie du mit `DEVICE(GAMEPAD ...)` Analogsticks, Trigger und Tasten ausliest
+* wie eine Tastenbelegung als Bitmaske ausgewertet wird
+* wie du eine Totzone für Analogsticks verwendest
+* wie sich ein Gamepad für Grafikprogramme und Spiele einsetzen lässt
 
 Im nächsten Kapitel verwenden wir diese Kenntnisse, um Sprites und Spielfiguren zu steuern.
 
@@ -22,271 +24,633 @@ Im nächsten Kapitel verwenden wir diese Kenntnisse, um Sprites und Spielfiguren
 
 Bereits in den 1980er-Jahren besaßen viele Heimcomputer einen Joystickanschluss.
 
-Ein klassischer Joystick verfügte meist nur über:
+Ein klassischer Joystick verfügte meist nur über vier Richtungen und einen Feuerknopf. Damit ließen sich erstaunlich viele Spiele bedienen.
 
-* vier Richtungen
-* einen Feuerknopf
-
-Damit ließen sich nahezu alle damaligen Spiele bedienen.
-
-Moderne Gamepads besitzen deutlich mehr Möglichkeiten:
+Moderne Gamepads bieten deutlich mehr Möglichkeiten:
 
 * Steuerkreuz
 * zwei Analogsticks
 * mehrere Aktionstasten
-* Schultertasten
-* Start- und Menütasten
+* Schultertasten und Trigger
+* Start-, Select- oder Menütasten
 
-Dadurch eignen sie sich auch für anspruchsvollere Spiele.
+Je nach Modell kommen weitere Funktionen wie Vibrationsmotoren, Gyroskop oder Beschleunigungssensor hinzu.
 
-=== USB-Spielcontroller
+=== Gamepads am PicoMite
 
-Die meisten heutigen Gamepads verwenden USB als Schnittstelle.
+Die PicoMite-Firmware kann Tastatur und Maus entweder über PS/2 oder USB unterstützen. Welche Schnittstelle verfügbar ist, hängt von der verwendeten Firmware-Version ab.
 
-Der PicoMite unterstützt zahlreiche USB-HID-Spielcontroller. In vielen Fällen genügt es, den Controller einfach anzuschließen.
+Die Versionen mit USB-Unterstützung können zusätzlich USB-Gamepads verwenden. Laut PicoMite-Handbuch werden insbesondere folgende Controller unterstützt:
 
-Eine zusätzliche Treiberinstallation ist normalerweise nicht erforderlich.
+* PS3-Controller
+* PS4-Controller
+* SNES/Generic-USB-Gamepads
+
+Ein USB-Gamepad muss im BASIC-Programm nicht geöffnet oder initialisiert werden. Wird es vom PicoMite erkannt, steht es unmittelbar zur Verfügung.
+
+[NOTE]
+====
+Bei Firmware-Versionen ohne USB-Unterstützung können alternativ Wii-Controller über I2C verwendet werden. Dafür gibt es die Befehle `WII CLASSIC` und `WII NUNCHUCK`. In diesem Kapitel beschäftigen wir uns jedoch mit USB-Gamepads.
+====
+
+=== USB-Kanäle
+
+Der PicoMite verwaltet bis zu vier USB-Geräte. Jedes Gerät erhält einen Kanal von 1 bis 4.
+
+Standardmäßig gilt folgende Zuordnung:
+
+[cols="1,3",options="header"]
+|===
+|Kanal |Gerät
+
+|1
+|Tastatur
+
+|2
+|Maus
+
+|3
+|erstes Gamepad
+
+|4
+|zweites Gamepad
+|===
+
+Diese Zuordnung ist die Voreinstellung. Werden mehrere Geräte gleicher Art angeschlossen, können freie Kanäle entsprechend anders belegt werden.
+
+Mit einem USB-Hub lassen sich mehrere Geräte gleichzeitig anschließen, beispielsweise Tastatur, Maus und Gamepad. Insgesamt unterstützt die Firmware maximal vier USB-Geräte.
+
+=== Angeschlossene USB-Geräte erkennen
+
+Mit
+
+[source,basic]
+----
+MM.INFO(USB n)
+----
+
+kannst du feststellen, welches USB-Gerät Kanal `n` belegt.
+
+Die Funktion liefert folgende Gerätecodes:
+
+[cols="1,3",options="header"]
+|===
+|Rückgabewert |Gerät
+
+|0
+|Kanal nicht belegt
+
+|1
+|Tastatur
+
+|2
+|Maus
+
+|128
+|PS4-Controller
+
+|129
+|PS3-Controller
+
+|130
+|SNES/Generic-Gamepad
+|===
+
+Um beispielsweise zu prüfen, was sich auf Kanal 3 befindet, kannst du an der Eingabeaufforderung eingeben:
+
+[source,basic]
+----
+PRINT MM.INFO(USB 3)
+----
+
+Wird dort beispielsweise `128` ausgegeben, hat der PicoMite einen PS4-Controller erkannt.
 
 [TIP]
 ====
-Nicht jeder USB-Controller verhält sich exakt gleich.
-
-Vor allem preiswerte No-Name-Geräte können unterschiedliche Tastenbelegungen besitzen.
-
-Deshalb empfiehlt es sich, zunächst immer ein kleines Testprogramm zu schreiben.
+Das erste Gamepad befindet sich normalerweise auf Kanal 3. Trotzdem ist es sinnvoll, die Belegung mit `MM.INFO(USB n)` zu überprüfen, bevor du ein größeres Programm entwickelst.
 ====
 
-=== Digitale und analoge Eingaben
+=== Controller mit GAMEPAD MONITOR untersuchen
 
-Man unterscheidet grundsätzlich zwei Arten von Bedienelementen.
+Bevor wir ein eigenes BASIC-Programm schreiben, bietet der PicoMite eine sehr praktische Diagnosefunktion:
 
-==== Digitale Tasten
+[source,basic]
+----
+GAMEPAD MONITOR
+----
 
-Digitale Tasten besitzen nur zwei Zustände:
+Gib diesen Befehl ein, bevor du das Gamepad anschließt. Nach dem Anschließen zeigt der PicoMite Änderungen der vom Controller gelieferten Daten an, sobald du Tasten drückst oder Bedienelemente bewegst.
 
-* gedrückt
-* nicht gedrückt
+Das ist besonders hilfreich, wenn du einen neuen oder unbekannten Controller ausprobieren möchtest.
 
-Dazu gehören beispielsweise:
+[NOTE]
+====
+Für Gamepads, die nicht direkt von der Firmware unterstützt werden, existiert außerdem der Befehl `GAMEPAD CONFIGURE`. Damit lässt sich die Zuordnung der Daten im USB-Report zu den einzelnen Gamepad-Tasten konfigurieren. Da dieser Befehl viele Parameter benötigt, verwenden wir ihn in diesem Einsteigerkapitel nicht weiter.
+====
 
-* A
-* B
-* X
-* Y
-* START
-* SELECT
+=== Gamepad-Daten mit DEVICE() auslesen
 
-==== Analogsticks
+Innerhalb eines BASIC-Programms werden die Daten des Controllers mit der Funktion
 
-Analogsticks liefern dagegen kontinuierliche Werte.
+[source,basic]
+----
+DEVICE(GAMEPAD channel, funct)
+----
 
-Je weiter der Stick bewegt wird, desto größer wird der ausgegebene Zahlenwert.
+ausgelesen.
 
-Dadurch lassen sich Figuren besonders weich und präzise steuern.
+`channel` gibt den USB-Kanal des Gamepads an. Beim ersten Gamepad ist das normalerweise Kanal 3.
+
+Mit `funct` bestimmst du, welcher Wert gelesen werden soll.
+
+[cols="1,4",options="header"]
+|===
+|Funktion |Bedeutung
+
+|`LX`
+|X-Achse des linken Analogsticks
+
+|`LY`
+|Y-Achse des linken Analogsticks
+
+|`RX`
+|X-Achse des rechten Analogsticks
+
+|`RY`
+|Y-Achse des rechten Analogsticks
+
+|`L`
+|linker analoger Trigger
+
+|`R`
+|rechter analoger Trigger
+
+|`B`
+|Bitmaske aller Tasten
+
+|`T`
+|ID-Code des Controllers
+
+|`GX`, `GY`, `GZ`
+|X-, Y- und Z-Achse des Gyroskops, sofern vom Controller unterstützt
+
+|`AX`, `AY`, `AZ`
+|X-, Y- und Z-Achse des Beschleunigungssensors, sofern vom Controller unterstützt
+|===
+
+So liest du beispielsweise den linken Analogstick aus:
+
+[source,basic]
+----
+lx = DEVICE(GAMEPAD 3, LX)
+ly = DEVICE(GAMEPAD 3, LY)
+----
+
+Die Stellung des rechten Analogsticks erhältst du entsprechend mit:
+
+[source,basic]
+----
+rx = DEVICE(GAMEPAD 3, RX)
+ry = DEVICE(GAMEPAD 3, RY)
+----
+
+=== Die Tasten als Bitmaske
+
+Alle digitalen Tasten werden gemeinsam als Bitmaske geliefert:
+
+[source,basic]
+----
+buttons% = DEVICE(GAMEPAD 3, B)
+----
+
+Jedes Bit steht für eine bestimmte Taste. Ist ein Bit gesetzt, ist die zugehörige Taste gedrückt.
+
+[cols="1,3",options="header"]
+|===
+|Bit |Taste
+
+|0
+|R / R1
+
+|1
+|Start / Options
+
+|2
+|Home
+
+|3
+|Select / Share
+
+|4
+|L / L1
+
+|5
+|Steuerkreuz unten
+
+|6
+|Steuerkreuz rechts
+
+|7
+|Steuerkreuz oben
+
+|8
+|Steuerkreuz links
+
+|9
+|R2
+
+|10
+|X / Triangle
+
+|11
+|A / Circle
+
+|12
+|Y / Square
+
+|13
+|B / Cross
+
+|14
+|L2
+
+|15
+|Touchpad
+|===
+
+Die Bezeichnungen wirken auf den ersten Blick etwas ungewöhnlich. Bei einem PlayStation-Controller entsprechen die vier Aktionstasten den Symbolen Triangle, Circle, Square und Cross.
+
+Um eine bestimmte Taste zu prüfen, wird der entsprechende Bitwert verwendet. Bit 13 besitzt beispielsweise den Wert `2^13`, also `8192`:
+
+[source,basic]
+----
+buttons% = DEVICE(GAMEPAD 3, B)
+
+IF (buttons% AND 8192) <> 0 THEN
+    PRINT "B/Cross gedrueckt"
+ENDIF
+----
+
+Für Bit 1, also Start beziehungsweise Options, beträgt die Maske `2`:
+
+[source,basic]
+----
+IF (buttons% AND 2) <> 0 THEN
+    PRINT "START/OPTIONS"
+ENDIF
+----
+
+Dieses Verfahren kennst du bereits vom Arbeiten mit einzelnen Bits: Durch das logische `AND` bleiben nur die Bits übrig, die sowohl in `buttons%` als auch in der Maske gesetzt sind.
 
 === Praxisprojekt: Controller testen
 
-Bevor wir Spiele entwickeln, überprüfen wir zunächst die Funktion unseres Controllers.
+Bevor wir einen Controller zur Steuerung eines Spiels verwenden, schauen wir uns zunächst seine Werte an.
 
-Das Programm soll:
-
-* alle gedrückten Tasten anzeigen
-* die Werte der Analogsticks ausgeben
-* Trigger anzeigen
+Das folgende Programm zeigt die beiden Analogsticks, die Trigger und die Tasten-Bitmaske an:
 
 [source,basic]
 ----
 '------------------------------------------
-' Controller-Testprogramm
+' Gamepad testen
 '------------------------------------------
+OPTION EXPLICIT
 
-' TODO:
-' Gamepad initialisieren
+CONST Gamepad = 3
+
+DIM lx, ly, rx, ry
+DIM lTrigger, rTrigger
+DIM buttons%
+
+IF MM.INFO(USB 3) = 0 THEN
+    PRINT "Kein Gamepad auf USB-Kanal 3 gefunden."
+    END
+ENDIF
+
+PRINT "USB-Code auf Kanal 3: "; MM.INFO(USB 3)
+PRINT
+PRINT "Controller bewegen oder Tasten druecken."
+PRINT "Programmabbruch mit Ctrl-C."
+PRINT
 
 DO
+    lx = DEVICE(GAMEPAD Gamepad, LX)
+    ly = DEVICE(GAMEPAD Gamepad, LY)
+    rx = DEVICE(GAMEPAD Gamepad, RX)
+    ry = DEVICE(GAMEPAD Gamepad, RY)
 
-    ' TODO:
-    ' Aktuelle Controllerdaten einlesen
+    lTrigger = DEVICE(GAMEPAD Gamepad, L)
+    rTrigger = DEVICE(GAMEPAD Gamepad, R)
 
-    PRINT "Linker Stick : "; StickX; StickY
-    PRINT "Rechter Stick: "; StickRX; StickRY
+    buttons% = DEVICE(GAMEPAD Gamepad, B)
 
-    IF ButtonA THEN PRINT "Taste A"
+    PRINT "LX:"; lx;
+    PRINT "  LY:"; ly;
+    PRINT "  RX:"; rx;
+    PRINT "  RY:"; ry;
+    PRINT "  L:"; lTrigger;
+    PRINT "  R:"; rTrigger;
+    PRINT "  B:"; buttons%
 
-    IF ButtonB THEN PRINT "Taste B"
+    PAUSE 100
+LOOP
+----
 
-    IF ButtonStart THEN PRINT "START"
+Bewege beide Analogsticks langsam in alle Richtungen und beobachte die ausgegebenen Werte. Achte besonders darauf, welche Werte `LX` und `LY` liefern, wenn der linke Stick nicht berührt wird.
 
+Diese Mittelstellung brauchen wir gleich für die Totzone.
+
+=== Analogsticks und Totzone
+
+Ein Analogstick liefert nicht nur die Zustände links, rechts, oben und unten. Seine Position wird als Zahlenwert ausgegeben.
+
+Der genaue Wertebereich ist für unsere ersten Programme gar nicht entscheidend. Wichtig ist zunächst der Wert in der Mittelstellung.
+
+Viele Analogsticks kehren mechanisch nicht immer exakt auf denselben Zahlenwert zurück. Ohne Gegenmaßnahme könnte sich deshalb eine Spielfigur langsam bewegen, obwohl der Stick gar nicht berührt wird.
+
+Dagegen verwendet man eine sogenannte *Totzone*.
+
+Wir merken uns zunächst die Mittelstellung:
+
+[source,basic]
+----
+centerX = DEVICE(GAMEPAD 3, LX)
+centerY = DEVICE(GAMEPAD 3, LY)
+----
+
+Anschließend reagieren wir nur dann auf eine Bewegung, wenn die Abweichung von dieser Mittelstellung groß genug ist:
+
+[source,basic]
+----
+IF ABS(lx - centerX) > Deadzone THEN
+    ' Stick wurde deutlich nach links oder rechts bewegt
+ENDIF
+----
+
+Wie groß `Deadzone` sein sollte, hängt vom verwendeten Controller ab. Mit dem Testprogramm kannst du leicht feststellen, wie stark die Werte in Ruhestellung schwanken.
+
+=== Praxisprojekt: Cursor mit dem Analogstick bewegen
+
+Nun bewegen wir einen kleinen Kreis mit dem linken Analogstick.
+
+Damit das Beispiel nicht von einem bestimmten Wertebereich des Controllers abhängt, benutzen wir zunächst nur die Richtung der Abweichung. Der Kreis bewegt sich also mit einer festen Geschwindigkeit.
+
+[source,basic]
+----
+'------------------------------------------
+' Cursor mit Gamepad bewegen
+'------------------------------------------
+OPTION EXPLICIT
+
+CONST Gamepad = 3
+CONST Deadzone = 5
+CONST Speed = 4
+
+DIM x, y
+DIM lx, ly
+DIM centerX, centerY
+
+IF MM.INFO(USB 3) = 0 THEN
+    PRINT "Kein Gamepad auf USB-Kanal 3 gefunden."
+    END
+ENDIF
+
+x = MM.HRES / 2
+y = MM.VRES / 2
+
+' Stick beim Programmstart nicht bewegen!
+centerX = DEVICE(GAMEPAD Gamepad, LX)
+centerY = DEVICE(GAMEPAD Gamepad, LY)
+
+DO
+    lx = DEVICE(GAMEPAD Gamepad, LX)
+    ly = DEVICE(GAMEPAD Gamepad, LY)
+
+    IF lx < centerX - Deadzone THEN x = x - Speed
+    IF lx > centerX + Deadzone THEN x = x + Speed
+
+    IF ly < centerY - Deadzone THEN y = y - Speed
+    IF ly > centerY + Deadzone THEN y = y + Speed
+
+    IF x < 8 THEN x = 8
+    IF x > MM.HRES - 8 THEN x = MM.HRES - 8
+    IF y < 8 THEN y = 8
+    IF y > MM.VRES - 8 THEN y = MM.VRES - 8
+
+    CLS
+    CIRCLE x, y, 8
+
+    PAUSE 20
 LOOP
 ----
 
 [IMPORTANT]
 ====
-TODO
+Beim Start des Programms sollte der Analogstick in Mittelstellung stehen. Die beiden Werte `centerX` und `centerY` werden unmittelbar nach dem Programmstart gemessen.
 
-Beim Praxistest werden hier die tatsächlichen MMBasic-Befehle zum Initialisieren und Auslesen des Gamepads eingefügt.
+Falls sich der Kreis trotzdem ohne Berührung bewegt, erhöhe den Wert von `Deadzone` etwas. Ist die Reaktion dagegen zu unempfindlich, verkleinere ihn.
 ====
-
-=== Praxisprojekt: Cursor bewegen
-
-Nun soll ein kleiner Kreis mit dem linken Analogstick bewegt werden.
-
-[source,basic]
-----
-CLS
-
-x = MM.HRES / 2
-y = MM.VRES / 2
-
-DO
-
-    ' TODO:
-    ' Gamepad lesen
-
-    x = x + StickX
-    y = y + StickY
-
-    CLS
-
-    CIRCLE x,y,8
-
-LOOP
-----
-
-Schon dieses einfache Programm vermittelt ein gutes Gefühl dafür, wie Analogsticks arbeiten.
-
-=== Totzone
-
-Viele Analogsticks liefern selbst in ihrer Mittelstellung kleine Abweichungen.
-
-Dadurch würde sich der Cursor langsam über den Bildschirm bewegen.
-
-Dieses Verhalten verhindert man durch eine sogenannte Totzone.
-
-Erst wenn der gemessene Wert einen bestimmten Bereich verlässt, wird die Bewegung ausgeführt.
-
-[source,basic]
-----
-IF ABS(StickX) > Totzone THEN
-
-    x = x + StickX
-
-ENDIF
-----
-
-Dadurch bleibt der Cursor in der Mittelstellung ruhig stehen.
 
 === Praxisprojekt: Elektronisches Zeichenbrett
 
-Jetzt erweitern wir unser Cursorprogramm.
+Mit wenigen Änderungen wird aus unserem Cursorprogramm ein kleines Zeichenbrett.
 
-Der linke Analogstick bewegt den Zeichenstift.
-
-Mit einer Taste wird gezeichnet.
-
-Mit einer anderen Taste wird die Farbe gewechselt.
+Der linke Analogstick bewegt den Zeichenstift. Mit B/Cross wird gezeichnet, mit A/Circle wechseln wir die Farbe und mit Y/Square löschen wir den Bildschirm.
 
 [source,basic]
 ----
-' TODO
+'------------------------------------------
+' Zeichenbrett mit Gamepad
+'------------------------------------------
+OPTION EXPLICIT
 
-Stick bewegen
+CONST Gamepad = 3
+CONST Deadzone = 5
+CONST Speed = 3
 
-Taste A:
-    Punkt zeichnen
+CONST BtnCircle% = 2048
+CONST BtnSquare% = 4096
+CONST BtnCross%  = 8192
 
-Taste B:
-    Farbe wechseln
+DIM x, y
+DIM lx, ly
+DIM centerX, centerY
+DIM buttons%, oldButtons%
+DIM penColour%
 
-Taste X:
-    Bildschirm löschen
+IF MM.INFO(USB 3) = 0 THEN
+    PRINT "Kein Gamepad auf USB-Kanal 3 gefunden."
+    END
+ENDIF
+
+x = MM.HRES / 2
+y = MM.VRES / 2
+penColour% = RGB(WHITE)
+
+centerX = DEVICE(GAMEPAD Gamepad, LX)
+centerY = DEVICE(GAMEPAD Gamepad, LY)
+
+CLS
+
+DO
+    lx = DEVICE(GAMEPAD Gamepad, LX)
+    ly = DEVICE(GAMEPAD Gamepad, LY)
+    buttons% = DEVICE(GAMEPAD Gamepad, B)
+
+    IF lx < centerX - Deadzone THEN x = x - Speed
+    IF lx > centerX + Deadzone THEN x = x + Speed
+    IF ly < centerY - Deadzone THEN y = y - Speed
+    IF ly > centerY + Deadzone THEN y = y + Speed
+
+    IF x < 1 THEN x = 1
+    IF x > MM.HRES - 1 THEN x = MM.HRES - 1
+    IF y < 1 THEN y = 1
+    IF y > MM.VRES - 1 THEN y = MM.VRES - 1
+
+    ' B/Cross: zeichnen
+    IF (buttons% AND BtnCross%) <> 0 THEN
+        PIXEL x, y, penColour%
+    ENDIF
+
+    ' A/Circle: Farbe bei neuem Tastendruck wechseln
+    IF (buttons% AND BtnCircle%) <> 0 THEN
+        IF (oldButtons% AND BtnCircle%) = 0 THEN
+            IF penColour% = RGB(WHITE) THEN
+                penColour% = RGB(YELLOW)
+            ELSE
+                penColour% = RGB(WHITE)
+            ENDIF
+        ENDIF
+    ENDIF
+
+    ' Y/Square: Bildschirm bei neuem Tastendruck loeschen
+    IF (buttons% AND BtnSquare%) <> 0 THEN
+        IF (oldButtons% AND BtnSquare%) = 0 THEN
+            CLS
+        ENDIF
+    ENDIF
+
+    oldButtons% = buttons%
+
+    PAUSE 10
+LOOP
 ----
 
-Dieses kleine Programm zeigt bereits sehr schön, wie vielseitig sich Gamepads einsetzen lassen.
+Bei den beiden Funktionen zum Farbwechseln und Löschen wird zusätzlich `oldButtons%` benutzt. Dadurch wird die Aktion nur beim Übergang von "nicht gedrückt" zu "gedrückt" ausgeführt. Würden wir lediglich den aktuellen Zustand prüfen, würde die Aktion während eines längeren Tastendrucks ständig wiederholt.
+
+=== PS4-Controller: Farbe und Vibration
+
+Bei einem PS4-Controller kann der PicoMite zusätzlich die Farbe der Leuchtanzeige verändern.
+
+Die Syntax lautet:
+
+[source,basic]
+----
+GAMEPAD COLOUR channel, colour
+----
+
+Beispielsweise:
+
+[source,basic]
+----
+GAMEPAD COLOUR 3, RGB(RED)
+----
+
+Auch die beiden Vibrationsmotoren lassen sich ansteuern:
+
+[source,basic]
+----
+GAMEPAD HAPTIC channel, left, right
+----
+
+`left` und `right` dürfen Werte von `0` bis `255` besitzen. `0` schaltet den jeweiligen Motor aus, `255` entspricht der maximalen Stärke.
+
+Ein kurzer Vibrationsimpuls könnte beispielsweise so aussehen:
+
+[source,basic]
+----
+GAMEPAD HAPTIC 3, 160, 160
+PAUSE 200
+GAMEPAD HAPTIC 3, 0, 0
+----
+
+Das lässt sich später sehr gut als Rückmeldung in einem Spiel verwenden, beispielsweise bei einer Kollision.
+
+=== Gamepad-Interrupts
+
+Bisher fragen unsere Programme den Controller ständig innerhalb der Hauptschleife ab. Für Tastenereignisse stellt MMBasic außerdem Gamepad-Interrupts zur Verfügung.
+
+Die wichtigsten Befehle sind:
+
+[source,basic]
+----
+GAMEPAD INTERRUPT ENABLE channel, int [, mask]
+GAMEPAD INTERRUPT DISABLE channel
+----
+
+Mit der optionalen `mask` kann festgelegt werden, welche Tasten einen Interrupt auslösen sollen. Die Maske entspricht dabei der Bitbelegung von `DEVICE(GAMEPAD channel, B)`.
+
+Für unsere ersten Gamepad-Programme ist das regelmäßige Abfragen in einer Schleife einfacher und übersichtlicher. Interrupts werden interessant, wenn ein Programm unabhängig von seiner normalen Verarbeitung sofort auf bestimmte Tastendrücke reagieren soll.
 
 === Praxisprojekt: Pong mit Gamepad
 
-Im Kapitel über Grafik haben wir bereits das Spiel Pong entwickelt.
+Wenn ein vorhandenes Spiel bereits sauber zwischen Spiellogik und Eingabe unterscheidet, lässt sich die Tastatursteuerung leicht durch ein Gamepad ersetzen.
 
-Damals wurde der Schläger über die Tastatur bewegt.
-
-Jetzt ersetzen wir lediglich die Eingabe.
+Angenommen, der Schläger wurde bisher so bewegt:
 
 [source,basic]
 ----
-'------------------------------------------
-' bisher
-'------------------------------------------
-
-IF INKEY$="A" THEN y=y-4
-
-IF INKEY$="Z" THEN y=y+4
-
-'------------------------------------------
-' neu
-'------------------------------------------
-
-' TODO
-
-Gamepad lesen
-
-y = y + StickY
+IF INKEY$ = "A" THEN y = y - 4
+IF INKEY$ = "Z" THEN y = y + 4
 ----
 
-An der eigentlichen Spiellogik muss nahezu nichts verändert werden.
+Dann kann die neue Eingabe beispielsweise so aussehen:
 
-Gerade das zeigt den Vorteil einer sauberen Programmstruktur.
+[source,basic]
+----
+ly = DEVICE(GAMEPAD 3, LY)
+
+IF ly < centerY - Deadzone THEN y = y - 4
+IF ly > centerY + Deadzone THEN y = y + 4
+----
+
+Die eigentliche Spiellogik muss dafür nicht verändert werden. Nur die Ermittlung der gewünschten Bewegungsrichtung wird ausgetauscht.
+
+Das zeigt einen wichtigen Grundsatz beim Programmieren: Eingabe, Spiellogik und Ausgabe sollten möglichst unabhängig voneinander bleiben.
 
 === Mehr als nur Spiele
 
-Gamepads eignen sich für weit mehr als Computerspiele.
+Ein Gamepad eignet sich nicht nur für Computerspiele. Es ist ein preiswertes und komfortables Eingabegerät mit vielen Tasten und mehreren analogen Bedienelementen.
 
-Beispiele:
+Damit lassen sich beispielsweise auch folgende Projekte steuern:
 
-* Roboter steuern
-* Modellfahrzeuge bedienen
-* Servomotoren bewegen
-* Kameras schwenken
-* Menüs bedienen
-* Messgeräte steuern
+* Roboter
+* Modellfahrzeuge
+* Servomotoren
+* Kameraschwenks
+* Menüs
+* Mess- und Prüfaufbauten
 
-Mit einem preiswerten USB-Controller erhält man somit ein vielseitiges Eingabegerät für viele Projekte.
+Gerade die beiden Analogsticks machen ein Gamepad für technische Experimente interessant, weil sich damit zwei Bewegungsachsen gleichzeitig bedienen lassen.
+
+=== Noch ein Wort zur USB-Firmware
+
+Bei den USB-Versionen der PicoMite-Firmware arbeitet die USB-Schnittstelle des Raspberry Pi Pico als USB-Host. Dadurch können Tastatur, Maus und Gamepad direkt beziehungsweise über einen USB-Hub angeschlossen werden.
+
+Da der USB-Anschluss dann nicht als normale serielle USB-Konsole zur Verfügung steht, verwendet die Firmware standardmäßig folgende Pins für die serielle Konsole:
+
+* Pin 11 / GP8: Tx
+* Pin 12 / GP9: Rx
+
+Die Baudrate beträgt standardmäßig 115200 Baud. Mit `OPTION SERIAL CONSOLE` können bei Bedarf andere Pins eingestellt werden.
+
+Beim PicoMite HDMI/USB ist diese USB-Unterstützung bereits Bestandteil des vorgesehenen Systems. Der Hinweis ist insbesondere dann wichtig, wenn du eigene Hardware auf Basis der USB-Firmware aufbaust und GP8 oder GP9 anderweitig verwenden möchtest.
 
 === Retro-Ecke
 
-Die klassischen Competition-Pro-Joysticks der Heimcomputerzeit besaßen lediglich vier Mikroschalter und einen Feuerknopf.
+Die klassischen Joysticks der Heimcomputerzeit waren elektrisch ausgesprochen einfach aufgebaut. Ein Competition Pro besaß im Wesentlichen vier Richtungsschalter und einen Feuerknopf.
 
-Trotz der heute wesentlich leistungsfähigeren Gamepads ist das Grundprinzip unverändert geblieben.
+Der Computer musste deshalb nur fünf digitale Signale auswerten.
 
-Der Spieler gibt eine Richtung oder einen Befehl vor.
+Ein moderner USB-Controller ist intern erheblich komplexer. Er liefert digitale Tasten, analoge Achsen und je nach Modell sogar Bewegungsdaten. Dank der PicoMite-Firmware bleibt die Programmierung trotzdem angenehm einfach: Mit `DEVICE(GAMEPAD ...)` können wir auf diese Informationen direkt aus MMBasic zugreifen.
 
-Das Programm reagiert unmittelbar darauf.
-
-Im nächsten Kapitel werden wir genau diese Eingaben verwenden, um Sprites flüssig über den Bildschirm zu bewegen.
-
-=== Probier's selbst!
-
-* Ermittle die Tastenbelegung deines Gamepads.
-* Zeige die Werte aller Analogsticks auf dem Bildschirm an.
-* Ergänze eine Totzone.
-* Erweitere das Zeichenprogramm um mehrere Farben.
-* Baue dein Pong-Spiel auf Gamepad-Steuerung um.
-
-=== Zusammenfassung
-
-Gamepads gehören heute zu den wichtigsten Eingabegeräten für Spiele.
-
-Du hast gelernt,
-
-* wie moderne USB-Spielcontroller aufgebaut sind,
-* den Unterschied zwischen digitalen und analogen Eingaben kennengelernt,
-* erste Testprogramme entworfen
-* und Gamepads als universelle Eingabegeräte eingesetzt.
-
-Im nächsten Kapitel werden wir diese Eingaben verwenden, um Sprites und Spielfiguren komfortabel zu steuern.
-
-=== Programmbeispiel
-
-Das vollständige BASIC-Programm findest du hier:
-
-* {github-programme}/49_gamepad_test.bas[49_gamepad_test.bas]
+Das Grundprinzip ist damit seit den Heimcomputerzeiten gleich geblieben: Der Spieler bewegt einen Controller, und das Programm setzt diese Eingabe in eine Aktion um.
