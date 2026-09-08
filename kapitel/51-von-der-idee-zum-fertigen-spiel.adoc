@@ -13,964 +13,319 @@ Du hast gelernt,
 * Variablen und Konstanten zu verwenden,
 * Entscheidungen mit `IF` und `SELECT CASE` zu treffen,
 * Schleifen zu programmieren,
-* Funktionen zu schreiben,
+* Arrays einzusetzen,
+* eigene `SUB`-Programme und `FUNCTION`-Funktionen zu schreiben,
 * Grafiken und Texte auszugeben,
 * Sound zu erzeugen,
-* Dateien zu speichern,
+* Dateien zu verwenden,
 * Timer einzusetzen,
 * Gamepads auszulesen
 * und Sprites über den Bildschirm zu bewegen.
 
 Jedes dieser Themen war zunächst nur ein kleiner Baustein.
 
-Jetzt werden wir sie miteinander verbinden.
+Jetzt setzen wir diese Bausteine zu einem vollständigen Programm zusammen.
 
-In diesem Kapitel entwickeln wir gemeinsam ein vollständiges Computerspiel.
+In diesem Kapitel entwickeln wir ein kleines Computerspiel. Dabei geht es nicht darum, möglichst viele neue Befehle kennenzulernen. Stattdessen verwenden wir bewusst das, was wir in den vergangenen Kapiteln gelernt haben.
 
-Nicht als Sammlung einzelner Programmbeispiele.
-
-Sondern so, wie auch echte Softwareprojekte entstehen.
-
-Wir beginnen mit einer Idee, planen die einzelnen Bestandteile und setzen sie anschließend Schritt für Schritt um.
-
-Du wirst dabei feststellen, dass viele Dinge, die dir am Anfang dieses Buches noch kompliziert erschienen, inzwischen ganz selbstverständlich geworden sind.
-
-Genau das ist das Ziel dieses Buches.
-
-Nicht einzelne BASIC-Befehle auswendig zu lernen.
-
-Sondern eigene Programme entwickeln zu können.
+Genau darin liegt der wichtigste Schritt beim Programmieren: Aus einzelnen Befehlen, Funktionen und Ideen entsteht ein eigenes Programm.
 
 === Die Spielidee
 
-Unser Abschlussprojekt soll bewusst überschaubar bleiben.
+Unser Abschlussprojekt soll überschaubar bleiben und trotzdem typische Elemente eines kleinen Arcade-Spiels enthalten.
 
-Es soll alle wichtigen Techniken verwenden, die wir im Laufe dieses Buches kennengelernt haben, dabei aber so einfach aufgebaut sein, dass du den gesamten Programmablauf problemlos nachvollziehen kannst.
+Der Spieler steuert eine Figur über das Spielfeld und sammelt Münzen ein. Gleichzeitig bewegen sich mehrere Gegner über den Bildschirm.
 
-Wir entwickeln deshalb ein kleines Arcade-Spiel.
+Berührt der Spieler eine Münze, erhält er Punkte. Berührt ihn dagegen ein Gegner, verliert er ein Leben.
 
-Der Spieler steuert eine Spielfigur über den Bildschirm.
-
-Über das Spielfeld verteilt erscheinen Münzen.
-
-Ziel des Spiels ist es, möglichst viele Münzen einzusammeln.
-
-Doch Vorsicht!
-
-Mehrere Gegner bewegen sich ebenfalls über den Bildschirm.
-
-Berührt einer der Gegner unsere Spielfigur, verliert der Spieler ein Leben.
-
-Sind alle Münzen eingesammelt, beginnt das nächste Level.
-
-Mit jedem Level werden die Gegner etwas schneller.
+Sind alle Münzen eingesammelt, beginnt das nächste Level. Die Münzen werden neu verteilt und die Gegner werden etwas schneller.
 
 Das Spiel endet, sobald keine Leben mehr übrig sind.
 
-Obwohl diese Spielidee sehr einfach klingt, verwendet sie bereits nahezu alle wichtigen Techniken der klassischen Spieleprogrammierung.
+Damit besitzt unser Spiel bereits viele typische Bestandteile eines klassischen Computerspiels:
+
+* Eingabe,
+* Bewegung,
+* Sprites,
+* Kollisionen,
+* Punktestand,
+* mehrere Level,
+* Soundeffekte
+* und eine ständig wiederholte Spielschleife.
 
 === Spielregeln
 
 Die Regeln unseres Spiels sind schnell erklärt.
 
-* Der Spieler bewegt seine Figur mit dem linken Analogstick des Gamepads.
+* Der Spieler bewegt seine Figur mit dem linken Analogstick eines USB-Gamepads.
 * Jede eingesammelte Münze bringt Punkte.
-* Gegner bewegen sich selbstständig über den Bildschirm.
+* Mehrere Gegner bewegen sich selbstständig über den Bildschirm.
 * Berührt ein Gegner den Spieler, geht ein Leben verloren.
 * Sind alle Münzen eingesammelt, beginnt das nächste Level.
-* Mit jedem Level erhöht sich die Spielgeschwindigkeit.
+* Mit jedem Level bewegen sich die Gegner schneller.
 * Sind keine Leben mehr vorhanden, endet das Spiel.
 
 Mehr Regeln benötigen wir zunächst nicht.
 
-Gerade einfache Spielideen machen häufig den größten Spaß.
-
-Viele bekannte Computerspiele der 1980er-Jahre bestanden aus ähnlich einfachen Spielregeln.
+Gerade einfache Spielideen eignen sich hervorragend, um sich auf die Programmstruktur zu konzentrieren.
 
 === Das Spielfeld
 
-Bevor wir mit dem Programmieren beginnen, überlegen wir uns zunächst den Aufbau unseres Spielfeldes.
+Bevor wir mit dem Programmieren beginnen, überlegen wir uns den Aufbau des Spielfeldes.
 
 [source]
 ----
 +--------------------------------------------------+
-
-        💰
-
-                      👾
-
-
-   🙂
-
-
-               💰
-
-                              👾
-
-
-          💰
-
-
+| Punkte: 120          Level: 2          Leben: 3 |
++--------------------------------------------------+
+|
+|        [M]
+|
+|                       [G]
+|
+|   [S]
+|
+|                [M]
+|
+|                               [G]
+|
+|          [M]
+|
 +--------------------------------------------------+
 ----
 
-Unser Spiel verwendet lediglich drei unterschiedliche Sprite-Typen.
+Die Darstellung ist hier nur schematisch.
 
-* 🙂 Spieler
-* 💰 Münze
-* 👾 Gegner
+`[S]` steht für den Spieler, `[M]` für eine Münze und `[G]` für einen Gegner. Im eigentlichen Programm verwenden wir dafür kleine Sprite-Grafiken.
 
-Zusätzlich benötigen wir einige Textanzeigen.
+Am oberen Bildschirmrand befindet sich zusätzlich eine Statuszeile mit
 
-Am oberen Bildschirmrand zeigen wir
+* dem aktuellen Punktestand,
+* dem aktuellen Level
+* und den verbleibenden Leben.
 
-* den aktuellen Punktestand,
-* das aktuelle Level
-* und die verbleibenden Leben an.
+=== Für welches System schreiben wir das Spiel?
 
-Damit besitzt unser Spiel bereits alle wichtigen Bestandteile eines klassischen Arcade-Spiels.
+Das Beispiel in diesem Kapitel ist auf einen PicoMite mit VGA- oder HDMI-Ausgabe und USB-Gamepad ausgelegt. Besonders gut passt es damit zu unserem PicoMite HDMI/USB.
 
-=== Planung
+Die Sprite-Befehle arbeiten bei VGA und HDMI in den dafür vorgesehenen Grafikmodi. Für unser Spiel verwenden wir `MODE 2`.
 
-Bevor wir mit dem eigentlichen Programm beginnen, überlegen wir uns den grundsätzlichen Ablauf.
+[NOTE]
+====
+Andere PicoMite-Varianten können ebenfalls Sprite-Funktionen besitzen, wenn ein geeigneter Framebuffer verwendet wird. Die genaue Verfügbarkeit hängt jedoch von der jeweiligen Firmware-Variante und der Display-Konfiguration ab.
 
-Unser Spiel besteht aus mehreren unabhängigen Aufgaben.
+Das Abschlussprogramm in diesem Kapitel konzentriert sich deshalb bewusst auf VGA/HDMI mit USB-Gamepad.
+====
 
-* Initialisierung
-* Sprites laden
-* Spiel starten
-* Eingaben lesen
-* Spieler bewegen
-* Gegner bewegen
-* Münzen prüfen
-* Kollisionen erkennen
-* Punktestand aktualisieren
-* Bildschirm aktualisieren
+=== Planung vor dem Programmieren
 
-Jede dieser Aufgaben werden wir später in einer eigenen Funktion unterbringen.
+Auch bei einem kleinen Spiel lohnt sich eine kurze Planung.
 
-Dadurch bleibt unser Programm übersichtlich und kann jederzeit erweitert werden.
+Unser Programm muss mehrere Aufgaben erledigen:
 
-Diese Vorgehensweise entspricht auch der Arbeitsweise professioneller Softwareentwickler.
+* Grafikmodus vorbereiten,
+* Sprite-Grafiken anlegen,
+* Spielvariablen initialisieren,
+* Münzen platzieren,
+* Gegner platzieren,
+* Gamepad einlesen,
+* Spieler bewegen,
+* Gegner bewegen,
+* Sprites gemeinsam verschieben,
+* Kollisionen prüfen,
+* Punktestand und Leben aktualisieren,
+* das nächste Level starten
+* und das Spielende anzeigen.
+
+Diese Aufgaben werden wir nicht alle direkt in das Hauptprogramm schreiben.
+
+Stattdessen zerlegen wir das Spiel in kleine `SUB`-Programme und Funktionen.
+
+Das macht den Programmcode wesentlich leichter verständlich.
 
 === Die Programmstruktur
 
-Bevor wir die erste Programmzeile schreiben, lohnt sich ein Blick auf den grundsätzlichen Aufbau.
+Der grundsätzliche Ablauf sieht so aus:
 
 [source]
 ----
 Programmstart
 
-↓
+    |
+    v
 
-Grafik initialisieren
+Grafikmodus einstellen
 
-↓
+    |
+    v
 
-Sprites laden
+Sprites erzeugen
 
-↓
+    |
+    v
 
-Spielvariablen initialisieren
+Spiel initialisieren
 
-↓
+    |
+    v
 
-Game Loop
++-------------------------+
+|       GAME LOOP         |
+|                         |
+|  Gamepad lesen          |
+|  Spieler bewegen        |
+|  Gegner bewegen         |
+|  Sprites verschieben    |
+|  Kollisionen prüfen     |
+|  Level prüfen           |
+|  Status anzeigen        |
++-------------------------+
 
-    ↓
+    |
+    v
 
-    Gamepad lesen
-
-    ↓
-
-    Spieler bewegen
-
-    ↓
-
-    Gegner bewegen
-
-    ↓
-
-    Münzen prüfen
-
-    ↓
-
-    Kollisionen prüfen
-
-    ↓
-
-    Bildschirm aktualisieren
-
-↓
-
-Spiel beendet
+GAME OVER
 ----
 
-Vielleicht kommt dir dieser Ablauf bekannt vor.
-
-Genau diese Spielschleife haben wir bereits im vorherigen Kapitel kennengelernt.
-
-Der Unterschied besteht lediglich darin, dass jetzt sämtliche Techniken gemeinsam verwendet werden.
-
-=== Los geht's
-
-Jetzt ist es endlich so weit.
-
-Im nächsten Abschnitt beginnen wir mit dem eigentlichen Programm.
-
-Zunächst legen wir die benötigten Konstanten und Variablen an und initialisieren unsere Spielumgebung.
-
-Anschließend laden wir die Sprites und erzeugen unser Spielfeld.
+Die zentrale Spielschleife bleibt dadurch relativ kurz. Die eigentliche Arbeit übernehmen die Unterprogramme.
 
 === Schritt 1: Welche Daten benötigen wir?
 
-Bevor wir mit dem eigentlichen Programm beginnen, überlegen wir uns, welche Informationen unser Spiel verwalten muss.
+Bevor wir die erste Programmzeile schreiben, überlegen wir, welche Informationen während des Spiels gespeichert werden müssen.
 
-Diese Überlegung spart später viel Arbeit und führt zu einem übersichtlichen Programm.
+Für den Spieler benötigen wir beispielsweise
 
-Schauen wir uns unsere Spielidee noch einmal an.
+* die X-Position,
+* die Y-Position,
+* den Punktestand
+* und die Anzahl der Leben.
 
-Wir haben
+Für jeden Gegner benötigen wir
 
-* einen Spieler,
-* mehrere Gegner,
-* mehrere Münzen,
-* einen Punktestand,
-* mehrere Leben
-* und verschiedene Level.
+* eine X-Position,
+* eine Y-Position,
+* eine Bewegungsrichtung in X-Richtung
+* und eine Bewegungsrichtung in Y-Richtung.
 
-Für jedes dieser Objekte müssen wir bestimmte Informationen speichern.
+Für jede Münze benötigen wir
 
-Der Spieler besitzt beispielsweise eine Position auf dem Bildschirm.
+* eine X-Position,
+* eine Y-Position
+* und die Information, ob sie noch sichtbar ist.
 
-Diese besteht aus einer X- und einer Y-Koordinate.
-
-Außerdem benötigen wir die aktuelle Anzahl der Leben sowie den Punktestand.
-
-Auch jeder Gegner besitzt eine Position.
-
-Zusätzlich muss seine Bewegungsrichtung gespeichert werden.
-
-Bei den Münzen genügt dagegen zunächst ihre Position sowie die Information, ob sie bereits eingesammelt wurde.
-
-Damit erhalten wir bereits einen guten Überblick über die benötigten Daten.
+Eine mögliche Übersicht sieht so aus:
 
 [cols="1,3"]
 |===
 |Information |Bedeutung
 
-|PlayerX
+|`PlayerX`
 |X-Koordinate des Spielers
 
-|PlayerY
+|`PlayerY`
 |Y-Koordinate des Spielers
 
-|Score
+|`Score`
 |Aktueller Punktestand
 
-|Lives
+|`Lives`
 |Verbleibende Leben
 
-|Level
+|`Level`
 |Aktuelles Spiellevel
 
-|EnemyX()
-|X-Koordinaten aller Gegner
+|`EnemyX()`
+|X-Koordinaten der Gegner
 
-|EnemyY()
-|Y-Koordinaten aller Gegner
+|`EnemyY()`
+|Y-Koordinaten der Gegner
 
-|EnemyDX()
-|Bewegungsrichtung in X-Richtung
+|`EnemyDX()`
+|Bewegung der Gegner in X-Richtung
 
-|EnemyDY()
-|Bewegungsrichtung in Y-Richtung
+|`EnemyDY()`
+|Bewegung der Gegner in Y-Richtung
 
-|CoinX()
-|X-Koordinaten aller Münzen
+|`CoinX()`
+|X-Koordinaten der Münzen
 
-|CoinY()
-|Y-Koordinaten aller Münzen
+|`CoinY()`
+|Y-Koordinaten der Münzen
 
-|CoinVisible()
-|Ist die Münze noch vorhanden?
+|`CoinVisible()`
+|Gibt an, ob eine Münze noch vorhanden ist
 |===
 
-Vielleicht wunderst du dich über die Klammern hinter einigen Variablennamen.
+==== Warum Arrays?
 
-Dabei handelt es sich um Arrays.
+Wir besitzen mehrere Gegner und mehrere Münzen.
 
-Anstatt für jeden Gegner eigene Variablen wie
-
-[source,basic]
-----
-Enemy1X
-Enemy2X
-Enemy3X
-Enemy4X
-----
-
-anzulegen, verwenden wir ein gemeinsames Array.
+Natürlich könnten wir für jeden Gegner eigene Variablen anlegen:
 
 [source,basic]
 ----
-EnemyX(1)
-EnemyX(2)
-EnemyX(3)
-EnemyX(4)
+Enemy1X = 100
+Enemy2X = 180
+Enemy3X = 250
+Enemy4X = 320
 ----
 
-Das macht unser Programm wesentlich übersichtlicher.
+Das wird jedoch schnell unübersichtlich.
 
-Außerdem können wir die Gegner später ganz einfach in einer Schleife bearbeiten.
+Mit einem Array können wir dieselben Informationen wesentlich eleganter speichern:
 
-Genau deshalb kommen Arrays in der Spieleprogrammierung besonders häufig zum Einsatz.
+[source,basic]
+----
+EnemyX(1) = 100
+EnemyX(2) = 180
+EnemyX(3) = 250
+EnemyX(4) = 320
+----
+
+Der große Vorteil zeigt sich anschließend in einer Schleife:
+
+[source,basic]
+----
+FOR i = 1 TO MaxEnemies
+    EnemyX(i) = EnemyX(i) + EnemyDX(i)
+NEXT i
+----
+
+Genau für solche Aufgaben sind Arrays gedacht.
 
 === Schritt 2: Konstanten festlegen
 
-Viele Werte unseres Spiels ändern sich während des Programms nie.
+Viele Werte unseres Spiels ändern sich während der Programmausführung nicht.
 
 Dazu gehören beispielsweise
 
 * die Anzahl der Gegner,
 * die Anzahl der Münzen,
-* die Größe des Spielfeldes,
-* oder die Startgeschwindigkeit.
+* die Startanzahl der Leben,
+* der Punktewert einer Münze
+* und die Sprite-Nummern.
 
-Solche Werte legt man am besten als Konstanten fest.
-
-Dadurch lassen sich spätere Änderungen besonders einfach durchführen.
+Solche Werte legen wir als Konstanten fest.
 
 [source,basic]
 ----
 CONST MaxEnemies = 4
-CONST MaxCoins   = 10
+CONST MaxCoins = 10
 CONST StartLives = 3
 CONST CoinPoints = 10
+
+CONST PlayerSpeed = 3
+CONST EnemyStartSpeed = 1
+
+CONST PlayerSprite = 1
+CONST FirstEnemySprite = 2
+CONST FirstCoinSprite = 6
+
+CONST PlayfieldTop = 32
+CONST GamepadChannel = 3
 ----
 
-
-Danach folgt die eigentliche Spielschleife, in der alle Bestandteile unseres Spiels zusammenarbeiten.
-
-Aus vielen kleinen Programmbausteinen entsteht nun Schritt für Schritt ein vollständiges Computerspiel.
-
-[NOTE]
-.Warum machen wir das?
-====
-Professionelle Software entsteht selten in einem einzigen Schritt.
-
-Zunächst werden die benötigten Daten geplant.
-
-Erst danach beginnt die eigentliche Programmierung.
-
-Genau diese Vorgehensweise verwenden wir auch in diesem Kapitel.
-====
-
-=== Schritt 2: Konstanten festlegen
-
-Im vorherigen Abschnitt haben wir überlegt, welche Informationen unser Spiel verwalten muss.
-
-Bevor wir nun mit dem eigentlichen Programm beginnen, legen wir einige Konstanten fest.
-
-Konstanten sind Werte, die sich während der Programmausführung niemals ändern.
-
-Dadurch wird unser Programm nicht nur übersichtlicher, sondern spätere Änderungen lassen sich ebenfalls wesentlich einfacher durchführen.
-
-Stell dir vor, unser Spiel besitzt zunächst vier Gegner.
-
-Später stellst du fest, dass sechs Gegner spannender wären.
-
-Hast du überall im Programm einfach die Zahl `4` verwendet, musst du sämtliche Programmzeilen durchsuchen und ändern.
-
-Verwendest du dagegen eine Konstante, genügt eine einzige Änderung.
-
-[source,basic]
-----
-CONST MaxEnemies = 4
-----
-
-Ab sofort verwendet das gesamte Programm automatisch den neuen Wert.
-
-Dieses Verfahren macht Programme übersichtlicher und reduziert die Gefahr von Fehlern.
-
-==== Welche Konstanten benötigen wir?
-
-Für unser Spiel benötigen wir zunächst einige feste Werte.
-
-[source,basic]
-----
-CONST MaxEnemies = 4
-CONST MaxCoins   = 10
-
-CONST StartLives = 3
-
-CONST CoinPoints = 10
-
-CONST EnemySpeed = 2
-
-CONST PlayerSpeed = 4
-----
-
-Diese Konstanten legen fest,
-
-* wie viele Gegner gleichzeitig vorhanden sind,
-* wie viele Münzen auf dem Spielfeld liegen,
-* mit wie vielen Leben das Spiel beginnt,
-* wie viele Punkte eine Münze wert ist,
-* wie schnell sich Gegner bewegen,
-* und mit welcher Geschwindigkeit der Spieler läuft.
-
-Alle diese Werte können später problemlos angepasst werden.
-
-==== Bildschirmgröße
-
-Auch die Größe unseres Spielfeldes sollte nicht an mehreren Stellen im Programm fest eingetragen werden.
-
-MMBasic stellt hierfür bereits passende Systemvariablen zur Verfügung.
-
-[source,basic]
-----
-ScreenWidth  = MM.HRES
-ScreenHeight = MM.VRES
-----
-
-Dadurch funktioniert unser Spiel unabhängig von der gewählten Bildschirmauflösung.
-
-Egal ob VGA-, HDMI- oder TFT-Ausgabe – die Spielfläche passt sich automatisch an.
-
-==== Keine "magischen Zahlen"
-
-Anfänger schreiben Programme häufig so:
-
-[source,basic]
-----
-IF Score >= 500 THEN
-
-    Level = 2
-
-ENDIF
-----
-
-Einige Seiten später steht dann vielleicht
-
-[source,basic]
-----
-IF Score >= 1000 THEN
-
-    EnemySpeed = 4
-
-ENDIF
-----
-
-Woher stammen eigentlich die Werte `500` und `1000`?
-
-Warum nicht `400` oder `1200`?
-
-Solche fest eingetragenen Zahlen bezeichnet man häufig als *magische Zahlen*.
-
-Besser ist es, auch hierfür sprechende Konstanten zu verwenden.
-
-[source,basic]
-----
-CONST NextLevelScore = 500
-
-IF Score >= NextLevelScore THEN
-
-    Level = Level + 1
-
-ENDIF
-----
-
-Jetzt erkennt jeder Leser sofort, welche Bedeutung dieser Wert besitzt.
-
-==== Gute Namen wählen
-
-Konstantennamen sollten möglichst eindeutig sein.
-
-Ein Name wie
-
-[source,basic]
-----
-CONST Speed = 4
-----
-
-ist wenig aussagekräftig.
-
-Handelt es sich um die Geschwindigkeit des Spielers?
-
-Oder eines Gegners?
-
-Oder vielleicht eines Geschosses?
-
-Deutlich besser sind sprechende Namen.
-
-[source,basic]
-----
-CONST PlayerSpeed = 4
-
-CONST EnemySpeed = 2
-
-CONST ShotSpeed = 8
-----
-
-Schon der Name verrät, wofür die jeweilige Konstante verwendet wird.
-
-Dadurch wird das Programm wesentlich leichter lesbar.
-
-[TIP]
-====
-Verwende für Konstanten immer aussagekräftige Namen.
-
-Ein paar zusätzliche Buchstaben sparen später oft viele Minuten Sucharbeit.
-
-Gerade bei größeren Programmen macht sich eine saubere Benennung schnell bezahlt.
-====
-
-=== Unsere ersten Konstanten
-
-Für unser Abschlussprojekt verwenden wir zunächst folgende Konstanten.
-
-[source,basic]
-----
-CONST MaxEnemies    = 4
-CONST MaxCoins      = 10
-
-CONST StartLives    = 3
-
-CONST CoinPoints    = 10
-
-CONST PlayerSpeed   = 4
-CONST EnemySpeed    = 2
-
-CONST NextLevelScore = 100
-----
-
-Im nächsten Schritt werden wir die Variablen und Arrays anlegen, in denen während des Spiels alle Positionsdaten, Punktestände und Spielzustände gespeichert werden.
-
-Damit sind die Vorbereitungen abgeschlossen und wir können mit der eigentlichen Programmierung beginnen.
-
-=== Schritt 3: Das Spiel initialisieren
-
-Unsere Planung ist abgeschlossen.
-
-Wir wissen nun,
-
-* welche Daten wir benötigen,
-* welche Konstanten unser Spiel verwendet
-* und wie der grundsätzliche Programmablauf aussehen soll.
-
-Jetzt beginnen wir mit der eigentlichen Programmierung.
-
-Bevor das Spiel starten kann, müssen jedoch zunächst einige Vorbereitungen getroffen werden.
-
-Dazu gehören beispielsweise
-
-* der Grafikmodus,
-* das Laden der Sprites,
-* die Initialisierung des Zufallszahlengenerators,
-* das Erzeugen der Gegner,
-* das Verteilen der Münzen
-* und das Zurücksetzen aller Spielvariablen.
-
-Diese Aufgaben werden nur einmal beim Programmstart ausgeführt.
-
-Erst danach beginnt die eigentliche Spielschleife.
-
-[source]
-----
-Programmstart
-
-↓
-
-Initialisierung
-
-↓
-
-Game Loop
-
-↓
-
-Spiel beendet
-----
-
-=== Bildschirm vorbereiten
-
-Als Erstes bereiten wir den Bildschirm vor.
-
-Er wird gelöscht und erhält einen passenden Titel.
-
-Später könnten wir hier auch einen Startbildschirm oder ein Menü anzeigen.
-
-[source,basic]
-----
-CLS
-
-TEXT MM.HRES/2,20,"Coin Collector",CM,CENTER
-
-TEXT MM.HRES/2,45,"Bitte START drücken...",CM,CENTER
-----
-
-Nachdem der Spieler die Starttaste gedrückt hat, beginnt das eigentliche Spiel.
-
-=== Zufallszahlen initialisieren
-
-Unsere Münzen und Gegner sollen bei jedem Spiel an unterschiedlichen Positionen erscheinen.
-
-Dazu verwenden wir den Zufallszahlengenerator.
-
-Dieser sollte zu Beginn des Programms einmal initialisiert werden.
-
-[source,basic]
-----
-' TODO
-
-Randomize()
-----
-
-Erst danach erzeugen wir zufällige Positionen für unsere Spielobjekte.
-
-Dadurch verläuft jede Spielrunde etwas anders und das Spiel bleibt interessant.
-
-=== Spielvariablen zurücksetzen
-
-Zu Beginn eines neuen Spiels müssen sämtliche Spielvariablen auf ihre Ausgangswerte gesetzt werden.
-
-Dazu gehören
-
-* Punktestand,
-* Leben,
-* Level
-* und die Startposition des Spielers.
-
-[source,basic]
-----
-Score = 0
-
-Lives = StartLives
-
-Level = 1
-
-PlayerX = MM.HRES / 2
-
-PlayerY = MM.VRES / 2
-----
-
-Jetzt besitzt jedes neue Spiel dieselben Startbedingungen.
-
-=== Gegner erzeugen
-
-Als Nächstes verteilen wir unsere Gegner auf dem Spielfeld.
-
-Dazu verwenden wir die Arrays, die wir bereits vorbereitet haben.
-
-[source,basic]
-----
-FOR i = 1 TO MaxEnemies
-
-    EnemyX(i) = RND * MM.HRES
-
-    EnemyY(i) = RND * MM.VRES
-
-NEXT i
-----
-
-Bei jedem Programmstart erscheinen die Gegner dadurch an anderen Positionen.
-
-Später werden wir zusätzlich ihre Bewegungsrichtung festlegen.
-
-=== Münzen platzieren
-
-Nun erzeugen wir die Münzen.
-
-Auch sie werden zufällig auf dem Spielfeld verteilt.
-
-[source,basic]
-----
-FOR i = 1 TO MaxCoins
-
-    CoinX(i) = RND * MM.HRES
-
-    CoinY(i) = RND * MM.VRES
-
-    CoinVisible(i) = TRUE
-
-NEXT i
-----
-
-Alle Münzen sind damit zunächst sichtbar.
-
-Sammelt der Spieler später eine Münze ein, setzen wir den Eintrag `CoinVisible(i)` einfach auf `FALSE`.
-
-=== Sprites laden
-
-Jetzt fehlen nur noch unsere Spielfiguren.
-
-Beim Programmstart laden wir sämtliche Spritegrafiken in den Speicher.
-
-[source,basic]
-----
-' TODO
-
-LoadSprite(PlayerSprite)
-
-LoadSprite(EnemySprite)
-
-LoadSprite(CoinSprite)
-----
-
-Da dies nur einmal geschieht, stehen die Grafiken anschließend jederzeit zur Verfügung.
-
-Während des Spiels müssen sie lediglich noch an ihrer aktuellen Position dargestellt werden.
-
-=== Die Initialisierung ist abgeschlossen
-
-Nach diesen Vorbereitungen besitzt unser Spiel bereits alle notwendigen Bestandteile.
-
-* Der Bildschirm wurde vorbereitet.
-* Die Spielvariablen wurden zurückgesetzt.
-* Gegner wurden erzeugt.
-* Münzen wurden verteilt.
-* Alle Sprites wurden geladen.
-
-Es fehlt nur noch eines.
-
-Jetzt muss das Spiel laufen.
-
-Und genau das übernimmt im nächsten Abschnitt unsere Game Loop.
-
-Ab diesem Zeitpunkt wiederholt sich derselbe Programmablauf viele Male pro Sekunde.
-
-Die Spielfiguren bewegen sich.
-
-Münzen werden eingesammelt.
-
-Gegner verfolgen den Spieler.
-
-Der Punktestand verändert sich.
-
-Und aus vielen einzelnen Programmbausteinen entsteht Schritt für Schritt ein vollständiges Computerspiel.
-
-=== Schritt 4: Die Game Loop
-
-Jetzt beginnt das eigentliche Spiel.
-
-Alle bisherigen Schritte dienten nur der Vorbereitung. Wir haben Konstanten festgelegt, Variablen vorbereitet, Gegner erzeugt, Münzen verteilt und die benötigten Sprites geladen.
-
-Nun müssen diese Bestandteile miteinander arbeiten.
-
-Das übernimmt die *Game Loop*.
-
-Sie ist das Herzstück unseres Spiels.
-
-Solange der Spieler noch mindestens ein Leben besitzt, wird dieselbe Abfolge immer wieder ausgeführt:
-
-. Gamepad auslesen
-. Spieler bewegen
-. Gegner bewegen
-. Münzen überprüfen
-. Kollisionen erkennen
-. Anzeige aktualisieren
-. kurze Pause bis zum nächsten Bild
-
-Der grundsätzliche Aufbau sieht so aus:
-
-[source,basic]
-----
-DO WHILE Lives > 0
-
-    ReadGamepad
-
-    MovePlayer
-
-    MoveEnemies
-
-    CheckCoins
-
-    CheckEnemyCollisions
-
-    UpdateDisplay
-
-    PAUSE 16
-
-LOOP
-----
-
-Vielleicht wirkt diese Schleife überraschend kurz.
-
-Das ist beabsichtigt.
-
-Jede einzelne Aufgabe wird in einem eigenen Unterprogramm erledigt. Dadurch bleibt die Game Loop übersichtlich und lässt sich fast wie eine Beschreibung des Spielablaufs lesen.
-
-[TIP]
-====
-Eine gute Game Loop sollte möglichst leicht verständlich sein.
-
-Details wie Kollisionsberechnungen oder das Bewegen einzelner Gegner gehören in eigene Unterprogramme. Dadurch bleibt das Hauptprogramm auch dann übersichtlich, wenn das Spiel später erweitert wird.
-====
-
-==== Eingaben lesen
-
-Zu Beginn jedes Schleifendurchlaufs fragen wir den aktuellen Zustand des Gamepads ab.
-
-[source,basic]
-----
-ReadGamepad
-----
-
-Dabei werden unter anderem
-
-* die Stellung des Analogsticks,
-* das Steuerkreuz
-* und die Tasten
-
-eingelesen.
-
-Diese Werte stehen anschließend für die Bewegung des Spielers zur Verfügung.
-
-Die Eingabe wird in jeder Runde erneut geprüft. Dadurch reagiert die Spielfigur unmittelbar auf die Steuerung.
-
-==== Spieler bewegen
-
-Nach dem Einlesen des Gamepads wird die Position des Spielers aktualisiert.
-
-[source,basic]
-----
-MovePlayer
-----
-
-Das zugehörige Unterprogramm könnte zunächst so aufgebaut sein:
-
-[source,basic]
-----
-SUB MovePlayer
-
-    ' TODO:
-    ' Werte des linken Analogsticks verwenden
-
-    PlayerX = PlayerX + StickX * PlayerSpeed
-    PlayerY = PlayerY + StickY * PlayerSpeed
-
-END SUB
-----
-
-Die Variablen `StickX` und `StickY` enthalten die aktuelle Auslenkung des Analogsticks.
-
-Steht der Stick in der Mitte, ändern sich die Koordinaten nicht.
-
-Wird er nach rechts bewegt, erhöht sich `PlayerX`. Bei einer Bewegung nach links wird der Wert kleiner.
-
-Dasselbe gilt für die vertikale Bewegung.
-
-==== Spielfeld begrenzen
-
-Ohne zusätzliche Prüfung könnte die Spielfigur den sichtbaren Bildschirm verlassen.
-
-Deshalb begrenzen wir ihre Koordinaten.
-
-[source,basic]
-----
-IF PlayerX < 0 THEN PlayerX = 0
-IF PlayerY < PlayfieldTop THEN PlayerY = PlayfieldTop
-
-IF PlayerX > MM.HRES - PlayerWidth THEN
-    PlayerX = MM.HRES - PlayerWidth
-ENDIF
-
-IF PlayerY > MM.VRES - PlayerHeight THEN
-    PlayerY = MM.VRES - PlayerHeight
-ENDIF
-----
-
-`PlayfieldTop` bezeichnet den Bereich unterhalb der Statusanzeige.
-
-Dadurch kann die Spielfigur nicht über Punktestand, Level und Lebensanzeige laufen.
-
-Anschließend wird das Sprite an seine neue Position verschoben.
-
-[source,basic]
-----
-' TODO:
-' Spieler-Sprite verschieben
-
-MoveSprite PlayerSprite, PlayerX, PlayerY
-----
-
-==== Gegner bewegen
-
-Nachdem der Spieler bewegt wurde, sind die Gegner an der Reihe.
-
-Da wir mehrere Gegner besitzen, bearbeiten wir sie in einer Schleife.
-
-[source,basic]
-----
-SUB MoveEnemies
-
-    FOR i = 1 TO MaxEnemies
-
-        EnemyX(i) = EnemyX(i) + EnemyDX(i)
-        EnemyY(i) = EnemyY(i) + EnemyDY(i)
-
-        ' Bildschirmränder prüfen
-
-        IF EnemyX(i) < 0 THEN
-            EnemyX(i) = 0
-            EnemyDX(i) = -EnemyDX(i)
-        ENDIF
-
-        IF EnemyX(i) > MM.HRES - EnemyWidth THEN
-            EnemyX(i) = MM.HRES - EnemyWidth
-            EnemyDX(i) = -EnemyDX(i)
-        ENDIF
-
-        IF EnemyY(i) < PlayfieldTop THEN
-            EnemyY(i) = PlayfieldTop
-            EnemyDY(i) = -EnemyDY(i)
-        ENDIF
-
-        IF EnemyY(i) > MM.VRES - EnemyHeight THEN
-            EnemyY(i) = MM.VRES - EnemyHeight
-            EnemyDY(i) = -EnemyDY(i)
-        ENDIF
-
-        ' TODO:
-        ' Gegner-Sprite verschieben
-
-        MoveSprite EnemySprite(i), EnemyX(i), EnemyY(i)
-
-    NEXT i
-
-END SUB
-----
-
-Jeder Gegner besitzt eine eigene Position und eine eigene Bewegungsrichtung.
-
-Erreicht ein Gegner einen Bildschirmrand, wird die jeweilige Richtung umgekehrt.
-
-Aus
-
-[source,basic]
-----
-EnemyDX(i) = 2
-----
-
-wird dadurch
-
-[source,basic]
-----
-EnemyDX(i) = -2
-----
-
-Der Gegner bewegt sich anschließend in die entgegengesetzte Richtung.
-
-==== Warum besitzt jeder Gegner ein eigenes Sprite?
-
-Obwohl alle Gegner dasselbe Bild verwenden, müssen sie unabhängig voneinander bewegt werden können.
-
-Deshalb benötigt jeder Gegner eine eigene Sprite-Nummer.
-
-Das Bild kann gemeinsam verwendet werden, die Position und der sichtbare Zustand gehören jedoch immer zum jeweiligen Gegner.
-
-Eine mögliche Zuordnung könnte so aussehen:
+Damit sind die Sprite-Nummern eindeutig vergeben:
 
 [cols="1,2"]
 |===
@@ -980,200 +335,466 @@ Eine mögliche Zuordnung könnte so aussehen:
 |Spieler
 
 |2 bis 5
-|Gegner
+|vier Gegner
 
 |6 bis 15
-|Münzen
+|zehn Münzen
 |===
 
-Eine klare Zuordnung verhindert später Verwechslungen.
+[TIP]
+====
+Sprechende Konstantennamen sind fast immer besser als fest eingetragene Zahlen.
 
-==== Münzen überprüfen
+`FirstCoinSprite + i - 1` ist beispielsweise leichter nachvollziehbar als eine scheinbar zufällige Zahl irgendwo im Programm.
+====
 
-Nach der Bewegung prüfen wir, ob der Spieler eine Münze berührt.
+==== Keine unnötigen magischen Zahlen
 
-[source,basic]
-----
-CheckCoins
-----
+Die Level unseres Spiels beginnen nicht bei einem bestimmten Punktestand, sondern immer dann, wenn alle Münzen eingesammelt wurden.
 
-Da mehrere Münzen vorhanden sind, verwenden wir erneut eine Schleife.
-
-[source,basic]
-----
-SUB CheckCoins
-
-    FOR i = 1 TO MaxCoins
-
-        IF CoinVisible(i) THEN
-
-            IF SpritesOverlap(PlayerX, PlayerY, _
-                              PlayerWidth, PlayerHeight, _
-                              CoinX(i), CoinY(i), _
-                              CoinWidth, CoinHeight) THEN
-
-                CoinVisible(i) = FALSE
-
-                Score = Score + CoinPoints
-
-                ' TODO:
-                ' Münz-Sprite ausblenden
-
-                HideSprite CoinSprite(i)
-
-                PLAY SOUND 1, L, N, 1000, 60
-
-            ENDIF
-
-        ENDIF
-
-    NEXT i
-
-END SUB
-----
-
-Das Unterprogramm `SpritesOverlap` prüft, ob sich zwei rechteckige Bereiche überschneiden.
-
-Wird eine Münze eingesammelt,
-
-* wird sie als unsichtbar markiert,
-* ihr Sprite ausgeblendet,
-* der Punktestand erhöht
-* und ein kurzer Ton abgespielt.
-
-Damit reagiert das Spiel nicht nur optisch, sondern auch akustisch.
-
-==== Rechteckige Kollisionen
-
-Für viele Spiele genügt eine einfache rechteckige Kollisionsprüfung.
-
-Jedes Sprite wird dabei gedanklich von einem unsichtbaren Rechteck umgeben.
-
-[source]
-----
-+-----------+
-|  Spieler  |
-+-----------+
-
-        +--------+
-        | Münze  |
-        +--------+
-----
-
-Überschneiden sich diese Rechtecke, liegt eine Kollision vor.
-
-Das passende Unterprogramm könnte so aussehen:
+Wir benötigen deshalb keine Konstante wie
 
 [source,basic]
 ----
-FUNCTION SpritesOverlap(x1, y1, w1, h1, _
-                        x2, y2, w2, h2)
-
-    SpritesOverlap = _
-        x1 < x2 + w2 AND _
-        x1 + w1 > x2 AND _
-        y1 < y2 + h2 AND _
-        y1 + h1 > y2
-
-END FUNCTION
+CONST NextLevelScore = 500
 ----
 
-Die Funktion liefert `TRUE`, wenn sich beide Rechtecke überschneiden.
+Der Levelwechsel ergibt sich direkt aus der Spielregel.
 
-Andernfalls liefert sie `FALSE`.
+=== Schritt 3: Grafikmodus vorbereiten
+
+Sprites benötigen bei VGA und HDMI einen geeigneten Grafikmodus.
+
+Wir verwenden:
+
+[source,basic]
+----
+MODE 2
+CLS RGB(BLACK)
+----
+
+Anschließend stehen uns `MM.HRES` und `MM.VRES` für die aktuelle Bildschirmbreite und Bildschirmhöhe zur Verfügung.
+
+[source,basic]
+----
+ScreenWidth = MM.HRES
+ScreenHeight = MM.VRES
+----
+
+Damit müssen wir die Bildschirmgröße nicht als feste Zahl in das Programm schreiben.
+
+Trotzdem ist unser Programm nicht automatisch auf jeder beliebigen PicoMite-Ausgabe lauffähig. Entscheidend ist, dass die verwendete Firmware und der Grafikmodus die Sprite-Funktionen unterstützen.
+
+=== Schritt 4: Die Sprites erzeugen
+
+Im vorherigen Kapitel haben wir die Sprite-Befehle kennengelernt.
+
+Für unser Abschlussprojekt könnten wir die Grafiken aus Dateien laden. Dann wären neben dem BASIC-Programm jedoch zusätzliche Grafikdateien erforderlich.
+
+Wir wählen deshalb einen anderen Weg: Die kleinen Spielfiguren werden direkt im BASIC-Programm erzeugt.
+
+Dafür eignet sich
+
+[source,basic]
+----
+SPRITE LOADARRAY #n, Breite, Hoehe, array%()
+----
+
+Das Array enthält die RGB888-Farbwerte der einzelnen Pixel.
+
+Für einen kleinen 12 x 12 Pixel großen Spieler könnte die Vorbereitung beispielsweise so beginnen:
+
+[source,basic]
+----
+DIM INTEGER PlayerImage(12 * 12 - 1)
+
+FOR i = 0 TO 12 * 12 - 1
+    PlayerImage(i) = RGB(GREEN)
+NEXT i
+
+SPRITE LOADARRAY #PlayerSprite, 12, 12, PlayerImage()
+----
+
+Im vollständigen Programm gestalten wir Spieler, Gegner und Münze etwas schöner als einfarbige Rechtecke.
+
+==== Ein Bild, mehrere Sprites
+
+Alle vier Gegner sehen gleich aus. Wir müssen die Grafik deshalb nicht viermal im Speicher ablegen.
+
+Zunächst erzeugen wir das erste Gegner-Sprite. Anschließend können wir es kopieren:
+
+[source,basic]
+----
+SPRITE COPY #FirstEnemySprite, #(FirstEnemySprite + 1), MaxEnemies - 1
+----
+
+Dasselbe Prinzip lässt sich für die Münzen verwenden.
+
+Dadurch teilen sich mehrere Sprites dieselbe Grafik, besitzen aber trotzdem jeweils eine eigene Position und einen eigenen sichtbaren Zustand.
+
+=== Schritt 5: Das Spiel initialisieren
+
+Bevor die Game Loop beginnen kann, setzen wir alle Spielvariablen auf ihre Startwerte.
+
+[source,basic]
+----
+Score = 0
+Lives = StartLives
+Level = 1
+EnemySpeedNow = EnemyStartSpeed
+
+PlayerX = MM.HRES \ 2 - SPRITE(W, PlayerSprite) \ 2
+PlayerY = MM.VRES \ 2 - SPRITE(H, PlayerSprite) \ 2
+----
+
+Mit `SPRITE(W, n)` und `SPRITE(H, n)` können wir Breite und Höhe eines geladenen Sprites abfragen.
+
+Dadurch müssen wir die Sprite-Größe nicht an mehreren Stellen im Programm wiederholen.
+
+==== Brauchen wir `RANDOMIZE`?
+
+Für die Positionen unserer Münzen und Gegner verwenden wir `RND`.
+
+Auf dem RP2350 liefert `RND` Zufallswerte direkt aus der dafür vorgesehenen Hardware. Ein vorheriges `RANDOMIZE` ist dort nicht erforderlich.
+
+Für unser PicoMite-HDMI/USB-System mit RP2350 können wir daher direkt mit `RND` arbeiten.
+
+[source,basic]
+----
+x = INT(RND * 200)
+----
 
 [NOTE]
 ====
-Eine rechteckige Kollisionsprüfung ist sehr schnell und für viele Spiele vollkommen ausreichend.
-
-Bei unregelmäßig geformten Sprites kann sie manchmal eine Berührung melden, obwohl sich nur die unsichtbaren Randbereiche überschneiden. Für unser Spiel ist diese Vereinfachung jedoch sinnvoll.
+Bei älteren RP2040-Systemen arbeitet `RND` als Pseudozufallszahlengenerator. Dort kann `RANDOMIZE` verwendet werden, um den Generator neu zu initialisieren.
 ====
 
-==== Kollision mit Gegnern
+=== Schritt 6: Gegner platzieren
 
-Nun prüfen wir, ob der Spieler einen Gegner berührt.
+Die Gegner erscheinen zu Beginn an zufälligen Stellen des Spielfeldes.
+
+Dabei müssen wir darauf achten, dass sie nicht in der Statuszeile liegen und nicht über den rechten oder unteren Bildschirmrand hinausragen.
 
 [source,basic]
 ----
-SUB CheckEnemyCollisions
+FOR i = 1 TO MaxEnemies
+    EnemyX(i) = INT(RND * (MM.HRES - SPRITE(W, FirstEnemySprite)))
+    EnemyY(i) = PlayfieldTop + _
+                INT(RND * (MM.VRES - PlayfieldTop - _
+                SPRITE(H, FirstEnemySprite)))
+NEXT i
+----
 
-    FOR i = 1 TO MaxEnemies
+Zusätzlich erhält jeder Gegner eine Bewegungsrichtung.
 
-        IF SpritesOverlap(PlayerX, PlayerY, _
-                          PlayerWidth, PlayerHeight, _
-                          EnemyX(i), EnemyY(i), _
-                          EnemyWidth, EnemyHeight) THEN
+[source,basic]
+----
+IF RND < 0.5 THEN
+    EnemyDX(i) = -EnemySpeedNow
+ELSE
+    EnemyDX(i) = EnemySpeedNow
+ENDIF
 
-            Lives = Lives - 1
+IF RND < 0.5 THEN
+    EnemyDY(i) = -EnemySpeedNow
+ELSE
+    EnemyDY(i) = EnemySpeedNow
+ENDIF
+----
 
-            PLAY SOUND 1, L, N, 150, 250
+Damit bewegen sich die Gegner nicht alle in dieselbe Richtung.
 
-            ResetPlayerPosition
+=== Schritt 7: Münzen verteilen
 
-            EXIT SUB
+Auch die Münzen werden zufällig verteilt.
 
+[source,basic]
+----
+FOR i = 1 TO MaxCoins
+    CoinX(i) = INT(RND * (MM.HRES - SPRITE(W, FirstCoinSprite)))
+    CoinY(i) = PlayfieldTop + _
+               INT(RND * (MM.VRES - PlayfieldTop - _
+               SPRITE(H, FirstCoinSprite)))
+
+    CoinVisible(i) = 1
+NEXT i
+----
+
+Wird eine Münze eingesammelt, setzen wir den zugehörigen Eintrag später auf `0`.
+
+=== Schritt 8: Sprites anzeigen
+
+Die Startpositionen stehen nun fest.
+
+Jetzt können wir die Sprites zum ersten Mal anzeigen.
+
+[source,basic]
+----
+SPRITE SHOW #PlayerSprite, PlayerX, PlayerY, 1
+
+FOR i = 1 TO MaxEnemies
+    SpriteNo = FirstEnemySprite + i - 1
+    SPRITE SHOW #SpriteNo, EnemyX(i), EnemyY(i), 1
+NEXT i
+
+FOR i = 1 TO MaxCoins
+    SpriteNo = FirstCoinSprite + i - 1
+    SPRITE SHOW #SpriteNo, CoinX(i), CoinY(i), 1
+NEXT i
+----
+
+Wir verwenden für alle Spielfiguren denselben Layer. Dadurch können sie miteinander kollidieren.
+
+=== Schritt 9: Das USB-Gamepad lesen
+
+Beim PicoMite HDMI/USB kann ein unterstütztes USB-Gamepad direkt über `DEVICE()` abgefragt werden.
+
+Für den linken Analogstick interessieren uns die beiden Achsen
+
+* `LX` für links/rechts
+* und `LY` für oben/unten.
+
+[source,basic]
+----
+StickX = DEVICE(GAMEPAD GamepadChannel, LX)
+StickY = DEVICE(GAMEPAD GamepadChannel, LY)
+----
+
+Die Achswerte liegen typischerweise zwischen `0` und `255`. Die Mittelstellung befindet sich ungefähr bei `128`.
+
+Direkt mit diesen Werten können wir noch nichts anfangen. Wir wandeln sie deshalb in eine Bewegungsrichtung um.
+
+[source,basic]
+----
+MoveX = 0
+MoveY = 0
+
+IF StickX < 110 THEN MoveX = -PlayerSpeed
+IF StickX > 146 THEN MoveX = PlayerSpeed
+
+IF StickY < 110 THEN MoveY = -PlayerSpeed
+IF StickY > 146 THEN MoveY = PlayerSpeed
+----
+
+Der Bereich zwischen `110` und `146` bildet eine kleine Totzone um die Mittelstellung.
+
+Ohne diese Totzone könnte ein nicht perfekt zentrierter Analogstick dazu führen, dass sich die Spielfigur langsam von selbst bewegt.
+
+[NOTE]
+====
+Welchen USB-Kanal ein Gamepad erhält, hängt von den angeschlossenen USB-Geräten ab. Bei gleichzeitig verwendeter USB-Tastatur und USB-Maus ist Kanal 3 ein typischer Wert.
+
+Falls dein Gamepad auf einem anderen Kanal erkannt wurde, passt du lediglich `GamepadChannel` an. Informationen über die USB-Geräte lassen sich mit den entsprechenden `MM.INFO(USB n)`-Abfragen ermitteln.
+====
+
+=== Schritt 10: Spieler bewegen
+
+Aus den Gamepad-Werten berechnen wir zunächst die neue Spielerposition.
+
+[source,basic]
+----
+PlayerX = PlayerX + MoveX
+PlayerY = PlayerY + MoveY
+----
+
+Anschließend begrenzen wir die Position auf das Spielfeld.
+
+[source,basic]
+----
+IF PlayerX < 0 THEN PlayerX = 0
+IF PlayerY < PlayfieldTop THEN PlayerY = PlayfieldTop
+
+IF PlayerX > MM.HRES - SPRITE(W, PlayerSprite) THEN
+    PlayerX = MM.HRES - SPRITE(W, PlayerSprite)
+ENDIF
+
+IF PlayerY > MM.VRES - SPRITE(H, PlayerSprite) THEN
+    PlayerY = MM.VRES - SPRITE(H, PlayerSprite)
+ENDIF
+----
+
+Damit kann der Spieler weder den sichtbaren Bildschirm verlassen noch in die Statuszeile fahren.
+
+=== Schritt 11: Gegner bewegen
+
+Die Gegner ändern ihre Position automatisch.
+
+[source,basic]
+----
+FOR i = 1 TO MaxEnemies
+    EnemyX(i) = EnemyX(i) + EnemyDX(i)
+    EnemyY(i) = EnemyY(i) + EnemyDY(i)
+NEXT i
+----
+
+Erreicht ein Gegner einen Rand des Spielfeldes, kehren wir die entsprechende Bewegungsrichtung um.
+
+[source,basic]
+----
+IF EnemyX(i) <= 0 THEN
+    EnemyX(i) = 0
+    EnemyDX(i) = ABS(EnemyDX(i))
+ENDIF
+
+IF EnemyX(i) >= MM.HRES - EnemyWidth THEN
+    EnemyX(i) = MM.HRES - EnemyWidth
+    EnemyDX(i) = -ABS(EnemyDX(i))
+ENDIF
+----
+
+Für die vertikale Bewegung verwenden wir dasselbe Prinzip.
+
+=== Schritt 12: Mehrere Sprites gemeinsam bewegen
+
+Wir könnten jede neue Position sofort mit `SPRITE SHOW` anzeigen.
+
+Bei mehreren bewegten Sprites ist jedoch `SPRITE NEXT` zusammen mit `SPRITE MOVE` die bessere Lösung.
+
+Zunächst teilen wir MMBasic die neuen Positionen mit:
+
+[source,basic]
+----
+SPRITE NEXT #PlayerSprite, PlayerX, PlayerY
+
+FOR i = 1 TO MaxEnemies
+    SpriteNo = FirstEnemySprite + i - 1
+    SPRITE NEXT #SpriteNo, EnemyX(i), EnemyY(i)
+NEXT i
+----
+
+Erst danach führen wir die gesamte Bewegung aus:
+
+[source,basic]
+----
+SPRITE MOVE
+----
+
+Damit werden alle vorgemerkten Sprite-Positionen in einer gemeinsamen Operation aktualisiert.
+
+Das ist nicht nur sauberer, sondern besonders für Spiele wichtig: Die Kollisionsprüfung erfolgt nach dieser gemeinsamen Bewegung.
+
+=== Schritt 13: Die eingebaute Kollisionserkennung verwenden
+
+Im ersten Entwurf dieses Kapitels hätten wir eine eigene Funktion schreiben können, die zwei Rechtecke miteinander vergleicht.
+
+Das ist grundsätzlich möglich. In Kapitel 50 haben wir jedoch gesehen, dass der PicoMite bereits eine Kollisionserkennung für Sprites besitzt.
+
+Genau diese verwenden wir hier.
+
+[source,basic]
+----
+SPRITE(C, PlayerSprite)
+----
+
+liefert die Anzahl der momentan erkannten Kollisionen des Spieler-Sprites.
+
+Mit
+
+[source,basic]
+----
+SPRITE(C, PlayerSprite, i)
+----
+
+können wir anschließend feststellen, womit der Spieler kollidiert ist.
+
+Das ist für unser Spiel besonders praktisch, weil die Sprite-Nummern bereits eindeutig vergeben sind.
+
+=== Schritt 14: Münzen einsammeln
+
+Die Münzen besitzen die Sprite-Nummern 6 bis 15.
+
+Wenn der Spieler mit einem Sprite aus diesem Bereich kollidiert, wurde eine Münze eingesammelt.
+
+Der prinzipielle Ablauf sieht so aus:
+
+[source,basic]
+----
+FOR c = 1 TO SPRITE(C, PlayerSprite)
+    HitSprite = SPRITE(C, PlayerSprite, c)
+
+    IF HitSprite >= FirstCoinSprite AND _
+       HitSprite < FirstCoinSprite + MaxCoins THEN
+
+        CoinIndex = HitSprite - FirstCoinSprite + 1
+
+        IF CoinVisible(CoinIndex) THEN
+            CoinVisible(CoinIndex) = 0
+            SPRITE HIDE #HitSprite
+            Score = Score + CoinPoints
         ENDIF
+    ENDIF
+NEXT c
+----
 
+Damit übernimmt die Sprite-Verwaltung einen großen Teil der Arbeit für uns.
+
+Wir müssen weder Breite und Höhe beider Objekte vergleichen noch selbst berechnen, ob sich zwei Rechtecke überschneiden.
+
+==== Ein kurzer Soundeffekt
+
+Beim Einsammeln einer Münze soll der Spieler eine akustische Rückmeldung erhalten.
+
+Dazu können wir einen kurzen Ton abspielen.
+
+Welche Audioausgabe zur Verfügung steht, hängt von der verwendeten PicoMite-Variante und ihrer Konfiguration ab.
+
+Im vollständigen Programm verwenden wir deshalb nur einen einfachen Soundeffekt, der zum HDMI/USB-Aufbau des Tutorials passt.
+
+=== Schritt 15: Kollision mit einem Gegner
+
+Die Gegner besitzen die Sprite-Nummern 2 bis 5.
+
+Entsprechend leicht können wir erkennen, ob der Spieler einen Gegner berührt hat.
+
+[source,basic]
+----
+IF HitSprite >= FirstEnemySprite AND _
+   HitSprite < FirstEnemySprite + MaxEnemies THEN
+
+    Lives = Lives - 1
+    ResetPlayer
+ENDIF
+----
+
+Nach einer Kollision setzen wir den Spieler zurück in die Bildschirmmitte.
+
+[source,basic]
+----
+SUB ResetPlayer
+    PlayerX = MM.HRES \ 2 - SPRITE(W, PlayerSprite) \ 2
+    PlayerY = MM.VRES \ 2 - SPRITE(H, PlayerSprite) \ 2
+
+    SPRITE SHOW SAFE #PlayerSprite, PlayerX, PlayerY, 1
+    PAUSE 300
+END SUB
+----
+
+Die kurze Pause verhindert, dass direkt mehrere Leben durch dieselbe Berührung verloren gehen.
+
+Für ein größeres Spiel wäre eine kurze Unverwundbarkeitszeit die elegantere Lösung. Für unser Abschlussprojekt genügt die Pause.
+
+=== Schritt 16: Sind noch Münzen vorhanden?
+
+Für den Levelwechsel müssen wir wissen, ob noch Münzen auf dem Spielfeld liegen.
+
+Dafür schreiben wir eine kleine Funktion:
+
+[source,basic]
+----
+FUNCTION CoinsRemaining()
+    LOCAL INTEGER i, Count
+
+    Count = 0
+
+    FOR i = 1 TO MaxCoins
+        IF CoinVisible(i) THEN Count = Count + 1
     NEXT i
 
-END SUB
+    CoinsRemaining = Count
+END FUNCTION
 ----
 
-Nach einer Kollision verliert der Spieler ein Leben.
-
-Anschließend wird seine Figur zurück in die Bildschirmmitte gesetzt.
-
-[source,basic]
-----
-SUB ResetPlayerPosition
-
-    PlayerX = MM.HRES / 2 - PlayerWidth / 2
-    PlayerY = MM.VRES / 2 - PlayerHeight / 2
-
-    ' TODO:
-    ' Spieler-Sprite neu positionieren
-
-    MoveSprite PlayerSprite, PlayerX, PlayerY
-
-    PAUSE 500
-
-END SUB
-----
-
-Die kurze Pause verhindert, dass der Spieler unmittelbar nach dem Zurücksetzen erneut mit demselben Gegner kollidiert.
-
-Später könnten wir stattdessen eine kurze Unverwundbarkeit einbauen.
-
-==== Statusanzeige aktualisieren
-
-Nach allen Bewegungen und Kollisionsprüfungen wird die Statusanzeige erneuert.
-
-[source,basic]
-----
-SUB UpdateDisplay
-
-    BOX 0, 0, MM.HRES, PlayfieldTop - 1, 0, RGB(BLACK), RGB(BLACK)
-
-    TEXT 10, 10, "Punkte: " + STR$(Score), L, 1, 1, RGB(WHITE)
-
-    TEXT MM.HRES / 2, 10, _
-         "Level: " + STR$(Level), C, 1, 1, RGB(WHITE)
-
-    TEXT MM.HRES - 10, 10, _
-         "Leben: " + STR$(Lives), R, 1, 1, RGB(WHITE)
-
-END SUB
-----
-
-Dabei wird nur der obere Anzeigebereich gelöscht und neu gezeichnet.
-
-Das Spielfeld selbst bleibt unverändert.
-
-So vermeiden wir unnötiges Flackern.
-
-==== Sind alle Münzen eingesammelt?
-
-Nach jedem Schleifendurchlauf müssen wir prüfen, ob noch Münzen vorhanden sind.
+In der Game Loop genügt anschließend:
 
 [source,basic]
 ----
@@ -1182,110 +803,79 @@ IF CoinsRemaining() = 0 THEN
 ENDIF
 ----
 
-Die Funktion zählt alle noch sichtbaren Münzen.
+=== Schritt 17: Das nächste Level
+
+Sind alle Münzen eingesammelt, erhöhen wir die Levelnummer.
 
 [source,basic]
 ----
-FUNCTION CoinsRemaining()
-
-    Count = 0
-
-    FOR i = 1 TO MaxCoins
-
-        IF CoinVisible(i) THEN
-            Count = Count + 1
-        ENDIF
-
-    NEXT i
-
-    CoinsRemaining = Count
-
-END FUNCTION
+Level = Level + 1
+EnemySpeedNow = EnemyStartSpeed + Level - 1
 ----
 
-Sind keine Münzen mehr sichtbar, beginnt das nächste Level.
+Anschließend werden die Münzen neu verteilt und wieder angezeigt.
+
+Auch die Bewegungswerte der Gegner werden an die neue Geschwindigkeit angepasst.
+
+Damit wird das Spiel mit jedem Level etwas schwieriger.
+
+[NOTE]
+====
+Wir erhöhen die Geschwindigkeit bewusst nur langsam. Bei Pixelbewegungen kann bereits eine Erhöhung um einen einzigen Pixel pro Schleifendurchlauf deutlich spürbar sein.
+====
+
+=== Schritt 18: Die Statusanzeige
+
+Am oberen Bildschirmrand zeigen wir Punktestand, Level und Leben an.
 
 [source,basic]
 ----
-SUB StartNextLevel
+BOX 0, 0, MM.HRES, PlayfieldTop - 1, 0, RGB(BLACK), RGB(BLACK)
 
-    Level = Level + 1
-
-    EnemySpeedNow = EnemySpeed + Level - 1
-
-    PlaceCoins
-
-    SetEnemySpeed
-
-    PLAY SOUND 1, L, N, 1200, 100
-    PLAY SOUND 1, L, N, 1600, 150
-
-END SUB
+TEXT 4, 8, "Punkte: " + STR$(Score), L, 1, 1, RGB(WHITE)
+TEXT MM.HRES \ 2, 8, "Level: " + STR$(Level), C, 1, 1, RGB(WHITE)
+TEXT MM.HRES - 4, 8, "Leben: " + STR$(Lives), R, 1, 1, RGB(WHITE)
 ----
 
-Mit jedem neuen Level erhöht sich die Geschwindigkeit der Gegner.
+Nur die Statuszeile wird neu gezeichnet.
 
-Dadurch steigt der Schwierigkeitsgrad schrittweise an.
+Das Spielfeld selbst bleibt erhalten. Dadurch vermeiden wir, den kompletten Bildschirm in jedem Schleifendurchlauf löschen und neu aufbauen zu müssen.
 
-==== Eine vollständige Game Loop
+=== Schritt 19: Die Game Loop
 
-Fassen wir nun alle Bestandteile zusammen.
+Jetzt besitzen wir alle wichtigen Bestandteile.
+
+Die zentrale Spielschleife kann deshalb erstaunlich kompakt bleiben:
 
 [source,basic]
 ----
 DO WHILE Lives > 0
 
     ReadGamepad
-
     MovePlayer
-
     MoveEnemies
-
-    CheckCoins
-
-    CheckEnemyCollisions
+    MoveSprites
+    CheckCollisions
 
     IF CoinsRemaining() = 0 THEN
         StartNextLevel
     ENDIF
 
-    UpdateDisplay
+    UpdateStatus
 
     PAUSE 16
-
 LOOP
 ----
 
-Das ist das Herz unseres Spiels.
+Diese Schleife liest sich fast wie eine Aufgabenliste.
 
-Obwohl im Hintergrund viele Dinge geschehen, bleibt die zentrale Schleife leicht verständlich.
+Genau das ist Absicht.
 
-Sie liest sich beinahe wie eine Aufgabenliste:
+Die Details befinden sich in den einzelnen `SUB`-Programmen. Dadurch bleibt sofort erkennbar, was in jedem Durchlauf geschieht.
 
-[source]
-----
-Eingabe lesen
+=== Warum `PAUSE 16`?
 
-Spieler bewegen
-
-Gegner bewegen
-
-Münzen prüfen
-
-Kollisionen prüfen
-
-Level prüfen
-
-Anzeige aktualisieren
-----
-
-Genau darin liegt der Vorteil einer guten Programmstruktur.
-
-==== Warum verwenden wir `PAUSE 16`?
-
-Ohne eine kleine Pause würde die Schleife so schnell ausgeführt, wie es der Computer erlaubt.
-
-Dadurch könnte das Spiel auf unterschiedlichen Geräten verschieden schnell laufen.
+Ohne Pause würde die Schleife so schnell laufen, wie der PicoMite sie ausführen kann.
 
 Mit
 
@@ -1294,84 +884,215 @@ Mit
 PAUSE 16
 ----
 
-warten wir ungefähr 16 Millisekunden zwischen zwei Durchläufen.
+wartet das Programm nach jedem Schleifendurchlauf ungefähr 16 Millisekunden.
 
-Das entspricht theoretisch etwa 60 Bildern pro Sekunde.
+Rein rechnerisch entsprechen 16 Millisekunden
 
 [source]
 ----
-1000 ms / 16 ms ≈ 62,5 Bilder pro Sekunde
+1000 ms / 16 ms = 62,5
 ----
 
-In der Praxis benötigt auch die Programmausführung etwas Zeit. Die tatsächliche Bildrate fällt deshalb etwas niedriger aus.
+Durchläufen pro Sekunde.
 
-Für unser Spiel ist das vollkommen ausreichend.
+Das bedeutet jedoch nicht, dass unser Spiel tatsächlich exakt mit 62,5 Bildern pro Sekunde läuft.
+
+Auch
+
+* das Einlesen des Gamepads,
+* die BASIC-Berechnungen,
+* die Sprite-Bewegungen,
+* die Kollisionsprüfung
+* und die Textausgabe
+
+benötigen Zeit.
+
+Die tatsächliche Bildrate liegt deshalb niedriger.
+
+Für unser kleines Spiel ist diese einfache Lösung vollkommen ausreichend.
 
 [IMPORTANT]
 ====
-Die Spielgeschwindigkeit sollte möglichst nicht allein davon abhängen, wie schnell die Hauptschleife ausgeführt wird.
+`PAUSE 16` ist keine exakte Bildratenregelung.
 
-Für einfache Spiele genügt eine feste Pause. Anspruchsvollere Spiele berechnen Bewegungen anhand der tatsächlich vergangenen Zeit.
+Bei anspruchsvolleren Spielen sollte die Bewegung anhand der tatsächlich vergangenen Zeit berechnet werden. Für unser Lernprojekt würde das die zentrale Idee jedoch unnötig kompliziert machen.
 ====
 
-==== Wenn die Game Loop endet
+=== Schritt 20: Game Over
 
-Die Schleife läuft nur, solange der Spieler noch mindestens ein Leben besitzt.
+Sobald `Lives` den Wert `0` erreicht, endet die Game Loop.
 
-[source,basic]
-----
-DO WHILE Lives > 0
-    ...
-LOOP
-----
-
-Sobald `Lives` den Wert `0` erreicht, wird die Schleife verlassen.
-
-Danach kann das Spiel den Endbildschirm anzeigen.
+Danach blenden wir die Sprites aus und zeigen den Endbildschirm an.
 
 [source,basic]
 ----
-CLS
+SPRITE HIDE ALL
 
-TEXT MM.HRES / 2, MM.VRES / 2 - 20, _
+CLS RGB(BLACK)
+
+TEXT MM.HRES \ 2, MM.VRES \ 2 - 20, _
      "GAME OVER", C, 2, 2, RGB(RED)
 
-TEXT MM.HRES / 2, MM.VRES / 2 + 20, _
+TEXT MM.HRES \ 2, MM.VRES \ 2 + 20, _
      "Punkte: " + STR$(Score), C, 1, 1, RGB(WHITE)
-
-TEXT MM.HRES / 2, MM.VRES / 2 + 50, _
-     "START für ein neues Spiel", C, 1, 1, RGB(WHITE)
 ----
 
-Damit besitzt unser Programm erstmals einen vollständigen Ablauf:
+Damit besitzt das Spiel einen vollständigen Ablauf:
 
 [source]
 ----
+Initialisieren
+
+    |
+    v
+
 Spiel starten
 
-↓
+    |
+    v
 
-Game Loop ausführen
+Game Loop
 
-↓
+    |
+    +--> Eingabe
+    +--> Bewegung
+    +--> Kollision
+    +--> Punkte
+    +--> Level
 
-Spielende erkennen
+    |
+    v
 
-↓
-
-Ergebnis anzeigen
+Game Over
 ----
 
-Aus einer einfachen Idee ist nun ein spielbares Grundgerüst entstanden.
+=== Was haben wir dabei verwendet?
 
-Noch fehlen einige Details und die tatsächlichen MMBasic-Befehle für Gamepad und Sprites müssen beim Praxistest ergänzt werden.
+Unser kleines Abschlussprojekt verbindet eine erstaunlich große Zahl der Themen aus diesem Buch.
 
-Die wichtigste Struktur steht jedoch bereits.
+[cols="1,3"]
+|===
+|Thema |Verwendung im Spiel
 
-Und genau diese Struktur findest du in ähnlicher Form in nahezu jedem Computerspiel wieder.
+|Variablen
+|Positionen, Punkte, Leben und Level
+
+|Konstanten
+|Anzahl der Objekte, Geschwindigkeiten und Sprite-Nummern
+
+|Arrays
+|Positionen und Zustände mehrerer Gegner und Münzen
+
+|`IF`
+|Grenzen, Gamepad-Auswertung und Spielregeln
+
+|`FOR`
+|Bearbeitung mehrerer Gegner und Münzen
+
+|`DO ... LOOP`
+|Zentrale Game Loop
+
+|`SUB`
+|Aufteilung des Spiels in überschaubare Aufgaben
+
+|`FUNCTION`
+|Ermitteln der noch vorhandenen Münzen
+
+|`RND`
+|Zufällige Positionen und Bewegungsrichtungen
+
+|`DEVICE()`
+|Auslesen des USB-Gamepads
+
+|Grafikbefehle
+|Statuszeile und Endbildschirm
+
+|Sprites
+|Spieler, Gegner, Münzen, Bewegung und Kollisionen
+
+|Sound
+|Akustische Rückmeldung
+|===
+
+=== Vom ersten Programm zum eigenen Spiel
+
+Wenn du an die ersten Kapitel dieses Buches zurückdenkst, bestand ein BASIC-Programm vielleicht noch aus wenigen Zeilen wie
+
+[source,basic]
+----
+PRINT "Hallo Welt"
+----
+
+Jetzt arbeiten in einem einzigen Programm
+
+* mehrere Arrays,
+* zahlreiche Variablen,
+* verschiedene Unterprogramme,
+* ein Gamepad,
+* Grafiken,
+* Sprites,
+* Kollisionen,
+* Sound
+* und eine komplette Spielschleife
+
+zusammen.
+
+Der entscheidende Unterschied liegt jedoch nicht in der Anzahl der verwendeten Befehle.
+
+Du hast gelernt, ein Problem in kleinere Teilaufgaben zu zerlegen.
+
+Genau das ist Programmieren.
+
+=== Wie könnte es weitergehen?
+
+Unser Spiel ist bewusst einfach gehalten. Es bietet deshalb viele Möglichkeiten für eigene Erweiterungen.
+
+Du könntest beispielsweise
+
+* verschiedene Gegnertypen hinzufügen,
+* die Zahl der Gegner mit dem Level erhöhen,
+* mehrere Münzsorten mit unterschiedlichen Punktwerten einbauen,
+* Bonusgegenstände ergänzen,
+* eine Highscore-Datei speichern,
+* ein Startmenü programmieren,
+* einen Pausenmodus hinzufügen,
+* eigene Sprite-Grafiken aus PNG-Dateien laden,
+* unterschiedliche Spielfelder gestalten
+* oder einen zweiten Spieler hinzufügen.
+
+Dabei musst du nicht alles auf einmal ändern.
+
+Nimm dir eine Idee vor, überlege welche Daten und Unterprogramme du dafür benötigst und erweitere das Spiel Schritt für Schritt.
+
+So entstehen auch größere Programme.
+
+=== Fazit
+
+Wir haben dieses Buch mit kleinen BASIC-Programmen begonnen.
+
+Im Laufe der Kapitel kamen Variablen, Bedingungen, Schleifen, Grafik, Eingabegeräte, Dateien, Unterprogramme und viele weitere Möglichkeiten hinzu.
+
+Im Abschlussprojekt haben wir diese Bausteine zu einem vollständigen Spiel zusammengesetzt.
+
+Dabei war nicht ein einzelner MMBasic-Befehl entscheidend.
+
+Entscheidend war die Struktur:
+
+* eine Idee entwickeln,
+* die benötigten Daten bestimmen,
+* das Problem in Teilaufgaben zerlegen,
+* passende Werkzeuge auswählen,
+* die Teile programmieren
+* und sie anschließend zusammenfügen.
+
+Wenn du dieses Prinzip verstanden hast, kannst du weit über die Beispiele dieses Buches hinausgehen.
+
+Dann beginnt der interessanteste Teil:
+
+Deine eigenen Programme.
 
 === Programmbeispiel
 
-Das vollständige BASIC-Programm findest du hier:
+Das vollständige BASIC-Programm zu diesem Kapitel findest du hier:
 
 * {github-programme}/51_abschlussspiel.bas[51_abschlussspiel.bas]
