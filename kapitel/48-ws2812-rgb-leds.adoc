@@ -4,314 +4,530 @@ image::bilder/48_rgb_leds.jpg[align=center]
 
 === Das lernst du
 
-WS2812-LEDs gehören zu den beliebtesten Bausteinen im Mikrocontroller-Bereich.
+WS2812-LEDs verbinden eine RGB-LED mit einem kleinen integrierten Controller.
+Dadurch lassen sich viele LEDs hintereinander schalten und trotzdem über nur
+eine einzige Datenleitung ansteuern.
 
-Mit nur einer einzigen Datenleitung lassen sich beliebig viele RGB-LEDs ansteuern. Jede LED kann dabei unabhängig von allen anderen in einer beliebigen Farbe leuchten.
+Der PicoMite unterstützt diese LEDs direkt mit dem Befehl `WS2812`.
+Die zeitkritische Erzeugung des Datensignals übernimmt dabei die Firmware.
 
 In diesem Kapitel lernst du:
 
-* wie WS2812-LEDs funktionieren
-* wie sie an den PicoMite angeschlossen werden
-* Farben zu erzeugen
-* Lichtanimationen zu programmieren
-* beeindruckende Effekte mit wenigen BASIC-Zeilen zu erzeugen
+* wie WS2812-LEDs aufgebaut sind
+* wie mehrere LEDs zu einer Kette verbunden werden
+* wie du eine WS2812-Kette an den PicoMite anschließt
+* wie der Befehl `WS2812` verwendet wird
+* wie Farben mit `RGB()` festgelegt werden
+* wie mehrere LEDs über ein Integer-Array unterschiedliche Farben erhalten
+* wie einfache Lichtanimationen entstehen
+* worauf du bei Versorgungsspannung, Strombedarf und Signalpegel achten solltest
 
 === Was sind WS2812-LEDs?
 
-Eine WS2812 ist weit mehr als eine gewöhnliche Leuchtdiode.
+Eine WS2812 ist mehr als eine gewöhnliche Leuchtdiode. In ihrem Gehäuse befinden sich:
 
-Sie besteht aus zwei Bausteinen:
+* eine RGB-LED mit den Farbkanälen Rot, Grün und Blau
+* ein integrierter Controller zur Auswertung und Weitergabe der Farbdaten
 
-* einer RGB-LED
-* einem integrierten Controller
+Jede LED übernimmt aus dem eintreffenden Datenstrom die für sie bestimmten
+Farbinformationen. Die restlichen Daten gibt sie an die nächste LED weiter.
 
-Dadurch kann jede LED selbstständig ihre Farbe speichern.
-
-Die LEDs werden hintereinander geschaltet und benötigen trotzdem nur drei Leitungen:
-
-* Versorgungsspannung (+5 V)
-* Masse (GND)
-* Datenleitung (DIN)
-
-Die Daten werden von einer LED zur nächsten weitergereicht.
-
-Dadurch können auch sehr lange LED-Ketten mit nur einem einzigen GPIO-Pin angesteuert werden.
-
-=== Wie funktioniert das?
-
-Jede LED empfängt zunächst ihre eigenen Farbdaten.
-
-Alle weiteren Daten werden automatisch an die nächste LED weitergeleitet.
-
-Dadurch entsteht eine Kette:
+Eine Kette sieht vereinfacht so aus:
 
 [source]
 ----
 PicoMite
-
-    │
-    ▼
-
-LED1 → LED2 → LED3 → LED4 → LED5 → ...
+    |
+    v
+  DIN
++------+ DOUT    DIN +------+ DOUT    DIN +------+
+| LED1 |----------->| LED2 |----------->| LED3 | ---> ...
++------+             +------+             +------+
 ----
 
-Der PicoMite muss also lediglich einen kontinuierlichen Datenstrom erzeugen.
+Dadurch benötigt der PicoMite für die komplette LED-Kette nur einen
+GPIO-Ausgang.
 
-Die eigentliche Verteilung übernehmen die LEDs selbst.
+[IMPORTANT]
+====
+Der PicoMite unterstützt mit dem Befehl `WS2812` Ketten mit *1 bis 256 LEDs*.
+====
 
 === Anschluss
 
-Für die meisten Projekte genügt bereits ein kurzer LED-Streifen.
+Für die Beispiele in diesem Kapitel verwenden wir `GP5` als Datenleitung.
+Falls dieser Pin bei deinem Aufbau bereits verwendet wird, kannst du einen
+anderen geeigneten GPIO-Ausgang verwenden.
 
-Der Anschluss erfolgt folgendermaßen:
+Ein einfacher Anschluss sieht so aus:
 
 [source]
 ----
-PicoMite
+PicoMite                         WS2812 / WS2812B
 
-GP16 ---------- DIN
-
-5 V ----------- +5 V
-
-GND ----------- GND
+GP5 ---------------------------> DIN
+GND ---------------------------- GND
+5 V ---------------------------- +5 V
 ----
 
-Achte unbedingt darauf, den Eingang *DIN* zu verwenden.
+Bei mehreren LEDs wird jeweils `DOUT` einer LED mit `DIN` der nächsten LED
+verbunden.
 
-Viele LED-Streifen besitzen zusätzlich einen Ausgang *DOUT*, der zum Anschluss weiterer LEDs dient.
+[IMPORTANT]
+====
+Achte auf die Richtung des Datenflusses. Viele LED-Streifen besitzen einen
+Pfeil, der von `DIN` nach `DOUT` zeigt. Das Datensignal des PicoMite muss am
+`DIN`-Anschluss der ersten LED eingespeist werden.
+====
+
+Wird für die LEDs ein separates 5-V-Netzteil verwendet, müssen dessen Masse
+und die Masse des PicoMite miteinander verbunden werden. Ohne eine gemeinsame
+Masse besitzt das Datensignal keinen eindeutigen Bezug.
+
+=== Stromversorgung
+
+WS2812-LEDs können bei hoher Helligkeit einen erheblichen Strom aufnehmen.
+Als konservative Abschätzung werden häufig bis zu etwa 60 mA pro RGB-LED bei
+voll eingeschaltetem Rot-, Grün- und Blaukanal angesetzt.
+
+Für 100 LEDs ergibt sich damit theoretisch:
+
+[source]
+----
+100 × 60 mA = 6000 mA = 6 A
+----
+
+In der Praxis hängt der tatsächliche Strom vom verwendeten LED-Typ, der
+eingestellten Helligkeit und den dargestellten Farben ab. Für die Planung der
+Stromversorgung ist eine großzügige Reserve dennoch sinnvoll.
+
+[WARNING]
+====
+Größere LED-Streifen sollten nicht einfach aus einem GPIO-Pin oder einer dafür
+nicht ausgelegten Versorgung des PicoMite gespeist werden. Verwende für größere
+LED-Ketten ein ausreichend dimensioniertes externes Netzteil und verbinde die
+Masse des Netzteils mit `GND` des PicoMite.
+====
+
+Als praktische Schutzmaßnahme wird bei längeren Leitungen häufig zusätzlich
+ein kleiner Serienwiderstand in der Datenleitung nahe der ersten LED verwendet.
+Auch ein ausreichend dimensionierter Stützkondensator an der Versorgung der
+LED-Kette kann Spannungsspitzen beim Einschalten abfangen.
+
+=== 3,3-V-Datensignal und 5-V-LEDs
+
+Der PicoMite liefert an seinen GPIO-Ausgängen ein 3,3-V-Logiksignal.
+WS2812-LEDs werden dagegen häufig mit 5 V versorgt.
+
+Je nach verwendetem LED-Typ und Versorgungsspannung kann ein 3,3-V-Datensignal
+zu niedrig sein, um von der ersten LED zuverlässig als logisch HIGH erkannt zu
+werden. Das kann sich beispielsweise durch flackernde LEDs oder eine
+unzuverlässige Datenübertragung bemerkbar machen.
+
+Das PicoMite-Handbuch weist ausdrücklich auf diese mögliche Pegelproblematik
+hin. Eine robuste Lösung ist ein geeigneter Pegelwandler zwischen PicoMite und
+der ersten LED. Manche WS2812B-Varianten arbeiten auch direkt zuverlässig mit
+einem 3,3-V-Datensignal.
 
 [TIP]
 ====
-Größere LED-Streifen benötigen erstaunlich viel Strom.
-
-Eine einzelne LED kann bei voller Helligkeit bis zu etwa 60 mA aufnehmen.
-
-Ein Streifen mit 100 LEDs benötigt daher theoretisch bis zu 6 Ampere.
-
-Für größere Installationen sollte deshalb immer ein separates Netzteil verwendet werden.
+Wenn eine LED-Kette mit 5 V versorgt wird und nicht zuverlässig reagiert,
+solltest du zuerst die gemeinsame Masse und die Stromversorgung prüfen.
+Bleibt das Problem bestehen, ist eine saubere Pegelanpassung des Datensignals
+die zuverlässigste Lösung.
 ====
 
-=== RGB – Drei Farben ergeben Millionen Möglichkeiten
+=== Der Befehl `WS2812`
 
-Jede LED besitzt drei Farbkanäle:
+Die PicoMite-Firmware besitzt eine eingebaute Unterstützung für WS2812- und
+verwandte LEDs. Der Befehl lautet:
 
-* Rot
-* Grün
-* Blau
+[source,basic]
+----
+WS2812 type, pin, nbr, value%[()]
+----
 
-Jeder Farbkanal kann einen Wert zwischen 0 und 255 annehmen.
+Die Parameter haben folgende Bedeutung:
 
-Dadurch ergeben sich über 16 Millionen verschiedene Farben.
+[cols="1,3"]
+|===
+|Parameter |Bedeutung
+
+|`type`
+|Typ der verwendeten LED
+
+|`pin`
+|GPIO-Pin, an dem der Dateneingang der ersten LED angeschlossen ist
+
+|`nbr`
+|Anzahl der LEDs in der Kette, von 1 bis 256
+
+|`value%` bzw. `value%()`
+|Farbwert für eine einzelne LED oder Integer-Array mit den Farbwerten mehrerer LEDs
+|===
+
+Bevor `WS2812` verwendet wird, muss der betreffende GPIO-Pin als digitaler
+Ausgang konfiguriert werden:
+
+[source,basic]
+----
+SETPIN GP5, DOUT
+----
+
+=== Unterstützte LED-Typen
+
+Mit dem ersten Parameter des `WS2812`-Befehls wird der LED-Typ angegeben:
+
+[cols="1,3"]
+|===
+|Typ |Bedeutung
+
+|`O`
+|ursprünglicher WS2812
+
+|`B`
+|WS2812B
+
+|`S`
+|SK6812
+
+|`W`
+|SK6812W mit zusätzlichem Weißkanal (RGBW)
+|===
+
+Für einen WS2812B-Streifen lautet der Anfang eines Befehls also beispielsweise:
+
+[source,basic]
+----
+WS2812 B, GP5, ...
+----
+
+In den folgenden Beispielen verwenden wir deshalb den Typ `B`.
+
+=== Farben mit `RGB()`
+
+Für WS2812, WS2812B und SK6812 erwartet MMBasic die Farben im normalen
+RGB888-Format. Jeder der drei Farbkanäle besitzt einen Wert von 0 bis 255.
 
 [cols="1,1"]
 |===
 |RGB-Werte |Farbe
 
-|255,0,0
+|`255, 0, 0`
 |Rot
 
-|0,255,0
+|`0, 255, 0`
 |Grün
 
-|0,0,255
+|`0, 0, 255`
 |Blau
 
-|255,255,0
+|`255, 255, 0`
 |Gelb
 
-|255,0,255
+|`255, 0, 255`
 |Magenta
 
-|0,255,255
+|`0, 255, 255`
 |Cyan
 
-|255,255,255
+|`255, 255, 255`
 |Weiß
 
-|0,0,0
+|`0, 0, 0`
 |Aus
 |===
 
-=== Der erste Farbtest
-
-Beginnen wir mit einem einfachen Experiment.
-
-Wir lassen alle LEDs rot leuchten.
+Mit der bereits bekannten Funktion `RGB()` lassen sich daraus die passenden
+Integer-Farbwerte erzeugen:
 
 [source,basic]
 ----
-' Beispiel folgt später mit dem passenden MMBasic-Befehl
+rot% = RGB(255, 0, 0)
+gruen% = RGB(0, 255, 0)
+blau% = RGB(0, 0, 255)
 ----
 
-Schon mit wenigen Programmzeilen lässt sich die komplette LED-Kette steuern.
+MMBasic kennt außerdem Farbnamen:
 
-=== Helligkeit
-
-Nicht immer soll eine LED mit voller Helligkeit leuchten.
-
-Häufig wirken Animationen deutlich angenehmer, wenn die Farben etwas dunkler eingestellt werden.
-
-Statt:
-
-[source]
+[source,basic]
 ----
-255,0,0
+rot% = RGB(RED)
+gruen% = RGB(GREEN)
+blau% = RGB(BLUE)
 ----
 
-genügt oft bereits:
+Obwohl die WS2812-Familie die Farbdaten intern in einer vom normalen
+RGB-Schema abweichenden Reihenfolge übertragen kann, musst du dich darum im
+BASIC-Programm nicht kümmern. Für den `WS2812`-Befehl werden die Farben in
+MMBasic ganz normal als RGB888-Werte angegeben.
 
-[source]
+=== Eine einzelne LED ansteuern
+
+Bei nur einer LED wird kein Array benötigt. Ein einzelner Integer-Farbwert
+genügt.
+
+Das folgende Programm schaltet eine WS2812B zuerst rot, dann grün und
+anschließend blau:
+
+[source,basic]
 ----
-40,0,0
+SETPIN GP5, DOUT
+
+farbe% = RGB(RED)
+WS2812 B, GP5, 1, farbe%
+PAUSE 1000
+
+farbe% = RGB(GREEN)
+WS2812 B, GP5, 1, farbe%
+PAUSE 1000
+
+farbe% = RGB(BLUE)
+WS2812 B, GP5, 1, farbe%
+PAUSE 1000
+
+farbe% = RGB(BLACK)
+WS2812 B, GP5, 1, farbe%
 ----
 
-Das spart außerdem Energie.
+Nach jedem Aufruf von `WS2812` bleibt die zuletzt übertragene Farbe erhalten.
+Die LED muss also nicht fortlaufend mit Daten versorgt werden.
 
-=== Praxisprojekt: Farbpalette
+=== Mehrere LEDs ansteuern
 
-Unser erstes Projekt zeigt nacheinander die wichtigsten Farben.
+Sollen mehrere LEDs unterschiedliche Farben erhalten, werden die Farbwerte in
+einem Integer-Array abgelegt.
 
-Rot
+Für fünf LEDs benötigen wir fünf Array-Elemente:
 
-↓
+[source,basic]
+----
+DIM farbe%(4)
+----
 
-Grün
+Bei der üblichen Array-Basis 0 sind das die Elemente `farbe%(0)` bis
+`farbe%(4)`.
 
-↓
+Jetzt können wir jeder LED eine eigene Farbe zuweisen:
 
-Blau
+[source,basic]
+----
+DIM farbe%(4)
 
-↓
+farbe%(0) = RGB(RED)
+farbe%(1) = RGB(GREEN)
+farbe%(2) = RGB(BLUE)
+farbe%(3) = RGB(YELLOW)
+farbe%(4) = RGB(CYAN)
 
-Gelb
+SETPIN GP5, DOUT
+WS2812 B, GP5, 5, farbe%()
+----
 
-↓
+Mit nur einem `WS2812`-Befehl werden alle fünf Farbwerte an die komplette
+LED-Kette übertragen.
 
-Cyan
+[NOTE]
+====
+Dimensioniere das Array passend zur Anzahl der LEDs. Für fünf LEDs werden fünf
+Farbwerte benötigt, für zehn LEDs zehn Farbwerte usw.
+====
 
-↓
+=== Helligkeit über die Farbwerte steuern
 
-Magenta
+WS2812-LEDs besitzen beim `WS2812`-Befehl keinen zusätzlichen
+Helligkeitsparameter. Die wahrgenommene Helligkeit wird deshalb über die
+RGB-Werte bestimmt.
 
-↓
+Volles Rot:
 
-Weiß
+[source,basic]
+----
+farbe% = RGB(255, 0, 0)
+----
 
-Dabei erhält man schnell ein Gefühl dafür, wie sich Farben mischen lassen.
+Deutlich dunkleres Rot:
 
-=== Praxisprojekt: Regenbogen
+[source,basic]
+----
+farbe% = RGB(40, 0, 0)
+----
 
-Kaum ein LED-Projekt kommt ohne einen Regenbogeneffekt aus.
+Das gilt genauso für gemischte Farben. Ein dunkleres Weiß könnte zum Beispiel
+so aussehen:
 
-Dabei verändert sich die Farbe jeder LED kontinuierlich.
+[source,basic]
+----
+farbe% = RGB(40, 40, 40)
+----
 
-Es entsteht ein fließender Farbverlauf über den gesamten LED-Streifen.
+Kleinere Werte reduzieren nicht nur die Helligkeit, sondern normalerweise auch
+den Stromverbrauch der LED-Kette.
 
-Der Effekt wirkt besonders eindrucksvoll, wenn sich der Regenbogen langsam über den Streifen bewegt.
+=== Praxisprojekt: Ein einfaches Lauflicht
 
-=== Praxisprojekt: Lauflicht
+Jetzt verwenden wir ein Array und eine Schleife, um einen einzelnen Lichtpunkt
+über fünf LEDs laufen zu lassen.
 
-Ein Lauflicht gehört zu den klassischen Übungen.
+[source,basic]
+----
+CONST LEDS = 5
+DIM leds%(LEDS - 1)
 
-Mit RGB-LEDs wirkt es jedoch wesentlich eleganter.
+SETPIN GP5, DOUT
 
-Nicht nur eine LED bewegt sich.
+DO
+  FOR pos = 0 TO LEDS - 1
 
-Der Lichtpunkt besitzt einen farbigen Schweif.
+    ' Alle LEDs ausschalten
+    FOR i = 0 TO LEDS - 1
+      leds%(i) = RGB(BLACK)
+    NEXT i
 
-Dadurch entsteht ein weicher Bewegungseffekt.
+    ' Aktuelle LED einschalten
+    leds%(pos) = RGB(40, 0, 0)
 
-=== Praxisprojekt: Knight Rider
+    ' Komplette Kette aktualisieren
+    WS2812 B, GP5, LEDS, leds%()
 
-Viele Leser kennen vermutlich noch die Fernsehserie *Knight Rider*.
+    PAUSE 120
+  NEXT pos
+LOOP
+----
 
-Das markante rote Lauflicht auf der Fahrzeugfront wurde zu einem echten Klassiker.
+Die äußere Schleife sorgt dafür, dass das Lauflicht immer wieder von vorne
+beginnt. In jedem Durchgang werden zunächst alle LEDs ausgeschaltet und danach
+nur die LED an der aktuellen Position eingeschaltet.
 
-Mit einem WS2812-Streifen lässt sich dieser Effekt erstaunlich einfach nachbilden.
+Mit dem Wert
 
-Durch ein leichtes Nachleuchten wirkt die Bewegung besonders realistisch.
+[source,basic]
+----
+RGB(40, 0, 0)
+----
 
-=== Praxisprojekt: Feuerwehrlicht
+verwenden wir bewusst ein gedämpftes Rot.
 
-Ein weiteres interessantes Projekt ist ein Blaulicht.
+=== Mehrere LEDs gleichzeitig verändern
 
-Die linke Hälfte blinkt rot.
-
-Die rechte Hälfte blinkt blau.
-
-Anschließend werden beide Farben vertauscht.
-
-Dieser Effekt eignet sich hervorragend für Modellbauprojekte.
-
-=== Praxisprojekt: Sternenhimmel
-
-Nun lassen wir den Zufall arbeiten.
-
-Immer wieder leuchten einzelne LEDs kurz auf und verlöschen langsam wieder.
-
-Dadurch entsteht der Eindruck eines funkelnden Sternenhimmels.
-
-Jeder Durchlauf sieht dabei anders aus.
-
-=== Praxisprojekt: Statusanzeige
-
-RGB-LEDs eignen sich hervorragend als Statusanzeigen.
-
-Beispielsweise:
-
-* Grün = alles in Ordnung
-* Gelb = Warnung
-* Rot = Fehler
-* Blau = Verbindung aktiv
-
-Diese Technik findet man in vielen industriellen Anwendungen.
-
-=== Sanfte Farbwechsel
-
-Abrupte Farbwechsel wirken häufig unnatürlich.
-
-Schöner sind langsame Übergänge.
-
-Dabei wird jeweils nur ein Farbwert schrittweise verändert.
-
-Der Effekt wird als *Fade* bezeichnet.
-
-=== Animationen flüssig gestalten
-
-Zwischen zwei Aktualisierungen sollte immer eine kleine Pause liegen.
-
-Dadurch laufen Animationen gleichmäßig und flüssig.
-
-Auch der Prozessor wird dadurch entlastet.
-
-Schon Pausen von wenigen Millisekunden reichen meist aus.
-
-=== Ideen für eigene Projekte
-
-WS2812-LEDs eignen sich für unzählige Anwendungen.
+Da das Array den vollständigen Zustand der LED-Kette enthält, lassen sich auch
+komplexere Muster vorbereiten, bevor sie mit einem einzigen `WS2812`-Befehl
+übertragen werden.
 
 Zum Beispiel:
 
-* Stimmungsbeleuchtung
-* Modellbau
-* PC-Gehäusebeleuchtung
-* Ambilight
+[source,basic]
+----
+leds%(0) = RGB(40, 0, 0)
+leds%(1) = RGB(30, 10, 0)
+leds%(2) = RGB(20, 5, 0)
+leds%(3) = RGB(5, 0, 0)
+leds%(4) = RGB(BLACK)
+
+WS2812 B, GP5, 5, leds%()
+----
+
+Damit könnte beispielsweise der Anfang eines Lauflichts mit einem schwächer
+werdenden Schweif erzeugt werden.
+
+Das Grundprinzip für Animationen lautet immer:
+
+. gewünschte Farbwerte im Array berechnen
+. das komplette Array mit `WS2812` übertragen
+. kurz warten
+. die Farbwerte für das nächste Bild verändern
+
+=== Sanfte Farbwechsel
+
+Abrupte Farbwechsel sind nicht immer gewünscht. Werden die RGB-Werte
+schrittweise verändert, entsteht ein weicher Übergang, ein sogenannter
+_Fade_.
+
+Eine einzelne LED kann zum Beispiel langsam heller rot werden:
+
+[source,basic]
+----
+SETPIN GP5, DOUT
+
+FOR hell = 0 TO 100
+  farbe% = RGB(hell, 0, 0)
+  WS2812 B, GP5, 1, farbe%
+  PAUSE 20
+NEXT hell
+----
+
+Das gleiche Prinzip lässt sich auf mehrere Farbkanäle und auf komplette
+LED-Ketten übertragen.
+
+=== Animationen flüssig gestalten
+
+Zwischen zwei Bildern einer Animation wird meist eine kurze Pause eingefügt:
+
+[source,basic]
+----
+PAUSE 20
+----
+
+Wie groß die Pause sein sollte, hängt vom gewünschten Effekt ab. Ein Lauflicht
+kann mit 100 bis 200 Millisekunden gut erkennbar sein, während weiche
+Farbverläufe oft mit deutlich kleineren Pausen angenehmer wirken.
+
+Da der PicoMite die zeitkritische Übertragung des WS2812-Protokolls selbst
+übernimmt, muss das BASIC-Programm keine exakten Mikrosekunden-Impulse
+erzeugen.
+
+=== RGBW mit SK6812W
+
+Der Typ `W` ist für SK6812W-LEDs mit einem zusätzlichen Weißkanal vorgesehen.
+
+Dabei verwendet jedes Array-Element einen 32-Bit-RGBW-Wert im Bereich von
+`0` bis `&HFFFFFFFF`.
+
+[source,basic]
+----
+WS2812 W, pin, nbr, value%()
+----
+
+RGBW-LEDs behandeln wir in diesem Kapitel nicht weiter. Wichtig ist zunächst
+nur, dass du für diese LEDs den Typ `W` und einen RGBW-Wert statt eines
+normalen RGB888-Werts verwendest.
+
+=== Ideen für eigene Experimente
+
+Mit dem gleichen Grundprinzip lassen sich viele weitere Effekte programmieren:
+
+* ein Knight-Rider-Lauflicht mit nachleuchtendem Schweif
+* ein wandernder Regenbogen
+* zufällig funkelnde Sterne
+* Statusanzeigen mit Grün, Gelb und Rot
+* Modellbau- und Fahrzeugbeleuchtungen
 * VU-Meter
-* Spielbeleuchtung
-* Wetterstationen
-* Statusanzeigen
-* Weihnachtsdekoration
-* Kunstprojekte
+* Spiel- und Effektbeleuchtungen
+* Weihnachtsdekorationen
+
+Für all diese Effekte bleibt das Verfahren gleich: Die gewünschten Farben
+werden im Array vorbereitet und anschließend gemeinsam an die LED-Kette
+übertragen.
 
 === Zusammenfassung
 
-WS2812-LEDs verbinden einfache Verdrahtung mit beeindruckenden Lichteffekten.
+Der PicoMite macht die Ansteuerung von WS2812-LEDs besonders einfach. Die
+Firmware übernimmt das genaue Timing des seriellen LED-Protokolls, während das
+BASIC-Programm nur die gewünschten Farben festlegt.
 
-Mit nur einer Datenleitung lassen sich ganze LED-Ketten individuell steuern.
+Die wichtigsten Punkte sind:
 
-Bereits wenige BASIC-Zeilen genügen, um farbenfrohe Animationen und professionelle Beleuchtungseffekte zu erzeugen.
+* Der GPIO-Pin muss zuerst mit `SETPIN pin, DOUT` als digitaler Ausgang konfiguriert werden.
+* `WS2812 type, pin, nbr, value%[()]` überträgt die Farbwerte an die LED-Kette.
+* Unterstützt werden WS2812, WS2812B, SK6812 und SK6812W.
+* Eine Kette darf 1 bis 256 LEDs enthalten.
+* Eine einzelne LED kann mit einer einfachen Integer-Variablen angesteuert werden.
+* Für mehrere LEDs wird ein Integer-Array mit den Farbwerten verwendet.
+* WS2812, WS2812B und SK6812 verwenden im BASIC-Programm RGB888-Farbwerte.
+* Bei 5-V-LED-Ketten müssen Stromversorgung, gemeinsame Masse und der 3,3-V-Signalpegel beachtet werden.
 
-Im nächsten Kapitel lernen wir eine weitere Technik kennen, mit der sich auf dem Bildschirm flüssige Animationen und Spiele realisieren lassen.
+Mit Arrays, Schleifen und `RGB()` lassen sich bereits mit wenigen BASIC-Zeilen
+Lauflichter, Farbverläufe und viele andere Lichteffekte erzeugen.
 
 === Programmbeispiel
 
