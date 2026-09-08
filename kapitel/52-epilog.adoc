@@ -6,79 +6,93 @@ image::bilder/52_epilog.jpg[align=center]
 
 Wenn du dieses Buch bis hierhin durchgearbeitet hast, hast du einen wichtigen Meilenstein erreicht.
 
-Du kannst jetzt eigene Programme in MMBasic schreiben, Grafiken erzeugen, Sounds abspielen, Dateien speichern, Gamepads verwenden und sogar einfache Computerspiele entwickeln.
+Du kannst jetzt eigene Programme in MMBasic schreiben, mit Variablen und Arrays arbeiten, Entscheidungen treffen, Schleifen verwenden, Unterprogramme und Funktionen erstellen, Grafiken zeichnen, Sounds erzeugen, Dateien verwalten, Eingabegeräte abfragen und sogar eigene kleine Computerspiele entwickeln.
 
 Vor allem aber hast du etwas viel Wichtigeres gelernt:
 
 Du hast gelernt, Probleme in kleine, überschaubare Schritte zu zerlegen und daraus funktionierende Programme zu entwickeln.
 
-Genau das macht einen Programmierer aus.
+Genau darum geht es beim Programmieren.
 
-Natürlich wirst du noch längst nicht jede Aufgabe lösen können. Das kann niemand.
+Natürlich wirst du noch längst nicht jede Aufgabe sofort lösen können. Das kann niemand.
 
-Auch erfahrene Programmierer schlagen regelmäßig Befehle nach, lesen Dokumentationen oder suchen nach neuen Lösungswegen.
+Auch erfahrene Programmierer schlagen Befehle nach, lesen Dokumentationen, testen Ideen und suchen nach neuen Lösungswegen. Das gehört zum Programmieren einfach dazu.
 
-Das gehört zum Programmieren einfach dazu.
+Lass dich deshalb nicht entmutigen, wenn einmal etwas nicht auf Anhieb funktioniert. Fehlermeldungen sind keine Niederlagen. Sie geben dir Hinweise darauf, wo du weitersuchen musst.
 
-Lass dich deshalb nicht entmutigen, wenn einmal etwas nicht auf Anhieb funktioniert.
-
-Fehlermeldungen sind keine Niederlagen.
-
-Sie sind Wegweiser.
-
-Fast jedes Programm entsteht durch Ausprobieren, Verbessern und erneutes Testen.
+Fast jedes Programm entsteht durch Ausprobieren, Testen und Verbessern – oft viele Male hintereinander.
 
 === Jetzt bist du dran
 
-Das Abschlussprojekt dieses Buches ist nur ein Anfang.
+Das Abschlussprojekt aus dem vorherigen Kapitel war das letzte große Beispiel dieses Buches. Für dich muss es aber kein Abschluss sein.
 
-Vielleicht hast du beim Lesen bereits eigene Ideen entwickelt.
+Vielleicht hast du beim Lesen bereits eigene Ideen entwickelt. Jetzt ist der richtige Zeitpunkt, sie auszuprobieren.
 
-Warum nicht einmal
+Du könntest zum Beispiel
 
-* zusätzliche Gegner einbauen?
-* neue Level entwerfen?
-* Highscores speichern?
-* eigene Spritegrafiken zeichnen?
-* Soundeffekte ergänzen?
-* eine Titelmusik komponieren?
-* ein Jump-and-Run oder ein Denkspiel entwickeln?
+* das Abschlussspiel um weitere Gegner, Level oder Soundeffekte erweitern,
+* einen Highscore dauerhaft in einer Datei speichern,
+* eigene Spritegrafiken entwerfen,
+* ein Jump-and-Run, Geschicklichkeits- oder Denkspiel programmieren,
+* Messwerte über die Ein- und Ausgänge des PicoMite erfassen,
+* LEDs, Taster oder andere Hardware in ein eigenes Projekt einbauen,
+* ein kleines Werkzeug schreiben, das dir im Alltag nützlich ist,
+* oder einfach mit einem bisher unbekannten MMBasic-Befehl experimentieren.
 
-Vielleicht entsteht daraus irgendwann sogar dein ganz eigenes Spiel.
+Dein nächstes Projekt muss dabei weder groß noch besonders kompliziert sein. Oft entstehen die interessantesten Programme aus einer ganz einfachen Idee.
 
 === Nutze die Dokumentation
 
-Dieses Buch konnte nur einen Teil der Möglichkeiten von MMBasic zeigen.
+Dieses Buch konnte nur einen Teil der Möglichkeiten von MMBasic zeigen. Im offiziellen PicoMite User Manual findest du viele weitere Befehle, Funktionen und Optionen.
 
-Im offiziellen MMBasic User Manual findest du viele weitere Befehle und Funktionen.
+Du musst sie nicht alle kennen – und schon gar nicht auswendig lernen.
 
-Lass dich davon aber nicht abschrecken.
+Wenn du eine neue Aufgabe lösen möchtest, überlege zuerst, was dein Programm dafür benötigt, und suche dann gezielt nach den passenden Befehlen. Genau so arbeiten auch erfahrene Entwickler.
 
-Du musst nicht alles kennen.
+Auf dem PicoMite kann außerdem der Befehl `HELP` eine praktische Unterstützung sein. Voraussetzung dafür ist eine passende Datei `help.txt` im Hauptverzeichnis von Laufwerk `A:`. Wie du die Hilfe verwendest, hast du bereits im Kapitel über den Editor kennengelernt.
 
-Wenn du eine neue Aufgabe lösen möchtest, suche gezielt nach den passenden Befehlen.
-
-So arbeiten auch erfahrene Entwickler.
+Und noch etwas ist wichtig: MMBasic und die PicoMite-Firmware werden weiterentwickelt. Wenn sich ein Befehl anders verhält als erwartet, lohnt sich deshalb immer ein Blick in das Handbuch der tatsächlich verwendeten Firmware-Version.
 
 === Tausche dich mit anderen aus
 
 Programmieren macht noch mehr Spaß, wenn man seine Projekte mit anderen teilt.
 
-Im Internet gibt es zahlreiche Foren und Communities rund um MMBasic, den PicoMite und den Colour Maximite 2.
+Im Internet gibt es Foren und Communities rund um MMBasic, den PicoMite und den Colour Maximite 2. Dort findest du Ideen, Beispielprogramme, Hinweise zu neuen Firmware-Versionen und natürlich andere Menschen, die sich für dieselben Systeme interessieren.
 
-Zeige dort deine Projekte.
+Zeige deine Projekte, stelle Fragen und teile deine Erfahrungen. Vielleicht kannst du schon bald selbst jemandem weiterhelfen, der gerade seine ersten Schritte mit MMBasic macht.
 
-Stelle Fragen.
+=== Dein nächstes Programm
 
-Hilf anderen Einsteigern.
+Nach all den Beispielprogrammen in diesem Buch gibt es an dieser Stelle kein weiteres fertiges Projekt mehr.
 
-Du wirst feststellen, dass die meisten Mitglieder ihre Erfahrungen gerne weitergeben.
+Denn das nächste Programm soll von dir kommen.
+
+Als kleine Starthilfe findest du im Repository noch eine einfache Vorlage:
+
+* {github-programme}/52_dein_naechstes_programm.bas[52_dein_naechstes_programm.bas]
+
+Sie enthält absichtlich fast nichts:
+
+[source,basic]
+----
+' Mein nächstes MMBasic-Programm
+'
+' Ab hier bist du der Programmierer.
+
+OPTION EXPLICIT
+
+PRINT "Was programmiere ich als Naechstes?"
+
+' Deine Idee beginnt hier ...
+----
+
+Du kannst alles löschen, verändern oder ergänzen. Die Datei soll dir nur eines sagen:
+
+Jetzt beginnt dein eigenes Programm.
 
 === Mein persönlicher Rat
 
-Ich programmiere seit vielen Jahrzehnten.
-
-In dieser Zeit habe ich unzählige Programmiersprachen, Betriebssysteme und Computer kennengelernt.
+Ich programmiere seit vielen Jahrzehnten. In dieser Zeit habe ich viele Programmiersprachen, Betriebssysteme und Computer kennengelernt.
 
 Doch eines hat sich nie geändert:
 
@@ -88,22 +102,18 @@ Dieses Gefühl verliert man nie.
 
 Ich wünsche dir, dass du noch viele solcher Momente erleben wirst.
 
-Bleib neugierig.
-
-Experimentiere.
-
-Hab keine Angst vor Fehlern.
+Bleib neugierig. Experimentiere. Hab keine Angst vor Fehlern.
 
 Und vor allem:
 
 Hab Spaß am Programmieren.
 
-[quote]
-____
-»Jedes große Programm begann einmal mit einer einzigen Zeile.«
+Auch dein nächstes Programm beginnt wieder ganz einfach – mit der ersten Zeile.
 
-`PRINT "Hallo Welt"`
-____
+[source,basic]
+----
+PRINT "Hallo Welt"
+----
 
 Vielen Dank, dass ich dich auf deinem Einstieg in die Welt von MMBasic begleiten durfte.
 
@@ -111,10 +121,5 @@ Ich wünsche dir viel Erfolg – und vor allem viel Freude – bei deinen eigene
 
 image::bilder/52_epilog_ende.jpg[align=center]
 
-"Dies ist nicht das Ende. Es ist der Anfang deiner eigenen Programme."
-
-=== Programmbeispiel
-
-Das vollständige BASIC-Programm findest du hier:
-
-* {github-programme}/52_dein_naechstes_programm.bas[52_dein_naechstes_programm.bas]
+[.text-center]
+*Dies ist nicht das Ende. Es ist der Anfang deiner eigenen Programme.*
