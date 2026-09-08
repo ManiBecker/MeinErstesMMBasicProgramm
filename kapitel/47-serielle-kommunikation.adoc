@@ -20,7 +20,7 @@ Die serielle Datenübertragung ist deutlich älter als der Personal Computer. Be
 
 Mit dem Aufkommen der Mikrocomputer setzte sich in den 1970er- und 1980er-Jahren vor allem die RS-232-Schnittstelle als Standard für die serielle Kommunikation zwischen Computern und Peripheriegeräten durch.
 
-Viele bekannte Systeme nutzten diese Technik:
+Viele bekannte Systeme nutzten serielle Schnittstellen oder konnten entsprechend erweitert werden:
 
 * Commodore C64
 * Atari ST
@@ -32,7 +32,7 @@ Viele bekannte Systeme nutzten diese Technik:
 
 Damals war die serielle Schnittstelle oft die wichtigste Verbindung zur Außenwelt.
 
-Auch heute wird sie noch in unzähligen Geräten eingesetzt.
+Auch heute wird serielle Kommunikation noch in unzähligen Geräten eingesetzt.
 
 === Was bedeutet seriell?
 
@@ -68,9 +68,7 @@ Universal Asynchronous
 Receiver Transmitter
 ----
 
-Die UART übernimmt das Senden und Empfangen der Daten.
-
-Der Programmierer muss sich dadurch nicht um die einzelnen Bits kümmern.
+Die UART übernimmt das Senden und Empfangen der einzelnen Bits. Das BASIC-Programm kann dadurch mit Zeichen und Zeichenketten arbeiten, ohne sich um jedes einzelne Bit kümmern zu müssen.
 
 === Wo begegnet uns UART heute?
 
@@ -87,9 +85,9 @@ Sie gehören zu den wichtigsten Kommunikationsschnittstellen in der Elektronik.
 
 === Baudrate
 
-Damit zwei Geräte miteinander kommunizieren können, müssen beide dieselbe Geschwindigkeit verwenden.
+Damit zwei Geräte miteinander kommunizieren können, müssen beide dieselbe Übertragungsgeschwindigkeit verwenden.
 
-Diese Geschwindigkeit wird als Baudrate bezeichnet.
+Bei einer UART wird diese üblicherweise als Baudrate angegeben. Bei der hier verwendeten UART-Übertragung entsprechen beispielsweise 9600 Baud einer Übertragung von 9600 Bits pro Sekunde auf der Leitung.
 
 Typische Werte sind:
 
@@ -104,7 +102,9 @@ Typische Werte sind:
 115200
 ----
 
-Für viele Anwendungen sind 9600 oder 115200 Baud üblich.
+Der PicoMite unterstützt für `COM1` und `COM2` Baudraten von 1200 bis 921600 Baud.
+
+Für die ersten Versuche verwenden wir 9600 Baud.
 
 === Sender und Empfänger
 
@@ -121,56 +121,88 @@ Eine UART besitzt zwei Signale:
 |Empfangen
 |===
 
-Wichtig:
+Beim Verbinden zweier Geräte werden Sender und Empfänger gekreuzt verbunden:
 
 [source]
 ----
 TX → RX
-
 RX → TX
 ----
 
-Sender und Empfänger werden gekreuzt verbunden.
+Zusätzlich benötigen beide Geräte eine gemeinsame Masseverbindung.
+
+=== UART ist nicht RS-232
+
+Die Begriffe UART und RS-232 werden häufig miteinander vermischt, bezeichnen aber nicht dasselbe.
+
+Eine UART beschreibt die serielle Datenübertragung. Die UART-Pins des PicoMite arbeiten mit den Logikpegeln der GPIO-Pins, also mit 3,3-V-Signalen.
+
+Eine klassische RS-232-Schnittstelle verwendet dagegen andere elektrische Signalpegel. Sie darf deshalb *nicht direkt* mit den GPIO-Pins des PicoMite verbunden werden.
+
+Für eine Verbindung zu einer echten RS-232-Schnittstelle wird ein geeigneter Pegelwandler benötigt, beispielsweise ein `MAX3232`.
+
+[IMPORTANT]
+====
+Die UART-Pins des PicoMite sind keine RS-232-Anschlüsse. Eine klassische RS-232-Schnittstelle darf niemals direkt an die GPIO-Pins angeschlossen werden.
+====
 
 === COM1 und COM2 den GPIO-Pins zuordnen
 
-Bevor eine serielle Schnittstelle verwendet werden kann, muss MMBasic wissen, welche GPIO-Pins für Senden (TX) und Empfangen (RX) verwendet werden sollen.
+Der PicoMite besitzt zwei serielle Schnittstellen: `COM1` und `COM2`.
 
-Hierzu dient der Befehl `SETPIN`.
+Bevor eine davon verwendet werden kann, müssen die GPIO-Pins für RX und TX mit `SETPIN` zugeordnet werden.
 
-Beispiel:
+Die Syntax für `COM1` lautet:
 
 [source,basic]
 ----
-' COM1 konfigurieren
-SETPIN GP0, GP1, COM1
+SETPIN rx, tx, COM1
+----
+
+Für die Beispiele dieses Kapitels verwenden wir:
+
+[source,basic]
+----
+SETPIN GP1, GP0, COM1
 ----
 
 Dabei gilt:
 
 [cols="1,3"]
 |===
-|Parameter |Bedeutung
-
-|GP0
-|TX-Leitung (Senden)
+|Pin |Funktion
 
 |GP1
-|RX-Leitung (Empfangen)
+|COM1 RX – Daten zum PicoMite
 
-|COM1
-|Verwendete serielle Schnittstelle
+|GP0
+|COM1 TX – Daten vom PicoMite
 |===
 
-Für eine zweite UART könnte beispielsweise folgende Zuordnung verwendet werden:
+MMBasic erkennt anhand der gewählten GPIO-Pins, welcher Pin RX und welcher TX ist. Deshalb dürfen die Pins bei `SETPIN` auch in umgekehrter Reihenfolge angegeben werden.
+
+Das folgende Kommando ist daher ebenfalls gültig:
 
 [source,basic]
 ----
-' COM2 konfigurieren
-SETPIN GP4, GP5, COM2
+SETPIN GP0, GP1, COM1
 ----
 
-TIP: Die verfügbaren GPIO-Pins hängen von der jeweiligen PicoMite-Firmware und der verwendeten Hardware ab. Eine Übersicht findest du im PicoMite User Manual.
+Für `COM2` verwenden wir beispielsweise:
+
+[source,basic]
+----
+SETPIN GP5, GP4, COM2
+----
+
+Dabei ist GP5 der RX-Pin und GP4 der TX-Pin.
+
+[TIP]
+====
+Beim PicoMite HDMI sind GP12 bis GP19 für die Videoausgabe reserviert. Bei Firmware-Versionen mit USB-Tastatur/Maus sind außerdem GP8 und GP9 für die serielle Konsole reserviert.
+
+GP0 und GP1 eignen sich deshalb gut für `COM1` in den Beispielen dieses Tutorials.
+====
 
 === Verbindung zweier Systeme
 
@@ -178,36 +210,31 @@ TIP: Die verfügbaren GPIO-Pins hängen von der jeweiligen PicoMite-Firmware und
 ----
 PicoMite A          PicoMite B
 
-TX ---------------- RX
-
-RX ---------------- TX
-
-GND -------------- GND
+GP0 TX ------------ GP1 RX
+GP1 RX ------------ GP0 TX
+GND ---------------- GND
 ----
 
-Zusätzlich müssen beide Geräte eine gemeinsame Masse besitzen.
+Die GPIO-Nummern beziehen sich immer auf das jeweilige Gerät.
 
 Merke:
 
-Die GPIO-Nummern geben immer die Pins des eigenen PicoMite an.
-
-Beim Verbinden zweier Geräte gilt:
-
+[source]
+----
 TX → RX
-
 RX → TX
+GND → GND
+----
 
 === Das erste UART-Programm
 
-Nachdem COM1 den GPIO-Pins zugeordnet wurde, kann die serielle Schnittstelle sofort verwendet werden.
+Nachdem `COM1` den GPIO-Pins zugeordnet wurde, kann die serielle Schnittstelle geöffnet werden.
 
-Das folgende Programm sendet den Text "Hallo Welt!" über COM1.
+Das folgende Programm sendet den Text `Hallo Welt!` über `COM1`:
 
 [source,basic]
 ----
-' COM1 konfigurieren
-SETPIN GP0, GP1, COM1
-
+SETPIN GP1, GP0, COM1
 OPEN "COM1:9600" AS #1
 
 PRINT #1, "Hallo Welt!"
@@ -215,51 +242,138 @@ PRINT #1, "Hallo Welt!"
 CLOSE #1
 ----
 
-Dieses kleine Programm zeigt bereits den grundsätzlichen Ablauf:
+Der Ablauf besteht aus vier Schritten:
 
-* COM1 konfigurieren
-* Schnittstelle öffnen
-* Daten senden
-* Schnittstelle schließen
+* Pins mit `SETPIN` zuordnen
+* Schnittstelle mit `OPEN` öffnen
+* Daten senden oder empfangen
+* Schnittstelle mit `CLOSE` schließen
 
-In den folgenden Abschnitten werden wir diese Schritte im Detail kennenlernen. MMBasic behandelt eine serielle Schnittstelle dabei ähnlich wie eine Datei: Sie wird mit OPEN geöffnet, anschließend können Daten gesendet oder empfangen werden und zum Schluss wird sie mit CLOSE wieder geschlossen.
+MMBasic behandelt eine serielle Schnittstelle dabei ähnlich wie eine Datei. Nach dem Öffnen erhält sie eine Dateinummer, die von Befehlen wie `PRINT`, `INPUT$`, `LOC` und `CLOSE` verwendet wird.
 
-=== Daten senden
+=== Die serielle Schnittstelle öffnen
 
-Beispiel:
+Eine serielle Schnittstelle wird mit `OPEN` geöffnet:
 
 [source,basic]
 ----
-' COM1 konfigurieren
-SETPIN GP0, GP1, COM1
+OPEN "COM1:9600" AS #1
+----
+
+Die `1` ist die Dateinummer, unter der das Programm anschließend auf die Schnittstelle zugreift.
+
+Die Voreinstellungen des PicoMite sind:
+
+* 9600 Baud
+* 8 Datenbits
+* keine Parität
+* 1 Stopbit
+* 256 Byte Empfangspuffer
+* 256 Byte Sendepuffer
+
+Deshalb würde sogar folgende Schreibweise 9600 Baud verwenden:
+
+[source,basic]
+----
+OPEN "COM1:" AS #1
+----
+
+Im Tutorial geben wir die Baudrate trotzdem ausdrücklich an, damit sofort erkennbar ist, mit welcher Geschwindigkeit die Verbindung arbeitet.
+
+Bei Bedarf kann auch ein größerer Empfangspuffer festgelegt werden:
+
+[source,basic]
+----
+OPEN "COM1:9600, 1024" AS #1
+----
+
+Damit wird ein Empfangspuffer von 1024 Byte verwendet.
+
+=== Daten senden
+
+Zum Senden kann `PRINT` mit der Dateinummer der seriellen Schnittstelle verwendet werden:
+
+[source,basic]
+----
+SETPIN GP1, GP0, COM1
 OPEN "COM1:9600" AS #1
 
 PRINT #1, "Hallo Welt"
 ----
 
-Der Text wird über die serielle Schnittstelle gesendet.
+Der Text wird zunächst in einem Sendepuffer abgelegt und anschließend von der UART übertragen. Das BASIC-Programm kann währenddessen normalerweise bereits weiterarbeiten.
 
 === Schnittstelle schließen
 
-Nach der Verwendung sollte die Verbindung geschlossen werden.
+Nach der Verwendung sollte die serielle Schnittstelle geschlossen werden:
 
 [source,basic]
 ----
 CLOSE #1
 ----
 
+`CLOSE` wartet zunächst, bis noch vorhandene Daten aus dem Sendepuffer übertragen wurden. Anschließend werden die verwendeten Puffer freigegeben.
+
 === Daten empfangen
 
-Zum Empfangen verwenden wir:
+Empfangene Zeichen werden von MMBasic automatisch in einem Speicherpuffer gesammelt.
+
+Mit `LOC()` kann festgestellt werden, wie viele Zeichen bereits im Empfangspuffer warten:
 
 [source,basic]
 ----
-LINE INPUT #1, text$
-
-PRINT text$
+anzahl = LOC(#1)
 ----
 
-Die empfangene Zeile wird in einer Variablen gespeichert.
+Die Funktion `INPUT$()` liest Zeichen aus diesem Puffer. Sie wartet nicht auf neue Daten. Sind momentan keine Zeichen vorhanden, wird sofort ein leerer String zurückgegeben.
+
+Ein einfaches Empfangsprogramm sieht so aus:
+
+[source,basic]
+----
+SETPIN GP1, GP0, COM1
+OPEN "COM1:9600" AS #1
+
+DO
+  IF LOC(#1) > 0 THEN
+    text$ = INPUT$(LOC(#1), #1)
+    PRINT text$;
+  ENDIF
+LOOP
+----
+
+Durch das Semikolon bei `PRINT text$;` werden die Zeichen so ausgegeben, wie sie empfangen wurden.
+
+=== Zeichenstrom statt fertiger Nachrichten
+
+Eine UART überträgt zunächst nur einen Strom von Zeichen. Sie kennt von sich aus keine Befehle, Zeilen oder Nachrichten.
+
+Wird beispielsweise
+
+[source]
+----
+LEDON
+----
+
+gesendet, könnte das empfangende Programm bei einer frühen Abfrage zunächst nur
+
+[source]
+----
+LE
+----
+
+und etwas später
+
+[source]
+----
+DON
+----
+
+im Empfangspuffer finden.
+
+Wenn ein Programm vollständige Befehle übertragen soll, benötigt es deshalb eine Vereinbarung darüber, wo eine Nachricht endet. Häufig wird dafür ein Zeilenende mit CR/LF verwendet.
+
+Auf diesem Prinzip bauen wir später unsere einfachen Kommunikationsprotokolle auf.
 
 === Praxisprojekt: PicoMite und PC verbinden
 
@@ -267,28 +381,28 @@ Ein besonders nützliches Experiment ist die Verbindung mit einem PC.
 
 === Verdrahtung
 
-Für dieses Beispiel verwenden wir:
+Für dieses Beispiel verwenden wir einen USB-UART-Adapter mit 3,3-V-Logikpegeln:
 
 [source]
 ----
-PicoMite          USB-Seriell-Adapter
+PicoMite          USB-UART-Adapter
 
 GP0 (TX) -------- RX
-
 GP1 (RX) -------- TX
-
 GND ------------- GND
 ----
 
-Anschließend wird die Schnittstelle mit
+[IMPORTANT]
+====
+Verwende einen USB-UART-Adapter, dessen Logikpegel für 3,3 V geeignet sind. Ein echter RS-232-Anschluss eines PCs darf nicht direkt mit GP0 und GP1 verbunden werden.
+====
+
+Anschließend wird `COM1` konfiguriert:
 
 [source,basic]
 ----
-' COM1 konfigurieren
-SETPIN GP0, GP1, COM1
+SETPIN GP1, GP0, COM1
 ----
-
-aktiviert.
 
 === Benötigte Software
 
@@ -300,15 +414,15 @@ Geeignete Terminalprogramme sind beispielsweise:
 
 Diese Programme können serielle Daten anzeigen und senden.
 
+Für unser Beispiel muss das Terminalprogramm auf 9600 Baud, 8 Datenbits, keine Parität und 1 Stopbit eingestellt werden.
+
 === Mehr als nur Text: VT100-Terminals
 
-Viele Terminalprogramme unterstützen den sogenannten *VT100-Standard* bzw. ANSI-Steuersequenzen. Ursprünglich wurde dieser Standard Ende der 1970er-Jahre für Computerterminals von Digital Equipment Corporation (DEC) entwickelt.
+Viele Terminalprogramme unterstützen VT100- bzw. ANSI-Steuersequenzen. Ursprünglich wurde der VT100-Standard Ende der 1970er-Jahre für Computerterminals von Digital Equipment Corporation (DEC) entwickelt.
 
-Dadurch kann ein Programm nicht nur Text ausgeben, sondern auch den Bildschirm löschen, den Cursor an eine bestimmte Position setzen oder farbigen Text anzeigen.
+Dadurch kann ein Programm nicht nur Text ausgeben, sondern beispielsweise auch den Bildschirm löschen oder den Cursor positionieren.
 
-MMBasic kann diese Steuersequenzen wie gewöhnlichen Text über die serielle Schnittstelle senden. Dadurch lassen sich komfortable textbasierte Benutzeroberflächen erstellen – ganz ohne grafisches Display.
-
-Zum Beispiel:
+MMBasic kann diese Steuersequenzen wie gewöhnlichen Text über die serielle Schnittstelle senden:
 
 [source,basic]
 ----
@@ -323,8 +437,7 @@ TIP: Im Anhang findest du eine Übersicht der wichtigsten ASCII-Zeichen sowie de
 
 [source,basic]
 ----
-' COM1 konfigurieren
-SETPIN GP0, GP1, COM1
+SETPIN GP1, GP0, COM1
 OPEN "COM1:9600" AS #1
 
 PRINT #1, "Hallo vom PicoMite"
@@ -332,7 +445,7 @@ PRINT #1, "Hallo vom PicoMite"
 CLOSE #1
 ----
 
-Wird nun ein Terminalprogramm gestartet, erscheint die gesendete Nachricht auf dem Bildschirm.
+Wird nun ein passend eingestelltes Terminalprogramm gestartet, erscheint die gesendete Nachricht auf dem Bildschirm.
 
 === Praxisprojekt: Zwei PicoMites verbinden
 
@@ -342,33 +455,44 @@ Nun verbinden wir zwei MMBasic-Systeme miteinander.
 
 [source,basic]
 ----
-' COM1 konfigurieren
-SETPIN GP0, GP1, COM1
+SETPIN GP1, GP0, COM1
 OPEN "COM1:9600" AS #1
 
 DO
-
   PRINT #1, "Hallo"
-
   PAUSE 1000
-
 LOOP
 ----
 
+`PRINT` fügt am Ende der Ausgabe ein Zeilenende hinzu. Dadurch können wir auf der Empfängerseite erkennen, wann die Nachricht vollständig ist.
+
 === Empfänger
+
+Für vollständige Zeilen sammeln wir die empfangenen Zeichen zunächst in einer Variablen:
 
 [source,basic]
 ----
-' COM1 konfigurieren
-SETPIN GP0, GP1, COM1
+SETPIN GP1, GP0, COM1
 OPEN "COM1:9600" AS #1
 
+puffer$ = ""
+
 DO
+  IF LOC(#1) > 0 THEN
+    puffer$ = puffer$ + INPUT$(LOC(#1), #1)
 
-  LINE INPUT #1, text$
+    pos = INSTR(puffer$, CHR$(10))
+    IF pos > 0 THEN
+      text$ = LEFT$(puffer$, pos - 1)
 
-  PRINT text$
+      IF RIGHT$(text$, 1) = CHR$(13) THEN
+        text$ = LEFT$(text$, LEN(text$) - 1)
+      ENDIF
 
+      PRINT text$
+      puffer$ = MID$(puffer$, pos + 1)
+    ENDIF
+  ENDIF
 LOOP
 ----
 
@@ -381,110 +505,120 @@ Hallo
 
 an.
 
+Dieses Beispiel zeigt bereits einen wichtigen Unterschied zwischen einer UART und einem Nachrichtenprotokoll: Die UART liefert Zeichen, während unser Programm daraus vollständige, durch ein Zeilenende getrennte Nachrichten bildet.
+
 === Ein einfacher Chat
 
 Interessanter wird es, wenn beide Seiten senden und empfangen können.
 
-Damit entsteht ein einfacher Chat.
-
-=== Sender
+Auf einer Seite könnte beispielsweise folgender Sender laufen:
 
 [source,basic]
 ----
-' COM1 konfigurieren
-SETPIN GP0, GP1, COM1
+SETPIN GP1, GP0, COM1
 OPEN "COM1:9600" AS #1
 
 DO
-
   INPUT "Text"; text$
-
   PRINT #1, text$
-
 LOOP
 ----
 
-=== Empfänger
+Die andere Seite kann die Nachrichten mit dem zuvor gezeigten Empfangsverfahren auslesen.
 
-[source,basic]
-----
-' COM1 konfigurieren
-SETPIN GP0, GP1, COM1
-OPEN "COM1:9600" AS #1
-
-DO
-
-  LINE INPUT #1, text$
-
-  PRINT text$
-
-LOOP
-----
-
-Nun können Nachrichten zwischen zwei Geräten ausgetauscht werden.
+Für einen echten Chat müssten beide Programme gleichzeitig Tastatureingaben und serielle Daten behandeln. Das Grundprinzip bleibt jedoch dasselbe: gesendete Zeilen werden durch ein Zeilenende voneinander getrennt.
 
 === Nachrichten strukturieren
 
 Bei größeren Projekten empfiehlt es sich, feste Nachrichtenformate zu verwenden.
 
-Beispiel:
+Beispiele:
 
 [source]
 ----
 TEMP:23.5
-
 LED:ON
-
 LED:OFF
 ----
 
-Das empfangende Programm kann diese Nachrichten gezielt auswerten.
+Das empfangende Programm kann anhand des Textes vor dem Doppelpunkt erkennen, welche Art von Nachricht empfangen wurde.
+
+Solche einfachen Textprotokolle haben einen großen Vorteil: Sie lassen sich mit einem Terminalprogramm leicht beobachten und testen.
 
 === Praxisprojekt: Fernsteuerung einer LED
 
-Sender:
+Der Sender überträgt einen Befehl:
 
 [source,basic]
 ----
-' COM1 konfigurieren
-SETPIN GP0, GP1, COM1
+SETPIN GP1, GP0, COM1
 OPEN "COM1:9600" AS #1
 
-PRINT #1, "LEDON"
+PRINT #1, "LED:ON"
 ----
 
-Empfänger:
+Beim Empfänger verwenden wir GP2 als Ausgang. Dieser Pin ist beim PicoMite HDMI nicht für die HDMI-Ausgabe reserviert.
 
 [source,basic]
 ----
-' COM1 konfigurieren
-SETPIN GP0, GP1, COM1
+SETPIN GP1, GP0, COM1
+SETPIN GP2, DOUT
 OPEN "COM1:9600" AS #1
 
-SETPIN GP15, DOUT
+puffer$ = ""
 
 DO
+  IF LOC(#1) > 0 THEN
+    puffer$ = puffer$ + INPUT$(LOC(#1), #1)
 
-  LINE INPUT #1, text$
+    pos = INSTR(puffer$, CHR$(10))
+    IF pos > 0 THEN
+      text$ = LEFT$(puffer$, pos - 1)
 
-  IF text$ = "LEDON" THEN
-    PIN(GP15)=1
+      IF RIGHT$(text$, 1) = CHR$(13) THEN
+        text$ = LEFT$(text$, LEN(text$) - 1)
+      ENDIF
+
+      IF text$ = "LED:ON" THEN
+        PIN(GP2) = 1
+      ELSEIF text$ = "LED:OFF" THEN
+        PIN(GP2) = 0
+      ENDIF
+
+      puffer$ = MID$(puffer$, pos + 1)
+    ENDIF
   ENDIF
-
 LOOP
 ----
 
 Damit kann ein Mikrocontroller einen anderen fernsteuern.
 
+=== Serielle Interrupts
+
+Bei Programmen, die nicht ständig den Empfangspuffer abfragen sollen, kann eine serielle Schnittstelle auch einen Interrupt auslösen.
+
+Die vollständige `OPEN`-Syntax erlaubt unter anderem die Angabe einer Interrupt-Subroutine und einer Anzahl empfangener Zeichen, ab der der Interrupt ausgelöst werden soll.
+
+Ein Beispiel aus der PicoMite-Syntax ist:
+
+[source,basic]
+----
+OPEN "COM2:19200, 1024, ComInt, 256" AS #5
+----
+
+Hier wird ein Empfangspuffer von 1024 Byte angelegt. Sobald mindestens 256 Zeichen empfangen wurden, wird die Subroutine `ComInt` aufgerufen.
+
+Wie bei allen Interrupts gilt: Die Interrupt-Subroutine sollte möglichst kurz sein. Längere Auswertungen werden besser im Hauptprogramm erledigt.
+
 === Retrocomputer und serielle Kommunikation
 
-Viele klassische Computer verfügen über serielle Schnittstellen.
+Viele klassische Computer besitzen serielle Schnittstellen oder können mit passenden Interfaces erweitert werden.
 
 Beispiele:
 
 * AC1
 * Z1013
-* C64 mit RS232-Adapter
+* C64 mit entsprechendem Interface
 * Apple II
 * CP/M-Rechner
 * Siemens PGs
@@ -519,7 +653,7 @@ ____
 
 Dieses Beispiel zeigt sehr schön, wie sich moderne Mikrocontroller und klassische Computer sinnvoll ergänzen können.
 
-Der PicoMite übernimmt die Aufgabe, die hohe Rechengeschwindigkeit und präzise Zeitmessung erfordert, während der Commodore CBM die Ergebnisse anzeigt, speichert oder weiterverarbeitet.
+Der PicoMite übernimmt die zeitkritische Erfassung und Zeitmessung, während der Commodore CBM die Ergebnisse anzeigt, speichert oder weiterverarbeitet.
 
 === Aufgaben sinnvoll verteilen
 
@@ -530,14 +664,14 @@ Der Commodore CBM bietet:
 * komfortable BASIC-Programmierung
 * Tastatur und Bildschirm
 * einfache Datenauswertung
-* gute Möglichkeiten zur Speicherung der Ergebnisse
+* Möglichkeiten zur Speicherung der Ergebnisse
 
 Der PicoMite bietet dagegen:
 
 * einen schnellen Mikrocontroller
 * präzise Timer
 * Interrupts
-* schnelle Reaktion auf Eingangssignale
+* moderne Ein- und Ausgänge
 
 Anstatt den CBM durch einen modernen Rechner zu ersetzen, übernimmt der PicoMite lediglich die Aufgabe, für die er besser geeignet ist.
 
@@ -558,7 +692,9 @@ Der prinzipielle Aufbau sieht folgendermaßen aus:
            | TIMER          |
            +----------------+
                     │
-             UART / RS232
+                  UART
+                    │
+          ggf. Pegelwandler
                     │
                     ▼
          +--------------------+
@@ -569,44 +705,50 @@ Der prinzipielle Aufbau sieht folgendermaßen aus:
          +--------------------+
 ----
 
-Sobald das Fahrzeug die Lichtschranke durchfährt, registriert der PicoMite das Ereignis und berechnet die verstrichene Zeit.
+Sobald das Fahrzeug die Lichtschranke durchfährt, registriert der PicoMite das Ereignis und bestimmt die verstrichene Zeit.
 
-Anschließend wird das Ergebnis über die serielle Schnittstelle an den Commodore übertragen.
+Anschließend wird das Ergebnis über die serielle Verbindung an den Commodore übertragen.
 
 === Warum übernimmt der CBM die Zeitmessung nicht selbst?
 
 Natürlich könnte man versuchen, die Zeit direkt im BASIC-Programm des CBM zu messen.
 
-Allerdings arbeitet BASIC interpretiert. Während der Rechner gleichzeitig Tastatur, Bildschirm und Programm ausführt, vergeht bereits wertvolle Zeit.
+Allerdings arbeitet BASIC interpretiert. Während der Rechner gleichzeitig Tastatur, Bildschirm und Programm bearbeitet, kann zusätzliche und nicht immer gleich große Verzögerung entstehen.
 
-Für viele Anwendungen reicht diese Genauigkeit völlig aus.
+Für viele Anwendungen reicht diese Genauigkeit völlig aus. Bei einer Rennstrecke oder Lichtschranke möchte man jedoch möglichst reproduzierbare Messwerte erhalten.
 
-Bei einer Rennstrecke oder einer Lichtschranke möchte man jedoch möglichst genaue Messwerte erhalten.
+Der PicoMite kann ein Eingangssignal per Interrupt erfassen, ohne dass das Hauptprogramm den Eingang ständig abfragen muss. MMBasic prüft Interrupts jeweils nach Abschluss eines Befehls. Viele Befehle werden sehr schnell ausgeführt, bei länger dauernden Hardwareoperationen kann sich die Reaktion jedoch verzögern.
 
-Ein Mikrocontroller wie der PicoMite reagiert innerhalb weniger Mikrosekunden auf ein Eingangssignal und kann Zeitabstände sehr präzise bestimmen.
+[NOTE]
+====
+MMBasic-Interrupts sind nicht hardwareseitig zwischengespeichert. Sehr kurze Eingangssignale können deshalb unter ungünstigen Umständen verpasst werden. Ein Signal einer Lichtschranke sollte daher lange genug anliegen oder bei Bedarf hardwareseitig verlängert werden.
+====
 
-=== Die serielle Verbindung
+Die Interrupt-Subroutine sollte außerdem möglichst kurz bleiben. Typischerweise wird dort nur die Zeit erfasst und ein Merker gesetzt. Die eigentliche Verarbeitung erfolgt anschließend im Hauptprogramm.
 
-Der RP2040 bzw. RP2350 besitzt bereits eine integrierte UART.
+=== Die serielle Verbindung zum Retrocomputer
 
-Für die serielle Kommunikation ist daher keine zusätzliche Hardware erforderlich.
+Der RP2040 beziehungsweise RP2350 besitzt bereits integrierte UARTs. Für eine Verbindung zu einem anderen Gerät mit kompatiblen 3,3-V-Logikpegeln ist deshalb kein zusätzlicher UART-Baustein erforderlich.
 
-Soll die Verbindung jedoch an eine klassische RS232-Schnittstelle erfolgen, müssen die unterschiedlichen Signalpegel angepasst werden.
+Besitzt der Zielcomputer jedoch eine echte RS-232-Schnittstelle, müssen die unterschiedlichen elektrischen Pegel angepasst werden.
 
-Hierzu verwendet man einen Pegelwandler wie beispielsweise den bekannten MAX232.
+Dafür eignet sich beispielsweise ein `MAX3232`:
 
 [source]
 ----
-PicoMite (3,3 V UART)
+PicoMite (3,3-V-UART)
           │
           ▼
-      MAX232
+       MAX3232
           │
           ▼
-RS232 des Commodore
+        RS-232
+          │
+          ▼
+     Retrocomputer
 ----
 
-Besitzt der Zielrechner dagegen bereits TTL-Pegel oder wird der User-Port entsprechend angepasst, kann auf den MAX232 verzichtet werden.
+Verfügt der Retrocomputer stattdessen über eine Logikschnittstelle, beispielsweise an einem entsprechend beschalteten User-Port, muss die konkrete Schaltung geprüft werden. Entscheidend ist, dass Pegel und Signalpolarität zu den 3,3-V-UART-Signalen des PicoMite passen.
 
 === Ein einfaches Kommunikationsprotokoll
 
@@ -630,11 +772,13 @@ TIME:2371
 
 Im zweiten Beispiel wird die Zeit in Millisekunden übertragen.
 
-Textbasierte Protokolle besitzen den Vorteil, dass sie leicht lesbar und einfach zu testen sind.
+Das Zeilenende kennzeichnet jeweils das Ende einer Nachricht.
+
+Textbasierte Protokolle besitzen den Vorteil, dass sie leicht lesbar und einfach mit einem Terminalprogramm zu testen sind.
 
 === Das BASIC-Programm auf dem Commodore
 
-Der Commodore muss die empfangene Zeichenkette lediglich einlesen.
+Der Commodore muss die empfangene Zeichenkette lediglich einlesen und auswerten.
 
 Das Programm könnte anschließend beispielsweise folgende Ausgabe erzeugen:
 
@@ -645,7 +789,7 @@ Runde 2 : 2.294 s
 Runde 3 : 2.415 s
 ----
 
-Die eigentliche Berechnung der Zeit erfolgt vollständig auf dem PicoMite.
+Die eigentliche Zeitmessung erfolgt vollständig auf dem PicoMite.
 
 === Erweiterungsmöglichkeiten
 
@@ -655,7 +799,7 @@ Zum Beispiel:
 
 * Rundenzähler
 * Bestzeiten speichern
-* Mehrere Lichtschranken auswerten
+* mehrere Lichtschranken auswerten
 * Fehlstarts erkennen
 * Ziel- und Zwischenzeiten messen
 * Ergebnisse auf SD-Karte speichern
@@ -675,54 +819,34 @@ Zum Beispiel:
 * Siemens PG
 * Eigenbaucomputer mit serieller Schnittstelle
 
-Der Retrocomputer übernimmt dabei die Benutzeroberfläche, während der PicoMite die zeitkritischen Aufgaben erledigt.
+Der Retrocomputer übernimmt dabei die Benutzeroberfläche, während der PicoMite zeitkritische Aufgaben erledigt.
 
 [TIP]
 ====
-Viele Retrocomputer besitzen bereits eine serielle Schnittstelle oder können mit einem einfachen RS232-Interface nachgerüstet werden.
+Viele Retrocomputer besitzen bereits eine serielle Schnittstelle oder können mit einem passenden Interface nachgerüstet werden.
 
-Dadurch lassen sich moderne Sensoren, Mikrocontroller und Messgeräte überraschend einfach mit historischen Computern verbinden.
+Vor dem Anschluss muss immer geprüft werden, welche elektrischen Pegel die jeweilige Schnittstelle verwendet. Eine UART mit Logikpegeln ist nicht automatisch eine RS-232-Schnittstelle.
 ====
-
-=== Fazit
-
-Dieses Projekt zeigt eindrucksvoll, dass ein PicoMite keinen klassischen Computer ersetzen muss.
-
-Im Gegenteil: Beide Systeme ergänzen sich hervorragend.
-
-Der Retrocomputer übernimmt die Bedienung und Darstellung der Daten, während der PicoMite seine hohe Geschwindigkeit für präzise Messungen nutzt.
-
-Genau diese Kombination macht den besonderen Reiz vieler moderner Retro-Projekte aus.
-
-=== Ein Blick in die Zukunft
-
-Serielle Kommunikation bildet die Grundlage vieler weiterer Technologien.
-
-Dazu gehören:
-
-* Bluetooth-Module
-* WLAN-Module
-* GPS-Empfänger
-* Funkmodule
-* industrielle Feldbusse
-
-Wer UART versteht, versteht auch viele andere Kommunikationssysteme deutlich schneller.
 
 === Tipps aus der Praxis
 
-* Sender und Empfänger müssen dieselbe Baudrate verwenden.
+* Sender und Empfänger müssen dieselbe Baudrate und dasselbe Datenformat verwenden.
 * TX und RX werden gekreuzt verbunden.
 * Vergiss die gemeinsame Masse nicht.
 * Beginne mit 9600 Baud.
-* Verwende einfache Textprotokolle.
+* Verwende für den PicoMite nur geeignete 3,3-V-UART-Signale.
+* Verwende einfache, klar begrenzte Textnachrichten.
+* Mit `LOC()` kannst du prüfen, wie viele Zeichen im Empfangspuffer warten.
+* Mit `INPUT$()` lassen sich die verfügbaren Zeichen auslesen, ohne auf neue Daten zu warten.
 
 === Probier's selbst!
 
-. Verbinde PicoMite und PC.
+. Verbinde PicoMite und PC über einen geeigneten USB-UART-Adapter.
 . Sende eine Textnachricht.
+. Lies empfangene Zeichen mit `LOC()` und `INPUT$()` ein.
 . Verbinde zwei PicoMites miteinander.
-. Baue einen einfachen Chat.
-. Schalte über die serielle Verbindung eine LED ein und aus.
+. Übertrage einfache Befehle wie `LED:ON` und `LED:OFF`.
+. Entwickle ein eigenes kleines Textprotokoll.
 
 === Zusammenfassung
 
@@ -730,12 +854,30 @@ In diesem Kapitel hast du gelernt:
 
 * wie serielle Kommunikation funktioniert
 * was eine UART ist
-* Daten zu senden und zu empfangen
+* warum UART und RS-232 nicht dasselbe sind
+* wie `COM1` und `COM2` mit `SETPIN` konfiguriert werden
+* Daten über eine serielle Schnittstelle zu senden
+* empfangene Daten mit `LOC()` und `INPUT$()` auszulesen
 * einen PicoMite mit einem PC zu verbinden
 * zwei MMBasic-Systeme miteinander kommunizieren zu lassen
 * einfache Kommunikationsprotokolle zu entwickeln
+* wie ein PicoMite zeitkritische Aufgaben für einen Retrocomputer übernehmen kann
 
 Serielle Schnittstellen gehören zu den wichtigsten Werkzeugen der Elektronik und ermöglichen den Datenaustausch zwischen unterschiedlichsten Geräten.
+
+=== Ein Blick in die Zukunft
+
+Serielle Kommunikation bildet die Grundlage vieler weiterer Anwendungen.
+
+Dazu gehören beispielsweise:
+
+* Bluetooth-Module
+* WLAN-Module
+* GPS-Empfänger
+* Funkmodule
+* industrielle Geräte
+
+Wer UART verstanden hat, besitzt damit eine wichtige Grundlage für viele weitere Kommunikationsprojekte.
 
 === Programmbeispiel
 
