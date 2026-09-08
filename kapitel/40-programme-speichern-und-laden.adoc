@@ -1,4 +1,4 @@
-== Programme speichern und laden
+== Programme speichern, laden und Libraries verwenden
 
 image::bilder/40_programme_speichern_und_laden.jpg[align=center]
 
@@ -8,9 +8,11 @@ In diesem Kapitel vertiefst du den Umgang mit Programmen und Dateien.
 
 Du lernst,
 
-* den Unterschied zwischen dem Programmspeicher und gespeicherten Dateien kennen,
-* mehrere Programme gleichzeitig zu verwalten,
-* Programme sinnvoll zu organisieren und
+* die verschiedenen Speicherbereiche des PicoMite zu unterscheiden,
+* Programme als Dateien zu speichern, zu laden und direkt zu starten,
+* mehrere Programme sinnvoll zu organisieren,
+* zusätzliche Programme in Flash-Slots abzulegen,
+* wiederverwendbare Unterprogramme und Funktionen in einer Library zu speichern und
 * einen bewährten Arbeitsablauf für größere Projekte.
 
 === Warum dieses Kapitel?
@@ -27,59 +29,218 @@ entwickelst du ein Spiel, arbeitest parallel an einem Messprogramm oder möchtes
 Jetzt ist der richtige Zeitpunkt, den Umgang mit Programmen und Dateien etwas
 genauer kennenzulernen.
 
-=== Programmspeicher und Dateien
+=== Wo speichert der PicoMite Programme?
 
-Bisher haben wir unsere Programme direkt mit dem integrierten Editor erstellt
-und anschließend mit **F1** gespeichert.
+Beim PicoMite begegnen dir mehrere Speicherbereiche. Sie erfüllen unterschiedliche
+Aufgaben und sollten nicht miteinander verwechselt werden.
 
-Dadurch wird das Programm im Programmspeicher des PicoMite abgelegt. Dieses
-Programm bleibt auch nach dem Ausschalten erhalten und kann jederzeit mit `RUN`
-gestartet werden.
+[cols="2,3,2,3",options="header"]
+|===
+| Speicherort | Inhalt | Bleibt erhalten? | Typischer Zugriff
 
-Zusätzlich kannst du Programme als Dateien speichern. Dadurch lassen sich
-beliebig viele Programme archivieren, sichern oder später erneut laden.
+| Programmspeicher
+| Das aktuelle BASIC-Programm
+| Ja
+| `EDIT`, `RUN`
 
-[NOTE]
+| Flash-Dateisystem `A:`
+| Programme und andere Dateien
+| Ja
+| `SAVE`, `LOAD`, `RUN "..."`
+
+| SD-Karte `B:`
+| Programme und andere Dateien
+| Ja
+| `SAVE`, `LOAD`, `RUN "..."`
+
+| Flash-Slots 1 bis 3
+| Zusätzliche BASIC-Programme
+| Ja
+| `FLASH SAVE`, `FLASH LOAD`, `FLASH RUN`
+|===
+
+==== Der Programmspeicher
+
+Das aktuell bearbeitete BASIC-Programm liegt im **Programmspeicher** des PicoMite.
+Dieser befindet sich im Flash-Speicher und ist deshalb nichtflüchtig. Das Programm
+bleibt also auch erhalten, wenn du den PicoMite ausschaltest oder zurücksetzt.
+
+Wenn du ein Programm mit `EDIT` bearbeitest und den Editor mit **F1** (`Save`)
+verlässt, befindet sich die bearbeitete Version im Programmspeicher. Mit
+
+[source,basic]
+----
+RUN
+----
+
+kannst du dieses Programm jederzeit starten.
+
+[IMPORTANT]
 ====
-Der Programmspeicher enthält immer genau **ein aktuelles Arbeitsprogramm**.
+Der Programmspeicher enthält immer nur **ein aktuelles Arbeitsprogramm**.
 
-Im Dateisystem können dagegen beliebig viele Programme gespeichert werden.
+Du musst dieses Programm nicht mit `SAVE` als Datei sichern, damit es einen
+Neustart oder das Ausschalten übersteht. `SAVE` hat eine andere Aufgabe: Der
+Befehl erzeugt zusätzlich eine Programmdatei im Dateisystem.
 ====
 
-=== Programme speichern
+==== Das Flash-Dateisystem A:
 
-Mit `SAVE` wird das aktuelle Arbeitsprogramm als Datei gespeichert.
+Zusätzlich zum Programmspeicher besitzt der PicoMite ein eigenes Flash-Dateisystem.
+Es wird als Laufwerk `A:` angesprochen und verhält sich ähnlich wie ein kleines
+Laufwerk auf einem Computer. Hier kannst du viele Programme und andere Dateien
+ablegen.
+
+Nach dem Start des PicoMite ist `A:` normalerweise das aktive Laufwerk. Deshalb
+entspricht
 
 [source,basic]
 ----
 SAVE "HANGMAN.BAS"
 ----
 
-Das Programm befindet sich anschließend sowohl im Programmspeicher als auch als
-Datei im Dateisystem.
+in diesem Fall einer Speicherung auf Laufwerk `A:`. Ausführlich könntest du auch
+schreiben:
+
+[source,basic]
+----
+SAVE "A:/HANGMAN.BAS"
+----
+
+Das Programm befindet sich anschließend weiterhin im Programmspeicher und
+zusätzlich als Datei im Flash-Dateisystem.
+
+[TIP]
+====
+Mit
+
+[source,basic]
+----
+FILES
+----
+
+kannst du dir die Dateien und Verzeichnisse des aktuellen Laufwerks anzeigen
+lassen.
+====
+
+==== Die SD-Karte B:
+
+Wenn dein PicoMite eine konfigurierte SD-Karte besitzt, wird sie als Laufwerk
+`B:` angesprochen. Ein Programm kannst du beispielsweise direkt dort speichern:
+
+[source,basic]
+----
+SAVE "B:/HANGMAN.BAS"
+----
+
+Mit `DRIVE` lässt sich auch das aktive Laufwerk wechseln:
+
+[source,basic]
+----
+DRIVE "B:"
+----
+
+Danach beziehen sich Dateinamen ohne Laufwerksangabe auf die SD-Karte. Mit
+
+[source,basic]
+----
+DRIVE "A:"
+----
+
+wechselst du wieder zum Flash-Dateisystem zurück.
+
+=== Programme speichern
+
+Mit `SAVE` speicherst du das aktuelle Arbeitsprogramm zusätzlich als Datei:
+
+[source,basic]
+----
+SAVE "HANGMAN.BAS"
+----
+
+Das ist besonders wichtig, wenn du mehrere Programme aufbewahren, Sicherungskopien
+anlegen oder Programme auf einen anderen Rechner übertragen möchtest.
+
+[NOTE]
+====
+`SAVE` macht den Programmspeicher nicht erst dauerhaft. Der Programmspeicher ist
+bereits nichtflüchtig. `SAVE` legt eine **zusätzliche Datei** auf `A:` oder `B:` an.
+====
 
 === Programme laden
 
-Mit `LOAD` wird eine gespeicherte Datei wieder in den Programmspeicher geladen.
+Mit `LOAD` lädst du eine gespeicherte BASIC-Datei in den Programmspeicher:
 
 [source,basic]
 ----
 LOAD "HANGMAN.BAS"
 ----
 
-Danach kannst du das Programm sofort mit `RUN` starten oder weiter bearbeiten.
+Das zuvor im Programmspeicher befindliche Arbeitsprogramm wird dadurch ersetzt.
+Anschließend kannst du das geladene Programm mit
+
+[source,basic]
+----
+RUN
+----
+
+starten oder mit `EDIT` weiter bearbeiten.
+
+Mit der zusätzlichen Option `, R` kannst du ein Programm laden und anschließend
+sofort starten:
+
+[source,basic]
+----
+LOAD "HANGMAN.BAS", R
+----
+
+Noch kürzer geht es mit:
+
+[source,basic]
+----
+RUN "HANGMAN.BAS"
+----
+
+`RUN` mit einem Dateinamen lädt das Programm und führt es unmittelbar aus.
 
 === Programme direkt bearbeiten
 
-Statt ein Programm zuerst zu laden, kannst du es auch direkt im Editor öffnen.
+Eine gespeicherte BASIC-Datei kannst du auch direkt mit dem Editor öffnen:
 
 [source,basic]
 ----
 EDIT "HANGMAN.BAS"
 ----
 
-Das spart einen Arbeitsschritt und ist besonders praktisch, wenn du ein
-bestehendes Programm ändern möchtest.
+MMBasic lädt die Datei dabei in den Programmspeicher und öffnet sie im Editor.
+So kannst du ein vorhandenes Programm bequem weiterbearbeiten.
+
+=== Zusätzliche Programme in Flash-Slots
+
+Neben dem normalen Programmspeicher und den Dateisystemen besitzt der PicoMite
+drei zusätzliche Flash-Slots. Dort kannst du beispielsweise andere Programme
+oder frühere Versionen deines aktuellen Programms ablegen.
+
+Die wichtigsten Befehle sind:
+
+[source,basic]
+----
+FLASH SAVE 1
+FLASH LOAD 1
+FLASH RUN 1
+FLASH LIST
+FLASH ERASE 1
+----
+
+Die Nummer kann zwischen 1 und 3 liegen. `FLASH SAVE 1` kopiert beispielsweise
+das aktuelle Arbeitsprogramm in Flash-Slot 1. Mit `FLASH LOAD 1` holst du es
+wieder in den Programmspeicher.
+
+[NOTE]
+====
+Die Library verwendet Flash-Slot 3. Sobald du die Library-Funktion nutzt, stehen
+dir deshalb nur noch die Flash-Slots 1 und 2 für normale Programme zur Verfügung.
+====
 
 === Programme organisieren
 
@@ -134,23 +295,6 @@ Zum Beispiel:
 
 Dadurch bleiben deine Projekte dauerhaft übersichtlich.
 
-[TIP]
-====
-**Programme auf mehrere Dateien aufteilen**
-
-Bei größeren Projekten kann es sinnvoll sein, den Quelltext auf mehrere
-Dateien zu verteilen. So lassen sich beispielsweise Grafikroutinen,
-Hilfsfunktionen oder die Spiellogik in getrennten Dateien verwalten.
-
-MMBasic unterstützt dies über `#INCLUDE` in Verbindung mit `CMM2 LOAD` bzw.
-`CMM2 RUN`.
-
-Diese Funktion stammt ursprünglich vom Colour Maximite 2 und wird vor allem
-für größere Projekte oder zur Portierung von CMM2-Programmen verwendet.
-
-Für die meisten PicoMite-Projekte reicht jedoch ein einzelnes Programm oder
-eine Library völlig aus.
-====
 
 === Wiederverwendbare Programmteile
 
@@ -438,21 +582,28 @@ Programmcode besser geeignet.
 
 === Ein typischer Arbeitsablauf
 
-Viele MMBasic-Anwender arbeiten nach einem einfachen Schema:
+Beim Entwickeln arbeitest du zunächst mit dem aktuellen Programm im
+Programmspeicher:
 
 ----
 EDIT
  ↓
 Programm entwickeln
  ↓
-F1
+F1 (Save)
  ↓
 RUN
- ↓
+----
+
+Wenn du einen bestimmten Entwicklungsstand dauerhaft als eigene Datei aufbewahren
+möchtest, sicherst du ihn zusätzlich:
+
+[source,basic]
+----
 SAVE "MEINPROGRAMM.BAS"
 ----
 
-Zu einem späteren Zeitpunkt:
+Zu einem späteren Zeitpunkt kannst du diese Version wieder laden und weiterbearbeiten:
 
 ----
 LOAD "MEINPROGRAMM.BAS"
@@ -461,12 +612,17 @@ EDIT
  ↓
 Programm erweitern
  ↓
-F1
+F1 (Save)
  ↓
 RUN
 ----
 
-Dieser Arbeitsablauf hat sich in der Praxis sehr bewährt.
+Der entscheidende Unterschied ist: **F1 speichert die Änderungen des Editors im
+aktuellen Programmspeicher. `SAVE` legt zusätzlich eine Datei im Dateisystem an.**
+
+Dieser Arbeitsablauf ist besonders praktisch, weil du während der Entwicklung
+schnell arbeiten kannst und wichtige Zwischenstände trotzdem als eigene Dateien
+aufbewahrst.
 
 === Profitipps
 
@@ -513,14 +669,21 @@ bei vielen Projekten den Überblick zu behalten.
 
 === Zusammenfassung
 
-Du kennst nun den Unterschied zwischen dem Programmspeicher des PicoMite und
-Programmen, die als Dateien gespeichert werden.
+Du kennst nun die wichtigsten Möglichkeiten, Programme auf dem PicoMite zu
+speichern. Das aktuelle Arbeitsprogramm liegt im nichtflüchtigen Programmspeicher
+und bleibt auch nach dem Ausschalten erhalten.
 
-Außerdem weißt du, wie du Programme sinnvoll organisierst, Sicherheitskopien
-anlegst und mehrere Projekte gleichzeitig verwaltest.
+Mit `SAVE` legst du zusätzliche Programmdateien im Flash-Dateisystem `A:` oder auf
+der SD-Karte `B:` an. Mit `LOAD` kannst du sie wieder in den Programmspeicher laden,
+während `RUN "DATEI.BAS"` ein gespeichertes Programm direkt lädt und startet.
 
-Mit diesen Techniken behältst du auch bei größeren BASIC-Projekten jederzeit
-den Überblick.
+Die zusätzlichen Flash-Slots eignen sich zum Aufbewahren weiterer Programme.
+Außerdem hast du gelernt, wie wiederverwendbare `SUB`- und `FUNCTION`-Routinen in
+einer Library gespeichert werden und anschließend allen Programmen zur Verfügung
+stehen.
+
+Mit aussagekräftigen Dateinamen, Ordnern und regelmäßigen Sicherungen behältst du
+auch bei größeren BASIC-Projekten den Überblick.
 
 === Programmbeispiel
 
