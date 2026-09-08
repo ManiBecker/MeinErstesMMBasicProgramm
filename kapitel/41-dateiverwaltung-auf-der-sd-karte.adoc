@@ -6,14 +6,19 @@ image::bilder/41_dateiverwaltung_sd_karte.jpg[align=center]
 
 In diesem Kapitel lernst du:
 
+* zwischen Flash-Dateisystem und SD-Karte zu wechseln
+* Dateien und Verzeichnisse anzuzeigen
 * Verzeichnisse anzulegen
 * zwischen Verzeichnissen zu wechseln
-* Dateien umzubenennen
-* Dateien zu kopieren
-* Dateien zu löschen
+* das aktuelle Arbeitsverzeichnis zu ermitteln
+* Dateien umzubenennen und zu verschieben
+* Dateien zu kopieren und zu löschen
+* Verzeichnisse zu löschen
+* Informationen über ein Laufwerk abzufragen
 * eine sinnvolle Projektstruktur aufzubauen
 
-Am Ende des Kapitels kannst du auch größere Projekte übersichtlich organisieren.
+Am Ende des Kapitels kannst du auch größere Programmsammlungen übersichtlich
+organisieren und verwalten.
 
 === Warum Verzeichnisse?
 
@@ -48,11 +53,133 @@ TEST.BAS
 
 Irgendwann wird es schwierig, den Überblick zu behalten.
 
-Deshalb bieten PicoMite und Colour Maximite 2 Verzeichnisse an.
+Deshalb unterstützt MMBasic Verzeichnisse und eine Reihe von Befehlen zur
+Dateiverwaltung.
+
+=== Laufwerke beim PicoMite
+
+Der PicoMite unterscheidet zwischen zwei Laufwerken:
+
+[cols="1,2,3"]
+|===
+|Laufwerk |Speicher |Hinweis
+
+|`A:`
+|Flash-Dateisystem
+|Ist im PicoMite selbst gespeichert.
+
+|`B:`
+|SD-Karte
+|Steht zur Verfügung, wenn eine SD-Karte konfiguriert ist.
+|===
+
+Das aktuell verwendete Laufwerk wird als *aktives Laufwerk* bezeichnet.
+Alle Dateibefehle ohne ausdrücklich angegebenes Laufwerk beziehen sich auf
+dieses aktive Laufwerk.
+
+Mit `DRIVE` wechselst du das aktive Laufwerk.
+
+Um beispielsweise auf die SD-Karte zu wechseln, verwendest du:
+
+[source,basic]
+----
+DRIVE "B:"
+----
+
+Zurück zum Flash-Dateisystem gelangst du mit:
+
+[source,basic]
+----
+DRIVE "A:"
+----
+
+Welches Laufwerk gerade aktiv ist, kannst du mit `MM.INFO(drive)` abfragen:
+
+[source,basic]
+----
+PRINT MM.INFO(drive)
+----
+
+Die Ausgabe lautet beispielsweise:
+
+[source]
+----
+B:
+----
+
+Damit weißt du, dass sich die folgenden Dateibefehle auf die SD-Karte beziehen.
+
+[NOTE]
+====
+Die SD-Karte ist beim PicoMite das Laufwerk `B:`. Das Laufwerk muss jedoch
+entsprechend konfiguriert sein, damit es verwendet werden kann.
+====
+
+=== Dateien und Verzeichnisse anzeigen
+
+Bevor du Dateien kopierst, umbenennst oder löschst, möchtest du normalerweise
+zuerst sehen, welche Dateien und Verzeichnisse vorhanden sind.
+
+Dafür gibt es den Befehl `FILES`.
+
+[source,basic]
+----
+FILES
+----
+
+`FILES` durchsucht das aktuelle Verzeichnis des aktiven Laufwerks und zeigt
+die gefundenen Dateien und Unterverzeichnisse an.
+
+Eine mögliche Ausgabe könnte beispielsweise so aussehen:
+
+[source]
+----
+SPIELE
+PROJEKTE
+PONG.BAS
+TEST.BAS
+----
+
+`FILES` kann auch mit einem Suchmuster verwendet werden. Möchtest du zum
+Beispiel nur BASIC-Programme anzeigen, kannst du schreiben:
+
+[source,basic]
+----
+FILES "*.BAS"
+----
+
+Das Sternchen `*` steht dabei als Platzhalter für eine beliebige Folge von
+Zeichen.
+
+[IMPORTANT]
+====
+`FILES` kann nur an der MMBasic-Kommandozeile verwendet werden. Innerhalb
+eines laufenden BASIC-Programms steht der Befehl nicht zur Verfügung.
+====
+
+Soll ein Programm selbst nach Dateien suchen, gibt es dafür die Funktion
+`DIR$(fspec, type)`. Sie ermöglicht die Dateisuche aus einem BASIC-Programm
+heraus. Die genaue Verwendung von `DIR$()` wird später behandelt, wenn wir uns
+mit Dateizugriffen aus Programmen beschäftigen.
+
+=== Inhalt einer Textdatei anzeigen
+
+Mit `LIST` kannst du den Inhalt eines BASIC-Programms oder einer Textdatei auf
+der Konsole anzeigen.
+
+Beispiel:
+
+[source,basic]
+----
+LIST "PONG.BAS"
+----
+
+Das ist praktisch, wenn du den Inhalt einer Datei kurz ansehen möchtest, ohne
+sie zuerst mit `LOAD` als aktuelles Programm zu laden.
 
 === Eine sinnvolle Projektstruktur
 
-Ein möglicher Aufbau könnte so aussehen:
+Ein möglicher Aufbau auf der SD-Karte könnte so aussehen:
 
 [source]
 ----
@@ -74,21 +201,10 @@ Ein möglicher Aufbau könnte so aussehen:
 
 Dadurch bleiben Programme übersichtlich organisiert.
 
-[TIP]
-====
-Bei größeren Projekten können Programme auch auf mehrere Quelldateien
-aufgeteilt werden.
-
-MMBasic unterstützt dies über `#INCLUDE` in Verbindung mit `CMM2 LOAD`
-oder `CMM2 RUN`.
-
-Diese Funktion eignet sich vor allem für umfangreiche Projekte und zur
-Portierung von Colour-Maximite-2-Programmen.
-====
-
 === Verzeichnisse anlegen
 
-Mit MKDIR wird ein neues Verzeichnis erstellt.
+Mit `MKDIR` wird ein neues Verzeichnis im aktuellen Verzeichnis des aktiven
+Laufwerks erstellt.
 
 Beispiel:
 
@@ -97,16 +213,17 @@ Beispiel:
 MKDIR "SPIELE"
 ----
 
-Danach existiert das neue Verzeichnis:
+Mit `FILES` kannst du anschließend kontrollieren, ob das neue Verzeichnis
+angelegt wurde:
 
-[source]
+[source,basic]
 ----
-SPIELE
+FILES
 ----
 
 === Verzeichnis wechseln
 
-Mit CHDIR wird das aktuelle Arbeitsverzeichnis geändert.
+Mit `CHDIR` wird das aktuelle Arbeitsverzeichnis geändert.
 
 Beispiel:
 
@@ -115,47 +232,56 @@ Beispiel:
 CHDIR "SPIELE"
 ----
 
-Alle folgenden Dateibefehle beziehen sich nun auf dieses Verzeichnis.
+Alle folgenden Dateibefehle ohne vollständige Pfadangabe beziehen sich nun auf
+dieses Verzeichnis.
 
-=== Das aktuelle Verzeichnis
+=== Das aktuelle Verzeichnis anzeigen
 
-Auf beiden Plattformen gibt es spezielle Verzeichnisnamen:
+Mit `CWD$` kannst du das aktuelle Arbeitsverzeichnis abfragen.
+
+[source,basic]
+----
+PRINT CWD$
+----
+
+Befindest du dich beispielsweise im Verzeichnis `SPIELE`, zeigt die Ausgabe
+den entsprechenden Pfad an.
+
+Das ist besonders nützlich, wenn du zuvor mehrmals mit `CHDIR` zwischen
+Verzeichnissen gewechselt hast und nicht mehr sicher bist, in welchem
+Verzeichnis du dich gerade befindest.
+
+=== Besondere Verzeichnisnamen
+
+Bei `CHDIR` gibt es einige besondere Verzeichnisnamen:
 
 [cols="1,3"]
 |===
 |Eintrag |Bedeutung
 
-|.
+|`.`
 |Aktuelles Verzeichnis
 
-|..
-|Eine Ebene nach oben
+|`..`
+|Eine Verzeichnisebene nach oben
 
-|/
-|Wurzelverzeichnis
+|`\`
+|Wurzelverzeichnis des aktuellen Laufwerks
 |===
 
-=== Zum Hauptverzeichnis zurückkehren
-
-Mit:
+Zum Wurzelverzeichnis des aktuellen Laufwerks gelangst du also mit:
 
 [source,basic]
 ----
-CHDIR "/"
+CHDIR "\"
 ----
 
-wechselst du zurück in das Wurzelverzeichnis.
-
-=== Eine Ebene nach oben
-
-Mit:
+Eine Ebene nach oben wechselst du mit:
 
 [source,basic]
 ----
 CHDIR ".."
 ----
-
-wechselst du in das übergeordnete Verzeichnis.
 
 Beispiel:
 
@@ -166,30 +292,18 @@ Beispiel:
     └── PONG.BAS
 ----
 
-Befindest du dich in:
-
-[source]
-----
-/SPIELE
-----
-
-führt:
+Befindest du dich im Verzeichnis `SPIELE`, führt:
 
 [source,basic]
 ----
 CHDIR ".."
 ----
 
-zurück nach:
-
-[source]
-----
-/
-----
+zurück in das übergeordnete Verzeichnis.
 
 === Dateien umbenennen
 
-Mit RENAME kann eine Datei einen neuen Namen erhalten.
+Mit `RENAME` kann eine Datei einen neuen Namen erhalten.
 
 Beispiel:
 
@@ -207,7 +321,8 @@ PONG_V1.BAS
 
 === Dateien verschieben
 
-RENAME kann gleichzeitig zum Verschieben verwendet werden.
+`RENAME` kann gleichzeitig zum Verschieben einer Datei verwendet werden.
+Dazu gibst du als neuen Namen einen Pfad an.
 
 Beispiel:
 
@@ -216,11 +331,11 @@ Beispiel:
 RENAME "PONG.BAS" AS "/SPIELE/PONG.BAS"
 ----
 
-Die Datei wird dabei in das Verzeichnis SPIELE verschoben.
+Die Datei wird dabei in das Verzeichnis `SPIELE` verschoben.
 
 === Dateien kopieren
 
-Mit COPY wird eine Datei dupliziert.
+Mit `COPY` wird eine Datei kopiert.
 
 Beispiel:
 
@@ -237,6 +352,14 @@ PONG.BAS
 PONG_ALT.BAS
 ----
 
+Auch `COPY` unterstützt Pfadangaben. Dadurch kannst du eine Datei direkt in ein
+anderes Verzeichnis kopieren:
+
+[source,basic]
+----
+COPY "/SPIELE/PONG.BAS" TO "/TEST/PONG.BAS"
+----
+
 === Warum Kopien sinnvoll sind
 
 Vor größeren Änderungen kann eine Sicherheitskopie erstellt werden.
@@ -248,11 +371,13 @@ Beispiel:
 COPY "SENSO.BAS" TO "SENSO_BAK.BAS"
 ----
 
-Falls etwas schiefgeht, steht die ursprüngliche Version weiterhin zur Verfügung.
+Falls bei späteren Änderungen etwas schiefgeht, steht die ursprüngliche
+Version weiterhin zur Verfügung.
 
 === Dateien löschen
 
-Mit KILL wird eine Datei gelöscht.
+Mit `KILL` wird eine Datei im aktuellen Verzeichnis des aktiven Laufwerks
+gelöscht.
 
 Beispiel:
 
@@ -267,12 +392,17 @@ Danach ist die Datei nicht mehr vorhanden.
 ====
 Gelöschte Dateien können in der Regel nicht wiederhergestellt werden.
 
-Verwende KILL deshalb mit Vorsicht.
+Verwende `KILL` deshalb mit Vorsicht.
 ====
+
+`KILL` unterstützt außerdem Platzhalter zum Löschen mehrerer Dateien. Damit
+können sehr schnell viele Dateien entfernt werden. Solche Löschvorgänge solltest
+du deshalb besonders sorgfältig prüfen.
 
 === Verzeichnisse löschen
 
-Mit RMDIR wird ein Verzeichnis entfernt.
+Mit `RMDIR` wird ein Verzeichnis im aktuellen Verzeichnis des aktiven Laufwerks
+entfernt.
 
 Beispiel:
 
@@ -281,13 +411,96 @@ Beispiel:
 RMDIR "TEST"
 ----
 
-Das Verzeichnis muss leer sein.
+Das Verzeichnis muss leer sein. Befinden sich darin noch Dateien oder weitere
+Unterverzeichnisse, kann es nicht einfach mit `RMDIR` entfernt werden.
 
-Existieren darin noch Dateien, wird eine Fehlermeldung erzeugt.
+=== Prüfen, ob Dateien oder Verzeichnisse existieren
+
+In einem BASIC-Programm ist es oft hilfreich, vor einem Dateizugriff zu prüfen,
+ob eine bestimmte Datei vorhanden ist.
+
+Dafür gibt es `MM.INFO(exists file fname$)`.
+
+Beispiel:
+
+[source,basic]
+----
+IF MM.INFO(exists file "PONG.BAS") THEN
+  PRINT "PONG.BAS ist vorhanden."
+ELSE
+  PRINT "PONG.BAS wurde nicht gefunden."
+ENDIF
+----
+
+Entsprechend kannst du mit `MM.INFO(exists dir dirname$)` prüfen, ob ein
+Verzeichnis existiert:
+
+[source,basic]
+----
+IF MM.INFO(exists dir "SPIELE") THEN
+  PRINT "Das Verzeichnis SPIELE ist vorhanden."
+ENDIF
+----
+
+Diese Funktionen sind besonders nützlich, wenn ein Programm mit mehreren
+Dateien oder Verzeichnissen arbeitet.
+
+=== Speicherplatz des Laufwerks abfragen
+
+MMBasic kann auch Informationen über das aktive Laufwerk liefern.
+
+Mit:
+
+[source,basic]
+----
+PRINT MM.INFO(free space)
+----
+
+wird der noch freie Speicherplatz des aktiven Laufwerks ausgegeben.
+
+Die Größe des Laufwerks erhältst du mit:
+
+[source,basic]
+----
+PRINT MM.INFO(disk size)
+----
+
+Zusammen mit `MM.INFO(drive)` kannst du damit schnell feststellen, welches
+Laufwerk aktiv ist und wie viel Speicherplatz dort zur Verfügung steht.
+
+=== Der Pfad des laufenden Programms
+
+Mit `MM.INFO(path)` kann ein Programm ermitteln, aus welchem Verzeichnis es
+gestartet wurde.
+
+[source,basic]
+----
+PRINT MM.INFO(path)
+----
+
+Das ist vor allem bei größeren Projekten nützlich. Ein Programm kann damit
+Ressourcen wie Daten- oder Konfigurationsdateien relativ zu seinem eigenen
+Speicherort finden.
 
 === Beispielprojekt anlegen
 
-Erstellen wir eine kleine Projektstruktur:
+Erstellen wir nun auf der SD-Karte eine kleine Projektstruktur.
+
+Zuerst wechseln wir auf die SD-Karte:
+
+[source,basic]
+----
+DRIVE "B:"
+----
+
+Dann wechseln wir in das Wurzelverzeichnis:
+
+[source,basic]
+----
+CHDIR "\"
+----
+
+Nun legen wir einige Verzeichnisse an:
 
 [source,basic]
 ----
@@ -296,7 +509,16 @@ MKDIR "PROJEKTE"
 MKDIR "TEST"
 ----
 
-Danach könnte die Struktur so aussehen:
+Mit:
+
+[source,basic]
+----
+FILES
+----
+
+kannst du das Ergebnis kontrollieren.
+
+Die Struktur sieht nun beispielsweise so aus:
 
 [source]
 ----
@@ -308,26 +530,36 @@ Danach könnte die Struktur so aussehen:
 
 === Dateien organisieren
 
-Wechseln wir zunächst in das Verzeichnis SPIELE:
+Wechseln wir zunächst in das Verzeichnis `SPIELE`:
 
 [source,basic]
 ----
 CHDIR "SPIELE"
 ----
 
-Nun speichern wir dort beispielsweise:
+Mit:
+
+[source,basic]
+----
+PRINT CWD$
+----
+
+kannst du kontrollieren, ob du dich im gewünschten Verzeichnis befindest.
+
+Nun speichern wir dort beispielsweise ein Programm:
 
 [source,basic]
 ----
 SAVE "PONG.BAS"
-SAVE "SENSO.BAS"
 ----
 
-Die Programme bleiben dadurch sauber von anderen Projekten getrennt.
+Mit `FILES` kannst du anschließend prüfen, ob die Datei vorhanden ist.
 
 === Vollständige Pfadangaben
 
-Dateibefehle können auch mit vollständigen Pfaden verwendet werden.
+Dateibefehle können auch mit vollständigen Pfaden verwendet werden. Dadurch
+musst du nicht für jeden Zugriff zuerst mit `CHDIR` in ein anderes Verzeichnis
+wechseln.
 
 Beispiel:
 
@@ -343,29 +575,43 @@ oder:
 COPY "/SPIELE/PONG.BAS" TO "/TEST/PONG.BAS"
 ----
 
-Dies ist besonders praktisch bei größeren Projekten.
+Das ist besonders praktisch bei größeren Projekten.
 
-=== PicoMite und Colour Maximite 2
+=== Dateiverwaltung an der Kommandozeile und im Programm
 
-Die meisten Verzeichnisbefehle funktionieren auf beiden Plattformen nahezu identisch.
+Viele Befehle zur Dateiverwaltung können sowohl an der MMBasic-Kommandozeile
+als auch innerhalb eines BASIC-Programms verwendet werden.
 
-Dazu gehören:
+Dazu gehören unter anderem:
 
-* CHDIR
-* MKDIR
-* RMDIR
-* COPY
-* RENAME
-* KILL
+* `DRIVE`
+* `MKDIR`
+* `CHDIR`
+* `RMDIR`
+* `COPY`
+* `RENAME`
+* `KILL`
 
-Dadurch lassen sich Projekte leicht zwischen PicoMite und Colour Maximite 2 übertragen.
+Eine wichtige Ausnahme ist `FILES`: Dieser Befehl kann nur an der
+Kommandozeile verwendet werden.
+
+Für die Arbeit mit Dateien innerhalb eines Programms stellt MMBasic zusätzliche
+Funktionen bereit. Dazu gehören beispielsweise `DIR$()`, `INPUT$()`, `EOF()`,
+`LOC()` und `LOF()`. Außerdem kann mit `SEEK` die aktuelle Position innerhalb
+einer geöffneten Datei verändert werden.
+
+Diese Funktionen werden wichtig, wenn ein BASIC-Programm Dateien nicht nur
+organisieren, sondern deren Inhalte selbst lesen oder schreiben soll.
 
 === Tipps aus der Praxis
 
 * Verwende für jedes Projekt ein eigenes Verzeichnis.
-* Lege wiederverwendbare Bibliotheken getrennt von deinen Projekten ab.
+* Prüfe mit `MM.INFO(drive)`, welches Laufwerk gerade aktiv ist.
+* Verwende `FILES`, bevor du Dateien umbenennst oder löschst.
+* Kontrolliere bei Bedarf mit `CWD$`, in welchem Verzeichnis du dich befindest.
+* Lege wiederverwendbare Dateien getrennt von deinen Projekten ab.
 * Sichere wichtige Projekte regelmäßig auf deinem PC.
-* Verwende keine Leerzeichen in Dateinamen.
+* Verwende möglichst keine Leerzeichen in Dateinamen.
 * Halte Verzeichnisnamen möglichst kurz und eindeutig.
 * Verwende aussagekräftige Dateinamen.
 * Erstelle vor größeren Änderungen Sicherheitskopien.
@@ -374,31 +620,40 @@ Dadurch lassen sich Projekte leicht zwischen PicoMite und Colour Maximite 2 übe
 
 === Probier's selbst!
 
-Versuche folgende Aufgaben:
+Versuche folgende Aufgaben direkt an deinem PicoMite:
 
-. Erstelle ein Verzeichnis SPIELE.
+. Wechsle mit `DRIVE "B:"` auf die SD-Karte.
+. Zeige mit `FILES` den Inhalt des aktuellen Verzeichnisses an.
+. Erstelle ein Verzeichnis `SPIELE`.
 . Wechsle in dieses Verzeichnis.
+. Kontrolliere mit `CWD$` das aktuelle Arbeitsverzeichnis.
 . Speichere dort ein kleines Testprogramm.
-. Erstelle eine Sicherheitskopie mit COPY.
-. Benenne die Kopie um.
-. Lösche die Kopie wieder.
-. Wechsle zurück ins Wurzelverzeichnis.
+. Zeige mit `FILES "*.BAS"` nur die BASIC-Dateien an.
+. Erstelle mit `COPY` eine Sicherheitskopie des Programms.
+. Benenne die Kopie mit `RENAME` um.
+. Prüfe mit `MM.INFO(exists file ...)`, ob die Datei vorhanden ist.
+. Lösche die Kopie wieder mit `KILL`.
+. Wechsle mit `CHDIR "\"` zurück ins Wurzelverzeichnis.
 
 === Zusammenfassung
 
 In diesem Kapitel hast du gelernt:
 
-* Verzeichnisse mit MKDIR anzulegen
-* mit CHDIR zwischen Verzeichnissen zu wechseln
-* Dateien mit COPY zu kopieren
-* Dateien mit RENAME umzubenennen
-* Dateien mit KILL zu löschen
-* Verzeichnisse mit RMDIR zu entfernen
+* mit `DRIVE` zwischen Flash-Dateisystem und SD-Karte zu wechseln
+* mit `FILES` Dateien und Verzeichnisse anzuzeigen
+* mit `LIST` den Inhalt einer Programm- oder Textdatei anzuzeigen
+* Verzeichnisse mit `MKDIR` anzulegen
+* mit `CHDIR` zwischen Verzeichnissen zu wechseln
+* mit `CWD$` das aktuelle Arbeitsverzeichnis zu ermitteln
+* Dateien mit `COPY` zu kopieren
+* Dateien mit `RENAME` umzubenennen oder zu verschieben
+* Dateien mit `KILL` zu löschen
+* Verzeichnisse mit `RMDIR` zu entfernen
+* mit `MM.INFO()` Informationen über Laufwerke, Dateien und Verzeichnisse abzufragen
 
-Mit diesen Befehlen kannst du auch größere MMBasic-Projekte übersichtlich organisieren und verwalten.
-
-Mit einer guten Verzeichnisstruktur lassen sich auch umfangreiche Projekte
-übersichtlich verwalten.
+Damit stehen dir die wichtigsten Werkzeuge zur Verfügung, um deine
+MMBasic-Programme und Projekte übersichtlich auf Flash-Speicher und SD-Karte zu
+organisieren.
 
 Im nächsten Kapitel lernst du mit `CHAIN` eine Möglichkeit kennen,
 mehrere Programme miteinander zu verbinden.
