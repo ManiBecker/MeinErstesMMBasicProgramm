@@ -4,124 +4,114 @@ image::bilder/39_mmedit.jpg[align=center]
 
 === Das lernst du
 
+Im vorherigen Kapitel hast du den eingebauten Editor des PicoMite kennengelernt. Für kleine Programme und schnelle Änderungen direkt am Zielsystem ist er sehr praktisch.
+
+Wenn Programme größer werden oder du den Quelltext lieber auf dem PC bearbeiten und verwalten möchtest, bietet sich *MMEdit* an.
+
 In diesem Kapitel lernst du:
 
-* was MMEdit ist
-* wie MMEdit eingerichtet wird
+* was MMEdit und MMCC sind
+* welche MMEdit-Version in diesem Tutorial verwendet wird
 * wie die Verbindung zu einem PicoMite oder Colour Maximite hergestellt wird
-* Programme zu erstellen, zu bearbeiten und zu übertragen
-* Projekte zu organisieren
-* effizient mit MMBasic zu entwickeln
+* wie Programme auf dem PC erstellt, übertragen und getestet werden
+* wie mehrere Dateien gleichzeitig bearbeitet werden können
+* wie MMEdit bei größeren MMBasic-Projekten hilft
 
-Am Ende des Kapitels kannst du MMEdit als zentrale Entwicklungsumgebung für deine MMBasic-Projekte verwenden.
-
-=== Warum MMEdit?
-
-Der eingebaute Editor von MMBasic ist leistungsfähig und für viele Aufgaben vollkommen ausreichend.
-
-Mit zunehmender Projektgröße steigen jedoch die Anforderungen.
-
-Beispiele:
-
-* mehrere Dateien gleichzeitig bearbeiten
-* große Programme verwalten
-* komfortabel suchen und ersetzen
-* Projekte organisieren
-* Programme archivieren
-* Quelltexte sichern
-
-Für genau diese Aufgaben wurde MMEdit entwickelt.
+Am Ende des Kapitels kennst du einen typischen Entwicklungsablauf mit MMEdit und kannst entscheiden, ob du lieber direkt auf dem PicoMite oder auf dem PC programmierst.
 
 === Was ist MMEdit?
 
-MMEdit ist eine speziell für MMBasic entwickelte Entwicklungsumgebung.
+MMEdit ist ein speziell für MMBasic entwickelter Programmeditor. Im Gegensatz zu einem allgemeinen Texteditor kennt MMEdit die Besonderheiten von MMBasic und unterstützt typische Arbeitsabläufe bei der Entwicklung.
 
-Im Gegensatz zu allgemeinen Texteditoren kennt MMEdit die Besonderheiten von MMBasic und unterstützt viele typische Arbeitsabläufe direkt.
+Dazu gehören unter anderem:
 
-Unterstützt werden unter anderem:
+* Syntax-Hervorhebung für MMBasic
+* mehrere gleichzeitig geöffnete Dateien in Registerkarten
+* Suchen und Ersetzen
+* Übertragen und Starten von Programmen auf einem angeschlossenen MMBasic-System
+* Zugriff auf Dateien des Zielsystems
 
-* PicoMite
-* PicoMite VGA
-* PicoMite HDMI
-* Colour Maximite 2
-* Maximite
-* Micromite
+MMEdit unterstützt verschiedene Mitglieder der MMBasic-Familie, darunter PicoMite, PicoMite VGA/HDMI und Colour Maximite 2.
 
-MMEdit kombiniert:
+=== MMEdit und MMCC
 
-* Editor
-* Terminal
-* Dateiübertragung
-* Projektverwaltung
+Seit MMEdit V5 ist die Kommunikation mit dem Zielsystem in ein eigenes Programm ausgelagert: das *Maximite Control Centre*, kurz *MMCC*.
 
-in einer einzigen Anwendung.
+Die Aufgaben sind damit klar getrennt:
+
+[source]
+----
+MMEdit
+  |
+  +-- Programm schreiben und bearbeiten
+  |
+  +-- Load and Run
+          |
+          v
+        MMCC
+          |
+          +-- serielle Verbindung
+          +-- Terminal
+          +-- Dateiübertragung
+          |
+          v
+       PicoMite
+----
+
+MMEdit ist also in erster Linie der Editor. MMCC stellt die Verbindung zum PicoMite her und dient gleichzeitig als Terminal.
+
+Im normalen Entwicklungsalltag arbeiten beide Programme eng zusammen. MMEdit kann MMCC bei Bedarf automatisch starten.
 
 === Welche Version wird verwendet?
 
-Zum Zeitpunkt der Erstellung dieses Tutorials wird verwendet:
+Für dieses Tutorial verwende ich:
 
 [source]
 ----
 MMEdit V5.2.9
-Juni 2024
 ----
 
-Diese Version unterstützt aktuelle PicoMite- und Colour-Maximite-Systeme und wird von vielen Anwendern eingesetzt.
+Diese Version hat für mein Tutorial einen praktischen Vorteil: Sie liegt mir als portable Version vor und kann ohne klassische Installation verwendet werden. Dadurch lässt sie sich beispielsweise zusammen mit den übrigen Entwicklungswerkzeugen auf einem USB-Stick oder einer SD-Karte aufbewahren.
 
-=== MMEdit auf der mitgelieferten SD-Karte
+[NOTE]
+====
+MMEdit wird weiterhin entwickelt. Zum Zeitpunkt der Überarbeitung dieses Kapitels ist bereits MMEdit V5.4.3 verfügbar.
 
-Bei meinen PicoMite- und Colour-Maximite-Systemen befindet sich auf der mitgelieferten SD-Karte bereits eine passende Version von MMEdit.
+Die grundlegende Bedienung des Editors hat sich gegenüber V5.2.9 jedoch nicht wesentlich geändert. Neuere Versionen enthalten unter anderem Verbesserungen an MMCC und der Dateiübertragung.
 
-Dadurch kann sofort mit der Entwicklung begonnen werden.
+Wenn du MMEdit neu einrichtest, kannst du daher selbstverständlich eine aktuelle Version verwenden. Die grundlegenden Arbeitsschritte in diesem Kapitel bleiben gleich.
+====
 
-Ein weiterer Vorteil:
+=== Meine portable Version
 
-Diese Version benötigt keine Installation.
+Bei einigen meiner MMBasic-Systeme habe ich eine portable MMEdit-Version zusammen mit den übrigen Dateien auf der mitgelieferten SD-Karte erhalten.
 
-MMEdit kann direkt gestartet werden.
+Das ist jedoch keine Voraussetzung für PicoMite oder Colour Maximite und gehört nicht grundsätzlich zu MMBasic.
 
-Gerade für Einsteiger ist das sehr praktisch.
+Eine portable MMEdit-Version kann in ein beliebiges beschreibbares Verzeichnis kopiert und von dort gestartet werden. Bei einer solchen Version befinden sich auch MMEdit und MMCC gemeinsam im Programmverzeichnis.
 
 === Der erste Start
 
-Nach dem Start erscheint die Hauptoberfläche.
+Nach dem Start von MMEdit erscheint das Editorfenster. Hier kannst du BASIC-Programme öffnen, bearbeiten und speichern.
 
-Typischerweise besteht sie aus:
+Eine besondere Rolle spielt die Symbolleiste. Für die tägliche Arbeit ist vor allem die Funktion *Load and Run* wichtig. Sie überträgt das aktuelle Programm über MMCC zum Zielsystem und startet es dort.
 
-* Menüleiste
-* Editorfenster
-* Terminalfenster
-* Statusbereich
-
-Damit stehen alle wichtigen Werkzeuge sofort zur Verfügung.
+MMCC kann auch separat gestartet werden. Bei einer portablen Version befindet sich das Programm `MMCC.exe` im MMEdit-Verzeichnis.
 
 === Verbindung zum Zielsystem
 
-Damit MMEdit mit einem PicoMite oder Colour Maximite kommunizieren kann, wird eine serielle Verbindung benötigt.
+Damit MMCC mit einem PicoMite oder Colour Maximite kommunizieren kann, wird eine serielle Verbindung benötigt.
 
-In den meisten Fällen erfolgt diese über USB.
-
-[source]
-----
-PC
- |
- +---- USB ---- PicoMite
-----
-
-oder:
+Beim PicoMite erfolgt diese normalerweise über USB beziehungsweise über die vom jeweiligen System bereitgestellte serielle USB-Verbindung.
 
 [source]
 ----
 PC
  |
- +---- USB ---- Colour Maximite 2
+ +---- USB/seriell ---- PicoMite
 ----
 
-=== COM-Port auswählen
-
-Nach dem Anschließen erzeugt Windows einen virtuellen COM-Port.
-
-Typische Beispiele:
+Unter Windows erscheint diese Verbindung als COM-Port, beispielsweise:
 
 [source]
 ----
@@ -130,408 +120,340 @@ COM5
 COM8
 ----
 
-Dieser COM-Port muss in MMEdit ausgewählt werden.
+Welche Nummer Windows vergibt, hängt vom Computer und vom angeschlossenen Gerät ab.
 
-=== Verbindung testen
+=== MMCC einrichten
 
-Nach erfolgreicher Verbindung erscheint die MMBasic-Eingabeaufforderung.
+Starte MMCC und wähle dort den passenden COM-Port und den richtigen Gerätetyp aus. Anschließend wird die Verbindung mit *Connect* hergestellt.
+
+Ist die Verbindung erfolgreich, siehst du im Terminal die Ausgabe von MMBasic und schließlich die Eingabeaufforderung:
 
 [source]
 ----
 >
 ----
 
-Nun können Befehle direkt eingegeben werden.
+Nun kannst du Befehle direkt im Terminal eingeben.
 
-Beispiel:
-
-[source,basic]
-----
-PRINT MM.INFO$(VERSION)
-----
-
-Die Antwort erscheint unmittelbar im Terminalfenster.
-
-=== Das Terminalfenster
-
-Das Terminalfenster ist eine der wichtigsten Funktionen von MMEdit.
-
-Hier können:
-
-* Befehle eingegeben werden
-* Programme gestartet werden
-* Fehlermeldungen analysiert werden
-* Ergebnisse betrachtet werden
-
-Im täglichen Einsatz wird das Terminal ständig verwendet.
-
-=== Ein typischer Arbeitstag mit MMEdit
-
-Schauen wir uns an, wie ein neues Projekt entsteht.
-
-Wir möchten ein Blinklicht programmieren.
-
-Der Ablauf sieht typischerweise so aus:
-
-[source]
-----
-Neues Programm erstellen
-        ↓
-Programm schreiben
-        ↓
-Speichern
-        ↓
-Zum PicoMite übertragen
-        ↓
-Testen
-        ↓
-Fehler korrigieren
-        ↓
-Erneut übertragen
-----
-
-Diesen Zyklus durchläuft man oft dutzende Male während der Entwicklung.
-
-Genau hier spielt MMEdit seine Stärken aus.
-
-=== Ein erstes Projekt
-
-Wir erstellen eine neue Datei:
-
-[source]
-----
-HALLO.BAS
-----
-
-und schreiben:
+Zum Testen eignet sich beispielsweise:
 
 [source,basic]
 ----
-DO
-
-  PRINT "Hallo MMBasic"
-
-  PAUSE 1000
-
-LOOP
+PRINT MM.INFO(VERSION)
 ----
 
-Nun speichern wir die Datei und übertragen sie auf den PicoMite.
-
-Nach dem Start erscheint jede Sekunde:
+Auf meinem PicoMite HDMI/USB mit MMBasic V6.03.01 erscheint beispielsweise:
 
 [source]
 ----
-Hallo MMBasic
+6.0301
 ----
+
+Damit weißt du, dass die Kommunikation funktioniert.
+
+=== MMCC als Terminal
+
+MMCC ist nicht nur für die Programmübertragung zuständig. Es kann auch als normales Terminal für MMBasic verwendet werden.
+
+Hier kannst du:
+
+* Befehle direkt eingeben
+* Programme starten und abbrechen
+* Ausgaben des Programms beobachten
+* Fehlermeldungen lesen
+* die Verbindung zum Zielsystem kontrollieren
+
+Damit übernimmt MMCC eine ähnliche Aufgabe wie andere Terminalprogramme, ist aber direkt auf die Zusammenarbeit mit MMEdit abgestimmt.
+
+=== Der typische Entwicklungszyklus
+
+Der große Vorteil von MMEdit zeigt sich beim wiederholten Ändern und Testen eines Programms.
+
+[source]
+----
+Programm in MMEdit schreiben
+          |
+          v
+       Speichern
+          |
+          v
+     Load and Run
+          |
+          v
+MMCC überträgt das Programm
+          |
+          v
+PicoMite startet das Programm
+          |
+          v
+       Testen
+          |
+          v
+      Ändern ...
+----
+
+Während der Entwicklung wird dieser Zyklus oft viele Male wiederholt.
+
+=== Ein erstes Programm
+
+Erstelle in MMEdit eine neue Datei und speichere sie beispielsweise als:
+
+[source]
+----
+39_mmedit_hallo.bas
+----
+
+Der Inhalt ist bewusst einfach gehalten:
+
+[source,basic]
+----
+OPTION EXPLICIT
+
+DIM INTEGER Zaehler
+
+FOR Zaehler = 1 TO 10
+  PRINT "Hallo MMBasic! Durchlauf"; Zaehler
+  PAUSE 500
+NEXT Zaehler
+
+PRINT "Programm beendet."
+----
+
+Speichere das Programm und starte anschließend *Load and Run*.
+
+MMEdit übergibt das Programm an MMCC. MMCC überträgt es zum PicoMite und startet es dort.
+
+Im Terminal erscheinen nacheinander die Ausgaben des Programms.
+
+Ändere nun beispielsweise:
+
+[source,basic]
+----
+PAUSE 500
+----
+
+in:
+
+[source,basic]
+----
+PAUSE 100
+----
+
+und führe erneut *Load and Run* aus.
+
+Damit hast du bereits den wichtigsten MMEdit-Arbeitsablauf kennengelernt: *ändern, übertragen, testen*.
 
 === Syntax-Hervorhebung
 
-MMEdit erkennt MMBasic-Befehle automatisch.
+MMEdit erkennt viele Elemente der MMBasic-Syntax und stellt sie unterschiedlich dar. Dazu gehören beispielsweise Schlüsselwörter, Kommentare, Zahlen und Zeichenketten.
 
-Elemente wie:
+Das erleichtert besonders bei längeren Programmen die Orientierung im Quelltext.
 
-* Schlüsselwörter
-* Kommentare
-* Zahlen
-* Zeichenketten
+[NOTE]
+====
+MMBasic und insbesondere der PicoMite werden ständig weiterentwickelt. Deshalb kann es vorkommen, dass sehr neue Befehle von einer älteren MMEdit-Syntaxdatei noch nicht farbig hervorgehoben werden.
 
-werden farbig dargestellt.
+Das bedeutet nicht automatisch, dass der Befehl auf dem PicoMite ungültig ist. Im Zweifelsfall ist das aktuelle PicoMite-Handbuch maßgeblich.
+====
 
-Dadurch werden Programme wesentlich besser lesbar.
+=== Programme auf dem PC speichern
 
-=== Programme speichern
+MMEdit speichert BASIC-Programme als normale Textdateien. Für MMBasic-Programme wird üblicherweise die Dateiendung `.bas` verwendet.
 
-MMEdit speichert Programme als normale Textdateien.
-
-Typische Beispiele:
+Beispiele:
 
 [source]
 ----
-SENSO.BAS
-
-PONG.BAS
-
-AMPel.BAS
+senso.bas
+pong.bas
+bahnhofsuhr.bas
 ----
 
-Die Dateien können problemlos archiviert oder weitergegeben werden.
+Die Dateien können dadurch problemlos kopiert, gesichert, archiviert oder beispielsweise mit Git verwaltet werden.
 
-=== Programme übertragen
+=== Programme übertragen und starten
 
-Eine der wichtigsten Funktionen von MMEdit ist die Übertragung eines Programms auf das Zielsystem.
+Für das normale Entwickeln ist *Load and Run* besonders praktisch.
 
-Der Ablauf ist einfach:
+Der aktuelle Quelltext wird dabei vom PC zum Zielsystem übertragen und anschließend ausgeführt. Dadurch musst du die Datei nicht nach jeder Änderung von Hand auf eine SD-Karte kopieren.
+
+Das ist einer der größten Vorteile gegenüber einem Arbeitsablauf, bei dem Programme ausschließlich über Datenträger zwischen PC und PicoMite ausgetauscht werden.
+
+=== Dateien auf dem Zielsystem
+
+MMCC besitzt zusätzlich einen Dateimanager. Damit können Dateien zwischen PC und MMBasic-System übertragen werden.
+
+Das ist beispielsweise praktisch für:
+
+* BASIC-Programme
+* Datendateien
+* Bilder
+* Sounddateien
+* Sicherungskopien
+
+Beim PicoMite kennst du die Laufwerksbezeichnungen bereits aus Kapitel 41:
 
 [source]
 ----
-Programm schreiben
-       ↓
-Speichern
-       ↓
-Übertragen
-       ↓
-Testen
+A:   interner Flash-Speicher
+B:   SD-Karte, wenn konfiguriert
 ----
 
-Dadurch entsteht ein sehr schneller Entwicklungszyklus.
+Damit ist die SD-Karte nur *eine* Möglichkeit, Dateien zu speichern. Für den normalen Editieren-Testen-Zyklus ist sie nicht erforderlich.
 
-=== Programme vom Zielsystem lesen
+=== Programme vom Zielsystem holen
 
-MMEdit kann nicht nur Programme übertragen.
+Über den Dateimanager können vorhandene Dateien auch vom Zielsystem auf den PC übertragen werden.
 
-Auch bereits vorhandene Programme können wieder eingelesen werden.
+Das ist beispielsweise hilfreich, wenn ein Programm nur noch auf dem PicoMite oder auf dessen SD-Karte vorhanden ist und du es wieder auf dem PC bearbeiten möchtest.
 
-Dies ist hilfreich für:
-
-* Datensicherung
-* Fehlersuche
-* Dokumentation
-* Versionsverwaltung
+Für eine saubere Projektverwaltung empfiehlt es sich trotzdem, den PC als Hauptablage für den Quelltext zu verwenden und wichtige Projekte zusätzlich zu sichern.
 
 === Arbeiten mit mehreren Dateien
 
-Bei größeren Projekten entstehen oft mehrere Dateien.
+Ein großer Vorteil gegenüber dem eingebauten MMBasic-Editor ist die Möglichkeit, mehrere Dateien gleichzeitig geöffnet zu halten.
+
+Ein Projekt könnte beispielsweise aus folgenden Dateien bestehen:
+
+[source]
+----
+senso.bas
+sound.bas
+anzeige.bas
+test.bas
+----
+
+MMEdit zeigt geöffnete Dateien in Registerkarten an. Dadurch kannst du schnell zwischen verschiedenen Programmen wechseln und beispielsweise Programmteile von einer Datei in eine andere übernehmen.
+
+=== Suchen und Ersetzen
+
+Mit zunehmender Programmgröße werden Suchen und Ersetzen immer wichtiger.
+
+Wenn eine Variable beispielsweise an vielen Stellen verwendet wird, kannst du nach ihrem Namen suchen:
+
+[source]
+----
+Punktzahl
+----
+
+und die entsprechenden Stellen im Programm schnell finden.
+
+Auch das Ersetzen eines Begriffs an mehreren Stellen ist wesentlich komfortabler als bei einer rein manuellen Bearbeitung.
+
+=== Projekte sinnvoll organisieren
+
+MMEdit schreibt dir keine bestimmte Projektstruktur vor. Trotzdem lohnt es sich, für jedes größere Projekt ein eigenes Verzeichnis anzulegen.
 
 Beispiel:
-
-[source]
-----
-SENSO.BAS
-
-SOUND.BAS
-
-ANZEIGE.BAS
-
-TEST.BAS
-----
-
-MMEdit kann mehrere Dateien gleichzeitig geöffnet halten.
-
-=== Registerkarten verwenden
-
-Jede Datei erhält eine eigene Registerkarte.
-
-[source]
-----
-| SENSO.BAS |
-| SOUND.BAS |
-| TEST.BAS  |
-----
-
-Der Wechsel zwischen den Dateien erfolgt mit einem Mausklick.
-
-=== Ordnung spart Zeit
-
-Anfangs besteht ein Projekt oft nur aus einer Datei.
-
-Später entstehen jedoch größere Projekte.
-
-Ein möglicher Aufbau könnte so aussehen:
 
 [source]
 ----
 LittleProfessor
-│
-├── littleprofessor.bas
-├── fragen.dat
-├── bilder
-│   ├── logo.jpg
-│   └── titel.jpg
-└── dokumentation
-    └── readme.txt
+|
++-- littleprofessor.bas
++-- fragen.dat
++-- bilder
+|   +-- logo.jpg
+|   +-- titel.jpg
++-- dokumentation
+    +-- readme.txt
 ----
 
-Eine saubere Struktur erleichtert die Wartung erheblich.
+Damit liegen Programm, Daten und zusätzliche Dateien übersichtlich zusammen.
 
-=== Arbeiten mit SD-Karten
-
-Viele MMBasic-Systeme verwenden eine SD-Karte.
-
-Programme können dadurch einfach zwischen PC und Zielsystem ausgetauscht werden.
-
-Ein häufiger Arbeitsablauf sieht so aus:
-
-[source]
-----
-MMEdit
-   ↓
-SD-Karte
-   ↓
-PicoMite
-----
-
-Dadurch können Projekte archiviert, gesichert oder weitergegeben werden.
-
-=== Suchen und Ersetzen
-
-Mit zunehmender Programmgröße wird die Suchfunktion unverzichtbar.
-
-Beispiel:
-
-[source]
-----
-PUNKTZAHL
-----
-
-Alle Vorkommen dieser Variablen können sofort gefunden werden.
-
-Ebenso lassen sich Begriffe automatisch ersetzen.
-
-=== Wenn Projekte wachsen
-
-Kleine Programme lassen sich mit nahezu jedem Editor bearbeiten.
-
-Mit zunehmender Größe ändern sich jedoch die Anforderungen.
-
-Aus:
-
-[source]
-----
-50 Zeilen
-----
-
-werden schnell:
-
-[source]
-----
-500 Zeilen
-----
-
-oder sogar mehrere tausend Zeilen.
-
-Nun werden Funktionen wie:
-
-* Suchen
-* Ersetzen
-* mehrere geöffnete Dateien
-* Projektstruktur
-
-immer wichtiger.
-
-Genau dafür wurde MMEdit entwickelt.
-
-[NOTE]
-====
-Dieses Tutorial umfasst inzwischen mehrere hundert Seiten und besteht aus zahlreichen Einzeldateien.
-
-Mit zunehmender Projektgröße werden gute Werkzeuge immer wichtiger.
-
-Dasselbe gilt auch für MMBasic-Projekte.
-
-Während kleine Programme problemlos direkt auf dem Zielsystem entwickelt werden können, profitieren größere Projekte erheblich von Werkzeugen wie MMEdit.
-====
+Bei größeren Projekten erleichtert eine solche Struktur nicht nur die Entwicklung, sondern auch Sicherungen und Versionsverwaltung.
 
 === MMEdit oder der eingebaute Editor?
 
-Beide Werkzeuge haben ihre Stärken.
+Beide Werkzeuge haben ihre Berechtigung.
 
 [cols="2,1,1"]
 |===
-|Aufgabe |Editor |MMEdit
+|Aufgabe |MMBasic-Editor |MMEdit
 
-|Kleine Programme
+|Kleine Änderungen direkt am Gerät
 |✓
-|✓
+|△
 
-|Unterwegs ohne PC
+|Arbeiten ohne PC
 |✓
 |✗
 
-|Mehrere Dateien
+|Mehrere Dateien gleichzeitig bearbeiten
 |✗
 |✓
 
-|Große Projekte
+|Große Programme bearbeiten
 |△
 |✓
 
-|Komfortables Suchen
+|Komfortables Suchen und Ersetzen
 |△
 |✓
 
-|Direkt auf dem Zielsystem
+|Direkt auf dem Zielsystem arbeiten
 |✓
 |✗
 
-|Projektverwaltung
+|Programme schnell vom PC übertragen und testen
 |✗
 |✓
 |===
 
+Für kurze Tests oder Änderungen direkt am PicoMite ist der eingebaute Editor hervorragend geeignet. Wenn du dagegen längere Programme auf dem PC entwickelst, ist MMEdit deutlich komfortabler.
+
 === MMEdit oder Visual Studio Code?
 
-Viele Anwender verwenden neben MMEdit auch allgemeine Editoren.
+Natürlich kannst du MMBasic-Programme auch mit einem allgemeinen Texteditor bearbeiten.
 
-Beispiele:
+Beispiele sind:
 
 * Visual Studio Code
 * Notepad++
 * Geany
 
-MMEdit besitzt den Vorteil, speziell für MMBasic entwickelt worden zu sein.
+MMEdit besitzt jedoch den Vorteil, speziell für MMBasic entwickelt worden zu sein. Die Zusammenarbeit mit MMCC und damit das direkte Übertragen und Starten eines Programms ist bereits integriert.
 
-Dadurch sind viele Arbeitsabläufe bereits integriert.
+Visual Studio Code bietet dagegen beispielsweise Vorteile bei Git, GitHub, Dokumentation oder der Bearbeitung vieler unterschiedlicher Dateitypen.
 
-Visual Studio Code bietet dagegen Vorteile bei:
-
-* Git
-* GitHub
-* Dokumentation
-* AsciiDoc
-* größeren Softwareprojekten
-
-Welches Werkzeug verwendet wird, ist letztlich Geschmackssache.
-
-Viele Entwickler nutzen beide Werkzeuge parallel.
+Es spricht nichts dagegen, beide Werkzeuge parallel zu verwenden.
 
 === Tipps aus der Praxis
 
-* Verwende für jedes Projekt ein eigenes Verzeichnis.
+* Lege für jedes größere Projekt ein eigenes Verzeichnis an.
+* Verwende aussagekräftige Dateinamen.
 * Sichere wichtige Projekte regelmäßig.
-* Nutze aussagekräftige Dateinamen.
-* Halte das Terminalfenster sichtbar.
-* Teste Programme früh und häufig.
-* Dokumentiere besondere Hardwareanschlüsse.
-* Lege wichtige Projekte zusätzlich auf einer SD-Karte ab.
-
-=== Ein persönlicher Tipp
-
-Viele Entwickler konzentrieren sich ausschließlich auf den Quellcode.
-
-Mindestens genauso wichtig ist jedoch eine gute Projektorganisation.
-
-Ein sauber strukturiertes Projekt spart oft mehr Zeit als jede Programmiersprache oder Entwicklungsumgebung.
+* Lass MMCC während der Entwicklung geöffnet.
+* Teste Änderungen früh und häufig mit *Load and Run*.
+* Bewahre die PC-Version deines Quelltextes als Hauptversion auf.
+* Verwende bei Bedarf den MMCC-Dateimanager, um zusätzliche Dateien zum PicoMite oder zurück auf den PC zu übertragen.
 
 === Probier's selbst!
 
-Versuche folgende Aufgaben:
-
-. Verbinde MMEdit mit deinem PicoMite.
-. Erstelle ein neues Programm.
-. Übertrage das Programm auf das Zielsystem.
-. Öffne mehrere Dateien gleichzeitig.
-. Verwende die Suchfunktion.
-. Lege einen Projektordner mit Unterverzeichnissen an.
+. Verbinde MMCC mit deinem PicoMite.
+. Prüfe die Verbindung mit `PRINT MM.INFO(VERSION)`.
+. Erstelle in MMEdit das Beispielprogramm aus diesem Kapitel.
+. Übertrage und starte es mit *Load and Run*.
+. Ändere die Pause von 500 auf 100 Millisekunden und teste erneut.
+. Öffne zusätzlich ein zweites BASIC-Programm in einer weiteren Registerkarte.
+. Probiere die Suchfunktion von MMEdit aus.
 
 === Zusammenfassung
 
 In diesem Kapitel hast du gelernt:
 
-* was MMEdit ist
-* wie die Verbindung zum Zielsystem hergestellt wird
-* Programme zu erstellen und zu übertragen
-* mehrere Dateien zu verwalten
-* Projekte sauber zu organisieren
+* MMEdit ist ein speziell für MMBasic entwickelter Programmeditor.
+* MMCC übernimmt die Kommunikation mit dem Zielsystem und dient als Terminal.
+* MMEdit V5.2.9 eignet sich weiterhin gut als portable Version für dieses Tutorial.
+* Mit *Load and Run* entsteht ein schneller Zyklus aus Bearbeiten, Übertragen und Testen.
+* Der MMCC-Dateimanager ermöglicht zusätzlich die Übertragung von Dateien zwischen PC und Zielsystem.
+* Mehrere Registerkarten sowie Suchen und Ersetzen erleichtern die Arbeit an größeren Programmen.
+* Der eingebaute MMBasic-Editor und MMEdit ergänzen sich: Der eine arbeitet direkt auf dem Zielsystem, der andere komfortabel auf dem PC.
 
-MMEdit ist eines der wichtigsten Werkzeuge für die Entwicklung größerer MMBasic-Projekte.
-
-Zusammen mit dem eingebauten Editor besitzt du nun zwei leistungsfähige Werkzeuge für die tägliche Arbeit mit MMBasic.
-
-Damit endet der Teil *Werkzeuge und Entwicklung* und du verfügst nun über das notwendige Rüstzeug, um auch größere MMBasic-Projekte erfolgreich umzusetzen.
+Damit endet der Teil *Werkzeuge und Entwicklung*. Du kennst nun sowohl den eingebauten Editor des PicoMite als auch eine komfortable Entwicklungsumgebung für den PC.
 
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
 
-* {github-programme}/39_mmedit_blinken.bas[39_mmedit_blinken.bas]
+* {github-programme}/39_mmedit_hallo.bas[39_mmedit_hallo.bas]
