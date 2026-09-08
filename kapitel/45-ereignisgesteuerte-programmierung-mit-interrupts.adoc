@@ -7,12 +7,14 @@ image::bilder/45_interrupts.jpg[align=center]
 In diesem Kapitel lernst du:
 
 * den Unterschied zwischen Polling und Interrupts kennen
-* auf Ereignisse automatisch zu reagieren
+* auf steigende und fallende Signalflanken zu reagieren
 * Taster ohne ständige Abfrage auszuwerten
-* Interrupt-Routinen zu schreiben
-* ereignisgesteuerte Programme zu entwickeln
+* Interrupt-Subroutinen zu schreiben
+* Interrupts mit Flags sicher mit dem Hauptprogramm zu verbinden
+* Taster bei der Verwendung von Interrupts zu entprellen
+* Interrupts wieder zu deaktivieren
 
-Am Ende des Kapitels kannst du Programme schreiben, die auf Ereignisse reagieren, ohne ständig auf Eingaben warten zu müssen.
+Am Ende des Kapitels kannst du Programme schreiben, die auf Ereignisse reagieren, ohne dass das Hauptprogramm ständig die Eingänge abfragen muss.
 
 === Was bedeutet ereignisgesteuert?
 
@@ -23,11 +25,9 @@ Beispiel:
 [source,basic]
 ----
 DO
-
   IF PIN(GP14) = 0 THEN
     PRINT "Taster gedrueckt"
   ENDIF
-
 LOOP
 ----
 
@@ -43,7 +43,7 @@ Taster gedrückt?
 ...
 ----
 
-Das funktioniert, ist aber nicht besonders elegant.
+Das funktioniert, kann bei größeren Programmen aber schnell unübersichtlich werden.
 
 === Das Problem mit Polling
 
@@ -54,7 +54,7 @@ Stellen wir uns vor, unser Programm soll gleichzeitig:
 * LEDs steuern
 * auf einen Taster reagieren
 
-Dann muss ständig geprüft werden:
+Dann muss das Hauptprogramm regelmäßig prüfen, ob eines dieser Ereignisse eingetreten ist.
 
 [source]
 ----
@@ -64,28 +64,28 @@ Zeit abgelaufen?
 ...
 ----
 
-Je größer das Programm wird, desto unübersichtlicher wird diese Vorgehensweise.
+Je größer das Programm wird, desto aufwendiger kann diese Vorgehensweise werden.
 
 === Die Idee eines Interrupts
 
-Ein Interrupt arbeitet genau andersherum.
+Bei einem Interrupt muss das Hauptprogramm ein Ereignis nicht ständig selbst abfragen.
 
-Anstatt ständig zu fragen:
+Anstatt immer wieder zu fragen:
 
 [source]
 ----
 "Taster gedrückt?"
 ----
 
-sagt man MMBasic:
+können wir MMBasic sinngemäß sagen:
 
 [source]
 ----
 "Wenn der Taster gedrückt wird,
-dann rufe automatisch eine Subroutine auf."
+dann rufe diese Subroutine auf."
 ----
 
-Das Hauptprogramm kann in der Zwischenzeit ganz normal weiterlaufen.
+Tritt das konfigurierte Ereignis ein, unterbricht MMBasic kurz den normalen Programmablauf und ruft die angegebene Subroutine auf. Nach `END SUB` oder `EXIT SUB` wird das Hauptprogramm fortgesetzt.
 
 === Ein Vergleich aus dem Alltag
 
@@ -97,12 +97,10 @@ Sind wir schon da?
 Sind wir schon da?
 Sind wir schon da?
 ----
- 
+
 Ein Interrupt entspricht eher einer Türklingel.
 
-Du musst nicht ständig zur Haustür laufen und nachsehen.
-
-Die Klingel meldet sich von selbst, wenn jemand vor der Tür steht.
+Du musst nicht ständig zur Haustür laufen und nachsehen. Die Klingel meldet sich, wenn jemand den Taster betätigt.
 
 === Interrupts sind kein Multitasking
 
@@ -115,106 +113,242 @@ Interrupt = zweites Programm
 
 Das stimmt nicht.
 
-Ein Interrupt unterbricht das laufende Programm nur kurz.
+Ein Interrupt unterbricht das laufende Programm nur kurz:
 
 [source]
 ----
 Hauptprogramm
       ↓
-Interrupt
+Interrupt-Subroutine
       ↓
 Hauptprogramm läuft weiter
 ----
 
-Danach geht das Programm an der ursprünglichen Stelle weiter.
+Während die Interrupt-Subroutine ausgeführt wird, sind andere Interrupts gesperrt. Deshalb sollte eine Interrupt-Subroutine immer möglichst kurz sein.
 
-=== Ein erster Interrupt
+=== Steigende und fallende Flanken
 
-Für einen Taster an GP14:
+Ein digitaler Eingang kennt die beiden Zustände Low (`0`) und High (`1`). Ein Interrupt kann ausgelöst werden, wenn sich dieser Zustand ändert.
+
+MMBasic unterscheidet drei Möglichkeiten:
+
+[cols="1,2,3",options="header"]
+|===
+|Konfiguration
+|Signaländerung
+|Bedeutung
+
+|`INTH`
+|Low → High
+|Interrupt bei steigender Flanke
+
+|`INTL`
+|High → Low
+|Interrupt bei fallender Flanke
+
+|`INTB`
+|Low → High oder High → Low
+|Interrupt bei jeder Flanke
+|===
+
+Bei unserem Taster verwenden wir einen Pull-up-Widerstand. Im Ruhezustand liegt deshalb High an. Beim Drücken verbindet der Taster den Eingang mit GND:
+
+[source]
+----
+Taster nicht gedrückt:  HIGH ─────────
+                              │
+Taster gedrückt:              └──── LOW
+                              ↓
+                       fallende Flanke
+----
+
+Für das Drücken des Tasters benötigen wir deshalb `INTL`.
+
+=== Einen Pin-Interrupt einrichten
+
+Die grundlegende Syntax lautet:
 
 [source,basic]
 ----
-SETPIN GP14, DIN, TasterGedrueckt
+SETPIN pin, cfg, target [, option]
 ----
 
-wird eine Interrupt-Routine definiert:
+`cfg` bestimmt, bei welcher Flanke der Interrupt ausgelöst wird. `target` ist der Name der Subroutine, die MMBasic beim Ereignis aufruft.
+
+Für einen Taster an GP14, der gegen GND schaltet, können wir schreiben:
+
+[source,basic]
+----
+SETPIN GP14, INTL, TasterGedrueckt, PULLUP
+----
+
+Damit wird GP14 gleichzeitig als digitaler Eingang mit Pull-up konfiguriert. Ein zusätzliches `SETPIN GP14, DIN` ist nicht notwendig.
+
+MMBasic erlaubt bis zu zehn gleichzeitig konfigurierte Pin-Interrupts.
+
+=== Ein erster Interrupt
+
+Unser erstes vollständiges Beispiel sieht so aus:
+
+[source,basic]
+----
+DIM ereignis = 0
+
+SETPIN GP14, INTL, TasterGedrueckt, PULLUP
+
+PRINT "Warte auf Taster..."
+
+DO
+  IF ereignis THEN
+    ereignis = 0
+    PRINT "Taster gedrueckt"
+  ENDIF
+LOOP
+
+SUB TasterGedrueckt
+  ereignis = 1
+END SUB
+----
+
+Die Interrupt-Subroutine macht hier absichtlich sehr wenig. Sie setzt lediglich die Variable `ereignis` auf `1`.
+
+Die eigentliche Verarbeitung übernimmt anschließend das Hauptprogramm.
+
+Dieses Vorgehen nennt man häufig das *Flag-Prinzip*. Eine Variable dient als Flag und zeigt dem Hauptprogramm an, dass ein Ereignis eingetreten ist.
+
+NOTE: Einer Interrupt-Subroutine können keine Parameter übergeben werden. Innerhalb der Interrupt-Subroutine dürfen jedoch andere Subroutinen und Funktionen aufgerufen werden.
+
+=== Was passiert im Hintergrund?
+
+Mit
+
+[source,basic]
+----
+SETPIN GP14, INTL, TasterGedrueckt, PULLUP
+----
+
+wird MMBasic sinngemäß mitgeteilt:
+
+[source]
+----
+Wenn GP14 von HIGH nach LOW wechselt,
+rufe SUB TasterGedrueckt auf.
+----
+
+Nach `END SUB` kehrt MMBasic zum normalen Programmablauf zurück.
+
+Der aktuelle Zustand des Interrupt-Pins kann bei Bedarf weiterhin mit `PIN()` gelesen werden:
+
+[source,basic]
+----
+PRINT PIN(GP14)
+----
+
+=== Interrupt-Routinen kurz halten
+
+Während eine Interrupt-Subroutine läuft, sind andere Interrupts gesperrt. Deshalb gilt eine besonders wichtige Regel:
+
+IMPORTANT: Verwende niemals `PAUSE` innerhalb einer Interrupt-Subroutine.
+
+Auch lange Schleifen oder aufwendige Berechnungen gehören nicht in eine Interrupt-Subroutine.
+
+Ungünstig wäre beispielsweise:
 
 [source,basic]
 ----
 SUB TasterGedrueckt
-
+  PAUSE 50
   PRINT "Taster gedrueckt"
-
 END SUB
 ----
 
-Das Hauptprogramm könnte nun so aussehen:
+Besser ist es, nur ein Flag zu setzen:
 
 [source,basic]
 ----
-SETPIN GP14, DIN, TasterGedrueckt
+SUB TasterGedrueckt
+  ereignis = 1
+END SUB
+----
 
-PRINT "Warte auf Taster..."
+Das Hauptprogramm kann anschließend alle zeitaufwendigeren Arbeiten erledigen.
+
+=== Vorsicht beim Prellen
+
+Im Kapitel über Taster haben wir bereits das sogenannte Prellen kennengelernt.
+
+Ein einzelner Tastendruck kann mehrere schnelle Signalwechsel erzeugen. Bei Interrupts macht sich dieses Verhalten besonders bemerkbar.
+
+Statt eines einzigen Ereignisses kann das Programm beispielsweise mehrere Interrupts erkennen.
+
+[source]
+----
+1 Tastendruck
+    ↓
+mehrere schnelle Flanken
+    ↓
+mehrere Interrupts
+----
+
+Deshalb sollten mechanische Taster bei Bedarf entprellt werden.
+
+=== Entprellen mit TIMER
+
+Eine Möglichkeit besteht darin, den Zeitpunkt des letzten gültigen Interrupts zu speichern. Weitere Interrupts innerhalb einer kurzen Zeitspanne werden ignoriert.
+
+[source,basic]
+----
+DIM ereignis = 0
+DIM letzteZeit = -100
+
+SETPIN GP14, INTL, TasterGedrueckt, PULLUP
+
+DO
+  IF ereignis THEN
+    ereignis = 0
+    PRINT "Taster gedrueckt"
+  ENDIF
+LOOP
+
+SUB TasterGedrueckt
+  IF TIMER - letzteZeit < 50 THEN EXIT SUB
+
+  letzteZeit = TIMER
+  ereignis = 1
+END SUB
+----
+
+Die Interrupt-Subroutine wartet dabei nicht. Sie prüft lediglich den Zeitabstand zum letzten gültigen Tastendruck und kehrt sofort zurück, wenn dieser zu klein ist.
+
+Die `50` steht hier für eine Entprellzeit von 50 Millisekunden.
+
+=== Praxisbeispiel: Ereigniszähler
+
+Nun zählen wir, wie oft der Taster betätigt wurde. Auch hier verwenden wir die Entprellung mit `TIMER`.
+
+[source,basic]
+----
+DIM anzahl = 0
+DIM letzteZeit = -100
+
+SETPIN GP14, INTL, Zaehler, PULLUP
+
+PRINT "Tastendruecke: 0"
 
 DO
   PAUSE 100
 LOOP
 
-SUB TasterGedrueckt
-
-  PRINT "Taster gedrueckt"
-
-END SUB
-----
-
-Sobald der Taster betätigt wird, ruft MMBasic automatisch die Subroutine auf.
-
-=== Was passiert im Hintergrund?
-
-Beim Start:
-
-[source,basic]
-----
-SETPIN GP14, DIN, TasterGedrueckt
-----
-
-merkt sich MMBasic:
-
-[source]
-----
-Wenn sich GP14 ändert,
-dann SUB TasterGedrueckt aufrufen.
-----
-
-Der Programmierer muss sich danach um nichts mehr kümmern.
-
-=== Praxisbeispiel: Ereigniszähler
-
-Wir zählen, wie oft ein Taster betätigt wurde.
-
-[source,basic]
-----
-DIM anzahl = 0
-
-SETPIN GP14, DIN, Zaehler
-
-DO
-
-  CLS
-  PRINT "Tastendruecke: "; anzahl
-
-  PAUSE 500
-
-LOOP
-
 SUB Zaehler
+  IF TIMER - letzteZeit < 50 THEN EXIT SUB
 
+  letzteZeit = TIMER
   anzahl = anzahl + 1
-
+  PRINT "Tastendruecke: "; anzahl
 END SUB
 ----
 
-Jeder Tastendruck erhöht den Zähler automatisch.
+Für dieses kleine Beispiel ist die Ausgabe direkt in der Interrupt-Subroutine noch überschaubar. In größeren Programmen ist es jedoch besser, auch hier nur ein Flag zu setzen und die Ausgabe im Hauptprogramm durchzuführen.
 
 === Praxisbeispiel: LED umschalten
 
@@ -222,133 +356,145 @@ Eine LED an GP15 soll bei jedem Tastendruck ihren Zustand wechseln.
 
 [source,basic]
 ----
-SETPIN GP14, DIN, Taster
+DIM ereignis = 0
+DIM led = 0
+DIM letzteZeit = -100
 
+SETPIN GP14, INTL, Taster, PULLUP
 SETPIN GP15, DOUT
 
-DIM led = 0
+PIN(GP15) = led
 
 DO
+  IF ereignis THEN
+    ereignis = 0
+    led = 1 - led
+    PIN(GP15) = led
+  ENDIF
 LOOP
 
 SUB Taster
-
-  led = NOT led
-
-  PIN(GP15) = led
-
-END SUB
-----
-
-Jeder Tastendruck schaltet die LED ein oder aus.
-
-=== Vorsicht beim Prellen
-
-Im Kapitel über Taster haben wir bereits das sogenannte Prellen kennengelernt.
-
-Ein einzelner Tastendruck erzeugt oft mehrere schnelle Signalwechsel.
-
-Bei Interrupts macht sich dieses Verhalten besonders bemerkbar.
-
-Statt:
-
-[source]
-----
-1 Tastendruck
-----
- 
-erkennt das Programm möglicherweise:
-
-[source]
-----
-3 Tastendrücke
-----
- 
-oder mehr.
-
-=== Entprellen mit PAUSE
-
-Eine einfache Lösung besteht darin, weitere Interrupts kurzzeitig zu ignorieren.
-
-[source,basic]
-----
-SUB Taster
-
-  PRINT "Gedrueckt"
-
-  PAUSE 50
-
-END SUB
-----
-
-Dies genügt für viele Anwendungen.
-
-=== Eine bessere Entprellung
-
-Noch besser ist die Verwendung eines Zeitstempels.
-
-[source,basic]
-----
-DIM letzteZeit = 0
-
-SUB Taster
-
   IF TIMER - letzteZeit < 50 THEN EXIT SUB
 
   letzteZeit = TIMER
-
-  PRINT "Taster"
-
+  ereignis = 1
 END SUB
 ----
 
-Dadurch werden zu schnelle Mehrfachauslösungen unterdrückt.
+Mit
+
+[source,basic]
+----
+led = 1 - led
+----
+
+wechselt `led` eindeutig zwischen `0` und `1`.
+
+=== Interrupts wieder abschalten
+
+Ein Interrupt sollte deaktiviert werden, wenn er nicht mehr benötigt wird.
+
+Für GP14 geschieht das mit:
+
+[source,basic]
+----
+SETPIN GP14, OFF
+----
+
+Hintergrund-Interrupts, die nicht mehr benötigt werden, können sonst später zu schwer nachvollziehbaren Programmfehlern führen.
 
 === Praxisprojekt: Reaktionstest
 
 Nun bauen wir einen einfachen Reaktionstest.
 
-Eine LED wird zufällig eingeschaltet.
-
-Der Benutzer muss möglichst schnell reagieren.
+Eine LED wird nach einer zufälligen Wartezeit eingeschaltet. Sobald sie leuchtet, muss der Benutzer den Taster möglichst schnell drücken.
 
 === Schaltung
 
-* Taster an GP14
+* Taster zwischen GP14 und GND
 * LED an GP15
 
 === Programm
 
 [source,basic]
 ----
-SETPIN GP14, DIN, Reaktion
-
-SETPIN GP15, DOUT
-
 DIM startZeit
 DIM messung
+DIM messungAktiv = 0
+DIM tasteGedrueckt = 0
+DIM letzteZeit = -100
 
-RANDOMIZE TIMER
+SETPIN GP14, INTL, Reaktion, PULLUP
+SETPIN GP15, DOUT
 
-PAUSE INT(RND * 5000)
+PIN(GP15) = 0
 
-PIN(GP15) = 1
+PRINT "Reaktionstest"
+PRINT "Warte, bis die LED leuchtet..."
+
+PAUSE 1000 + INT(RND * 4000)
 
 startZeit = TIMER
+messungAktiv = 1
+PIN(GP15) = 1
 
 DO
+  IF tasteGedrueckt THEN
+    tasteGedrueckt = 0
+    PRINT "Reaktionszeit: "; messung; " ms"
+    EXIT DO
+  ENDIF
 LOOP
 
+SETPIN GP14, OFF
+
 SUB Reaktion
+  IF TIMER - letzteZeit < 50 THEN EXIT SUB
+  letzteZeit = TIMER
+
+  IF messungAktiv = 0 THEN EXIT SUB
 
   messung = TIMER - startZeit
-
+  messungAktiv = 0
   PIN(GP15) = 0
-
-  PRINT "Reaktionszeit: "; messung; " ms"
-
+  tasteGedrueckt = 1
 END SUB
 ----
+
+Die Variable `messungAktiv` sorgt dafür, dass ein Tastendruck nur dann als Reaktion gewertet wird, wenn die LED bereits eingeschaltet wurde.
+
+Nach dem gültigen Tastendruck wird `messungAktiv` sofort auf `0` gesetzt. Weitere Tastendrücke können die gemessene Zeit deshalb nicht mehr verändern.
+
+Am Ende deaktiviert
+
+[source,basic]
+----
+SETPIN GP14, OFF
+----
+
+den nicht mehr benötigten Interrupt.
+
+=== Können Interrupts verloren gehen?
+
+Pin-Interrupts werden von MMBasic nach dem Abschluss eines Befehls geprüft und nicht von der Hardware zwischengespeichert. Ein sehr kurzer Impuls kann deshalb unter Umständen auftreten und wieder verschwinden, bevor MMBasic ihn erkennt.
+
+Die meisten Befehle werden sehr schnell ausgeführt. Einige Hardwareoperationen können jedoch deutlich länger dauern. Während solcher Operationen kann sich die Reaktion auf einen Interrupt verzögern oder ein sehr kurzer Impuls übersehen werden.
+
+Auch während einer `INPUT`-Anweisung sind Interrupts deaktiviert.
+
+Für normale Taster ist das meist kein Problem, weil ein Tastendruck vergleichsweise lange dauert. Bei sehr kurzen elektrischen Impulsen muss dieser Punkt jedoch berücksichtigt werden.
+
+=== Mehrere Interrupts
+
+MMBasic kann nicht nur Pin-Interrupts verarbeiten. Auch Timer, serielle Schnittstellen, ADC, I2C und andere Funktionen können Interrupts auslösen.
+
+Treten mehrere Interrupts gleichzeitig auf, verwendet MMBasic eine festgelegte Prioritätsreihenfolge. Pin-Interrupts werden dabei in der Reihenfolge ihrer Definition verarbeitet.
+
+Für den Einstieg genügt es, sich zu merken:
+
+* Interrupt-Subroutinen immer kurz halten.
+* Während einer Interrupt-Subroutine sind andere Interrupts gesperrt.
+* Aufwendige Arbeiten möglichst im Hauptprogramm erledigen.
 
 === Warum Interrupts so nützlich sind
 
@@ -361,49 +507,42 @@ Interrupts eignen sich besonders für:
 * Frequenzmessungen
 * Kommunikation
 
-Immer dann, wenn ein Ereignis spontan auftreten kann.
-
-=== Interrupts in größeren Projekten
-
-Später können Interrupts beispielsweise verwendet werden für:
-
-* Menüsysteme
-* Alarmanlagen
-* Datenlogger
-* Roboter
-* Retrocomputer-Projekte
-* serielle Kommunikation
-
-Viele professionelle Embedded-Systeme arbeiten überwiegend ereignisgesteuert.
+Sie sind immer dann interessant, wenn ein Ereignis zu einem nicht genau vorhersehbaren Zeitpunkt auftreten kann.
 
 === Tipps aus der Praxis
 
-* Halte Interrupt-Routinen möglichst kurz.
-* Vermeide lange Schleifen innerhalb eines Interrupts.
-* Vermeide aufwendige Berechnungen.
-* Denke an das Prellen von Tastern.
-* Verwende Interrupts nur dort, wo sie wirklich Vorteile bringen.
+* Halte Interrupt-Subroutinen möglichst kurz.
+* Verwende niemals `PAUSE` innerhalb einer Interrupt-Subroutine.
+* Vermeide lange Schleifen und aufwendige Berechnungen im Interrupt.
+* Setze bei längeren Arbeiten ein Flag und erledige die Verarbeitung im Hauptprogramm.
+* Denke bei mechanischen Tastern an das Prellen.
+* Deaktiviere Interrupts, sobald sie nicht mehr benötigt werden.
+* Verwende Interrupts nur dort, wo sie gegenüber Polling einen wirklichen Vorteil bieten.
 
 === Probier's selbst!
 
 . Baue den Ereigniszähler nach.
-. Erweitere ihn auf zwei Taster.
-. Schalte mehrere LEDs.
-. Miss deine Reaktionszeit.
-. Speichere die beste Zeit in einer Datei.
+. Ändere `INTL` testweise in `INTH`. Wann wird der Interrupt jetzt ausgelöst?
+. Verwende `INTB` und beobachte, was beim Drücken und Loslassen des Tasters passiert.
+. Erweitere den Ereigniszähler auf zwei Taster.
+. Schalte mit einem Taster mehrere LEDs um.
+. Miss deine Reaktionszeit mehrmals.
+. Erweitere den Reaktionstest um die bisher beste Zeit.
 
 === Zusammenfassung
 
 In diesem Kapitel hast du gelernt:
 
-* was Interrupts sind
-* wie sie sich von Polling unterscheiden
-* auf Ereignisse automatisch zu reagieren
-* Interrupt-Routinen mit SETPIN einzurichten
-* Taster zu entprellen
-* Interrupts in praktischen Projekten einzusetzen
+* was Interrupts sind und wie sie sich von Polling unterscheiden
+* was steigende und fallende Flanken sind
+* wie `INTH`, `INTL` und `INTB` verwendet werden
+* wie Pin-Interrupts mit `SETPIN` eingerichtet werden
+* warum Interrupt-Subroutinen möglichst kurz sein müssen
+* wie das Flag-Prinzip funktioniert
+* wie Taster ohne `PAUSE` in der Interrupt-Subroutine entprellt werden können
+* wie ein Interrupt mit `SETPIN pin, OFF` wieder deaktiviert wird
 
-Interrupts gehören zu den wichtigsten Werkzeugen moderner Mikrocontroller-Programmierung. Sie ermöglichen Programme, die schnell, effizient und elegant auf Ereignisse reagieren.
+Interrupts gehören zu den wichtigsten Werkzeugen der Mikrocontroller-Programmierung. Richtig eingesetzt ermöglichen sie Programme, die schnell und übersichtlich auf Ereignisse reagieren.
 
 === Programmbeispiel
 
