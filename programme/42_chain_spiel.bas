@@ -1,9 +1,16 @@
-' 42_chain_spiel.bas
-' Beispielprogramm zu Kapitel 42:
-' Programme verketten mit CHAIN
-'
-' Dieses Programm wird von 42_chain_start.bas gestartet.
-' Die Variablen spieler$ und punkte bleiben durch CHAIN erhalten.
+REM ====================================================================
+REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+REM Datei: 42_chain_spiel.bas
+REM Titel: Kapitel 42: Programme verketten mit CHAIN
+REM Buch:  Mein erstes MMBasic Programm
+REM Autor: Manfred Becker
+REM Datum: 27.07.2026
+REM
+REM Beschreibung: Dieses Programm wird von 42_chain_start.bas gestartet.
+REM        Die Variablen spieler$ und punkte stehen weiterhin zur Verfuegung.
+REM Hardware/Voraussetzungen: keine/PicoMite/ColourMaxiMite
+REM
+REM ====================================================================
 
 CLS
 
