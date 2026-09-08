@@ -4,7 +4,7 @@ REM Datei: 42_chain_spiel.bas
 REM Titel: Kapitel 42: Programme verketten mit CHAIN
 REM Buch:  Mein erstes MMBasic Programm
 REM Autor: Manfred Becker
-REM Datum: 27.07.2026
+REM Datum: 08.09.2026
 REM
 REM Beschreibung: Dieses Programm wird von 42_chain_start.bas gestartet.
 REM        Die Variablen spieler$ und punkte stehen weiterhin zur Verfuegung.
