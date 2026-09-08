@@ -4,29 +4,28 @@ image::bilder/50_sprites.jpg[align=center]
 
 === Das lernst du
 
-Fast jedes Computerspiel besteht aus denselben grundlegenden Bausteinen. Es gibt Spielfiguren, Gegner, Hindernisse, Hintergründe und Animationen. All diese Objekte müssen gezeichnet, bewegt und miteinander in Beziehung gesetzt werden.
+Fast jedes Computerspiel besteht aus denselben grundlegenden Bausteinen: Spielfiguren, Gegnern, Hindernissen, Hintergründen und Animationen. Viele dieser Dinge müssen unabhängig voneinander bewegt werden, ohne dass dabei der gesamte Bildschirm ständig neu aufgebaut werden muss.
 
-In den vergangenen Kapiteln hast du bereits viele der dafür benötigten Techniken kennengelernt. Du weißt, wie man Variablen verwendet, Schleifen programmiert, Grafiken zeichnet, Farben und Sound einsetzt und Programme mit einem Gamepad steuert.
-
-Nun fügen wir diese Bausteine zu einem Ganzen zusammen.
+Genau dafür stellt MMBasic auf dem PicoMite zwei wichtige Werkzeuggruppen bereit: `SPRITE` und `BLIT`.
 
 In diesem Kapitel lernst du,
 
-* was Sprites sind,
-* wie sie sich flüssig über den Bildschirm bewegen lassen,
-* warum Animationen aus mehreren Einzelbildern bestehen,
-* welche Aufgabe der BLIT-Befehl übernimmt,
-* und weshalb Sprites seit mehr als vierzig Jahren zu den wichtigsten Werkzeugen der Spieleprogrammierung gehören.
+* was ein Sprite ist,
+* wie der PicoMite Sprites über einem Hintergrund verwaltet,
+* wie Sprites geladen, angezeigt, bewegt und ausgeblendet werden,
+* wie mehrere Sprites mit Layern organisiert werden,
+* wie Kollisionen zwischen Sprites und mit dem Bildschirmrand erkannt werden,
+* wie sich Animationen mit mehreren Sprite-Bildern erzeugen lassen,
+* worin sich `SPRITE` und `BLIT` unterscheiden
+* und wie `BLIT` rechteckige Bildbereiche schnell kopiert.
 
-Am Ende dieses Kapitels wirst du verstehen, wie klassische Computerspiele aufgebaut sind und wie du dieselben Techniken in deinen eigenen Programmen einsetzen kannst.
+Am Ende des Kapitels hast du damit wichtige Grundlagen kennengelernt, die wir im nächsten Kapitel zu einem vollständigen Spiel zusammensetzen können.
 
-=== Warum reichen normale Grafiken nicht?
+=== Warum reichen normale Grafikbefehle nicht immer aus?
 
-Bisher haben wir unsere Grafiken direkt auf den Bildschirm gezeichnet. Das war für viele Anwendungen vollkommen ausreichend.
+Bisher haben wir Grafiken meist direkt auf den Bildschirm gezeichnet. Ein Kreis entsteht mit `CIRCLE`, eine Linie mit `LINE` und ein Rechteck mit `BOX`.
 
-Ein Kreis wird mit dem Befehl `CIRCLE` gezeichnet, eine Linie mit `LINE` und ein Rechteck mit `BOX`. Soll sich eine Grafik bewegen, genügt es zunächst, ihre Position zu verändern und sie an der neuen Stelle erneut zu zeichnen.
-
-Ein einfaches Programm könnte beispielsweise einen Ball über den Bildschirm bewegen.
+Soll sich eine Grafik bewegen, könnte man beispielsweise den gesamten Bildschirm löschen und anschließend alles an der neuen Position neu zeichnen:
 
 [source,basic]
 ----
@@ -34,1007 +33,968 @@ x = 20
 y = 100
 
 DO
-
     CLS
-
     CIRCLE x, y, 10
-
     x = x + 2
-
 LOOP
 ----
 
-Auf den ersten Blick funktioniert dieses Programm hervorragend. Der Ball bewegt sich gleichmäßig nach rechts.
+Bei einem einzelnen Kreis ist das noch kein großes Problem. In einem Spiel befinden sich jedoch schnell viele Elemente gleichzeitig auf dem Bildschirm:
 
-Betrachtet man jedoch genauer, was in jeder Schleife geschieht, erkennt man schnell das eigentliche Problem:
+* ein Hintergrund,
+* eine Spielfigur,
+* mehrere Gegner,
+* Hindernisse,
+* Schüsse,
+* Punkteanzeigen
+* und weitere Animationen.
 
-. Der gesamte Bildschirm wird gelöscht.
-. Sämtliche Grafiken werden erneut gezeichnet.
-. Erst danach erscheint der Ball an seiner neuen Position.
+Würde der gesamte Bildschirm bei jeder kleinen Bewegung gelöscht und vollständig neu aufgebaut, wäre das unnötig aufwendig. Außerdem können sichtbares Flackern oder ruckartige Bewegungen entstehen.
 
-Bei einem einzelnen Kreis fällt dieser Aufwand kaum auf.
+Für bewegliche Spielobjekte ist deshalb ein anderes Verfahren praktischer.
 
-Ein typisches Computerspiel besteht jedoch aus deutlich mehr Objekten:
+=== Eine Idee aus der klassischen Spieleprogrammierung
 
-* einem Hintergrund,
-* einer Spielfigur,
-* mehreren Gegnern,
-* Hindernissen,
-* Punkten,
-* Anzeigen für Leben und Spielstand
-* und häufig sogar zusätzlichen Animationen.
+Schon frühe Heimcomputer und Spielkonsolen mussten viele bewegliche Objekte mit vergleichsweise geringer Rechenleistung darstellen.
 
-Würde der komplette Bildschirm für jede einzelne Bewegung gelöscht und neu aufgebaut, müsste der Prozessor sehr viel Arbeit verrichten. Das Programm würde langsamer werden und auf manchen Systemen sogar sichtbar flackern.
+Ein besonders bekanntes Beispiel ist der Commodore 64. Sein VIC-II-Grafikchip besitzt acht Hardware-Sprites. Diese kleinen Grafiken konnten unabhängig vom normalen Bildschirmhintergrund positioniert werden.
 
-Genau vor diesem Problem standen bereits die Entwickler der ersten Heimcomputer.
+Auch andere Systeme verwendeten spezielle Unterstützung für bewegliche Grafiken. Der Amiga kombinierte Hardware-Sprites mit seinem leistungsfähigen Blitter. Andere Rechner, beispielsweise der Atari ST, besaßen dagegen keine vergleichbare klassische Sprite-Hardware und mussten bewegliche Spielgrafiken weitgehend per Software erzeugen.
 
-Sie mussten eine Lösung finden, mit der sich viele bewegliche Objekte möglichst schnell darstellen ließen.
+Die technische Umsetzung war also von System zu System verschieden. Die Grundidee blieb jedoch gleich:
 
-=== Eine Idee aus den 1980er-Jahren
-
-In den frühen 1980er-Jahren verfügten Heimcomputer nur über einen Bruchteil der Rechenleistung heutiger Systeme.
-
-Ein Prozessor mit einem Megahertz galt bereits als leistungsfähig. Der Arbeitsspeicher betrug oft nur wenige Kilobyte und Grafikkarten mit eigener Rechenleistung existierten noch nicht.
-
-Trotzdem erschienen bereits damals beeindruckende Spiele.
-
-Denke nur an Klassiker wie *Pac-Man*, *Space Invaders*, *Donkey Kong*, *Bubble Bobble* oder *The Great Giana Sisters*.
-
-Wie war das möglich?
-
-Die Entwickler verlagerten möglichst viele Aufgaben in spezielle Grafikchips. Diese konnten kleine Grafiken unabhängig vom Hintergrund darstellen und verschieben.
-
-Diese kleinen beweglichen Grafiken nannte man *Sprites*.
-
-Ein Sprite konnte beispielsweise
-
-* den Spieler,
-* einen Gegner,
-* einen Ball,
-* ein Raumschiff,
-* einen Schuss
-* oder ein Bonusobjekt
-
-darstellen.
-
-Während sich die Spielfigur bewegte, blieb der Hintergrund unverändert. Dadurch mussten nicht bei jedem Bild sämtliche Grafiken neu gezeichnet werden.
-
-Vor allem der Commodore 64 wurde für seine leistungsfähige Sprite-Hardware berühmt. Er konnte bis zu acht Hardware-Sprites gleichzeitig darstellen. Geschickte Programmierer entwickelten später sogar Techniken, um deutlich mehr bewegliche Objekte auf dem Bildschirm erscheinen zu lassen.
-
-Auch viele andere bekannte Systeme verwendeten Sprites, darunter
-
-* Atari XL/XE,
-* Atari ST,
-* Commodore Amiga,
-* Nintendo Entertainment System,
-* Sega Master System
-* und zahlreiche Arcade-Automaten.
-
-Sprites gehören deshalb bis heute zu den wichtigsten Konzepten der Spieleprogrammierung.
+Eine kleine Grafik soll sich über einem Hintergrund bewegen können, ohne dass der Programmierer bei jeder Bewegung den kompletten Hintergrund neu zeichnen muss.
 
 === Was ist ein Sprite?
 
-Ein Sprite ist eine kleine Grafik, die unabhängig vom Hintergrund auf dem Bildschirm dargestellt werden kann.
+Ein Sprite ist eine Grafik, die als eigenständiges Objekt über einem Hintergrund dargestellt und bewegt werden kann.
 
-Stell dir ein Blatt Papier mit einer Landschaft vor.
+Stell dir ein Landschaftsbild auf einem Blatt Papier vor. Darauf legst du einen kleinen Aufkleber mit einer Spielfigur.
 
-Nun legst du einen kleinen Aufkleber mit einer Spielfigur auf dieses Bild.
+Möchtest du die Figur bewegen, setzt du den Aufkleber einfach an eine andere Stelle. Die Landschaft darunter soll anschließend wieder so aussehen wie zuvor.
 
-Möchtest du die Figur bewegen, nimmst du den Aufkleber einfach hoch und setzt ihn an einer anderen Stelle wieder ab.
+Genau diese Arbeit übernimmt die Sprite-Verwaltung des PicoMite für uns.
 
-Die Landschaft selbst bleibt dabei vollständig erhalten.
+Ein Sprite besitzt dabei unter anderem
 
-Genau nach diesem Prinzip arbeiten Sprites.
-
-Der Hintergrund bildet eine feste Grafik.
-
-Alle beweglichen Objekte werden als einzelne Sprites darübergelegt.
-
-Dadurch lassen sich Figuren besonders einfach bewegen, ohne den kompletten Bildschirm ständig neu aufbauen zu müssen.
-
-Ein Sprite besitzt dabei in der Regel mehrere Eigenschaften:
-
-* ein Bild,
+* eine Grafik,
+* eine Breite und Höhe,
 * eine Position,
-* eine Größe,
-* eine Blickrichtung,
-* und häufig auch mehrere Animationsbilder.
+* eine Layer-Zuordnung
+* und einen gespeicherten Hintergrundbereich.
 
-In einem Spiel besteht fast jedes bewegliche Objekt aus einem Sprite.
+Zusätzlich kann der PicoMite erkennen, wenn sich die rechteckigen Begrenzungen von Sprites berühren oder ein Sprite einen Bildschirmrand erreicht.
 
-Das gilt beispielsweise für
+=== `SPRITE` und `BLIT` sind nicht dasselbe
 
-* den Spieler,
-* Gegner,
-* Fahrzeuge,
-* Bälle,
-* Raketen,
-* Explosionen
-* und viele weitere Objekte.
+In älteren PicoMite-Versionen wurden die Begriffe `SPRITE` und `BLIT` teilweise für dieselbe Funktionalität verwendet.
 
-Sprites gehören deshalb zu den wichtigsten Werkzeugen der modernen Spieleprogrammierung.
+Seit Firmware-Version 6.00.00 sind beide Befehlsfamilien klar voneinander getrennt.
 
-=== Hardware- und Software-Sprites
+==== `BLIT`
 
-Im Laufe der Jahre haben sich zwei unterschiedliche Verfahren entwickelt.
+`BLIT` ist im Kern eine schnelle Kopieroperation für rechteckige Bildbereiche.
 
-==== Hardware-Sprites
+Damit können Daten beispielsweise
 
-Bei klassischen Heimcomputern wurden Sprites häufig direkt vom Grafikchip erzeugt.
+* vom Display in einen Speicherpuffer,
+* aus einem Speicherpuffer auf das Display
+* oder direkt von einer Bildschirmposition zu einer anderen
 
-Der Programmierer musste lediglich festlegen,
+kopiert werden.
 
-* welches Bild verwendet werden soll,
-* an welcher Position es erscheint
-* und ob es sichtbar sein soll.
+Ein `BLIT`-Puffer enthält RGB888-Farbdaten. Dadurch steht die volle Farbinformation zur Verfügung, allerdings wird entsprechend mehr Speicher benötigt.
 
-Den Rest erledigte die Hardware.
+==== `SPRITE`
 
-Dieses Verfahren war äußerst schnell, hatte aber auch Grenzen.
+`SPRITE` geht einen Schritt weiter.
 
-So konnten viele Computer nur eine begrenzte Anzahl von Sprites gleichzeitig darstellen. Beim Commodore 64 waren es beispielsweise acht Hardware-Sprites.
+Wird ein Sprite zum ersten Mal angezeigt, merkt sich die Firmware den Hintergrund, der von der Sprite-Grafik überdeckt wird. Wird das Sprite später verschoben, geschieht automatisch Folgendes:
 
-Trotz dieser Einschränkung entstanden unzählige berühmte Spiele.
+. Der alte Hintergrund wird wiederhergestellt.
+. Der Hintergrund an der neuen Position wird gespeichert.
+. Das Sprite wird an der neuen Position gezeichnet.
+. Eventuelle Kollisionen werden ermittelt.
 
-==== Software-Sprites
+Sprites werden intern besonders speichersparend als RGB121-Werte abgelegt. Zwei Pixel passen dabei in ein Byte.
 
-Heute arbeiten die meisten Systeme mit sogenannten Software-Sprites.
-
-Dabei übernimmt nicht mehr ein spezieller Grafikchip die komplette Arbeit, sondern die Programmbibliothek oder das Betriebssystem.
-
-MMBasic stellt hierfür komfortable Befehle zur Verfügung.
-
-Für dich als Programmierer macht das kaum einen Unterschied.
-
-Du musst lediglich angeben,
-
-* welches Sprite angezeigt werden soll,
-* wo es erscheinen soll,
-* und wann es bewegt wird.
-
-Die eigentliche Darstellung übernimmt MMBasic.
-
-Dadurch kannst du dich vollständig auf die Spiellogik konzentrieren.
-
-[TIP]
+[NOTE]
 ====
-Viele bekannte Spiele verwenden gleichzeitig Hunderte von Sprites.
+Die beiden Befehlsfamilien erfüllen also unterschiedliche Aufgaben:
 
-Der Spieler bemerkt davon nichts. Er sieht lediglich eine flüssige Animation.
+`BLIT` kopiert Bilddaten.
 
-Dass dahinter zahlreiche einzelne Grafiken ständig verschoben, überlagert und aktualisiert werden, bleibt für ihn unsichtbar.
+`SPRITE` verwaltet bewegliche Grafikobjekte einschließlich Hintergrund und Kollisionen.
 ====
 
-=== Das erste Sprite
+=== Wo können Sprites verwendet werden?
 
-Nachdem wir nun wissen, was ein Sprite ist und warum es in Computerspielen verwendet wird, wollen wir unser erstes eigenes Sprite auf dem Bildschirm darstellen.
+Sprite-Funktionen benötigen Zugriff auf den Bildspeicher, damit der verdeckte Hintergrund gelesen und später wiederhergestellt werden kann.
 
-Ein Sprite besteht immer aus zwei Teilen:
+Bei den VGA- und HDMI-Versionen des PicoMite können Sprites direkt mit dem Bildschirm verwendet werden. Außerdem stehen sie bei geeigneten In-Memory-Framebuffern zur Verfügung.
 
-* einer Grafik,
-* und einer Position auf dem Bildschirm.
+Auch die Möglichkeiten von `BLIT READ` hängen davon ab, ob der verwendete Bildspeicher gelesen werden kann.
 
-Die Grafik beschreibt das Aussehen des Sprites. Die Position legt fest, an welcher Stelle es angezeigt wird.
+Für unser Tutorial ist das besonders praktisch, weil der PicoMite HDMI/USB diese Voraussetzungen erfüllt.
 
-Im einfachsten Fall genügt bereits ein einzelnes Bild.
+=== Sprite-Nummern
 
-Später werden wir mehrere Bilder verwenden, um Animationen zu erzeugen.
+Der PicoMite verwaltet Sprites über Nummern.
 
-In MMBasic werden Sprites über spezielle Befehle verwaltet. Diese kümmern sich darum, das Sprite auf dem Bildschirm anzuzeigen, zu verschieben oder wieder auszublenden.
+Es stehen die Sprite-Nummern 1 bis 64 zur Verfügung.
 
-Wir beginnen mit dem einfachsten Fall.
-
-=== Sprite laden
-
-Bevor ein Sprite angezeigt werden kann, muss zunächst seine Grafik in den Speicher geladen werden.
-
-Diese Grafik kann beispielsweise
-
-* eine Spielfigur,
-* ein Ball,
-* ein Raumschiff,
-* oder auch ein Gegner sein.
-
-Für unser erstes Beispiel verwenden wir eine einfache Spielfigur.
+Ein geladenes Sprite kann deshalb beispielsweise die Nummer 1 erhalten:
 
 [source,basic]
 ----
-'------------------------------------
-' Sprite vorbereiten
-'------------------------------------
-
-' TODO
-' Spritegrafik laden
-
-LoadSprite(PlayerSprite, "spieler.bmp")
+SPRITE LOADPNG #1, "spieler.png"
 ----
 
-[IMPORTANT]
+Ein Gegner könnte anschließend als Sprite 2 geladen werden:
+
+[source,basic]
+----
+SPRITE LOADPNG #2, "gegner.png"
+----
+
+Die Sprite-Nummer ist danach die Kennung, über die wir das Objekt ansprechen.
+
+[NOTE]
 ====
-Die tatsächlichen MMBasic-Befehle unterscheiden sich je nach PicoMite- bzw. Colour-Maximite-Version.
-
-Wir verwenden hier zunächst leicht verständliche Platzhalter. Im Praxistest werden diese später durch die echten MMBasic-Befehle ersetzt.
+`SPRITE LOADPNG` ist eine besonders komfortable Möglichkeit auf geeigneten RP2350-Versionen. Sprites können außerdem aus klassischen Sprite-Dateien, aus BMP-Dateien, aus Arrays oder direkt aus einem Bildbereich erzeugt werden.
 ====
 
-=== Sprite anzeigen
+=== Sprites laden
 
-Nachdem das Sprite geladen wurde, kann es an einer beliebigen Position auf dem Bildschirm angezeigt werden.
+MMBasic stellt mehrere Möglichkeiten zur Verfügung, Sprite-Grafiken in den Speicher zu übernehmen.
 
-Dazu benötigen wir lediglich seine X- und Y-Koordinate.
+==== Sprite-Datei laden
+
+Mit
+
+[source,basic]
+----
+SPRITE LOAD fname$ [, start_sprite_number] [, mode]
+----
+
+kann eine Sprite-Datei geladen werden.
+
+Beispiel:
+
+[source,basic]
+----
+SPRITE LOAD "figuren.spr", 1, 1
+----
+
+Mehrere Sprites können sich gemeinsam in einer solchen Datei befinden.
+
+==== Sprite aus einer PNG-Datei laden
+
+Auf unterstützten Systemen lässt sich ein Sprite direkt aus einer PNG-Datei laden:
+
+[source,basic]
+----
+SPRITE LOADPNG #1, "spieler.png"
+----
+
+Dabei wird die Erweiterung `.png` automatisch ergänzt, wenn sie nicht im Dateinamen angegeben wurde.
+
+Optional können auch Transparenzparameter angegeben werden:
+
+[source,basic]
+----
+SPRITE LOADPNG #1, "spieler.png", 0, 20
+----
+
+==== Sprite aus einem Array erzeugen
+
+Ein Sprite kann auch vollständig innerhalb eines BASIC-Programms erzeugt werden:
+
+[source,basic]
+----
+SPRITE LOADARRAY #n, w, h, array%()
+----
+
+Das ist besonders praktisch für kleine selbst erzeugte Grafiken, weil keine zusätzliche Bilddatei benötigt wird.
+
+=== Das erste Sprite anzeigen
+
+Nachdem ein Sprite geladen wurde, erscheint es noch nicht automatisch auf dem Bildschirm.
+
+Dazu dient:
+
+[source,basic]
+----
+SPRITE SHOW #n, x, y, layer
+----
+
+`x` und `y` geben die Position der linken oberen Ecke des Sprites an.
+
+Das folgende Beispiel zeigt Sprite 1 an Position 160/120:
 
 [source,basic]
 ----
 x = 160
 y = 120
 
-ShowSprite(PlayerSprite, x, y)
+SPRITE SHOW #1, x, y, 1
 ----
 
-Nach dem Programmstart erscheint unsere Spielfigur genau an dieser Position.
+Der letzte Parameter ist der Layer. Darauf kommen wir gleich noch genauer zurück.
 
-Die eigentliche Grafik wird dabei nicht dauerhaft in den Hintergrund gezeichnet.
+Beim ersten `SPRITE SHOW` speichert der PicoMite den Hintergrund unterhalb des Sprites und zeichnet anschließend die Sprite-Grafik.
 
-MMBasic verwaltet das Sprite separat und sorgt dafür, dass es jederzeit an einer anderen Position wieder erscheinen kann.
+=== Ein Sprite bewegen
 
-=== Sprite bewegen
+Für eine einfache Bewegung benötigen wir keinen speziellen `MoveSprite()`-Befehl.
 
-Jetzt wird es interessant.
-
-Bisher haben wir unser Sprite lediglich angezeigt.
-
-Nun soll es sich bewegen.
-
-Dazu verändern wir einfach seine Koordinaten.
+Ein bereits sichtbares Sprite wird durch einen weiteren Aufruf von `SPRITE SHOW` an die neue Position bewegt.
 
 [source,basic]
 ----
-DO
+x = 160
+y = 120
 
+SPRITE SHOW #1, x, y, 1
+
+DO
     x = x + 2
-
-    MoveSprite(PlayerSprite, x, y)
-
+    SPRITE SHOW #1, x, y, 1
+    PAUSE 20
 LOOP
 ----
 
-Während das Programm läuft, verschiebt sich das Sprite kontinuierlich nach rechts.
+Dabei kümmert sich die Firmware selbst um den verdeckten Hintergrund.
 
-Der Hintergrund bleibt dabei unverändert.
+Intern geschieht bei jeder Bewegung:
 
-Genau darin liegt der große Vorteil eines Sprites.
+. Der Hintergrund an der bisherigen Sprite-Position wird restauriert.
+. Der Hintergrund an der neuen Position wird gespeichert.
+. Das Sprite wird an der neuen Position gezeichnet.
 
-Wir müssen nicht den gesamten Bildschirm neu zeichnen.
+Wir müssen den Bildschirm also nicht mit `CLS` löschen.
 
-Lediglich die Position unseres Sprites ändert sich.
+=== Ein Sprite ausblenden
+
+Mit
+
+[source,basic]
+----
+SPRITE HIDE #1
+----
+
+wird Sprite 1 vom Bildschirm entfernt.
+
+MMBasic zeichnet dabei automatisch den zuvor gespeicherten Hintergrund zurück.
+
+Soll das Sprite später erneut erscheinen, kann es wieder mit `SPRITE SHOW` angezeigt werden.
+
+=== Sprite-Speicher wieder freigeben
+
+Wird ein Sprite nicht mehr benötigt, kann sein Speicher freigegeben werden:
+
+[source,basic]
+----
+SPRITE CLOSE #1
+----
+
+Alle Sprite-Speicher lassen sich gemeinsam freigeben:
+
+[source,basic]
+----
+SPRITE CLOSE ALL
+----
+
+[IMPORTANT]
+====
+`SPRITE HIDE` und `SPRITE CLOSE` erfüllen unterschiedliche Aufgaben.
+
+`SPRITE HIDE` entfernt ein Sprite nur vom Bildschirm.
+
+`SPRITE CLOSE` gibt den für das Sprite belegten Speicher frei.
+====
+
+=== Layer – mehrere Ebenen für Sprites
+
+Bei jedem `SPRITE SHOW` muss ein Layer angegeben werden.
+
+Das Prinzip ähnelt mehreren transparenten Folien, die übereinanderliegen.
+
+Beispielsweise könnten wir verwenden:
+
+* Layer 0 für Objekte, die mit dem Hintergrund verbunden sind,
+* Layer 1 für Spieler und Gegner,
+* Layer 2 für besondere Spielelemente.
+
+Layer 0 besitzt eine besondere Bedeutung.
+
+Sprites kollidieren mit
+
+* Sprites auf demselben Layer,
+* Sprites auf Layer 0
+* und dem Bildschirmrand.
+
+Dadurch kann Layer 0 beispielsweise für Hindernisse verwendet werden, mit denen Objekte auf anderen Layern kollidieren sollen.
+
+Beim Scrollen bewegt sich Layer 0 zusammen mit dem Hintergrund. Sprites auf anderen Layern bleiben dagegen an ihrer Bildschirmposition.
+
+=== Die Zeichenreihenfolge und das LIFO-Prinzip
+
+Beim Anzeigen von Sprites muss der PicoMite berücksichtigen, in welcher Reihenfolge sie gezeichnet wurden.
+
+Nehmen wir an, wir zeigen drei Sprites nacheinander an:
+
+[source,basic]
+----
+SPRITE SHOW #1, 100, 100, 1
+SPRITE SHOW #2, 110, 110, 1
+SPRITE SHOW #3, 120, 120, 1
+----
+
+Sprite 3 wurde zuletzt gezeichnet und liegt deshalb gegebenenfalls über Sprite 2. Sprite 2 wiederum kann über Sprite 1 liegen.
+
+Diese Reihenfolge funktioniert nach dem Prinzip _Last In, First Out_, kurz LIFO.
+
+Würde nun das zuerst gezeichnete Sprite 1 bewegt, könnten gespeicherte Hintergrundbereiche Teile der später darüber gezeichneten Sprites überschreiben.
+
+Für solche Situationen gibt es `SPRITE SHOW SAFE`.
+
+=== `SPRITE SHOW SAFE`
+
+Die sichere Variante lautet:
+
+[source,basic]
+----
+SPRITE SHOW SAFE #n, x, y, layer
+----
+
+Sie berücksichtigt automatisch Sprites, die das zu bewegende Sprite überdecken.
+
+Beispiel:
+
+[source,basic]
+----
+SPRITE SHOW SAFE #1, 200, 120, 1
+----
+
+MMBasic entfernt dabei intern erforderliche darüberliegende Sprites in umgekehrter Reihenfolge, bewegt das gewünschte Sprite und stellt anschließend die anderen Sprites wieder her.
+
+Das ist komfortabler, benötigt aber etwas mehr Rechenarbeit als das normale `SPRITE SHOW`.
 
 [TIP]
 ====
-Fast alle Computerspiele bewegen ihre Spielfiguren genau nach diesem Prinzip.
+Wenn du sicher weißt, dass sich die Sprites nicht problematisch überlagern, ist `SPRITE SHOW` die einfachere und schnellere Variante.
 
-Nicht die Grafik selbst verändert sich, sondern lediglich ihre Position auf dem Bildschirm.
+Bei überlappenden Sprites ist `SPRITE SHOW SAFE` dagegen oft die sicherere Wahl.
 ====
 
-=== Steuerung mit dem Gamepad
+=== Transparenz
 
-Im vorherigen Kapitel haben wir gelernt, wie sich ein USB-Gamepad auslesen lässt.
+Sprite-Grafiken sind rechteckig. Die Spielfigur selbst füllt dieses Rechteck jedoch meistens nicht vollständig aus.
 
-Jetzt verbinden wir beide Techniken miteinander.
-
-Anstatt das Sprite automatisch zu bewegen, übernimmt nun der Spieler die Steuerung.
-
-Die Position unseres Sprites wird direkt über den linken Analogstick verändert.
+Damit der rechteckige Hintergrund der Grafik nicht sichtbar wird, kann eine Farbe als transparent definiert werden:
 
 [source,basic]
 ----
-x = MM.HRES / 2
-y = MM.VRES / 2
-
-DO
-
-    ' TODO
-    ' Gamepad lesen
-
-    x = x + StickX
-    y = y + StickY
-
-    MoveSprite(PlayerSprite, x, y)
-
-LOOP
+SPRITE SET TRANSPARENT 0
 ----
 
-Bereits dieses kleine Programm vermittelt das typische Gefühl eines Computerspiels.
+Die Farbnummer 0 ist standardmäßig die transparente Farbe.
 
-Der Spieler bewegt eine Figur direkt über den Bildschirm.
+Dadurch wird nur die eigentliche Figur sichtbar, während die transparenten Pixel den Hintergrund durchscheinen lassen.
 
-Mehr ist für das Grundprinzip zunächst gar nicht notwendig.
+=== Ein Sprite spiegeln
 
-Später werden wir diese Figur mit Gegnern, Hindernissen und weiteren Spielelementen kombinieren.
+Der optionale Parameter von `SPRITE SHOW` kann verwendet werden, um die Grafik beim Anzeigen zu spiegeln.
 
-=== Geschwindigkeit steuern
+Die Bits haben folgende Bedeutung:
 
-Nicht jede Spielfigur soll sich gleich schnell bewegen.
+[cols="1,2"]
+|===
+| Wert | Bedeutung
 
-Ein Rennwagen fährt schneller als eine Schildkröte und ein Raumschiff beschleunigt anders als ein Fußball.
+| `&B001`
+| horizontal spiegeln
 
-Deshalb verwendet man häufig eine Geschwindigkeitsvariable.
+| `&B010`
+| vertikal spiegeln
+
+| `&B100`
+| schwarze Pixel nicht als transparent behandeln
+|===
+
+Eine Figur lässt sich dadurch beispielsweise ohne zweites Bild nach links und rechts schauen lassen:
 
 [source,basic]
 ----
-Speed = 4
+' normale Richtung
+SPRITE SHOW #1, x, y, 1, 0
 
-DO
-
-    ' TODO
-    ' Gamepad lesen
-
-    x = x + StickX * Speed
-    y = y + StickY * Speed
-
-    MoveSprite(PlayerSprite, x, y)
-
-LOOP
+' horizontal gespiegelt
+SPRITE SHOW #1, x, y, 1, &B001
 ----
 
-Durch das Ändern einer einzigen Variablen lässt sich das Bewegungsverhalten bequem anpassen.
+Das spart bei einfachen Animationen zusätzliche Grafikdateien.
 
-Dieses Verfahren werden wir später in unseren Spielen häufig einsetzen.
+=== Mehrere Sprites gemeinsam bewegen
 
-=== Animationen
+Wenn mehrere Sprites praktisch gleichzeitig ihre Position ändern sollen, stellt MMBasic einen weiteren Mechanismus bereit.
 
-Bis jetzt besteht unser Sprite nur aus einem einzigen Bild.
+Zunächst wird für jedes Sprite die nächste Position festgelegt:
 
-Das genügt bereits, um eine Figur über den Bildschirm zu bewegen.
+[source,basic]
+----
+SPRITE NEXT #1, PlayerX, PlayerY
+SPRITE NEXT #2, EnemyX, EnemyY
+SPRITE NEXT #3, ShotX, ShotY
+----
 
-Lebendig wirkt sie dadurch allerdings noch nicht.
+Anschließend werden alle vorbereiteten Positionsänderungen gemeinsam ausgeführt:
 
-Die Lösung besteht aus einer einfachen Idee.
+[source,basic]
+----
+SPRITE MOVE
+----
 
-Wir zeichnen dieselbe Figur mehrfach.
+Das ist etwas anderes als das erneute `SPRITE SHOW` eines einzelnen Sprites.
 
-Jedes Bild unterscheidet sich nur geringfügig vom vorherigen.
+`SPRITE NEXT` zusammen mit `SPRITE MOVE` ist besonders interessant, wenn mehrere Objekte innerhalb derselben Spielrunde bewegt werden sollen. Die Kollisionen werden ausgewertet, nachdem alle vorbereiteten Bewegungen ausgeführt wurden.
 
-Anschließend werden diese Bilder schnell hintereinander angezeigt.
+=== Animationen aus mehreren Sprite-Bildern
 
-Unser Gehirn nimmt diese Bildfolge als flüssige Bewegung wahr.
+Eine bewegte Spielfigur besteht häufig aus mehreren Einzelbildern.
 
-Genau dieses Prinzip wird seit den Anfängen des Zeichentrickfilms verwendet.
+Beispielsweise können vier Bilder verschiedene Phasen einer Laufbewegung darstellen:
 
 [source]
 ----
-Bild 1      Bild 2      Bild 3      Bild 4
-
- 🚶          🚶‍♂️          🚶          🚶‍♂️
+Bild 1    Bild 2    Bild 3    Bild 4
+  |         |         |         |
+ Schritt   Schritt   Schritt   Schritt
 ----
 
-Je schneller zwischen den Bildern umgeschaltet wird, desto flüssiger erscheint die Bewegung.
+Diese Einzelbilder werden als Animationsframes bezeichnet.
 
-Bei Computerspielen spricht man dabei von Animationsframes.
+MMBasic kann ein sichtbares Sprite durch ein anderes Sprite ersetzen:
 
 [source,basic]
 ----
-Frame = Frame + 1
-
-IF Frame > 4 THEN
-    Frame = 1
-ENDIF
-
-' TODO
-' Spritebild wechseln
-
-SetSpriteFrame(PlayerSprite, Frame)
+SPRITE SWAP #1, #2
 ----
 
-Auch hier verwenden wir zunächst einen leicht verständlichen Platzhalter.
+Dabei müssen beide Sprites dieselbe Breite und Höhe besitzen.
 
-Die tatsächlichen MMBasic-Befehle werden wir später anhand eines funktionierenden Programms kennenlernen.
+Das neue Sprite übernimmt die Position und den gespeicherten Hintergrund des bisherigen Sprites.
+
+Für eine Animation könnten beispielsweise mehrere gleich große Sprites vorbereitet werden:
+
+[source,basic]
+----
+' Sprite 1 ist sichtbar
+SPRITE SHOW #1, x, y, 1
+
+' später das Bild austauschen
+SPRITE SWAP #1, #2
+----
+
+Durch regelmäßiges Wechseln mehrerer Sprite-Bilder entsteht eine Animation.
 
 [TIP]
 ====
-Viele bekannte Spielfiguren bestehen aus erstaunlich wenigen Einzelbildern.
-
-Mario, Pac-Man oder die Spielfigur aus *The Great Giana Sisters* benötigen häufig nur vier bis acht Animationsbilder, um flüssig zu wirken.
-
-Nicht die Anzahl der Bilder ist entscheidend, sondern der geschickte Wechsel zwischen ihnen.
+Oft reichen schon wenige gut gezeichnete Einzelbilder für eine überzeugende Bewegung. Entscheidend ist weniger die Anzahl der Bilder als ein passendes Zeitintervall zwischen den Frames.
 ====
 
-=== Was bedeutet BLIT?
+=== Kollisionen
 
-Beim Programmieren von Spielen begegnet dir früher oder später der Begriff *BLIT*.
+Sobald sich mehrere Spielobjekte bewegen, stellt sich eine wichtige Frage:
 
-Das klingt zunächst ziemlich technisch.
+Was passiert, wenn sie sich berühren?
 
-Die eigentliche Idee dahinter ist jedoch erstaunlich einfach.
+Diese Überprüfung nennt man _Kollisionserkennung_.
 
-Stell dir vor, dein Bildschirm wäre ein Blatt Papier.
+Der PicoMite besitzt dafür eine eingebaute Sprite-Kollisionserkennung. Es ist also nicht notwendig, für jedes Objekt selbst die Koordinatenbereiche miteinander zu vergleichen.
 
-Darauf befindet sich eine Landschaft mit Bäumen, Häusern und einem Weg.
+Die Kollisionsgrenze eines Sprites ist das umschließende Rechteck seiner Grafik.
 
-Nun möchtest du eine Spielfigur einige Zentimeter nach rechts verschieben.
-
-Eine Möglichkeit wäre, das gesamte Blatt wegzuwerfen und alles neu zu zeichnen.
-
-Das wäre natürlich sehr umständlich.
-
-Viel einfacher wäre es, nur den kleinen Bildausschnitt mit der Spielfigur auszuschneiden und an einer anderen Stelle wieder aufzukleben.
-
-Genau dieses Prinzip steckt hinter einem BLIT.
-
-BLIT ist die Abkürzung für *Bit Block Transfer*.
-
-Dabei wird ein rechteckiger Bildbereich von einer Stelle an eine andere kopiert.
-
-Da lediglich ein kleiner Ausschnitt übertragen wird, arbeitet dieses Verfahren wesentlich schneller als das vollständige Neuzeichnen des gesamten Bildschirms.
-
-BLIT gehört deshalb seit vielen Jahrzehnten zu den wichtigsten Techniken der Computergrafik.
-
-=== Hintergrund restaurieren
-
-Beim Verschieben eines Sprites entsteht ein neues Problem.
-
-Nehmen wir an, unsere Spielfigur steht vor einem Baum.
-
-[source]
-----
-🌳🌳🌳🌳🌳
-
-     🙂
-----
-
-Bewegt sich die Figur nach rechts, bleibt an ihrer alten Position zunächst eine Lücke zurück.
-
-[source]
-----
-🌳🌳🌳🌳🌳
-
-      🙂
-----
-
-Was muss nun an der alten Stelle erscheinen?
-
-Natürlich wieder der ursprüngliche Hintergrund.
-
-Dieser muss also wiederhergestellt werden.
-
-Genau diese Aufgabe übernimmt MMBasic beim Arbeiten mit Sprites und BLIT-Befehlen.
-
-Vor dem Zeichnen eines Sprites wird der betreffende Hintergrundbereich gesichert.
-
-Wird das Sprite später verschoben, restauriert MMBasic zunächst den ursprünglichen Hintergrund und zeichnet das Sprite anschließend an seiner neuen Position.
-
-Für den Programmierer geschieht dieser Vorgang vollkommen automatisch.
-
-Dadurch entstehen saubere und flüssige Bewegungen ohne störende Bildreste.
-
-[TIP]
+[NOTE]
 ====
-Wenn sich ein Objekt bewegt und dabei "Spuren" auf dem Bildschirm hinterlässt, wurde der Hintergrund meist nicht korrekt restauriert.
-
-Dieses Phänomen tritt besonders häufig bei selbst programmierten Grafikroutinen auf.
-
-Sprites und BLIT-Befehle nehmen dem Programmierer diese Arbeit weitgehend ab.
+Die Kollisionserkennung arbeitet mit den rechteckigen Sprite-Grenzen. Sie prüft nicht die Form einzelner sichtbarer Pixel.
 ====
 
-=== Praxisbeispiel: Ein Ball rollt über den Bildschirm
+=== Ein Collision-Interrupt
 
-Betrachten wir zunächst den einfachsten Fall.
+Besonders komfortabel ist die automatische Benachrichtigung über eine Kollision.
 
-Ein Ball soll sich von links nach rechts bewegen.
-
-Mit den bisher bekannten Grafikbefehlen müsste in jeder Schleife der gesamte Bildschirm gelöscht und neu aufgebaut werden.
-
-Mit einem Sprite genügt dagegen eine einzige Positionsänderung.
+Mit
 
 [source,basic]
 ----
+SPRITE INTERRUPT collision
+----
+
+wird die Subroutine `collision` als Interrupt-Routine registriert.
+
+Tritt eine Sprite-Kollision auf, ruft MMBasic diese Subroutine auf.
+
+Ein einfaches Gerüst sieht so aus:
+
+[source,basic]
+----
+SPRITE INTERRUPT collision
+
+' Hauptprogramm
 DO
-
-    x = x + 2
-
-    MoveSprite(Ball, x, y)
-
+    ' Spiel läuft hier weiter
 LOOP
+
+SUB collision
+    PRINT "Kollision!"
+END SUB
 ----
 
-Der Hintergrund bleibt vollständig erhalten.
+In einem echten Spiel möchten wir natürlich wissen, welches Sprite beteiligt war.
 
-Lediglich das Sprite wird an seiner neuen Position dargestellt.
+Dafür gibt es die Funktion `SPRITE()`.
 
-Je komplexer der Hintergrund wird, desto größer ist der Geschwindigkeitsvorteil.
+=== Welches Sprite verursachte die Kollision?
 
-=== Praxisbeispiel: Mehrere bewegliche Objekte
-
-Der eigentliche Vorteil von Sprites zeigt sich erst bei mehreren beweglichen Objekten.
-
-Stell dir ein kleines Weltraumspiel vor.
-
-Auf dem Bildschirm befinden sich gleichzeitig
-
-* das Raumschiff,
-* mehrere Gegner,
-* Schüsse,
-* Explosionen
-* und Bonusobjekte.
-
-Jedes dieser Objekte besitzt seine eigene Position.
-
-In jeder Spielrunde werden lediglich ihre Koordinaten aktualisiert.
+Mit
 
 [source,basic]
 ----
-DO
-
-    MoveSprite(Player, PlayerX, PlayerY)
-
-    MoveSprite(Enemy1, Enemy1X, Enemy1Y)
-
-    MoveSprite(Enemy2, Enemy2X, Enemy2Y)
-
-    MoveSprite(Shot, ShotX, ShotY)
-
-LOOP
+SPRITE(S)
 ----
 
-Obwohl sich mehrere Objekte gleichzeitig bewegen, muss der Hintergrund nicht vollständig neu aufgebaut werden.
+erhalten wir die Nummer des Sprites, dessen Bewegung die Kollision ausgelöst hat.
 
-Gerade dadurch lassen sich auch umfangreiche Spiele flüssig darstellen.
-
-=== Praxisbeispiel: Bildschirm scrollen
-
-BLIT eignet sich nicht nur für Sprites.
-
-Auch ganze Bildbereiche lassen sich sehr schnell verschieben.
-
-Ein typisches Beispiel ist ein seitlich scrollender Hintergrund.
-
-Anstatt die komplette Landschaft neu zu zeichnen, wird das vorhandene Bild einfach um einige Pixel verschoben.
-
-Anschließend muss lediglich der neu entstandene Rand ergänzt werden.
-
-[source]
-----
-Vorher
-
-############################
-
-Nach dem BLIT
-
- ###########################
-
-Neuen Rand ergänzen
-|
-v
-############################
-----
-
-Dieses Verfahren wird seit vielen Jahrzehnten in Jump'n-Run- und Rennspielen eingesetzt.
-
-Da immer nur ein kleiner Teil des Bildschirms neu gezeichnet werden muss, können selbst große Landschaften flüssig dargestellt werden.
-
-=== Wann verwendet man BLIT?
-
-Nicht jede Grafik benötigt einen BLIT-Befehl.
-
-Für einfache Diagramme oder statische Benutzeroberflächen reichen die normalen Grafikbefehle vollkommen aus.
-
-Sobald jedoch
-
-* Bilder verschoben,
-* Sprites animiert,
-* Hintergründe gescrollt
-* oder große Bildbereiche kopiert
-
-werden sollen, spielt BLIT seine Stärken aus.
-
-Aus diesem Grund gehört BLIT bis heute zu den wichtigsten Werkzeugen der Spieleprogrammierung.
-
-=== Praxisprojekt: Mehrere Sprites gleichzeitig
-
-Ein einzelnes Sprite zu bewegen ist bereits interessant.
-
-Richtig spannend wird es jedoch erst, wenn sich mehrere Objekte gleichzeitig auf dem Bildschirm befinden.
-
-Jedes Sprite besitzt seine eigene Position.
-
-Dadurch können sich alle Figuren unabhängig voneinander bewegen.
-
-Ein typisches Spiel könnte beispielsweise aus folgenden Sprites bestehen:
-
-* Spieler
-* Gegner 1
-* Gegner 2
-* Gegner 3
-* Bonusobjekt
-
-Für jedes Sprite werden lediglich die Koordinaten aktualisiert.
+Beispiel:
 
 [source,basic]
 ----
-DO
+SUB collision
+    LOCAL INTEGER s
 
-    MoveSprite(Player, PlayerX, PlayerY)
+    s = SPRITE(S)
 
-    MoveSprite(Enemy1, Enemy1X, Enemy1Y)
-
-    MoveSprite(Enemy2, Enemy2X, Enemy2Y)
-
-    MoveSprite(Enemy3, Enemy3X, Enemy3Y)
-
-    MoveSprite(Bonus, BonusX, BonusY)
-
-LOOP
-----
-
-Der eigentliche Programmablauf bleibt dabei erstaunlich einfach.
-
-Jedes Sprite wird unabhängig von den anderen verwaltet.
-
-Neue Spielfiguren können deshalb problemlos ergänzt werden.
-
-[TIP]
-====
-In vielen Spielen werden Sprites in Arrays oder Listen verwaltet.
-
-Dadurch kann dieselbe Programmschleife beliebig viele Gegner bearbeiten.
-====
-
-=== Praxisprojekt: Kollisionen erkennen
-
-Sobald sich mehrere Objekte bewegen, stellt sich automatisch eine wichtige Frage.
-
-Was passiert, wenn sich zwei Sprites berühren?
-
-Diese Überprüfung nennt man *Kollisionserkennung*.
-
-Sie gehört zu den wichtigsten Bestandteilen nahezu jedes Computerspiels.
-
-Beispiele:
-
-* Der Spieler sammelt einen Schatz ein.
-* Eine Rakete trifft einen Gegner.
-* Ein Ball prallt von einer Wand ab.
-* Ein Fahrzeug stößt mit einem Hindernis zusammen.
-
-Viele Grafikbibliotheken besitzen bereits eingebaute Funktionen zur Kollisionsprüfung.
-
-Ist das nicht der Fall, genügt häufig schon ein einfacher Vergleich der Positionen.
-
-[source,basic]
-----
-IF Collision(Player, Enemy1) THEN
-
-    PRINT "Treffer!"
-
-ENDIF
-----
-
-Oder allgemeiner:
-
-[source,basic]
-----
-FOR i = 1 TO EnemyCount
-
-    IF Collision(Player, Enemy(i)) THEN
-
-        PRINT "Spieler getroffen"
-
+    IF s <> 0 THEN
+        PRINT "Kollision von Sprite "; s
     ENDIF
+END SUB
+----
 
+Der Rückgabewert 0 hat eine besondere Bedeutung: Dann wurde die Kollision durch eine Scroll-Operation ausgelöst.
+
+=== Wie viele Kollisionen gab es?
+
+Mit
+
+[source,basic]
+----
+SPRITE(C, n)
+----
+
+kann abgefragt werden, wie viele aktuelle Kollisionen für Sprite `n` gespeichert sind.
+
+Beispiel:
+
+[source,basic]
+----
+PRINT SPRITE(C, 1)
+----
+
+Sind mehrere Kollisionen gleichzeitig aufgetreten, können sie einzeln abgefragt werden:
+
+[source,basic]
+----
+FOR i = 1 TO SPRITE(C, 1)
+    PRINT SPRITE(C, 1, i)
 NEXT i
 ----
 
-Später werden wir diese Technik in unserem eigenen Spiel verwenden.
+Damit kann ein Sprite in derselben Bewegung beispielsweise gleichzeitig einen Gegner und einen Bildschirmrand berühren.
 
-=== Praxisprojekt: Das DVD-Logo
+=== Kollision mit dem Bildschirmrand
 
-Fast jeder kennt den berühmten Bildschirmschoner, bei dem ein DVD-Logo über den Bildschirm wandert und an den Bildschirmrändern abprallt.
+Die Kollisionsabfrage liefert für Bildschirmränder spezielle Werte:
 
-Dieses Programm eignet sich hervorragend als erstes Sprite-Projekt.
+[cols="1,2"]
+|===
+| Wert | Bildschirmrand
 
-Wir benötigen lediglich
+| `&HF1`
+| links
 
-* ein Sprite,
-* eine Bewegungsrichtung
-* und die Bildschirmgröße.
+| `&HF2`
+| oben
 
-[source,basic]
-----
-DO
+| `&HF4`
+| rechts
 
-    x = x + dx
+| `&HF8`
+| unten
+|===
 
-    y = y + dy
-
-    IF x < 0 THEN dx = -dx
-
-    IF x > MM.HRES THEN dx = -dx
-
-    IF y < 0 THEN dy = -dy
-
-    IF y > MM.VRES THEN dy = -dy
-
-    MoveSprite(Logo, x, y)
-
-LOOP
-----
-
-Dieses kleine Programm enthält bereits viele typische Bestandteile eines Spiels:
-
-* Bewegung
-* Richtungsänderung
-* Bildschirmbegrenzung
-* Spielschleife
-
-Ein schöner Nebeneffekt:
-
-Man ertappt sich schnell dabei, darauf zu warten, dass das Logo genau eine Bildschirmecke trifft.
-
-=== Praxisprojekt: Breakout
-
-Das Spiel *Breakout* gehört zu den bekanntesten Videospielen überhaupt.
-
-Die Spielidee ist einfach.
-
-Ein Ball springt über den Bildschirm und zerstört Steine.
-
-Der Spieler bewegt einen Schläger und verhindert, dass der Ball nach unten aus dem Spielfeld fällt.
-
-Für dieses Spiel benötigen wir lediglich wenige Sprites:
-
-* Ball
-* Schläger
-* Steine
-
-Der Schläger wird mit dem Gamepad bewegt.
+Eine Interrupt-Routine kann diese Werte direkt auswerten:
 
 [source,basic]
 ----
-DO
+SUB collision
+    LOCAL INTEGER s, i, hit
 
-    ' Gamepad lesen
+    s = SPRITE(S)
 
-    PaddleX = PaddleX + StickX
+    IF s = 0 THEN EXIT SUB
 
-    MoveSprite(Paddle, PaddleX, PaddleY)
+    FOR i = 1 TO SPRITE(C, s)
+        hit = SPRITE(C, s, i)
 
-    MoveSprite(Ball, BallX, BallY)
-
-LOOP
+        SELECT CASE hit
+            CASE &HF1
+                PRINT "linker Rand"
+            CASE &HF2
+                PRINT "oberer Rand"
+            CASE &HF4
+                PRINT "rechter Rand"
+            CASE &HF8
+                PRINT "unterer Rand"
+            CASE ELSE
+                PRINT "Kollision mit Sprite "; hit
+        END SELECT
+    NEXT i
+END SUB
 ----
 
-Hinzu kommen später
+Damit lassen sich beispielsweise Bälle, Gegner oder ein DVD-Logo am Bildschirmrand abprallen lassen.
 
-* Ballphysik,
-* Kollisionen,
-* Punkte
-* und mehrere Spielstufen.
+=== Weitere Informationen über Sprites
 
-Obwohl Breakout einfach aussieht, verwendet es bereits viele klassische Techniken der Spieleprogrammierung.
+Die Funktion `SPRITE()` kann noch weitere Eigenschaften liefern.
 
-=== Praxisprojekt: Mini-Space-Invaders
-
-Zum Abschluss dieses Kapitels kombinieren wir nahezu alle bisher kennengelernten Techniken.
-
-Der Spieler steuert ein kleines Raumschiff.
-
-Von oben nähern sich mehrere Gegner.
-
-Mit einer Taste wird ein Schuss ausgelöst.
-
-[source]
-----
-      👾 👾 👾 👾
-
-         ↓
-
-      👾 👾 👾 👾
-
-
-          ▲
-
-          🚀
-----
-
-Für dieses Spiel benötigen wir
-
-* mehrere Sprites,
-* Animationen,
-* Kollisionserkennung,
-* Gamepad-Steuerung,
-* Sound
-* und eine Spielschleife.
-
-Der grundsätzliche Ablauf sieht bereits erstaunlich übersichtlich aus.
+Besonders nützlich sind:
 
 [source,basic]
 ----
-DO
-
-    ReadGamepad()
-
-    MovePlayer()
-
-    MoveEnemies()
-
-    MoveShots()
-
-    CheckCollisions()
-
-    UpdateSprites()
-
-LOOP
+SPRITE(X, n)
+SPRITE(Y, n)
+SPRITE(W, n)
+SPRITE(H, n)
+SPRITE(N)
 ----
 
-Dieses Programm enthält bereits den typischen Aufbau vieler klassischer Arcade-Spiele.
-
-Mit zusätzlichen Ideen lassen sich daraus nahezu beliebig umfangreiche Spiele entwickeln.
-
-[TIP]
-====
-Lass dich nicht entmutigen, wenn dein erstes Spiel noch nicht perfekt aussieht.
-
-Nahezu jedes Computerspiel beginnt mit einer einzigen Figur, die sich über einen leeren Bildschirm bewegt.
-
-Erst nach und nach kommen Gegner, Kollisionen, Punkte, Sound und weitere Spielideen hinzu.
-
-Auch professionelle Spiele entstehen Schritt für Schritt.
-====
-
-=== Von der Demo zum Spiel
-
-Alle bisherigen Beispiele zeigen nur einzelne Techniken.
-
-Ein vollständiges Spiel entsteht erst dann, wenn diese Bausteine miteinander kombiniert werden.
-
-* Spielfigur
-* Gegner
-* Animation
-* Kollision
-* Sound
-* Punkte
-* Spielregeln
-
-Genau das werden wir im nächsten Kapitel gemeinsam tun.
-
-=== Die Spielschleife
-
-Während wir die einzelnen Praxisprojekte entwickelt haben, ist dir vielleicht aufgefallen, dass sich derselbe Programmablauf immer wiederholt.
-
-Ganz gleich, ob wir einen Ball bewegen, ein Breakout-Spiel programmieren oder ein Raumschiff steuern – der grundsätzliche Ablauf bleibt immer derselbe.
-
-Zu Beginn jeder Spielrunde werden zunächst die Eingaben des Spielers verarbeitet.
-
-Anschließend werden alle Spielfiguren entsprechend ihrer Geschwindigkeit oder den Eingaben des Gamepads bewegt.
-
-Danach prüft das Programm, ob sich Objekte berühren oder andere Ereignisse eingetreten sind.
-
-Zum Schluss wird der Bildschirm aktualisiert und der nächste Durchlauf beginnt.
-
-Dieser ständig wiederkehrende Ablauf wird als *Game Loop* oder *Spielschleife* bezeichnet.
-
-Nahezu jedes Computerspiel arbeitet nach diesem Prinzip.
-
-[source]
-----
-┌─────────────────────────────┐
-│ Eingaben lesen              │
-└─────────────┬───────────────┘
-              │
-              ▼
-┌─────────────────────────────┐
-│ Spielfiguren bewegen        │
-└─────────────┬───────────────┘
-              │
-              ▼
-┌─────────────────────────────┐
-│ Animationen aktualisieren   │
-└─────────────┬───────────────┘
-              │
-              ▼
-┌─────────────────────────────┐
-│ Kollisionen prüfen          │
-└─────────────┬───────────────┘
-              │
-              ▼
-┌─────────────────────────────┐
-│ Punkte und Spielregeln      │
-│ aktualisieren               │
-└─────────────┬───────────────┘
-              │
-              ▼
-┌─────────────────────────────┐
-│ Bildschirm aktualisieren    │
-└─────────────┬───────────────┘
-              │
-              └──────────► zurück zum Anfang
-----
-
-Die eigentliche Kunst bei der Spieleprogrammierung besteht also nicht darin, möglichst komplizierte Programme zu schreiben.
-
-Viel wichtiger ist es, diese Spielschleife sauber zu strukturieren.
-
-Je klarer die einzelnen Aufgaben voneinander getrennt sind, desto einfacher lassen sich später neue Funktionen ergänzen.
-
-[TIP]
-====
-Versuche, jede Aufgabe der Spielschleife in einer eigenen Funktion unterzubringen.
+Damit lassen sich unter anderem Position, Größe und Anzahl aktiver Sprites abfragen.
 
 Beispielsweise:
 
-* `ReadGamepad()`
-* `MovePlayer()`
-* `MoveEnemies()`
-* `AnimateSprites()`
-* `CheckCollisions()`
-* `DrawScreen()`
+[source,basic]
+----
+PRINT "X = "; SPRITE(X, 1)
+PRINT "Y = "; SPRITE(Y, 1)
+PRINT "Breite = "; SPRITE(W, 1)
+PRINT "Hoehe = "; SPRITE(H, 1)
+PRINT "Aktive Sprites = "; SPRITE(N)
+----
 
-Dadurch bleibt dein Programm auch bei mehreren hundert Programmzeilen übersichtlich.
+Diese Funktionen sind besonders praktisch, wenn viele Objekte von der Firmware verwaltet werden.
+
+=== Was bedeutet BLIT?
+
+Der Begriff `BLIT` steht für _Bit Block Transfer_.
+
+Dabei wird ein rechteckiger Bildbereich sehr schnell von einer Speicherposition an eine andere übertragen.
+
+Stell dir wieder unser Blatt Papier mit einer Landschaft vor. Diesmal möchten wir aber nicht ein eigenständiges Objekt verwalten, sondern einfach einen rechteckigen Ausschnitt des Bildes kopieren.
+
+Genau das ist die Aufgabe von `BLIT`.
+
+=== Einen Bildbereich in einen BLIT-Puffer lesen
+
+Mit
+
+[source,basic]
+----
+BLIT READ #b, x, y, w, h
+----
+
+wird ein rechteckiger Bereich des Bildschirms in einen Speicherpuffer kopiert.
+
+Beispiel:
+
+[source,basic]
+----
+BLIT READ #1, 100, 80, 64, 64
+----
+
+Damit werden 64 × 64 Pixel ab Position 100/80 in BLIT-Puffer 1 gespeichert.
+
+Die Puffer können die Nummern 1 bis 64 verwenden.
+
+=== Einen BLIT-Puffer wieder anzeigen
+
+Der gespeicherte Bildbereich kann später wieder auf den Bildschirm geschrieben werden:
+
+[source,basic]
+----
+BLIT WRITE #1, 200, 80
+----
+
+Der Inhalt von Puffer 1 erscheint nun ab Position 200/80.
+
+Damit lässt sich ein Bildbereich zunächst sichern und später an einer anderen Position wieder ausgeben.
+
+=== BLIT-Puffer aus einer Datei laden
+
+Ein Bild kann auch direkt in einen BLIT-Puffer geladen werden:
+
+[source,basic]
+----
+BLIT LOAD #1, "bild.bmp", 0, 0, 64, 64
+----
+
+Die Parameter geben an, welcher Ausschnitt der Bilddatei geladen werden soll.
+
+=== BLIT-Puffer freigeben
+
+Wird der Puffer nicht mehr benötigt, sollte sein Speicher wieder freigegeben werden:
+
+[source,basic]
+----
+BLIT CLOSE #1
+----
+
+=== Direkt von einer Bildschirmposition zur anderen kopieren
+
+Für viele Aufgaben wird gar kein zusätzlicher Puffer benötigt.
+
+Mit
+
+[source,basic]
+----
+BLIT x1, y1, x2, y2, w, h
+----
+
+kann ein rechteckiger Bereich direkt an eine andere Bildschirmposition kopiert werden.
+
+Beispiel:
+
+[source,basic]
+----
+BLIT 0, 0, 100, 100, 80, 60
+----
+
+Dabei wird der 80 × 60 Pixel große Bereich links oben ab Position 0/0 nach Position 100/100 kopiert.
+
+Quell- und Zielbereich dürfen sich sogar überlappen. Der PicoMite führt die Kopie trotzdem korrekt aus.
+
+=== BLIT zum Scrollen verwenden
+
+Gerade diese direkte Form von `BLIT` eignet sich gut für scrollende Darstellungen.
+
+Soll ein Bildschirmbereich beispielsweise um einen Pixel nach links verschoben werden, kann nahezu der gesamte vorhandene Bereich kopiert werden. Anschließend muss nur die neu entstandene Spalte am Rand gezeichnet werden.
+
+Das Prinzip sieht so aus:
+
+[source]
+----
+Vorher:
+
++--------------------------+
+| vorhandener Bildbereich  |
++--------------------------+
+
+nach links verschieben:
+
++-------------------------+?
+| verschobener Bildbereich | neue Spalte
++-------------------------+?
+----
+
+Für Diagramme, Laufschriften oder scrollende Spielhintergründe kann dieses Verfahren sehr effizient sein.
+
+MMBasic stellt für Sprite-Hintergründe zusätzlich eigene `SPRITE SCROLL`-Funktionen bereit.
+
+=== Bildbereiche skalieren
+
+Mit
+
+[source,basic]
+----
+BLIT RESIZE src, dst, sx, sy, sw, sh, dx, dy, dw, dh
+----
+
+kann ein rechteckiger Quellbereich auf eine andere Größe skaliert werden.
+
+Die Skalierung verwendet ein schnelles Nearest-Neighbour-Verfahren.
+
+Dadurch eignet sich `BLIT RESIZE` beispielsweise zum schnellen Vergrößern von Pixelgrafiken.
+
+Für den Einstieg genügt es jedoch, zunächst die normalen `BLIT`-, `BLIT READ`- und `BLIT WRITE`-Befehle zu beherrschen.
+
+=== Weitere BLIT-Funktionen
+
+Der PicoMite besitzt außerdem fortgeschrittene Varianten wie
+
+* `BLIT MEMORY`,
+* `BLIT COMPRESSED`,
+* `BLIT FRAMEBUFFER`
+* und `BLIT MERGE`.
+
+Diese Befehle sind vor allem bei umfangreicheren Grafik- und Spieleprojekten interessant. Für unsere ersten Sprite-Programme benötigen wir sie noch nicht.
+
+=== `SPRITE` oder `BLIT`?
+
+Beide Techniken sind nützlich, aber für unterschiedliche Aufgaben.
+
+[cols="1,2,2"]
+|===
+| | `SPRITE` | `BLIT`
+
+| Hauptaufgabe
+| bewegliche Grafikobjekte verwalten
+| rechteckige Bildbereiche kopieren
+
+| Hintergrund sichern
+| automatisch beim Anzeigen und Bewegen
+| muss über passende Kopieroperationen organisiert werden
+
+| Kollisionserkennung
+| eingebaut
+| nein
+
+| Layer
+| ja
+| nein
+
+| Farbspeicherung
+| RGB121
+| RGB888
+
+| Typische Verwendung
+| Spieler, Gegner, Schüsse, Objekte
+| Bildkopien, Scrollen, Puffer, Skalierung
+|===
+
+[TIP]
 ====
+Für eine Spielfigur ist normalerweise `SPRITE` die bessere Wahl.
+
+Wenn dagegen einfach ein rechteckiger Bildbereich kopiert oder verschoben werden soll, ist `BLIT` meist das passendere Werkzeug.
+====
+
+=== Von der Spielfigur zur Spielschleife
+
+Mit den Sprite-Befehlen lässt sich die typische Hauptschleife eines Spiels sehr übersichtlich aufbauen.
+
+Ein vereinfachter Ablauf könnte so aussehen:
+
+[source,basic]
+----
+DO
+    ' Eingaben lesen
+
+    ' neue Positionen berechnen
+
+    SPRITE NEXT #1, PlayerX, PlayerY
+    SPRITE NEXT #2, EnemyX, EnemyY
+
+    SPRITE MOVE
+
+    ' Animation aktualisieren
+
+    ' Spielregeln auswerten
+
+    PAUSE 20
+LOOP
+----
+
+Kollisionen können parallel dazu über `SPRITE INTERRUPT` behandelt werden.
+
+Damit müssen wir uns im Hauptprogramm nicht mehr um das Löschen und Restaurieren jedes einzelnen bewegten Bildbereichs kümmern.
+
+=== Die Spielschleife
+
+Nahezu jedes Computerspiel arbeitet mit einer sich ständig wiederholenden Spielschleife.
+
+Typischerweise werden dabei immer wieder dieselben Aufgaben ausgeführt:
+
+. Eingaben lesen
+. Positionen berechnen
+. Spielfiguren bewegen
+. Animationen aktualisieren
+. Kollisionen auswerten
+. Spielregeln und Punkte aktualisieren
+. kurze Pause beziehungsweise Bildwechsel
+
+[source]
+----
++-----------------------------+
+| Eingaben lesen              |
++-------------+---------------+
+              |
+              v
++-----------------------------+
+| Positionen berechnen        |
++-------------+---------------+
+              |
+              v
++-----------------------------+
+| Sprites bewegen             |
++-------------+---------------+
+              |
+              v
++-----------------------------+
+| Animation aktualisieren     |
++-------------+---------------+
+              |
+              v
++-----------------------------+
+| Kollisionen / Spielregeln   |
++-------------+---------------+
+              |
+              +-----> zurück zum Anfang
+----
+
+Je klarer diese Aufgaben voneinander getrennt sind, desto leichter lässt sich das Spiel später erweitern.
 
 === Zusammenfassung
 
-In diesem Kapitel hast du die wichtigsten Grundlagen der Spieleprogrammierung kennengelernt.
+In diesem Kapitel hast du zwei wichtige Grafikwerkzeuge des PicoMite kennengelernt.
 
 Du weißt nun,
 
-* warum Sprites entwickelt wurden,
-* wie sich Sprites unabhängig vom Hintergrund bewegen lassen,
-* welche Aufgabe BLIT beim Kopieren von Bildbereichen übernimmt,
-* wie mehrere Sprites gleichzeitig verwaltet werden,
-* wie Kollisionen erkannt werden,
-* und weshalb nahezu jedes Spiel aus einer immer wiederkehrenden Spielschleife besteht.
+* dass `SPRITE` und `BLIT` seit PicoMite V6.00.00 getrennte Befehlsfamilien sind,
+* dass Sprites ihren verdeckten Hintergrund automatisch sichern und restaurieren,
+* dass ein bereits sichtbares Sprite mit einem weiteren `SPRITE SHOW` bewegt werden kann,
+* dass `SPRITE SHOW SAFE` überlappende Sprites sicher berücksichtigt,
+* dass Layer festlegen, welche Sprites miteinander kollidieren,
+* dass `SPRITE INTERRUPT` und `SPRITE()` eine eingebaute Kollisionserkennung bereitstellen,
+* dass `SPRITE SWAP` für Animationen verwendet werden kann,
+* dass `BLIT` rechteckige Bildbereiche kopiert
+* und dass BLIT-Puffer im Gegensatz zu Sprites RGB888-Farbdaten verwenden.
 
-Vielleicht ist dir aufgefallen, dass viele der bisher behandelten Themen plötzlich zusammenpassen.
-
-Variablen speichern Positionen.
-
-Schleifen bilden den Programmablauf.
-
-Funktionen sorgen für eine übersichtliche Struktur.
-
-Timer steuern Animationen.
-
-Gamepads liefern die Eingaben des Spielers.
-
-Sprites stellen die Spielfiguren dar.
-
-Aus vielen kleinen Bausteinen entsteht so Schritt für Schritt ein vollständiges Computerspiel.
+Damit besitzen wir nun fast alle Bausteine für ein kleines Computerspiel.
 
 === Ausblick auf Kapitel 51
 
-Herzlichen Glückwunsch!
+Im nächsten Kapitel setzen wir die bisherigen Techniken zu einem vollständigen Spiel zusammen.
 
-Mit diesem Kapitel hast du die wichtigsten Werkzeuge kennengelernt, die für die Entwicklung klassischer Computerspiele benötigt werden.
-
-Natürlich macht noch keines der bisherigen Beispiele ein vollständiges Spiel aus.
-
-Genau das werden wir jetzt ändern.
-
-Im nächsten Kapitel entwickeln wir gemeinsam ein komplettes Spiel – von der ersten Programmzeile bis zum spielbaren Ergebnis.
-
-Dabei greifen wir auf viele Techniken zurück, die du im Laufe dieses Buches kennengelernt hast:
+Dabei treffen viele Themen aus dem Buch wieder aufeinander:
 
 * Variablen
 * Schleifen
-* Funktionen
+* Funktionen und Subroutinen
 * Grafik
 * Sound
 * Zufallszahlen
-* Dateien
 * Timer
-* Gamepads
+* Gamepad-Steuerung
 * Sprites
+* Animationen
 * Kollisionen
 
-Du wirst überrascht sein, wie viele dieser Bausteine inzwischen ganz selbstverständlich zusammenarbeiten.
-
-Und genau das ist das eigentliche Ziel dieses Buches:
-
-Nicht einzelne BASIC-Befehle auswendig zu lernen, sondern Programme zu entwickeln, die Spaß machen und die eigene Kreativität zum Leben erwecken.
-
-Ich freue mich darauf, im nächsten Kapitel gemeinsam mit dir unser erstes vollständiges Spiel zu programmieren.
+Aus vielen kleinen BASIC-Bausteinen entsteht dann Schritt für Schritt ein spielbares Programm.
 
 === Programmbeispiel
 
-Das vollständige BASIC-Programm findest du hier:
+Das vollständige BASIC-Programm zu diesem Kapitel findest du hier:
 
 * {github-programme}/50_sprite_demo.bas[50_sprite_demo.bas]
