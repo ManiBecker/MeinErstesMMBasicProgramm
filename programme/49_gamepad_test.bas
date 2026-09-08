@@ -16,13 +16,6 @@ REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
 REM
 REM ====================================================================
 
-'============================================================
-' 49_gamepad_test.bas
-' Mein erstes MMBasic-Programm
-'
-
-'============================================================
-
 OPTION EXPLICIT
 
 CONST Gamepad = 3
