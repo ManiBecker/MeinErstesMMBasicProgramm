@@ -77,7 +77,7 @@ Ausgabe:
 17-07-2026
 ----
 
-Das genaue Format kann je nach Systemeinstellung variieren.
+`DATE$` liefert das aktuelle Datum. Beim Setzen akzeptiert MMBasic verschiedene Schreibweisen, die im folgenden Abschnitt gezeigt werden.
 
 === Datum und Uhrzeit gemeinsam anzeigen
 
@@ -114,27 +114,46 @@ Jede Sekunde wird die Anzeige aktualisiert.
 
 === Datum und Uhrzeit setzen
 
-Auf vielen Systemen können Datum und Uhrzeit auch geändert werden.
+Datum und Uhrzeit können auch gesetzt werden.
+
+Für das Datum akzeptiert MMBasic mehrere Schreibweisen:
+
+[source,basic]
+----
+DATE$ = "DD-MM-YY"
+DATE$ = "DD-MM-YYYY"
+DATE$ = "DD/MM/YY"
+DATE$ = "DD/MM/YYYY"
+DATE$ = "YYYY-MM-DD"
+DATE$ = "YYYY/MM/DD"
+----
 
 Beispiel:
 
 [source,basic]
 ----
 DATE$ = "17-07-2026"
-
-TIME$ = "21:45:00"
 ----
 
-Danach arbeitet die interne Echtzeituhr mit den neuen Werten.
+Auch die Uhrzeit kann mit unterschiedlicher Genauigkeit gesetzt werden:
 
-[NOTE]
-====
-Die genaue Syntax kann je nach Firmware-Version leicht variieren.
-====
- 
-=== Die interne Echtzeituhr
+[source,basic]
+----
+TIME$ = "21:45:30"
+TIME$ = "21:45"
+TIME$ = "21"
+----
 
-PicoMite und Colour Maximite besitzen eine Echtzeituhr (RTC).
+Werden Minuten oder Sekunden weggelassen, setzt MMBasic die fehlenden Werte auf null. So setzt beispielsweise
+
+[source,basic]
+----
+TIME$ = "14:30"
+----
+
+die Uhr auf `14:30:00`.
+
+=== Die interne Uhr und die RTC
 
 RTC steht für:
 
@@ -143,9 +162,29 @@ RTC steht für:
 Real Time Clock
 ----
 
-Die RTC läuft unabhängig vom eigentlichen Programm weiter.
+MMBasic führt intern Datum und Uhrzeit und stellt sie über `DATE$` und `TIME$` zur Verfügung. Ob nach dem Einschalten sofort das richtige Datum und die richtige Uhrzeit vorhanden sind, hängt beim PicoMite jedoch von der RTC-Konfiguration ab.
 
-Dadurch bleibt die Uhrzeit auch dann verfügbar, wenn gerade kein Programm läuft.
+Mit
+
+[source,basic]
+----
+OPTION RTC AUTO ENABLE
+----
+
+übernimmt die PicoMite-Firmware beim Start `DATE$` und `TIME$` aus der konfigurierten RTC.
+
+Ohne `OPTION RTC AUTO ENABLE` startet die Firmware nach dem Einschalten mit:
+
+[source,basic]
+----
+DATE$ = "01-01-2024"
+TIME$ = "00:00:00"
+----
+
+[IMPORTANT]
+====
+`DATE$` und `TIME$` bedeuten daher nicht automatisch, dass der PicoMite nach dem Ausschalten die aktuelle Zeit kennt. Für eine dauerhaft korrekte Uhrzeit muss eine geeignete RTC vorhanden und entsprechend konfiguriert sein.
+====
 
 === Die Funktion TIMER
 
@@ -156,7 +195,7 @@ Neben der Uhrzeit gibt es auch die Variable:
 TIMER
 ----
 
-Sie enthält die Anzahl der Millisekunden seit dem Start.
+`TIMER` ist ein fortlaufender Millisekundenzähler. Sein aktueller Wert kann gelesen werden.
 
 Beispiel:
 
@@ -172,17 +211,26 @@ Mögliche Ausgabe:
 123456
 ----
 
+Der Timer kann außerdem auf einen positiven Millisekundenwert gesetzt werden. Besonders praktisch ist das Zurücksetzen auf null:
+
+[source,basic]
+----
+TIMER = 0
+----
+
+Damit lassen sich einfache Zeitmessungen besonders übersichtlich durchführen.
+
 === Zeit messen
 
 Mit TIMER können Zeitmessungen durchgeführt werden.
 
 [source,basic]
 ----
-start = TIMER
+TIMER = 0
 
 PAUSE 2000
 
-PRINT TIMER - start
+PRINT TIMER
 ----
 
 Ausgabe:
@@ -193,6 +241,17 @@ Ausgabe:
 ----
 
 Das Programm hat etwa zwei Sekunden gewartet.
+
+Alternativ kann der aktuelle Wert von `TIMER` in einer Variablen gespeichert werden. Das ist sinnvoll, wenn der Timer nicht zurückgesetzt werden soll:
+
+[source,basic]
+----
+start = TIMER
+
+PAUSE 2000
+
+PRINT TIMER - start
+----
 
 === Eine einfache Stoppuhr
 
@@ -368,9 +427,7 @@ END FUNCTION
 
 Für einen Kalender müssen wir außerdem wissen, auf welchen Wochentag der erste Tag des Monats fällt.
 
-MMBasic stellt dafür Datumsfunktionen zur Verfügung. Alternativ kann eine entsprechende Berechnungsfunktion verwendet werden.
-
-Für unser Beispiel verwenden wir eine vorbereitete Funktion:
+Für unser Beispiel berechnen wir den Wochentag mit einer eigenen Funktion:
 
 [source,basic]
 ----
@@ -469,11 +526,11 @@ Versuche den Kalender so zu erweitern, dass automatisch der aktuelle Monat angez
 Verwende dazu DATE$ und werte Monat und Jahr aus dem aktuellen Datum aus.
 ====
 
-=== Praxisprojekt: Betriebsstundenzähler
+=== Praxisprojekt: Laufzeitzähler
 
-Viele technische Geräte zählen ihre Betriebszeit.
+Mit `TIMER` lässt sich auch anzeigen, wie lange ein Programm bereits läuft.
 
-Das lässt sich leicht nachbauen.
+Das folgende Beispiel ist ein einfacher Laufzeitzähler:
 
 [source,basic]
 ----
@@ -496,11 +553,16 @@ DO
 LOOP
 ----
 
+[NOTE]
+====
+Dies ist noch kein echter Betriebsstundenzähler. Ein solcher müsste seinen Zählerstand dauerhaft speichern und beim nächsten Einschalten wieder laden.
+====
+
 === Praxisprojekt: Messwerte mit Zeitstempel
 
 Stellen wir uns vor, ein Sensor liefert Messwerte.
 
-Dann könnte jeder Datensatz mit Datum und Uhrzeit gespeichert werden.
+Dann könnte jeder Datensatz mit Datum und Uhrzeit gespeichert werden. Voraussetzung für aussagekräftige Zeitstempel ist natürlich, dass Datum und Uhrzeit zuvor korrekt eingestellt oder aus einer RTC übernommen wurden.
 
 [source,basic]
 ----
@@ -551,7 +613,7 @@ Fast jedes größere Projekt benötigt früher oder später Datum und Uhrzeit.
 * Verwende DATE$ und TIME$ für Anzeigen.
 * Speichere Messwerte immer mit Zeitstempel.
 * Aktualisiere Uhren höchstens einmal pro Sekunde.
-* Nutze die RTC für langfristige Zeitmessungen.
+* Nutze eine konfigurierte RTC, wenn Datum und Uhrzeit auch nach dem Ausschalten korrekt erhalten bleiben sollen.
 
 === Probier's selbst!
 
