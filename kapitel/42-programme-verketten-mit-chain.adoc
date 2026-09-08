@@ -7,13 +7,15 @@ image::bilder/42_programme_verketten.jpg[align=center]
 In diesem Kapitel lernst du:
 
 * was `CHAIN` macht,
-* wann `CHAIN` sinnvoll eingesetzt wird,
 * wie du mehrere Programme miteinander verbindest,
+* wie Variablen beim Programmwechsel erhalten bleiben,
+* wie du mit `MM.CMDLINE$` zusätzliche Informationen an das nächste Programm übergibst,
 * wie du ein gemeinsames Menü für deine Programme erstellst und
-* wie Daten zwischen getrennten Programmen ausgetauscht werden können.
+* wann Daten zusätzlich in einer Datei gespeichert werden sollten.
 
 Am Ende des Kapitels kannst du mehrere eigenständige MMBasic-Programme zu
-einer gemeinsamen Anwendung verbinden.
+einer gemeinsamen Anwendung verbinden und dabei Daten von einem Programm an
+das nächste weitergeben.
 
 === Ein gemeinsames Menü
 
@@ -28,11 +30,12 @@ zum Beispiel:
 Wäre es nicht praktisch, wenn du alle diese Programme über ein gemeinsames
 Hauptmenü starten könntest?
 
-Genau dafür gibt es den Befehl `CHAIN`.
+Genau dafür eignet sich der Befehl `CHAIN`.
 
-Mit `CHAIN` lassen sich mehrere eigenständige Programme miteinander verbinden.
-Dadurch können übersichtliche Anwendungen entstehen, deren einzelne Programme
-jeweils eine bestimmte Aufgabe übernehmen.
+Mit `CHAIN` kann ein laufendes BASIC-Programm ein anderes BASIC-Programm laden
+und sofort starten. Dabei bleibt der Variablenbereich erhalten. Auf diese Weise
+lassen sich größere Anwendungen auf mehrere Programme verteilen, ohne dass alle
+Daten beim Wechsel verloren gehen.
 
 Ein solches Projekt könnte beispielsweise aus folgenden Dateien bestehen:
 
@@ -48,39 +51,135 @@ RECHNER.BAS
 
 === Was macht CHAIN?
 
-Mit `CHAIN` wird ein anderes BASIC-Programm geladen und sofort gestartet.
+Die grundlegende Syntax lautet:
 
-Beispiel:
+[source,basic]
+----
+CHAIN fname$ [cmdline$]
+----
+
+`fname$` bezeichnet das BASIC-Programm, das geladen und gestartet werden soll.
+Optional kann zusätzlich mit `cmdline$` eine Zeichenkette an das neue Programm
+übergeben werden.
+
+Ein einfaches Beispiel:
 
 [source,basic]
 ----
 CHAIN "PONG.BAS"
 ----
 
-Das aktuell laufende Programm wird beendet. Anschließend wird `PONG.BAS`
-geladen und gestartet.
+Das aktuell laufende Programm wird durch `PONG.BAS` ersetzt und dieses sofort
+gestartet.
+
+Der wichtige Unterschied zu einem vollständigen Neustart ist: Der vorhandene
+Variablenbereich bleibt erhalten.
+
+[IMPORTANT]
+====
+Beim Wechsel mit `CHAIN` bleiben die Variablen des bisherigen Programms erhalten.
+Das neue Programm kann diese Variablen deshalb weiterverwenden.
+====
+
+=== Variablen bleiben erhalten
+
+Nehmen wir an, ein erstes Programm setzt einige Werte:
+
+[source,basic]
+----
+punkte = 100
+spieler$ = "Manfred"
+
+CHAIN "SPIEL2.BAS"
+----
+
+Im Programm `SPIEL2.BAS` können diese Variablen direkt weiterverwendet werden:
+
+[source,basic]
+----
+PRINT "Spieler: "; spieler$
+PRINT "Punkte: "; punkte
+----
+
+Die Ausgabe könnte so aussehen:
+
+[source]
+----
+Spieler: Manfred
+Punkte: 100
+----
+
+Damit eignet sich `CHAIN` nicht nur zum Starten eines anderen Programms, sondern
+auch dazu, größere Programme in mehrere Teile aufzuteilen und dabei gemeinsame
+Daten weiterzugeben.
 
 [NOTE]
 ====
-`CHAIN` startet das neue Programm so, als wäre es gerade frisch geladen
-worden. Variablen des vorherigen Programms stehen deshalb im neuen Programm
-nicht mehr zur Verfügung.
+Damit das zuverlässig funktioniert, sollten Variablen, die zwischen mehreren
+Programmen verwendet werden, in allen beteiligten Programmen mit demselben Namen
+und demselben Datentyp benutzt werden.
 ====
+
+=== Zusätzliche Parameter mit MM.CMDLINE$
+
+Neben dem erhaltenen Variablenbereich kann `CHAIN` dem nächsten Programm noch
+eine zusätzliche Zeichenkette übergeben.
+
+Beispiel:
+
+[source,basic]
+----
+CHAIN "SPIEL.BAS", "LEVEL=2"
+----
+
+Im gestarteten Programm steht diese Zeichenkette in `MM.CMDLINE$` zur Verfügung:
+
+[source,basic]
+----
+PRINT MM.CMDLINE$
+----
+
+Die Ausgabe lautet:
+
+[source]
+----
+LEVEL=2
+----
+
+`MM.CMDLINE$` eignet sich beispielsweise für:
+
+* Startoptionen,
+* Dateinamen,
+* einen gewünschten Spielmodus oder
+* andere kurze Parameter, die das neue Programm beim Start auswerten soll.
+
+Ein einfaches Beispiel wäre:
+
+[source,basic]
+----
+IF MM.CMDLINE$ = "SCHWER" THEN
+  PRINT "Schwieriger Spielmodus"
+ELSE
+  PRINT "Normaler Spielmodus"
+ENDIF
+----
 
 === CHAIN oder RUN?
 
-Auf den ersten Blick scheint `CHAIN` dem Befehl `RUN` ähnlich zu sein. Es gibt
-jedoch einen wichtigen Unterschied.
+Auf den ersten Blick scheint `CHAIN` dem Befehl `RUN` ähnlich zu sein. Beide
+können ein BASIC-Programm starten, sie werden aber für unterschiedliche Zwecke
+eingesetzt.
 
-`RUN` wird normalerweise verwendet, um ein Programm an der
-MMBasic-Eingabeaufforderung zu starten:
+`RUN` wird häufig an der MMBasic-Eingabeaufforderung verwendet, um ein Programm
+zu starten:
 
 [source,basic]
 ----
 RUN "PONG.BAS"
 ----
 
-`CHAIN` wird dagegen innerhalb eines bereits laufenden Programms eingesetzt:
+`CHAIN` wird dagegen innerhalb eines laufenden Programms verwendet, wenn die
+Programmausführung mit einem anderen BASIC-Programm fortgesetzt werden soll:
 
 [source,basic]
 ----
@@ -89,7 +188,8 @@ IF taste$ = "P" THEN
 ENDIF
 ----
 
-Damit kann ein Programm gezielt ein anderes Programm aufrufen.
+Der besondere Vorteil von `CHAIN` besteht darin, dass der Variablenbereich beim
+Programmwechsel erhalten bleibt.
 
 === Ein einfaches Hauptmenü
 
@@ -119,19 +219,19 @@ INPUT "Auswahl"; wahl
 SELECT CASE wahl
 
   CASE 1
-    CHAIN "PONG.BAS"
+    CHAIN "PONG.BAS", "HAUPTMENU"
 
   CASE 2
-    CHAIN "SENSO.BAS"
+    CHAIN "SENSO.BAS", "HAUPTMENU"
 
   CASE 3
-    CHAIN "LITTLEPROFESSOR.BAS"
+    CHAIN "LITTLEPROFESSOR.BAS", "HAUPTMENU"
 
   CASE 4
-    CHAIN "UHR.BAS"
+    CHAIN "UHR.BAS", "HAUPTMENU"
 
   CASE 5
-    CHAIN "RECHNER.BAS"
+    CHAIN "RECHNER.BAS", "HAUPTMENU"
 
   CASE 0
     END
@@ -143,7 +243,8 @@ END SELECT
 ----
 
 Wählt der Benutzer einen Menüpunkt aus, lädt `CHAIN` das zugehörige Programm
-und startet es.
+und startet es. Zusätzlich erhält das gestartete Programm in diesem Beispiel
+über `MM.CMDLINE$` die Information, dass es aus dem Hauptmenü aufgerufen wurde.
 
 === Die Struktur des Projekts
 
@@ -188,7 +289,36 @@ LOOP UNTIL INKEY$ <> ""
 CHAIN "HAUPTMENU.BAS"
 ----
 
-Nach dem Tastendruck wird das Hauptmenü erneut geladen und gestartet.
+Nach dem Tastendruck wird das Hauptmenü wieder geladen und gestartet.
+
+Da der Variablenbereich erhalten bleibt, könnten dabei beispielsweise auch ein
+Punktestand, ein Spielername oder eine Einstellung weitergegeben werden.
+
+=== CHAIN möglichst auf Programmebene verwenden
+
+Das PicoMite-Handbuch empfiehlt, `CHAIN` auf der obersten Programmebene zu
+verwenden und möglichst nicht innerhalb einer Subroutine aufzurufen.
+
+[IMPORTANT]
+====
+Verwende `CHAIN` nach Möglichkeit im Hauptablauf deines Programms und nicht aus
+einer `SUB` oder `FUNCTION` heraus.
+====
+
+Eine gute Struktur ist beispielsweise:
+
+[source,basic]
+----
+DO
+  k$ = INKEY$
+LOOP UNTIL k$ <> ""
+
+IF k$ = "1" THEN CHAIN "SPIEL1.BAS"
+IF k$ = "2" THEN CHAIN "SPIEL2.BAS"
+----
+
+So bleibt der Programmablauf übersichtlich und der Programmwechsel findet auf
+der obersten Ebene statt.
 
 === Vorteile von CHAIN
 
@@ -196,17 +326,18 @@ Die Verbindung mehrerer Programme bietet einige Vorteile:
 
 * Die einzelnen Programme bleiben überschaubar.
 * Jedes Programm kann unabhängig entwickelt und getestet werden.
-* Fehler lassen sich leichter eingrenzen.
+* Der Variablenbereich bleibt beim Wechsel erhalten.
+* Daten können ohne zusätzliche Datei an das nächste Programm weitergegeben werden.
+* Mit `MM.CMDLINE$` können zusätzliche Startparameter übergeben werden.
 * Einzelne Programme können ausgetauscht oder erweitert werden.
-* Ein zentrales Menü kann verschiedene Programme zu einer gemeinsamen
-  Anwendung verbinden.
+* Ein zentrales Menü kann mehrere Programme zu einer gemeinsamen Anwendung verbinden.
 
 [TIP]
 ====
-`CHAIN` eignet sich besonders für Programme, die weitgehend unabhängig
-voneinander arbeiten.
+`CHAIN` eignet sich besonders für größere Anwendungen, die in mehrere eigenständige
+Programmteile aufgeteilt werden sollen.
 
-Sollen dagegen mehrere Programme dieselben Unterprogramme oder Funktionen
+Sollen dagegen mehrere Programme vor allem dieselben Unterprogramme oder Funktionen
 verwenden, ist häufig die MMBasic-Library die bessere Wahl.
 ====
 
@@ -225,180 +356,199 @@ TOOLS
 └── NOTIZEN.BAS
 ----
 
-Das Menü übernimmt nur die Auswahl. Die einzelnen Programme bleiben
-unabhängig voneinander und können jeweils separat gestartet und getestet
-werden.
+Das Menü übernimmt nur die Auswahl. Die einzelnen Programme können separat
+entwickelt und getestet werden. Gemeinsame Variablen, zum Beispiel Einstellungen
+oder ein Benutzername, können beim Wechsel erhalten bleiben.
 
-=== Grenzen von CHAIN
+=== Wann trotzdem eine Datei sinnvoll ist
 
-`CHAIN` lädt das neue Programm vollständig und beendet das aktuell laufende
-Programm.
+Da `CHAIN` den Variablenbereich erhält, müssen Werte nicht allein wegen eines
+Programmwechsels in einer Datei gespeichert werden.
 
-Dadurch gehen alle Variablen des bisherigen Programms verloren.
+Eine Datei ist aber weiterhin sinnvoll, wenn Daten dauerhaft erhalten bleiben
+sollen, zum Beispiel:
 
-Beispiel:
+* nach dem Ende der Programmkette,
+* nach einem Neustart des PicoMite,
+* nach dem Ausschalten oder
+* wenn die Daten später von einem anderen Programm erneut geladen werden sollen.
 
-[source,basic]
-----
-punkte = 100
-
-CHAIN "SPIEL2.BAS"
-----
-
-Im Programm `SPIEL2.BAS` existiert die Variable `punkte` nicht mehr.
-
-`CHAIN` verbindet also den Ablauf mehrerer Programme, aber nicht deren
-Variablen oder Programmspeicher.
-
-=== Daten zwischen Programmen austauschen
-
-Sollen Daten über einen Programmwechsel hinweg erhalten bleiben, müssen sie
-vorher gespeichert werden.
-
-Dafür gibt es verschiedene Möglichkeiten:
-
-* Daten in einer Datei speichern,
-* Einstellungen dauerhaft ablegen oder
-* benötigte Werte im neuen Programm erneut berechnen.
-
-Für viele Anwendungen genügt eine kleine Datei.
-
-==== Beispiel: Spielstand speichern
-
-Das erste Programm speichert den Punktestand:
+==== Beispiel: Spielstand dauerhaft speichern
 
 [source,basic]
 ----
 OPEN "PUNKTE.TXT" FOR OUTPUT AS #1
-
-PRINT #1, 150
-
+PRINT #1, punkte
 CLOSE #1
-
-CHAIN "SPIEL2.BAS"
 ----
 
-Das zweite Programm liest ihn wieder ein:
+Ein anderes Programm kann den gespeicherten Wert später wieder einlesen:
 
 [source,basic]
 ----
 OPEN "PUNKTE.TXT" FOR INPUT AS #1
-
 INPUT #1, punkte
-
 CLOSE #1
 
-PRINT "Punkte:"; punkte
+PRINT "Punkte: "; punkte
 ----
 
-So können Informationen von einem Programm an das nächste übergeben werden.
+Der Unterschied ist wichtig: `CHAIN` erhält Werte während der laufenden
+Programmkette. Eine Datei speichert sie dauerhaft auf dem Laufwerk.
 
 === CHAIN und Verzeichnisse
 
-`CHAIN` kann auch mit vollständigen Pfadangaben verwendet werden.
+`CHAIN` kann auch mit Pfadangaben verwendet werden.
 
 Beispiel:
 
 [source,basic]
 ----
-CHAIN "/SPIELE/PONG.BAS"
+CHAIN "A:/SPIELE/PONG.BAS"
 ----
 
-oder:
+oder bei einer entsprechend eingerichteten SD-Karte:
 
 [source,basic]
 ----
-CHAIN "/TOOLS/UHR.BAS"
+CHAIN "B:/TOOLS/UHR.BAS"
 ----
 
 Dadurch lassen sich auch größere Programmsammlungen übersichtlich in
 verschiedenen Verzeichnissen organisieren.
 
+Wie du Laufwerke und Verzeichnisse verwendest, hast du bereits im vorherigen
+Kapitel kennengelernt.
+
 === Historischer Hintergrund
 
-Schon viele klassische BASIC-Systeme kannten Befehle, mit denen zwischen
-mehreren Programmen gewechselt werden konnte.
+Schon viele klassische BASIC-Systeme kannten Möglichkeiten, umfangreichere
+Anwendungen auf mehrere Programme aufzuteilen.
 
-Dadurch konnten auch auf Computern mit wenig Speicher umfangreichere
-Anwendungen entstehen. MMBasic führt dieses bewährte Konzept auf modernen
-Systemen fort.
+Auf Computern mit wenig Speicher war das besonders nützlich, weil nicht immer
+der gesamte Programmcode gleichzeitig im Speicher liegen musste. MMBasic führt
+dieses bewährte Konzept mit `CHAIN` fort und erlaubt dabei zusätzlich, den
+Variablenbereich zwischen den Programmteilen zu erhalten.
 
-=== Praxisprojekt: Deine MMBasic-Sammlung
+=== Praxisprojekt: Eine kleine Programmkette
 
-Erstelle eine gemeinsame Programmsammlung aus einigen Programmen, die du in
-den bisherigen Kapiteln entwickelt hast.
+Zum Abschluss erstellen wir drei kleine Programme, mit denen du die wichtigsten
+Eigenschaften von `CHAIN` direkt ausprobieren kannst.
 
-Eine mögliche Struktur ist:
-
-[source]
-----
-MMBasic-Sammlung
-│
-├── Hauptmenü
-├── Spiele
-├── Lernprogramme
-└── Werkzeuge
-----
-
-Das Hauptmenü könnte beispielsweise folgende Einträge enthalten:
-
-[source]
-----
-1 - Pong
-2 - Senso
-3 - Little Professor
-4 - Bahnhofsuhr
-5 - Rechner
-----
-
-Jedes aufgerufene Programm sollte am Ende wieder mit
+==== 42_chain_start.bas
 
 [source,basic]
 ----
-CHAIN "HAUPTMENU.BAS"
+CLS
+
+spieler$ = "Manfred"
+punkte = 100
+
+PRINT "Startprogramm"
+PRINT "Spieler: "; spieler$
+PRINT "Punkte:  "; punkte
+PRINT
+PRINT "Weiter mit beliebiger Taste ..."
+
+DO
+LOOP UNTIL INKEY$ <> ""
+
+CHAIN "42_chain_spiel.bas", "LEVEL=2"
 ----
 
-zum Hauptmenü zurückkehren.
+Das Programm legt zwei Variablen an und startet anschließend
+`42_chain_spiel.bas`. Zusätzlich wird mit `LEVEL=2` ein Parameter übergeben.
 
-Je größer deine Sammlung wird, desto nützlicher wird ein zentrales Menü.
+==== 42_chain_spiel.bas
+
+[source,basic]
+----
+CLS
+
+PRINT "Spielprogramm"
+PRINT "Spieler: "; spieler$
+PRINT "Punkte:  "; punkte
+PRINT "Parameter: "; MM.CMDLINE$
+PRINT
+
+punkte = punkte + 50
+
+PRINT "50 Punkte gewonnen!"
+PRINT "Neuer Punktestand: "; punkte
+PRINT
+PRINT "Weiter mit beliebiger Taste ..."
+
+DO
+LOOP UNTIL INKEY$ <> ""
+
+CHAIN "42_chain_ende.bas"
+----
+
+Hier werden die Variablen des ersten Programms weiterverwendet. Der Punktestand
+wird verändert und bleibt auch beim nächsten `CHAIN` erhalten.
+
+==== 42_chain_ende.bas
+
+[source,basic]
+----
+CLS
+
+PRINT "Endprogramm"
+PRINT
+PRINT "Spieler: "; spieler$
+PRINT "Endstand: "; punkte
+PRINT
+PRINT "Die Variablen wurden über die gesamte"
+PRINT "Programmkette hinweg erhalten."
+----
+
+Wenn alles funktioniert, zeigt das letzte Programm weiterhin den Spielernamen
+und den inzwischen erhöhten Punktestand an.
+
+Damit kannst du direkt beobachten, dass `CHAIN` den Variablenbereich nicht
+löscht, sondern an das nächste Programm weitergibt.
 
 === Tipps aus der Praxis
 
-* Verwende `CHAIN` für Programme, die weitgehend unabhängig voneinander
-  arbeiten.
+* Verwende `CHAIN`, wenn eine Anwendung sinnvoll in mehrere BASIC-Programme aufgeteilt werden kann.
+* Nutze den erhaltenen Variablenbereich, um Daten an das nächste Programm weiterzugeben.
+* Verwende `MM.CMDLINE$`, wenn du dem nächsten Programm gezielt einen zusätzlichen Startparameter mitgeben möchtest.
+* Verwende `CHAIN` möglichst auf der obersten Programmebene und nicht innerhalb einer Subroutine.
 * Teste jedes Programm zunächst einzeln.
 * Verwende aussagekräftige Datei- und Verzeichnisnamen.
-* Speichere wichtige Daten vor dem Programmwechsel in einer Datei.
-* Sorge dafür, dass jedes Unterprogramm wieder zum Hauptmenü zurückkehren kann.
-* Plane frühzeitig eine klare Verzeichnisstruktur.
+* Speichere Daten in einer Datei, wenn sie auch nach dem Ende der Programmkette oder nach einem Neustart erhalten bleiben sollen.
+* Plane bei größeren Projekten frühzeitig eine klare Verzeichnisstruktur.
 
 === Probier's selbst!
 
-. Erstelle ein Hauptmenü.
-. Lege zwei kleine Testprogramme an.
-. Starte beide Programme über `CHAIN`.
-. Baue in jedes Programm eine Rückkehr zum Hauptmenü ein.
-. Erweitere das Menü um weitere Programme.
-. Übertrage einen Wert mithilfe einer Datei von einem Programm zum nächsten.
+. Erstelle ein Startprogramm und ein zweites BASIC-Programm.
+. Lege im Startprogramm eine numerische Variable und eine Stringvariable an.
+. Starte das zweite Programm mit `CHAIN` und gib dort beide Variablen aus.
+. Übergib zusätzlich einen Textparameter und zeige ihn mit `MM.CMDLINE$` an.
+. Verändere im zweiten Programm einen Wert und starte mit `CHAIN` ein drittes Programm.
+. Prüfe, ob der geänderte Wert dort weiterhin vorhanden ist.
+. Erweitere das Beispiel anschließend zu einem kleinen Hauptmenü.
 
 === Zusammenfassung
 
 In diesem Kapitel hast du gelernt:
 
 * Programme mit `CHAIN` zu starten,
-* mehrere eigenständige Programme miteinander zu verbinden,
+* mehrere BASIC-Programme miteinander zu verbinden,
+* dass der Variablenbereich beim Programmwechsel erhalten bleibt,
+* zusätzliche Parameter über `MM.CMDLINE$` zu übergeben,
 * ein gemeinsames Menü zu erstellen,
-* jedes Programm unabhängig zu entwickeln und zu testen und
-* Daten mithilfe einer Datei zwischen Programmen auszutauschen.
+* `CHAIN` möglichst auf der obersten Programmebene einzusetzen und
+* wann Daten zusätzlich dauerhaft in einer Datei gespeichert werden sollten.
 
-`CHAIN` verbindet keine Quelltextmodule, sondern startet nacheinander
-vollständige Programme. Damit eignet sich der Befehl besonders für
-Menüsysteme und Programmsammlungen, deren einzelne Bestandteile weitgehend
-unabhängig voneinander arbeiten.
+`CHAIN` startet nicht einfach nur ein anderes Programm. Der Befehl erlaubt es,
+eine größere Anwendung auf mehrere BASIC-Dateien aufzuteilen und dabei den
+Variablenbereich weiterzuführen. Dadurch eignet sich `CHAIN` besonders für
+Menüsysteme, Spiele mit mehreren Programmteilen und größere Programmsammlungen.
 
 === Programmbeispiel
 
-Das vollständige BASIC-Programm findest du hier:
+Die vollständigen BASIC-Programme findest du hier:
 
 * {github-programme}/42_chain_start.bas[42_chain_start.bas]
 * {github-programme}/42_chain_spiel.bas[42_chain_spiel.bas]
