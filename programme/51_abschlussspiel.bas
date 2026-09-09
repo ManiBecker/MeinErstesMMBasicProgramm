@@ -4,7 +4,7 @@ Rem Datei: 51_abschlussspiel.bas
 Rem Titel: Kapitel 51: Von der Idee zum fertigen Spiel
 Rem Buch:  Mein erstes MMBasic Programm
 Rem Autor: Manfred Becker
-Rem Datum: 09.09.2026
+Rem Datum: 10.09.2026
 Rem
 Rem Beschreibung:
 Rem
