@@ -19,7 +19,7 @@ Du hast gelernt,
 * Sound zu erzeugen,
 * Dateien zu verwenden,
 * Timer einzusetzen,
-* Gamepads auszulesen
+* Cursortasten, Maus und Gamepads auszulesen
 * und Sprites über den Bildschirm zu bewegen.
 
 Jedes dieser Themen war zunächst nur ein kleiner Baustein.
@@ -57,13 +57,14 @@ Damit besitzt unser Spiel bereits viele typische Bestandteile eines klassischen 
 
 Die Regeln unseres Spiels sind schnell erklärt.
 
-* Der Spieler bewegt seine Figur mit dem linken Analogstick eines USB-Gamepads.
+* Zu Beginn wählt der Spieler die gewünschte Steuerung: Cursortasten, Maus, Gamepad-Tasten oder den linken Analogstick eines USB-Gamepads.
 * Jede eingesammelte Münze bringt Punkte.
 * Mehrere Gegner bewegen sich selbstständig über den Bildschirm.
 * Berührt ein Gegner den Spieler, geht ein Leben verloren.
 * Sind alle Münzen eingesammelt, beginnt das nächste Level.
 * Mit jedem Level bewegen sich die Gegner schneller.
 * Sind keine Leben mehr vorhanden, endet das Spiel.
+* Nach `GAME OVER` kann der Spieler entscheiden, ob eine neue Runde gestartet werden soll.
 
 Mehr Regeln benötigen wir zunächst nicht.
 
@@ -106,7 +107,9 @@ Am oberen Bildschirmrand befindet sich zusätzlich eine Statuszeile mit
 
 === Für welches System schreiben wir das Spiel?
 
-Das Beispiel in diesem Kapitel ist auf einen PicoMite mit VGA- oder HDMI-Ausgabe und USB-Gamepad ausgelegt. Besonders gut passt es damit zu unserem PicoMite HDMI/USB.
+Das Beispiel in diesem Kapitel ist auf einen PicoMite mit VGA- oder HDMI-Ausgabe ausgelegt. Besonders gut passt es damit zu unserem PicoMite HDMI/USB.
+
+Die verbesserte Version des Spiels ist bei der Eingabe deutlich flexibler: Sie kann mit Tastatur, USB-Maus, Gamepad-Tasten oder dem linken Analogstick eines USB-Gamepads gesteuert werden.
 
 Die Sprite-Befehle arbeiten bei VGA und HDMI in den dafür vorgesehenen Grafikmodi. Für unser Spiel verwenden wir `MODE 2`.
 
@@ -114,7 +117,7 @@ Die Sprite-Befehle arbeiten bei VGA und HDMI in den dafür vorgesehenen Grafikmo
 ====
 Andere PicoMite-Varianten können ebenfalls Sprite-Funktionen besitzen, wenn ein geeigneter Framebuffer verwendet wird. Die genaue Verfügbarkeit hängt jedoch von der jeweiligen Firmware-Variante und der Display-Konfiguration ab.
 
-Das Abschlussprogramm in diesem Kapitel konzentriert sich deshalb bewusst auf VGA/HDMI mit USB-Gamepad.
+Das Abschlussprogramm in diesem Kapitel konzentriert sich deshalb bewusst auf VGA/HDMI. Für Maus und Gamepad wird eine PicoMite-Variante mit entsprechender USB-Unterstützung benötigt.
 ====
 
 === Planung vor dem Programmieren
@@ -128,14 +131,17 @@ Unser Programm muss mehrere Aufgaben erledigen:
 * Spielvariablen initialisieren,
 * Münzen platzieren,
 * Gegner platzieren,
-* Gamepad einlesen,
+* gewünschte Steuerung auswählen,
+* Cursortasten, Maus oder Gamepad einlesen,
 * Spieler bewegen,
 * Gegner bewegen,
 * Sprites gemeinsam verschieben,
 * Kollisionen prüfen,
 * Punktestand und Leben aktualisieren,
-* das nächste Level starten
-* und das Spielende anzeigen.
+* das nächste Level starten,
+* Soundeffekte zeitgesteuert beenden,
+* das Spielende anzeigen
+* und auf Wunsch eine neue Runde starten.
 
 Diese Aufgaben werden wir nicht alle direkt in das Hauptprogramm schreiben.
 
@@ -159,6 +165,11 @@ Grafikmodus einstellen
     |
     v
 
+Steuerung auswählen
+
+    |
+    v
+
 Sprites erzeugen
 
     |
@@ -172,19 +183,25 @@ Spiel initialisieren
 +-------------------------+
 |       GAME LOOP         |
 |                         |
-|  Gamepad lesen          |
+|  Eingabe lesen          |
 |  Spieler bewegen        |
 |  Gegner bewegen         |
 |  Sprites verschieben    |
 |  Kollisionen prüfen     |
 |  Level prüfen           |
 |  Status anzeigen        |
+|  Sound aktualisieren    |
 +-------------------------+
 
     |
     v
 
 GAME OVER
+
+    |
+    v
+
+Nochmal spielen?
 ----
 
 Die zentrale Spielschleife bleibt dadurch relativ kurz. Die eigentliche Arbeit übernehmen die Unterprogramme.
@@ -314,15 +331,20 @@ CONST MaxCoins = 10
 CONST StartLives = 3
 CONST CoinPoints = 10
 
-CONST PlayerSpeed = 3
+CONST PlayerSpeed = 5
 CONST EnemyStartSpeed = 1
 
 CONST PlayerSprite = 1
 CONST FirstEnemySprite = 2
 CONST FirstCoinSprite = 6
 
+CONST SpriteSize = 12
 CONST PlayfieldTop = 32
+CONST MouseChannel = 2
 CONST GamepadChannel = 3
+
+CONST DeadZoneLow = 110
+CONST DeadZoneHigh = 146
 ----
 
 Damit sind die Sprite-Nummern eindeutig vergeben:
@@ -545,7 +567,122 @@ NEXT i
 
 Wir verwenden für alle Spielfiguren denselben Layer. Dadurch können sie miteinander kollidieren.
 
-=== Schritt 9: Das USB-Gamepad lesen
+=== Schritt 9: Die Steuerung auswählen und einlesen
+
+Die überarbeitete Version unseres Spiels ist nicht mehr auf den Analogstick eines Gamepads beschränkt. Direkt nach `MODE 2` fragt das Programm mit `GameControl()` ab, wie der Spieler steuern möchte:
+
+[source]
+----
+Cursortasten....: 1
+Maus...........: 2
+Gamepad-Button.: 3
+Gamepad-Stick..: 4
+----
+
+Die Auswahl wird in der Variablen `Control` gespeichert. In der Game Loop genügt anschließend ein Aufruf von `ReadControl`.
+
+[source,basic]
+----
+SUB ReadControl
+    IF Control = 2 THEN
+        ReadMouse
+    ELSEIF Control = 3 THEN
+        ReadGamepadButtons
+    ELSEIF Control = 4 THEN
+        ReadGamepadStick
+    ELSE
+        ReadKeyboard
+    ENDIF
+END SUB
+----
+
+Damit bleibt die eigentliche Spielsteuerung vom restlichen Programm getrennt.
+
+==== Cursortasten
+
+Für die Tastatur verwenden wir die vier Cursortasten. Statt `INKEY$` kommt hier `KEYDOWN()` zum Einsatz. Das hat einen wichtigen Vorteil: `KEYDOWN(0)` liefert die Anzahl der gleichzeitig gedrückten Tasten und mit `KEYDOWN(i)` können wir diese einzeln abfragen.
+
+Damit sind auch diagonale Bewegungen möglich. Werden beispielsweise `Cursor hoch` und `Cursor rechts` gleichzeitig gedrückt, erhält der Spieler sowohl eine Bewegung in X- als auch in Y-Richtung.
+
+Die Cursortasten liefern dabei die Codes 128 bis 131:
+
+* 128 = Cursor hoch
+* 129 = Cursor runter
+* 130 = Cursor links
+* 131 = Cursor rechts
+
+[source,basic]
+----
+SUB ReadKeyboard
+    LOCAL INTEGER i, key
+
+    MoveX = 0
+    MoveY = 0
+
+    FOR i = 1 TO KEYDOWN(0)
+        key = KEYDOWN(i)
+
+        SELECT CASE key
+            CASE 128
+                MoveY = -PlayerSpeed
+
+            CASE 129
+                MoveY = PlayerSpeed
+
+            CASE 130
+                MoveX = -PlayerSpeed
+
+            CASE 131
+                MoveX = PlayerSpeed
+        END SELECT
+    NEXT i
+END SUB
+----
+
+Durch die gemeinsamen Variablen `MoveX` und `MoveY` unterscheidet sich der restliche Programmablauf nicht von Maus- oder Gamepad-Steuerung.
+
+[TIP]
+====
+`KEYDOWN()` ist für eine Spielsteuerung besser geeignet als `INKEY$`, wenn mehrere Tasten gleichzeitig erkannt werden sollen. Genau das benötigen wir für diagonale Bewegungen mit den Cursortasten.
+====
+
+==== Maus
+
+Bei der Maus vergleichen wir die aktuelle Position mit der Position des vorherigen Schleifendurchlaufs. Entscheidend ist also nicht die absolute Mausposition, sondern die Bewegungsrichtung.
+
+[source,basic]
+----
+x = DEVICE(MOUSE MouseChannel, X)
+dx = x - MouseXPos
+
+IF dx < 0 THEN
+    MoveX = -PlayerSpeed
+ELSEIF dx > 0 THEN
+    MoveX = PlayerSpeed
+ELSE
+    MoveX = 0
+ENDIF
+----
+
+Für die Y-Richtung funktioniert das genauso.
+
+==== Gamepad-Tasten
+
+Auch die Tasten eines Gamepads können zur Steuerung verwendet werden. `DEVICE(GAMEPAD ..., B)` liefert dabei ein Bitmuster. Mit `AND` prüfen wir, welche Richtungstaste gedrückt ist.
+
+[source,basic]
+----
+buttons% = DEVICE(GAMEPAD GamepadChannel, B)
+
+IF (buttons% AND BtnLeft%) <> 0 THEN MoveX = -PlayerSpeed
+IF (buttons% AND BtnRight%) <> 0 THEN MoveX = PlayerSpeed
+IF (buttons% AND BtnUp%) <> 0 THEN MoveY = -PlayerSpeed
+IF (buttons% AND BtnDown%) <> 0 THEN MoveY = PlayerSpeed
+----
+
+Die Konstanten `BtnDown%`, `BtnRight%`, `BtnUp%` und `BtnLeft%` enthalten die zu unserem Gamepad passenden Bitwerte.
+
+==== Gamepad-Analogstick
 
 Beim PicoMite HDMI/USB kann ein unterstütztes USB-Gamepad direkt über `DEVICE()` abgefragt werden.
 
@@ -556,8 +693,8 @@ Für den linken Analogstick interessieren uns die beiden Achsen
 
 [source,basic]
 ----
-StickX = DEVICE(GAMEPAD GamepadChannel, LX)
-StickY = DEVICE(GAMEPAD GamepadChannel, LY)
+StickX = DEVICE(GAMEPAD GamepadChannel, "LX")
+StickY = DEVICE(GAMEPAD GamepadChannel, "LY")
 ----
 
 Die Achswerte liegen typischerweise zwischen `0` und `255`. Die Mittelstellung befindet sich ungefähr bei `128`.
@@ -589,7 +726,9 @@ Falls dein Gamepad auf einem anderen Kanal erkannt wurde, passt du lediglich `Ga
 
 === Schritt 10: Spieler bewegen
 
-Aus den Gamepad-Werten berechnen wir zunächst die neue Spielerposition.
+Unabhängig von der gewählten Eingabemethode liefern die vier Leseroutinen am Ende nur zwei Werte: `MoveX` und `MoveY`.
+
+Aus diesen Bewegungswerten berechnen wir die neue Spielerposition.
 
 [source,basic]
 ----
@@ -709,8 +848,14 @@ Der prinzipielle Ablauf sieht so aus:
 
 [source,basic]
 ----
-FOR c = 1 TO SPRITE(C, PlayerSprite)
-    HitSprite = SPRITE(C, PlayerSprite, c)
+HitCount = SPRITE(C, PlayerSprite)
+
+FOR i = 1 TO HitCount
+    HitList(i) = SPRITE(C, PlayerSprite, i)
+NEXT i
+
+FOR i = 1 TO HitCount
+    HitSprite = HitList(i)
 
     IF HitSprite >= FirstCoinSprite AND _
        HitSprite < FirstCoinSprite + MaxCoins THEN
@@ -719,14 +864,17 @@ FOR c = 1 TO SPRITE(C, PlayerSprite)
 
         IF CoinVisible(CoinIndex) THEN
             CoinVisible(CoinIndex) = 0
-            SPRITE HIDE #HitSprite
+            SPRITE HIDE SAFE HitSprite
             Score = Score + CoinPoints
+            StartCoinSound
         ENDIF
     ENDIF
-NEXT c
+NEXT i
 ----
 
 Damit übernimmt die Sprite-Verwaltung einen großen Teil der Arbeit für uns.
+
+Neu ist hier `HitList()`: Wir kopieren die aktuelle Kollisionsliste zunächst in ein eigenes Array. Das ist wichtig, weil `SPRITE HIDE SAFE` beim Einsammeln einer Münze den Sprite-Zustand verändert. Würden wir währenddessen immer wieder die ursprüngliche Kollisionsliste abfragen, könnte sich deren Inhalt bereits verändert haben.
 
 Wir müssen weder Breite und Höhe beider Objekte vergleichen noch selbst berechnen, ob sich zwei Rechtecke überschneiden.
 
@@ -738,7 +886,29 @@ Dazu können wir einen kurzen Ton abspielen.
 
 Welche Audioausgabe zur Verfügung steht, hängt von der verwendeten PicoMite-Variante und ihrer Konfiguration ab.
 
-Im vollständigen Programm verwenden wir deshalb nur einen einfachen Soundeffekt, der zum HDMI/USB-Aufbau des Tutorials passt.
+Im vollständigen Programm verwenden wir deshalb einfache Soundeffekte, die zum HDMI/USB-Aufbau des Tutorials passen.
+
+Die Töne werden nicht mit einer zusätzlichen `PAUSE` beendet. Stattdessen merken wir uns mit `Timer`, wann ein Ton ausgeschaltet werden soll. `UpdateSound` wird in jedem Durchlauf der Game Loop aufgerufen.
+
+[source,basic]
+----
+SUB StartCoinSound
+    PLAY SOUND 1, B, Q, 1200, 10
+    SoundActive = 1
+    SoundOffAt = TIMER + 60
+END SUB
+
+SUB UpdateSound
+    IF SoundActive THEN
+        IF TIMER >= SoundOffAt THEN
+            PLAY SOUND 1, B, O
+            SoundActive = 0
+        ENDIF
+    ENDIF
+END SUB
+----
+
+So blockiert der kurze Soundeffekt die Spielschleife nicht.
 
 === Schritt 15: Kollision mit einem Gegner
 
@@ -748,11 +918,17 @@ Entsprechend leicht können wir erkennen, ob der Spieler einen Gegner berührt h
 
 [source,basic]
 ----
-IF HitSprite >= FirstEnemySprite AND _
-   HitSprite < FirstEnemySprite + MaxEnemies THEN
-
+IF EnemyHit THEN
     Lives = Lives - 1
-    ResetPlayer
+    StartHitSound
+
+    IF Lives > 0 THEN
+        ResetPlayer
+        SPRITE SHOW SAFE PlayerSprite, PlayerX, PlayerY, 1
+        PAUSE 300
+    ENDIF
+
+    EXIT SUB
 ENDIF
 ----
 
@@ -763,15 +939,14 @@ Nach einer Kollision setzen wir den Spieler zurück in die Bildschirmmitte.
 SUB ResetPlayer
     PlayerX = MM.HRES \ 2 - SPRITE(W, PlayerSprite) \ 2
     PlayerY = MM.VRES \ 2 - SPRITE(H, PlayerSprite) \ 2
-
-    SPRITE SHOW SAFE #PlayerSprite, PlayerX, PlayerY, 1
-    PAUSE 300
 END SUB
 ----
 
-Die kurze Pause verhindert, dass direkt mehrere Leben durch dieselbe Berührung verloren gehen.
+`ResetPlayer` berechnet nur die neue Startposition. Das erneute Anzeigen mit `SPRITE SHOW SAFE` und die kurze Pause erfolgen in `CheckCollisions`.
 
-Für ein größeres Spiel wäre eine kurze Unverwundbarkeitszeit die elegantere Lösung. Für unser Abschlussprojekt genügt die Pause.
+Außerdem haben Gegnerkollisionen Vorrang vor Münzen. Berührt der Spieler in demselben Moment einen Gegner und eine Münze, verliert er zuerst ein Leben und die Kollisionsroutine wird beendet. Dadurch bleibt das Verhalten eindeutig.
+
+Die kurze Pause verhindert, dass direkt mehrere Leben durch dieselbe Berührung verloren gehen. Für ein größeres Spiel wäre eine kurze Unverwundbarkeitszeit die elegantere Lösung. Für unser Abschlussprojekt genügt die Pause.
 
 === Schritt 16: Sind noch Münzen vorhanden?
 
@@ -851,17 +1026,18 @@ Die zentrale Spielschleife kann deshalb erstaunlich kompakt bleiben:
 ----
 DO WHILE Lives > 0
 
-    ReadGamepad
+    ReadControl
     MovePlayer
     MoveEnemies
     MoveSprites
     CheckCollisions
 
-    IF CoinsRemaining() = 0 THEN
-        StartNextLevel
+    IF Lives > 0 THEN
+        IF CoinsRemaining() = 0 THEN StartNextLevel
     ENDIF
 
     UpdateStatus
+    UpdateSound
 
     PAUSE 16
 LOOP
@@ -899,7 +1075,7 @@ Das bedeutet jedoch nicht, dass unser Spiel tatsächlich exakt mit 62,5 Bildern 
 
 Auch
 
-* das Einlesen des Gamepads,
+* das Einlesen des gewählten Eingabegeräts,
 * die BASIC-Berechnungen,
 * die Sprite-Bewegungen,
 * die Kollisionsprüfung
@@ -930,11 +1106,14 @@ SPRITE HIDE ALL
 
 CLS RGB(BLACK)
 
-TEXT MM.HRES \ 2, MM.VRES \ 2 - 20, _
+TEXT MM.HRES \ 2, MM.VRES \ 2 - 28, _
      "GAME OVER", C, 2, 2, RGB(RED)
 
-TEXT MM.HRES \ 2, MM.VRES \ 2 + 20, _
+TEXT MM.HRES \ 2, MM.VRES \ 2 + 12, _
      "Punkte: " + STR$(Score), C, 1, 1, RGB(WHITE)
+
+TEXT MM.HRES \ 2, MM.VRES \ 2 + 40, _
+     "Level: " + STR$(Level), C, 1, 1, RGB(WHITE)
 ----
 
 Damit besitzt das Spiel einen vollständigen Ablauf:
@@ -966,6 +1145,21 @@ Game Loop
 Game Over
 ----
 
+=== Schritt 21: Noch einmal spielen?
+
+Die verbesserte Version endet nach `GAME OVER` nicht sofort. Mit `PlayAgain$()` fragen wir, ob eine weitere Runde gestartet werden soll.
+
+[source,basic]
+----
+AGAIN$ = PlayAgain$()
+
+LOOP WHILE AGAIN$ = "J"
+----
+
+`PlayAgain$()` akzeptiert nur `J` oder `N`. Bei `J` beginnt die äußere Schleife erneut. Dabei werden alte Sprite-Puffer vorsichtshalber mit `SPRITE CLOSE ALL` freigegeben, der Bildschirm gelöscht und das Spiel vollständig neu initialisiert.
+
+Die einmal gewählte Steuerungsart bleibt dabei erhalten. Sie wird nur beim Programmstart abgefragt.
+
 === Was haben wir dabei verwendet?
 
 Unser kleines Abschlussprojekt verbindet eine erstaunlich große Zahl der Themen aus diesem Buch.
@@ -984,7 +1178,7 @@ Unser kleines Abschlussprojekt verbindet eine erstaunlich große Zahl der Themen
 |Positionen und Zustände mehrerer Gegner und Münzen
 
 |`IF`
-|Grenzen, Gamepad-Auswertung und Spielregeln
+|Grenzen, Eingabeauswertung und Spielregeln
 
 |`FOR`
 |Bearbeitung mehrerer Gegner und Münzen
@@ -996,13 +1190,13 @@ Unser kleines Abschlussprojekt verbindet eine erstaunlich große Zahl der Themen
 |Aufteilung des Spiels in überschaubare Aufgaben
 
 |`FUNCTION`
-|Ermitteln der noch vorhandenen Münzen
+|Steuerung auswählen, Münzen zählen und Neustart abfragen
 
 |`RND`
 |Zufällige Positionen und Bewegungsrichtungen
 
-|`DEVICE()`
-|Auslesen des USB-Gamepads
+|`KEYDOWN()` und `DEVICE()`
+|Auslesen von Cursortasten, Maus und USB-Gamepad
 
 |Grafikbefehle
 |Statuszeile und Endbildschirm
@@ -1028,7 +1222,7 @@ Jetzt arbeiten in einem einzigen Programm
 * mehrere Arrays,
 * zahlreiche Variablen,
 * verschiedene Unterprogramme,
-* ein Gamepad,
+* vier Eingabemöglichkeiten,
 * Grafiken,
 * Sprites,
 * Kollisionen,

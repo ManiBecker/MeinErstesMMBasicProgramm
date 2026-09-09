@@ -1,146 +1,185 @@
-REM ====================================================================
-REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
-REM Datei: 51_abschlussspiel.bas
-REM Titel: Kapitel 51: Von der Idee zum fertigen Spiel
-REM Buch:  Mein erstes MMBasic Programm
-REM Autor: Manfred Becker
-REM Datum: 08.09.2026
-REM
-REM Beschreibung:
-REM
-REM Abschlussprojekt zu "Mein erstes MMBasic-Programm"
-REM
-REM Zielsystem: PicoMite HDMI/USB bzw. PicoMite VGA/USB mit RP2350
-REM Firmware:   PicoMite MMBasic 6.03.x
-REM
-REM Steuerung:  linker Analogstick eines USB-Gamepads
-REM Hinweis:    Bei Tastatur + Maus liegt das Gamepad typischerweise auf Kanal 3.
-REM             Falls noetig, GamepadChannel unten anpassen.
-REM
-REM Hardware/Voraussetzungen: keine/PicoMite/ColourMaxiMite
-REM
-REM ====================================================================
+Rem ====================================================================
+Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+Rem Datei: 51_abschlussspiel.bas
+Rem Titel: Kapitel 51: Von der Idee zum fertigen Spiel
+Rem Buch:  Mein erstes MMBasic Programm
+Rem Autor: Manfred Becker
+Rem Datum: 09.09.2026
+Rem
+Rem Beschreibung:
+Rem
+Rem Abschlussprojekt zu "Mein erstes MMBasic Programm".
+Rem Das Spiel verbindet viele Themen aus den vorherigen Kapiteln:
+Rem Sprites, Animation, Kollisionserkennung, Zufallszahlen, Timer,
+Rem Soundeffekte und verschiedene Eingabegeraete.
+Rem
+Rem Ziel:
+Rem Muenzen einsammeln, Gegnern ausweichen und moeglichst viele
+Rem Punkte und Level erreichen.
+Rem
+Rem Zielsystem: PicoMite HDMI/USB bzw. PicoMite VGA/USB mit RP2350
+Rem Firmware:   PicoMite MMBasic 6.03.x
+Rem
+Rem Steuerung:
+Rem   1 = Cursortasten
+Rem   2 = USB-Maus
+Rem   3 = Richtungstasten eines USB-Gamepads
+Rem   4 = linker Analogstick eines USB-Gamepads
+Rem
+Rem Hinweis:
+Rem Bei Tastatur + Maus liegt ein Gamepad typischerweise auf Kanal 3.
+Rem Falls noetig, MouseChannel und GamepadChannel unten anpassen.
+Rem
+Rem Hardware/Voraussetzungen:
+Rem PicoMite mit VGA- oder HDMI-Ausgabe; fuer Maus/Gamepad eine
+Rem Firmware-Variante mit entsprechender USB-Unterstuetzung.
+Rem
+Rem ====================================================================
 
-OPTION EXPLICIT
-
-' ----------------------------------------------------------------------------
-' Konstanten
-' ----------------------------------------------------------------------------
-CONST MaxEnemies = 4
-CONST MaxCoins = 10
-CONST StartLives = 3
-CONST CoinPoints = 10
-
-CONST PlayerSpeed = 3
-CONST EnemyStartSpeed = 1
-
-CONST PlayerSprite = 1
-CONST FirstEnemySprite = 2
-CONST FirstCoinSprite = 6
-
-CONST SpriteSize = 12
-CONST PlayfieldTop = 32
-CONST GamepadChannel = 3
-
-CONST DeadZoneLow = 110
-CONST DeadZoneHigh = 146
+Option EXPLICIT
 
 ' ----------------------------------------------------------------------------
-' Spielvariablen
+' Konstanten fuer Spielregeln, Sprite-Nummern und Eingabegeraete
 ' ----------------------------------------------------------------------------
-DIM INTEGER Score, Lives, Level
-DIM INTEGER EnemySpeedNow
-DIM INTEGER PlayerX, PlayerY
-DIM INTEGER MoveX, MoveY
-DIM INTEGER StickX, StickY
-DIM INTEGER ScreenWidth, ScreenHeight
+Const MaxEnemies = 4
+Const MaxCoins = 10
+Const StartLives = 3
+Const CoinPoints = 10
 
-DIM INTEGER EnemyX(MaxEnemies)
-DIM INTEGER EnemyY(MaxEnemies)
-DIM INTEGER EnemyDX(MaxEnemies)
-DIM INTEGER EnemyDY(MaxEnemies)
+Const PlayerSpeed = 5
+Const EnemyStartSpeed = 1
 
-DIM INTEGER CoinX(MaxCoins)
-DIM INTEGER CoinY(MaxCoins)
-DIM INTEGER CoinVisible(MaxCoins)
+Const PlayerSprite = 1
+Const FirstEnemySprite = 2
+Const FirstCoinSprite = 6
 
-' Eine Kopie der aktuellen Kollisionsliste.
-' So koennen Sprites ausgeblendet werden, ohne die Liste waehrend
-' der Auswertung erneut abfragen zu muessen.
-DIM INTEGER HitList(64)
+Const SpriteSize = 12
+Const PlayfieldTop = 32
+Const MouseChannel = 2
+Const GamepadChannel = 3
 
-' Sprite-Bilder: 12 x 12 Pixel = 144 Eintraege
-DIM INTEGER PlayerImage(SpriteSize * SpriteSize - 1)
-DIM INTEGER EnemyImage(SpriteSize * SpriteSize - 1)
-DIM INTEGER CoinImage(SpriteSize * SpriteSize - 1)
+Const DeadZoneLow = 110
+Const DeadZoneHigh = 146
 
-' Sound wird mit PLAY SOUND gestartet und nach kurzer Zeit wieder beendet.
-DIM INTEGER SoundActive
-DIM FLOAT SoundOffAt
+Const BtnDown% = 32
+Const BtnRight% = 64
+Const BtnUp% = 128
+Const BtnLeft% = 256
 
 ' ----------------------------------------------------------------------------
-' Hauptprogramm
+' Globale Spielvariablen: Positionen, Punkte, Level und Eingabestatus
 ' ----------------------------------------------------------------------------
+Dim INTEGER Score, Lives, Level
+Dim INTEGER EnemySpeedNow
+Dim INTEGER PlayerX, PlayerY
+Dim INTEGER MoveX, MoveY
+Dim INTEGER StickX, StickY
+Dim INTEGER ScreenWidth, ScreenHeight
+
+Dim INTEGER EnemyX(MaxEnemies)
+Dim INTEGER EnemyY(MaxEnemies)
+Dim INTEGER EnemyDX(MaxEnemies)
+Dim INTEGER EnemyDY(MaxEnemies)
+
+Dim INTEGER CoinX(MaxCoins)
+Dim INTEGER CoinY(MaxCoins)
+Dim INTEGER CoinVisible(MaxCoins)
+
+' Kopie der aktuellen Kollisionsliste.
+' Die Treffer werden zuerst gesichert, weil das Ausblenden einer Muenze
+' mit SPRITE HIDE SAFE die interne Kollisionsliste veraendern kann.
+Dim INTEGER HitList(64)
+
+' Sprite-Bilder: 12 x 12 Pixel = 144 Farbwerte pro Grafik
+Dim INTEGER PlayerImage(SpriteSize * SpriteSize - 1)
+Dim INTEGER EnemyImage(SpriteSize * SpriteSize - 1)
+Dim INTEGER CoinImage(SpriteSize * SpriteSize - 1)
+
+' Nicht blockierende Soundsteuerung.
+' PLAY SOUND startet den Ton; UpdateSound beendet ihn spaeter per TIMER.
+Dim INTEGER SoundActive
+Dim FLOAT SoundOffAt
+
+' Gemeinsame Bewegungswerte und Status der ausgewaehlten Eingabegeraete
+Dim INTEGER Control
+Dim AGAIN$
+Dim INTEGER MouseXPos, MouseYPos
+
+
+' ----------------------------------------------------------------------------
+' Hauptprogramm: Steuerung waehlen, Spielrunden starten und Game Loop ausfuehren
+' ----------------------------------------------------------------------------
+
 MODE 2
 
-' Falls das Programm erneut gestartet wird, alte Sprite-Puffer freigeben.
-SPRITE CLOSE ALL
-CLS RGB(BLACK)
 
-ScreenWidth = MM.HRES
-ScreenHeight = MM.VRES
+' Die Steuerungsart wird einmal zu Programmbeginn ausgewaehlt.
+Control = GameControl()
 
-CreateSprites
-InitGame
-ShowSprites
-UpdateStatus
+Do
 
-DO WHILE Lives > 0
-    ReadGamepad
+  ' Vor einer neuen Runde eventuell vorhandene Sprite-Puffer freigeben.
+  Sprite CLOSE ALL
+  CLS RGB(BLACK)
+
+  ScreenWidth = MM.HRES
+  ScreenHeight = MM.VRES
+
+  CreateSprites
+  InitGame
+  ShowSprites
+  UpdateStatus
+
+  Do While Lives > 0
+    ReadControl
     MovePlayer
     MoveEnemies
     MoveSprites
     CheckCollisions
 
-    IF Lives > 0 THEN
-        IF CoinsRemaining() = 0 THEN StartNextLevel
-    ENDIF
+    If Lives > 0 Then
+        If CoinsRemaining() = 0 Then StartNextLevel
+    EndIf
 
     UpdateStatus
     UpdateSound
 
-    PAUSE 16
-LOOP
+    Pause 16
+  Loop
 
-GameOver
-END
+  GameOver
+  AGAIN$ = PlayAgain$()
+
+Loop While AGAIN$="J"
+
+End
 
 ' ============================================================================
-' Sprite-Grafiken erzeugen
+' Sprite-Grafiken fuer Spieler, Gegner und Muenzen im Speicher erzeugen
 ' ============================================================================
-SUB CreateSprites
-    LOCAL INTEGER x, y, p
+Sub CreateSprites
+    Local INTEGER x, y, p
 
-    ' Alle Pixel zunaechst transparent (schwarz) setzen.
-    FOR p = 0 TO SpriteSize * SpriteSize - 1
+    ' Alle Bildpuffer zuerst mit der transparenten Hintergrundfarbe fuellen.
+    For p = 0 To SpriteSize * SpriteSize - 1
         PlayerImage(p) = RGB(BLACK)
         EnemyImage(p) = RGB(BLACK)
         CoinImage(p) = RGB(BLACK)
-    NEXT p
+    Next p
 
     ' ------------------------------------------------------------------------
     ' Spieler: gruene Figur mit weissem Visier
     ' ------------------------------------------------------------------------
-    FOR y = 2 TO 9
-        FOR x = 2 TO 9
+    For y = 2 To 9
+        For x = 2 To 9
             PlayerImage(y * SpriteSize + x) = RGB(GREEN)
-        NEXT x
-    NEXT y
+        Next x
+    Next y
 
-    FOR x = 4 TO 7
+    For x = 4 To 7
         PlayerImage(3 * SpriteSize + x) = RGB(WHITE)
         PlayerImage(4 * SpriteSize + x) = RGB(WHITE)
-    NEXT x
+    Next x
 
     PlayerImage(10 * SpriteSize + 3) = RGB(GREEN)
     PlayerImage(10 * SpriteSize + 4) = RGB(GREEN)
@@ -150,11 +189,11 @@ SUB CreateSprites
     ' ------------------------------------------------------------------------
     ' Gegner: rote Figur mit gelben Augen
     ' ------------------------------------------------------------------------
-    FOR y = 2 TO 9
-        FOR x = 1 TO 10
+    For y = 2 To 9
+        For x = 1 To 10
             EnemyImage(y * SpriteSize + x) = RGB(RED)
-        NEXT x
-    NEXT y
+        Next x
+    Next y
 
     EnemyImage(1 * SpriteSize + 2) = RGB(RED)
     EnemyImage(1 * SpriteSize + 9) = RGB(RED)
@@ -167,32 +206,32 @@ SUB CreateSprites
     ' ------------------------------------------------------------------------
     ' Muenze: kleine gelbe Scheibe
     ' ------------------------------------------------------------------------
-    FOR y = 1 TO 10
-        FOR x = 1 TO 10
-            IF (x - 5.5) * (x - 5.5) + (y - 5.5) * (y - 5.5) <= 22 THEN
+    For y = 1 To 10
+        For x = 1 To 10
+            If (x - 5.5) * (x - 5.5) + (y - 5.5) * (y - 5.5) <= 22 Then
                 CoinImage(y * SpriteSize + x) = RGB(YELLOW)
-            ENDIF
-        NEXT x
-    NEXT y
+            EndIf
+        Next x
+    Next y
 
-    FOR y = 3 TO 8
+    For y = 3 To 8
         CoinImage(y * SpriteSize + 5) = RGB(WHITE)
-    NEXT y
+    Next y
 
-    ' Drei Originalbilder laden.
-    SPRITE LOADARRAY PlayerSprite, SpriteSize, SpriteSize, PlayerImage()
-    SPRITE LOADARRAY FirstEnemySprite, SpriteSize, SpriteSize, EnemyImage()
-    SPRITE LOADARRAY FirstCoinSprite, SpriteSize, SpriteSize, CoinImage()
+    ' Je ein Originalbild fuer Spieler, Gegner und Muenze als Sprite laden.
+    Sprite LOADARRAY PlayerSprite, SpriteSize, SpriteSize, PlayerImage()
+    Sprite LOADARRAY FirstEnemySprite, SpriteSize, SpriteSize, EnemyImage()
+    Sprite LOADARRAY FirstCoinSprite, SpriteSize, SpriteSize, CoinImage()
 
-    ' Die uebrigen Gegner und Muenzen teilen sich die Bilddaten des Originals.
-    SPRITE COPY FirstEnemySprite, FirstEnemySprite + 1, MaxEnemies - 1
-    SPRITE COPY FirstCoinSprite, FirstCoinSprite + 1, MaxCoins - 1
-END SUB
+    ' Weitere Gegner und Muenzen verwenden dieselben Bilddaten per SPRITE COPY.
+    Sprite COPY FirstEnemySprite, FirstEnemySprite + 1, MaxEnemies - 1
+    Sprite COPY FirstCoinSprite, FirstCoinSprite + 1, MaxCoins - 1
+End Sub
 
 ' ============================================================================
-' Neues Spiel vorbereiten
+' Neue Spielrunde initialisieren: Punkte, Leben, Level und Positionen zuruecksetzen
 ' ============================================================================
-SUB InitGame
+Sub InitGame
     Score = 0
     Lives = StartLives
     Level = 1
@@ -202,320 +241,457 @@ SUB InitGame
     ResetPlayer
     PlaceEnemies
     PlaceCoins
-END SUB
+End Sub
 
 ' ============================================================================
-' Spieler in die Bildschirmmitte setzen
+' Startposition des Spielers in der Bildschirmmitte berechnen
 ' ============================================================================
-SUB ResetPlayer
-    PlayerX = MM.HRES \ 2 - SPRITE(W, PlayerSprite) \ 2
-    PlayerY = MM.VRES \ 2 - SPRITE(H, PlayerSprite) \ 2
-END SUB
+Sub ResetPlayer
+    PlayerX = MM.HRES \ 2 - sprite(W, PlayerSprite) \ 2
+    PlayerY = MM.VRES \ 2 - sprite(H, PlayerSprite) \ 2
+End Sub
 
 ' ============================================================================
-' Gegner zufaellig verteilen und Bewegungsrichtung festlegen
+' Gegner zufaellig verteilen und ihre Anfangsgeschwindigkeit festlegen
 ' ============================================================================
-SUB PlaceEnemies
-    LOCAL INTEGER i
+Sub PlaceEnemies
+    Local INTEGER i
 
-    FOR i = 1 TO MaxEnemies
-        ' Gegner nicht direkt auf der Startposition des Spielers erzeugen.
-        DO
-            EnemyX(i) = INT(RND * (MM.HRES - SPRITE(W, FirstEnemySprite)))
-            EnemyY(i) = PlayfieldTop + INT(RND * (MM.VRES - PlayfieldTop - SPRITE(H, FirstEnemySprite)))
-        LOOP WHILE ABS(EnemyX(i) - PlayerX) < 50 AND ABS(EnemyY(i) - PlayerY) < 50
+    For i = 1 To MaxEnemies
+        ' Sicherheitsabstand zur Startposition des Spielers einhalten.
+        Do
+            EnemyX(i) = Int(Rnd * (MM.HRES - sprite(W, FirstEnemySprite)))
+            EnemyY(i) = PlayfieldTop + Int(Rnd * (MM.VRES - PlayfieldTop - sprite(H, FirstEnemySprite)))
+        Loop While Abs(EnemyX(i) - PlayerX) < 50 And Abs(EnemyY(i) - PlayerY) < 50
 
-        IF RND < 0.5 THEN
+        If Rnd < 0.5 Then
             EnemyDX(i) = -EnemySpeedNow
-        ELSE
+        Else
             EnemyDX(i) = EnemySpeedNow
-        ENDIF
+        EndIf
 
-        IF RND < 0.5 THEN
+        If Rnd < 0.5 Then
             EnemyDY(i) = -EnemySpeedNow
-        ELSE
+        Else
             EnemyDY(i) = EnemySpeedNow
-        ENDIF
-    NEXT i
-END SUB
+        EndIf
+    Next i
+End Sub
 
 ' ============================================================================
-' Muenzen zufaellig verteilen
+' Alle Muenzen zufaellig im sichtbaren Spielfeld verteilen
 ' ============================================================================
-SUB PlaceCoins
-    LOCAL INTEGER i
+Sub PlaceCoins
+    Local INTEGER i
 
-    FOR i = 1 TO MaxCoins
-        CoinX(i) = INT(RND * (MM.HRES - SPRITE(W, FirstCoinSprite)))
-        CoinY(i) = PlayfieldTop + INT(RND * (MM.VRES - PlayfieldTop - SPRITE(H, FirstCoinSprite)))
+    For i = 1 To MaxCoins
+        CoinX(i) = Int(Rnd * (MM.HRES - sprite(W, FirstCoinSprite)))
+        CoinY(i) = PlayfieldTop + Int(Rnd * (MM.VRES - PlayfieldTop - sprite(H, FirstCoinSprite)))
         CoinVisible(i) = 1
-    NEXT i
-END SUB
+    Next i
+End Sub
 
 ' ============================================================================
-' Alle Sprites zum ersten Mal anzeigen
+' Spieler, Gegner und Muenzen fuer den Beginn der Runde sichtbar machen
 ' ============================================================================
-SUB ShowSprites
-    LOCAL INTEGER i, SpriteNo
+Sub ShowSprites
+    Local INTEGER i, SpriteNo
 
-    SPRITE SHOW PlayerSprite, PlayerX, PlayerY, 1
+    Sprite SHOW PlayerSprite, PlayerX, PlayerY, 1
 
-    FOR i = 1 TO MaxEnemies
+    For i = 1 To MaxEnemies
         SpriteNo = FirstEnemySprite + i - 1
-        SPRITE SHOW SpriteNo, EnemyX(i), EnemyY(i), 1
-    NEXT i
+        Sprite SHOW SpriteNo, EnemyX(i), EnemyY(i), 1
+    Next i
 
-    FOR i = 1 TO MaxCoins
+    For i = 1 To MaxCoins
         SpriteNo = FirstCoinSprite + i - 1
-        SPRITE SHOW SpriteNo, CoinX(i), CoinY(i), 1
-    NEXT i
-END SUB
+        Sprite SHOW SpriteNo, CoinX(i), CoinY(i), 1
+    Next i
+End Sub
 
 ' ============================================================================
-' USB-Gamepad auslesen
+' Ausgewaehltes Eingabegeraet abfragen
+' ReadControl vereinheitlicht die vier Steuerungsarten und liefert MoveX/MoveY.
 ' ============================================================================
-SUB ReadGamepad
+Sub ReadControl
+    If Control = 2 Then
+      ReadMouse
+    ElseIf Control = 3 Then
+      ReadGamepadButtons
+    Else If Control = 4 Then
+      ReadGamepadStick
+    Else
+      ReadKeyboard
+    EndIf
+End Sub
+
+
+' ============================================================================
+' Cursortasten mit KEYDOWN() auslesen; zwei Tasten erlauben diagonale Bewegung
+' ============================================================================
+Sub ReadKeyboard
+    Local Integer i, key
+
+    MoveX = 0
+    MoveY = 0
+
+    ' KEYDOWN(0) liefert die Anzahl gleichzeitig gedrueckter Tasten.
+    ' Dadurch sind auch diagonale Bewegungen mit zwei Cursortasten moeglich.
+    For i = 1 To KeyDown(0)
+        key = KeyDown(i)
+
+        Select Case key
+            Case 128                    ' Cursor hoch
+                MoveY = -PlayerSpeed
+
+            Case 129                    ' Cursor runter
+                MoveY = PlayerSpeed
+
+            Case 130                    ' Cursor links
+                MoveX = -PlayerSpeed
+
+            Case 131                    ' Cursor rechts
+                MoveX = PlayerSpeed
+        End Select
+    Next i
+End Sub
+
+' ============================================================================
+' USB-Maus auslesen und aus der Positionsaenderung die Richtung bestimmen
+' ============================================================================
+Sub ReadMouse
+    Local x, y, dx, dy
+
+    x=DEVICE(Mouse MouseChannel,x)
+    dx=x-MouseXPos
+    If dx < 0 Then
+      MoveX = -PlayerSpeed
+    ElseIf dx > 0 Then
+      MoveX = PlayerSpeed
+    Else
+      MoveX = 0
+    EndIf
+
+    y=DEVICE(Mouse MouseChannel,y)
+    dy=y-MouseYPos
+    If dy < 0 Then
+      MoveY = -PlayerSpeed
+    ElseIf dy > 0 Then
+      MoveY = PlayerSpeed
+    Else
+      MoveY = 0
+    EndIf
+
+    MouseXPos=x
+    MouseYPos=y
+End Sub
+
+' ============================================================================
+' Richtungstasten eines USB-Gamepads als Bitmaske auswerten
+' ============================================================================
+Sub ReadGamepadButtons
+    Local buttons%
+
+    buttons% = DEVICE(GAMEPAD GamepadChannel, B)
+
+    MoveX = 0
+    MoveY = 0
+
+    If buttons% <> 0 Then
+      If (buttons% And BtnLeft%) <> 0 Then MoveX = -PlayerSpeed
+      If (buttons% And BtnRight%) <> 0 Then MoveX = PlayerSpeed
+
+      If (buttons% And BtnUp%) <> 0 Then MoveY = -PlayerSpeed
+      If (buttons% And BtnDown%) <> 0  Then MoveY = PlayerSpeed
+    EndIf
+End Sub
+
+' ============================================================================
+' Linken Analogstick des USB-Gamepads mit Totzone auswerten
+' ============================================================================
+Sub ReadGamepadStick
     StickX = DEVICE(GAMEPAD GamepadChannel, "LX")
     StickY = DEVICE(GAMEPAD GamepadChannel, "LY")
 
     MoveX = 0
     MoveY = 0
 
-    IF StickX < DeadZoneLow THEN MoveX = -PlayerSpeed
-    IF StickX > DeadZoneHigh THEN MoveX = PlayerSpeed
+    If StickX < DeadZoneLow Then MoveX = -PlayerSpeed
+    If StickX > DeadZoneHigh Then MoveX = PlayerSpeed
 
-    IF StickY < DeadZoneLow THEN MoveY = -PlayerSpeed
-    IF StickY > DeadZoneHigh THEN MoveY = PlayerSpeed
-END SUB
+    If StickY < DeadZoneLow Then MoveY = -PlayerSpeed
+    If StickY > DeadZoneHigh Then MoveY = PlayerSpeed
+End Sub
 
 ' ============================================================================
-' Spielerposition berechnen und auf das Spielfeld begrenzen
+' Spieler entsprechend MoveX/MoveY bewegen und im Spielfeld halten
 ' ============================================================================
-SUB MovePlayer
+Sub MovePlayer
     PlayerX = PlayerX + MoveX
     PlayerY = PlayerY + MoveY
 
-    IF PlayerX < 0 THEN PlayerX = 0
-    IF PlayerY < PlayfieldTop THEN PlayerY = PlayfieldTop
+    If PlayerX < 0 Then PlayerX = 0
+    If PlayerY < PlayfieldTop Then PlayerY = PlayfieldTop
 
-    IF PlayerX > MM.HRES - SPRITE(W, PlayerSprite) THEN
-        PlayerX = MM.HRES - SPRITE(W, PlayerSprite)
-    ENDIF
+    If PlayerX > MM.HRES - sprite(W, PlayerSprite) Then
+        PlayerX = MM.HRES - sprite(W, PlayerSprite)
+    EndIf
 
-    IF PlayerY > MM.VRES - SPRITE(H, PlayerSprite) THEN
-        PlayerY = MM.VRES - SPRITE(H, PlayerSprite)
-    ENDIF
-END SUB
+    If PlayerY > MM.VRES - sprite(H, PlayerSprite) Then
+        PlayerY = MM.VRES - sprite(H, PlayerSprite)
+    EndIf
+End Sub
 
 ' ============================================================================
-' Gegnerpositionen berechnen und an den Raendern abprallen lassen
+' Gegner bewegen und ihre Richtung an den Bildschirmraendern umkehren
 ' ============================================================================
-SUB MoveEnemies
-    LOCAL INTEGER i, EnemyWidth, EnemyHeight
+Sub MoveEnemies
+    Local INTEGER i, EnemyWidth, EnemyHeight
 
-    EnemyWidth = SPRITE(W, FirstEnemySprite)
-    EnemyHeight = SPRITE(H, FirstEnemySprite)
+    EnemyWidth = sprite(W, FirstEnemySprite)
+    EnemyHeight = sprite(H, FirstEnemySprite)
 
-    FOR i = 1 TO MaxEnemies
+    For i = 1 To MaxEnemies
         EnemyX(i) = EnemyX(i) + EnemyDX(i)
         EnemyY(i) = EnemyY(i) + EnemyDY(i)
 
-        IF EnemyX(i) <= 0 THEN
+        If EnemyX(i) <= 0 Then
             EnemyX(i) = 0
-            EnemyDX(i) = ABS(EnemyDX(i))
-        ENDIF
+            EnemyDX(i) = Abs(EnemyDX(i))
+        EndIf
 
-        IF EnemyX(i) >= MM.HRES - EnemyWidth THEN
+        If EnemyX(i) >= MM.HRES - EnemyWidth Then
             EnemyX(i) = MM.HRES - EnemyWidth
-            EnemyDX(i) = -ABS(EnemyDX(i))
-        ENDIF
+            EnemyDX(i) = -Abs(EnemyDX(i))
+        EndIf
 
-        IF EnemyY(i) <= PlayfieldTop THEN
+        If EnemyY(i) <= PlayfieldTop Then
             EnemyY(i) = PlayfieldTop
-            EnemyDY(i) = ABS(EnemyDY(i))
-        ENDIF
+            EnemyDY(i) = Abs(EnemyDY(i))
+        EndIf
 
-        IF EnemyY(i) >= MM.VRES - EnemyHeight THEN
+        If EnemyY(i) >= MM.VRES - EnemyHeight Then
             EnemyY(i) = MM.VRES - EnemyHeight
-            EnemyDY(i) = -ABS(EnemyDY(i))
-        ENDIF
-    NEXT i
-END SUB
+            EnemyDY(i) = -Abs(EnemyDY(i))
+        EndIf
+    Next i
+End Sub
 
 ' ============================================================================
-' Alle bewegten Sprites in einer gemeinsamen Transaktion verschieben
+' Spieler und Gegner vorbereiten und anschliessend gemeinsam mit SPRITE MOVE verschieben
 ' ============================================================================
-SUB MoveSprites
-    LOCAL INTEGER i, SpriteNo
+Sub MoveSprites
+    Local INTEGER i, SpriteNo
 
-    SPRITE NEXT PlayerSprite, PlayerX, PlayerY
+    Sprite NEXT PlayerSprite, PlayerX, PlayerY
 
-    FOR i = 1 TO MaxEnemies
+    For i = 1 To MaxEnemies
         SpriteNo = FirstEnemySprite + i - 1
-        SPRITE NEXT SpriteNo, EnemyX(i), EnemyY(i)
-    NEXT i
+        Sprite NEXT SpriteNo, EnemyX(i), EnemyY(i)
+    Next i
 
-    SPRITE MOVE
-END SUB
+    Sprite MOVE
+End Sub
 
 ' ============================================================================
-' Kollisionen des Spielers auswerten
+' Kollisionen des Spielers mit Gegnern und Muenzen auswerten
 ' ============================================================================
-SUB CheckCollisions
-    LOCAL INTEGER i, HitCount, HitSprite, CoinIndex
-    LOCAL INTEGER EnemyHit
+Sub CheckCollisions
+    Local INTEGER i, HitCount, HitSprite, CoinIndex
+    Local INTEGER EnemyHit
 
-    HitCount = SPRITE(C, PlayerSprite)
-    IF HitCount = 0 THEN EXIT SUB
+    HitCount = sprite(C, PlayerSprite)
+    If HitCount = 0 Then Exit Sub
 
-    ' Kollisionsliste zuerst sichern.
-    FOR i = 1 TO HitCount
-        HitList(i) = SPRITE(C, PlayerSprite, i)
-    NEXT i
+    ' Trefferliste zuerst kopieren, bevor ein Sprite ausgeblendet wird.
+    For i = 1 To HitCount
+        HitList(i) = sprite(C, PlayerSprite, i)
+    Next i
 
-    ' Gegner haben Vorrang. Bei einer Beruehrung geht ein Leben verloren.
+    ' Gegner haben Vorrang: Eine Beruehrung kostet genau ein Leben.
     EnemyHit = 0
-    FOR i = 1 TO HitCount
+    For i = 1 To HitCount
         HitSprite = HitList(i)
-        IF HitSprite >= FirstEnemySprite AND HitSprite < FirstEnemySprite + MaxEnemies THEN
+        If HitSprite >= FirstEnemySprite And HitSprite < FirstEnemySprite + MaxEnemies Then
             EnemyHit = 1
-            EXIT FOR
-        ENDIF
-    NEXT i
+            Exit For
+        EndIf
+    Next i
 
-    IF EnemyHit THEN
+    If EnemyHit Then
         Lives = Lives - 1
         StartHitSound
 
-        IF Lives > 0 THEN
+        If Lives > 0 Then
             ResetPlayer
-            SPRITE SHOW SAFE PlayerSprite, PlayerX, PlayerY, 1
-            PAUSE 300
-        ENDIF
+            Sprite SHOW SAFE PlayerSprite, PlayerX, PlayerY, 1
+            Pause 300
+        EndIf
 
-        EXIT SUB
-    ENDIF
+        Exit Sub
+    EndIf
 
-    ' Danach eingesammelte Muenzen bearbeiten.
-    FOR i = 1 TO HitCount
+    ' Nur wenn kein Gegner getroffen wurde, eingesammelte Muenzen auswerten.
+    For i = 1 To HitCount
         HitSprite = HitList(i)
 
-        IF HitSprite >= FirstCoinSprite AND HitSprite < FirstCoinSprite + MaxCoins THEN
+        If HitSprite >= FirstCoinSprite And HitSprite < FirstCoinSprite + MaxCoins Then
             CoinIndex = HitSprite - FirstCoinSprite + 1
 
-            IF CoinVisible(CoinIndex) THEN
+            If CoinVisible(CoinIndex) Then
                 CoinVisible(CoinIndex) = 0
-                SPRITE HIDE SAFE HitSprite
+                Sprite HIDE SAFE HitSprite
                 Score = Score + CoinPoints
                 StartCoinSound
-            ENDIF
-        ENDIF
-    NEXT i
-END SUB
+            EndIf
+        EndIf
+    Next i
+End Sub
 
 ' ============================================================================
-' Anzahl der noch sichtbaren Muenzen bestimmen
+' Noch sichtbare Muenzen zaehlen; 0 bedeutet: Level geschafft
 ' ============================================================================
-FUNCTION CoinsRemaining()
-    LOCAL INTEGER i, Count
+Function CoinsRemaining()
+    Local INTEGER i, Count
 
     Count = 0
-    FOR i = 1 TO MaxCoins
-        IF CoinVisible(i) THEN Count = Count + 1
-    NEXT i
+    For i = 1 To MaxCoins
+        If CoinVisible(i) Then Count = Count + 1
+    Next i
 
     CoinsRemaining = Count
-END FUNCTION
+End Function
 
 ' ============================================================================
-' Naechstes Level vorbereiten
+' Naechstes Level starten: neue Muenzen und schnellere Gegner
 ' ============================================================================
-SUB StartNextLevel
-    LOCAL INTEGER i, SpriteNo
+Sub StartNextLevel
+    Local INTEGER i, SpriteNo
 
     Level = Level + 1
     EnemySpeedNow = EnemyStartSpeed + Level - 1
 
-    ' Bewegungsrichtung beibehalten, aber Betrag an neue Geschwindigkeit anpassen.
-    FOR i = 1 TO MaxEnemies
-        IF EnemyDX(i) < 0 THEN
+    ' Bewegungsrichtung erhalten, den Betrag aber an die neue Geschwindigkeit anpassen.
+    For i = 1 To MaxEnemies
+        If EnemyDX(i) < 0 Then
             EnemyDX(i) = -EnemySpeedNow
-        ELSE
+        Else
             EnemyDX(i) = EnemySpeedNow
-        ENDIF
+        EndIf
 
-        IF EnemyDY(i) < 0 THEN
+        If EnemyDY(i) < 0 Then
             EnemyDY(i) = -EnemySpeedNow
-        ELSE
+        Else
             EnemyDY(i) = EnemySpeedNow
-        ENDIF
-    NEXT i
+        EndIf
+    Next i
 
     PlaceCoins
 
-    FOR i = 1 TO MaxCoins
+    For i = 1 To MaxCoins
         SpriteNo = FirstCoinSprite + i - 1
-        SPRITE SHOW SAFE SpriteNo, CoinX(i), CoinY(i), 1
-    NEXT i
+        Sprite SHOW SAFE SpriteNo, CoinX(i), CoinY(i), 1
+    Next i
 
     StartLevelSound
-END SUB
+End Sub
 
 ' ============================================================================
-' Statuszeile aktualisieren
+' Punkte, Leben und aktuelles Level in der Statuszeile anzeigen
 ' ============================================================================
-SUB UpdateStatus
-    BOX 0, 0, MM.HRES, PlayfieldTop, 0, RGB(BLACK), RGB(BLACK)
+Sub UpdateStatus
+    Box 0, 0, MM.HRES, PlayfieldTop, 0, RGB(BLACK), RGB(BLACK)
 
-    TEXT 4, 8, "Punkte: " + STR$(Score), L, 1, 1, RGB(WHITE)
-    TEXT MM.HRES \ 2, 8, "Level: " + STR$(Level), C, 1, 1, RGB(WHITE)
-    TEXT MM.HRES - 4, 8, "Leben: " + STR$(Lives), R, 1, 1, RGB(WHITE)
-END SUB
+    Text 4, 8, "Punkte: " + Str$(Score), L, 1, 1, RGB(WHITE)
+    Text MM.HRES \ 2, 8, "Level: " + Str$(Level), C, 1, 1, RGB(WHITE)
+    Text MM.HRES - 4, 8, "Leben: " + Str$(Lives), R, 1, 1, RGB(WHITE)
+End Sub
 
 ' ============================================================================
-' Kurze Soundeffekte
+' Kurze Soundeffekte ohne blockierende PAUSE erzeugen
 ' ============================================================================
-SUB StartCoinSound
-    PLAY SOUND 1, B, Q, 1200, 10
+Sub StartCoinSound
+    Play SOUND 1, B, Q, 1200, 10
     SoundActive = 1
-    SoundOffAt = TIMER + 60
-END SUB
+    SoundOffAt = Timer + 60
+End Sub
 
-SUB StartHitSound
-    PLAY SOUND 1, B, N, 180, 12
+Sub StartHitSound
+    Play SOUND 1, B, N, 180, 12
     SoundActive = 1
-    SoundOffAt = TIMER + 180
-END SUB
+    SoundOffAt = Timer + 180
+End Sub
 
-SUB StartLevelSound
-    PLAY SOUND 1, B, Q, 1600, 10
+Sub StartLevelSound
+    Play SOUND 1, B, Q, 1600, 10
     SoundActive = 1
-    SoundOffAt = TIMER + 120
-END SUB
+    SoundOffAt = Timer + 120
+End Sub
 
-SUB UpdateSound
-    IF SoundActive THEN
-        IF TIMER >= SoundOffAt THEN
-            PLAY SOUND 1, B, O
+Sub UpdateSound
+    If SoundActive Then
+        If Timer >= SoundOffAt Then
+            Play SOUND 1, B, O
             SoundActive = 0
-        ENDIF
-    ENDIF
-END SUB
+        EndIf
+    EndIf
+End Sub
 
 ' ============================================================================
-' Spielende
+' Game-Over-Bildschirm anzeigen und alle Sprite-Ressourcen freigeben
 ' ============================================================================
-SUB GameOver
-    PLAY SOUND 1, B, O
+Sub GameOver
+    Play SOUND 1, B, O
     SoundActive = 0
 
-    SPRITE HIDE ALL
+    Sprite HIDE ALL
 
     CLS RGB(BLACK)
 
-    TEXT MM.HRES \ 2, MM.VRES \ 2 - 28, "GAME OVER", C, 2, 2, RGB(RED)
-    TEXT MM.HRES \ 2, MM.VRES \ 2 + 12, "Punkte: " + STR$(Score), C, 1, 1, RGB(WHITE)
-    TEXT MM.HRES \ 2, MM.VRES \ 2 + 40, "Level: " + STR$(Level), C, 1, 1, RGB(WHITE)
+    Text MM.HRES \ 2, MM.VRES \ 2 - 66, "Abschluss-Spiel", C, 1, 2, RGB(BLUE)
+    Text MM.HRES \ 2, MM.VRES \ 2 - 28, "GAME OVER", C, 2, 2, RGB(RED)
+    Text MM.HRES \ 2, MM.VRES \ 2 + 12, "Punkte: " + Str$(Score), C, 1, 1, RGB(WHITE)
+    Text MM.HRES \ 2, MM.VRES \ 2 + 40, "Level: " + Str$(Level), C, 1, 1, RGB(WHITE)
 
-    SPRITE CLOSE ALL
-END SUB 
+    Sprite CLOSE ALL
+End Sub
+
+' ============================================================================
+' Gewuenschte Steuerungsart am Programmbeginn auswaehlen
+' ============================================================================
+Function GameControl()
+
+    Local key$
+
+    Text MM.HRES \ 2, MM.VRES \ 2 - 66, "Abschluss-Spiel", C, 1, 2, RGB(BLUE)
+    Text MM.HRES \ 2, MM.VRES \ 2 - 28, "Steuerung", C, 2, 2, RGB(RED)
+    Text MM.HRES \ 2, MM.VRES \ 2 + 20, "Cursortasten...: 1", C, 1, 1, RGB(WHITE)
+    Text MM.HRES \ 2, MM.VRES \ 2 + 32, "Maus...........: 2", C, 1, 1, RGB(WHITE)
+    Text MM.HRES \ 2, MM.VRES \ 2 + 44, "Gamepad-Button.: 3", C, 1, 1, RGB(WHITE)
+    Text MM.HRES \ 2, MM.VRES \ 2 + 56, "Gamepad-Stick..: 4", C, 1, 1, RGB(WHITE)
+
+    Do
+      key$ = UCASE$(Inkey$)
+    Loop Until key$="1" Or key$="2" Or key$="3" Or key$="4"
+
+    GameControl = Val(key$)
+
+End Function
+
+' ============================================================================
+' Nach GAME OVER abfragen, ob eine neue Runde gestartet werden soll
+' ============================================================================
+Function PlayAgain$()
+
+    Local key$
+
+    Text MM.HRES \ 2, MM.VRES \ 2 - 66, "Abschluss-Spiel", C, 1, 2, RGB(BLUE)
+    Text MM.HRES \ 2, MM.VRES \ 2 + 60, "Nochmal spielen? (J/N)", C, 1, 1, RGB(YELLOW)
+
+    Do
+      key$ = UCASE$(Inkey$)
+    Loop Until key$="J" Or key$="N"
+    PlayAgain$=key$
+
+End Function 

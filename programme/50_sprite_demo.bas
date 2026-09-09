@@ -1,44 +1,44 @@
-REM ====================================================================
-REM Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
-REM Datei: 50_sprite_demo.bas
-REM Titel: Kapitel 50: Sprites und BLIT
-REM Buch:  Mein erstes MMBasic Programm
-REM Autor: Manfred Becker
-REM Datum: 08.09.2026
-REM
-REM Beschreibung:
-REM
-REM Zwei Sprites werden direkt im BASIC-Programm erzeugt.
-REM Sie bewegen sich mit SPRITE NEXT / SPRITE MOVE und prallen
-REM aneinander sowie an den Bildschirmraendern ab.
-REM
-REM Beenden mit Q
-REM
-REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
-REM
-REM ====================================================================
+Rem ====================================================================
+Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+Rem Datei: 50_sprite_demo.bas
+Rem Titel: Kapitel 50: Sprites und BLIT
+Rem Buch:  Mein erstes MMBasic Programm
+Rem Autor: Manfred Becker
+Rem Datum: 09.09.2026
+Rem
+Rem Beschreibung:
+Rem
+Rem Zwei Sprites werden direkt im BASIC-Programm erzeugt.
+Rem Sie bewegen sich mit SPRITE NEXT / SPRITE MOVE und prallen
+Rem aneinander sowie an den Bildschirmraendern ab.
+Rem
+Rem Beenden mit Q
+Rem
+Rem Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
+Rem
+Rem ====================================================================
 
-OPTION BASE 0
+Option BASE 0
 
-DIM INTEGER BallPixels%(255)
-DIM INTEGER BoxPixels%(399)
+Dim INTEGER BallPixels%(255)
+Dim INTEGER BoxPixels%(399)
 
-DIM INTEGER x1%, y1%, dx1%, dy1%
-DIM INTEGER x2%, y2%, dx2%, dy2%
-DIM STRING Taste$
+Dim INTEGER x1%, y1%, dx1%, dy1%
+Dim INTEGER x2%, y2%, dx2%, dy2%
+Dim STRING Taste$
 
 CreateSprites
 
 CLS
-PRINT @(10, 10) "SPRITE-Demo - Q beendet"
+Print @(10, 10) "SPRITE-Demo - Q beendet"
 
 ' Sprite 1: 16 x 16 Pixel
 ' Sprite 2: 20 x 20 Pixel
-SPRITE LOADARRAY #1, 16, 16, BallPixels%()
-SPRITE LOADARRAY #2, 20, 20, BoxPixels%()
+Sprite LOADARRAY #1, 16, 16, BallPixels%()
+Sprite LOADARRAY #2, 20, 20, BoxPixels%()
 
 ' Farbcode 0 wird transparent dargestellt
-SPRITE SET TRANSPARENT 0
+Sprite SET TRANSPARENT 0
 
 ' Startpositionen
 x1% = 40
@@ -55,13 +55,13 @@ dx2% = -2
 dy2% = -3
 
 ' Beide Sprites liegen auf Layer 1 und koennen kollidieren
-SPRITE SHOW #1, x1%, y1%, 1
-SPRITE SHOW #2, x2%, y2%, 1
+Sprite SHOW #1, x1%, y1%, 1
+Sprite SHOW #2, x2%, y2%, 1
 
 ' Collision-Interrupt einschalten
-SPRITE INTERRUPT Collision
+Sprite INTERRUPT Collision
 
-DO
+Do
     ' Neue Positionen berechnen
     x1% = x1% + dx1%
     y1% = y1% + dy1%
@@ -70,83 +70,82 @@ DO
     y2% = y2% + dy2%
 
     ' Beide Bewegungen vorbereiten ...
-    SPRITE NEXT #1, x1%, y1%
-    SPRITE NEXT #2, x2%, y2%
+    Sprite NEXT #1, x1%, y1%
+    Sprite NEXT #2, x2%, y2%
 
     ' ... und gemeinsam ausfuehren.
     ' Kollisionen werden danach von MMBasic gemeldet.
-    SPRITE MOVE
+    Sprite MOVE
 
     ' Die tatsaechliche Sprite-Position wieder uebernehmen.
     ' Das ist besonders nach einer Kollision nuetzlich.
-    x1% = SPRITE(X, 1)
-    y1% = SPRITE(Y, 1)
-    x2% = SPRITE(X, 2)
-    y2% = SPRITE(Y, 2)
+    x1% = sprite(X, 1)
+    y1% = sprite(Y, 1)
+    x2% = sprite(X, 2)
+    y2% = sprite(Y, 2)
 
-    PAUSE 20
+    Pause 20
 
-    Taste$ = INKEY$
-    IF UCASE$(Taste$) = "Q" THEN EXIT DO
-LOOP
+    Taste$ = Inkey$
+    If UCASE$(Taste$) = "Q" Then Exit Do
+Loop
 
 ' Aufraeumen
-SPRITE INTERRUPT 0
-SPRITE HIDE ALL
-SPRITE CLOSE ALL
+Sprite HIDE ALL
+Sprite CLOSE ALL
 
 CLS
-PRINT "Sprite-Demo beendet."
-END
+Print "Sprite-Demo beendet."
+End
 
 
 ' ------------------------------------------------------------
 ' Sprite-Grafiken erzeugen
 ' ------------------------------------------------------------
-SUB CreateSprites
-    LOCAL INTEGER x%, y%, p%, rx%, ry%
+Sub CreateSprites
+    Local INTEGER x%, y%, p%, rx%, ry%
 
     ' --------------------------------------------------------
     ' Sprite 1: gelber Ball mit rotem Rand
     ' 16 x 16 Pixel
     ' --------------------------------------------------------
-    FOR y% = 0 TO 15
-        FOR x% = 0 TO 15
+    For y% = 0 To 15
+        For x% = 0 To 15
             p% = y% * 16 + x%
 
             rx% = x% - 7
             ry% = y% - 7
 
-            IF rx% * rx% + ry% * ry% <= 49 THEN
-                IF rx% * rx% + ry% * ry% >= 36 THEN
+            If rx% * rx% + ry% * ry% <= 49 Then
+                If rx% * rx% + ry% * ry% >= 36 Then
                     BallPixels%(p%) = &HFF0000
-                ELSE
+                Else
                     BallPixels%(p%) = &HFFFF00
-                ENDIF
-            ELSE
+                EndIf
+            Else
                 BallPixels%(p%) = 0
-            ENDIF
-        NEXT x%
-    NEXT y%
+            EndIf
+        Next x%
+    Next y%
 
     ' --------------------------------------------------------
     ' Sprite 2: cyanfarbenes Quadrat mit weissem Mittelpunkt
     ' 20 x 20 Pixel
     ' --------------------------------------------------------
-    FOR y% = 0 TO 19
-        FOR x% = 0 TO 19
+    For y% = 0 To 19
+        For x% = 0 To 19
             p% = y% * 20 + x%
 
-            IF x% = 0 OR x% = 19 OR y% = 0 OR y% = 19 THEN
+            If x% = 0 Or x% = 19 Or y% = 0 Or y% = 19 Then
                 BoxPixels%(p%) = &H00FFFF
-            ELSE IF x% >= 7 AND x% <= 12 AND y% >= 7 AND y% <= 12 THEN
+            Else If x% >= 7 And x% <= 12 And y% >= 7 And y% <= 12 Then
                 BoxPixels%(p%) = &HFFFFFF
-            ELSE
+            Else
                 BoxPixels%(p%) = &H0000FF
-            ENDIF
-        NEXT x%
-    NEXT y%
-END SUB
+            EndIf
+        Next x%
+    Next y%
+End Sub
 
 
 ' ------------------------------------------------------------
@@ -156,61 +155,61 @@ END SUB
 ' Deshalb kann SPRITE(S) gleich 0 sein. In diesem Fall liefert
 ' SPRITE(C, 0) die Anzahl der Sprites mit Kollisionen.
 ' ------------------------------------------------------------
-SUB Collision
-    LOCAL INTEGER i%, s%
+Sub Collision
+    Local INTEGER i%, s%
 
-    IF SPRITE(S) <> 0 THEN
-        ProcessCollision SPRITE(S)
-    ELSE
-        FOR i% = 1 TO SPRITE(C, 0)
-            s% = SPRITE(C, 0, i%)
+    If sprite(S) <> 0 Then
+        ProcessCollision sprite(S)
+    Else
+        For i% = 1 To sprite(C, 0)
+            s% = sprite(C, 0, i%)
             ProcessCollision s%
-        NEXT i%
-    ENDIF
-END SUB
+        Next i%
+    EndIf
+End Sub
 
 
 ' ------------------------------------------------------------
 ' Kollisionen eines bestimmten Sprites auswerten
 ' ------------------------------------------------------------
-SUB ProcessCollision(s%)
-    LOCAL INTEGER i%, hit%
+Sub ProcessCollision(s%)
+    Local INTEGER i%, hit%
 
-    FOR i% = 1 TO SPRITE(C, s%)
-        hit% = SPRITE(C, s%, i%)
+    For i% = 1 To sprite(C, s%)
+        hit% = sprite(C, s%, i%)
 
-        SELECT CASE hit%
-            CASE &HF1
+        Select Case hit%
+            Case &HF1
                 ' linker Bildschirmrand
-                IF s% = 1 THEN dx1% = ABS(dx1%)
-                IF s% = 2 THEN dx2% = ABS(dx2%)
+                If s% = 1 Then dx1% = Abs(dx1%)
+                If s% = 2 Then dx2% = Abs(dx2%)
 
-            CASE &HF2
+            Case &HF2
                 ' oberer Bildschirmrand
-                IF s% = 1 THEN dy1% = ABS(dy1%)
-                IF s% = 2 THEN dy2% = ABS(dy2%)
+                If s% = 1 Then dy1% = Abs(dy1%)
+                If s% = 2 Then dy2% = Abs(dy2%)
 
-            CASE &HF4
+            Case &HF4
                 ' rechter Bildschirmrand
-                IF s% = 1 THEN dx1% = -ABS(dx1%)
-                IF s% = 2 THEN dx2% = -ABS(dx2%)
+                If s% = 1 Then dx1% = -Abs(dx1%)
+                If s% = 2 Then dx2% = -Abs(dx2%)
 
-            CASE &HF8
+            Case &HF8
                 ' unterer Bildschirmrand
-                IF s% = 1 THEN dy1% = -ABS(dy1%)
-                IF s% = 2 THEN dy2% = -ABS(dy2%)
+                If s% = 1 Then dy1% = -Abs(dy1%)
+                If s% = 2 Then dy2% = -Abs(dy2%)
 
-            CASE ELSE
+            Case Else
                 ' Kollision mit einem anderen Sprite.
                 ' Bei zwei bewegten Objekten kehren wir jeweils
                 ' beide Bewegungsrichtungen um.
-                IF s% = 1 THEN
+                If s% = 1 Then
                     dx1% = -dx1%
                     dy1% = -dy1%
-                ELSE IF s% = 2 THEN
+                Else If s% = 2 Then
                     dx2% = -dx2%
                     dy2% = -dy2%
-                ENDIF
-        END SELECT
-    NEXT i%
-END SUB 
+                EndIf
+        End Select
+    Next i%
+End Sub
