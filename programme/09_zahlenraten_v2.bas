@@ -12,7 +12,9 @@ Rem Hardware/Voraussetzungen: keine
 Rem
 Rem ====================================================================
 
-Print "4. Eine neue Schleife"
+Print "Kapitel 9: Zahlenraten Version 2"
+Print
+Print "Eine neue Schleife"
 Do
   Print "Hallo Welt! (beliebiege Taste fuer Abbruch)"
   If Inkey$<>"" Then Exit
@@ -20,14 +22,14 @@ Loop
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "5. Die Schleife beenden (Eingabe 10 fuer Abbruch)"
+Print "Die Schleife beenden (Eingabe 10 fuer Abbruch)"
 Do
   Input "Zahl eingeben";A
 Loop Until A=10
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "6. Das neue Zahlenratespiel"
+Print "Das neue Zahlenratespiel"
 GEHEIM=Int(Rnd*100)+1
 Print "Ich habe mir eine Zahl von 1 bis 100 ausgedacht."
 Do
@@ -43,7 +45,7 @@ Loop Until TIPP=GEHEIM
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "8. Die Anzahl der Versuche zaehlen"
+Print "Die Anzahl der Versuche zaehlen"
 GEHEIM=Int(Rnd*100)+1
 VERSUCHE=0
 Do
@@ -62,7 +64,7 @@ Print "Du hast ";VERSUCHE;" Versuche benoetigt."
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "10. Eine persoenliche Begruessung"
+Print "Eine persoenliche Begruessung"
 Do
   Print "Wie heisst du?"
   Input NAME$
@@ -88,7 +90,7 @@ Print name$;", du hast ";VERSUCHE;" Versuche benoetigt."
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "11. Experimentiere!"
+Print "Experimentiere!"
 Print "Probiere folgende Aenderungen aus:"
 Print "- Verwende Zahlen von 1 bis 50."
 Print "- Verwende Zahlen von 1 bis 1000."
@@ -97,7 +99,7 @@ Print "- Vergib Punkte fuer besonders gute Ergebnisse."
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "12. Probier's selbst!"
+Print "Probier's selbst!"
 Print "Versuche folgende Aufgaben:"
 Print "1. Begrenze die Anzahl der Versuche auf 10."
 Print "2. Gib nach dem Spiel die geheime Zahl aus."
