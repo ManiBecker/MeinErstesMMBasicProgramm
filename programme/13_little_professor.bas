@@ -12,7 +12,9 @@ Rem Hardware/Voraussetzungen: keine
 Rem
 Rem ====================================================================
 
-Print "3. Unsere erste Rechenaufgabe"
+Print "Kapitel 13: Little Professor"
+Print
+Print "Unsere erste Rechenaufgabe"
 A=Int(Rnd*10)+1
 B=Int(Rnd*10)+1
 Print A;" + ";B;" = ";
@@ -25,7 +27,7 @@ EndIf
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "5. Mehrere Aufgaben hintereinander"
+Print "Mehrere Aufgaben hintereinander"
 For RUNDE=1 To 3
   A=Int(Rnd*10)+1
   B=Int(Rnd*10)+1
@@ -42,13 +44,13 @@ Next RUNDE
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "6. Punkte zaehlen"
+Print "Punkte zaehlen"
 PUNKTE=0
 PUNKTE=PUNKTE+1
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "7. Die richtige Loesung anzeigen"
+Print "Die richtige Loesung anzeigen"
 If ANTWORT=A+B Then
   Print "Richtig!"
   PUNKTE=PUNKTE+1
@@ -59,7 +61,7 @@ EndIf
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "8. Das komplette Programm"
+Print "Das komplette Programm"
 CLS
 PUNKTE=0
 For RUNDE=1 To 5
