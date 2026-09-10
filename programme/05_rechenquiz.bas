@@ -12,7 +12,9 @@ Rem Hardware/Voraussetzungen:
 Rem
 Rem ====================================================================
 
-Print "7. Unsere erste Entscheidung"
+Print "Kapitel 5: Entscheidungen mit IF"
+Print
+Print "Unsere erste Entscheidung"
 A = 10
 If A = 10 Then
   Print "A hat den Wert 10."
@@ -20,7 +22,7 @@ EndIf
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "9. ELSE - der andere Fall"
+Print "ELSE - der andere Fall"
 A = 5
 If A = 10 Then
   Print "A ist 10."
@@ -30,7 +32,7 @@ EndIf
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "11. Unser erstes Quiz"
+Print "Unser erstes Quiz"
 Print "Wieviel ist 2+3?"
 Input ANTWORT
 If ANTWORT = 5 Then
@@ -41,7 +43,7 @@ EndIf
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "12. Mehrere Entscheidungen"
+Print "Mehrere Entscheidungen"
 Input "Schulnote";NOTE
 If NOTE = 1 Then
   Print "Sehr gut"
@@ -55,7 +57,7 @@ EndIf
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "13. ELSEIF verwenden"
+Print "ELSEIF verwenden"
 Input "Schulnote";NOTE
 If NOTE = 1 Then
   Print "Sehr gut"
@@ -69,7 +71,7 @@ EndIf
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "14. Verschachtelte Entscheidungen"
+Print "Verschachtelte Entscheidungen"
 Input "Alter"; ALTER
 If ALTER >= 18 Then
   Print "Volljaehrig"
@@ -80,7 +82,7 @@ EndIf
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "16. Probier's selbst!"
+Print "Probier's selbst!"
 Print "Versuche folgende Aufgaben:"
 Print "1. Schreibe ein Programm, das prueft, ob eine Zahl groesser als 100 ist."
 Print "2. Gib aus, ob eine Zahl gerade oder ungerade ist."
