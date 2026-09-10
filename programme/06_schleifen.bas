@@ -12,7 +12,9 @@ Rem Hardware/Voraussetzungen: keine
 Rem
 Rem ====================================================================
 
-Print "2. Warum Schleifen wichtig sind"
+Print "Kapitel 6: Schleifen mit FOR NEXT"
+Print
+Print "Warum Schleifen wichtig sind"
 Print "Hallo Welt!"
 Print "Hallo Welt!"
 Print "Hallo Welt!"
@@ -26,49 +28,49 @@ Print "Hallo Welt!"
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "3. Unsere erste Schleife"
+Print "Unsere erste Schleife"
 For I=1 To 10
   Print "Hallo Welt!"
 Next I
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "5. Die Zaehlvariable ausgeben"
+Print "Die Zaehlvariable ausgeben"
 For I=1 To 10
   Print I
 Next I
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "6. Mit der Zaehlvariable rechnen"
+Print "Mit der Zaehlvariable rechnen"
 For I=1 To 10
   Print I*I
 Next I
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "7. Das kleine Einmaleins"
+Print "Das kleine Einmaleins"
 For I=1 To 10
   Print I;" x 5 = ";I*5
 Next I
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "8. Rueckwaerts zaehlen"
+Print "Rueckwaerts zaehlen"
 For I=10 To 1 Step -1
   Print I
 Next I
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "9. Groessere Schritte"
+Print "Groessere Schritte"
 For I=0 To 20 Step 2
   Print I
 Next I
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "10. Unser erster Countdown"
+Print "Unser erster Countdown"
 For I=10 To 1 Step -1
   Print I
 Next I
@@ -76,7 +78,7 @@ Print "Start!"
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "11. Schleifen und Entscheidungen"
+Print "Schleifen und Entscheidungen"
 For I=1 To 10
   If I Mod 2 = 0 Then
     Print I
@@ -85,7 +87,7 @@ Next I
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "12. Eine mathematische Funktion berechnen"
+Print "Eine mathematische Funktion berechnen"
 For X=0 To 10
   Y=0.5*X^2+X+0.5
   Print "X=";X;" Y=";Y
@@ -93,12 +95,12 @@ Next X
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "13. Experimentiere!"
+Print "Experimentiere!"
 Print "Probiere folgende Aenderungen aus:"
 Print "Gib die Zahlen von 1 bis 20 aus. Zaehle von 100 bis 0 herunter. Gib alle Vielfachen von 3 aus."
 Print "Berechne die Quadratzahlen von 1 bis 20."
 Print
-Print "14. Probier's selbst!"
+Print "Probier's selbst!"
 Print "Versuche folgende Aufgaben:"
 Print "1. Gib die Zahlen von 1 bis 50 aus."
 Print "2. Gib nur die geraden Zahlen von 1 bis 20 aus."
