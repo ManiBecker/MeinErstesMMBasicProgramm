@@ -14,7 +14,9 @@ Rem ====================================================================
 
 RUNDE=1
 
-Print "3. Die Aufgaben speichern"
+Print "Kapitel 15: Little Professor Version 3"
+Print
+Print "Die Aufgaben speichern"
 Print "Dim AUFGABE$(9)"
 Print "Dim LOESUNG(9)"
 Print "Dim EINGABE(9)"
@@ -22,7 +24,7 @@ Print "Dim TYP(9)"
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "4. Die Arrays fuellen"
+Print "Die Arrays fuellen"
 Print "AUFGABE$(RUNDE-1)=TEXTAUFGABE$"
 Print "LOESUNG(RUNDE-1)=ERG"
 Print "EINGABE(RUNDE-1)=ANTWORT"
@@ -30,13 +32,13 @@ Print "TYP(RUNDE-1)=OP"
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "5. Eine Aufgabe als Text speichern"
+Print "Eine Aufgabe als Text speichern"
 Print "TEXTAUFGABE$=Str$(A)+"" + ""+Str$(B)"
 Print "TEXTAUFGABE$=Str$(A)+"" * ""+Str$(B)"
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "6. Das komplette Programm"
+Print "Das komplette Programm"
 Print "Findest du in 15_little_professor_v3_final.bas"
 
 Do
@@ -104,7 +106,7 @@ End Sub
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "9. Fehler nach Rechenart zaehlen"
+Print "Fehler nach Rechenart zaehlen"
 ADDI=0
 SUBS=0
 MULT=0
@@ -127,7 +129,7 @@ Print "Divisionen:      ";DIVI
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "11. Experimentiere!"
+Print "Experimentiere!"
 Print "Probiere folgende Aenderungen aus:"
 Print "- Erhoehe die Anzahl der Aufgaben auf 20."
 Print "- Speichere zusaetzlich die benoetigte Zeit."
@@ -136,7 +138,7 @@ Print "- Zaehle richtige Antworten je Rechenart."
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "12. Probier's selbst!"
+Print "Probier's selbst!"
 Print "Versuche folgende Aufgaben:"
 Print "1. Speichere den Namen des Spielers."
 Print "2. Gib die erreichte Prozentzahl aus."
