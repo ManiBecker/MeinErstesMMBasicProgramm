@@ -39,10 +39,18 @@ image::bilder/00_hallo.jpg[align=center]
 
 Autor: Manfred Becker
 
-Projektseite: +
+GitHub-Projektseite: +
 https://github.com/ManiBecker/MeinErstesMMBasicProgramm
 
+Webseite zum Tutorial: +
+https://mikrocontroller.bplaced.net/wordpress/mein-erstes-mmbasic-programm-vorwort/
+
 Dieses Tutorial entsteht Schritt für Schritt öffentlich auf GitHub.
+Dort stehen auch die BASIC-Programme und weitere Projektdateien zum
+Download bereit.
+
+Die aktuelleste Version des PDFs zum Download, begleitende Informationen, 
+Neuigkeiten und zusätzliche Beiträge zum Projekt finden sich auf der Webseite zum Tutorial.
 
 Mein besonderer Dank gilt Geoff Graham, dem Entwickler von MMBasic, sowie
 Peter Mather, der MMBasic für den Colour Maximite 2 und die PicoMite-Familie
