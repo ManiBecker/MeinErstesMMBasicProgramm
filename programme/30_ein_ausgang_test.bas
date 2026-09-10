@@ -13,6 +13,8 @@ REM
 REM ====================================================================
 
 CLS RGB(BLACK)
+Print "Kapitel 30: Digitale Ein- und Ausgaenge"
+Print
 Print "Ein Ausgang"
 
 SETPIN GP0,DOUT
