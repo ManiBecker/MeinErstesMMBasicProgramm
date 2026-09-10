@@ -14,6 +14,8 @@ REM ====================================================================
 
 OPTION EXPLICIT
 
+Print "Kapitel 39: Programmieren mit MMEdit"
+
 DIM INTEGER Zaehler
 
 FOR Zaehler = 1 TO 10
