@@ -13,7 +13,9 @@ Rem
 Rem ====================================================================
 
 CLS RGB(BLACK)
-Print "7. Unser erstes Beispiel"
+Print "Kapitel 27: Flackerfreie Grafik mit Framebuffer"
+Print
+Print "Unser erstes Beispiel"
 FRAMEBUFFER CREATE
 FRAMEBUFFER WRITE F
 For I=1 To 1000
@@ -26,7 +28,7 @@ FRAMEBUFFER CLOSE
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS RGB(BLACK)
-Print "9. Das Bild anzeigen"
+Print "Das Bild anzeigen"
 FRAMEBUFFER CREATE
 FRAMEBUFFER WRITE F
 For I=1 To 1000
@@ -40,7 +42,7 @@ FRAMEBUFFER CLOSE
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS RGB(BLACK)
-Print "11. Ein komplettes Bild vorbereiten"
+Print "Ein komplettes Bild vorbereiten"
 FRAMEBUFFER CREATE
 FRAMEBUFFER WRITE F
 For I=1 To 100
@@ -56,7 +58,7 @@ Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS RGB(BLACK)
 
-Print "12. Die Bahnhofsuhr verbessern"
+Print "Die Bahnhofsuhr verbessern"
 Print
 Print "FRAMEBUFFER CREATE"
 Print "FRAMEBUFFER WRITE F"
@@ -82,7 +84,7 @@ Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS RGB(BLACK)
 
-Print "14. Weitere Beispielprogramme zum FRAMEBUFFER sind:"
+Print "Weitere Beispielprogramme zum FRAMEBUFFER sind:"
 Print
 Print "- 10.000 Punkte (27_framebuffer_1.bas)"
 Print "- Animation eines Balles v1.0 (27_framebuffer_2.bas)"
