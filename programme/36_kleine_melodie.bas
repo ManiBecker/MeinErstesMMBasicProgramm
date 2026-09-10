@@ -15,7 +15,9 @@ Rem ====================================================================
 Option Continuation Lines On
 CLS RGB(BLACK)
 
-Print "8. Der Play TONE-Befehl"
+Print "Kapitel 36: Toene und Piezo-Summer"
+Print
+Print "Der Play TONE-Befehl"
 Print
 Print "Zum Erzeugen von Toenen stellt MMBasic den Befehl Play TONE zur Verfuegung."
 Print "Der allgemeine Aufbau lautet:"
@@ -34,7 +36,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "9. Der erste Ton"
+Print "Der erste Ton"
 Print
 Print "Mit MMBasic lassen sich Toene sehr einfach erzeugen."
 Print "Play TONE 1000,1000,500"
@@ -50,7 +52,7 @@ Play TONE 1000,1000,500
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "10. Was ist eine Frequenz?"
+Print "Was ist eine Frequenz?"
 Print
 Print "Die Frequenz gibt an, wie oft ein Signal pro Sekunde schwingt."
 Print "1000 Hz = 1000 Schwingungen pro Sekunde"
@@ -58,7 +60,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "11. Tiefe und hohe Toene"
+Print "Tiefe und hohe Toene"
 Print
 Print "Kleine Frequenz: 200 Hz ergibt einen tiefen Ton."
 Print "Grosse Frequenz: 2000 Hz ergibt einen hohen Ton."
@@ -66,7 +68,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "12. Experimentiere!"
+Print "Experimentiere!"
 Print
 Print "Probiere verschiedene Frequenzen aus:"
 Print "Play TONE 200,200,500 : Pause 500"
@@ -84,7 +86,7 @@ Play TONE 2000,2000,500 : Pause 500
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "13. Eine kleine Tonleiter"
+Print "Eine kleine Tonleiter"
 Print
 Print "Die folgenden Frequenzen entsprechen ungefaehr einer Tonleiter."
 Print "Play TONE 262,262,500 : Pause 500"
@@ -111,7 +113,7 @@ Play TONE 523,523,500 : Pause 500
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "14. Toene und LEDs kombinieren"
+Print "Toene und LEDs kombinieren"
 Print
 Print "Wir koennen die LED aus Kapitel 31 mit einem Ton kombinieren."
 Print "SETPIN GP0,DOUT"
@@ -129,7 +131,7 @@ Pin(GP0)=0
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "15. Eine Sirene"
+Print "Eine Sirene"
 Print
 Print "DO"
 Print "  FOR F=500 TO 1500 STEP 20"
@@ -154,7 +156,7 @@ Loop While Inkey$=""
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "16. Eine einfache Klingel"
+Print "Eine einfache Klingel"
 Print
 Print "Viele Tuerklingeln verwenden zwei Toene."
 Print "Play TONE 800,800,300 : Pause 300"
@@ -171,7 +173,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "17. Wiederholte Signaltoene"
+Print "Wiederholte Signaltoene"
 Print
 Print "FOR I=1 TO 5"
 Print "  Play TONE 1000,1000,100 : Pause 100"
@@ -188,7 +190,7 @@ Next I
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "18. Melodien programmieren"
+Print "Melodien programmieren"
 Print
 Print "Eine Melodie besteht aus vielen einzelnen Noten."
 Print "Jede Note besitzt:"
@@ -207,7 +209,7 @@ Play TONE 330,330,500 : Pause 500
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "19. Arrays fuer Notenfolgen"
+Print "Arrays fuer Notenfolgen"
 Print
 Print "Mit Arrays lassen sich Melodien uebersichtlicher speichern."
 Print "DIM NOTE(8)"
@@ -235,7 +237,7 @@ NOTE(8)=523
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "20. Die Tonleiter mit einem Array"
+Print "Die Tonleiter mit einem Array"
 Print
 Print "DIM NOTE(8)"
 Print "NOTE(1)=262"
@@ -269,7 +271,7 @@ Next I
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "21. Melodien mit Notennamen"
+Print "Melodien mit Notennamen"
 Print
 Print "Eine Melodie laesst sich noch uebersichtlicher schreiben, wenn die einzelnen Noten Namen erhalten."
 Print "Dazu definieren wir zunaechst Konstanten fuer die Positionen im Noten-Array."
@@ -298,7 +300,7 @@ Data C1,D1,E1,F1,G1,G1,H1,H1,G1
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "22. Praxisprojekt: Alle meine Entchen"
+Print "Praxisprojekt: Alle meine Entchen"
 Print
 Print "Nun spielen wir die ersten Takte eines bekannten Kinderlieds."
 Print "DIM NOTE(7)"
@@ -336,7 +338,7 @@ Play TONE NOTE(5),NOTE(5),800 : Pause 800
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "23. Praxisprojekt: Elektronische Tuerklingel"
+Print "Praxisprojekt: Elektronische Tuerklingel"
 Print
 Print "DO"
 Print "  PRINT ""Taste ENTER"""
@@ -359,7 +361,7 @@ Loop While A$=Chr$(13)
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "24. Mehr als nur Pieptoene"
+Print "Mehr als nur Pieptoene"
 Print
 Print "Die in diesem Kapitel gezeigten Beispiele funktionieren bereits mit einem einfachen PiezoLautsprecher."
 Print "Viele MMBasic-Systeme bieten jedoch deutlich umfangreichere Audiofunktionen."
@@ -378,7 +380,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "25. Wo werden Toene verwendet?"
+Print "Wo werden Toene verwendet?"
 Print
 Print "Piezo-Lautsprecher findet man in vielen Projekten:"
 Print "- Alarmanlagen"
@@ -392,7 +394,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "26. Typische Fehler"
+Print "Typische Fehler"
 Print
 Print "Wenn kein Ton hoerbar ist:"
 Print "1. Ist der Piezo richtig angeschlossen?"
@@ -404,7 +406,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "27. Experimentiere!"
+Print "Experimentiere!"
 Print
 Print "Probiere folgende Aenderungen aus:"
 Print "- andere Frequenzen"
@@ -415,7 +417,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "28. Probier's selbst!"
+Print "Probier's selbst!"
 Print
 Print "Versuche folgende Aufgaben:"
 Print "1. Spiele eine eigene Melodie."
