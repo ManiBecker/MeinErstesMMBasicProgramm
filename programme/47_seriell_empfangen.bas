@@ -45,6 +45,8 @@ OPEN "COM1:9600, 512" AS #1
 SETPIN GP2, DOUT
 PIN(GP2) = 0
 
+PRINT "Kapitel 47: Serielle Kommunikation"
+PRINT
 PRINT "Serieller Empfaenger gestartet"
 PRINT "COM1: GP0=TX, GP1=RX, 9600 Baud"
 PRINT "Befehle: LED:ON, LED:OFF"
