@@ -12,7 +12,9 @@ Rem Hardware/Voraussetzungen: keine
 Rem
 Rem ====================================================================
 
-Print "6. Arrays und FOR-Schleifen"
+Print "Kapitel 11: Arrays"
+Print
+Print "Arrays und FOR-Schleifen"
 Dim VERSUCH(4)
 For I=0 To 4
   Print "Gebe den";i+1;". von 5 Zahlenwerten ein";
@@ -21,14 +23,14 @@ Next I
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "7. Alle Werte ausgeben"
+Print "Alle Werte ausgeben"
 For I=0 To 4
   Print VERSUCH(I)
 Next I
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "8. Den Durchschnitt berechnen"
+Print "Den Durchschnitt berechnen"
 SUMME=0
 For I=0 To 4
   SUMME=SUMME+VERSUCH(I)
@@ -39,7 +41,7 @@ Print SUMME/5
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "9a. Den kleinsten Wert finden"
+Print "Den kleinsten Wert finden"
 KLEIN=VERSUCH(0)
 For I=1 To 4
   If VERSUCH(I)<KLEIN Then
@@ -51,7 +53,7 @@ Print "Kleinster Wert:";KLEIN
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "9b. Den groessten Wert finden"
+Print "Den groessten Wert finden"
 GROSS=VERSUCH(0)
 For I=1 To 4
   If VERSUCH(I)>GROSS Then
@@ -63,7 +65,7 @@ Print "Groesster Wert:";GROSS
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "10. Arrays initialisieren"
+Print "Arrays initialisieren"
 Dim NAME$(2)=("Manfred","Geoff","Peter")
 Print NAME$(0)
 Print NAME$(1)
@@ -71,7 +73,7 @@ Print NAME$(2)
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "11. Textarrays"
+Print "Textarrays"
 Dim SPIELER$(4)
 SPIELER$(0)="Manfred"
 SPIELER$(1)="Geoff"
@@ -84,7 +86,7 @@ Next I
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "12. Wuerfelergebnisse speichern"
+Print "Wuerfelergebnisse speichern"
 Dim WURF(9)
 For I=0 To 9
   WURF(I)=Int(Rnd*6)+1
@@ -95,7 +97,7 @@ Next I
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "13. Eine Wertetabelle speichern"
+Print "Eine Wertetabelle speichern"
 Dim Y(10)
 For X=0 To 10
   Y(X)=0.5*X^2+X+0.5
@@ -106,7 +108,7 @@ Next X
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "14. Mehrdimensionale Arrays"
+Print "Mehrdimensionale Arrays"
 Dim SCHUELER$(4)
 SCHUELER$(0)="Anna"
 SCHUELER$(1)="Ben"
@@ -145,7 +147,7 @@ Next S
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "15. Experimentiere!"
+Print "Experimentiere!"
 Print
 Print "Probiere folgende Aenderungen aus:"
 Print "- Speichere zehn Wuerfelergebnisse."
@@ -155,7 +157,7 @@ Print "- Vergroessere ein Array."
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "16. Probier's selbst!"
+Print "Probier's selbst!"
 Print
 Print "Versuche folgende Aufgaben:"
 Print "1. Speichere die Alter von fuenf Personen."
