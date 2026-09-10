@@ -13,7 +13,10 @@ Rem
 Rem ====================================================================
 
 MODE 2
-Print "3. Farben mit RGB() erzeugen"
+
+Print "Kapitel 18: Farben und Schriftarten"
+Print
+Print "Farben mit RGB() erzeugen"
 Print
 Print "RGB(255,0,0): ";RGB(255,0,0)
 Print "RGB(0,255,0): ";RGB(0,255,0)
@@ -21,7 +24,7 @@ Print "RGB(0,0,255): ";RGB(0,0,255)
 Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "4. Farbkonstanten verwenden"
+Print "Farbkonstanten verwenden"
 Print
 Print "RGB(RED):    ";RGB(RED)
 Print "RGB(GREEN):  ";RGB(GREEN)
@@ -35,19 +38,19 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "5. Vorder- und Hintergrundfarbe"
+Print "Vorder- und Hintergrundfarbe"
 Colour RGB(YELLOW), RGB(BLUE)
 Print "Hallo MMBasic"
 Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS RGB(BLACK)
-Print "6. Der Bildschirmhintergrund"
+Print "Der Bildschirmhintergrund"
 Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS RGB(BLACK)
-Print "7. Ein kleines Farbexperiment"
+Print "Ein kleines Farbexperiment"
 Colour RGB(YELLOW), RGB(BLACK)
 Print "Gelber Text"
 Colour RGB(CYAN), RGB(BLACK)
@@ -58,7 +61,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "9. Schriftart auswaehlen"
+Print "Schriftart auswaehlen"
 Font 1
 Print "Schriftart 1"
 Font 2
@@ -70,7 +73,7 @@ Font 1
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "11. Schriftgroesse ausprobieren"
+Print "Schriftgroesse ausprobieren"
 Font 1
 Print "Kleine Schrift"
 Font 2
@@ -84,14 +87,14 @@ Font 1
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "12. Grosse Zahlen darstellen"
+Print "Grosse Zahlen darstellen"
 Font 6
 Print "12:45"
 Font 1
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "13. Informationen zur aktuellen Schrift"
+Print "Informationen zur aktuellen Schrift"
 Font 1
 Print "MM.INFO(FONTWIDTH):  ";MM.Info(FONTWIDTH)
 Print "MM.INFO(FONTHEIGHT): ";MM.Info(FONTHEIGHT)
@@ -105,7 +108,7 @@ Font 1
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS RGB(BLACK)
-Print "14. Ein digitales Display"
+Print "Ein digitales Display"
 Colour RGB(GREEN), RGB(BLACK)
 Font 6
 Print Time$
@@ -114,7 +117,7 @@ Font 1
 Print "Press any key...": Do : Loop While Inkey$=""
 
 MODE 1
-Print "15. Experimentiere!"
+Print "Experimentiere!"
 Print
 Print "Probiere folgende Aenderungen aus:"
 Print "- Verwende andere Farben."
@@ -124,7 +127,7 @@ Print "- Zeige das aktuelle Datum an."
 Print
 Print "Press any key...": Do : Loop While Inkey$=""
 Print
-Print "18.16. Probier's selbst!"
+Print "Probier's selbst!"
 Print
 Print "Versuche folgende Aufgaben:"
 Print "1. Gib deinen Namen in einer grossen Schrift aus."
