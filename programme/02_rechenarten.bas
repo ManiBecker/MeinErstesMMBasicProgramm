@@ -12,12 +12,14 @@ Rem Hardware/Voraussetzungen: keine
 Rem
 Rem ====================================================================
 
-Print "2. MMBasic kann rechnen"
+Print "Kapitel 2: Mit MMBasic rechnen"
+Print
+Print "MMBasic kann rechnen"
 Print "1+2=";1+2
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "3. Die vier Grundrechenarten"
+Print "Die vier Grundrechenarten"
 Print "5+3=";5+3
 Print "10-4=";10-4
 Print "6*7=";6*7
@@ -25,35 +27,35 @@ Print "20/4=";20/4
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "4. Mehrere Rechenarten kombinieren"
+Print "Mehrere Rechenarten kombinieren"
 Print "2+3*4=";2+3*4
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "5. Klammern verwenden"
+Print "Klammern verwenden"
 Print "(2+3)*4=";(2+3)*4
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "6. Potenzen berechnen"
+Print "Potenzen berechnen"
 Print "2^8=";2^8
 Print "10^3=";10^3
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "7. Die Quadratwurzel"
+Print "Die Quadratwurzel"
 Print "Sqr(25)=";Sqr(25)
 Print "Sqr(144)=";Sqr(144)
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "8. Der Betrag einer Zahl"
+Print "Der Betrag einer Zahl"
 Print "Abs(-10)=";Abs(-10)
 Print "Abs(10)=";Abs(10)
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "9. Experimentiere!"
+Print "Experimentiere!"
 Print
 Print "123+456=";123+456
 Print "50*20=";50*20
@@ -63,7 +65,7 @@ Print "Sqr(81)=";Sqr(81)
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "10. Probier's selbst!"
+Print "Probier's selbst!"
 Print
 Print "1.) Berechne 15 + 27."
 Print "2.) Berechne 100 - 37."
