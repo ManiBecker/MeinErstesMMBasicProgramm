@@ -15,7 +15,9 @@ Rem ====================================================================
 Option Continuation Lines On
 CLS RGB(BLACK)
 
-Print "8. PWM beim PicoMite"
+Print "Kapitel 35: PWM und LED-Dimmer"
+Print
+Print "PWM beim PicoMite"
 Print
 Print "Der PicoMite besitzt mehrere PWM-Kanaele."
 Print "Ein PWM-Signal wird mit dem Befehl:"
@@ -32,7 +34,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "9. PWM-Ausgaenge konfigurieren"
+Print "PWM-Ausgaenge konfigurieren"
 Print "Bevor ein GPIO-Pin verwendet werden kann, muss er einem "
 Print "PWM-Kanal zugeordnet werden."
 Print "Beispiel:"
@@ -45,7 +47,7 @@ SetPin GP0,PWM0A
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "10. Erste PWM-Ausgabe"
+Print "Erste PWM-Ausgabe"
 Print "SETPIN GP0,PWM0A"
 Print "PWM 0,1000,50"
 Print "Die LED sollte nun etwa halb so hell leuchten."
@@ -57,7 +59,7 @@ PWM 0,1000,50
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "11. Verschiedene Helligkeiten"
+Print "Verschiedene Helligkeiten"
 Print "25 %:"
 Print "PWM 0,1000,25"
 Print "50 %:"
@@ -80,7 +82,7 @@ Next i
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "12. PWM stoppen"
+Print "PWM stoppen"
 Print "PWM 0,OFF"
 Print "Der PWM-Kanal wird abgeschaltet."
 Print
@@ -90,7 +92,7 @@ PWM 0,OFF
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "13. Der Colour Maximite 2"
+Print "Der Colour Maximite 2"
 Print "Auch der Colour Maximite 2 unterstuetzt PWM."
 Print "Dort werden PWM-Controller verwendet."
 Print "Beispiel:"
@@ -106,7 +108,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "14. Eine LED langsam heller werden lassen"
+Print "Eine LED langsam heller werden lassen"
 Print "Nun erzeugen wir einen einfachen Aufblendeffekt."
 Print "SETPIN GP0,PWM0A"
 Print "FOR HELLIGKEIT=0 TO 100"
@@ -125,7 +127,7 @@ Next HELLIGKEIT
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "15. Eine LED langsam dunkler werden lassen"
+Print "Eine LED langsam dunkler werden lassen"
 Print "SETPIN GP0,PWM0A"
 Print "FOR HELLIGKEIT=100 TO 0 STEP -1"
 Print "  PWM 0,1000,HELLIGKEIT"
@@ -144,7 +146,7 @@ Next HELLIGKEIT
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "16. Atemlicht"
+Print "Atemlicht"
 Print "Kombinieren wir beide Effekte."
 Print
 Print "SETPIN GP0,PWM0A"
@@ -177,7 +179,7 @@ Loop While Inkey$=""
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "17. PWM als analoger Ausgang"
+Print "PWM als analoger Ausgang"
 Print
 Print "PWM wird haeufig verwendet, um analoge Spannungen zu simulieren."
 Print "Betrachten wir folgende Werte:"
@@ -192,7 +194,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "18. PWM in der Praxis"
+Print "PWM in der Praxis"
 Print
 Print "PWM wird verwendet fuer:"
 Print "- LED-Dimmer"
@@ -207,7 +209,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "19. Praxisprojekt: Dimmer mit Potentiometer"
+Print "Praxisprojekt: Dimmer mit Potentiometer"
 Print
 Print "Nun verbinden wir die Kapitel 34 und 35."
 Print "Das Potentiometer liefert den Sollwert."
@@ -217,7 +219,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "20. Die Hardware"
+Print "Die Hardware"
 Print "Benoetigt werden:"
 Print "- Potentiometer an GP40"
 Print "- LED an GP0"
@@ -229,7 +231,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "21. Programm"
+Print "Programm"
 Print "SETPIN GP40,AIN"
 Print "SETPIN GP0,PWM0A"
 Print "DO"
@@ -255,7 +257,7 @@ Loop While Inkey$=""
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "22. Erweiterung: Anzeige der Helligkeit"
+Print "Erweiterung: Anzeige der Helligkeit"
 Print
 Print "SETPIN GP40,AIN"
 Print "SETPIN GP0,PWM0A"
@@ -288,7 +290,7 @@ PWM 0,OFF
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "23. Typische Fehler"
+Print "Typische Fehler"
 Print
 Print "Wenn die LED nicht reagiert:"
 Print "1. Ist der richtige PWM-Pin verwendet?"
@@ -301,7 +303,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "24. Experimentiere!"
+Print "Experimentiere!"
 Print
 Print "Probiere folgende Aenderungen aus:"
 Print "Andere PWM-Frequenzen mehrere LEDs unterschiedliche Helligkeitskurven"
@@ -311,7 +313,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "25. Probiers selbst!"
+Print "Probiers selbst!"
 Print
 Print "Versuche folgende Aufgaben:"
 Print "1. Erzeuge einen sanften Sonnenaufgang."
