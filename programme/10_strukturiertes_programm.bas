@@ -13,7 +13,9 @@ Rem Hardware/Voraussetzungen: keine
 Rem
 Rem ====================================================================
 
-Print "3. Unsere erste SUB"
+Print "Kapitel 10: Programme strukturieren mit SUB und FUNCTION"
+Print
+Print "Unsere erste SUB"
 Sub Begruessung
   Print "Hallo Welt!"
 End Sub
@@ -21,14 +23,14 @@ Begruessung
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "4. Eine SUB mehrfach aufrufen"
+Print "Eine SUB mehrfach aufrufen"
 Begruessung
 Begruessung
 Begruessung
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "5. Eine SUB mit Parametern"
+Print "Eine SUB mit Parametern"
 Sub Begruessung2(NAME$)
   Print "Hallo ";NAME$
 End Sub
@@ -38,7 +40,7 @@ Begruessung2("Peter")
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "7. Unsere erste FUNCTION"
+Print "Unsere erste FUNCTION"
 Function Quadrat(X)
   Quadrat=X*X
 End Function
@@ -46,7 +48,7 @@ Print Quadrat(5)
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "8. Weitere Funktionen"
+Print "Weitere Funktionen"
 Function Verdoppeln(X)
   Verdoppeln=X*2
 End Function
@@ -54,12 +56,12 @@ Print Verdoppeln(10)
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "9. Funktionen in Berechnungen verwenden"
+Print "Funktionen in Berechnungen verwenden"
 Print Quadrat(5)+Quadrat(3)
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "10. Eine Wuerfelfunktion"
+Print "Eine Wuerfelfunktion"
 Function Wuerfel()
   Wuerfel=Int(Rnd*6)+1
 End Function
@@ -69,7 +71,7 @@ Print Wuerfel()
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "11. Eine mathematische Funktion"
+Print "Eine mathematische Funktion"
 Print "F(x)=0.5*X^2+X+0.5"
 Function F(X)
   F=0.5*X^2+X+0.5
@@ -81,7 +83,7 @@ Next X
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "12. Das Zahlenratespiel verbessern"
+Print "Das Zahlenratespiel verbessern"
 Function NeueZahl()
   NeueZahl=Int(Rnd*100)+1
 End Function
@@ -112,14 +114,14 @@ Loop While Nochmal$()="J"
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "15. Experimentiere!"
+Print "Experimentiere!"
 Print "Probiere folgende Aenderungen aus:"
 Print "- Schreibe eine Funktion zur Berechnung des Dreifachen einer Zahl."
 Print "- Schreibe eine Funktion fuer die Berechnung eines Kreises."
 Print "- Erweitere die Wuerfelfunktion."
 Print "- Erstelle eine SUB fuer eine persoenliche Begruessung."
 
-Print "10.16. Probier's selbst!"
+Print "Probier's selbst!"
 Print "Versuche folgende Aufgaben:"
 Print "1. Schreibe eine Funktion zur Berechnung des Wuerfels einer Zahl."
 Print "2. Schreibe eine Funktion zur Berechnung des Umfangs eines Quadrats."
