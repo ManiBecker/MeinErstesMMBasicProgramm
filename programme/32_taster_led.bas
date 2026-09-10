@@ -13,6 +13,8 @@ REM
 REM ====================================================================
 
 CLS RGB(BLACK)
+Print "Kapitel 32: Taster und Schalter"
+Print
 Print "Das erste Tasterprogramm"
 Print "PicoMite:"
 SETPIN GP1,DIN,PULLUP
