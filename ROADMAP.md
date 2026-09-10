@@ -5,11 +5,13 @@ Sie dient als Orientierung und kann sich aufgrund neuer Ideen oder Community-Fee
 
 ---
 
-## Version 0.20 – Beispielprogramme
+## Version 0.20 – Beispielprogramme ✅
+
+**Veröffentlicht am 10. September 2026**
 
 Schwerpunkt dieser Version ist die Bereitstellung und Verifizierung aller Beispielprogramme aus dem Tutorial.
 
-### Geplant
+### Abgeschlossen
 
 - [x] Alle 52 [BASIC-Programmbeispiele](./programme/) als *.bas-Dateien bereitstellen
 - [x] Alle Programme auf PicoMite testen und verifizieren
