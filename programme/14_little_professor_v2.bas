@@ -12,7 +12,9 @@ Rem Hardware/Voraussetzungen: keine
 Rem
 Rem ====================================================================
 
-Print "3. Der Spielername"
+Print "Kapitel 14: Little Professor Version 2"
+Print
+Print "Der Spielername"
 Do
   Input "Wie heisst du ";NAME$
 Loop While NAME$=""
@@ -22,7 +24,7 @@ Print
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "4. Zufaellig eine Rechenart auswaehlen"
+Print "Zufaellig eine Rechenart auswaehlen"
 OP=Int(Rnd*4)
 Print "Die Werte bedeuten:"
 Print "0 = Addition"
@@ -32,14 +34,14 @@ Print "3 = Division"
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "5. Eine Aufgabe erzeugen"
+Print "Eine Aufgabe erzeugen"
 Sub NeueAufgabe
   OP=Int(Rnd*4)
 End Sub
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "6. Additionsaufgaben"
+Print "Additionsaufgaben"
 A=Int(Rnd*10)
 B=Int(Rnd*10)
 ERG=A+B
@@ -47,7 +49,7 @@ Print A;" + ";B;" = ?"
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "7. Subtraktionsaufgaben"
+Print "Subtraktionsaufgaben"
 A=Int(Rnd*10)+10
 B=Int(Rnd*10)
 ERG=A-B
@@ -55,7 +57,7 @@ Print A;" - ";B;" = ?"
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "8. Multiplikationsaufgaben"
+Print "Multiplikationsaufgaben"
 A=Int(Rnd*10)
 B=Int(Rnd*10)
 ERG=A*B
@@ -63,7 +65,7 @@ Print A;" * ";B;" = ?"
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "9. Divisionsaufgaben"
+Print "Divisionsaufgaben"
 ERG=Int(Rnd*10)+1
 B=Int(Rnd*10)+1
 A=ERG*B
@@ -71,7 +73,7 @@ Print A;" / ";B;" = ?"
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "10. Die SUB vervollstaendigen"
+Print "Die SUB vervollstaendigen"
 Sub NeueAufgabe2
   OP=Int(Rnd*4)
   If OP=0 Then
@@ -99,10 +101,10 @@ End Sub
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "11. Das komplette Programm"
+Print "Das komplette Programm"
 Print "Findest du in 14_little_professor_v2_final.bas"
 
-Print "14. Experimentiere!"
+Print "Experimentiere!"
 Print "Probiere folgende Aenderungen aus:"
 Print "- Verwende Zahlen bis 20."
 Print "- Stelle 20 Aufgaben."
@@ -112,7 +114,7 @@ Print "- Aendere die Bewertung am Ende."
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "15. Probier's selbst!"
+Print "Probier's selbst!"
 Print "Versuche folgende Aufgaben:"
 Print "1. Fuege eine Schwierigkeitsstufe hinzu."
 Print "2. Lasse den Spieler die Anzahl der Aufgaben waehlen."
