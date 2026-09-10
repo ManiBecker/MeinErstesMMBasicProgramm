@@ -35,6 +35,8 @@ SETPIN GP0, GP1, COM1
 ' Serielle Schnittstelle mit 9600 Baud oeffnen.
 OPEN "COM1:9600" AS #1
 
+PRINT "Kapitel 47: Serielle Kommunikation"
+PRINT
 PRINT "Serielles Sendeprogramm"
 PRINT "COM1: 9600 Baud"
 PRINT "TX = GP0, RX = GP1"
