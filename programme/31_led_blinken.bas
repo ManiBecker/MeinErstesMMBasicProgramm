@@ -13,6 +13,8 @@ REM
 REM ====================================================================
 
 CLS RGB(BLACK)
+Print "Kapitel 31: Eine LED zum Blinken bringen"
+Print
 Print "Erstes Blinkprogramm"
 SETPIN GP25,DOUT
 DO
