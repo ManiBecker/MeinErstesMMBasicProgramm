@@ -88,8 +88,8 @@ Print "Weitere Beispielprogramme zum FRAMEBUFFER sind:"
 Print
 Print "- 10.000 Punkte (27_framebuffer_1.bas)"
 Print "- Animation eines Balles v1.0 (27_framebuffer_2.bas)"
-Print "- Animation eines Balles v2.0 (27_framebuffer_3.bas"
-Print "- Animation eines Balles v3.0 (27_framebuffer_4.bas"
+Print "- Animation eines Balles v2.0 (27_framebuffer_3.bas)"
+Print "- Animation eines Balles v3.0 (27_framebuffer_4.bas)"
 
 Print
 Print "Ready..."
