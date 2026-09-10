@@ -16,12 +16,14 @@ MODE 2
 
 Turtle RESET
 CLS
-Print "24. Die Schildkroete zuruecksetzen"
+Print "Kapitel 19: Turtle-Grafik"
+Print
+Print "Die Schildkroete zuruecksetzen"
 Print "Press any key...": Do : Loop While Inkey$=""
 
 Turtle RESET
 CLS
-Print "25. Ein Quadrat zeichnen"
+Print "Ein Quadrat zeichnen"
 For I = 1 To 4
   Turtle FORWARD 10
   Turtle RIGHT 90
@@ -30,7 +32,7 @@ Print "Press any key...": Do : Loop While Inkey$=""
 
 Turtle RESET
 CLS
-Print "27. Experimentiere!"
+Print "Experimentiere!"
 Print "Veraendere die Seitenlaenge:"
 For I = 1 To 4
   Turtle FORWARD 30
@@ -48,7 +50,7 @@ Next I
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "28. Vielecke zeichnen"
+Print "Vielecke zeichnen"
 Print
 Print "Der Drehwinkel bestimmt, welche Figur gezeichnet wird."
 Print "Probiere zum Beispiel folgende Winkel aus:"
@@ -64,7 +66,7 @@ Print "Press any key...": Do : Loop While Inkey$=""
 
 Turtle RESET
 CLS
-Print "29. Eine Spirale"
+Print "Eine Spirale"
 For I = 1 To 80
   Turtle FORWARD I * 2
   Turtle RIGHT 50
@@ -73,7 +75,7 @@ Print "Press any key...": Do : Loop While Inkey$=""
 
 Turtle RESET
 CLS
-Print "30. Ein Stern"
+Print "Ein Stern"
 For I = 1 To 80
   Turtle FORWARD I * 2
   Turtle RIGHT 120 + I
