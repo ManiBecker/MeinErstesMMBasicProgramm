@@ -29,6 +29,8 @@ palette%(5) = RGB(30, 0, 40)     ' Violett
 ' Datenpin fuer die WS2812B-Kette vorbereiten
 SETPIN GP5, DOUT
 
+PRINT "Kapitel 48: WS2812 RGB-LEDs"
+PRINT
 PRINT "WS2812B-Regenbogen"
 PRINT "Beenden mit einer Taste"
 
