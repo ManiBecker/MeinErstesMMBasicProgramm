@@ -15,6 +15,8 @@ REM ====================================================================
 
 MODE 1
 
+PRINT "Kapitel 17: Die verschiedenen Grafikmodi"
+PRINT
 PRINT "Die Bildschirmgroesse bei MODE 1"
 PRINT
 PRINT MM.HRES
