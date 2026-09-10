@@ -12,7 +12,9 @@ Rem Hardware/Voraussetzungen: keine
 Rem
 Rem ====================================================================
 
-Print "2. Zahlen und Texte"
+Print "Kapitel 12: Mit Texten arbeiten"
+Print
+Print "Zahlen und Texte"
 Print "ALTER=60":ALTER=60
 Print "PUNKTE=125":PUNKTE=125
 
@@ -21,61 +23,61 @@ Print "ORT$=""Sinsheim""":ORT$="Sinsheim"
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "3. Wie lang darf ein Text sein?"
+Print "Wie lang darf ein Text sein?"
 Print "Normale Zeichenketten koennen in MMBasic maximal 255 Zeichen enthalten."
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "4. Texte ausgeben"
+Print "Texte ausgeben"
 NAME$="Manfred"
 Print NAME$
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "5. Texte eingeben"
+Print "Texte eingeben"
 Input "Gebe deinen Namen ein:",NAME$
 Print "Hallo ";NAME$
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "6. Texte verbinden"
+Print "Texte verbinden"
 VORNAME$="Manfred"
 NACHNAME$="Becker"
 Print VORNAME$;" ";NACHNAME$
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "7. Die Laenge eines Textes bestimmen"
+Print "Die Laenge eines Textes bestimmen"
 NAME$="Manfred"
 Print Len(NAME$)
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "8. Das erste Zeichen ermitteln"
+Print "Das erste Zeichen ermitteln"
 NAME$="Manfred"
 Print Left$(NAME$,1)
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "9. Mehrere Zeichen vom Anfang lesen"
+Print "Mehrere Zeichen vom Anfang lesen"
 NAME$="Manfred"
 Print Left$(NAME$,3)
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "10. Zeichen vom Ende lesen"
+Print "Zeichen vom Ende lesen"
 NAME$="Manfred"
 Print Right$(NAME$,3)
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "11. Zeichen aus der Mitte lesen"
+Print "Zeichen aus der Mitte lesen"
 NAME$="Manfred"
 Print Mid$(NAME$,3,2)
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "12. Gross- und Kleinbuchstaben"
+Print "Gross- und Kleinbuchstaben"
 NAME$="Manfred"
 Print UCase$(NAME$)
 
@@ -84,7 +86,7 @@ Print LCase$(NAME$)
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "13. Texte vergleichen"
+Print "Texte vergleichen"
 Input "Ja oder Nein?",ANTWORT$
 If ANTWORT$="JA" Then
   Print "Richtig"
@@ -92,7 +94,7 @@ EndIf
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "14. Gross- und Kleinschreibung ignorieren"
+Print "Gross- und Kleinschreibung ignorieren"
 Input "Ja oder Nein?",ANTWORT$
 If UCase$(ANTWORT$)="JA" Then
   Print "Richtig"
@@ -100,7 +102,7 @@ EndIf
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "15. In einem Text suchen"
+Print "In einem Text suchen"
 Textausgabe$="MMBasic macht Spass"
 Print Instr(Textausgabe$,"macht")
 
@@ -113,14 +115,14 @@ EndIf
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "16. Zahlen und Texte umwandeln"
+Print "Zahlen und Texte umwandeln"
 ZAHL=Val("123")
 Print ZAHL+1
 
 Textausgabe$=Str$(123)
 Print "Die Zahl lautet ";Textausgabe$
 
-Print "17. Datum und Uhrzeit"
+Print "Datum und Uhrzeit"
 Print Date$
 Print Time$
 Print "Heute ist ";Date$
@@ -128,7 +130,7 @@ Print "Es ist ";Time$
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "18. Begruessung abhaengig von der Uhrzeit"
+Print "Begruessung abhaengig von der Uhrzeit"
 STUNDE=Val(Left$(Time$,2))
 If STUNDE<12 Then
   Print "Guten Morgen!"
@@ -140,7 +142,7 @@ EndIf
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "19. Ein kleines Praxisprogramm"
+Print "Ein kleines Praxisprogramm"
 Do
   Input "Dein Name eingeben:",NAME$
 Loop While name$=""
@@ -168,7 +170,7 @@ Print
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "20. Experimentiere!"
+Print "Experimentiere!"
 Print "Probiere folgende Aenderungen aus:"
 Print "- Gib die ersten drei Zeichen eines Namens aus."
 Print "- Gib die letzten drei Zeichen aus."
@@ -178,7 +180,7 @@ Print "- Suche nach einem Wort in einem Text."
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "21. Probier's selbst!"
+Print "Probier's selbst!"
 Print "Versuche folgende Aufgaben:"
 Print "1. Frage den Namen des Benutzers ab."
 Print "2. Gib die Anzahl der Zeichen aus."
