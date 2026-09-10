@@ -13,7 +13,9 @@ Rem Hardware/Voraussetzungen: keine
 Rem
 Rem ====================================================================
 
-Print "4. Das komplette Programm"
+Print "Kapitel 8: Unser erstes Spiel: Zahlenraten"
+Print
+Print "Das komplette Programm"
 GEHEIM=Int(Rnd*10)+1
 Print "Ich habe mir eine Zahl von 1 bis 10 ausgedacht."
 Input "Dein Tipp";TIPP
@@ -25,7 +27,7 @@ EndIf
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "7. Mehrere Spielrunden"
+Print "Mehrere Spielrunden"
 For RUNDE=1 To 5
   GEHEIM=Int(Rnd*10)+1
   Print
@@ -40,7 +42,7 @@ Next RUNDE
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "8. Punkte sammeln"
+Print "Punkte sammeln"
 PUNKTE=0
 For RUNDE=1 To 5
   GEHEIM=Int(Rnd*10)+1
@@ -59,7 +61,7 @@ Print "Du hast ";PUNKTE;" Punkte erreicht."
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "10. Ideen fuer Erweiterungen"
+Print "Ideen fuer Erweiterungen"
 Print "Vielleicht moechtest du das Spiel bereits jetzt erweitern."
 Print "Zum Beispiel:"
 Print "- Zahlen von 1 bis 20 verwenden"
@@ -67,7 +69,7 @@ Print "- Zahlen von 1 bis 100 verwenden"
 Print "- zehn Spielrunden durchfuehren"
 Print "- zwei Punkte fuer einen Treffer vergeben"
 Print
-Print "11. Experimentiere!"
+Print "Experimentiere!"
 Print "Probiere folgende Aenderungen aus:"
 Print "- Erhoehe den Zahlenbereich auf 20."
 Print "- Erhoehe den Zahlenbereich auf 100."
