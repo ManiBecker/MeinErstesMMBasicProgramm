@@ -14,7 +14,9 @@ Rem ====================================================================
 
 Option Continuation Lines On
 CLS RGB(BLACK)
-Print "16. Unser erstes Messprogramm"
+Print "Kapitel 34: Analoge Eingaenge"
+Print
+Print "Unser erstes Messprogramm"
 
 SetPin GP40, AIN
 Do
@@ -25,7 +27,7 @@ Loop While Inkey$=""
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "17. Was bedeutet der Messwert?"
+Print "Was bedeutet der Messwert?"
 Print
 Print "PIN() liefert die gemessene Spannung direkt in Volt."
 Print "Bei einem Messbereich von 0 bis 3,3 V gilt zum Beispiel:"
@@ -38,7 +40,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "18. Messwerte auf Prozent umrechnen"
+Print "Messwerte auf Prozent umrechnen"
 Print
 Print "Haeufig sind Prozentwerte einfacher zu verstehen."
 Print "PROZENT=WERT*100/3.3"
@@ -52,7 +54,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "19. Eine Prozentanzeige"
+Print "Eine Prozentanzeige"
 
 SetPin GP40,AIN
 Do
@@ -67,7 +69,7 @@ Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
 MODE 2
-Print "20. Eine grafische Balkenanzeige"
+Print "Eine grafische Balkenanzeige"
 Print "Messwerte lassen sich oft besser grafisch darstellen."
 Print "Der Balken waechst und schrumpft nun beim Drehen des Potentiometers."
 
@@ -85,7 +87,7 @@ Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
 MODE 1
-Print "21. Schwankende Messwerte"
+Print "Schwankende Messwerte"
 Print
 Print "Manche Sensoren liefern leicht schwankende Werte."
 Print "Beispielsweise:"
@@ -100,7 +102,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "22. Mehrere Messungen mitteln"
+Print "Mehrere Messungen mitteln"
 
 SetPin GP40,AIN
 SUMME=0
@@ -117,7 +119,7 @@ Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
 MODE 2
-Print "23. Praxisprojekt: Elektronische Tankanzeige"
+Print "Praxisprojekt: Elektronische Tankanzeige"
 Print
 Print "Nun bauen wir eine einfache Tankanzeige."
 Print "Dabei simuliert das Potentiometer den Tankgeber eines Fahrzeugs."
@@ -146,7 +148,7 @@ Print "Press any key...": Do : Loop While Inkey$=""
 CLS
 MODE 1
 
-Print "24. Wo werden analoge Eingaenge verwendet?"
+Print "Wo werden analoge Eingaenge verwendet?"
 Print
 Print "Analoge Eingaenge findet man ueberall:"
 Print "- Temperaturfuehler"
@@ -162,7 +164,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "25. Typische Fehler"
+Print "Typische Fehler"
 Print
 Print "Wenn keine sinnvollen Werte erscheinen:"
 Print "1. Ist das Potentiometer richtig angeschlossen?"
@@ -175,7 +177,7 @@ Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
 
-Print "26. Experimentiere!"
+Print "Experimentiere!"
 Print
 Print "Probiere folgende Aenderungen aus:"
 Print "- andere Potentiometer"
@@ -187,7 +189,7 @@ Print
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS
-Print "27. Probiers selbst!"
+Print "Probiers selbst!"
 Print
 Print "Versuche folgende Aufgaben:"
 Print "1. Baue eine Temperaturanzeige mit einem geeigneten Sensor."
