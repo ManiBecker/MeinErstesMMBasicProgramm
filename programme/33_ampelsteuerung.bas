@@ -13,6 +13,8 @@ REM
 REM ====================================================================
 
 CLS RGB(BLACK)
+Print "Kapitel 33: Eine Ampelsteuerung"
+Print
 Print "Die erste Ampel"
 
 SETPIN GP0,DOUT
