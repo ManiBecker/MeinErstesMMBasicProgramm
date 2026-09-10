@@ -12,19 +12,21 @@ Rem Hardware/Voraussetzungen: keine
 Rem
 Rem ====================================================================
 
-Print "2. Unser erstes Programm"
+Print "Kapitel 1 - Hallo Welt"
+Print
+Print "Unser erstes Programm"
 Print "Hallo Welt!"
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "3. Schritt fuer Schritt erklaert"
+Print "Schritt fuer Schritt erklaert"
 Print "Hallo Welt!"
 Print "Hallo MMBasic!"
 Print "Ich programmiere einen PicoMite."
 
 Print "Press any key...": Do : Loop While Inkey$=""
 
-Print "4. Experimentiere!"
+Print "Experimentiere!"
 Print "Hallo Colour Maximite!"
 Print "Heute lerne ich MMBasic."
 Print
