@@ -22,6 +22,8 @@ Dim String name$
 
 Cls
 
+Print "Kapitel 38: Der eingebaute Editor"
+Print
 Print "MMBasic Editor-Test"
 Print "=================="
 Print
