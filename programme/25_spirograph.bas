@@ -15,7 +15,9 @@ Rem ====================================================================
 MODE 3
 
 CLS RGB(BLACK)
-Print "4. Ein Kreis aus Punkten"
+Print "Kapitel 25: Geometrische Muster und Spirographen"
+Print
+Print "Ein Kreis aus Punkten"
 MX=MM.HRES/2
 MY=MM.VRES/2
 For I=0 To 360
@@ -28,7 +30,7 @@ Next I
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS RGB(BLACK)
-Print "5. Ein Sonnenstrahlen-Muster"
+Print "Ein Sonnenstrahlen-Muster"
 MX=MM.HRES/2
 MY=MM.VRES/2
 For I=0 To 360 Step 5
@@ -41,7 +43,7 @@ Next I
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS RGB(BLACK)
-Print "6. Ein Stern"
+Print "Ein Stern"
 MX=MM.HRES/2
 MY=MM.VRES/2
 Dim ax1(4)
@@ -59,7 +61,7 @@ Next I
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS RGB(BLACK)
-Print "7. Ein Stern mit zehn Spitzen"
+Print "Ein Stern mit zehn Spitzen"
 MX=MM.HRES/2
 MY=MM.VRES/2
 Dim ax2(9)
@@ -77,7 +79,7 @@ Next I
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS RGB(BLACK)
-Print "8. Eine Rosette"
+Print "Eine Rosette"
 MX=MM.HRES/2
 MY=MM.VRES/2
 For I=0 To 355 Step 5
@@ -93,7 +95,7 @@ Next I
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS RGB(BLACK)
-Print "9. Farben ins Spiel bringen"
+Print "Farben ins Spiel bringen"
 MX=MM.HRES/2
 MY=MM.VRES/2
 For i=1 To 3600
@@ -107,7 +109,7 @@ Next i
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS RGB(BLACK)
-Print "10. Ein einfacher Spirograph"
+Print "Ein einfacher Spirograph"
 MX=MM.HRES/2
 MY=MM.VRES/2
 For I=0 To 1440 Step 2
@@ -121,7 +123,7 @@ Next I
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS RGB(BLACK)
-Print "11. Das Muster veraendern"
+Print "Das Muster veraendern"
 MX=MM.HRES/2
 MY=MM.VRES/2
 For I=0 To 1440 Step 2
@@ -135,7 +137,7 @@ Next I
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS RGB(BLACK)
-Print "12. Ein spektakulaerer Spirograph"
+Print "Ein spektakulaerer Spirograph"
 MX=MM.HRES/2
 MY=MM.VRES/2
 For I=0 To 3600 Step 1
@@ -149,7 +151,7 @@ Next I
 Print "Press any key...": Do : Loop While Inkey$=""
 
 CLS RGB(BLACK)
-Print "13. Ein Blumenmuster"
+Print "Ein Blumenmuster"
 MX=MM.HRES/2
 MY=MM.VRES/2
 For I=0 To 3600
