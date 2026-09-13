@@ -459,7 +459,7 @@ Du weißt nun:
 * wie der Grafikmodus festgelegt wird
 * wie Farben beschrieben werden
 
-Im nächsten Kapitel werden wir die ersten grafischen Objekte auf dem Bildschirm zeichnen.
+Im nächsten Kapitel beschäftigen wir uns ausführlicher mit Farben und lernen außerdem die verschiedenen Schriftarten von MMBasic kennen.
 
 === Programmbeispiel
 
