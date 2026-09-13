@@ -17,7 +17,7 @@ Print
 Print "Arrays und FOR-Schleifen"
 Dim VERSUCH(4)
 For I=0 To 4
-  Print "Gebe den";i+1;". von 5 Zahlenwerten ein";
+  Print "Gib den";i+1;". von 5 Zahlenwerten ein";
   Input VERSUCH(I)
 Next I
 
