@@ -35,7 +35,7 @@ Print NAME$
 Print "Press any key...": Do : Loop While Inkey$=""
 
 Print "Texte eingeben"
-Input "Gebe deinen Namen ein:",NAME$
+Input "Gib deinen Namen ein:",NAME$
 Print "Hallo ";NAME$
 
 Print "Press any key...": Do : Loop While Inkey$=""
