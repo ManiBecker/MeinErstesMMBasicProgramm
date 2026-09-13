@@ -1,0 +1,33 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build book.pdf",
+            "type": "shell",
+            "command": "asciidoctor-pdf",
+            "args": [
+                "book.adoc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Build KDP PDF (7x10, SW)",
+            "type": "shell",
+            "command": "asciidoctor-pdf",
+            "args": [
+                "-a",
+                "media=prepress",
+                "-a",
+                "pdf-theme=kdp-theme.yml",
+                "-o",
+                "MeinErstesMMBasicProgramm-v0.20-KDP.pdf",
+                "book.adoc"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}
