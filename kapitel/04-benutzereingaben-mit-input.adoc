@@ -119,7 +119,7 @@ Beispiel:
 30
 ----
 
-Da ein Benutzer nicht erkennen kann, in welcher Form die Eingabe nach dem ? Prompt anzugeben ist, kann dem INPUT Befehl auch ein Fragetext mitgegeben werden. Die Syntax ist dabei:
+Da ein Benutzer nicht erkennen kann, in welcher Form die Eingabe nach dem ?-Prompt anzugeben ist, kann dem INPUT-Befehl auch ein Fragetext mitgegeben werden. Die Syntax ist dabei:
 
 [source]
 ----
@@ -130,7 +130,7 @@ Normalerweise wird der Fragetext mit dem Semicolon (;) abgeschlossen. In diesem 
 
 [source,basic]
 ----
-INPUT "Bitte gebe zwei Zahlen ein, getrennt durch ein Komma: "; A, B
+INPUT "Bitte gib zwei Zahlen ein, getrennt durch ein Komma: "; A, B
 PRINT "Die Summe der zwei Zahlen ist: "; A+B
 ----
 
@@ -138,7 +138,7 @@ Beispiel:
 
 [source]
 ----
-Bitte gebe zwei Zahlen ein, getrennt durch ein Komma: ? 10,20
+Bitte gib zwei Zahlen ein, getrennt durch ein Komma: ? 10,20
 Die Summe der zwei Zahlen ist: 30
 ----
 
@@ -146,7 +146,7 @@ Wenn der Fragetext mit einem Komma (,) abgeschlossen wird, wird das Fragezeichen
 
 [source,basic]
 ----
-INPUT "Bitte gebe zwei Zahlen ein, getrennt durch ein Komma: ", A, B
+INPUT "Bitte gib zwei Zahlen ein, getrennt durch ein Komma: ", A, B
 PRINT "Die Summe der zwei Zahlen ist: "; A+B
 ----
 
@@ -154,7 +154,7 @@ Beispiel:
 
 [source]
 ----
-Bitte gebe zwei Zahlen ein, getrennt durch ein Komma: 10,20
+Bitte gib zwei Zahlen ein, getrennt durch ein Komma: 10,20
 Die Summe der zwei Zahlen ist: 30
 ----
 
