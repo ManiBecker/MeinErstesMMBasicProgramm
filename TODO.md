@@ -44,7 +44,7 @@ Nicht alle Punkte werden zwingend umgesetzt. Die Liste dient als Ideensammlung.
 ## Beispiele
 
 - [ ] Beispiel zu mehrdimensionalen Arrays erweitern
-- [ ] Kapitel "Dateien" überarbeiten (`WRITE` ↔ `READ`)
+- [ ] Datei-Ein-/Ausgabe erweitern (`OPEN`, `PRINT #`, `INPUT #`, `WRITE`, `READ`)
 - [ ] Weitere Praxisbeispiele ergänzen
 - [ ] Weitere Übungsaufgaben
 
@@ -53,7 +53,7 @@ Nicht alle Punkte werden zwingend umgesetzt. Die Liste dient als Ideensammlung.
 ## Fortgeschrittene Themen
 
 - [ ] Kapitel über benutzerdefinierte Datentypen (`TYPE ... END TYPE`)
-- [ ] Praxisbeispiel: Data Logger mit Zeitstempel und Messwerten
+- [ ] Praxisprojekt „Data Logger“ ausbauen (Sensor/ADC, Zeitstempel und Messwertdatei)
 - [ ] Historischer Exkurs zu BASIC-Zeilennummern
 - [ ] Vergleich: `GOTO` / `GOSUB` und moderne Programmstrukturen (`SUB`, `FUNCTION`, Labels)
 
