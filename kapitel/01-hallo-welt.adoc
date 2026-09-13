@@ -107,7 +107,7 @@ In diesem Kapitel hast du die Anweisung `PRINT` kennengelernt.
 
 Mit `PRINT` können Texte auf dem Bildschirm ausgegeben werden.
 
-Im nächsten Kapitel lernst du, wie MMBasic Berechnungen ausführt und wie du den PicoMite als kleinen Taschenrechner verwenden kannst.
+Im nächsten Kapitel lernst du, wie MMBasic Berechnungen ausführt und wie du verschiedene Rechenoperationen verwendest.
 
 === Programmbeispiel
 
