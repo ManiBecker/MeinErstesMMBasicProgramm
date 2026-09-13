@@ -276,7 +276,7 @@ In diesem Kapitel hast du gelernt:
 * Schriftarten auszuwählen
 * Informationen über die aktuelle Schrift abzurufen
 
-Im nächsten Kapitel werden wir die ersten grafischen Objekte auf dem Bildschirm zeichnen und lernen PIXEL, LINE und BOX kennen.
+Im nächsten Kapitel beginnen wir mit der eigentlichen Grafikprogrammierung und lernen mit PIXEL und LINE die ersten Grafikbefehle kennen.
 
 === Programmbeispiel
 
