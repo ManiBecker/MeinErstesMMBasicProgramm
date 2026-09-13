@@ -1,0 +1,59 @@
+# kdp-theme.yml
+# Amazon KDP Druckausgabe
+# Format: 7 x 10 Zoll, Schwarzweiss, weisses Papier, ohne Beschnitt
+#
+# Die gespiegelten Innen-/Aussenraender werden wirksam, wenn
+# Asciidoctor PDF mit -a media=prepress aufgerufen wird.
+
+extends: default-for-print
+
+page:
+  size: [7in, 10in]
+  layout: portrait
+
+  # Oberer und unterer Rand sowie Standard-Seitenraender.
+  # In prepress mode werden die seitlichen Werte durch
+  # margin-inner und margin-outer ersetzt.
+  margin: [0.60in, 0.50in, 0.65in, 0.50in]
+
+  # KDP verlangt bei 501-700 Seiten mindestens 0.75in Bundsteg.
+  # 0.80in gibt etwas zusaetzliche Reserve fuer ein dickes Fachbuch.
+  margin-inner: 0.80in
+
+  # KDP-Minimum ohne Beschnitt ist 0.25in.
+  # 0.50in ist fuer Listings, Tabellen und Randnotizen angenehmer.
+  margin-outer: 0.50in
+
+  background-color: FFFFFF
+
+base:
+  font-color: 000000
+
+link:
+  font-color: 000000
+
+# Code soll im Schwarzweissdruck gut lesbar bleiben.
+code:
+  font-color: 000000
+  background-color: E6E6E6
+  border-color: 808080
+  border-width: 0.75pt
+
+# Auch Listing-Bloecke bekommen einen ausreichend deutlichen Grauwert.
+literal:
+  font-color: 000000
+  background-color: E6E6E6
+  border-color: 808080
+  border-width: 0.75pt
+
+# Tabellen sollen auch ohne Farbe klar strukturiert bleiben.
+table:
+  border-color: 808080
+  border-width: 0.75pt
+  head:
+    background-color: E6E6E6
+    font-color: 000000
+
+# Seitenzahlen des Standard-Themes bleiben erhalten.
+# prepress sorgt dafuer, dass Recto/Verso und Innen-/Aussenrand
+# fuer den doppelseitigen Buchdruck korrekt behandelt werden. 
