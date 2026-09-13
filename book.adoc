@@ -1,13 +1,27 @@
 = Mein erstes MMBasic Programm
 Manfred Becker
 :doctype: book
+:lang: de
+:toc-title: Inhaltsverzeichnis
+:chapter-signifier: Kapitel
+:chapter-refsig: Kapitel
+:appendix-caption: Anhang
+:appendix-refsig: Anhang
+:figure-caption: Abbildung
+:table-caption: Tabelle
+:example-caption: Beispiel
+:note-caption: Hinweis
+:tip-caption: Tipp
+:caution-caption: Achtung
+:warning-caption: Warnung
+:important-caption: Wichtig
 :notitle:
 :toc: macro
 :toclevels: 1
 :sectnums:
 :icons: font
 :revnumber: 0.20
-:revdate: 2026-09-10
+:revdate: 2026-09-13
 :github-programme: https://github.com/ManiBecker/MeinErstesMMBasicProgramm/blob/main/programme
 
 image::bilder/cover.jpg[pdfwidth=100%,align=center]
