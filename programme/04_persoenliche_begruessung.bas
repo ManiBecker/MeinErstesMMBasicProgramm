@@ -43,10 +43,10 @@ Print "Zwei Werte eingeben"
 Print "Input A, B":Input A, B
 Print "Print A+B":Print A+B
 
-Input "Bitte gebe zwei Zahlen ein, getrennt durch ein Komma: "; A, B
+Input "Bitte gib zwei Zahlen ein, getrennt durch ein Komma: "; A, B
 Print "Die Summe der zwei Zahlen ist: "; A+B
 
-Input "Bitte gebe zwei Zahlen ein, getrennt durch ein Komma: ", A, B
+Input "Bitte gib zwei Zahlen ein, getrennt durch ein Komma: ", A, B
 Print "Die Summe der zwei Zahlen ist: "; A+B
 
 Print "Press any key...": Do : Loop While Inkey$=""
