@@ -13,6 +13,21 @@
                 "isDefault": true
             },
             "problemMatcher": []
+        },
+        {
+            "label": "Build KDP PDF (7x10, SW)",
+            "type": "shell",
+            "command": "asciidoctor-pdf",
+            "args": [
+                "-a",
+                "media=prepress",
+                "-a",
+                "pdf-theme=kdp-theme.yml",
+                "-o",
+                "MeinErstesMMBasicProgramm-v0.20-KDP.pdf",
+                "book.adoc"
+            ],
+            "problemMatcher": []
         }
     ]
 }
