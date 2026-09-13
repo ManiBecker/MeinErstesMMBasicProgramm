@@ -529,6 +529,8 @@ Die wichtigsten Punkte sind:
 Mit Arrays, Schleifen und `RGB()` lassen sich bereits mit wenigen BASIC-Zeilen
 Lauflichter, Farbverläufe und viele andere Lichteffekte erzeugen.
 
+Im nächsten Kapitel verlassen wir für einen Moment die LEDs und beschäftigen uns mit einer ganz anderen Form der Ein- und Ausgabe: Spielcontrollern und Gamepads.
+
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
