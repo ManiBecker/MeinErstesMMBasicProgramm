@@ -6,15 +6,22 @@
 
 Dieses Repository enthält das frei verfügbare Tutorial **Mein erstes MMBasic Programm**.
 
-Das Tutorial entsteht Schritt für Schritt öffentlich auf GitHub und richtet sich an alle, die MMBasic auf dem PicoMite oder Colour Maximite kennenlernen möchten – vom Einsteiger bis zum fortgeschrittenen Anwender.
+Das Tutorial richtet sich an alle, die MMBasic auf dem PicoMite oder Colour Maximite kennenlernen möchten – vom Einsteiger bis zum fortgeschrittenen Anwender.
+
+Es entsteht Schritt für Schritt öffentlich auf GitHub und wird kontinuierlich erweitert und verbessert.
 
 ## Projektstatus
 
-🚧 **In Arbeit**
+✅ **Version 0.20 veröffentlicht**
 
-Aktuelle Version: **0.19**
+Aktuelle Version: **0.20**  
+Stand: **13. September 2026**
 
-Das Tutorial wird kontinuierlich erweitert und verbessert. Viele Ideen und Verbesserungsvorschläge stammen aus der Community und fließen direkt in die weitere Entwicklung ein.
+Das Tutorial umfasst inzwischen **52 Kapitel** mit zahlreichen MMBasic-Beispielprogrammen und einer Befehlsreferenz im Anhang.
+
+Alle zu dieser Version gehörenden BASIC-Programmbeispiele wurden auf PicoMite getestet und stehen zusätzlich als Download-Paket zur Verfügung.
+
+Das Projekt wird weiterhin gepflegt und erweitert. Neue Ideen, Korrekturen und Verbesserungsvorschläge aus der Community fließen in zukünftige Versionen ein.
 
 ## Roadmap & ToDo
 
@@ -29,14 +36,15 @@ Neue Vorschläge und konstruktive Kritik sind jederzeit willkommen.
 
 Dieses Repository enthält:
 
-- 📖 Tutorial (AsciiDoc)
+- 📖 Tutorial im AsciiDoc-Format
 - 💻 BASIC-Programmbeispiele
 - 🖼️ Bilder und Illustrationen
 - 📦 Downloads
+- 📄 PDF-Version des Tutorials
 
 ## Website
 
-Die jeweils aktuelle Online-Version des Tutorials findest du hier:
+Die jeweils aktuelle Online-Version des Tutorials sowie begleitende Informationen findest du hier:
 
 **https://mikrocontroller.bplaced.net/wordpress/mein-erstes-mmbasic-programm-vorwort/**
 
@@ -64,4 +72,3 @@ Weitere Informationen darüber, welche Lizenz für welchen Teil des Projekts gil
 ## Viel Spaß!
 
 **Manfred Becker**
-
