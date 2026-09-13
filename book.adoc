@@ -49,7 +49,7 @@ Dieses Tutorial entsteht Schritt für Schritt öffentlich auf GitHub.
 Dort stehen auch die BASIC-Programme und weitere Projektdateien zum
 Download bereit.
 
-Die aktuelleste Version des PDFs zum Download, begleitende Informationen, 
+Die aktuellste Version des PDFs zum Download, begleitende Informationen, 
 Neuigkeiten und zusätzliche Beiträge zum Projekt finden sich auf der Webseite zum Tutorial.
 
 Mein besonderer Dank gilt Geoff Graham, dem Entwickler von MMBasic, sowie
