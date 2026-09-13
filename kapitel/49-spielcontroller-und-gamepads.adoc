@@ -654,3 +654,9 @@ Der Computer musste deshalb nur fünf digitale Signale auswerten.
 Ein moderner USB-Controller ist intern erheblich komplexer. Er liefert digitale Tasten, analoge Achsen und je nach Modell sogar Bewegungsdaten. Dank der PicoMite-Firmware bleibt die Programmierung trotzdem angenehm einfach: Mit `DEVICE(GAMEPAD ...)` können wir auf diese Informationen direkt aus MMBasic zugreifen.
 
 Das Grundprinzip ist damit seit den Heimcomputerzeiten gleich geblieben: Der Spieler bewegt einen Controller, und das Programm setzt diese Eingabe in eine Aktion um.
+
+=== Programmbeispiel
+
+Das vollständige BASIC-Programm findest du hier:
+
+* {github-programme}/47_seriell_empfangen.bas[49_gamepad_test.bas]
