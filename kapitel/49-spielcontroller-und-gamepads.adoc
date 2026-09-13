@@ -18,7 +18,7 @@ In diesem Kapitel lernst du:
 * wie du eine Totzone für Analogsticks verwendest
 * wie sich ein Gamepad für Grafikprogramme und Spiele einsetzen lässt
 
-Im nächsten Kapitel verwenden wir diese Kenntnisse, um Sprites und Spielfiguren zu steuern.
+Im nächsten Kapitel lernen wir mit BLIT und Sprites weitere wichtige Techniken für bewegliche Spielfiguren und grafische Objekte kennen.
 
 === Vom Joystick zum modernen Gamepad
 
