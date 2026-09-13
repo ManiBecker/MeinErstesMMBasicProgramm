@@ -8,10 +8,7 @@
             "args": [
                 "book.adoc"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "group": "build",
             "problemMatcher": []
         },
         {
@@ -27,6 +24,10 @@
                 "MeinErstesMMBasicProgramm-v0.20-KDP.pdf",
                 "book.adoc"
             ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "problemMatcher": []
         }
     ]
