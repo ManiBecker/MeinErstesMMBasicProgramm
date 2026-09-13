@@ -122,6 +122,8 @@ DIM VERSUCH(4)
 
 FOR I=0 TO 4
 
+  Print "Gib den";i+1;". von 5 Zahlenwerten ein";
+
   INPUT VERSUCH(I)
 
 NEXT I
