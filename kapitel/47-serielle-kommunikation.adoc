@@ -883,4 +883,5 @@ Wer UART verstanden hat, besitzt damit eine wichtige Grundlage für viele weiter
 
 Das vollständige BASIC-Programm findest du hier:
 
+* {github-programme}/47_seriell_empfangen.bas[47_seriell_senden.bas]
 * {github-programme}/47_seriell_empfangen.bas[47_seriell_empfangen.bas]
