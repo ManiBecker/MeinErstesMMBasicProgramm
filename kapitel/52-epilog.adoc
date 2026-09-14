@@ -67,9 +67,16 @@ Nach all den Beispielprogrammen in diesem Buch gibt es an dieser Stelle kein wei
 
 Denn das nächste Programm soll von dir kommen.
 
+ifdef::kdp[]
+Als kleine Starthilfe findest du im Repository noch die Datei:
+
+* `52_dein_naechstes_programm.bas`
+endif::[]
+ifndef::kdp[]
 Als kleine Starthilfe findest du im Repository noch eine einfache Vorlage:
 
 * {github-programme}/52_dein_naechstes_programm.bas[52_dein_naechstes_programm.bas]
+endif::[]
 
 Sie enthält absichtlich fast nichts:
 

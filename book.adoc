@@ -24,9 +24,12 @@ Manfred Becker
 :revdate: 2026-09-13
 :github-programme: https://github.com/ManiBecker/MeinErstesMMBasicProgramm/blob/main/programme
 
+ifndef::kdp[]
 image::bilder/cover.jpg[pdfwidth=100%,align=center]
 
 <<<
+
+endif::[]
 
 [.text-center]
 = Mein erstes MMBasic Programm
@@ -223,7 +226,10 @@ ifndef::kdp[]
 include::anhang/anhang-a-mmbasic-befehlsreferenz.adoc[]
 endif::[]
 
+ifndef::kdp[]
+
 <<<
 
 image::bilder/back.jpg[pdfwidth=100%,align=center]
 
+endif::[]
