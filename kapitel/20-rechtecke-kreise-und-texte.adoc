@@ -540,8 +540,10 @@ Du kannst nun:
 
 Im nächsten Kapitel verbinden wir die Grafikbefehle zu einem vollständigen kleinen Grafikprojekt.
 
+ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
 
 * {github-programme}/20_formen_demo.bas[20_formen_demo.bas]
+endif::[]

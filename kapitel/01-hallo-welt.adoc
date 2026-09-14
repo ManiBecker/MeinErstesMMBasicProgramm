@@ -109,8 +109,25 @@ Mit `PRINT` können Texte auf dem Bildschirm ausgegeben werden.
 
 Im nächsten Kapitel lernst du, wie MMBasic Berechnungen ausführt und wie du verschiedene Rechenoperationen verwendest.
 
+ifdef::kdp[]
+[TIP]
+====
+Die vollständigen BASIC-Programme zu den Beispielen in diesem Buch
+kannst du kostenlos von der GitHub-Projektseite herunterladen:
+
+https://github.com/ManiBecker/MeinErstesMMBasicProgramm
+
+Die Programme befinden sich dort im Verzeichnis `programme`.
+Die Dateinamen beginnen jeweils mit der Nummer des zugehörigen Kapitels,
+zum Beispiel `01_hallo_welt.bas`.
+====
+
+endif::[]
+
+ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
 
 * {github-programme}/01_hallo_welt.bas[01_hallo_welt.bas]
+endif::[]

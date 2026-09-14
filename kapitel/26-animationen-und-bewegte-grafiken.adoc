@@ -773,6 +773,7 @@ Damit hast du einen wichtigen Schritt gemacht: Aus statischen Bildern sind erstm
 
 Im nächsten Kapitel werden wir lernen, wie Animationen mit Hilfe von Framebuffern deutlich flüssiger dargestellt werden können.
 
+ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
@@ -781,3 +782,4 @@ Das vollständige BASIC-Programm findest du hier:
 * {github-programme}/26_animation_2.bas[26_animation_2.bas] – Abschlussprojekt Mystify
 
 Im Kapitel verwenden die kurzen Einstiegsbeispiele bewusst Endlosschleifen mit `DO ... LOOP`, damit das jeweilige Prinzip möglichst einfach zu erkennen ist. Das vollständige Programm verwendet dagegen begrenzte `FOR ... NEXT`-Schleifen, damit die einzelnen Demonstrationen nacheinander ausgeführt werden können.
+endif::[]

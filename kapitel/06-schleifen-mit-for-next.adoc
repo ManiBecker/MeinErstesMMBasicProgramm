@@ -381,8 +381,10 @@ Schleifen mit IF kombinieren
 
 Im nächsten Kapitel schreiben wir unser erstes größeres Programm.
 
+ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
 
 * {github-programme}/06_schleifen.bas[06_schleifen.bas]
+endif::[]

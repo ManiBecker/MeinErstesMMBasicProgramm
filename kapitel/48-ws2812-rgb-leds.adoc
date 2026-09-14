@@ -531,8 +531,10 @@ Lauflichter, Farbverläufe und viele andere Lichteffekte erzeugen.
 
 Im nächsten Kapitel verlassen wir für einen Moment die LEDs und beschäftigen uns mit einer ganz anderen Form der Ein- und Ausgabe: Spielcontrollern und Gamepads.
 
+ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
 
 * {github-programme}/48_ws2812_regenbogen.bas[48_ws2812_regenbogen.bas]
+endif::[]

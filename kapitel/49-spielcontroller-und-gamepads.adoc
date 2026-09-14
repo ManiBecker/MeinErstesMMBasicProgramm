@@ -655,8 +655,10 @@ Ein moderner USB-Controller ist intern erheblich komplexer. Er liefert digitale 
 
 Das Grundprinzip ist damit seit den Heimcomputerzeiten gleich geblieben: Der Spieler bewegt einen Controller, und das Programm setzt diese Eingabe in eine Aktion um.
 
+ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
 
 * {github-programme}/47_seriell_empfangen.bas[49_gamepad_test.bas]
+endif::[]

@@ -656,8 +656,10 @@ Im nächsten Kapitel lernst du mit *MMEdit* eine komfortable
 Entwicklungsumgebung für den PC kennen, die den eingebauten Editor sinnvoll
 ergänzt.
 
+ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
 
 * {github-programme}/38_editor_test.bas[38_editor_test.bas]
+endif::[]

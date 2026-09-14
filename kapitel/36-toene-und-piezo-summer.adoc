@@ -532,8 +532,10 @@ Damit hast du eine weitere wichtige MMBasic-Funktion kennengelernt, die wir für
 
 Im nächsten Kapitel entwickeln wir ein elektronisches Gedächtnisspiel nach dem Vorbild von Simon beziehungsweise Senso.
 
+ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
 
 * {github-programme}/36_kleine_melodie.bas[36_kleine_melodie.bas]
+endif::[]

@@ -452,8 +452,10 @@ In diesem Kapitel hast du gelernt:
 
 Damit endet der Teil *Werkzeuge und Entwicklung*. Du kennst nun sowohl den eingebauten Editor des PicoMite als auch eine komfortable Entwicklungsumgebung für den PC.
 
+ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
 
 * {github-programme}/39_mmedit_hallo.bas[39_mmedit_hallo.bas]
+endif::[]

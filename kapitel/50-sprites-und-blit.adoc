@@ -993,8 +993,10 @@ Dabei treffen viele Themen aus dem Buch wieder aufeinander:
 
 Aus vielen kleinen BASIC-Bausteinen entsteht dann Schritt für Schritt ein spielbares Programm.
 
+ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm zu diesem Kapitel findest du hier:
 
 * {github-programme}/50_sprite_demo.bas[50_sprite_demo.bas]
+endif::[]

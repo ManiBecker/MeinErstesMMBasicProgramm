@@ -627,8 +627,10 @@ Damit kann dein Mikrocontroller nun nicht nur digitale Zustände erkennen, sonde
 
 Im nächsten Kapitel werden wir PWM kennenlernen und die Helligkeit einer LED stufenlos steuern.
 
+ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
 
 * {github-programme}/34_adc_einlesen.bas[34_adc_einlesen.bas]
+endif::[]

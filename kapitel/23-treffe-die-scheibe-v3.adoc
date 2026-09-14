@@ -529,8 +529,10 @@ Du hast gelernt:
 
 Aus einem einfachen Koordinatenexperiment ist damit Schritt für Schritt ein vollständiges kleines Grafikspiel entstanden.
 
+ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
 
 * {github-programme}/23_treffe_die_scheibe_v3.bas[23_treffe_die_scheibe_v3.bas]
+endif::[]

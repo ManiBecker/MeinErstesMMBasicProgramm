@@ -562,8 +562,10 @@ Du hast damit dein erstes kleines Automatisierungsprojekt entwickelt.
 
 Im nächsten Kapitel werden wir analoge Eingänge kennenlernen und kontinuierliche Messwerte auswerten.
 
+ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
 
 * {github-programme}/33_ampelsteuerung.bas[33_ampelsteuerung.bas]
+endif::[]

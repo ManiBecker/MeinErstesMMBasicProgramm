@@ -685,8 +685,10 @@ stehen.
 Mit aussagekräftigen Dateinamen, Ordnern und regelmäßigen Sicherungen behältst du
 auch bei größeren BASIC-Projekten den Überblick.
 
+ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
 
 * {github-programme}/40_library_test.bas[40_library_test.bas]
+endif::[]

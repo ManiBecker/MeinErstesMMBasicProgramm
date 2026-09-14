@@ -326,8 +326,10 @@ In diesem Kapitel hast du gelernt,
 
 Im nächsten Kapitel lernst du Schleifen kennen. Damit können Programmteile beliebig oft wiederholt werden.
 
+ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
 
 * {github-programme}/05_rechenquiz.bas[05_rechenquiz.bas]
+endif::[]

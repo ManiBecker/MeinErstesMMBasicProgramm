@@ -546,6 +546,7 @@ eine größere Anwendung auf mehrere BASIC-Dateien aufzuteilen und dabei den
 Variablenbereich weiterzuführen. Dadurch eignet sich `CHAIN` besonders für
 Menüsysteme, Spiele mit mehreren Programmteilen und größere Programmsammlungen.
 
+ifndef::kdp[]
 === Programmbeispiel
 
 Die vollständigen BASIC-Programme findest du hier:
@@ -553,3 +554,4 @@ Die vollständigen BASIC-Programme findest du hier:
 * {github-programme}/42_chain_start.bas[42_chain_start.bas]
 * {github-programme}/42_chain_spiel.bas[42_chain_spiel.bas]
 * {github-programme}/42_chain_ende.bas[42_chain_ende.bas]
+endif::[]

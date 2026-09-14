@@ -420,8 +420,10 @@ Arrays gehören zu den wichtigsten Werkzeugen der Programmierung und werden in v
 
 Im nächsten Kapitel beschäftigen wir uns mit Zeichenketten und lernen, Texte zu bearbeiten und auszuwerten.
 
+ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
 
 * {github-programme}/11_array_einfach.bas[11_array_einfach.bas]
+endif::[]

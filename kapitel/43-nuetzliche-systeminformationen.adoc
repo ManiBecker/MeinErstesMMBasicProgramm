@@ -460,8 +460,10 @@ In diesem Kapitel hast du gelernt:
 
 Mit diesen Möglichkeiten können Programme ihre Laufzeitumgebung selbst untersuchen und dadurch robuster und flexibler reagieren.
 
+ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
 
 * {github-programme}/43_systembericht.bas[43_systembericht.bas]
+endif::[]

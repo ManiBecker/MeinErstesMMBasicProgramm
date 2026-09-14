@@ -224,8 +224,10 @@ Du hast gelernt:
 
 Im nächsten Kapitel lernen wir Unterprogramme kennen. Damit können größere Programme übersichtlicher aufgebaut werden.
 
+ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
 
 * {github-programme}/09_zahlenraten_v2.bas[09_zahlenraten_v2.bas]
+endif::[]

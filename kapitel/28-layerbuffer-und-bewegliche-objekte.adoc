@@ -367,8 +367,10 @@ Layerbuffer gehören zu den wichtigsten Techniken moderner Spieleprogrammierung.
 
 Im nächsten Kapitel werden wir dieses Wissen nutzen und unser erstes echtes Arcade-Spiel entwickeln: Pong.
 
+ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
 
 * {github-programme}/28_layer_animation.bas[28_layer_animation.bas]
+endif::[]

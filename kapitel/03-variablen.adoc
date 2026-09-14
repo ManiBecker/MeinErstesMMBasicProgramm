@@ -213,8 +213,10 @@ Du kannst nun:
 
 Im nächsten Kapitel lernen wir Benutzereingaben mit INPUT kennen.
 
+ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
 
 * {github-programme}/03_variablen.bas[03_variablen.bas]
+endif::[]

@@ -306,9 +306,10 @@ Mit diesen Werkzeugen lassen sich auch größere Programme übersichtlich aufbau
 
 Im nächsten Kapitel werden wir unser Wissen nutzen, um ein weiteres Spiel oder ein größeres Praxisprojekt zu entwickeln.
 
+ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
 
 * {github-programme}/10_strukturiertes_programm.bas[10_strukturiertes_programm.bas]
-
+endif::[]

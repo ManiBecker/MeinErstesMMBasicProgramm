@@ -390,6 +390,7 @@ Framebuffer gehören zu den wichtigsten Werkzeugen moderner Grafikprogrammierung
 
 Im nächsten Kapitel werden wir Layerbuffer kennenlernen und bewegliche Objekte noch effizienter darstellen.
 
+ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
@@ -400,3 +401,4 @@ Das vollständige BASIC-Programm findest du hier:
 * {github-programme}/27_framebuffer_3.bas[27_framebuffer_3.bas]
 * {github-programme}/27_framebuffer_4.bas[27_framebuffer_4.bas]
 * {github-programme}/27_framebuffer_5.bas[27_framebuffer_5.bas]
+endif::[]
