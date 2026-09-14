@@ -44,7 +44,7 @@ Manfred Becker
 Version {revnumber} +
 {revdate}
 
-image::bilder/00_hallo.jpg[align=center]
+image::bilder/00_hallo.jpg[width=70%,align=center]
 
 <<<
 
