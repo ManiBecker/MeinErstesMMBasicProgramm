@@ -17,6 +17,8 @@
             "command": "asciidoctor-pdf",
             "args": [
                 "-a",
+                "kdp",
+                "-a",
                 "media=prepress",
                 "-a",
                 "pdf-theme=kdp-theme.yml",

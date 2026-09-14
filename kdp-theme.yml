@@ -1,59 +1,213 @@
+# =============================================================================
 # kdp-theme.yml
-# Amazon KDP Druckausgabe
-# Format: 7 x 10 Zoll, Schwarzweiss, weisses Papier, ohne Beschnitt
+# Druck-Theme fuer "Mein erstes MMBasic Programm"
 #
-# Die gespiegelten Innen-/Aussenraender werden wirksam, wenn
-# Asciidoctor PDF mit -a media=prepress aufgerufen wird.
+# Ziel:
+#   - Amazon KDP
+#   - Taschenbuch
+#   - Format 7 x 10 Zoll
+#   - Schwarzweissdruck auf weissem Papier
+#   - ohne Beschnitt (no bleed)
+#
+# Ausgangspunkt:
+#   Das Theme erweitert "default-for-print". Dadurch bleiben alle nicht
+#   explizit ueberschriebenen Einstellungen des Asciidoctor-PDF-Druckthemes
+#   erhalten.
+#
+# Wichtig:
+#   Der Build sollte mit "media=prepress" erfolgen, damit Innen- und
+#   Aussenraender auf linken/rechten Seiten korrekt gespiegelt werden.
+#
+# Beispiel:
+#   asciidoctor-pdf -a media=prepress \
+#     -a pdf-theme=kdp-theme.yml \
+#     -o MeinErstesMMBasicProgramm-v0.20-KDP.pdf book.adoc
+#
+# Stand:
+#   Die erste 7x10-Testausgabe hatte 761 Seiten.
+#   Fuer 701-828 Seiten verlangt KDP mindestens 0.875 Zoll Innenrand.
+#   Deshalb wird hier 0.90 Zoll verwendet.
+# =============================================================================
 
 extends: default-for-print
 
+
+# -----------------------------------------------------------------------------
+# Seite
+# -----------------------------------------------------------------------------
 page:
+  # KDP-Buchformat: 7 x 10 Zoll
   size: [7in, 10in]
+
+  # Hochformat
   layout: portrait
 
-  # Oberer und unterer Rand sowie Standard-Seitenraender.
-  # In prepress mode werden die seitlichen Werte durch
-  # margin-inner und margin-outer ersetzt.
+  # Standard-Seitenraender:
+  # Reihenfolge: oben, rechts, unten, links
+  #
+  # Bei media=prepress werden die seitlichen Werte durch
+  # margin-inner und margin-outer fuer Recto/Verso ersetzt.
   margin: [0.60in, 0.50in, 0.65in, 0.50in]
 
-  # KDP verlangt bei 501-700 Seiten mindestens 0.75in Bundsteg.
-  # 0.80in gibt etwas zusaetzliche Reserve fuer ein dickes Fachbuch.
-  margin-inner: 0.80in
+  # Innenrand / Bundsteg
+  #
+  # KDP-Mindestwert bei 701-828 Seiten: 0.875in.
+  # 0.90in gibt eine kleine Sicherheitsreserve.
+  margin-inner: 0.90in
 
-  # KDP-Minimum ohne Beschnitt ist 0.25in.
-  # 0.50in ist fuer Listings, Tabellen und Randnotizen angenehmer.
+  # Aussenrand
+  #
+  # KDP erlaubt ohne Beschnitt deutlich weniger, aber 0.50in
+  # verbessert bei einem technischen Buch die Lesbarkeit und gibt
+  # Listings, Tabellen und Abbildungen etwas mehr Luft.
   margin-outer: 0.50in
 
+  # Reiner weisser Seitenhintergrund fuer Schwarzweissdruck
   background-color: FFFFFF
 
+
+# -----------------------------------------------------------------------------
+# Grundschrift / Fliesstext
+# -----------------------------------------------------------------------------
 base:
+  # Alle normalen Texte schwarz drucken.
   font-color: 000000
 
+  # Schriftgroesse und Zeilenabstand bleiben absichtlich beim
+  # default-for-print-Theme. Falls die Seitenzahl spaeter reduziert werden
+  # soll, koennen diese beiden Werte gezielt angepasst werden.
+  #
+  # Beispiel fuer einen spaeteren Versuch:
+  # font-size: 10
+  # line-height-length: 14
+
+
+# -----------------------------------------------------------------------------
+# Ueberschriften
+# -----------------------------------------------------------------------------
+heading:
+  # Keine farbigen Ueberschriften in der Druckausgabe.
+  font-color: 000000
+
+
+# -----------------------------------------------------------------------------
+# Links
+# -----------------------------------------------------------------------------
 link:
+  # Hyperlinks sollen auch im Schwarzweissdruck als normaler schwarzer
+  # Text erscheinen. Die Linkfunktion im PDF bleibt trotzdem erhalten.
   font-color: 000000
 
-# Code soll im Schwarzweissdruck gut lesbar bleiben.
+
+# -----------------------------------------------------------------------------
+# Inline-Code
+# -----------------------------------------------------------------------------
+codespan:
+  # "codespan" ist die aktuelle Theme-Kategorie fuer Inline-Code.
+  # Damit vermeiden wir die Warnung zur veralteten Kategorie "literal".
+  font-color: 000000
+  background-color: EDEDED
+
+
+# -----------------------------------------------------------------------------
+# Code- und Listing-Bloecke
+# -----------------------------------------------------------------------------
 code:
+  # Schwarze Schrift fuer gute Lesbarkeit.
   font-color: 000000
+
+  # Leichter Grauhintergrund, damit Listings vom Fliesstext getrennt bleiben.
+  # E6 entspricht ca. 10 % Schwarzanteil.
   background-color: E6E6E6
+
+  # Deutlich sichtbarer Rahmen im Schwarzweissdruck.
   border-color: 808080
   border-width: 0.75pt
 
-# Auch Listing-Bloecke bekommen einen ausreichend deutlichen Grauwert.
-literal:
-  font-color: 000000
-  background-color: E6E6E6
-  border-color: 808080
-  border-width: 0.75pt
+  # Etwas Innenabstand, damit Code nicht direkt am Rahmen klebt.
+  padding: 6
 
-# Tabellen sollen auch ohne Farbe klar strukturiert bleiben.
+
+# -----------------------------------------------------------------------------
+# Tabellen
+# -----------------------------------------------------------------------------
 table:
+  # Tabellenrahmen in mittlerem Grau.
   border-color: 808080
   border-width: 0.75pt
+
+  # Kopfzeilen mit leichtem Grauhintergrund statt Farbe.
   head:
     background-color: E6E6E6
     font-color: 000000
 
-# Seitenzahlen des Standard-Themes bleiben erhalten.
-# prepress sorgt dafuer, dass Recto/Verso und Innen-/Aussenrand
-# fuer den doppelseitigen Buchdruck korrekt behandelt werden. 
+
+# -----------------------------------------------------------------------------
+# Seitenleisten / hervorgehobene Textkaesten
+# -----------------------------------------------------------------------------
+sidebar:
+  # Auch Seitenleisten nur mit Graustufen.
+  background-color: F2F2F2
+  border-color: 808080
+  border-width: 0.75pt
+
+
+# -----------------------------------------------------------------------------
+# Beispiel-Bloecke
+# -----------------------------------------------------------------------------
+example:
+  # Dezente Graustufen fuer Beispiele.
+  background-color: F7F7F7
+  border-color: 808080
+  border-width: 0.75pt
+
+
+# -----------------------------------------------------------------------------
+# Hinweisboxen (NOTE, TIP, IMPORTANT, WARNING, CAUTION)
+# -----------------------------------------------------------------------------
+admonition:
+  # Text und Symbolbeschriftungen schwarz.
+  font-color: 000000
+
+  # Trennlinie in Grau.
+  column-rule-color: 808080
+  column-rule-width: 0.75pt
+
+
+# -----------------------------------------------------------------------------
+# Bildunterschriften und Tabellenbeschriftungen
+# -----------------------------------------------------------------------------
+caption:
+  # Keine farbigen Beschriftungen.
+  font-color: 000000
+
+
+# -----------------------------------------------------------------------------
+# Kopf- und Fusszeilen
+# -----------------------------------------------------------------------------
+# Die eigentliche Seitennummerierung und Positionierung wird vom
+# default-for-print-Theme uebernommen.
+#
+# Dadurch bleiben rechte und linke Seiten im Buchsatz konsistent.
+# Falls spaeter Kapitelname oder Buchtitel in Kopf-/Fusszeilen erscheinen
+# sollen, kann dieser Bereich gezielt erweitert werden.
+
+
+# -----------------------------------------------------------------------------
+# Wichtiger Hinweis zu Bildern
+# -----------------------------------------------------------------------------
+# Dieses Theme wandelt eingebettete Farbbilder NICHT automatisch in
+# Graustufen um.
+#
+# Fuer die KDP-Schwarzweissausgabe sollte deshalb spaeter kontrolliert werden,
+# ob farbige Screenshots, Diagramme und Illustrationen auch in Graustufen
+# ausreichend Kontrast besitzen.
+#
+# Kritisch sind vor allem:
+#   - Rot/Grün-Unterscheidungen
+#   - sehr helle Farben
+#   - duenne farbige Linien
+#   - farbige Beschriftungen auf farbigem Hintergrund
+#
+# Fuer den ersten Satztest ist keine Bildkonvertierung notwendig.
+

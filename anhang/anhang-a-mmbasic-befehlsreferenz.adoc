@@ -1,5 +1,5 @@
 [appendix]
-== Anhang A – MMBasic-Befehlsreferenz
+== MMBasic-Befehlsreferenz
 
 Diese Referenz enthält die MMBasic-Befehle in alphabetischer Reihenfolge.
 
@@ -10,7 +10,7 @@ Zu jedem Befehl werden die Syntax, die Behandlung im Buch und die unterstützten
 Die vollständige Beschreibung der Syntax und aller Parameter findest du im jeweiligen MMBasic-Handbuch.
 ====
 
-[cols="2,5,2,1,1,1,1,1",options="header"]
+[cols="2,3,2,3,2,3,2,3",options="header",width="100%"]
 .Legende der Plattformen
 |===
 |Abkürzung |Plattform |Abkürzung |Plattform |Abkürzung |Plattform |Abkürzung |Plattform
@@ -27,7 +27,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === Sonderzeichen
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -78,7 +78,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === A
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -237,7 +237,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === B
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -387,7 +387,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === C
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -645,7 +645,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === D
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -831,7 +831,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === E
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -1026,7 +1026,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === F
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -1275,7 +1275,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === G
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -1389,7 +1389,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === H
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -1431,7 +1431,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === I
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -1653,7 +1653,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === K
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -1695,7 +1695,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === L
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -2169,7 +2169,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === M
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -2787,7 +2787,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === N
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -2811,7 +2811,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === O
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -2952,7 +2952,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === P
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -3516,7 +3516,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === R
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -3765,7 +3765,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === S
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -3996,7 +3996,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === T
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -4128,7 +4128,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === U
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -4152,7 +4152,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === V
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -4194,7 +4194,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === W
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -4470,7 +4470,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === X
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax
@@ -4512,7 +4512,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 === Y
 
-[cols="2,5,2,1,1,1,1,1",options="header,stretch",width="100%"]
+[cols="3,7,2,1,1,1,1,1",options="header,stretch",width="100%"]
 |===
 |Befehl
 |Syntax

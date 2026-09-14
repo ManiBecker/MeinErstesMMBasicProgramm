@@ -119,6 +119,16 @@ Vielen Dank, dass ich dich auf deinem Einstieg in die Welt von MMBasic begleiten
 
 Ich wünsche dir viel Erfolg – und vor allem viel Freude – bei deinen eigenen Projekten.
 
+ifdef::kdp[]
+=== MMBasic-Befehlsreferenz
+
+Eine vollständige Beschreibung der MMBasic-Befehle, Funktionen und ihrer
+Parameter findest du in den jeweiligen offiziellen MMBasic-Handbüchern.
+
+Die digitale Version dieses Tutorials enthält zusätzlich einen ausführlichen
+Anhang mit einer alphabetischen MMBasic-Befehlsreferenz.
+endif::[]
+
 image::bilder/52_epilog_ende.jpg[align=center]
 
 [.text-center]

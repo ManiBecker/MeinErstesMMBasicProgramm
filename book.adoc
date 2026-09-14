@@ -217,10 +217,13 @@ include::kapitel/51-von-der-idee-zum-fertigen-spiel.adoc[]
 
 include::kapitel/52-epilog.adoc[]
 
+ifndef::kdp[]
 = Anhang
 
 include::anhang/anhang-a-mmbasic-befehlsreferenz.adoc[]
+endif::[]
 
 <<<
 
 image::bilder/back.jpg[pdfwidth=100%,align=center]
+
