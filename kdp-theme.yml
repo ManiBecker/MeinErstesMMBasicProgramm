@@ -185,12 +185,15 @@ caption:
 # -----------------------------------------------------------------------------
 # Kopf- und Fusszeilen
 # -----------------------------------------------------------------------------
-# Die eigentliche Seitennummerierung und Positionierung wird vom
+# Seitennummerierung und Position links/rechts werden weiterhin vom
 # default-for-print-Theme uebernommen.
 #
-# Dadurch bleiben rechte und linke Seiten im Buchsatz konsistent.
-# Falls spaeter Kapitelname oder Buchtitel in Kopf-/Fusszeilen erscheinen
-# sollen, kann dieser Bereich gezielt erweitert werden.
+# KDP beanstandete die Seitenzahlen am unteren Rand. Deshalb wird nur die
+# Hoehe des Footer-Bereichs vergroessert. Dadurch wandert die geerbte
+# Seitennummer weiter nach oben, ohne die Seitenraender oder den Satzspiegel
+# zu veraendern.
+footer:
+  height: 0.55in
 
 
 # -----------------------------------------------------------------------------
@@ -210,4 +213,3 @@ caption:
 #   - farbige Beschriftungen auf farbigem Hintergrund
 #
 # Fuer den ersten Satztest ist keine Bildkonvertierung notwendig.
-
