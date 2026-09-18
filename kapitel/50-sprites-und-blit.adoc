@@ -609,7 +609,7 @@ END SUB
 
 Der Rückgabewert 0 hat eine besondere Bedeutung: Dann wurde die Kollision durch eine Scroll-Operation ausgelöst.
 
-indexterm:[SPRITE(), SPRITE(C, n)]
+indexterm:["SPRITE()","SPRITE(C, n)"]
 === Wie viele Kollisionen gab es?
 
 Mit
@@ -919,7 +919,6 @@ Für eine Spielfigur ist normalerweise `SPRITE` die bessere Wahl.
 Wenn dagegen einfach ein rechteckiger Bildbereich kopiert oder verschoben werden soll, ist `BLIT` meist das passendere Werkzeug.
 ====
 
-indexterm:[Spielschleife]
 === Von der Spielfigur zur Spielschleife
 
 Mit den Sprite-Befehlen lässt sich die typische Hauptschleife eines Spiels sehr übersichtlich aufbauen.
