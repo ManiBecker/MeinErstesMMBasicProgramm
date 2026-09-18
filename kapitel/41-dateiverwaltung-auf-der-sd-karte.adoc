@@ -28,7 +28,7 @@ mit `SAVE` und `LOAD` zu verwalten.
 Sobald mehrere Projekte entstehen, reicht es jedoch nicht mehr aus, alle
 Dateien in einem einzigen Verzeichnis abzulegen.
 
-Mit Verzeichnissen kannst du deine Programme thematisch ordnen und behältst
+Mit indexterm:[Dateiverwaltung,Verzeichnisse]indexterm:[Verzeichnisse]Verzeichnissen kannst du deine Programme thematisch ordnen und behältst
 auch bei einer größeren Programmsammlung den Überblick.
 
 Beispiel:
@@ -73,7 +73,7 @@ Der PicoMite unterscheidet zwischen zwei Laufwerken:
 |Steht zur Verfügung, wenn eine SD-Karte konfiguriert ist.
 |===
 
-Das aktuell verwendete Laufwerk wird als *aktives Laufwerk* bezeichnet.
+Das aktuell verwendete Laufwerk wird als indexterm:[Dateiverwaltung,Aktives Laufwerk]indexterm:[Aktives Laufwerk]*aktives Laufwerk* bezeichnet.
 Alle Dateibefehle ohne ausdrücklich angegebenes Laufwerk beziehen sich auf
 dieses aktive Laufwerk.
 
@@ -93,7 +93,7 @@ Zurück zum Flash-Dateisystem gelangst du mit:
 DRIVE "A:"
 ----
 
-Welches Laufwerk gerade aktiv ist, kannst du mit `MM.INFO(drive)` abfragen:
+Welches Laufwerk gerade aktiv ist, kannst du mit indexterm:[MM.INFO,MM.INFO(drive)]indexterm:[MM.INFO(drive)]`MM.INFO(drive)` abfragen:
 
 [source,basic]
 ----
@@ -120,7 +120,7 @@ entsprechend konfiguriert sein, damit es verwendet werden kann.
 Bevor du Dateien kopierst, umbenennst oder löschst, möchtest du normalerweise
 zuerst sehen, welche Dateien und Verzeichnisse vorhanden sind.
 
-Dafür gibt es den Befehl `FILES`.
+Dafür gibt es den bereits bekannten Befehl `FILES`. Neu ist hier die indexterm:[Dateiverwaltung,Wildcards]indexterm:[Wildcards]Verwendung von Wildcards für Dateimuster.
 
 [source,basic]
 ----
@@ -164,7 +164,7 @@ mit Dateizugriffen aus Programmen beschäftigen.
 
 === Inhalt einer Textdatei anzeigen
 
-Mit `LIST` kannst du den Inhalt eines BASIC-Programms oder einer Textdatei auf
+Mit indexterm:[Dateibefehle,LIST]indexterm:[LIST]`LIST` kannst du den Inhalt eines BASIC-Programms oder einer Textdatei auf
 der Konsole anzeigen.
 
 Beispiel:
@@ -203,7 +203,7 @@ Dadurch bleiben Programme übersichtlich organisiert.
 
 === Verzeichnisse anlegen
 
-Mit `MKDIR` wird ein neues Verzeichnis im aktuellen Verzeichnis des aktiven
+Mit indexterm:[Dateiverwaltung,MKDIR]indexterm:[MKDIR]`MKDIR` wird ein neues Verzeichnis im aktuellen Verzeichnis des aktiven
 Laufwerks erstellt.
 
 Beispiel:
@@ -223,7 +223,7 @@ FILES
 
 === Verzeichnis wechseln
 
-Mit `CHDIR` wird das aktuelle Arbeitsverzeichnis geändert.
+Mit indexterm:[Dateiverwaltung,CHDIR]indexterm:[CHDIR]`CHDIR` wird das aktuelle Arbeitsverzeichnis geändert.
 
 Beispiel:
 
@@ -237,7 +237,7 @@ dieses Verzeichnis.
 
 === Das aktuelle Verzeichnis anzeigen
 
-Mit `CWD$` kannst du das aktuelle Arbeitsverzeichnis abfragen.
+Mit indexterm:[Dateiverwaltung,CWD$]indexterm:[CWD$]`CWD$` kannst du das aktuelle Arbeitsverzeichnis abfragen.
 
 [source,basic]
 ----
@@ -303,7 +303,7 @@ zurück in das übergeordnete Verzeichnis.
 
 === Dateien umbenennen
 
-Mit `RENAME` kann eine Datei einen neuen Namen erhalten.
+Mit indexterm:[Dateiverwaltung,RENAME]indexterm:[RENAME]`RENAME` kann eine Datei einen neuen Namen erhalten.
 
 Beispiel:
 
@@ -335,7 +335,7 @@ Die Datei wird dabei in das Verzeichnis `SPIELE` verschoben.
 
 === Dateien kopieren
 
-Mit `COPY` wird eine Datei kopiert.
+Mit indexterm:[Dateiverwaltung,COPY]indexterm:[COPY]`COPY` wird eine Datei kopiert.
 
 Beispiel:
 
@@ -376,7 +376,7 @@ Version weiterhin zur Verfügung.
 
 === Dateien löschen
 
-Mit `KILL` wird eine Datei im aktuellen Verzeichnis des aktiven Laufwerks
+Mit indexterm:[Dateiverwaltung,KILL]indexterm:[KILL]`KILL` wird eine Datei im aktuellen Verzeichnis des aktiven Laufwerks
 gelöscht.
 
 Beispiel:
@@ -401,7 +401,7 @@ du deshalb besonders sorgfältig prüfen.
 
 === Verzeichnisse löschen
 
-Mit `RMDIR` wird ein Verzeichnis im aktuellen Verzeichnis des aktiven Laufwerks
+Mit indexterm:[Dateiverwaltung,RMDIR]indexterm:[RMDIR]`RMDIR` wird ein Verzeichnis im aktuellen Verzeichnis des aktiven Laufwerks
 entfernt.
 
 Beispiel:
@@ -419,7 +419,7 @@ Unterverzeichnisse, kann es nicht einfach mit `RMDIR` entfernt werden.
 In einem BASIC-Programm ist es oft hilfreich, vor einem Dateizugriff zu prüfen,
 ob eine bestimmte Datei vorhanden ist.
 
-Dafür gibt es `MM.INFO(exists file fname$)`.
+Dafür gibt es indexterm:[MM.INFO,MM.INFO(exists file)]indexterm:[MM.INFO(exists file)]`MM.INFO(exists file fname$)`.
 
 Beispiel:
 
@@ -432,7 +432,7 @@ ELSE
 ENDIF
 ----
 
-Entsprechend kannst du mit `MM.INFO(exists dir dirname$)` prüfen, ob ein
+Entsprechend kannst du mit indexterm:[MM.INFO,MM.INFO(exists dir)]indexterm:[MM.INFO(exists dir)]`MM.INFO(exists dir dirname$)` prüfen, ob ein
 Verzeichnis existiert:
 
 [source,basic]
@@ -456,9 +456,9 @@ Mit:
 PRINT MM.INFO(free space)
 ----
 
-wird der noch freie Speicherplatz des aktiven Laufwerks ausgegeben.
+wird mit indexterm:[MM.INFO,MM.INFO(free space)]indexterm:[MM.INFO(free space)]`MM.INFO(free space)` der noch freie Speicherplatz des aktiven Laufwerks ausgegeben.
 
-Die Größe des Laufwerks erhältst du mit:
+Die Größe des Laufwerks erhältst du mit indexterm:[MM.INFO,MM.INFO(disk size)]indexterm:[MM.INFO(disk size)]`MM.INFO(disk size)`:
 
 [source,basic]
 ----
@@ -470,7 +470,7 @@ Laufwerk aktiv ist und wie viel Speicherplatz dort zur Verfügung steht.
 
 === Der Pfad des laufenden Programms
 
-Mit `MM.INFO(path)` kann ein Programm ermitteln, aus welchem Verzeichnis es
+Mit indexterm:[MM.INFO,MM.INFO(path)]indexterm:[MM.INFO(path)]`MM.INFO(path)` kann ein Programm ermitteln, aus welchem Verzeichnis es
 gestartet wurde.
 
 [source,basic]
@@ -557,7 +557,7 @@ Mit `FILES` kannst du anschließend prüfen, ob die Datei vorhanden ist.
 
 === Vollständige Pfadangaben
 
-Dateibefehle können auch mit vollständigen Pfaden verwendet werden. Dadurch
+Dateibefehle können auch mit indexterm:[Dateiverwaltung,Pfadangaben]indexterm:[Pfadangaben]vollständigen Pfaden verwendet werden. Dadurch
 musst du nicht für jeden Zugriff zuerst mit `CHDIR` in ein anderes Verzeichnis
 wechseln.
 
