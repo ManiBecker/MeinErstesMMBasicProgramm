@@ -151,7 +151,7 @@ Das macht das Programm deutlich flexibler, denn die Bewegungsrichtung kann nun e
 
 Ein Ball soll nicht einfach aus dem sichtbaren Bereich verschwinden.
 
-Trifft er den Rand des Bildschirms, ändern wir seine Bewegungsrichtung. Für den linken Rand genügt zunächst:
+Trifft er den Rand des Bildschirms, kommt es zu einer indexterm:[Animation,Kollisionserkennung]indexterm:[Kollisionserkennung]Kollisionserkennung: Wir ändern seine Bewegungsrichtung. Für den linken Rand genügt zunächst:
 
 [source,basic]
 ----
@@ -345,15 +345,15 @@ DO
 LOOP
 ----
 
-Nun bewegen sich zehn Bälle unabhängig voneinander. Jeder besitzt eine eigene Position, Geschwindigkeit, Bewegungsrichtung sowie Rand- und Füllfarbe.
+Nun bewegen sich zehn Bälle in einer indexterm:[Animation]Animation unabhängig voneinander. Jeder besitzt eine eigene Position, Geschwindigkeit, Bewegungsrichtung sowie Rand- und Füllfarbe.
 
 === Ein kleiner Bildschirmschoner
 
-Das gleiche Prinzip funktioniert nicht nur mit Kreisen. Ersetzen wir die Bälle durch Text, entsteht ein einfacher Bildschirmschoner mit zehn unabhängig bewegten `MMBasic`-Schriftzügen.
+Das gleiche Prinzip funktioniert nicht nur mit Kreisen. Ersetzen wir die Bälle durch Text, entsteht ein einfacher indexterm:[Bildschirmschoner]Bildschirmschoner mit zehn unabhängig bewegten `MMBasic`-Schriftzügen.
 
 Für die Randprüfung gibt es dabei einen wichtigen Unterschied: `X` und `Y` bezeichnen bei `TEXT` die Position des Textes. Deshalb müssen wir seine Breite und Höhe berücksichtigen.
 
-MMBasic stellt mit `MM.FONTWIDTH` und `MM.FONTHEIGHT` die Abmessungen der aktuell verwendeten Schrift in Pixeln bereit. Damit müssen wir die Zeichengröße nicht fest im Programm vorgeben:
+MMBasic stellt mit indexterm:[Systemvariablen,MM.FONTWIDTH]indexterm:[MM.FONTWIDTH]`MM.FONTWIDTH` und indexterm:[Systemvariablen,MM.FONTHEIGHT]indexterm:[MM.FONTHEIGHT]`MM.FONTHEIGHT` die Abmessungen der aktuell verwendeten Schrift in Pixeln bereit. Damit müssen wir die Zeichengröße nicht fest im Programm vorgeben:
 
 [source,basic]
 ----
@@ -457,18 +457,18 @@ Zum Abschluss dieses Kapitels bauen wir einen Bildschirmschoner nach, der an den
 
 Du musst dabei nicht jede einzelne Programmzeile sofort auswendig verstehen. Wichtig ist zunächst zu erkennen, wie die einzelnen Bausteine zusammenspielen.
 
-Unser Mystify-Programm zeichnet zwei vierseitige Figuren. Die vier Eckpunkte jeder Figur bewegen sich unabhängig voneinander über den Bildschirm und prallen an dessen Rändern ab. Zusätzlich bleiben mehrere ältere Positionen der Figur sichtbar. Dadurch entsteht der typische Nachzieheffekt.
+Unser Mystify-Programm zeichnet zwei vierseitige Figuren. Die vier Eckpunkte jeder Figur bewegen sich unabhängig voneinander über den Bildschirm und prallen an dessen Rändern ab. Zusätzlich bleiben mehrere ältere Positionen der Figur sichtbar. Dadurch entsteht der typische indexterm:[Animation,Nachzieheffekt]indexterm:[Nachzieheffekt]Nachzieheffekt.
 
 ==== Die wichtigsten Einstellungen
 
-Das Abschlussprojekt verwendet zunächst `OPTION BASE 0`. Damit ist ausdrücklich festgelegt, dass die Arrayindizes bei `0` beginnen:
+Das Abschlussprojekt verwendet zunächst indexterm:[OPTION-Befehlsfamilie,OPTION BASE]indexterm:[OPTION BASE]`OPTION BASE 0`. Damit ist ausdrücklich festgelegt, dass die Arrayindizes bei `0` beginnen:
 
 [source,basic]
 ----
 OPTION BASE 0
 ----
 
-Anschließend legen wir fünf Konstanten fest:
+Anschließend legen wir mit indexterm:[CONST]`CONST` fünf indexterm:[Konstanten]Konstanten fest:
 
 [source,basic]
 ----
@@ -720,7 +720,7 @@ Unsere Animationen beginnen jeden Schleifendurchlauf mit:
 CLS
 ----
 
-Dadurch wird der Bildschirm ständig gelöscht und anschließend vollständig neu aufgebaut. Je nach Hardware und Umfang der Grafik kann das zu sichtbarem Flackern führen.
+Dadurch wird der Bildschirm ständig gelöscht und anschließend vollständig neu aufgebaut. Dieses Verfahren kann bei einer indexterm:[Animation,Bildschirmflackern]indexterm:[Bildschirmflackern]Animation zu sichtbarem Flackern führen. Je nach Hardware und Umfang der Grafik kann das zu sichtbarem Flackern führen.
 
 [NOTE]
 ====
