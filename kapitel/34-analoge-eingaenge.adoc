@@ -33,7 +33,7 @@ Ein Potentiometer kennt nicht nur "links" oder "rechts".
 
 Stattdessen können sich die Messwerte kontinuierlich verändern.
 
-Genau dafür gibt es analoge Eingänge.
+Genau dafür gibt es indexterm:[Analoge Eingänge]analoge Eingänge.
 
 Mit ihnen beginnt die Welt der Mess-, Steuer- und Regeltechnik.
 
@@ -95,7 +95,7 @@ Das entspricht einem analogen Signal.
 
 === Analoge Spannungen
 
-Ein analoger Eingang misst eine Spannung.
+Ein indexterm:[Analoge Eingänge,Spannungsmessung]indexterm:[Spannungsmessung]analoger Eingang misst eine Spannung.
 
 Beim PicoMite und Colour Maximite 2 reicht der Messbereich der analogen Eingänge von:
 
@@ -112,12 +112,7 @@ IMPORTANT: An einem analogen Eingang darf keine Spannung über 3,3 V anliegen. H
 
 Ein Mikrocontroller arbeitet intern digital. Eine analoge Spannung muss deshalb zunächst in einen digitalen Wert umgewandelt werden.
 
-Dafür besitzt er einen sogenannten:
-
-[source]
-----
-Analog-Digital-Wandler
-----
+Dafür besitzt er einen sogenannten indexterm:[Analog-Digital-Wandler]indexterm:[ADC]Analog-Digital-Wandler (ADC):
 
 oft auch kurz:
 
@@ -163,7 +158,7 @@ Wir müssen den internen ADC-Zahlenwert für normale Spannungsmessungen also nic
 
 ==== Zusatzwissen: Rohwert beim PicoMite
 
-Beim PicoMite kann ein ADC-Eingang alternativ mit `ARAW` konfiguriert werden:
+Beim PicoMite kann ein ADC-Eingang alternativ mit indexterm:[Pin-Modi,ARAW]indexterm:[ARAW]`ARAW` konfiguriert werden:
 
 [source,basic]
 ----
@@ -185,7 +180,7 @@ NOTE: `ARAW` ist eine PicoMite-Funktion. Beim Colour Maximite 2 verwenden wir f�
 
 Für erste Experimente eignet sich ein Potentiometer hervorragend.
 
-Ein Potentiometer ist ein verstellbarer Widerstand. Es besitzt drei Anschlüsse.
+Ein indexterm:[Potentiometer]Potentiometer ist ein verstellbarer Widerstand. Es besitzt drei Anschlüsse.
 
 [source]
 ----
@@ -202,7 +197,7 @@ Mittelanschluss
 
 === Das Potentiometer als Spannungsteiler
 
-Durch Drehen des Knopfes verändert sich die Spannung am Mittelanschluss.
+indexterm:[Potentiometer,Spannungsteiler]indexterm:[Spannungsteiler]Durch Drehen des Knopfes verändert sich die Spannung am Mittelanschluss.
 
 Beispiele:
 
@@ -285,7 +280,7 @@ Beim PicoMite konfigurieren wir unseren Beispielpin so:
 SETPIN GP40,AIN
 ----
 
-Das Kürzel `AIN` bedeutet:
+Das indexterm:[Pin-Modi,AIN]indexterm:[AIN]Kürzel `AIN` bedeutet:
 
 [source]
 ----
@@ -329,7 +324,7 @@ Bei vielen MMBasic-Befehlen kann die `GPxx`-Schreibweise direkt verwendet
 werden. Es gibt jedoch auch Situationen, in denen eine numerische
 Pinnummer benötigt wird.
 
-Mit `MM.INFO(PINNO GP40)` kann die GPIO-Bezeichnung in die entsprechende
+Mit indexterm:[MM.INFO,MM.INFO(PINNO)]indexterm:[MM.INFO(PINNO)]`MM.INFO(PINNO GP40)` kann die GPIO-Bezeichnung in die entsprechende
 Pinnummer umgewandelt werden:
 
 [source,basic]
@@ -502,7 +497,7 @@ Dadurch ist der von `PIN()` gelieferte Spannungswert bereits geglättet.
 
 === Mehrere Messungen mitteln
 
-Falls wir eine noch stärkere Glättung benötigen, können wir zusätzlich mehrere mit `PIN()` gelesene Spannungswerte mitteln.
+Falls wir eine noch stärkere indexterm:[Messwerte,Glättung]indexterm:[Messwertglättung]Glättung benötigen, können wir zusätzlich mehrere mit `PIN()` gelesene Spannungswerte mitteln.
 
 [source,basic]
 ----
