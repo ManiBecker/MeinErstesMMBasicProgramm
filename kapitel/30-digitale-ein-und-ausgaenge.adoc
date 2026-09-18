@@ -30,12 +30,7 @@ Nun soll unser Programm mit der Außenwelt kommunizieren.
 
 Der PicoMite besitzt dazu eine Vielzahl von Anschlüssen.
 
-Diese Anschlüsse nennt man:
-
-[source]
-----
-GPIO Pins
-----
+Diese Anschlüsse nennt man indexterm:[GPIO-Pins]GPIO-Pins:
 oder einfach:
 
 [source]
@@ -56,12 +51,12 @@ Er kann beispielsweise:
 
 Je nach Konfiguration arbeitet ein Pin als:
 
-* Eingang
-* Ausgang
+* indexterm:[GPIO-Pins,Eingang]Eingang
+* indexterm:[GPIO-Pins,Ausgang]Ausgang
 
 === Digitale Signale
 
-Digitale Ein- und Ausgänge kennen nur zwei Zustände:
+indexterm:[Digitale Ein- und Ausgänge]Digitale Ein- und Ausgänge kennen nur zwei Zustände:
 
 [cols="1,2"]
 |===
@@ -74,7 +69,7 @@ Digitale Ein- und Ausgänge kennen nur zwei Zustände:
 |Ein
 |===
 
-Man spricht häufig auch von:
+Man spricht häufig auch von indexterm:[Digitale Signale,LOW]indexterm:[LOW]`LOW` und indexterm:[Digitale Signale,HIGH]indexterm:[HIGH]`HIGH`:
 
 [cols="1,2"]
 |===
@@ -95,7 +90,7 @@ Ein Ausgang liefert ein elektrisches Signal.
 
 Bevor ein Pin verwendet werden kann, muss seine Funktion festgelegt werden.
 
-Dies geschieht mit:
+Dies geschieht mit indexterm:[GPIO-Befehle,SETPIN]indexterm:[SETPIN]`SETPIN`:
 
 [source,basic]
 ----
@@ -108,18 +103,18 @@ Dabei bedeutet:
 |===
 |Teil |Bedeutung
 
-|GP0
+|indexterm:[GPIO-Pins,GPx]indexterm:[GPx]GP0
 |Pin GP0
 
 |DOUT
 |Digital Output
 |===
 
-Der Pin arbeitet nun als digitaler Ausgang.
+Der Pin arbeitet nun als indexterm:[Pin-Modi,DOUT]indexterm:[DOUT]digitaler Ausgang (`DOUT`).
 
 === Einen Ausgang einschalten
 
-Nun kann der Ausgang eingeschaltet werden.
+Nun kann der Ausgang mit indexterm:[GPIO-Befehle,PIN()]indexterm:[PIN()]`PIN()` eingeschaltet werden.
 
 [source,basic]
 ----
@@ -197,7 +192,7 @@ Dazu wird der Pin als Eingang konfiguriert.
 SETPIN GP1,DIN
 ----
 
-Das `DIN` steht für:
+indexterm:[Pin-Modi,DIN]indexterm:[DIN]Das `DIN` steht für:
 
 [source]
 ----
