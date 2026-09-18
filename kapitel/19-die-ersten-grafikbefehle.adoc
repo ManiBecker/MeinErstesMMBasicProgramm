@@ -47,7 +47,7 @@ CLS RGB(BLACK)
 
 === Ein einzelner Pixel
 
-Der einfachste Grafikbefehl ist PIXEL.
+Der einfachste Grafikbefehl ist indexterm:[Grafikbefehle,PIXEL]indexterm:[PIXEL]`PIXEL`.
 
 [source,basic]
 ----
@@ -93,7 +93,7 @@ Aus einzelnen Pixeln entstehen später Linien, Kreise und Bilder.
 
 === Linien zeichnen
 
-Mit LINE wird eine Linie zwischen zwei Punkten gezeichnet.
+Mit indexterm:[Grafikbefehle,LINE]indexterm:[LINE]`LINE` wird eine Linie zwischen zwei Punkten gezeichnet.
 
 [source,basic]
 ----
@@ -244,8 +244,8 @@ Zum Abschluss verbinden wir die bisher kennengelernten Grafikbefehle mit Schleif
 Das folgende Programm zeichnet nacheinander:
 
 * 1000 zufällig verteilte Punkte
-* 1000 Kreise
-* 1000 Rechtecke
+* 1000 indexterm:[Grafikbefehle,CIRCLE]indexterm:[CIRCLE]Kreise mit `CIRCLE`
+* 1000 indexterm:[Grafikbefehle,BOX]indexterm:[BOX]Rechtecke mit `BOX`
 
 Position, Größe und Farbe werden jeweils zufällig bestimmt.
 
@@ -342,7 +342,7 @@ BREITE=INT(RND*50)+5
 HOEHE=INT(RND*50)+5
 ----
 
-Die beiden `PAUSE`-Anweisungen sorgen für eine kurze Unterbrechung zwischen den drei Abschnitten.
+Die beiden indexterm:[PAUSE]`PAUSE`-Anweisungen sorgen für eine kurze Unterbrechung zwischen den drei Abschnitten.
 
 [TIP]
 ====
@@ -379,7 +379,7 @@ Probiere folgende Änderungen aus:
 
 In den bisherigen Beispielen haben wir Linien gezeichnet, indem wir ihre Anfangs- und Endpunkte angegeben haben.
 
-MMBasic bietet dafür noch eine zweite, besonders anschauliche Möglichkeit: die **Turtle-Grafik**.
+MMBasic bietet dafür noch eine zweite, besonders anschauliche Möglichkeit: die indexterm:[Grafik,Turtle-Grafik]indexterm:[Turtle-Grafik]**Turtle-Grafik**.
 
 Dabei stellst du dir vor, dass sich auf dem Bildschirm eine kleine Schildkröte befindet. Sie kennt ihre aktuelle Position und ihre Blickrichtung.
 
@@ -408,7 +408,7 @@ Heute gehört die Turtle-Grafik auch zum Funktionsumfang von MMBasic und eignet 
 
 === Die Schildkröte zurücksetzen
 
-Mit `TURTLE RESET` wird die Turtle in ihre Ausgangsposition zurückgesetzt.
+Mit indexterm:[TURTLE-Befehlsfamilie,TURTLE RESET]indexterm:[TURTLE RESET]`TURTLE RESET` wird die Turtle in ihre Ausgangsposition zurückgesetzt.
 
 [source,basic]
 ----
@@ -443,14 +443,14 @@ Nach der vierten Seite erreicht sie wieder ihren Ausgangspunkt.
 
 === Das Programm verstehen
 
-`TURTLE FORWARD` bewegt die Schildkröte in ihrer aktuellen Blickrichtung.
+indexterm:[TURTLE-Befehlsfamilie,TURTLE FORWARD]indexterm:[TURTLE FORWARD]`TURTLE FORWARD` bewegt die Schildkröte in ihrer aktuellen Blickrichtung.
 
 [source,basic]
 ----
 TURTLE FORWARD 100
 ----
 
-Mit `TURTLE RIGHT` oder `TURTLE LEFT` wird die Blickrichtung geändert.
+Mit indexterm:[TURTLE-Befehlsfamilie,TURTLE RIGHT]indexterm:[TURTLE RIGHT]`TURTLE RIGHT` oder indexterm:[TURTLE-Befehlsfamilie,TURTLE LEFT]indexterm:[TURTLE LEFT]`TURTLE LEFT` wird die Blickrichtung geändert.
 
 [source,basic]
 ----
