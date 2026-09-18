@@ -43,7 +43,7 @@ Schauen wir uns das Programm genauer an:
 PRINT "Hallo Welt!"
 ----
 
-Die Anweisung `PRINT` gibt Text auf dem Bildschirm aus.
+Die Anweisung indexterm:[PRINT]`PRINT` gibt indexterm:[Textausgabe]Text auf dem Bildschirm aus.
 
 Alles, was zwischen den Anführungszeichen steht, wird unverändert angezeigt.
 
