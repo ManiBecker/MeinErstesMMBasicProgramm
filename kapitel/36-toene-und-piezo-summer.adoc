@@ -35,7 +35,7 @@ Zum ersten Mal erzeugt unser Programm Töne.
 
 === Was ist ein Piezo-Summer?
 
-Ein Piezo-Summer ist ein kleines Bauteil zur Tonerzeugung.
+indexterm:[Piezo-Summer]Ein Piezo-Summer ist ein kleines Bauteil zur Tonerzeugung.
 
 Piezo-Summer werden häufig verwendet in:
 
@@ -51,7 +51,7 @@ Es gibt zwei unterschiedliche Varianten.
 
 ==== Aktiver Summer
 
-Ein aktiver Summer besitzt einen eingebauten Oszillator.
+indexterm:[Piezo-Summer,Aktiver Summer]indexterm:[Aktiver Summer]Ein aktiver Summer besitzt einen eingebauten Oszillator.
 
 Wird er mit der vorgesehenen Spannung versorgt, erzeugt er selbstständig einen Ton.
 Die Tonhöhe ist dabei normalerweise fest vorgegeben.
@@ -61,14 +61,14 @@ Spielen unterschiedlicher Noten.
 
 ==== Passiver Piezo-Schallwandler
 
-Ein passiver Piezo-Schallwandler besitzt keinen eingebauten Tongenerator.
+indexterm:[Piezo-Summer,Passiver Piezo-Schallwandler]indexterm:[Passiver Piezo-Schallwandler]Ein passiver Piezo-Schallwandler besitzt keinen eingebauten Tongenerator.
 Er benötigt ein wechselndes elektrisches Signal. Dessen Frequenz bestimmt die Tonhöhe.
 
 Damit lassen sich unterschiedliche Töne und einfache Melodien erzeugen.
 
 === Die Audioausgabe von MMBasic
 
-Für die folgenden Beispiele verwenden wir die Audioausgabe des jeweiligen
+indexterm:[Audioausgabe]Für die folgenden Beispiele verwenden wir die Audioausgabe des jeweiligen
 MMBasic-Systems.
 
 IMPORTANT: `PLAY TONE` gibt den Ton über die von MMBasic konfigurierte Audioausgabe
@@ -83,7 +83,7 @@ Ein eigenständiger Befehl `TONE` ist nicht vorhanden.
 
 === Der `PLAY TONE`-Befehl
 
-Zum Erzeugen von Tönen stellt MMBasic den Befehl `PLAY TONE` zur Verfügung.
+Zum Erzeugen von Tönen stellt MMBasic den indexterm:[PLAY-Befehlsfamilie,PLAY TONE]indexterm:[PLAY TONE]Befehl `PLAY TONE` zur Verfügung.
 
 Der allgemeine Aufbau lautet:
 
@@ -111,7 +111,7 @@ Die Parameter haben folgende Bedeutung:
 |Optionale Subroutine, die nach Ablauf der Spieldauer aufgerufen wird
 |===
 
-Je höher die Frequenz ist, desto höher klingt der Ton.
+Je höher die Frequenz ist, desto höher ist die indexterm:[Audio,Tonhöhe]indexterm:[Tonhöhe]Tonhöhe.
 
 `PLAY TONE` arbeitet im Hintergrund. Das Programm läuft also weiter, während der
 Ton ausgegeben wird. Deshalb verwenden wir in vielen Beispielen zusätzlich `PAUSE`,
@@ -159,7 +159,7 @@ Die anschließende Pause sorgt dafür, dass unser Programm auf das Ende des Tons
 
 === Was ist eine Frequenz?
 
-Die Frequenz gibt an, wie oft ein Signal pro Sekunde schwingt.
+Die indexterm:[Audio,Frequenz]indexterm:[Frequenz]Frequenz gibt an, wie oft ein Signal pro Sekunde schwingt.
 
 [source]
 ----
@@ -302,7 +302,7 @@ Das Programm erzeugt fünf kurze Signaltöne.
 
 === Melodien programmieren
 
-Eine Melodie besteht aus vielen einzelnen Noten.
+Eine indexterm:[Audio,Melodie]indexterm:[Melodie]Melodie besteht aus vielen einzelnen Noten.
 
 Jede Note besitzt:
 
@@ -373,7 +373,7 @@ Der Quelltext ist jedoch wesentlich übersichtlicher.
 
 Eine Melodie lässt sich noch übersichtlicher schreiben, wenn die einzelnen Noten Namen erhalten.
 
-Dazu definieren wir zunächst Konstanten für die Positionen im Noten-Array.
+Dazu definieren wir zunächst Konstanten für die Positionen im Noten-Array. Die Notenfolge wird anschließend mit indexterm:[DATA-Befehlsfamilie,DATA]indexterm:[DATA]`DATA` beschrieben.
 
 [source,basic]
 ----
