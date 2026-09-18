@@ -32,6 +32,8 @@ Genau darin liegt der wichtigste Schritt beim Programmieren: Aus einzelnen Befeh
 
 === Die Spielidee
 
+indexterm:[Spieleentwicklung,Spielidee]indexterm:[Spielidee]
+
 Unser Abschlussprojekt soll überschaubar bleiben und trotzdem typische Elemente eines kleinen Arcade-Spiels enthalten.
 
 Der Spieler steuert eine Figur über das Spielfeld und sammelt Münzen ein. Gleichzeitig bewegen sich mehrere Gegner über den Bildschirm.
@@ -54,6 +56,8 @@ Damit besitzt unser Spiel bereits viele typische Bestandteile eines klassischen 
 * und eine ständig wiederholte Spielschleife.
 
 === Spielregeln
+
+indexterm:[Spieleentwicklung,Spielregeln]indexterm:[Spielregeln]
 
 Die Regeln unseres Spiels sind schnell erklärt.
 
@@ -122,6 +126,8 @@ Das Abschlussprogramm in diesem Kapitel konzentriert sich deshalb bewusst auf VG
 
 === Planung vor dem Programmieren
 
+indexterm:[Spieleentwicklung,Programmplanung]indexterm:[Programmplanung]
+
 Auch bei einem kleinen Spiel lohnt sich eine kurze Planung.
 
 Unser Programm muss mehrere Aufgaben erledigen:
@@ -150,6 +156,8 @@ Stattdessen zerlegen wir das Spiel in kleine `SUB`-Programme und Funktionen.
 Das macht den Programmcode wesentlich leichter verständlich.
 
 === Die Programmstruktur
+
+indexterm:[Spieleentwicklung,Programmstruktur]indexterm:[Programmstruktur]
 
 Der grundsätzliche Ablauf sieht so aus:
 
@@ -372,6 +380,8 @@ Sprechende Konstantennamen sind fast immer besser als fest eingetragene Zahlen.
 
 ==== Keine unnötigen magischen Zahlen
 
+indexterm:[Programmierung,Magische Zahlen]indexterm:[Magische Zahlen]
+
 Die Level unseres Spiels beginnen nicht bei einem bestimmten Punktestand, sondern immer dann, wenn alle Münzen eingesammelt wurden.
 
 Wir benötigen deshalb keine Konstante wie
@@ -440,6 +450,8 @@ SPRITE LOADARRAY #PlayerSprite, 12, 12, PlayerImage()
 Im vollständigen Programm gestalten wir Spieler, Gegner und Münze etwas schöner als einfarbige Rechtecke.
 
 ==== Ein Bild, mehrere Sprites
+
+indexterm:[SPRITE-Befehlsfamilie,SPRITE COPY]indexterm:[SPRITE COPY]
 
 Alle vier Gegner sehen gleich aus. Wir müssen die Grafik deshalb nicht viermal im Speicher ablegen.
 
@@ -579,7 +591,7 @@ Gamepad-Button.: 3
 Gamepad-Stick..: 4
 ----
 
-Die Auswahl wird in der Variablen `Control` gespeichert. In der Game Loop genügt anschließend ein Aufruf von `ReadControl`.
+Die Auswahl wird in der Variablen `Control` gespeichert. indexterm:[Spieleprogrammierung,Eingabemethoden]indexterm:[Eingabemethoden]In der Game Loop genügt anschließend ein Aufruf von `ReadControl`.
 
 [source,basic]
 ----
@@ -874,7 +886,7 @@ NEXT i
 
 Damit übernimmt die Sprite-Verwaltung einen großen Teil der Arbeit für uns.
 
-Neu ist hier `HitList()`: Wir kopieren die aktuelle Kollisionsliste zunächst in ein eigenes Array. Das ist wichtig, weil `SPRITE HIDE SAFE` beim Einsammeln einer Münze den Sprite-Zustand verändert. Würden wir währenddessen immer wieder die ursprüngliche Kollisionsliste abfragen, könnte sich deren Inhalt bereits verändert haben.
+Neu ist hier indexterm:[SPRITE-Befehlsfamilie,SPRITE HIDE SAFE]indexterm:[SPRITE HIDE SAFE]`SPRITE HIDE SAFE`. Außerdem ist `HitList()` neu: Wir kopieren die aktuelle Kollisionsliste zunächst in ein eigenes Array. Das ist wichtig, weil `SPRITE HIDE SAFE` beim Einsammeln einer Münze den Sprite-Zustand verändert. Würden wir währenddessen immer wieder die ursprüngliche Kollisionsliste abfragen, könnte sich deren Inhalt bereits verändert haben.
 
 Wir müssen weder Breite und Höhe beider Objekte vergleichen noch selbst berechnen, ob sich zwei Rechtecke überschneiden.
 
@@ -882,7 +894,7 @@ Wir müssen weder Breite und Höhe beider Objekte vergleichen noch selbst berech
 
 Beim Einsammeln einer Münze soll der Spieler eine akustische Rückmeldung erhalten.
 
-Dazu können wir einen kurzen Ton abspielen.
+Dazu können wir mit indexterm:[PLAY-Befehlsfamilie,PLAY SOUND]indexterm:[PLAY SOUND]`PLAY SOUND` einen kurzen Ton abspielen.
 
 Welche Audioausgabe zur Verfügung steht, hängt von der verwendeten PicoMite-Variante und ihrer Konfiguration ab.
 
@@ -980,6 +992,8 @@ ENDIF
 
 === Schritt 17: Das nächste Level
 
+indexterm:[Spieleprogrammierung,Levelwechsel]indexterm:[Levelwechsel]
+
 Sind alle Münzen eingesammelt, erhöhen wir die Levelnummer.
 
 [source,basic]
@@ -1020,7 +1034,7 @@ Das Spielfeld selbst bleibt erhalten. Dadurch vermeiden wir, den kompletten Bild
 
 Jetzt besitzen wir alle wichtigen Bestandteile.
 
-Die zentrale Spielschleife kann deshalb erstaunlich kompakt bleiben:
+Die zentrale indexterm:[Spieleprogrammierung,Spielschleife]Spielschleife kann deshalb erstaunlich kompakt bleiben:
 
 [source,basic]
 ----
@@ -1096,6 +1110,8 @@ Bei anspruchsvolleren Spielen sollte die Bewegung anhand der tatsächlich vergan
 
 === Schritt 20: Game Over
 
+indexterm:[Spieleprogrammierung,Game Over]indexterm:[Game Over]
+
 Sobald `Lives` den Wert `0` erreicht, endet die Game Loop.
 
 Danach blenden wir die Sprites aus und zeigen den Endbildschirm an.
@@ -1146,6 +1162,8 @@ Game Over
 ----
 
 === Schritt 21: Noch einmal spielen?
+
+indexterm:[Spieleprogrammierung,Neustart]indexterm:[Neustart]
 
 Die verbesserte Version endet nach `GAME OVER` nicht sofort. Mit `PlayAgain$()` fragen wir, ob eine weitere Runde gestartet werden soll.
 
@@ -1233,7 +1251,7 @@ zusammen.
 
 Der entscheidende Unterschied liegt jedoch nicht in der Anzahl der verwendeten Befehle.
 
-Du hast gelernt, ein Problem in kleinere Teilaufgaben zu zerlegen.
+Du hast gelernt, ein Problem in indexterm:[Programmierung,Problemzerlegung]indexterm:[Problemzerlegung]kleinere Teilaufgaben zu zerlegen.
 
 Genau das ist Programmieren.
 
