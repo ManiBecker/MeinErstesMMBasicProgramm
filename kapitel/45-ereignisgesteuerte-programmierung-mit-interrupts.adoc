@@ -31,7 +31,7 @@ DO
 LOOP
 ----
 
-Dieses Verfahren nennt man *Polling*.
+Dieses Verfahren nennt man indexterm:[Interrupts,Polling]indexterm:[Polling]*Polling*.
 
 Das Programm fragt ständig:
 
@@ -68,7 +68,7 @@ Je größer das Programm wird, desto aufwendiger kann diese Vorgehensweise werde
 
 === Die Idee eines Interrupts
 
-Bei einem Interrupt muss das Hauptprogramm ein Ereignis nicht ständig selbst abfragen.
+indexterm:[Interrupts]Bei einem Interrupt muss das Hauptprogramm ein Ereignis nicht ständig selbst abfragen.
 
 Anstatt immer wieder zu fragen:
 
@@ -104,6 +104,8 @@ Du musst nicht ständig zur Haustür laufen und nachsehen. Die Klingel meldet si
 
 === Interrupts sind kein Multitasking
 
+indexterm:[Interrupts,Multitasking]
+
 Ein häufiger Irrtum ist:
 
 [source]
@@ -128,6 +130,8 @@ Während die Interrupt-Subroutine ausgeführt wird, sind andere Interrupts gespe
 
 === Steigende und fallende Flanken
 
+indexterm:[Signalflanken]indexterm:[Interrupts,Signalflanken]
+
 Ein digitaler Eingang kennt die beiden Zustände Low (`0`) und High (`1`). Ein Interrupt kann ausgelöst werden, wenn sich dieser Zustand ändert.
 
 MMBasic unterscheidet drei Möglichkeiten:
@@ -138,15 +142,15 @@ MMBasic unterscheidet drei Möglichkeiten:
 |Signaländerung
 |Bedeutung
 
-|`INTH`
+|indexterm:[Interrupt-Konfiguration,INTH]indexterm:[INTH]`INTH`
 |Low → High
 |Interrupt bei steigender Flanke
 
-|`INTL`
+|indexterm:[Interrupt-Konfiguration,INTL]indexterm:[INTL]`INTL`
 |High → Low
 |Interrupt bei fallender Flanke
 
-|`INTB`
+|indexterm:[Interrupt-Konfiguration,INTB]indexterm:[INTB]`INTB`
 |Low → High oder High → Low
 |Interrupt bei jeder Flanke
 |===
@@ -165,6 +169,8 @@ Taster gedrückt:              └──── LOW
 Für das Drücken des Tasters benötigen wir deshalb `INTL`.
 
 === Einen Pin-Interrupt einrichten
+
+indexterm:[Interrupts,Pin-Interrupt]indexterm:[Pin-Interrupt]
 
 Die grundlegende Syntax lautet:
 
@@ -214,7 +220,7 @@ Die Interrupt-Subroutine macht hier absichtlich sehr wenig. Sie setzt lediglich 
 
 Die eigentliche Verarbeitung übernimmt anschließend das Hauptprogramm.
 
-Dieses Vorgehen nennt man häufig das *Flag-Prinzip*. Eine Variable dient als Flag und zeigt dem Hauptprogramm an, dass ein Ereignis eingetreten ist.
+Dieses Vorgehen nennt man häufig das indexterm:[Interrupts,Flag-Prinzip]indexterm:[Flag-Prinzip]*Flag-Prinzip*. Eine Variable dient als Flag und zeigt dem Hauptprogramm an, dass ein Ereignis eingetreten ist.
 
 NOTE: Einer Interrupt-Subroutine können keine Parameter übergeben werden. Innerhalb der Interrupt-Subroutine dürfen jedoch andere Subroutinen und Funktionen aufgerufen werden.
 
@@ -245,6 +251,8 @@ PRINT PIN(GP14)
 ----
 
 === Interrupt-Routinen kurz halten
+
+indexterm:[Interrupts,Interrupt-Subroutine]indexterm:[Interrupt-Subroutine]
 
 Während eine Interrupt-Subroutine läuft, sind andere Interrupts gesperrt. Deshalb gilt eine besonders wichtige Regel:
 
@@ -320,7 +328,7 @@ END SUB
 
 Die Interrupt-Subroutine wartet dabei nicht. Sie prüft lediglich den Zeitabstand zum letzten gültigen Tastendruck und kehrt sofort zurück, wenn dieser zu klein ist.
 
-Die `50` steht hier für eine Entprellzeit von 50 Millisekunden.
+Die `50` steht hier für eine indexterm:[Interrupts,Entprellung]Entprellzeit von 50 Millisekunden.
 
 === Praxisbeispiel: Ereigniszähler
 
@@ -394,7 +402,7 @@ wechselt `led` eindeutig zwischen `0` und `1`.
 
 Ein Interrupt sollte deaktiviert werden, wenn er nicht mehr benötigt wird.
 
-Für GP14 geschieht das mit:
+Für GP14 geschieht das mit indexterm:[Interrupt-Konfiguration,OFF]indexterm:[SETPIN,OFF]`SETPIN pin, OFF`:
 
 [source,basic]
 ----
@@ -405,7 +413,7 @@ Hintergrund-Interrupts, die nicht mehr benötigt werden, können sonst später z
 
 === Praxisprojekt: Reaktionstest
 
-Nun bauen wir einen einfachen Reaktionstest.
+Nun bauen wir einen indexterm:[Zeitmessung,Reaktionstest]indexterm:[Reaktionstest]einfachen Reaktionstest.
 
 Eine LED wird nach einer zufälligen Wartezeit eingeschaltet. Sobald sie leuchtet, muss der Benutzer den Taster möglichst schnell drücken.
 
