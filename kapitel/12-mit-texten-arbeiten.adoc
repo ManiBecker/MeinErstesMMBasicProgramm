@@ -53,7 +53,7 @@ ORT$="Schwetzingen"
 
 === Wie lang darf ein Text sein?
 
-Normale Zeichenketten können in MMBasic maximal 255 Zeichen enthalten.
+Normale indexterm:[Zeichenketten]Zeichenketten können in MMBasic maximal 255 Zeichen enthalten.
 
 Für die meisten Programme ist das vollkommen ausreichend.
 
@@ -70,7 +70,7 @@ Beispiele:
 NAME$="Manfred"
 ----
 
-Für sehr lange Texte stellt MMBasic sogenannte Long Strings zur Verfügung.
+Für sehr lange Texte stellt MMBasic sogenannte indexterm:[Long Strings]Long Strings zur Verfügung.
 
 Diese werden wir später kennenlernen.
 
@@ -135,7 +135,7 @@ Manfred Becker
 
 === Die Länge eines Textes bestimmen
 
-Mit LEN() kann die Anzahl der Zeichen ermittelt werden.
+Mit indexterm:[String-Funktionen,LEN]indexterm:[LEN]`LEN()` kann die Anzahl der Zeichen ermittelt werden.
 
 [source,basic]
 ----
@@ -157,7 +157,7 @@ Auch Leerzeichen werden mitgezählt.
 
 === Das erste Zeichen ermitteln
 
-Mit LEFT$() können Zeichen vom Anfang eines Textes gelesen werden.
+Mit indexterm:[String-Funktionen,LEFT$]indexterm:[LEFT$]`LEFT$()` können Zeichen vom Anfang eines Textes gelesen werden.
 
 [source,basic]
 ----
@@ -191,7 +191,7 @@ Man
 
 === Zeichen vom Ende lesen
 
-Mit RIGHT$() können Zeichen vom Ende eines Textes gelesen werden.
+Mit indexterm:[String-Funktionen,RIGHT$]indexterm:[RIGHT$]`RIGHT$()` können Zeichen vom Ende eines Textes gelesen werden.
 
 [source,basic]
 ----
@@ -209,7 +209,7 @@ red
 
 === Zeichen aus der Mitte lesen
 
-Mit MID$() können Zeichen aus der Mitte eines Textes gelesen werden.
+Mit indexterm:[String-Funktionen,MID$]indexterm:[MID$]`MID$()` können Zeichen aus der Mitte eines Textes gelesen werden.
 
 [source,basic]
 ----
@@ -231,7 +231,7 @@ Die Zahl 2 gibt die Anzahl der Zeichen an.
 
 === Groß- und Kleinbuchstaben
 
-Mit UCASE$() wird ein Text in Großbuchstaben umgewandelt.
+Mit indexterm:[String-Funktionen,UCASE$]indexterm:[UCASE$]`UCASE$()` wird ein Text in Großbuchstaben umgewandelt.
 
 [source,basic]
 ----
@@ -247,7 +247,7 @@ Ausgabe:
 MANFRED
 ----
 
-Mit LCASE$() wird ein Text in Kleinbuchstaben umgewandelt.
+Mit indexterm:[String-Funktionen,LCASE$]indexterm:[LCASE$]`LCASE$()` wird ein Text in Kleinbuchstaben umgewandelt.
 
 [source,basic]
 ----
@@ -321,7 +321,7 @@ alle akzeptiert.
 
 === In einem Text suchen
 
-Mit INSTR() kann nach einem Zeichen oder einer Zeichenfolge gesucht werden.
+Mit indexterm:[String-Funktionen,INSTR]indexterm:[INSTR]`INSTR()` kann nach einem Zeichen oder einer Zeichenfolge gesucht werden.
 
 [source,basic]
 ----
@@ -354,7 +354,7 @@ ENDIF
 
 === Zahlen und Texte umwandeln
 
-Mit VAL() wird ein Text in eine Zahl umgewandelt.
+Mit indexterm:[Konvertierungsfunktionen,VAL]indexterm:[VAL]`VAL()` wird ein Text in eine Zahl umgewandelt.
 
 [source,basic]
 ----
@@ -370,7 +370,7 @@ Ausgabe:
 124
 ----
 
-Mit STR$() wird umgekehrt eine Zahl in einen Text umgewandelt.
+Mit indexterm:[Konvertierungsfunktionen,STR$]indexterm:[STR$]`STR$()` wird umgekehrt eine Zahl in einen Text umgewandelt.
 
 [source,basic]
 ----
@@ -381,7 +381,7 @@ PRINT "Die Zahl lautet ";TEXT$
 
 === Datum und Uhrzeit
 
-MMBasic stellt das aktuelle Datum und die aktuelle Uhrzeit als Zeichenketten zur Verfügung.
+MMBasic stellt das aktuelle Datum und die aktuelle Uhrzeit als Zeichenketten zur Verfügung. Dafür stehen indexterm:[Datum und Uhrzeit,DATE$]indexterm:[DATE$]`DATE$` und indexterm:[Datum und Uhrzeit,TIME$]indexterm:[TIME$]`TIME$` bereit.
 
 [source,basic]
 ----
