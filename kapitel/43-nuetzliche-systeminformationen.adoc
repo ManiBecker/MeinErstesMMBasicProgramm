@@ -88,18 +88,18 @@ PRINT MM.INFO(HPOS)
 PRINT MM.INFO(VPOS)
 ----
 
-`MM.INFO(HPOS)` liefert die aktuelle horizontale Position und `MM.INFO(VPOS)` die aktuelle vertikale Position in Pixeln. Die Werte beziehen sich auf die Position nach dem letzten Grafik- oder `PRINT`-Befehl.
+indexterm:[MM.INFO,MM.INFO(HPOS)]indexterm:[MM.INFO(HPOS)]`MM.INFO(HPOS)` liefert die aktuelle horizontale Position und indexterm:[MM.INFO,MM.INFO(VPOS)]indexterm:[MM.INFO(VPOS)]`MM.INFO(VPOS)` die aktuelle vertikale Position in Pixeln. Die Werte beziehen sich auf die Position nach dem letzten Grafik- oder `PRINT`-Befehl.
 
 === Informationen mit MM.INFO()
 
-Viele weitere Systeminformationen können mit `MM.INFO()` abgefragt werden.
+Viele weitere Systeminformationen können mit indexterm:[MM.INFO]indexterm:[MM.INFO()]`MM.INFO()` abgefragt werden.
 
 Grundsätzlich gibt es zwei Schreibweisen:
 
 [source,basic]
 ----
 MM.INFO(parameter)
-MM.INFO$(parameter)
+indexterm:[MM.INFO$()]MM.INFO$(parameter)
 ----
 
 Beide Varianten können laut PicoMite-Handbuch grundsätzlich untereinander verwendet werden. Gute Programmierpraxis ist jedoch, die Variante passend zum zurückgegebenen Datentyp zu wählen:
@@ -118,13 +118,13 @@ Ein häufig interessanter Wert ist der noch freie MMBasic-Heap.
 PRINT MM.INFO(HEAP)
 ----
 
-Der MMBasic-Heap wird unter anderem für Strings, Arrays und verschiedene interne Puffer verwendet. `MM.INFO(HEAP)` liefert den noch freien Speicher in Byte.
+Der MMBasic-Heap wird unter anderem für Strings, Arrays und verschiedene interne Puffer verwendet. indexterm:[MM.INFO,MM.INFO(HEAP)]indexterm:[MM.INFO(HEAP)]`MM.INFO(HEAP)` liefert den noch freien Speicher in Byte.
 
-Daneben gibt es mit `MM.INFO(SYSTEM HEAP)` auch eine Abfrage für den freien System-Heap. Für normale BASIC-Programme ist jedoch meist `MM.INFO(HEAP)` die interessantere Information.
+Daneben gibt es mit indexterm:[MM.INFO,MM.INFO(SYSTEM HEAP)]indexterm:[MM.INFO(SYSTEM HEAP)]`MM.INFO(SYSTEM HEAP)` auch eine Abfrage für den freien System-Heap. Für normale BASIC-Programme ist jedoch meist `MM.INFO(HEAP)` die interessantere Information.
 
 === CPU-Geschwindigkeit anzeigen
 
-Die aktuelle CPU-Geschwindigkeit kann mit `MM.INFO$(CPUSPEED)` abgefragt werden:
+Die aktuelle CPU-Geschwindigkeit kann mit indexterm:[MM.INFO,MM.INFO$(CPUSPEED)]indexterm:[MM.INFO$(CPUSPEED)]`MM.INFO$(CPUSPEED)` abgefragt werden:
 
 [source,basic]
 ----
@@ -144,7 +144,7 @@ Obwohl die Ausgabe nur aus Ziffern besteht, liefert `MM.INFO$(CPUSPEED)` laut Ha
 
 === Firmware-Version anzeigen
 
-Mit `MM.INFO(VERSION)` lässt sich die installierte PicoMite-Firmwareversion ermitteln:
+Mit indexterm:[MM.INFO,MM.INFO(VERSION)]indexterm:[MM.INFO(VERSION)]`MM.INFO(VERSION)` lässt sich die installierte PicoMite-Firmwareversion ermitteln:
 
 [source,basic]
 ----
@@ -162,11 +162,11 @@ Diese Information kann beispielsweise bei der Fehlersuche hilfreich sein, wenn s
 
 === Ursache des letzten Starts anzeigen
 
-Interessant ist auch die Frage, warum der Pico zuletzt neu gestartet wurde.
+Interessant ist auch die Frage, warum der Pico zuletzt neu gestartet wurde. Dafür liefert `MM.INFO$(BOOT)` die indexterm:[Boot-Ursache]Boot-Ursache.
 
 [source,basic]
 ----
-PRINT MM.INFO$(BOOT)
+indexterm:[MM.INFO,MM.INFO$(BOOT)]indexterm:[MM.INFO$(BOOT)]PRINT MM.INFO$(BOOT)
 ----
 
 Bei einem Neustart über den Reset-Taster erhielten wir:
@@ -180,7 +180,7 @@ Je nach Ursache sind auch andere Rückgabewerte möglich, beispielsweise `Power 
 
 === Laufzeit seit dem Start
 
-Mit `MM.INFO(UPTIME)` kann die bisherige Laufzeit seit dem letzten Start abgefragt werden:
+Mit indexterm:[MM.INFO,MM.INFO(UPTIME)]indexterm:[MM.INFO(UPTIME)]`MM.INFO(UPTIME)` kann die bisherige Laufzeit seit dem letzten Start abgefragt werden:
 
 [source,basic]
 ----
@@ -310,7 +310,7 @@ Das aktuelle Arbeitsverzeichnis ist besonders wichtig, wenn Programme mit relati
 
 Der PicoMite kann auch Informationen über das aktuell geladene BASIC-Programm bereitstellen.
 
-Mit `MM.INFO$(CURRENT)` wird der Name des aktuellen Programms abgefragt:
+Mit indexterm:[MM.INFO,MM.INFO$(CURRENT)]indexterm:[MM.INFO$(CURRENT)]`MM.INFO$(CURRENT)` wird der Name des aktuellen Programms abgefragt:
 
 [source,basic]
 ----
@@ -389,7 +389,7 @@ Ein Programm könnte beispielsweise prüfen:
 
 === Warum schreibgeschützte Variablen?
 
-Systemvariablen wie `MM.HRES` und `MM.VRES` werden von MMBasic bereitgestellt und enthalten Informationen über die aktuelle Umgebung.
+indexterm:[Systemvariablen,Schreibgeschützt]indexterm:[Schreibgeschützte Systemvariablen]Systemvariablen wie `MM.HRES` und `MM.VRES` werden von MMBasic bereitgestellt und enthalten Informationen über die aktuelle Umgebung.
 
 Sie können vom BASIC-Programm gelesen, aber nicht verändert werden.
 
