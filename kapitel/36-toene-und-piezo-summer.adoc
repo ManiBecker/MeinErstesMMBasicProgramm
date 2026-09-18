@@ -373,7 +373,7 @@ Der Quelltext ist jedoch wesentlich übersichtlicher.
 
 Eine Melodie lässt sich noch übersichtlicher schreiben, wenn die einzelnen Noten Namen erhalten.
 
-Dazu definieren wir zunächst Konstanten für die Positionen im Noten-Array. Die Notenfolge wird anschließend mit indexterm:[DATA-Befehlsfamilie,DATA]indexterm:[DATA]`DATA` beschrieben.
+Dazu definieren wir zunächst Konstanten für die Positionen im Noten-Array. Die Notenfolge wird anschließend mit indexterm:[DATA]`DATA` beschrieben.
 
 [source,basic]
 ----
