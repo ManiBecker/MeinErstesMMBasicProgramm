@@ -4,7 +4,7 @@ image::bilder/49_spielcontroller_und_gamepads.jpg[align=center]
 
 === Das lernst du
 
-In den bisherigen Kapiteln wurden unsere Programme hauptsächlich über die Tastatur gesteuert. Das funktioniert für viele Anwendungen hervorragend, bei Spielen ist ein Gamepad jedoch oft die angenehmere Lösung.
+In den bisherigen Kapiteln wurden unsere Programme hauptsächlich über die Tastatur gesteuert. Das funktioniert für viele Anwendungen hervorragend, bei Spielen ist ein indexterm:[Gamepad]Gamepad jedoch oft die angenehmere Lösung.
 
 Ein moderner Spielcontroller besitzt nicht nur Tasten, sondern meist auch Analogsticks, ein Steuerkreuz und Schultertasten. Einige Controller verfügen zusätzlich über Vibrationsmotoren, Bewegungssensoren oder eine farbige Leuchtanzeige.
 
@@ -12,7 +12,7 @@ In diesem Kapitel lernst du:
 
 * welche Gamepads die USB-Versionen des PicoMite unterstützen
 * wie USB-Geräte den Kanälen 1 bis 4 zugeordnet werden
-* wie du mit `MM.INFO(USB n)` erkennst, welches Gerät angeschlossen ist
+* wie du mit `indexterm:[MM.INFO,MM.INFO(USB n)]indexterm:[MM.INFO(USB n)]MM.INFO(USB n)` erkennst, welches Gerät angeschlossen ist
 * wie du mit `DEVICE(GAMEPAD ...)` Analogsticks, Trigger und Tasten ausliest
 * wie eine Tastenbelegung als Bitmaske ausgewertet wird
 * wie du eine Totzone für Analogsticks verwendest
@@ -54,6 +54,8 @@ Bei Firmware-Versionen ohne USB-Unterstützung können alternativ Wii-Controller
 ====
 
 === USB-Kanäle
+
+indexterm:[USB,Kanäle]indexterm:[USB-Kanäle]
 
 Der PicoMite verwaltet bis zu vier USB-Geräte. Jedes Gerät erhält einen Kanal von 1 bis 4.
 
@@ -130,7 +132,7 @@ Wird dort beispielsweise `128` ausgegeben, hat der PicoMite einen PS4-Controller
 Das erste Gamepad befindet sich normalerweise auf Kanal 3. Trotzdem ist es sinnvoll, die Belegung mit `MM.INFO(USB n)` zu überprüfen, bevor du ein größeres Programm entwickelst.
 ====
 
-=== Controller mit GAMEPAD MONITOR untersuchen
+=== Controller mit indexterm:[GAMEPAD-Befehlsfamilie,GAMEPAD MONITOR]indexterm:[GAMEPAD MONITOR]GAMEPAD MONITOR untersuchen
 
 Bevor wir ein eigenes BASIC-Programm schreiben, bietet der PicoMite eine sehr praktische Diagnosefunktion:
 
@@ -145,7 +147,7 @@ Das ist besonders hilfreich, wenn du einen neuen oder unbekannten Controller aus
 
 [NOTE]
 ====
-Für Gamepads, die nicht direkt von der Firmware unterstützt werden, existiert außerdem der Befehl `GAMEPAD CONFIGURE`. Damit lässt sich die Zuordnung der Daten im USB-Report zu den einzelnen Gamepad-Tasten konfigurieren. Da dieser Befehl viele Parameter benötigt, verwenden wir ihn in diesem Einsteigerkapitel nicht weiter.
+Für Gamepads, die nicht direkt von der Firmware unterstützt werden, existiert außerdem der Befehl indexterm:[GAMEPAD-Befehlsfamilie,GAMEPAD CONFIGURE]indexterm:[GAMEPAD CONFIGURE]`GAMEPAD CONFIGURE`. Damit lässt sich die Zuordnung der Daten im USB-Report zu den einzelnen Gamepad-Tasten konfigurieren. Da dieser Befehl viele Parameter benötigt, verwenden wir ihn in diesem Einsteigerkapitel nicht weiter.
 ====
 
 === Gamepad-Daten mit DEVICE() auslesen
@@ -154,7 +156,7 @@ Innerhalb eines BASIC-Programms werden die Daten des Controllers mit der Funktio
 
 [source,basic]
 ----
-DEVICE(GAMEPAD channel, funct)
+indexterm:[DEVICE(),GAMEPAD]indexterm:[DEVICE(GAMEPAD)]DEVICE(GAMEPAD channel, funct)
 ----
 
 ausgelesen.
@@ -216,7 +218,7 @@ ry = DEVICE(GAMEPAD 3, RY)
 
 === Die Tasten als Bitmaske
 
-Alle digitalen Tasten werden gemeinsam als Bitmaske geliefert:
+Alle digitalen Tasten werden gemeinsam als indexterm:[Gamepad,Bitmaske]indexterm:[Bitmaske]Bitmaske geliefert:
 
 [source,basic]
 ----
@@ -361,13 +363,15 @@ Diese Mittelstellung brauchen wir gleich für die Totzone.
 
 === Analogsticks und Totzone
 
+indexterm:[Gamepad,Analogsticks]indexterm:[Analogsticks]
+
 Ein Analogstick liefert nicht nur die Zustände links, rechts, oben und unten. Seine Position wird als Zahlenwert ausgegeben.
 
 Der genaue Wertebereich ist für unsere ersten Programme gar nicht entscheidend. Wichtig ist zunächst der Wert in der Mittelstellung.
 
 Viele Analogsticks kehren mechanisch nicht immer exakt auf denselben Zahlenwert zurück. Ohne Gegenmaßnahme könnte sich deshalb eine Spielfigur langsam bewegen, obwohl der Stick gar nicht berührt wird.
 
-Dagegen verwendet man eine sogenannte *Totzone*.
+Dagegen verwendet man eine sogenannte indexterm:[Gamepad,Totzone]indexterm:[Totzone]*Totzone*.
 
 Wir merken uns zunächst die Mittelstellung:
 
@@ -539,13 +543,15 @@ Bei den beiden Funktionen zum Farbwechseln und Löschen wird zusätzlich `oldBut
 
 === PS4-Controller: Farbe und Vibration
 
+indexterm:[Gamepad,Vibration]indexterm:[Haptisches Feedback]
+
 Bei einem PS4-Controller kann der PicoMite zusätzlich die Farbe der Leuchtanzeige verändern.
 
 Die Syntax lautet:
 
 [source,basic]
 ----
-GAMEPAD COLOUR channel, colour
+indexterm:[GAMEPAD-Befehlsfamilie,GAMEPAD COLOUR]indexterm:[GAMEPAD COLOUR]GAMEPAD COLOUR channel, colour
 ----
 
 Beispielsweise:
@@ -559,7 +565,7 @@ Auch die beiden Vibrationsmotoren lassen sich ansteuern:
 
 [source,basic]
 ----
-GAMEPAD HAPTIC channel, left, right
+indexterm:[GAMEPAD-Befehlsfamilie,GAMEPAD HAPTIC]indexterm:[GAMEPAD HAPTIC]GAMEPAD HAPTIC channel, left, right
 ----
 
 `left` und `right` dürfen Werte von `0` bis `255` besitzen. `0` schaltet den jeweiligen Motor aus, `255` entspricht der maximalen Stärke.
@@ -577,14 +583,16 @@ Das lässt sich später sehr gut als Rückmeldung in einem Spiel verwenden, beis
 
 === Gamepad-Interrupts
 
+indexterm:[Interrupts,Gamepad-Interrupts]indexterm:[Gamepad-Interrupts]
+
 Bisher fragen unsere Programme den Controller ständig innerhalb der Hauptschleife ab. Für Tastenereignisse stellt MMBasic außerdem Gamepad-Interrupts zur Verfügung.
 
 Die wichtigsten Befehle sind:
 
 [source,basic]
 ----
-GAMEPAD INTERRUPT ENABLE channel, int [, mask]
-GAMEPAD INTERRUPT DISABLE channel
+indexterm:[GAMEPAD-Befehlsfamilie,GAMEPAD INTERRUPT ENABLE]indexterm:[GAMEPAD INTERRUPT ENABLE]GAMEPAD INTERRUPT ENABLE channel, int [, mask]
+indexterm:[GAMEPAD-Befehlsfamilie,GAMEPAD INTERRUPT DISABLE]indexterm:[GAMEPAD INTERRUPT DISABLE]GAMEPAD INTERRUPT DISABLE channel
 ----
 
 Mit der optionalen `mask` kann festgelegt werden, welche Tasten einen Interrupt auslösen sollen. Die Maske entspricht dabei der Bitbelegung von `DEVICE(GAMEPAD channel, B)`.
@@ -634,14 +642,14 @@ Gerade die beiden Analogsticks machen ein Gamepad für technische Experimente in
 
 === Noch ein Wort zur USB-Firmware
 
-Bei den USB-Versionen der PicoMite-Firmware arbeitet die USB-Schnittstelle des Raspberry Pi Pico als USB-Host. Dadurch können Tastatur, Maus und Gamepad direkt beziehungsweise über einen USB-Hub angeschlossen werden.
+Bei den USB-Versionen der PicoMite-Firmware arbeitet die USB-Schnittstelle des Raspberry Pi Pico als indexterm:[USB,USB-Host]indexterm:[USB-Host]USB-Host. Dadurch können Tastatur, Maus und Gamepad direkt beziehungsweise über einen USB-Hub angeschlossen werden.
 
 Da der USB-Anschluss dann nicht als normale serielle USB-Konsole zur Verfügung steht, verwendet die Firmware standardmäßig folgende Pins für die serielle Konsole:
 
 * Pin 11 / GP8: Tx
 * Pin 12 / GP9: Rx
 
-Die Baudrate beträgt standardmäßig 115200 Baud. Mit `OPTION SERIAL CONSOLE` können bei Bedarf andere Pins eingestellt werden.
+Die Baudrate beträgt standardmäßig 115200 Baud. Mit indexterm:[OPTION-Befehlsfamilie,OPTION SERIAL CONSOLE]indexterm:[OPTION SERIAL CONSOLE]`OPTION SERIAL CONSOLE` können bei Bedarf andere Pins eingestellt werden.
 
 Beim PicoMite HDMI/USB ist diese USB-Unterstützung bereits Bestandteil des vorgesehenen Systems. Der Hinweis ist insbesondere dann wichtig, wenn du eigene Hardware auf Basis der USB-Firmware aufbaust und GP8 oder GP9 anderweitig verwenden möchtest.
 
