@@ -292,7 +292,7 @@ Durch die Arrays können wir:
 * Antworten speichern
 * Lösungen speichern
 * Statistiken berechnen
-* Fehler analysieren
+* indexterm:[Fehleranalyse]Fehler analysieren
 
 Genau für solche Aufgaben werden Arrays in der Praxis verwendet.
 
