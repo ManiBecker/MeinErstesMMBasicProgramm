@@ -21,6 +21,12 @@ In diesem Kapitel lernst du,
 
 Am Ende des Kapitels hast du damit wichtige Grundlagen kennengelernt, die wir im nächsten Kapitel zu einem vollständigen Spiel zusammensetzen können.
 
+indexterm:[Grafikbefehle]
+indexterm:[CIRCLE]
+indexterm:[LINE]
+indexterm:[BOX]
+indexterm:[CLS]
+indexterm:[Flackern]
 === Warum reichen normale Grafikbefehle nicht immer aus?
 
 Bisher haben wir Grafiken meist direkt auf den Bildschirm gezeichnet. Ein Kreis entsteht mit `CIRCLE`, eine Linie mit `LINE` und ein Rechteck mit `BOX`.
@@ -53,6 +59,9 @@ Würde der gesamte Bildschirm bei jeder kleinen Bewegung gelöscht und vollstän
 
 Für bewegliche Spielobjekte ist deshalb ein anderes Verfahren praktischer.
 
+indexterm:[Hardware-Sprite]
+indexterm:[Blitter]
+indexterm:[Spieleprogrammierung]
 === Eine Idee aus der klassischen Spieleprogrammierung
 
 Schon frühe Heimcomputer und Spielkonsolen mussten viele bewegliche Objekte mit vergleichsweise geringer Rechenleistung darstellen.
@@ -65,6 +74,9 @@ Die technische Umsetzung war also von System zu System verschieden. Die Grundide
 
 Eine kleine Grafik soll sich über einem Hintergrund bewegen können, ohne dass der Programmierer bei jeder Bewegung den kompletten Hintergrund neu zeichnen muss.
 
+indexterm:[Sprite]
+indexterm:[Hintergrund, Sprite]
+indexterm:[Kollisionserkennung, Sprite]
 === Was ist ein Sprite?
 
 Ein Sprite ist eine Grafik, die als eigenständiges Objekt über einem Hintergrund dargestellt und bewegt werden kann.
@@ -85,6 +97,11 @@ Ein Sprite besitzt dabei unter anderem
 
 Zusätzlich kann der PicoMite erkennen, wenn sich die rechteckigen Begrenzungen von Sprites berühren oder ein Sprite einen Bildschirmrand erreicht.
 
+indexterm:[SPRITE]
+indexterm:[BLIT]
+indexterm:[RGB121]
+indexterm:[RGB888]
+indexterm:[BLIT-Puffer]
 === `SPRITE` und `BLIT` sind nicht dasselbe
 
 In älteren PicoMite-Versionen wurden die Begriffe `SPRITE` und `BLIT` teilweise für dieselbe Funktionalität verwendet.
@@ -127,6 +144,9 @@ Die beiden Befehlsfamilien erfüllen also unterschiedliche Aufgaben:
 `SPRITE` verwaltet bewegliche Grafikobjekte einschließlich Hintergrund und Kollisionen.
 ====
 
+indexterm:[Framebuffer]
+indexterm:[Bildspeicher]
+indexterm:[BLIT READ]
 === Wo können Sprites verwendet werden?
 
 Sprite-Funktionen benötigen Zugriff auf den Bildspeicher, damit der verdeckte Hintergrund gelesen und später wiederhergestellt werden kann.
@@ -137,6 +157,8 @@ Auch die Möglichkeiten von `BLIT READ` hängen davon ab, ob der verwendete Bild
 
 Für unser Tutorial ist das besonders praktisch, weil der PicoMite HDMI/USB diese Voraussetzungen erfüllt.
 
+indexterm:[Sprite, Sprite-Nummern]
+indexterm:[SPRITE LOADPNG]
 === Sprite-Nummern
 
 Der PicoMite verwaltet Sprites über Nummern.
@@ -164,6 +186,12 @@ Die Sprite-Nummer ist danach die Kennung, über die wir das Objekt ansprechen.
 `SPRITE LOADPNG` ist eine besonders komfortable Möglichkeit auf geeigneten RP2350-Versionen. Sprites können außerdem aus klassischen Sprite-Dateien, aus BMP-Dateien, aus Arrays oder direkt aus einem Bildbereich erzeugt werden.
 ====
 
+indexterm:[SPRITE LOAD]
+indexterm:[SPRITE LOADPNG]
+indexterm:[SPRITE LOADARRAY]
+indexterm:[Sprite-Datei]
+indexterm:[PNG, Sprite]
+indexterm:[Array, Sprite]
 === Sprites laden
 
 MMBasic stellt mehrere Möglichkeiten zur Verfügung, Sprite-Grafiken in den Speicher zu übernehmen.
@@ -217,6 +245,8 @@ SPRITE LOADARRAY #n, w, h, array%()
 
 Das ist besonders praktisch für kleine selbst erzeugte Grafiken, weil keine zusätzliche Bilddatei benötigt wird.
 
+indexterm:[SPRITE SHOW]
+indexterm:[Sprite, Position]
 === Das erste Sprite anzeigen
 
 Nachdem ein Sprite geladen wurde, erscheint es noch nicht automatisch auf dem Bildschirm.
@@ -244,6 +274,8 @@ Der letzte Parameter ist der Layer. Darauf kommen wir gleich noch genauer zurüc
 
 Beim ersten `SPRITE SHOW` speichert der PicoMite den Hintergrund unterhalb des Sprites und zeichnet anschließend die Sprite-Grafik.
 
+indexterm:[Sprite, Bewegen]
+indexterm:[SPRITE SHOW, Sprite bewegen]
 === Ein Sprite bewegen
 
 Für eine einfache Bewegung benötigen wir keinen speziellen `MoveSprite()`-Befehl.
@@ -274,6 +306,7 @@ Intern geschieht bei jeder Bewegung:
 
 Wir müssen den Bildschirm also nicht mit `CLS` löschen.
 
+indexterm:[SPRITE HIDE]
 === Ein Sprite ausblenden
 
 Mit
@@ -289,6 +322,9 @@ MMBasic zeichnet dabei automatisch den zuvor gespeicherten Hintergrund zurück.
 
 Soll das Sprite später erneut erscheinen, kann es wieder mit `SPRITE SHOW` angezeigt werden.
 
+indexterm:[SPRITE CLOSE]
+indexterm:[SPRITE CLOSE ALL]
+indexterm:[Sprite-Speicher]
 === Sprite-Speicher wieder freigeben
 
 Wird ein Sprite nicht mehr benötigt, kann sein Speicher freigegeben werden:
@@ -314,6 +350,9 @@ SPRITE CLOSE ALL
 `SPRITE CLOSE` gibt den für das Sprite belegten Speicher frei.
 ====
 
+indexterm:[Layer]
+indexterm:[Sprite, Layer]
+indexterm:[Layer 0]
 === Layer – mehrere Ebenen für Sprites
 
 Bei jedem `SPRITE SHOW` muss ein Layer angegeben werden.
@@ -338,6 +377,8 @@ Dadurch kann Layer 0 beispielsweise für Hindernisse verwendet werden, mit denen
 
 Beim Scrollen bewegt sich Layer 0 zusammen mit dem Hintergrund. Sprites auf anderen Layern bleiben dagegen an ihrer Bildschirmposition.
 
+indexterm:[LIFO]
+indexterm:[Sprite, Zeichenreihenfolge]
 === Die Zeichenreihenfolge und das LIFO-Prinzip
 
 Beim Anzeigen von Sprites muss der PicoMite berücksichtigen, in welcher Reihenfolge sie gezeichnet wurden.
@@ -359,6 +400,8 @@ Würde nun das zuerst gezeichnete Sprite 1 bewegt, könnten gespeicherte Hinterg
 
 Für solche Situationen gibt es `SPRITE SHOW SAFE`.
 
+indexterm:[SPRITE SHOW SAFE]
+indexterm:[Sprite, Überlappung]
 === `SPRITE SHOW SAFE`
 
 Die sichere Variante lautet:
@@ -388,6 +431,9 @@ Wenn du sicher weißt, dass sich die Sprites nicht problematisch überlagern, is
 Bei überlappenden Sprites ist `SPRITE SHOW SAFE` dagegen oft die sicherere Wahl.
 ====
 
+indexterm:[SPRITE SET TRANSPARENT]
+indexterm:[Transparenz, Sprite]
+indexterm:[Transparente Farbe]
 === Transparenz
 
 Sprite-Grafiken sind rechteckig. Die Spielfigur selbst füllt dieses Rechteck jedoch meistens nicht vollständig aus.
@@ -403,6 +449,9 @@ Die Farbnummer 0 ist standardmäßig die transparente Farbe.
 
 Dadurch wird nur die eigentliche Figur sichtbar, während die transparenten Pixel den Hintergrund durchscheinen lassen.
 
+indexterm:[SPRITE SHOW, Spiegeln]
+indexterm:[Sprite, horizontal spiegeln]
+indexterm:[Sprite, vertikal spiegeln]
 === Ein Sprite spiegeln
 
 Der optionale Parameter von `SPRITE SHOW` kann verwendet werden, um die Grafik beim Anzeigen zu spiegeln.
@@ -436,6 +485,9 @@ SPRITE SHOW #1, x, y, 1, &B001
 
 Das spart bei einfachen Animationen zusätzliche Grafikdateien.
 
+indexterm:[SPRITE NEXT]
+indexterm:[SPRITE MOVE]
+indexterm:[Sprite, gemeinsame Bewegung]
 === Mehrere Sprites gemeinsam bewegen
 
 Wenn mehrere Sprites praktisch gleichzeitig ihre Position ändern sollen, stellt MMBasic einen weiteren Mechanismus bereit.
@@ -460,6 +512,10 @@ Das ist etwas anderes als das erneute `SPRITE SHOW` eines einzelnen Sprites.
 
 `SPRITE NEXT` zusammen mit `SPRITE MOVE` ist besonders interessant, wenn mehrere Objekte innerhalb derselben Spielrunde bewegt werden sollen. Die Kollisionen werden ausgewertet, nachdem alle vorbereiteten Bewegungen ausgeführt wurden.
 
+indexterm:[SPRITE SWAP]
+indexterm:[Animation]
+indexterm:[Animationsframe]
+indexterm:[Sprite, Animation]
 === Animationen aus mehreren Sprite-Bildern
 
 Eine bewegte Spielfigur besteht häufig aus mehreren Einzelbildern.
@@ -504,6 +560,9 @@ Durch regelmäßiges Wechseln mehrerer Sprite-Bilder entsteht eine Animation.
 Oft reichen schon wenige gut gezeichnete Einzelbilder für eine überzeugende Bewegung. Entscheidend ist weniger die Anzahl der Bilder als ein passendes Zeitintervall zwischen den Frames.
 ====
 
+indexterm:[Kollision]
+indexterm:[Kollisionserkennung]
+indexterm:[Sprite, Kollisionsgrenze]
 === Kollisionen
 
 Sobald sich mehrere Spielobjekte bewegen, stellt sich eine wichtige Frage:
@@ -521,6 +580,10 @@ Die Kollisionsgrenze eines Sprites ist das umschließende Rechteck seiner Grafik
 Die Kollisionserkennung arbeitet mit den rechteckigen Sprite-Grenzen. Sie prüft nicht die Form einzelner sichtbarer Pixel.
 ====
 
+indexterm:[SPRITE INTERRUPT]
+indexterm:[Collision-Interrupt]
+indexterm:[Interrupt, Sprite-Kollision]
+indexterm:[SPRITE()]
 === Ein Collision-Interrupt
 
 Besonders komfortabel ist die automatische Benachrichtigung über eine Kollision.
@@ -556,6 +619,9 @@ In einem echten Spiel möchten wir natürlich wissen, welches Sprite beteiligt w
 
 Dafür gibt es die Funktion `SPRITE()`.
 
+indexterm:[SPRITE(), SPRITE(S)]
+indexterm:[SPRITE(S)]
+indexterm:[Kollision, auslösendes Sprite]
 === Welches Sprite verursachte die Kollision?
 
 Mit
@@ -584,6 +650,10 @@ END SUB
 
 Der Rückgabewert 0 hat eine besondere Bedeutung: Dann wurde die Kollision durch eine Scroll-Operation ausgelöst.
 
+indexterm:[SPRITE(), SPRITE(C, n)]
+indexterm:[SPRITE(C, n)]
+indexterm:[SPRITE(C, n, i)]
+indexterm:[Kollision, Anzahl]
 === Wie viele Kollisionen gab es?
 
 Mit
@@ -613,6 +683,8 @@ NEXT i
 
 Damit kann ein Sprite in derselben Bewegung beispielsweise gleichzeitig einen Gegner und einen Bildschirmrand berühren.
 
+indexterm:[Bildschirmrand, Kollision]
+indexterm:[Kollision, Bildschirmrand]
 === Kollision mit dem Bildschirmrand
 
 Die Kollisionsabfrage liefert für Bildschirmränder spezielle Werte:
@@ -666,6 +738,19 @@ END SUB
 
 Damit lassen sich beispielsweise Bälle, Gegner oder ein DVD-Logo am Bildschirmrand abprallen lassen.
 
+indexterm:[SPRITE(), SPRITE(X, n)]
+indexterm:[SPRITE(), SPRITE(Y, n)]
+indexterm:[SPRITE(), SPRITE(W, n)]
+indexterm:[SPRITE(), SPRITE(H, n)]
+indexterm:[SPRITE(), SPRITE(N)]
+indexterm:[SPRITE(X, n)]
+indexterm:[SPRITE(Y, n)]
+indexterm:[SPRITE(W, n)]
+indexterm:[SPRITE(H, n)]
+indexterm:[SPRITE(N)]
+indexterm:[Sprite, Position abfragen]
+indexterm:[Sprite, Größe abfragen]
+indexterm:[Sprite, Anzahl aktiver Sprites]
 === Weitere Informationen über Sprites
 
 Die Funktion `SPRITE()` kann noch weitere Eigenschaften liefern.
@@ -696,6 +781,9 @@ PRINT "Aktive Sprites = "; SPRITE(N)
 
 Diese Funktionen sind besonders praktisch, wenn viele Objekte von der Firmware verwaltet werden.
 
+indexterm:[BLIT, Bit Block Transfer]
+indexterm:[Bit Block Transfer]
+indexterm:[Bildbereich kopieren]
 === Was bedeutet BLIT?
 
 Der Begriff `BLIT` steht für _Bit Block Transfer_.
@@ -706,6 +794,8 @@ Stell dir wieder unser Blatt Papier mit einer Landschaft vor. Diesmal möchten w
 
 Genau das ist die Aufgabe von `BLIT`.
 
+indexterm:[BLIT READ]
+indexterm:[BLIT-Puffer]
 === Einen Bildbereich in einen BLIT-Puffer lesen
 
 Mit
@@ -728,6 +818,7 @@ Damit werden 64 × 64 Pixel ab Position 100/80 in BLIT-Puffer 1 gespeichert.
 
 Die Puffer können die Nummern 1 bis 64 verwenden.
 
+indexterm:[BLIT WRITE]
 === Einen BLIT-Puffer wieder anzeigen
 
 Der gespeicherte Bildbereich kann später wieder auf den Bildschirm geschrieben werden:
@@ -741,6 +832,7 @@ Der Inhalt von Puffer 1 erscheint nun ab Position 200/80.
 
 Damit lässt sich ein Bildbereich zunächst sichern und später an einer anderen Position wieder ausgeben.
 
+indexterm:[BLIT LOAD]
 === BLIT-Puffer aus einer Datei laden
 
 Ein Bild kann auch direkt in einen BLIT-Puffer geladen werden:
@@ -752,6 +844,7 @@ BLIT LOAD #1, "bild.bmp", 0, 0, 64, 64
 
 Die Parameter geben an, welcher Ausschnitt der Bilddatei geladen werden soll.
 
+indexterm:[BLIT CLOSE]
 === BLIT-Puffer freigeben
 
 Wird der Puffer nicht mehr benötigt, sollte sein Speicher wieder freigegeben werden:
@@ -761,6 +854,8 @@ Wird der Puffer nicht mehr benötigt, sollte sein Speicher wieder freigegeben we
 BLIT CLOSE #1
 ----
 
+indexterm:[BLIT, Bildschirmbereich kopieren]
+indexterm:[Überlappende Bildbereiche]
 === Direkt von einer Bildschirmposition zur anderen kopieren
 
 Für viele Aufgaben wird gar kein zusätzlicher Puffer benötigt.
@@ -785,6 +880,9 @@ Dabei wird der 80 × 60 Pixel große Bereich links oben ab Position 0/0 nach Pos
 
 Quell- und Zielbereich dürfen sich sogar überlappen. Der PicoMite führt die Kopie trotzdem korrekt aus.
 
+indexterm:[BLIT, Scrollen]
+indexterm:[Scrollen]
+indexterm:[SPRITE SCROLL]
 === BLIT zum Scrollen verwenden
 
 Gerade diese direkte Form von `BLIT` eignet sich gut für scrollende Darstellungen.
@@ -812,6 +910,9 @@ Für Diagramme, Laufschriften oder scrollende Spielhintergründe kann dieses Ver
 
 MMBasic stellt für Sprite-Hintergründe zusätzlich eigene `SPRITE SCROLL`-Funktionen bereit.
 
+indexterm:[BLIT RESIZE]
+indexterm:[Skalierung]
+indexterm:[Nearest-Neighbour]
 === Bildbereiche skalieren
 
 Mit
@@ -829,6 +930,10 @@ Dadurch eignet sich `BLIT RESIZE` beispielsweise zum schnellen Vergrößern von 
 
 Für den Einstieg genügt es jedoch, zunächst die normalen `BLIT`-, `BLIT READ`- und `BLIT WRITE`-Befehle zu beherrschen.
 
+indexterm:[BLIT MEMORY]
+indexterm:[BLIT COMPRESSED]
+indexterm:[BLIT FRAMEBUFFER]
+indexterm:[BLIT MERGE]
 === Weitere BLIT-Funktionen
 
 Der PicoMite besitzt außerdem fortgeschrittene Varianten wie
@@ -840,6 +945,8 @@ Der PicoMite besitzt außerdem fortgeschrittene Varianten wie
 
 Diese Befehle sind vor allem bei umfangreicheren Grafik- und Spieleprojekten interessant. Für unsere ersten Sprite-Programme benötigen wir sie noch nicht.
 
+indexterm:[SPRITE, Vergleich mit BLIT]
+indexterm:[BLIT, Vergleich mit SPRITE]
 === `SPRITE` oder `BLIT`?
 
 Beide Techniken sind nützlich, aber für unterschiedliche Aufgaben.
@@ -880,6 +987,10 @@ Für eine Spielfigur ist normalerweise `SPRITE` die bessere Wahl.
 Wenn dagegen einfach ein rechteckiger Bildbereich kopiert oder verschoben werden soll, ist `BLIT` meist das passendere Werkzeug.
 ====
 
+indexterm:[Spielschleife]
+indexterm:[SPRITE NEXT]
+indexterm:[SPRITE MOVE]
+indexterm:[SPRITE INTERRUPT]
 === Von der Spielfigur zur Spielschleife
 
 Mit den Sprite-Befehlen lässt sich die typische Hauptschleife eines Spiels sehr übersichtlich aufbauen.
