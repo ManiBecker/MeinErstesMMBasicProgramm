@@ -27,7 +27,7 @@ MMBasic stellt dafür SUB und FUNCTION zur Verfügung.
 
 === Unsere erste SUB
 
-Eine SUB fasst mehrere Anweisungen zu einem Unterprogramm zusammen.
+Eine indexterm:[SUB-Befehlsfamilie,SUB]indexterm:[SUB]`SUB` fasst mehrere Anweisungen zu einem indexterm:[Unterprogramme]Unterprogramm zusammen.
 
 [source,basic]
 ----
@@ -47,7 +47,7 @@ Ausgabe:
 Hallo Welt!
 ----
 
-Die Anweisungen zwischen SUB und END SUB werden erst ausgeführt, wenn die SUB aufgerufen wird.
+Die Anweisungen zwischen `SUB` und indexterm:[SUB-Befehlsfamilie,END SUB]indexterm:[END SUB]`END SUB` werden erst ausgeführt, wenn die `SUB` aufgerufen wird.
 
 === Eine SUB mehrfach aufrufen
 
@@ -79,7 +79,7 @@ Hallo Welt!
 
 Oft soll ein Unterprogramm unterschiedliche Werte verarbeiten.
 
-Dazu können Parameter verwendet werden.
+Dazu können indexterm:[Parameter]Parameter verwendet werden.
 
 [source,basic]
 ----
@@ -109,7 +109,7 @@ Eine SUB führt Anweisungen aus.
 
 Manchmal möchten wir jedoch einen Wert berechnen und zurückgeben.
 
-Dafür gibt es FUNCTION.
+Dafür gibt es indexterm:[FUNCTION-Befehlsfamilie,FUNCTION]indexterm:[FUNCTION]`FUNCTION`.
 
 === Unsere erste FUNCTION
 
@@ -131,7 +131,7 @@ Ausgabe:
 25
 ----
 
-Die Funktion erhält einen Wert als Parameter und liefert das Quadrat dieses Wertes zurück.
+Die Funktion wird mit indexterm:[FUNCTION-Befehlsfamilie,END FUNCTION]indexterm:[END FUNCTION]`END FUNCTION` abgeschlossen. Sie erhält einen Wert als Parameter und liefert das Quadrat dieses Wertes zurück.
 
 === Weitere Funktionen
 
@@ -155,7 +155,7 @@ Ausgabe:
 
 === Funktionen in Berechnungen verwenden
 
-Der Rückgabewert einer Funktion kann direkt in Berechnungen verwendet werden.
+Der indexterm:[Rückgabewert]Rückgabewert einer Funktion kann direkt in Berechnungen verwendet werden.
 
 [source,basic]
 ----
