@@ -254,11 +254,11 @@ Der integrierte Editor unterstützt auch eine USB-Maus. Damit kannst du den
 Cursor bequem positionieren, Text markieren und durch größere Programme
 navigieren.
 
-Damit die Maus verwendet werden kann, muss sie zunächst aktiviert werden:
+Damit die indexterm:[Editor,Maus]indexterm:[Maus im Editor]Maus verwendet werden kann, muss sie zunächst aktiviert werden:
 
 [source,basic]
 ----
-OPTION MOUSE ON
+indexterm:[OPTION-Befehlsfamilie,OPTION MOUSE ON]indexterm:[OPTION MOUSE ON]OPTION MOUSE ON
 ----
 
 Diese Einstellung muss nur einmal vorgenommen werden und bleibt dauerhaft
