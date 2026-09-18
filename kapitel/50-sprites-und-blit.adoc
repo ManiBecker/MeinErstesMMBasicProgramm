@@ -327,7 +327,7 @@ SPRITE CLOSE ALL
 `SPRITE CLOSE` gibt den für das Sprite belegten Speicher frei.
 ====
 
-indexterm:[Sprite, Layer]
+indexterm:[Layer]
 === Layer – mehrere Ebenen für Sprites
 
 Bei jedem `SPRITE SHOW` muss ein Layer angegeben werden.
@@ -544,7 +544,6 @@ Die Kollisionserkennung arbeitet mit den rechteckigen Sprite-Grenzen. Sie prüft
 ====
 
 indexterm:[SPRITE, INTERRUPT]
-indexterm:[SPRITE(), Kollisionen]
 === Ein Collision-Interrupt
 
 Besonders komfortabel ist die automatische Benachrichtigung über eine Kollision.
