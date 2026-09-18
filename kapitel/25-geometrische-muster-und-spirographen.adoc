@@ -21,7 +21,7 @@ Viele Menschen verbinden Mathematik mit Formeln und Berechnungen.
 
 Mit Computergrafik wird Mathematik jedoch sichtbar.
 
-Schon wenige Zeilen MMBasic-Code können erstaunliche Muster erzeugen.
+Schon wenige Zeilen MMBasic-Code können erstaunliche indexterm:[Geometrische Muster]geometrische Muster erzeugen.
 
 In diesem Kapitel verwenden wir:
 
@@ -33,7 +33,7 @@ um Punkte auf Kreisen zu berechnen.
 
 === Punkte auf einem Kreis
 
-Die Position eines Punktes auf einem Kreis kann mit Sinus und Cosinus berechnet werden.
+Die indexterm:[Kreisberechnung]Position eines Punktes auf einem Kreis kann mit Sinus und Cosinus berechnet werden.
 
 [source,basic]
 ----
@@ -165,7 +165,7 @@ Probiere verschiedene Werte für `+3` aus.
 
 === Eine Rosette
 
-Rosetten entstehen durch viele Linien zwischen Punkten auf einem Kreis.
+indexterm:[Geometrische Muster,Rosetten]indexterm:[Rosetten]Rosetten entstehen durch viele Linien zwischen Punkten auf einem Kreis.
 
 [source,basic]
 ----
@@ -209,7 +209,7 @@ Dadurch entstehen sehr farbenfrohe Muster.
 
 Jetzt wird es spannend.
 
-Das folgende Programm erzeugt ein Muster, das an die bekannten Spirograph-Zeichnungen erinnert.
+Das folgende Programm erzeugt ein indexterm:[Geometrische Muster,Spirograph]indexterm:[Spirograph]Muster, das an die bekannten Spirograph-Zeichnungen erinnert.
 
 [source,basic]
 ----
@@ -231,7 +231,7 @@ FOR I=0 TO 1440 STEP 2
 NEXT I
 ----
 
-Das Muster entsteht durch die Überlagerung zweier Kreisbewegungen.
+Das Muster entsteht durch die indexterm:[Spirograph,Überlagerung von Kreisbewegungen]Überlagerung zweier Kreisbewegungen.
 
 === Das Muster verändern
 
