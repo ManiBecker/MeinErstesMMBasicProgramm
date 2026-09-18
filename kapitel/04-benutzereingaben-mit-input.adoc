@@ -32,7 +32,7 @@ Interessanter wird es, wenn der Benutzer die Werte selbst eingeben kann.
 
 === Unsere erste Eingabe
 
-Die Anweisung `INPUT` wartet auf eine Eingabe des Benutzers.
+Die Anweisung indexterm:[INPUT]`INPUT` wartet auf eine Eingabe des Benutzers.
 
 Gib folgendes ein:
 
@@ -162,7 +162,7 @@ Die Summe der zwei Zahlen ist: 30
 
 MMBasic kann auch Texte verarbeiten.
 
-Dazu verwenden wir eine String-Variable.
+Dazu verwenden wir eine indexterm:[String-Variablen]String-Variable.
 
 String-Variablen erkennt man am Dollarzeichen am Ende des Namens.
 
@@ -182,7 +182,7 @@ Hallo Manfred, schön, dass du da bist.
 
 [NOTE]
 ====
-MMBasic erlaubt aussagekräftige Variablennamen.
+MMBasic erlaubt aussagekräftige indexterm:[Variablennamen]Variablennamen.
 
 Statt kurzer Namen wie
 
