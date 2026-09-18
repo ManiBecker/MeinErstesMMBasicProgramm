@@ -4,11 +4,11 @@ image::bilder/48_rgb_leds.jpg[align=center]
 
 === Das lernst du
 
-WS2812-LEDs verbinden eine RGB-LED mit einem kleinen integrierten Controller.
+indexterm:[WS2812]indexterm:[LED,WS2812]WS2812-LEDs verbinden eine RGB-LED mit einem kleinen integrierten Controller.
 Dadurch lassen sich viele LEDs hintereinander schalten und trotzdem über nur
 eine einzige Datenleitung ansteuern.
 
-Der PicoMite unterstützt diese LEDs direkt mit dem Befehl `WS2812`.
+Der PicoMite unterstützt diese LEDs direkt mit dem indexterm:[WS2812-Befehlsfamilie,WS2812 (Befehl)]indexterm:[WS2812 (Befehl)]Befehl `WS2812`.
 Die zeitkritische Erzeugung des Datensignals übernimmt dabei die Firmware.
 
 In diesem Kapitel lernst du:
@@ -32,7 +32,7 @@ Eine WS2812 ist mehr als eine gewöhnliche Leuchtdiode. In ihrem Gehäuse befind
 Jede LED übernimmt aus dem eintreffenden Datenstrom die für sie bestimmten
 Farbinformationen. Die restlichen Daten gibt sie an die nächste LED weiter.
 
-Eine Kette sieht vereinfacht so aus:
+Eine indexterm:[WS2812,LED-Kette]indexterm:[LED-Kette]Kette sieht vereinfacht so aus:
 
 [source]
 ----
@@ -86,6 +86,8 @@ Masse besitzt das Datensignal keinen eindeutigen Bezug.
 
 === Stromversorgung
 
+indexterm:[WS2812,Stromversorgung]
+
 WS2812-LEDs können bei hoher Helligkeit einen erheblichen Strom aufnehmen.
 Als konservative Abschätzung werden häufig bis zu etwa 60 mA pro RGB-LED bei
 voll eingeschaltetem Rot-, Grün- und Blaukanal angesetzt.
@@ -115,6 +117,8 @@ Auch ein ausreichend dimensionierter Stützkondensator an der Versorgung der
 LED-Kette kann Spannungsspitzen beim Einschalten abfangen.
 
 === 3,3-V-Datensignal und 5-V-LEDs
+
+indexterm:[WS2812,Pegelwandlung]indexterm:[Pegelwandlung]
 
 Der PicoMite liefert an seinen GPIO-Ausgängen ein 3,3-V-Logiksignal.
 WS2812-LEDs werden dagegen häufig mit 5 V versorgt.
@@ -185,13 +189,13 @@ Mit dem ersten Parameter des `WS2812`-Befehls wird der LED-Typ angegeben:
 |`O`
 |ursprünglicher WS2812
 
-|`B`
+|indexterm:[LED,WS2812B]`B`
 |WS2812B
 
-|`S`
+|indexterm:[LED,SK6812]`S`
 |SK6812
 
-|`W`
+|indexterm:[LED,SK6812W]`W`
 |SK6812W mit zusätzlichem Weißkanal (RGBW)
 |===
 
@@ -207,7 +211,7 @@ In den folgenden Beispielen verwenden wir deshalb den Typ `B`.
 === Farben mit `RGB()`
 
 Für WS2812, WS2812B und SK6812 erwartet MMBasic die Farben im normalen
-RGB888-Format. Jeder der drei Farbkanäle besitzt einen Wert von 0 bis 255.
+indexterm:[Farben,RGB888]indexterm:[RGB888]RGB888-Format. Jeder der drei Farbkanäle besitzt einen Wert von 0 bis 255.
 
 [cols="1,1"]
 |===
@@ -335,6 +339,8 @@ Farbwerte benötigt, für zehn LEDs zehn Farbwerte usw.
 
 === Helligkeit über die Farbwerte steuern
 
+indexterm:[WS2812,Helligkeitssteuerung]indexterm:[LED,Helligkeitssteuerung]
+
 WS2812-LEDs besitzen beim `WS2812`-Befehl keinen zusätzlichen
 Helligkeitsparameter. Die wahrgenommene Helligkeit wird deshalb über die
 RGB-Werte bestimmt.
@@ -365,6 +371,8 @@ Kleinere Werte reduzieren nicht nur die Helligkeit, sondern normalerweise auch
 den Stromverbrauch der LED-Kette.
 
 === Praxisprojekt: Ein einfaches Lauflicht
+
+indexterm:[LED,Lauflicht]indexterm:[Lauflicht]
 
 Jetzt verwenden wir ein Array und eine Schleife, um einen einzelnen Lichtpunkt
 über fünf LEDs laufen zu lassen.
@@ -441,7 +449,7 @@ Das Grundprinzip für Animationen lautet immer:
 
 Abrupte Farbwechsel sind nicht immer gewünscht. Werden die RGB-Werte
 schrittweise verändert, entsteht ein weicher Übergang, ein sogenannter
-_Fade_.
+indexterm:[LED,Fade]indexterm:[Fade]_Fade_.
 
 Eine einzelne LED kann zum Beispiel langsam heller rot werden:
 
@@ -477,6 +485,8 @@ Da der PicoMite die zeitkritische Übertragung des WS2812-Protokolls selbst
 erzeugen.
 
 === RGBW mit SK6812W
+
+indexterm:[Farben,RGBW]indexterm:[RGBW]
 
 Der Typ `W` ist für SK6812W-LEDs mit einem zusätzlichen Weißkanal vorgesehen.
 
