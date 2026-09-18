@@ -226,6 +226,9 @@ ifndef::kdp[]
 include::anhang/anhang-a-mmbasic-befehlsreferenz.adoc[]
 endif::[]
 
+[index]
+= Stichwortverzeichnis
+
 ifndef::kdp[]
 
 <<<
