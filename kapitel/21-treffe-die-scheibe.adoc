@@ -45,7 +45,7 @@ X ?
 Y ?
 ----
 
-Das Programm berechnet anschließend die Entfernung zum Mittelpunkt der Zielscheibe.
+Das Programm berechnet anschließend die indexterm:[Entfernungsberechnung]Entfernung zum Mittelpunkt der Zielscheibe.
 
 Je näher dein Treffer liegt, desto mehr Punkte erhältst du.
 
