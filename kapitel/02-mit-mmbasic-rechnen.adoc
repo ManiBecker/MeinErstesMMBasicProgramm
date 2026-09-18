@@ -15,7 +15,7 @@ Am Ende des Kapitels kannst du MMBasic für einfache und komplexere Berechnungen
 
 === MMBasic kann rechnen
 
-Im letzten Kapitel haben wir mit `PRINT` Text auf dem Bildschirm ausgegeben.
+Im letzten Kapitel haben wir mit indexterm:[PRINT]`PRINT` Text auf dem Bildschirm ausgegeben.
 
 Mit `PRINT` können aber nicht nur Texte, sondern auch Berechnungsergebnisse ausgegeben werden.
 
@@ -35,7 +35,7 @@ MMBasic antwortet:
 
 Die Berechnung wird sofort ausgeführt.
 
-=== Die vier Grundrechenarten
+=== Die vier indexterm:[Grundrechenarten]Grundrechenarten
 
 Addition:
 
@@ -115,7 +115,7 @@ MMBasic beachtet die bekannten Rechenregeln aus der Mathematik:
 
 Multiplikation und Division werden vor Addition und Subtraktion ausgeführt.
 
-=== Klammern verwenden
+=== indexterm:[Klammern, Rechenausdrücke]Klammern verwenden
 
 Mit Klammern kann die Reihenfolge verändert werden.
 
@@ -133,7 +133,7 @@ Ergebnis:
 
 Klammern helfen dabei, Berechnungen übersichtlicher zu gestalten und Missverständnisse zu vermeiden.
 
-=== Potenzen berechnen
+=== indexterm:[Potenzierung]Potenzen berechnen
 
 Mit dem Zeichen `^` können Potenzen berechnet werden.
 
@@ -165,7 +165,7 @@ Ergebnis:
 
 === Die Quadratwurzel
 
-Die Funktion `SQR()` berechnet die Quadratwurzel einer Zahl.
+Die Funktion indexterm:[Mathematische Funktionen, SQR()]indexterm:[SQR()]`SQR()` berechnet die indexterm:[Quadratwurzel]Quadratwurzel einer Zahl.
 
 [source,basic]
 ----
@@ -195,7 +195,7 @@ Ergebnis:
 
 === Der Betrag einer Zahl
 
-Die Funktion `ABS()` liefert den Betrag einer Zahl.
+Die Funktion indexterm:[Mathematische Funktionen, ABS()]indexterm:[ABS()]`ABS()` liefert den indexterm:[Betrag]Betrag einer Zahl.
 
 [source,basic]
 ----
