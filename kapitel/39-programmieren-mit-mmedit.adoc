@@ -21,7 +21,7 @@ Am Ende des Kapitels kennst du einen typischen Entwicklungsablauf mit MMEdit und
 
 === Was ist MMEdit?
 
-MMEdit ist ein speziell für MMBasic entwickelter Programmeditor. Im Gegensatz zu einem allgemeinen Texteditor kennt MMEdit die Besonderheiten von MMBasic und unterstützt typische Arbeitsabläufe bei der Entwicklung.
+indexterm:[MMEdit]MMEdit ist ein speziell für MMBasic entwickelter Programmeditor. Im Gegensatz zu einem allgemeinen Texteditor kennt MMEdit die Besonderheiten von MMBasic und unterstützt typische Arbeitsabläufe bei der Entwicklung.
 
 Dazu gehören unter anderem:
 
@@ -35,7 +35,7 @@ MMEdit unterstützt verschiedene Mitglieder der MMBasic-Familie, darunter PicoMi
 
 === MMEdit und MMCC
 
-Seit MMEdit V5 ist die Kommunikation mit dem Zielsystem in ein eigenes Programm ausgelagert: das *Maximite Control Centre*, kurz *MMCC*.
+Seit MMEdit V5 ist die Kommunikation mit dem Zielsystem in ein eigenes Programm ausgelagert: das indexterm:[MMCC]indexterm:[Maximite Control Centre]*Maximite Control Centre*, kurz *MMCC*.
 
 Die Aufgaben sind damit klar getrennt:
 
@@ -94,13 +94,13 @@ Eine portable MMEdit-Version kann in ein beliebiges beschreibbares Verzeichnis k
 
 Nach dem Start von MMEdit erscheint das Editorfenster. Hier kannst du BASIC-Programme öffnen, bearbeiten und speichern.
 
-Eine besondere Rolle spielt die Symbolleiste. Für die tägliche Arbeit ist vor allem die Funktion *Load and Run* wichtig. Sie überträgt das aktuelle Programm über MMCC zum Zielsystem und startet es dort.
+Eine besondere Rolle spielt die Symbolleiste. Für die tägliche Arbeit ist vor allem die indexterm:[MMEdit,Load and Run]indexterm:[Load and Run]Funktion *Load and Run* wichtig. Sie überträgt das aktuelle Programm über MMCC zum Zielsystem und startet es dort.
 
 MMCC kann auch separat gestartet werden. Bei einer portablen Version befindet sich das Programm `MMCC.exe` im MMEdit-Verzeichnis.
 
 === Verbindung zum Zielsystem
 
-Damit MMCC mit einem PicoMite oder Colour Maximite kommunizieren kann, wird eine serielle Verbindung benötigt.
+Damit MMCC mit einem PicoMite oder Colour Maximite kommunizieren kann, wird eine indexterm:[MMCC,Serielle Verbindung]indexterm:[Serielle Verbindung]serielle Verbindung benötigt.
 
 Beim PicoMite erfolgt diese normalerweise über USB beziehungsweise über die vom jeweiligen System bereitgestellte serielle USB-Verbindung.
 
@@ -111,7 +111,7 @@ PC
  +---- USB/seriell ---- PicoMite
 ----
 
-Unter Windows erscheint diese Verbindung als COM-Port, beispielsweise:
+Unter Windows erscheint diese Verbindung als indexterm:[MMCC,COM-Port]indexterm:[COM-Port]COM-Port, beispielsweise:
 
 [source]
 ----
@@ -153,7 +153,7 @@ Damit weißt du, dass die Kommunikation funktioniert.
 
 === MMCC als Terminal
 
-MMCC ist nicht nur für die Programmübertragung zuständig. Es kann auch als normales Terminal für MMBasic verwendet werden.
+MMCC ist nicht nur für die Programmübertragung zuständig. Es kann auch als indexterm:[MMCC,Terminal]indexterm:[Terminal]normales Terminal für MMBasic verwendet werden.
 
 Hier kannst du:
 
@@ -203,7 +203,7 @@ Erstelle in MMEdit eine neue Datei und speichere sie beispielsweise als:
 39_mmedit_hallo.bas
 ----
 
-Der Inhalt ist bewusst einfach gehalten:
+Der Inhalt ist bewusst einfach gehalten. Mit indexterm:[OPTION-Befehlsfamilie,OPTION EXPLICIT]indexterm:[OPTION EXPLICIT]`OPTION EXPLICIT` verlangt MMBasic dabei die ausdrückliche Deklaration der verwendeten Variablen:
 
 [source,basic]
 ----
@@ -245,7 +245,7 @@ Damit hast du bereits den wichtigsten MMEdit-Arbeitsablauf kennengelernt: *ände
 
 === Syntax-Hervorhebung
 
-MMEdit erkennt viele Elemente der MMBasic-Syntax und stellt sie unterschiedlich dar. Dazu gehören beispielsweise Schlüsselwörter, Kommentare, Zahlen und Zeichenketten.
+MMEdit erkennt viele Elemente der MMBasic-Syntax und stellt sie mit indexterm:[MMEdit,Syntax-Hervorhebung]indexterm:[Syntax-Hervorhebung]Syntax-Hervorhebung unterschiedlich dar. Dazu gehören beispielsweise Schlüsselwörter, Kommentare, Zahlen und Zeichenketten.
 
 Das erleichtert besonders bei längeren Programmen die Orientierung im Quelltext.
 
@@ -281,7 +281,7 @@ Das ist einer der größten Vorteile gegenüber einem Arbeitsablauf, bei dem Pro
 
 === Dateien auf dem Zielsystem
 
-MMCC besitzt zusätzlich einen Dateimanager. Damit können Dateien zwischen PC und MMBasic-System übertragen werden.
+MMCC besitzt zusätzlich einen indexterm:[MMCC,Dateimanager]indexterm:[Dateimanager]Dateimanager. Damit können Dateien zwischen PC und MMBasic-System übertragen werden.
 
 Das ist beispielsweise praktisch für:
 
@@ -323,7 +323,7 @@ anzeige.bas
 test.bas
 ----
 
-MMEdit zeigt geöffnete Dateien in Registerkarten an. Dadurch kannst du schnell zwischen verschiedenen Programmen wechseln und beispielsweise Programmteile von einer Datei in eine andere übernehmen.
+MMEdit zeigt geöffnete Dateien in indexterm:[MMEdit,Registerkarten]indexterm:[Registerkarten]Registerkarten an. Dadurch kannst du schnell zwischen verschiedenen Programmen wechseln und beispielsweise Programmteile von einer Datei in eine andere übernehmen.
 
 === Suchen und Ersetzen
 
@@ -342,7 +342,7 @@ Auch das Ersetzen eines Begriffs an mehreren Stellen ist wesentlich komfortabler
 
 === Projekte sinnvoll organisieren
 
-MMEdit schreibt dir keine bestimmte Projektstruktur vor. Trotzdem lohnt es sich, für jedes größere Projekt ein eigenes Verzeichnis anzulegen.
+MMEdit schreibt dir keine bestimmte indexterm:[Projektorganisation]Projektstruktur vor. Trotzdem lohnt es sich, für jedes größere Projekt ein eigenes Verzeichnis anzulegen.
 
 Beispiel:
 
