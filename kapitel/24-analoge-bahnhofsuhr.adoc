@@ -155,7 +155,7 @@ Der Stundenzeiger bewegt sich pro Stunde um 30 Grad. Durch den Anteil `minute*0.
 stundenWinkel=((stunde Mod 12)*30+minute*0.5)*Pi/180
 ----
 
-Mit `Pi/180` werden die Winkel von Grad in Bogenmaß umgerechnet, denn `SIN()` und `COS()` erwarten Winkel im Bogenmaß.
+Mit indexterm:[Mathematische Konstanten,PI]indexterm:[PI]`PI/180` werden die Winkel von Grad in indexterm:[Winkel,Bogenmaß]indexterm:[Bogenmaß]Bogenmaß umgerechnet, denn indexterm:[Mathematische Funktionen,SIN()]indexterm:[SIN()]`SIN()` und indexterm:[Mathematische Funktionen,COS()]indexterm:[COS()]`COS()` erwarten Winkel im Bogenmaß.
 
 === Das Zifferblatt zeichnen
 
@@ -246,7 +246,7 @@ Zunächst bauen wir aus der MMBasic-Version einen Text auf:
 version$ = "MMBasic "+Str$(MM.Info(Version))
 ----
 
-Danach werden MMBasic-Version und Gerätetyp im oberen Bereich des Zifferblatts ausgegeben:
+Danach werden MMBasic-Version und Gerätetyp im oberen Bereich des Zifferblatts ausgegeben. Den Gerätetyp liefert indexterm:[Systemvariablen,MM.DEVICE$]indexterm:[MM.DEVICE$]`MM.DEVICE$`:
 
 [source,basic]
 ----
@@ -351,7 +351,7 @@ Der schwarze Bereich außerhalb der Uhr muss deshalb nicht jede Sekunde neu aufg
 ====
 Je nach Bildschirm, Grafikmodus und Prozessorgeschwindigkeit kann beim vollständigen Neuzeichnen des Zifferblatts ein leichtes Flackern sichtbar sein.
 
-Später lernen wir Framebuffer kennen. Damit kann eine vollständige Grafik zunächst unsichtbar aufgebaut und anschließend in einem Schritt auf den Bildschirm übertragen werden.
+Später lernen wir indexterm:[Grafik,Framebuffer]indexterm:[Framebuffer]Framebuffer kennen. Damit kann eine vollständige Grafik zunächst unsichtbar aufgebaut und anschließend in einem Schritt auf den Bildschirm übertragen werden.
 ====
 
 === Das Programm beenden
