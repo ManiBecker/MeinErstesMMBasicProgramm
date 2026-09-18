@@ -155,7 +155,7 @@ die Uhr auf `14:30:00`.
 
 === Die interne Uhr und die RTC
 
-RTC steht für:
+indexterm:[Echtzeituhr]indexterm:[RTC]RTC steht für:
 
 [source]
 ----
@@ -164,7 +164,7 @@ Real Time Clock
 
 MMBasic führt intern Datum und Uhrzeit und stellt sie über `DATE$` und `TIME$` zur Verfügung. Ob nach dem Einschalten sofort das richtige Datum und die richtige Uhrzeit vorhanden sind, hängt beim PicoMite jedoch von der RTC-Konfiguration ab.
 
-Mit
+Mit indexterm:[OPTION-Befehlsfamilie,OPTION RTC AUTO ENABLE]indexterm:[OPTION RTC AUTO ENABLE]`OPTION RTC AUTO ENABLE`
 
 [source,basic]
 ----
@@ -222,7 +222,7 @@ Damit lassen sich einfache Zeitmessungen besonders übersichtlich durchführen.
 
 === Zeit messen
 
-Mit TIMER können Zeitmessungen durchgeführt werden.
+indexterm:[Zeitmessung]Mit TIMER können Zeitmessungen durchgeführt werden.
 
 [source,basic]
 ----
@@ -254,6 +254,8 @@ PRINT TIMER - start
 ----
 
 === Eine einfache Stoppuhr
+
+indexterm:[Zeitmessung,Stoppuhr]indexterm:[Stoppuhr]
 
 [source,basic]
 ----
@@ -344,6 +346,8 @@ Dieses kleine Programm verwandelt PicoMite oder Colour Maximite in eine einfache
 
 === Praxisprojekt: Monatskalender
 
+indexterm:[Kalender,Monatskalender]indexterm:[Monatskalender]
+
 Nachdem wir uns mit Datum und Uhrzeit beschäftigt haben, wollen wir nun ein etwas größeres Praxisprojekt umsetzen.
 
 Wir schreiben einen einfachen Monatskalender.
@@ -375,6 +379,8 @@ Dieses Projekt zeigt sehr schön, wie viele der bisher gelernten Techniken zusam
 * Textformatierung
 
 ==== Schaltjahre berücksichtigen
+
+indexterm:[Kalender,Schaltjahr]indexterm:[Schaltjahr]
 
 Bevor wir einen Kalender erzeugen können, müssen wir wissen, wie viele Tage ein Monat besitzt.
 
@@ -424,6 +430,8 @@ END FUNCTION
 ----
 
 ==== Wochentag des ersten Tages bestimmen
+
+indexterm:[Kalender,Wochentag]indexterm:[Wochentag]
 
 Für einen Kalender müssen wir außerdem wissen, auf welchen Wochentag der erste Tag des Monats fällt.
 
@@ -528,6 +536,8 @@ Verwende dazu DATE$ und werte Monat und Jahr aus dem aktuellen Datum aus.
 
 === Praxisprojekt: Laufzeitzähler
 
+indexterm:[Zeitmessung,Laufzeitzähler]indexterm:[Laufzeitzähler]
+
 Mit `TIMER` lässt sich auch anzeigen, wie lange ein Programm bereits läuft.
 
 Das folgende Beispiel ist ein einfacher Laufzeitzähler:
@@ -559,6 +569,8 @@ Dies ist noch kein echter Betriebsstundenzähler. Ein solcher müsste seinen Zä
 ====
 
 === Praxisprojekt: Messwerte mit Zeitstempel
+
+indexterm:[Datenlogger,Zeitstempel]indexterm:[Zeitstempel]
 
 Stellen wir uns vor, ein Sensor liefert Messwerte.
 
