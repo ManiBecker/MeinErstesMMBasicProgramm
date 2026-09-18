@@ -56,7 +56,7 @@ Ein digitaler Eingang kann also beispielsweise erkennen:
 
 === Taster und Schalter
 
-Obwohl beide Bauteile ähnlich aussehen können, gibt es einen wichtigen Unterschied.
+indexterm:[Taster]indexterm:[Schalter]Obwohl beide Bauteile ähnlich aussehen können, gibt es einen wichtigen Unterschied.
 
 Ein Schalter behält seinen Zustand bei.
 
@@ -120,11 +120,11 @@ Andernfalls kann er zufällige Werte liefern.
     
 obwohl überhaupt nichts passiert.
 
-Dieses Verhalten nennt man einen "floating input".
+Dieses Verhalten nennt man einen indexterm:[GPIO-Pins,Floating Input]indexterm:[Floating Input]"floating input".
 
 Deshalb benötigt jeder Eingang einen definierten Grundzustand.
 
-Dafür werden Pull-Up- oder Pull-Down-Widerstände verwendet.
+Dafür werden indexterm:[GPIO-Pins,Pull-Up-Widerstand]indexterm:[Pull-Up-Widerstand]Pull-Up- oder indexterm:[GPIO-Pins,Pull-Down-Widerstand]indexterm:[Pull-Down-Widerstand]Pull-Down-Widerstände verwendet.
 
 === Pull-Up
 
@@ -190,7 +190,7 @@ Der Eingang liefert:
 
 === Die interne Pull-Up-Funktion
 
-Die meisten MMBasic-Systeme besitzen interne Pull-Up-Widerstände.
+Die meisten MMBasic-Systeme besitzen indexterm:[Pin-Modi,PULLUP]indexterm:[PULLUP]interne Pull-Up-Widerstände.
 
 Dadurch wird keine zusätzliche Hardware benötigt.
 
@@ -411,16 +411,11 @@ Tatsächlich:
 
 Der Mikrocontroller erkennt mehrere Tastendrücke.
 
-Dieses Verhalten nennt man:
-
-[source]
-----
-Prellen
-----
+Dieses Verhalten nennt man indexterm:[Taster,Prellen]indexterm:[Prellen]**Prellen**.
 
 === Eine einfache Entprellung
 
-Die einfachste Lösung besteht darin, nach einem Tastendruck kurz zu warten.
+indexterm:[Taster,Entprellung]indexterm:[Entprellung]Die einfachste Lösung besteht darin, nach einem Tastendruck kurz zu warten.
 
 [source,basic]
 ----
@@ -439,7 +434,7 @@ Für viele Anwendungen genügt das bereits.
 
 === Flankenerkennung
 
-Noch besser ist die Erkennung eines Zustandswechsels.
+indexterm:[Digitale Eingänge,Flankenerkennung]indexterm:[Flankenerkennung]Noch besser ist die Erkennung eines Zustandswechsels.
 
 Dazu merken wir uns den vorherigen Zustand.
 
@@ -483,7 +478,7 @@ Danach leuchtet eine LED auf.
 
 Der Spieler muss möglichst schnell den Taster drücken.
 
-Die Reaktionszeit wird gemessen.
+Die indexterm:[TIMER]indexterm:[Zeitmessung,TIMER]Reaktionszeit wird mit `TIMER` gemessen.
 
 === Aufbau
 
