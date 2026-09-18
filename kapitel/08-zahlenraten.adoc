@@ -18,21 +18,21 @@ Am Ende des Kapitels hast du dein erstes kleines Spiel programmiert.
 Bis jetzt haben wir immer mit dem Programm gearbeitet, das sich im PicoMite befindet.
 Bei größeren Projekten ist es jedoch praktisch, mehrere Programme als Dateien zu speichern.
 
-Mit dem Befehl `SAVE` speicherst du das aktuelle Programm unter einem Namen:
+Mit dem Befehl indexterm:[Dateiverwaltung,SAVE]indexterm:[SAVE]`SAVE` speicherst du das aktuelle Programm unter einem Namen:
 
 [source,basic]
 ----
 SAVE "ZAHLENRATEN.BAS"
 ----
 
-Mit `FILES` kannst du dir alle gespeicherten Dateien anzeigen lassen:
+Mit indexterm:[Dateiverwaltung,FILES]indexterm:[FILES]`FILES` kannst du dir alle gespeicherten Dateien anzeigen lassen:
 
 [source,basic]
 ----
 FILES
 ----
 
-Um ein gespeichertes Programm später wieder zu laden, verwendest du `LOAD`:
+Um ein gespeichertes Programm später wieder zu laden, verwendest du indexterm:[Dateiverwaltung,LOAD]indexterm:[LOAD]`LOAD`:
 
 [source,basic]
 ----
