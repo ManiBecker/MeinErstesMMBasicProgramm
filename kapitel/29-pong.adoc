@@ -243,7 +243,7 @@ CIRCLE BALLX,BALLY,BALLRADIUS,              _
 
 Fast jedes Echtzeitspiel besitzt eine zentrale Schleife.
 
-Diese wird häufig als Spielschleife oder _Game Loop_ bezeichnet.
+Diese wird häufig als indexterm:[Spieleprogrammierung,Spielschleife]indexterm:[Spielschleife]Spielschleife oder _Game Loop_ bezeichnet.
 
 Der vereinfachte Ablauf lautet:
 
@@ -309,7 +309,7 @@ ENDIF
 
 === Der computergesteuerte Gegner
 
-Der Computer beobachtet die vertikale Position des Balls.
+Der indexterm:[Spieleprogrammierung,Computergesteuerter Gegner]indexterm:[Computergesteuerter Gegner]computergesteuerte Gegner beobachtet die vertikale Position des Balls.
 
 Befindet sich der Ball oberhalb des Schlägermittelpunkts, bewegt sich der Schläger nach oben.
 
@@ -348,7 +348,7 @@ Das Spiel bleibt herausfordernd, aber gewinnbar.
 
 === Eine Kollision mit dem Spielerschläger
 
-Eine Kollision findet statt, wenn sich Ball und Schläger überlappen.
+Eine indexterm:[Spieleprogrammierung,Kollisionserkennung]Kollision findet statt, wenn sich Ball und Schläger überlappen.
 
 Für den linken Schläger prüfen wir zunächst, ob sich der Ball nach links bewegt.
 
@@ -399,7 +399,7 @@ Dadurch wird jede Berührung nur einmal verarbeitet.
 
 Würde der Ball immer im gleichen Winkel zurückfliegen, wäre das Spiel schnell langweilig.
 
-Deshalb berücksichtigen wir, an welcher Stelle der Schläger getroffen wurde.
+Deshalb berücksichtigen wir, an welcher Stelle der Schläger getroffen wurde. So entstehen indexterm:[Spieleprogrammierung,Abprallwinkel]indexterm:[Abprallwinkel]unterschiedliche Abprallwinkel.
 
 [source,basic]
 ----
@@ -475,7 +475,7 @@ BALLX=COMPUTERX-BALLRADIUS
 
 === Einen Punkt erkennen
 
-Verlässt der Ball den Bildschirm links, erhält der Computer einen Punkt.
+indexterm:[Spieleprogrammierung,Punkteverwaltung]indexterm:[Punkteverwaltung]Verlässt der Ball den Bildschirm links, erhält der Computer einen Punkt.
 
 [source,basic]
 ----
@@ -578,7 +578,7 @@ Erst wenn das komplette Bild fertig ist, wird es auf den Bildschirm übertragen.
 FRAMEBUFFER COPY F,N,B
 ----
 
-Der zusätzliche Parameter `B` sorgt dafür, dass die Übertragung während der Bildaustastlücke erfolgt, sofern der verwendete Grafikmodus dies unterstützt.
+Der zusätzliche Parameter indexterm:[FRAMEBUFFER COPY,B]`B` von `FRAMEBUFFER COPY F,N,B` sorgt dafür, dass die Übertragung während der indexterm:[Grafik,Bildaustastlücke]indexterm:[Bildaustastlücke]Bildaustastlücke erfolgt, sofern der verwendete Grafikmodus dies unterstützt.
 
 Dadurch wird das Bild möglichst vollständig in einem Schritt sichtbar.
 
