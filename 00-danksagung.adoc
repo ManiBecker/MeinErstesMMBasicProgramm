@@ -1,0 +1,54 @@
+```adoc
+[.unnumbered]
+= Danksagung
+
+Ein Buch wie dieses entsteht nicht ganz allein. Deshalb möchte ich mich bei
+einigen Menschen bedanken, ohne die es dieses Projekt in dieser Form vermutlich
+nicht geben würde.
+
+Mein besonderer Dank gilt meinem Bruder *Uwe*. Durch seine Portierung von
+MMBasic auf das STM32F746-Discovery-Board hatte ich vor vielen Jahren meine
+erste Begegnung mit MMBasic. Damals konnte noch niemand ahnen, dass daraus
+irgendwann einmal dieses Buch entstehen würde.
+
+Ein ganz besonderer Dank geht natürlich an *Geoff Graham*, den Schöpfer von
+MMBasic. Mit MMBasic hat er eine Programmiersprache geschaffen, die etwas
+bewahrt, das mich schon an den Heimcomputern früherer Jahre begeistert hat:
+Man schaltet den Computer ein und kann praktisch sofort mit dem Programmieren
+beginnen. Gleichzeitig ist MMBasic eine moderne und erstaunlich leistungsfähige
+BASIC-Implementierung, mit der sich weit mehr realisieren lässt als nur die
+ersten kleinen Programme.
+
+Ebenso möchte ich *Peter Mather* danken. Seine kontinuierliche Weiterentwicklung
+von MMBasic und insbesondere des PicoMite hat eine beeindruckende Familie
+kleiner Computersysteme hervorgebracht. Viele der Möglichkeiten, die in diesem
+Buch vorgestellt werden, wären ohne seine Arbeit nicht vorhanden.
+
+Mein Dank gilt außerdem all den Entwicklern, Platinen-Designern und Enthusiasten,
+die ihre Projekte, Reference Designs, Programme und Erfahrungen mit anderen
+teilen. Gerade diese Offenheit macht für mich einen großen Teil der
+MMBasic-Community aus.
+
+Bedanken möchte ich mich auch bei den vielen Menschen in den Foren und
+Communities, die Fragen gestellt, Fehler gefunden, Hinweise gegeben oder einfach
+ihre eigenen Erfahrungen geteilt haben. Manche dieser Rückmeldungen haben
+unmittelbar dazu geführt, dass ich etwas noch einmal ausprobiert, genauer
+erklärt oder in diesem Buch ergänzt habe.
+
+Auch *ChatGPT* war während der Entstehung dieses Buches ein hilfreicher
+Begleiter. Die KI half mir dabei, Ideen zu strukturieren, Formulierungen zu
+überarbeiten, Beispiele zu diskutieren und immer wieder neue Ansätze zu finden.
+Die technischen Inhalte und Programme habe ich dabei nicht einfach übernommen,
+sondern anhand der Dokumentation und auf realer Hardware überprüft. Gerade diese
+Zusammenarbeit aus eigenen Erfahrungen, praktischen Tests und KI-Unterstützung
+hat die Arbeit an diesem Buch für mich zu einem spannenden Experiment gemacht.
+
+Und schließlich möchte ich mich bei allen bedanken, die dieses Buch lesen, die
+Beispielprogramme ausprobieren und vielleicht selbst anfangen, mit MMBasic zu
+experimentieren.
+
+Denn genau darum geht es:
+
+[.text-center]
+*Einschalten, loslegen und Spaß am Programmieren haben.*
+```
