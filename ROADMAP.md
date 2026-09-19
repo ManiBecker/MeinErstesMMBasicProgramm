@@ -21,7 +21,27 @@ Schwerpunkt dieser Version ist die Bereitstellung und Verifizierung aller Beispi
 
 ---
 
-## Version 0.21 – Einstieg verbessern
+## Version 0.21 – Nachschlagewerk und Indexierung ✅
+
+**Veröffentlicht am 19. September 2026**
+
+Schwerpunkt dieser Version ist die Verbesserung des Nachschlagewerts
+und der Navigation innerhalb des Tutorials.
+
+### Abgeschlossen
+
+- [x] Stichwortverzeichnis ergänzt
+- [x] Alle Kapitel systematisch indexiert
+- [x] Indexierung vereinheitlicht und bereinigt
+- [x] MMBasic-Befehlsreferenz ergänzt
+- [x] Seitenverweise „Im Buch“ in der Befehlsreferenz ergänzt
+- [x] MMBasic-Funktionsreferenz ergänzt
+- [x] Seitenverweise „Im Buch“ in der Funktionsreferenz ergänzt
+- [x] Interne PDF-Verlinkung der Seitenverweise ergänzt
+
+---
+
+## Version 0.22 – Einstieg verbessern
 
 Schwerpunkt ist die Vereinfachung des Einstiegs für neue Anwender.
 
@@ -35,7 +55,7 @@ Schwerpunkt ist die Vereinfachung des Einstiegs für neue Anwender.
 
 ---
 
-## Version 0.22 – Dokumentation erweitern
+## Version 0.23 – Dokumentation erweitern
 
 Schwerpunkt ist die Verbesserung der Übersicht und des Nachschlagewerts.
 
