@@ -94,6 +94,8 @@ Ziel war es, technische Sachverhalte anschaulich zu vermitteln und den Einstieg 
 
 <<<
 
+:sectnums!:
+
 include::kapitel/00-vorwort.adoc[]
 
 <<<
@@ -105,6 +107,8 @@ include::kapitel/00-danksagung.adoc[]
 toc::[]
 
 <<<
+
+:sectnums:
 
 include::kapitel/00-willkommen.adoc[]
 

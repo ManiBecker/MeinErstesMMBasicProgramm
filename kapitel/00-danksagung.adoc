@@ -1,6 +1,5 @@
-```adoc
 [.unnumbered]
-= Danksagung
+== Danksagung
 
 Ein Buch wie dieses entsteht nicht ganz allein. Deshalb möchte ich mich bei
 einigen Menschen bedanken, ohne die es dieses Projekt in dieser Form vermutlich
@@ -51,4 +50,3 @@ Denn genau darum geht es:
 
 [.text-center]
 *Einschalten, loslegen und Spaß am Programmieren haben.*
-```

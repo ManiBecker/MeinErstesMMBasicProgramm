@@ -1,6 +1,5 @@
-```adoc
 [.unnumbered]
-= Vorwort
+== Vorwort
 
 Meine erste Begegnung mit MMBasic liegt inzwischen mehr als zehn Jahre zurück.
 Damals hatte mein jüngerer Bruder Uwe eine Portierung von MMBasic auf das
@@ -68,4 +67,3 @@ Wenn Ihnen das Buch beim Lesen und Experimentieren genauso viel Freude
 bereitet, wie mir seine Entstehung bereitet hat, dann hat es sein Ziel erreicht.
 
 Manfred Becker
-```
