@@ -1,0 +1,71 @@
+```adoc
+[.unnumbered]
+= Vorwort
+
+Meine erste Begegnung mit MMBasic liegt inzwischen mehr als zehn Jahre zurück.
+Damals hatte mein jüngerer Bruder Uwe eine Portierung von MMBasic auf das
+STM32F746-Discovery-Board realisiert. Ein BASIC-Interpreter auf einem kleinen
+Einplatinencomputer – das war genau meine Welt: Technik und Programmierung ohne
+viel Ballast. Einschalten, loslegen und einfach Spaß am Programmieren haben.
+
+Später stieß ich auf der Webseite _Geoff's Projects_ von Geoff Graham, dem
+Entwickler von MMBasic und dem ursprünglichen Colour Maximite, auf weitere
+Rechner, auf denen MMBasic zu Hause war. Besonders der PicoMite und die
+Maximite-Rechner weckten mein Interesse. Mit Tastatur und Monitor wurden daraus
+kleine, eigenständige Computer, bei denen man nach dem Einschalten praktisch
+sofort mit dem Programmieren beginnen konnte.
+
+Lange Zeit war vor allem der Colour Maximite 2 – kurz CMM2 – ein echter
+Wunschcomputer für mich. Leider war er kaum noch zu bekommen. Irgendwann
+entdeckte ich schließlich ein Exemplar bei einer eBay-Auktion und konnte nicht
+widerstehen.
+
+Als der CMM2 dann endlich vor mir stand, war es um mich geschehen. Ich mochte
+diesen Computer von der ersten Minute an. Er verkörperte genau das, was mich
+schon immer an kleinen Computersystemen begeistert hat: einschalten,
+programmieren, ausprobieren – und unmittelbar sehen, was passiert.
+
+Später fand ich heraus, dass sich die Platinen für viele dieser Systeme bei
+Leiterplattenherstellern wie JLCPCB fertigen und teilweise sogar bestücken
+lassen. Damit begannen meine eigenen Projekte mit den Reference Designs der
+PicoMites und Maximites. Besonders bei Sammelbestellungen ließen sich die
+kleinen Computer erstaunlich günstig aufbauen, und überzählige Sets konnte ich
+an andere Interessierte weitergeben.
+
+Dabei begegnete mir immer wieder dieselbe Frage:
+
+_Gibt es die Dokumentation eigentlich auch auf Deutsch?_
+
+Und noch etwas fehlte: ein deutschsprachiges Tutorial, das Einsteiger Schritt
+für Schritt an MMBasic heranführt. Nicht nur eine Befehlsreferenz, sondern eine
+Anleitung, mit der man einfach anfangen, Programme ausprobieren und nach und
+nach die Möglichkeiten von MMBasic entdecken kann.
+
+Also setzte ich mich eines Tages hin und unterhielt mich mit meiner KI –
+ChatGPT – darüber, wie ein solches Tutorial aussehen könnte. Aus ersten Ideen
+entstand eine Struktur, und kurze Zeit später waren bereits die ersten Kapitel
+geschrieben. Viele weitere sollten folgen.
+
+Was zunächst als überschaubares Tutorial begann, wuchs mit jedem neuen Thema,
+jedem Beispielprogramm und vielen praktischen Tests weiter. Aus dem Tutorial
+wurde schließlich das Buch, das Sie nun in den Händen halten.
+
+ChatGPT hat mich bei seiner Entstehung als Werkzeug begleitet – beim
+Strukturieren von Ideen, beim Formulieren und bei der Überarbeitung von Texten
+und Programmen. Entscheidend blieb dabei aber immer die praktische Überprüfung:
+Die Beispiele wurden getestet, technische Angaben mit der Dokumentation
+abgeglichen und vieles direkt auf den unterschiedlichen MMBasic-Systemen
+ausprobiert.
+
+Ich hoffe, dass Ihnen dieses Buch den Einstieg in MMBasic erleichtert und
+vielleicht etwas von der Begeisterung vermittelt, die mich selbst an diesen
+kleinen Computern fasziniert:
+
+[.text-center]
+*Einschalten, loslegen und Spaß am Programmieren haben.*
+
+Wenn Ihnen das Buch beim Lesen und Experimentieren genauso viel Freude
+bereitet, wie mir seine Entstehung bereitet hat, dann hat es sein Ziel erreicht.
+
+Manfred Becker
+```
