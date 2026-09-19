@@ -8,7 +8,7 @@ indexterm:[WS2812]indexterm:[LED,WS2812]WS2812-LEDs verbinden eine RGB-LED mit e
 Dadurch lassen sich viele LEDs hintereinander schalten und trotzdem über nur
 eine einzige Datenleitung ansteuern.
 
-Der PicoMite unterstützt diese LEDs direkt mit dem indexterm:[WS2812-Befehlsfamilie,WS2812 (Befehl)]indexterm:[WS2812 (Befehl)]Befehl `WS2812`.
+Der PicoMite unterstützt diese LEDs direkt mit dem indexterm:[WS2812 (Befehl)]Befehl `WS2812`.
 Die zeitkritische Erzeugung des Datensignals übernimmt dabei die Firmware.
 
 In diesem Kapitel lernst du:

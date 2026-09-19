@@ -461,7 +461,7 @@ Unser Mystify-Programm zeichnet zwei vierseitige Figuren. Die vier Eckpunkte jed
 
 ==== Die wichtigsten Einstellungen
 
-Das Abschlussprojekt verwendet zunächst indexterm:[OPTION-Befehlsfamilie,OPTION BASE]indexterm:[OPTION BASE]`OPTION BASE 0`. Damit ist ausdrücklich festgelegt, dass die Arrayindizes bei `0` beginnen:
+Das Abschlussprojekt verwendet zunächst indexterm:[OPTION BASE]`OPTION BASE 0`. Damit ist ausdrücklich festgelegt, dass die Arrayindizes bei `0` beginnen:
 
 [source,basic]
 ----

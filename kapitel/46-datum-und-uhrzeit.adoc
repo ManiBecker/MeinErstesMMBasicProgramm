@@ -164,7 +164,7 @@ Real Time Clock
 
 MMBasic führt intern Datum und Uhrzeit und stellt sie über `DATE$` und `TIME$` zur Verfügung. Ob nach dem Einschalten sofort das richtige Datum und die richtige Uhrzeit vorhanden sind, hängt beim PicoMite jedoch von der RTC-Konfiguration ab.
 
-Mit indexterm:[OPTION-Befehlsfamilie,OPTION RTC AUTO ENABLE]indexterm:[OPTION RTC AUTO ENABLE]`OPTION RTC AUTO ENABLE`
+Mit indexterm:[OPTION RTC AUTO ENABLE]`OPTION RTC AUTO ENABLE`
 
 [source,basic]
 ----

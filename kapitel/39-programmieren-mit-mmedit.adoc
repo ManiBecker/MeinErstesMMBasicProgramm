@@ -203,7 +203,7 @@ Erstelle in MMEdit eine neue Datei und speichere sie beispielsweise als:
 39_mmedit_hallo.bas
 ----
 
-Der Inhalt ist bewusst einfach gehalten. Mit indexterm:[OPTION-Befehlsfamilie,OPTION EXPLICIT]indexterm:[OPTION EXPLICIT]`OPTION EXPLICIT` verlangt MMBasic dabei die ausdrückliche Deklaration der verwendeten Variablen:
+Der Inhalt ist bewusst einfach gehalten. Mit indexterm:[OPTION EXPLICIT]`OPTION EXPLICIT` verlangt MMBasic dabei die ausdrückliche Deklaration der verwendeten Variablen:
 
 [source,basic]
 ----

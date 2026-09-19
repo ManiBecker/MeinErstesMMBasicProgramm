@@ -93,7 +93,7 @@ Zurück zum Flash-Dateisystem gelangst du mit:
 DRIVE "A:"
 ----
 
-Welches Laufwerk gerade aktiv ist, kannst du mit indexterm:[MM.INFO,MM.INFO(drive)]indexterm:[MM.INFO(drive)]`MM.INFO(drive)` abfragen:
+Welches Laufwerk gerade aktiv ist, kannst du mit indexterm:[MM.INFO(drive)]`MM.INFO(drive)` abfragen:
 
 [source,basic]
 ----
@@ -419,7 +419,7 @@ Unterverzeichnisse, kann es nicht einfach mit `RMDIR` entfernt werden.
 In einem BASIC-Programm ist es oft hilfreich, vor einem Dateizugriff zu prüfen,
 ob eine bestimmte Datei vorhanden ist.
 
-Dafür gibt es indexterm:[MM.INFO,MM.INFO(exists file)]indexterm:[MM.INFO(exists file)]`MM.INFO(exists file fname$)`.
+Dafür gibt es indexterm:[MM.INFO(exists file)]`MM.INFO(exists file fname$)`.
 
 Beispiel:
 
@@ -432,7 +432,7 @@ ELSE
 ENDIF
 ----
 
-Entsprechend kannst du mit indexterm:[MM.INFO,MM.INFO(exists dir)]indexterm:[MM.INFO(exists dir)]`MM.INFO(exists dir dirname$)` prüfen, ob ein
+Entsprechend kannst du mit indexterm:[MM.INFO(exists dir)]`MM.INFO(exists dir dirname$)` prüfen, ob ein
 Verzeichnis existiert:
 
 [source,basic]
@@ -456,9 +456,9 @@ Mit:
 PRINT MM.INFO(free space)
 ----
 
-wird mit indexterm:[MM.INFO,MM.INFO(free space)]indexterm:[MM.INFO(free space)]`MM.INFO(free space)` der noch freie Speicherplatz des aktiven Laufwerks ausgegeben.
+wird mit indexterm:[MM.INFO(free space)]`MM.INFO(free space)` der noch freie Speicherplatz des aktiven Laufwerks ausgegeben.
 
-Die Größe des Laufwerks erhältst du mit indexterm:[MM.INFO,MM.INFO(disk size)]indexterm:[MM.INFO(disk size)]`MM.INFO(disk size)`:
+Die Größe des Laufwerks erhältst du mit indexterm:[MM.INFO(disk size)]`MM.INFO(disk size)`:
 
 [source,basic]
 ----
@@ -470,7 +470,7 @@ Laufwerk aktiv ist und wie viel Speicherplatz dort zur Verfügung steht.
 
 === Der Pfad des laufenden Programms
 
-Mit indexterm:[MM.INFO,MM.INFO(path)]indexterm:[MM.INFO(path)]`MM.INFO(path)` kann ein Programm ermitteln, aus welchem Verzeichnis es
+Mit indexterm:[MM.INFO(path)]`MM.INFO(path)` kann ein Programm ermitteln, aus welchem Verzeichnis es
 gestartet wurde.
 
 [source,basic]

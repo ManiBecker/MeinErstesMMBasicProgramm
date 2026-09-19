@@ -379,7 +379,7 @@ auch ohne angeschlossene Taster ausprobiert werden kann.
 === Die Funktion HoleTaste
 
 Die Funktion wartet so lange, bis ein Taster oder die entsprechende
-Zifferntaste gedrückt wird. Nach einer erkannten Eingabe beendet indexterm:[FUNCTION-Befehlsfamilie,EXIT FUNCTION]indexterm:[EXIT FUNCTION]`EXIT FUNCTION` die Funktion sofort.
+Zifferntaste gedrückt wird. Nach einer erkannten Eingabe beendet indexterm:[EXIT FUNCTION]`EXIT FUNCTION` die Funktion sofort.
 
 [source,basic]
 ----

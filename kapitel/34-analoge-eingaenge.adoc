@@ -324,7 +324,7 @@ Bei vielen MMBasic-Befehlen kann die `GPxx`-Schreibweise direkt verwendet
 werden. Es gibt jedoch auch Situationen, in denen eine numerische
 Pinnummer benötigt wird.
 
-Mit indexterm:[MM.INFO,MM.INFO(PINNO)]indexterm:[MM.INFO(PINNO)]`MM.INFO(PINNO GP40)` kann die GPIO-Bezeichnung in die entsprechende
+Mit indexterm:[MM.INFO(PINNO)]`MM.INFO(PINNO GP40)` kann die GPIO-Bezeichnung in die entsprechende
 Pinnummer umgewandelt werden:
 
 [source,basic]

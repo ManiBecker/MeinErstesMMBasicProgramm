@@ -87,7 +87,7 @@ Nur die indexterm:[Layerbuffer,Bewegliche Objekte]beweglichen Objekte auf der zw
 
 === Einen Layerbuffer erzeugen
 
-Zuerst wird ein Layerbuffer mit indexterm:[FRAMEBUFFER-Befehlsfamilie,FRAMEBUFFER LAYER]indexterm:[FRAMEBUFFER LAYER]`FRAMEBUFFER LAYER` angelegt.
+Zuerst wird ein Layerbuffer mit indexterm:[FRAMEBUFFER LAYER]`FRAMEBUFFER LAYER` angelegt.
 
 [source,basic]
 ----
@@ -105,7 +105,7 @@ Mit
 FRAMEBUFFER WRITE L
 ----
 
-werden mit indexterm:[FRAMEBUFFER-Befehlsfamilie,FRAMEBUFFER WRITE L]indexterm:[FRAMEBUFFER WRITE L]`FRAMEBUFFER WRITE L` alle Grafikbefehle auf den Layerbuffer umgeleitet.
+werden mit indexterm:[FRAMEBUFFER WRITE L]`FRAMEBUFFER WRITE L` alle Grafikbefehle auf den Layerbuffer umgeleitet.
 
 Das `L` steht für:
 
@@ -121,7 +121,7 @@ L = Layerbuffer
 FRAMEBUFFER WRITE N
 ----
 
-stellt mit indexterm:[FRAMEBUFFER-Befehlsfamilie,FRAMEBUFFER WRITE N]indexterm:[FRAMEBUFFER WRITE N]`FRAMEBUFFER WRITE N` die normale Ausgabe wieder her.
+stellt mit indexterm:[FRAMEBUFFER WRITE N]`FRAMEBUFFER WRITE N` die normale Ausgabe wieder her.
 
 === Unser erster Hintergrund
 

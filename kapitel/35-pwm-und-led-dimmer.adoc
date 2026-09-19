@@ -91,14 +91,14 @@ Entscheidend ist das Verhältnis zwischen:
 * Einschaltzeit
 * Ausschaltzeit
 
-Dieses Verhältnis nennt man indexterm:[PWM,Tastverhältnis]indexterm:[Tastverhältnis]:
+Dieses Verhältnis nennt man indexterm:[PWM,Tastverhältnis]:
 
 [source]
 ----
 Tastverhältnis
 ----
 
-oder englisch indexterm:[PWM,Duty Cycle]indexterm:[Duty Cycle]:
+oder englisch indexterm:[PWM,Duty Cycle]:
 
 [source]
 ----
@@ -161,9 +161,9 @@ Wir sehen lediglich die resultierende Helligkeit.
 
 === PWM beim PicoMite
 
-Der PicoMite besitzt mehrere indexterm:[PWM,PWM-Kanal]indexterm:[PWM-Kanal]PWM-Kanäle.
+Der PicoMite besitzt mehrere indexterm:[PWM,PWM-Kanal]PWM-Kanäle.
 
-Ein PWM-Signal wird mit dem indexterm:[PWM-Befehlsfamilie,PWM]indexterm:[PWM (Befehl)]`PWM`-Befehl:
+Ein PWM-Signal wird mit dem indexterm:[PWM (Befehl)]`PWM`-Befehl:
 
 [source,basic]
 ----
@@ -251,7 +251,7 @@ PWM 0,1000,100
 
 === PWM stoppen
 
-Mit indexterm:[PWM-Befehlsfamilie,PWM OFF]indexterm:[PWM OFF]`PWM Kanal,OFF` wird die PWM-Ausgabe beendet:
+Mit indexterm:[PWM OFF]`PWM Kanal,OFF` wird die PWM-Ausgabe beendet:
 
 [source,basic]
 ----
@@ -369,7 +369,7 @@ Betrachten wir folgende Werte:
 |ca. 3,3 V
 |===
 
-Mit einem indexterm:[PWM,Tiefpassfilter]indexterm:[Tiefpassfilter]Tiefpassfilter kann daraus eine nahezu analoge Spannung erzeugt werden.
+Mit einem indexterm:[PWM,Tiefpassfilter]Tiefpassfilter kann daraus eine nahezu analoge Spannung erzeugt werden.
 
 === PWM in der Praxis
 

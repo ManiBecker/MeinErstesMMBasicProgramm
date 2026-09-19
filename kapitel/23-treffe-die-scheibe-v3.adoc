@@ -34,21 +34,21 @@ In Version 3 ersetzen wir deshalb die Koordinateneingabe durch eine Maussteuerun
 
 MMBasic stellt über die Funktion indexterm:[Maus,MOUSE()]indexterm:[MOUSE()]`MOUSE()` verschiedene Informationen über die angeschlossene Maus bereit.
 
-Die aktuelle horizontale Position erhältst du mit indexterm:[MOUSE(),MOUSE(X)]indexterm:[MOUSE(X)]`MOUSE(X)`:
+Die aktuelle horizontale Position erhältst du mit indexterm:[MOUSE(X)]`MOUSE(X)`:
 
 [source,basic]
 ----
 MOUSE(X)
 ----
 
-Die aktuelle vertikale Position erhältst du mit indexterm:[MOUSE(),MOUSE(Y)]indexterm:[MOUSE(Y)]`MOUSE(Y)`:
+Die aktuelle vertikale Position erhältst du mit indexterm:[MOUSE(Y)]`MOUSE(Y)`:
 
 [source,basic]
 ----
 MOUSE(Y)
 ----
 
-Der Zustand der linken Maustaste kann mit indexterm:[MOUSE(),MOUSE(L)]indexterm:[MOUSE(L)]`MOUSE(L)`
+Der Zustand der linken Maustaste kann mit indexterm:[MOUSE(L)]`MOUSE(L)`
 
 [source,basic]
 ----

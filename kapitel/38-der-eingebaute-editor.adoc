@@ -529,7 +529,7 @@ Beispiel:
 
 Dadurch wird der Quelltext leichter lesbar.
 
-Die indexterm:[Editor,Farbsyntax]indexterm:[Farbsyntax]Farbsyntax kann mit indexterm:[OPTION-Befehlsfamilie,OPTION COLOURCODE]indexterm:[OPTION COLOURCODE]`OPTION COLOURCODE` ausgeschaltet werden:
+Die indexterm:[Editor,Farbsyntax]indexterm:[Farbsyntax]Farbsyntax kann mit indexterm:[OPTION COLOURCODE]`OPTION COLOURCODE` ausgeschaltet werden:
 
 [source,basic]
 ----
@@ -605,7 +605,7 @@ Hier können Programme wie MMEdit oder Visual Studio Code sinnvoll sein.
 Viele PicoMite-Projekte sollen nach dem Einschalten sofort einsatzbereit sein,
 zum Beispiel eine Uhr, ein Spiel oder ein Messgerät.
 
-Mit indexterm:[OPTION-Befehlsfamilie,OPTION AUTORUN]indexterm:[OPTION AUTORUN]`OPTION AUTORUN`:
+Mit indexterm:[OPTION AUTORUN]`OPTION AUTORUN`:
 
 [source,basic]
 ----

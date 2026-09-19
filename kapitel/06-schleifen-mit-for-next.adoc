@@ -41,9 +41,9 @@ Mit einer indexterm:[Schleifen]Schleife geht es deutlich einfacher.
 
 [source,basic]
 ----
-indexterm:[FOR...NEXT-Befehlsfamilie,FOR]indexterm:[FOR]FOR I=1 TO 10
+indexterm:[FOR]FOR I=1 TO 10
   PRINT "Hallo Welt!"
-indexterm:[FOR...NEXT-Befehlsfamilie,NEXT]indexterm:[NEXT]NEXT I
+indexterm:[NEXT]NEXT I
 ----
 
 Ausgabe:
@@ -173,7 +173,7 @@ Ausgabe:
 
 Schleifen können auch rückwärts laufen.
 
-Dazu wird indexterm:[FOR...NEXT-Befehlsfamilie,STEP]indexterm:[STEP]`STEP` verwendet.
+Dazu wird indexterm:[STEP]`STEP` verwendet.
 
 [source,basic]
 ----

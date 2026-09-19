@@ -25,18 +25,18 @@ CLS
 LINE 0,0,100,100
 ----
 
-indexterm:[OPTION-Befehlsfamilie]`OPTION`-Befehle funktionieren etwas anders. Sie verändern Einstellungen von MMBasic und können sowohl das Verhalten eines BASIC-Programms als auch die Konfiguration des PicoMite beeinflussen.
+indexterm:[OPTION]`OPTION`-Befehle funktionieren etwas anders. Sie verändern Einstellungen von MMBasic und können sowohl das Verhalten eines BASIC-Programms als auch die Konfiguration des PicoMite beeinflussen.
 
 Dabei ist eine wichtige Unterscheidung zu beachten:
 
-* indexterm:[OPTION-Befehlsfamilie,Temporäre Optionen]indexterm:[Temporäre Optionen]*Temporäre bzw. programmbezogene Optionen* gelten nur vorübergehend und werden beispielsweise beim Start eines Programms oder beim Neustart wieder auf ihre Standardwerte gesetzt.
-* indexterm:[OPTION-Befehlsfamilie,Permanente Optionen]indexterm:[Permanente Optionen]*Permanente Optionen* werden im nichtflüchtigen Speicher abgelegt und nach einem Neustart automatisch wiederhergestellt.
+* indexterm:[Temporäre Optionen]*Temporäre bzw. programmbezogene Optionen* gelten nur vorübergehend und werden beispielsweise beim Start eines Programms oder beim Neustart wieder auf ihre Standardwerte gesetzt.
+* indexterm:[Permanente Optionen]*Permanente Optionen* werden im nichtflüchtigen Speicher abgelegt und nach einem Neustart automatisch wiederhergestellt.
 
 Viele permanente `OPTION`-Befehle können einen Neustart der PicoMite-Firmware auslösen. Das im Programmspeicher befindliche BASIC-Programm geht dabei nicht verloren.
 
 === Aktuelle Einstellungen anzeigen
 
-Mit indexterm:[OPTION-Befehlsfamilie,OPTION LIST]indexterm:[OPTION LIST]`OPTION LIST`:
+Mit indexterm:[OPTION LIST]`OPTION LIST`:
 
 [source,basic]
 ----
@@ -116,7 +116,7 @@ Solche Fehler sind oft schwer zu finden. `OPTION EXPLICIT` hilft dabei, sie frü
 
 === OPTION DEFAULT
 
-Mit indexterm:[OPTION-Befehlsfamilie,OPTION DEFAULT]indexterm:[OPTION DEFAULT]`OPTION DEFAULT` wird festgelegt, welchen Datentyp eine Variable erhält, wenn kein Typ ausdrücklich angegeben wurde.
+Mit indexterm:[OPTION DEFAULT]`OPTION DEFAULT` wird festgelegt, welchen Datentyp eine Variable erhält, wenn kein Typ ausdrücklich angegeben wurde.
 
 Mögliche Einstellungen sind indexterm:[Datentypen,Standard-Datentyp]indexterm:[Standard-Datentyp]verschiedene Standard-Datentypen:
 
@@ -261,7 +261,7 @@ Dazu gehören beispielsweise `OPTION TAB` und `OPTION COLOURCODE`. Auch `OPTION 
 
 === OPTION TAB
 
-indexterm:[OPTION-Befehlsfamilie,OPTION TAB]indexterm:[OPTION TAB]Diese Option legt den Abstand der Tabulatortaste fest.
+indexterm:[OPTION TAB]Diese Option legt den Abstand der Tabulatortaste fest.
 
 Mögliche Werte sind:
 
@@ -315,7 +315,7 @@ Die Farbdarstellung funktioniert bei VGA- und HDMI-Ausgabe sowie über die serie
 
 === OPTION CPUSPEED
 
-indexterm:[OPTION-Befehlsfamilie,OPTION CPUSPEED]indexterm:[OPTION CPUSPEED]Bei PicoMite-Versionen ohne VGA- oder HDMI-Ausgabe kann mit `OPTION CPUSPEED` die CPU-Taktfrequenz eingestellt werden.
+indexterm:[OPTION CPUSPEED]Bei PicoMite-Versionen ohne VGA- oder HDMI-Ausgabe kann mit `OPTION CPUSPEED` die CPU-Taktfrequenz eingestellt werden.
 
 Die Syntax lautet:
 
@@ -380,7 +380,7 @@ liefern kann. `MM.INFO$(CPUSPEED)` gibt die CPU-Taktfrequenz dabei in Hz zurück
 
 === OPTION RESET
 
-Mit indexterm:[OPTION-Befehlsfamilie,OPTION RESET]indexterm:[OPTION RESET]`OPTION RESET`:
+Mit indexterm:[OPTION RESET]`OPTION RESET`:
 
 [source,basic]
 ----
@@ -402,7 +402,7 @@ Temporäre programmbezogene Einstellungen wie `OPTION EXPLICIT`, `OPTION DEFAULT
 
 Zusätzlich unterstützt MMBasic vordefinierte Konfigurationen.
 
-Welche Konfigurationen die verwendete Firmware kennt, lässt sich mit indexterm:[OPTION-Befehlsfamilie,OPTION RESET LIST]indexterm:[OPTION RESET LIST]`OPTION RESET LIST` anzeigen:
+Welche Konfigurationen die verwendete Firmware kennt, lässt sich mit indexterm:[OPTION RESET LIST]`OPTION RESET LIST` anzeigen:
 
 [source,basic]
 ----

@@ -94,7 +94,7 @@ Zum Beispiel:
 * Ist eine Datei vorhanden?
 * Hat der Benutzer die richtige Antwort eingegeben?
 
-Für solche Entscheidungen gibt es den indexterm:[IF-Befehlsfamilie,IF]indexterm:[IF]`IF`-Befehl.
+Für solche Entscheidungen gibt es den indexterm:[IF]`IF`-Befehl.
 
 === Unsere erste Entscheidung
 
@@ -134,7 +134,7 @@ Das Programm kann dadurch unterschiedliche Wege einschlagen.
 
 === ELSE - der andere Fall
 
-Mit indexterm:[IF-Befehlsfamilie,ELSE]indexterm:[ELSE]`ELSE` kann festgelegt werden, was passieren soll, wenn die Bedingung nicht erfüllt ist.
+Mit indexterm:[ELSE]`ELSE` kann festgelegt werden, was passieren soll, wenn die Bedingung nicht erfüllt ist.
 
 [source,basic]
 ----
@@ -241,7 +241,7 @@ Das funktioniert zwar, ist bei vielen Möglichkeiten jedoch etwas umständlich.
 
 === ELSEIF verwenden
 
-Mehrere Möglichkeiten lassen sich deutlich übersichtlicher mit indexterm:[IF-Befehlsfamilie,ELSEIF]indexterm:[ELSEIF]`ELSEIF` formulieren.
+Mehrere Möglichkeiten lassen sich deutlich übersichtlicher mit indexterm:[ELSEIF]`ELSEIF` formulieren.
 
 [source,basic]
 ----

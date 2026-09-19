@@ -221,7 +221,7 @@ Neben dem normalen Programmspeicher und den Dateisystemen besitzt der PicoMite
 indexterm:[Flash-Slots]drei zusätzliche Flash-Slots. Dort kannst du beispielsweise andere Programme
 oder frühere Versionen deines aktuellen Programms ablegen.
 
-Die wichtigsten Befehle sind indexterm:[FLASH-Befehlsfamilie,FLASH SAVE]indexterm:[FLASH SAVE]`FLASH SAVE`, indexterm:[FLASH-Befehlsfamilie,FLASH LOAD]indexterm:[FLASH LOAD]`FLASH LOAD`, indexterm:[FLASH-Befehlsfamilie,FLASH RUN]indexterm:[FLASH RUN]`FLASH RUN`, indexterm:[FLASH-Befehlsfamilie,FLASH LIST]indexterm:[FLASH LIST]`FLASH LIST` und indexterm:[FLASH-Befehlsfamilie,FLASH ERASE]indexterm:[FLASH ERASE]`FLASH ERASE`:
+Die wichtigsten Befehle sind indexterm:[FLASH SAVE]`FLASH SAVE`, indexterm:[FLASH LOAD]`FLASH LOAD`, indexterm:[FLASH RUN]`FLASH RUN`, indexterm:[FLASH LIST]`FLASH LIST` und indexterm:[FLASH ERASE]`FLASH ERASE`:
 
 [source,basic]
 ----
@@ -358,7 +358,7 @@ normale BASIC-Datei:
 SAVE "MEINELIB.BAS"
 ----
 
-Danach überträgst du den Inhalt des Programmspeichers mit indexterm:[LIBRARY-Befehlsfamilie,LIBRARY SAVE]indexterm:[LIBRARY SAVE]`LIBRARY SAVE` in die Library.
+Danach überträgst du den Inhalt des Programmspeichers mit indexterm:[LIBRARY SAVE]`LIBRARY SAVE` in die Library.
 
 [source,basic]
 ----
@@ -429,7 +429,7 @@ Quelltext aufbewahren.
 
 ==== Inhalt der Library anzeigen
 
-Mit indexterm:[LIBRARY-Befehlsfamilie,LIBRARY LIST]indexterm:[LIBRARY LIST]`LIBRARY LIST`:
+Mit indexterm:[LIBRARY LIST]`LIBRARY LIST`:
 
 [source,basic]
 ----
@@ -450,14 +450,14 @@ aktuell geladene Hauptprogramm.
 
 ==== Library sichern und wiederherstellen
 
-Die gesamte Library kann mit indexterm:[LIBRARY-Befehlsfamilie,LIBRARY DISK SAVE]indexterm:[LIBRARY DISK SAVE]`LIBRARY DISK SAVE` als Datei gesichert werden:
+Die gesamte Library kann mit indexterm:[LIBRARY DISK SAVE]`LIBRARY DISK SAVE` als Datei gesichert werden:
 
 [source,basic]
 ----
 LIBRARY DISK SAVE "MEINELIB.LIB"
 ----
 
-Mit indexterm:[LIBRARY-Befehlsfamilie,LIBRARY DISK LOAD]indexterm:[LIBRARY DISK LOAD]`LIBRARY DISK LOAD`:
+Mit indexterm:[LIBRARY DISK LOAD]`LIBRARY DISK LOAD`:
 
 [source,basic]
 ----
@@ -472,7 +472,7 @@ möchtest.
 
 ==== Library löschen
 
-Mit indexterm:[LIBRARY-Befehlsfamilie,LIBRARY DELETE]indexterm:[LIBRARY DELETE]`LIBRARY DELETE`:
+Mit indexterm:[LIBRARY DELETE]`LIBRARY DELETE`:
 
 [source,basic]
 ----

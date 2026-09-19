@@ -258,7 +258,7 @@ Damit die indexterm:[Editor,Maus]indexterm:[Maus im Editor]Maus verwendet werden
 
 [source,basic]
 ----
-indexterm:[OPTION-Befehlsfamilie,OPTION MOUSE ON]indexterm:[OPTION MOUSE ON]OPTION MOUSE ON
+indexterm:[OPTION MOUSE ON]OPTION MOUSE ON
 ----
 
 Diese Einstellung muss nur einmal vorgenommen werden und bleibt dauerhaft

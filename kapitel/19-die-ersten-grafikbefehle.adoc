@@ -408,7 +408,7 @@ Heute gehört die Turtle-Grafik auch zum Funktionsumfang von MMBasic und eignet 
 
 === Die Schildkröte zurücksetzen
 
-Mit indexterm:[TURTLE-Befehlsfamilie,TURTLE RESET]indexterm:[TURTLE RESET]`TURTLE RESET` wird die Turtle in ihre Ausgangsposition zurückgesetzt.
+Mit indexterm:[TURTLE RESET]`TURTLE RESET` wird die Turtle in ihre Ausgangsposition zurückgesetzt.
 
 [source,basic]
 ----
@@ -443,14 +443,14 @@ Nach der vierten Seite erreicht sie wieder ihren Ausgangspunkt.
 
 === Das Programm verstehen
 
-indexterm:[TURTLE-Befehlsfamilie,TURTLE FORWARD]indexterm:[TURTLE FORWARD]`TURTLE FORWARD` bewegt die Schildkröte in ihrer aktuellen Blickrichtung.
+indexterm:[TURTLE FORWARD]`TURTLE FORWARD` bewegt die Schildkröte in ihrer aktuellen Blickrichtung.
 
 [source,basic]
 ----
 TURTLE FORWARD 100
 ----
 
-Mit indexterm:[TURTLE-Befehlsfamilie,TURTLE RIGHT]indexterm:[TURTLE RIGHT]`TURTLE RIGHT` oder indexterm:[TURTLE-Befehlsfamilie,TURTLE LEFT]indexterm:[TURTLE LEFT]`TURTLE LEFT` wird die Blickrichtung geändert.
+Mit indexterm:[TURTLE RIGHT]`TURTLE RIGHT` oder indexterm:[TURTLE LEFT]`TURTLE LEFT` wird die Blickrichtung geändert.
 
 [source,basic]
 ----

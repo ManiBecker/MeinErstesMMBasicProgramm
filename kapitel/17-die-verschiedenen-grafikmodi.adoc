@@ -92,7 +92,7 @@ Wenn später eine Linie oder ein Kreis gezeichnet wird, erfolgt dies immer anhan
 
 === Die Bildschirmgröße
 
-Je nach verwendetem PicoMite-System stehen unterschiedliche indexterm:[Grafik,Bildschirmauflösung]indexterm:[Bildschirmauflösung]Bildschirmauflösungen zur Verfügung. Bei PicoMite-Systemen mit HDMI- oder VGA-Ausgabe wird die gewünschte Auflösung mit dem Befehl indexterm:[OPTION-Befehlsfamilie,OPTION RESOLUTION]indexterm:[OPTION RESOLUTION]`OPTION RESOLUTION` festgelegt.
+Je nach verwendetem PicoMite-System stehen unterschiedliche indexterm:[Grafik,Bildschirmauflösung]indexterm:[Bildschirmauflösung]Bildschirmauflösungen zur Verfügung. Bei PicoMite-Systemen mit HDMI- oder VGA-Ausgabe wird die gewünschte Auflösung mit dem Befehl indexterm:[OPTION RESOLUTION]`OPTION RESOLUTION` festgelegt.
 
 [source,basic]
 ----
@@ -236,7 +236,7 @@ MMBasic besitzt mehrere eingebaute Schriftarten.
 
 Je nach Schriftart unterscheiden sich Breite und Höhe der Zeichen.
 
-Die aktuelle Schriftgröße kann mit indexterm:[MM.INFO,MM.INFO(FONTWIDTH)]indexterm:[MM.INFO(FONTWIDTH)]`MM.INFO(FONTWIDTH)` und indexterm:[MM.INFO,MM.INFO(FONTHEIGHT)]indexterm:[MM.INFO(FONTHEIGHT)]`MM.INFO(FONTHEIGHT)` abgefragt werden.
+Die aktuelle Schriftgröße kann mit indexterm:[MM.INFO(FONTWIDTH)]`MM.INFO(FONTWIDTH)` und indexterm:[MM.INFO(FONTHEIGHT)]`MM.INFO(FONTHEIGHT)` abgefragt werden.
 
 [source,basic]
 ----
@@ -267,7 +267,7 @@ Dadurch können Texte exakt positioniert werden.
 
 Bisher haben wir `PRINT` verwendet, um Texte an der aktuellen Schreibposition auszugeben. MMBasic bietet jedoch auch die Möglichkeit, die Ausgabe von `PRINT` direkt an einer bestimmten Pixelposition zu beginnen.
 
-Dazu wird hinter `PRINT` die Funktion indexterm:[PRINT,PRINT @()]indexterm:[PRINT @()]`@()` angegeben:
+Dazu wird hinter `PRINT` die Funktion indexterm:[PRINT @()]`@()` angegeben:
 
 [source,basic]
 ----

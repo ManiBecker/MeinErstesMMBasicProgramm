@@ -83,7 +83,7 @@ Ein eigenständiger Befehl `TONE` ist nicht vorhanden.
 
 === Der `PLAY TONE`-Befehl
 
-Zum Erzeugen von Tönen stellt MMBasic den indexterm:[PLAY-Befehlsfamilie,PLAY TONE]indexterm:[PLAY TONE]Befehl `PLAY TONE` zur Verfügung.
+Zum Erzeugen von Tönen stellt MMBasic den indexterm:[PLAY TONE]Befehl `PLAY TONE` zur Verfügung.
 
 Der allgemeine Aufbau lautet:
 
