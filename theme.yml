@@ -1,0 +1,68 @@
+# =============================================================================
+# theme.yml
+# Standard-PDF-Theme fuer "Mein erstes MMBasic Programm"
+#
+# Ziel:
+#   - normale PDF-Ausgabe (Bildschirm / Download)
+#   - Standard-Seitenformat von Asciidoctor PDF beibehalten
+#   - schwarze Schrift statt der grauen Standard-Schriftfarbe
+#
+# Das Theme erweitert das normale Asciidoctor-PDF-Theme. Alle nicht explizit
+# geaenderten Einstellungen werden vom Standard-Theme uebernommen.
+#
+# Beispiel:
+#   asciidoctor-pdf -a pdf-theme=theme.yml -o book.pdf book.adoc
+# =============================================================================
+
+extends: default
+
+# -----------------------------------------------------------------------------
+# Grundschrift / Fliesstext
+# -----------------------------------------------------------------------------
+base:
+  # Das Asciidoctor-Standardtheme verwendet fuer normalen Text ein dunkles Grau.
+  # Fuer das Buch verwenden wir bewusst echtes Schwarz.
+  font-color: 000000
+
+# -----------------------------------------------------------------------------
+# Ueberschriften
+# -----------------------------------------------------------------------------
+heading:
+  font-color: 000000
+
+# -----------------------------------------------------------------------------
+# Links
+# -----------------------------------------------------------------------------
+# Die Linkfarbe des Standardthemes bleibt absichtlich erhalten. Dadurch sind
+# Hyperlinks in der Bildschirm-PDF weiterhin gut als Links erkennbar.
+
+# -----------------------------------------------------------------------------
+# Inline-Code
+# -----------------------------------------------------------------------------
+codespan:
+  font-color: 000000
+
+# -----------------------------------------------------------------------------
+# Code- und Listing-Bloecke
+# -----------------------------------------------------------------------------
+code:
+  font-color: 000000
+
+# -----------------------------------------------------------------------------
+# Tabellen
+# -----------------------------------------------------------------------------
+table:
+  head:
+    font-color: 000000
+
+# -----------------------------------------------------------------------------
+# Hinweisboxen (NOTE, TIP, IMPORTANT, WARNING, CAUTION)
+# -----------------------------------------------------------------------------
+admonition:
+  font-color: 000000
+
+# -----------------------------------------------------------------------------
+# Bildunterschriften und Tabellenbeschriftungen
+# -----------------------------------------------------------------------------
+caption:
+  font-color: 000000 
