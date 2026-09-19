@@ -32,7 +32,7 @@ Den Editor startest du mit dem Befehl:
 
 [source,basic]
 ----
-indexterm:[EDIT]EDIT
+indexterm:[EDIT] EDIT
 ----
 
 Nun kannst du dein Programm Zeile für Zeile eingeben.
@@ -45,7 +45,7 @@ Falls sich bereits ein anderes Programm im Speicher befindet, kannst du es vorhe
 
 [source,basic]
 ----
-indexterm:[NEW]NEW
+indexterm:[NEW] NEW
 ----
 
 löschen.
@@ -69,7 +69,7 @@ Ein im Speicher befindliches Programm wird mit dem Befehl
 
 [source,basic]
 ----
-indexterm:[RUN]RUN
+indexterm:[RUN] RUN
 ----
 
 gestartet.
@@ -94,7 +94,7 @@ Zum Beispiel:
 * Ist eine Datei vorhanden?
 * Hat der Benutzer die richtige Antwort eingegeben?
 
-Für solche Entscheidungen gibt es den indexterm:[IF]`IF`-Befehl.
+Für solche Entscheidungen gibt es den indexterm:[IF] `IF`-Befehl.
 
 === Unsere erste Entscheidung
 
@@ -134,7 +134,7 @@ Das Programm kann dadurch unterschiedliche Wege einschlagen.
 
 === ELSE - der andere Fall
 
-Mit indexterm:[ELSE]`ELSE` kann festgelegt werden, was passieren soll, wenn die Bedingung nicht erfüllt ist.
+Mit indexterm:[ELSE] `ELSE` kann festgelegt werden, was passieren soll, wenn die Bedingung nicht erfüllt ist.
 
 [source,basic]
 ----
@@ -156,7 +156,7 @@ A ist nicht 10.
 
 === Vergleichsoperatoren
 
-Für Bedingungen werden indexterm:[Vergleichsoperatoren]Vergleichsoperatoren verwendet.
+Für Bedingungen werden indexterm:[Vergleichsoperatoren] Vergleichsoperatoren verwendet.
 
 [cols="1,3",options="header"]
 |===
@@ -241,7 +241,7 @@ Das funktioniert zwar, ist bei vielen Möglichkeiten jedoch etwas umständlich.
 
 === ELSEIF verwenden
 
-Mehrere Möglichkeiten lassen sich deutlich übersichtlicher mit indexterm:[ELSEIF]`ELSEIF` formulieren.
+Mehrere Möglichkeiten lassen sich deutlich übersichtlicher mit indexterm:[ELSEIF] `ELSEIF` formulieren.
 
 [source,basic]
 ----
@@ -290,7 +290,7 @@ IF ALTER >= 18 THEN
 ENDIF
 ----
 
-Solche indexterm:[Verschachtelte Entscheidungen]verschachtelten Entscheidungen kommen in größeren Programmen häufig vor.
+Solche indexterm:[Verschachtelte Entscheidungen] verschachtelten Entscheidungen kommen in größeren Programmen häufig vor.
 
 === Häufige Fehler
 

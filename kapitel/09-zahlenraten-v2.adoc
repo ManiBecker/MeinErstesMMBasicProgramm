@@ -37,7 +37,7 @@ Zusätzlich erhält er hilfreiche Hinweise:
 
 === Eine neue Schleife
 
-Für solche Aufgaben eignet sich die indexterm:[DO]indexterm:[LOOP]Schleife `DO ... LOOP`.
+Für solche Aufgaben eignet sich die indexterm:[DO]indexterm:[LOOP] Schleife `DO ... LOOP`.
 
 [source,basic]
 ----
@@ -50,11 +50,11 @@ LOOP
 
 Vorsicht!
 
-Dieses Programm läuft als indexterm:[Endlosschleife]Endlosschleife und kann nur mit CTRL+C beendet werden.
+Dieses Programm läuft als indexterm:[Endlosschleife] Endlosschleife und kann nur mit CTRL+C beendet werden.
 
 === Die Schleife beenden
 
-Eine Schleife kann mit einer Bedingung beendet werden. Mit indexterm:[UNTIL]`UNTIL` wird die Schleife beendet, sobald die Bedingung erfüllt ist.
+Eine Schleife kann mit einer Bedingung beendet werden. Mit indexterm:[UNTIL] `UNTIL` wird die Schleife beendet, sobald die Bedingung erfüllt ist.
 
 [source,basic]
 ----

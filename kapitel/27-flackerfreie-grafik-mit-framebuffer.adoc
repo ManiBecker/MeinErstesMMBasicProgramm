@@ -44,7 +44,7 @@ Jeder Strich ist sofort sichtbar.
 
 Der Betrachter sieht jeden einzelnen Arbeitsschritt.
 
-Mit einem Framebuffer verwendest du zunächst ein zweites Blatt Papier. Dieses Verfahren ermöglicht indexterm:[Framebuffer,Flackerfreie Grafik]indexterm:[Flackerfreie Grafik]flackerfreie Grafik.
+Mit einem Framebuffer verwendest du zunächst ein zweites Blatt Papier. Dieses Verfahren ermöglicht indexterm:[Framebuffer,Flackerfreie Grafik]indexterm:[Flackerfreie Grafik] flackerfreie Grafik.
 
 Auf diesem Blatt wird das komplette Bild aufgebaut.
 
@@ -71,7 +71,7 @@ Mit einem Framebuffer können dieselben Befehle stattdessen auf eine unsichtbare
 
 === Einen Framebuffer erzeugen
 
-Zuerst wird ein Framebuffer mit indexterm:[FRAMEBUFFER CREATE]`FRAMEBUFFER CREATE` angelegt.
+Zuerst wird ein Framebuffer mit indexterm:[FRAMEBUFFER CREATE] `FRAMEBUFFER CREATE` angelegt.
 
 [source,basic]
 ----
@@ -82,7 +82,7 @@ Der PicoMite reserviert nun Speicher für eine zusätzliche Bildfläche.
 
 === In den Framebuffer zeichnen
 
-Mit indexterm:[FRAMEBUFFER WRITE]`FRAMEBUFFER WRITE` werden alle Grafikbefehle in den gewünschten Ausgabepuffer umgeleitet.
+Mit indexterm:[FRAMEBUFFER WRITE] `FRAMEBUFFER WRITE` werden alle Grafikbefehle in den gewünschten Ausgabepuffer umgeleitet.
 
 [source,basic]
 ----
@@ -138,7 +138,7 @@ Der Inhalt wurde noch nicht auf den Bildschirm übertragen.
 
 === Das Bild anzeigen
 
-Mit indexterm:[FRAMEBUFFER COPY]`FRAMEBUFFER COPY` wird der Inhalt des Framebuffers auf den Bildschirm kopiert.
+Mit indexterm:[FRAMEBUFFER COPY] `FRAMEBUFFER COPY` wird der Inhalt des Framebuffers auf den Bildschirm kopiert.
 
 [source,basic]
 ----
@@ -307,7 +307,7 @@ Anschließend erscheint das fertige Bild auf dem Bildschirm.
 
 === Den Framebuffer wieder freigeben
 
-Wird der Framebuffer nicht mehr benötigt, sollte der Speicher mit indexterm:[FRAMEBUFFER CLOSE]`FRAMEBUFFER CLOSE` freigegeben werden.
+Wird der Framebuffer nicht mehr benötigt, sollte der Speicher mit indexterm:[FRAMEBUFFER CLOSE] `FRAMEBUFFER CLOSE` freigegeben werden.
 
 [source,basic]
 ----
@@ -347,7 +347,7 @@ Typische Anwendungen sind:
 
 === Ausblick: Layerbuffer
 
-PicoMite HDMI und VGA unterstützen zusätzlich sogenannte indexterm:[Grafik,Layerbuffer]indexterm:[Layerbuffer]Layerbuffer.
+PicoMite HDMI und VGA unterstützen zusätzlich sogenannte indexterm:[Grafik,Layerbuffer]indexterm:[Layerbuffer] Layerbuffer.
 
 Dabei können bewegliche Objekte auf einer separaten Ebene dargestellt werden.
 

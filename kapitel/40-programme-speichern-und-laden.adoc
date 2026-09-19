@@ -31,7 +31,7 @@ genauer kennenzulernen.
 
 === Wo speichert der PicoMite Programme?
 
-Beim PicoMite begegnen dir mehrere indexterm:[Speicherbereiche]Speicherbereiche. Sie erfüllen unterschiedliche
+Beim PicoMite begegnen dir mehrere indexterm:[Speicherbereiche] Speicherbereiche. Sie erfüllen unterschiedliche
 Aufgaben und sollten nicht miteinander verwechselt werden.
 
 [cols="2,3,2,3",options="header"]
@@ -61,7 +61,7 @@ Aufgaben und sollten nicht miteinander verwechselt werden.
 
 ==== Der Programmspeicher
 
-Das aktuell bearbeitete BASIC-Programm liegt im indexterm:[Programmspeicher]**Programmspeicher** des PicoMite.
+Das aktuell bearbeitete BASIC-Programm liegt im indexterm:[Programmspeicher] **Programmspeicher** des PicoMite.
 Dieser befindet sich im Flash-Speicher und ist deshalb nichtflüchtig. Das Programm
 bleibt also auch erhalten, wenn du den PicoMite ausschaltest oder zurücksetzt.
 
@@ -86,7 +86,7 @@ Befehl erzeugt zusätzlich eine Programmdatei im Dateisystem.
 
 ==== Das Flash-Dateisystem A:
 
-Zusätzlich zum Programmspeicher besitzt der PicoMite ein eigenes indexterm:[Dateisystem,Flash-Dateisystem]indexterm:[Flash-Dateisystem]Flash-Dateisystem.
+Zusätzlich zum Programmspeicher besitzt der PicoMite ein eigenes indexterm:[Dateisystem,Flash-Dateisystem]indexterm:[Flash-Dateisystem] Flash-Dateisystem.
 Es wird als Laufwerk `A:` angesprochen und verhält sich ähnlich wie ein kleines
 Laufwerk auf einem Computer. Hier kannst du viele Programme und andere Dateien
 ablegen.
@@ -125,7 +125,7 @@ lassen.
 
 ==== Die SD-Karte B:
 
-Wenn dein PicoMite eine konfigurierte indexterm:[Dateisystem,SD-Karte]indexterm:[SD-Karte]SD-Karte besitzt, wird sie als Laufwerk
+Wenn dein PicoMite eine konfigurierte indexterm:[Dateisystem,SD-Karte]indexterm:[SD-Karte] SD-Karte besitzt, wird sie als Laufwerk
 `B:` angesprochen. Ein Programm kannst du beispielsweise direkt dort speichern:
 
 [source,basic]
@@ -133,7 +133,7 @@ Wenn dein PicoMite eine konfigurierte indexterm:[Dateisystem,SD-Karte]indexterm:
 SAVE "B:/HANGMAN.BAS"
 ----
 
-Mit indexterm:[Dateiverwaltung,DRIVE]indexterm:[DRIVE]`DRIVE` lässt sich auch das aktive Laufwerk wechseln:
+Mit indexterm:[Dateiverwaltung,DRIVE]indexterm:[DRIVE] `DRIVE` lässt sich auch das aktive Laufwerk wechseln:
 
 [source,basic]
 ----
@@ -218,10 +218,10 @@ So kannst du ein vorhandenes Programm bequem weiterbearbeiten.
 === Zusätzliche Programme in Flash-Slots
 
 Neben dem normalen Programmspeicher und den Dateisystemen besitzt der PicoMite
-indexterm:[Flash-Slots]drei zusätzliche Flash-Slots. Dort kannst du beispielsweise andere Programme
+indexterm:[Flash-Slots] drei zusätzliche Flash-Slots. Dort kannst du beispielsweise andere Programme
 oder frühere Versionen deines aktuellen Programms ablegen.
 
-Die wichtigsten Befehle sind indexterm:[FLASH SAVE]`FLASH SAVE`, indexterm:[FLASH LOAD]`FLASH LOAD`, indexterm:[FLASH RUN]`FLASH RUN`, indexterm:[FLASH LIST]`FLASH LIST` und indexterm:[FLASH ERASE]`FLASH ERASE`:
+Die wichtigsten Befehle sind indexterm:[FLASH SAVE] `FLASH SAVE`, indexterm:[FLASH SAVE] `FLASH LOAD`, indexterm:[FLASH SAVE] `FLASH RUN`, indexterm:[FLASH SAVE] `FLASH LIST` und indexterm:[FLASH SAVE] `FLASH ERASE`:
 
 [source,basic]
 ----
@@ -312,7 +312,7 @@ Du könntest diese Routinen in jedes neue Programm kopieren. Das wird jedoch
 schnell unübersichtlich. Außerdem müsstest du Fehlerkorrekturen anschließend
 in allen Kopien nachtragen.
 
-MMBasic bietet dafür eine indexterm:[Library]Library. Darin gespeicherte Routinen stehen allen
+MMBasic bietet dafür eine indexterm:[Library] Library. Darin gespeicherte Routinen stehen allen
 Programmen zur Verfügung und können wie eingebaute Befehle oder Funktionen
 verwendet werden.
 
@@ -358,7 +358,7 @@ normale BASIC-Datei:
 SAVE "MEINELIB.BAS"
 ----
 
-Danach überträgst du den Inhalt des Programmspeichers mit indexterm:[LIBRARY SAVE]`LIBRARY SAVE` in die Library.
+Danach überträgst du den Inhalt des Programmspeichers mit indexterm:[LIBRARY SAVE] `LIBRARY SAVE` in die Library.
 
 [source,basic]
 ----
@@ -429,7 +429,7 @@ Quelltext aufbewahren.
 
 ==== Inhalt der Library anzeigen
 
-Mit indexterm:[LIBRARY LIST]`LIBRARY LIST`:
+Mit indexterm:[LIBRARY LIST] `LIBRARY LIST`:
 
 [source,basic]
 ----
@@ -450,14 +450,14 @@ aktuell geladene Hauptprogramm.
 
 ==== Library sichern und wiederherstellen
 
-Die gesamte Library kann mit indexterm:[LIBRARY DISK SAVE]`LIBRARY DISK SAVE` als Datei gesichert werden:
+Die gesamte Library kann mit indexterm:[LIBRARY DISK SAVE] `LIBRARY DISK SAVE` als Datei gesichert werden:
 
 [source,basic]
 ----
 LIBRARY DISK SAVE "MEINELIB.LIB"
 ----
 
-Mit indexterm:[LIBRARY DISK LOAD]`LIBRARY DISK LOAD`:
+Mit indexterm:[LIBRARY DISK LOAD] `LIBRARY DISK LOAD`:
 
 [source,basic]
 ----
@@ -472,7 +472,7 @@ möchtest.
 
 ==== Library löschen
 
-Mit indexterm:[LIBRARY DELETE]`LIBRARY DELETE`:
+Mit indexterm:[LIBRARY DELETE] `LIBRARY DELETE`:
 
 [source,basic]
 ----
@@ -538,7 +538,7 @@ beim Einschalten oder Zurücksetzen des PicoMite ausgeführt wird.
 
 MMBasic kennt einige besondere Namen für Unterprogramme.
 
-indexterm:[Systemroutinen,MM.STARTUP]indexterm:[MM.STARTUP]`MM.STARTUP`::
+indexterm:[Systemroutinen,MM.STARTUP]indexterm:[MM.STARTUP] `MM.STARTUP`::
 Wird einmal nach dem Einschalten oder einem Reset ausgeführt. Damit kann
 beispielsweise eine angeschlossene Echtzeituhr eingelesen werden.
 
@@ -561,7 +561,7 @@ normalen Initialisierungsteil des Hauptprogramms oder in den automatisch vor
 `RUN` ausgeführten Library-Code.
 ====
 
-indexterm:[Systemroutinen,MM.PROMPT]indexterm:[MM.PROMPT]`MM.PROMPT`::
+indexterm:[Systemroutinen,MM.PROMPT]indexterm:[MM.PROMPT] `MM.PROMPT`::
 Wird anstelle der normalen Eingabeaufforderung ausgeführt. Damit lässt sich
 beispielsweise eine eigene Eingabeaufforderung anzeigen.
 
@@ -572,7 +572,7 @@ SUB MM.PROMPT
 END SUB
 ----
 
-indexterm:[Systemroutinen,MM.END]indexterm:[MM.END]`MM.END`::
+indexterm:[Systemroutinen,MM.END]indexterm:[MM.END] `MM.END`::
 Wird ausgeführt, wenn ein Programm durch `END` oder durch das Erreichen des
 Programmendes beendet wird.
 

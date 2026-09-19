@@ -224,6 +224,8 @@ ifndef::kdp[]
 = Anhang
 
 include::anhang/anhang-a-mmbasic-befehlsreferenz.adoc[]
+
+include::anhang/anhang-a-mmbasic-funktionsreferenz.adoc[]
 endif::[]
 
 [index]

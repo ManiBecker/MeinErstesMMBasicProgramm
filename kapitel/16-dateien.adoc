@@ -26,7 +26,7 @@ Nach dem nächsten Programmstart ist dieses Ergebnis vergessen.
 
 Es wäre viel besser, wenn wir die Ergebnisse dauerhaft speichern könnten.
 
-Genau dafür gibt es indexterm:[Dateien]Dateien.
+Genau dafür gibt es indexterm:[Dateien] Dateien.
 
 === Was ist eine Datei?
 
@@ -46,7 +46,7 @@ Auch unsere BASIC-Programme können Dateien lesen und schreiben.
 
 Bevor eine Datei verwendet werden kann, muss sie geöffnet werden.
 
-Dies geschieht mit dem Befehl indexterm:[Dateibefehle,OPEN]indexterm:[OPEN]`OPEN`.
+Dies geschieht mit dem Befehl indexterm:[Dateibefehle,OPEN]indexterm:[OPEN] `OPEN`.
 
 [source,basic]
 ----
@@ -62,7 +62,7 @@ Dabei bedeutet:
 |test.txt
 |Dateiname
 
-|indexterm:[Dateimodi,OUTPUT]indexterm:[OUTPUT]OUTPUT
+|indexterm:[Dateimodi,OUTPUT]indexterm:[OUTPUT] OUTPUT
 |Datei zum Schreiben öffnen
 
 |#1
@@ -73,7 +73,7 @@ Die Dateinummer wird später verwendet, um auf die geöffnete Datei zuzugreifen.
 
 === Eine Datei schreiben
 
-Mit indexterm:[Dateibefehle,PRINT #]indexterm:[PRINT #]`PRINT #` können Daten in eine Datei geschrieben werden.
+Mit indexterm:[Dateibefehle,PRINT #]indexterm:[PRINT #] `PRINT #` können Daten in eine Datei geschrieben werden.
 
 [source,basic]
 ----
@@ -93,7 +93,7 @@ Hallo Welt
 
 === Dateien immer schließen
 
-Nach der Arbeit mit einer Datei sollte diese mit indexterm:[Dateibefehle,CLOSE]indexterm:[CLOSE]`CLOSE` geschlossen werden.
+Nach der Arbeit mit einer Datei sollte diese mit indexterm:[Dateibefehle,CLOSE]indexterm:[CLOSE] `CLOSE` geschlossen werden.
 
 [source,basic]
 ----
@@ -104,7 +104,7 @@ Dadurch werden alle Daten sicher gespeichert.
 
 === Eine Datei lesen
 
-Zum Lesen wird die Datei im Modus indexterm:[Dateimodi,INPUT]indexterm:[INPUT (Dateimodus)]`INPUT` geöffnet.
+Zum Lesen wird die Datei im Modus indexterm:[Dateimodi,INPUT]indexterm:[INPUT (Dateimodus)] `INPUT` geöffnet.
 
 [source,basic]
 ----
@@ -126,7 +126,7 @@ Hallo Welt
 
 === LINE INPUT
 
-indexterm:[Dateibefehle,LINE INPUT #]indexterm:[LINE INPUT #]`LINE INPUT #` liest eine komplette Zeile aus einer Datei.
+indexterm:[Dateibefehle,LINE INPUT #]indexterm:[LINE INPUT #] `LINE INPUT #` liest eine komplette Zeile aus einer Datei.
 
 [source,basic]
 ----
@@ -163,7 +163,7 @@ Peter
 
 Normalerweise überschreibt OUTPUT eine vorhandene Datei.
 
-Soll der Inhalt erhalten bleiben, verwendet man indexterm:[Dateimodi,APPEND]indexterm:[APPEND]`APPEND`.
+Soll der Inhalt erhalten bleiben, verwendet man indexterm:[Dateimodi,APPEND]indexterm:[APPEND] `APPEND`.
 
 [source,basic]
 ----
@@ -196,7 +196,7 @@ Vorhandene Daten bleiben erhalten.
 
 === Mit WRITE speichern
 
-Neben `PRINT #` gibt es auch den Befehl indexterm:[Dateibefehle,WRITE #]indexterm:[WRITE #]`WRITE #`.
+Neben `PRINT #` gibt es auch den Befehl indexterm:[Dateibefehle,WRITE #]indexterm:[WRITE #] `WRITE #`.
 
 [source,basic]
 ----
@@ -237,7 +237,7 @@ PRINT "Highscore gespeichert."
 
 === Einen Highscore laden
 
-Mit indexterm:[Dateibefehle,READ #]indexterm:[READ #]`READ #` werden die zuvor mit `WRITE #` gespeicherten Werte wieder eingelesen.
+Mit indexterm:[Dateibefehle,READ #]indexterm:[READ #] `READ #` werden die zuvor mit `WRITE #` gespeicherten Werte wieder eingelesen.
 
 [source,basic]
 ----
@@ -279,7 +279,7 @@ OPEN "mein_erster_highscore.txt" FOR OUTPUT AS #1
 
 === Wichtige Betriebsarten
 
-MMBasic kennt verschiedene indexterm:[Dateimodi]Betriebsarten beim Öffnen einer Datei.
+MMBasic kennt verschiedene indexterm:[Dateimodi] Betriebsarten beim Öffnen einer Datei.
 
 [cols="1,3"]
 |===
@@ -294,7 +294,7 @@ MMBasic kennt verschiedene indexterm:[Dateimodi]Betriebsarten beim Öffnen einer
 |APPEND
 |Daten an bestehende Datei anhängen
 
-|indexterm:[Dateimodi,RANDOM]indexterm:[RANDOM]RANDOM
+|indexterm:[Dateimodi,RANDOM]indexterm:[RANDOM] RANDOM
 |Datei lesen und schreiben mit direktem Zugriff
 |===
 

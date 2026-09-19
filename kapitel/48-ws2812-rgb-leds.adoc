@@ -4,11 +4,11 @@ image::bilder/48_rgb_leds.jpg[align=center]
 
 === Das lernst du
 
-indexterm:[WS2812]indexterm:[LED,WS2812]WS2812-LEDs verbinden eine RGB-LED mit einem kleinen integrierten Controller.
+indexterm:[WS2812]indexterm:[LED,WS2812] WS2812-LEDs verbinden eine RGB-LED mit einem kleinen integrierten Controller.
 Dadurch lassen sich viele LEDs hintereinander schalten und trotzdem über nur
 eine einzige Datenleitung ansteuern.
 
-Der PicoMite unterstützt diese LEDs direkt mit dem indexterm:[WS2812 (Befehl)]Befehl `WS2812`.
+Der PicoMite unterstützt diese LEDs direkt mit dem indexterm:[WS2812 (Befehl)] Befehl `WS2812`.
 Die zeitkritische Erzeugung des Datensignals übernimmt dabei die Firmware.
 
 In diesem Kapitel lernst du:
@@ -32,7 +32,7 @@ Eine WS2812 ist mehr als eine gewöhnliche Leuchtdiode. In ihrem Gehäuse befind
 Jede LED übernimmt aus dem eintreffenden Datenstrom die für sie bestimmten
 Farbinformationen. Die restlichen Daten gibt sie an die nächste LED weiter.
 
-Eine indexterm:[WS2812,LED-Kette]indexterm:[LED-Kette]Kette sieht vereinfacht so aus:
+Eine indexterm:[WS2812,LED-Kette]indexterm:[LED-Kette] Kette sieht vereinfacht so aus:
 
 [source]
 ----
@@ -189,13 +189,13 @@ Mit dem ersten Parameter des `WS2812`-Befehls wird der LED-Typ angegeben:
 |`O`
 |ursprünglicher WS2812
 
-|indexterm:[LED,WS2812B]`B`
+|indexterm:[LED,WS2812B] `B`
 |WS2812B
 
-|indexterm:[LED,SK6812]`S`
+|indexterm:[LED,SK6812] `S`
 |SK6812
 
-|indexterm:[LED,SK6812W]`W`
+|indexterm:[LED,SK6812W] `W`
 |SK6812W mit zusätzlichem Weißkanal (RGBW)
 |===
 
@@ -211,7 +211,7 @@ In den folgenden Beispielen verwenden wir deshalb den Typ `B`.
 === Farben mit `RGB()`
 
 Für WS2812, WS2812B und SK6812 erwartet MMBasic die Farben im normalen
-indexterm:[Farben,RGB888]indexterm:[RGB888]RGB888-Format. Jeder der drei Farbkanäle besitzt einen Wert von 0 bis 255.
+indexterm:[Farben,RGB888]indexterm:[RGB888] RGB888-Format. Jeder der drei Farbkanäle besitzt einen Wert von 0 bis 255.
 
 [cols="1,1"]
 |===
@@ -449,7 +449,7 @@ Das Grundprinzip für Animationen lautet immer:
 
 Abrupte Farbwechsel sind nicht immer gewünscht. Werden die RGB-Werte
 schrittweise verändert, entsteht ein weicher Übergang, ein sogenannter
-indexterm:[LED,Fade]indexterm:[Fade]_Fade_.
+indexterm:[LED,Fade]indexterm:[Fade] _Fade_.
 
 Eine einzelne LED kann zum Beispiel langsam heller rot werden:
 

@@ -30,9 +30,9 @@ In den letzten Kapiteln haben wir viele wichtige Techniken kennengelernt:
 
 Bisher wurden diese Techniken meist einzeln betrachtet.
 
-Nun wollen wir sie in einem indexterm:[Hardware-Projekt]größeren Hardware-Projekt kombinieren.
+Nun wollen wir sie in einem indexterm:[Hardware-Projekt] größeren Hardware-Projekt kombinieren.
 
-Dazu bauen wir ein indexterm:[Spieleprogrammierung,Gedächtnisspiel]indexterm:[Gedächtnisspiel]elektronisches Gedächtnisspiel nach dem Vorbild von Simon beziehungsweise Senso.
+Dazu bauen wir ein indexterm:[Spieleprogrammierung,Gedächtnisspiel]indexterm:[Gedächtnisspiel] elektronisches Gedächtnisspiel nach dem Vorbild von Simon beziehungsweise Senso.
 
 === Das Vorbild
 
@@ -379,7 +379,7 @@ auch ohne angeschlossene Taster ausprobiert werden kann.
 === Die Funktion HoleTaste
 
 Die Funktion wartet so lange, bis ein Taster oder die entsprechende
-Zifferntaste gedrückt wird. Nach einer erkannten Eingabe beendet indexterm:[EXIT FUNCTION]`EXIT FUNCTION` die Funktion sofort.
+Zifferntaste gedrückt wird. Nach einer erkannten Eingabe beendet indexterm:[EXIT FUNCTION] `EXIT FUNCTION` die Funktion sofort.
 
 [source,basic]
 ----
@@ -425,9 +425,9 @@ END FUNCTION
 
 Nach einem erkannten Tastendruck wartet das Programm, bis der Hardware-Taster
 wieder losgelassen beziehungsweise keine Taste auf der Tastatur mehr gedrückt
-wird. Dadurch wird ein indexterm:[Taster,Tastendruck auswerten]indexterm:[Tastendruck auswerten]Tastendruck nicht mehrfach gewertet.
+wird. Dadurch wird ein indexterm:[Taster,Tastendruck auswerten]indexterm:[Tastendruck auswerten] Tastendruck nicht mehrfach gewertet.
 
-indexterm:[Tastatur,KEYDOWN()]indexterm:[KEYDOWN()]`KEYDOWN(0)` liefert dabei die Anzahl der momentan gedrückten Tasten. Solange
+indexterm:[Tastatur,KEYDOWN()]indexterm:[KEYDOWN()] `KEYDOWN(0)` liefert dabei die Anzahl der momentan gedrückten Tasten. Solange
 dieser Wert größer als 0 ist, wartet die Schleife weiter.
 
 Nach der Eingabe ruft `HoleTaste()` außerdem `ZeigeFarbe` auf. Dadurch erhält
@@ -452,7 +452,7 @@ FOR I=1 TO LEVEL
 NEXT I
 ----
 
-Hier findet die indexterm:[Spieleprogrammierung,Eingabefolge prüfen]indexterm:[Eingabefolge prüfen]eigentliche Spielprüfung statt.
+Hier findet die indexterm:[Spieleprogrammierung,Eingabefolge prüfen]indexterm:[Eingabefolge prüfen] eigentliche Spielprüfung statt.
 
 === Was passiert bei einem Fehler?
 

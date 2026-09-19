@@ -26,7 +26,7 @@ können einzelne Funktionen oder Tastenbelegungen abweichen.
 
 === Programmieren direkt auf dem PicoMite
 
-Beim PicoMite stehen BASIC-Interpreter und indexterm:[Editor,Vollbild-Editor]indexterm:[Vollbild-Editor]Vollbild-Editor unmittelbar auf dem
+Beim PicoMite stehen BASIC-Interpreter und indexterm:[Editor,Vollbild-Editor]indexterm:[Vollbild-Editor] Vollbild-Editor unmittelbar auf dem
 Zielsystem zur Verfügung. Für kleine Programme, Experimente oder Änderungen
 wird deshalb kein zusätzlicher PC benötigt.
 
@@ -40,7 +40,7 @@ und kannst sofort mit dem Programmieren beginnen.
 
 === Den Editor starten
 
-Mit indexterm:[Editor,EDIT]indexterm:[EDIT]`EDIT`:
+Mit indexterm:[Editor,EDIT]indexterm:[EDIT] `EDIT`:
 
 [source,basic]
 ----
@@ -181,7 +181,7 @@ Programm weiter ändern
 
 ==== EDIT mit Dateinamen
 
-Mit indexterm:[Editor,EDIT mit Dateinamen]indexterm:[EDIT mit Dateinamen]:
+Mit indexterm:[Editor,EDIT mit Dateinamen]indexterm:[EDIT mit Dateinamen] :
 
 [source,basic]
 ----
@@ -290,7 +290,7 @@ zum Programmende.
 
 === Text suchen
 
-indexterm:[Editor,Suchen]Mit `F3` wird die Suchfunktion gestartet. In der unteren Zeile erscheint:
+indexterm:[Editor,Suchen] Mit `F3` wird die Suchfunktion gestartet. In der unteren Zeile erscheint:
 
 [source]
 ----
@@ -304,7 +304,7 @@ Nach der letzten Fundstelle beginnt die Suche wieder bei der ersten.
 
 === Suchen und Ersetzen
 
-indexterm:[Editor,Suchen und Ersetzen]Suchen und Ersetzen baut auf der normalen Suche auf.
+indexterm:[Editor,Suchen und Ersetzen] Suchen und Ersetzen baut auf der normalen Suche auf.
 
 Zuerst suchst du mit `F3` nach dem gewünschten Text. Steht der Cursor auf
 einer Fundstelle, kannst du mit `F7` den Ersatzvorgang starten:
@@ -332,7 +332,7 @@ NOTHING TO REPLACE
 
 === Text markieren, kopieren und ausschneiden
 
-indexterm:[Editor,Markiermodus]indexterm:[Markiermodus]Mit `F4` wird der Markiermodus aktiviert. Die Statuszeile zeigt dann:
+indexterm:[Editor,Markiermodus]indexterm:[Markiermodus] Mit `F4` wird der Markiermodus aktiviert. Die Statuszeile zeigt dann:
 
 [source]
 ----
@@ -379,7 +379,7 @@ CLIPBOARD IS EMPTY
 
 === Datei importieren
 
-indexterm:[Editor,Dateiimport]Mit `F9` erscheint die Eingabeaufforderung:
+indexterm:[Editor,Dateiimport] Mit `F9` erscheint die Eingabeaufforderung:
 
 [source]
 ----
@@ -404,7 +404,7 @@ IMPORTED 410 CHARS
 
 === Zwischenablage in eine Datei exportieren
 
-indexterm:[Editor,Dateiexport]Mit `F10` kann der Inhalt der Zwischenablage in einer Datei gespeichert werden.
+indexterm:[Editor,Dateiexport] Mit `F10` kann der Inhalt der Zwischenablage in einer Datei gespeichert werden.
 
 Der Editor fragt nach dem Dateinamen:
 
@@ -422,7 +422,7 @@ CLIPBOARD IS EMPTY
 
 === Programme automatisch formatieren
 
-MMBasic V6.03 besitzt im Editor die indexterm:[Editor,Beautify]indexterm:[Beautify]Funktion *Beautify*. Sie wird mit `F12`
+MMBasic V6.03 besitzt im Editor die indexterm:[Editor,Beautify]indexterm:[Beautify] Funktion *Beautify*. Sie wird mit `F12`
 oder `Ctrl+A` aufgerufen. In der Statuszeile wird `Ctrl+A` als `^A:Btfy`
 angezeigt.
 
@@ -471,7 +471,7 @@ leichter erkennbar.
 
 === Hilfe zu Befehlen und Funktionen
 
-Der PicoMite besitzt mit indexterm:[HELP]indexterm:[Editor,HELP]`HELP` eine praktische Hilfe zu MMBasic-Befehlen und
+Der PicoMite besitzt mit indexterm:[HELP]indexterm:[Editor,HELP] `HELP` eine praktische Hilfe zu MMBasic-Befehlen und
 -Funktionen.
 
 IMPORTANT: Damit `HELP` verwendet werden kann, muss sich eine entsprechend
@@ -529,7 +529,7 @@ Beispiel:
 
 Dadurch wird der Quelltext leichter lesbar.
 
-Die indexterm:[Editor,Farbsyntax]indexterm:[Farbsyntax]Farbsyntax kann mit indexterm:[OPTION COLOURCODE]`OPTION COLOURCODE` ausgeschaltet werden:
+Die indexterm:[Editor,Farbsyntax]indexterm:[Farbsyntax] Farbsyntax kann mit indexterm:[Farbsyntax] `OPTION COLOURCODE` ausgeschaltet werden:
 
 [source,basic]
 ----
@@ -605,7 +605,7 @@ Hier können Programme wie MMEdit oder Visual Studio Code sinnvoll sein.
 Viele PicoMite-Projekte sollen nach dem Einschalten sofort einsatzbereit sein,
 zum Beispiel eine Uhr, ein Spiel oder ein Messgerät.
 
-Mit indexterm:[OPTION AUTORUN]`OPTION AUTORUN`:
+Mit indexterm:[OPTION AUTORUN] `OPTION AUTORUN`:
 
 [source,basic]
 ----

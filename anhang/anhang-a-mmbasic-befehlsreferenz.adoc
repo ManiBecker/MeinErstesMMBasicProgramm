@@ -100,7 +100,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`ADC`
 |`ADC`
-|-
+|xref:_der_analog_digital_wandler[307]
 |X
 |X
 |X
@@ -154,7 +154,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`ARC`
 |`ARC x, y, r1, [r2], a1, a2 [, c]`
-|-
+|xref:_kreisbögen_zeichnen[152]
 |X
 |X
 |X
@@ -286,7 +286,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`BLIT`
 |`BLIT BLIT LOAD[BMP] [#]b, BLIT x1, y1, x2, y2, w, h`
-|-
+|xref:_sprites_und_blit[506]
 |X
 |X
 |X
@@ -367,7 +367,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`BOX`
 |`BOX x, y, w, h [, lw] [,c] [,fill]`
-|-
+|xref:_ein_kleines_grafik_testprogramm[141]
 |X
 |X
 |X
@@ -472,7 +472,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`CHAIN`
 |`CHAIN fname$ [cmdline$]`
-|-
+|xref:_ein_gemeinsames_menü[405]
 |X
 |X
 |X
@@ -481,7 +481,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`CHDIR`
 |`CHDIR dir$`
-|-
+|xref:_verzeichnis_wechseln[395]
 |X
 |X
 |X
@@ -490,7 +490,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`CIRCLE`
 |`CIRCLE x, y, r [,lw] [, a] [,`
-|-
+|xref:_ein_kleines_grafik_testprogramm[140], xref:_ein_kleines_grafik_testprogramm[141]
 |X
 |X
 |X
@@ -508,7 +508,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`CLOSE`
 |`CLOSE [#]fnbr [,[#]fnbr] …`
-|-
+|xref:_dateien_immer_schließen[114]
 |X
 |X
 |X
@@ -517,7 +517,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`CLS`
 |`CLS [colour]`
-|-
+|xref:_der_bildschirmhintergrund[132]
 |X
 |X
 |X
@@ -553,7 +553,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`COLOUR`
 |`COLOUR fore [, back] or`
-|-
+|xref:_vorder_und_hintergrundfarbe[131]
 |X
 |X
 |X
@@ -607,7 +607,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`COPY`
 |`COPY fname1$ TO fname2$ COPY fname$ TO dirname$`
-|-
+|xref:_dateien_kopieren[396]
 |X
 |X
 |X
@@ -658,7 +658,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`DATA`
 |`DATA constant[,constant]..`
-|-
+|xref:_melodien_mit_notennamen[335]
 |X
 |X
 |X
@@ -667,7 +667,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`DATE$`
 |`DATE$ = "DD-MM-YY[YY]" or DATE$ = "DD/MM/YY[YY]" or DATE$ =”YYYY-MM-DD” or DATE$=”YYYY/MM/DD”`
-|-
+|xref:_datum_und_uhrzeit[87]
 |X
 |X
 |X
@@ -766,7 +766,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`DIM`
 |`DIM [type] decl [,decl].. DIM nbr(50) DIM a(5,5,5), b(1000) DIM strn$(200) LENGTH 20 DIM a = 1234, b = 345 …`
-|-
+|xref:_die_lösung_arrays[72]
 |X
 |X
 |X
@@ -793,7 +793,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`DO`
 |`DO`
-|-
+|xref:_eine_neue_schleife[58]
 |X
 |X
 |X
@@ -820,7 +820,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`DRIVE`
 |`DRIVE drive$`
-|-
+|xref:_die_sd_karte_b[380]
 |X
 |X
 |X
@@ -844,7 +844,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`EDIT`
 |`EDIT or EDIT fname$ or`
-|-
+|xref:_den_editor_starten[355]
 |X
 |X
 |X
@@ -862,7 +862,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`ELSE`
 |`ELSE`
-|-
+|xref:_else_der_andere_fall[35]
 |X
 |X
 |X
@@ -880,7 +880,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`ELSEIF`
 |`ELSEIF expression THEN or`
-|-
+|xref:_elseif_verwenden[36]
 |X
 |X
 |X
@@ -916,7 +916,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`END FUNCTION`
 |`END FUNCTION`
-|-
+|xref:_unsere_erste_function[66]
 |X
 |X
 |X
@@ -943,7 +943,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`END SUB`
 |`END SUB`
-|-
+|xref:_unsere_erste_sub[65]
 |X
 |X
 |X
@@ -1006,7 +1006,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`EXIT FUNCTION`
 |`EXIT FUNCTION`
-|-
+|xref:_die_funktion_holetaste[346]
 |X
 |X
 |X
@@ -1039,7 +1039,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`FILES`
 |`FILES [fspec$] [,sort]`
-|-
+|xref:_programme_als_dateien_speichern[51]
 |X
 |X
 |X
@@ -1138,7 +1138,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`FLASH SAVE`
 |`FLASH SAVE n`
-|-
+|xref:_zusätzliche_programme_in_flash_slots[382]
 |X
 |X
 |X
@@ -1156,7 +1156,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`FONT`
 |`FONT [#]font-number, scaling`
-|-
+|xref:_schriftart_auswählen[133]
 |X
 |X
 |X
@@ -1192,7 +1192,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`FRAMEBUFFER CLOSE`
 |`FRAMEBUFFER CLOSE [which]`
-|-
+|xref:_den_framebuffer_wieder_freigeben[226]
 |X
 |X
 |X
@@ -1201,7 +1201,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`FRAMEBUFFER COPY`
 |`FRAMEBUFFER COPY`
-|-
+|xref:_das_bild_anzeigen[223]
 |X
 |X
 |X
@@ -1210,7 +1210,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`FRAMEBUFFER CREATE`
 |`FRAMEBUFFER CREATE FRAMEBUFFER CREATE 2`
-|-
+|xref:_einen_framebuffer_erzeugen[222]
 |X
 |X
 |X
@@ -1219,7 +1219,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`FRAMEBUFFER LAYER`
 |`FRAMEBUFFER LAYER FRAMEBUFFER LAYER [colour]`
-|-
+|xref:_einen_layerbuffer_erzeugen[231]
 |X
 |X
 |X
@@ -1255,7 +1255,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`FRAMEBUFFER WRITE`
 |`FRAMEBUFFER WRITE`
-|-
+|xref:_in_den_framebuffer_zeichnen[222]
 |X
 |X
 |X
@@ -1264,7 +1264,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`FUNCTION`
 |`FUNCTION xxx (arg1 [,arg2, …]) [AS <type>}`
-|-
+|xref:_warum_function[66]
 |X
 |X
 |X
@@ -1297,7 +1297,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`GAMEPAD CONFIGURE`
 |`GAMEPAD CONFIGURE`
-|-
+|xref:_spielcontroller_und_gamepads[493]
 |X
 |X
 |X
@@ -1324,7 +1324,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`GAMEPAD MONITOR`
 |`GAMEPAD MONITOR`
-|-
+|xref:_spielcontroller_und_gamepads[493]
 |X
 |X
 |X
@@ -1411,7 +1411,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`HELP`
 |`HELP searchtext`
-|-
+|xref:_hilfe_zu_befehlen_und_funktionen[361]
 |X
 |X
 |X
@@ -1588,7 +1588,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`IF`
 |`IF expr THEN stmt [: stmt] or IF expr THEN stmt ELSE stmt IF expression THEN [ELSEIF expression THEN [ELSE`
-|-
+|xref:_warum_entscheidungen_wichtig_sind[34]
 |X
 |X
 |X
@@ -1615,7 +1615,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`INPUT`
 |`INPUT ["prompt$";] var1 [,var2 [, var3 [, etc]]] INPUT #nbr,`
-|-
+|xref:_eine_datei_lesen[114], xref:_unsere_erste_eingabe[28]
 |X
 |X
 |X
@@ -1684,7 +1684,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`KILL`
 |`KILL file$ [,all]`
-|-
+|xref:_dateien_löschen[397]
 |X
 |X
 |X
@@ -1762,7 +1762,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`LIBRARY DELETE`
 |`LIBRARY DELETE or`
-|-
+|xref:_library_löschen[386]
 |X
 |X
 |X
@@ -1771,7 +1771,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`LIBRARY DISK LOAD`
 |`LIBRARY DISK LOAD`
-|-
+|xref:_library_sichern_und_wiederherstellen[386]
 |X
 |X
 |X
@@ -1780,7 +1780,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`LIBRARY DISK SAVE`
 |`LIBRARY DISK SAVE or`
-|-
+|xref:_library_sichern_und_wiederherstellen[386]
 |X
 |X
 |X
@@ -1789,7 +1789,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`LIBRARY LIST`
 |`LIBRARY LIST or`
-|-
+|xref:_inhalt_der_library_anzeigen[385]
 |X
 |X
 |X
@@ -1807,7 +1807,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`LIBRARY SAVE`
 |`LIBRARY SAVE or`
-|-
+|xref:_eine_library_routine_erstellen[384]
 |X
 |X
 |X
@@ -1816,7 +1816,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`LINE`
 |`LINE x1, y1, x2, y2 [,[-] LW [, C]]`
-|-
+|xref:_linien_zeichnen[138]
 |X
 |X
 |X
@@ -1852,7 +1852,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`LIST`
 |`LIST [fname$] or`
-|-
+|xref:_inhalt_einer_textdatei_anzeigen[394]
 |X
 |X
 |X
@@ -1924,7 +1924,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`LOAD`
 |`LOAD IMAGE/BMP fname$ [,x] [,y] [,mode] [,ximage] [,yimage]`
-|-
+|xref:_programme_als_dateien_speichern[52]
 |X
 |X
 |X
@@ -2140,7 +2140,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`LOOP`
 |`LOOP LOOP [UNTIL expression]`
-|-
+|xref:_eine_neue_schleife[58]
 |X
 |X
 |X
@@ -2722,7 +2722,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`MKDIR`
 |`MKDIR dir$`
-|-
+|xref:_verzeichnisse_anlegen[394]
 |X
 |X
 |X
@@ -2731,7 +2731,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`MODE`
 |`MODE 1 or MODE 2 MODE 3 (RP2350 only) MODE n MODE 400 or …`
-|-
+|xref:_der_grafikmodus[123]
 |X
 |X
 |X
@@ -2932,7 +2932,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`OPEN`
 |`OPEN fname$ FOR mode AS [#]fnbr OPEN comspec$ AS [#]fnbr OPEN comspec$ AS GPS [,timezone_offset] [,monitor]`
-|-
+|xref:_eine_datei_öffnen[113]
 |X
 |X
 |X
@@ -2941,7 +2941,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`OPTION`
 |`OPTION`
-|-
+|xref:_wichtige_option_befehle[427]
 |X
 |X
 |X
@@ -2965,7 +2965,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`PAUSE`
 |`PAUSE delay`
-|-
+|xref:_das_programm_verstehen[142]
 |X
 |X
 |X
@@ -2974,7 +2974,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`PIN()=`
 |`PIN( pin ) = value`
-|-
+|xref:_einen_ausgang_einschalten[265]
 |X
 |X
 |X
@@ -3145,7 +3145,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`PIXEL`
 |`PIXEL x, y [,c]`
-|-
+|xref:_ein_einzelner_pixel[137]
 |X
 |X
 |X
@@ -3325,7 +3325,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`PLAY SOUND`
 |`PLAY SOUND soundno, [,volume]`
-|-
+|xref:_ein_kurzer_soundeffekt[541]
 |X
 |X
 |X
@@ -3352,7 +3352,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`PLAY TONE`
 |`PLAY TONE left, right [,dur] [,interrupt]`
-|-
+|xref:_der_play_tone_befehl[330]
 |X
 |X
 |X
@@ -3478,7 +3478,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`PRINT`
 |`PRINT expression [[,; ]expression] … etc PRINT #nbr, expression [[,; ]expression] … etc PRINT #GPS, expression [[,; ]expression] … etc PRINT @(x [, y]) expression or PRINT @(x, [y], m)`
-|-
+|xref:_schritt_für_schritt_erklärt[15], xref:_mmbasic_kann_rechnen[17]
 |X
 |X
 |X
@@ -3496,7 +3496,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`PWM`
 |`PWM channel, frequency, [dutyA] [,dutyB][,phase][,defer] PWM channel, OFF`
-|-
+|xref:_was_bedeutet_pwm[319]
 |X
 |X
 |X
@@ -3637,7 +3637,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`RBOX`
 |`RBOX x, y, w, h [, r] [,c] [,fill]`
-|-
+|xref:_abgerundete_rechtecke[150]
 |X
 |X
 |X
@@ -3709,7 +3709,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`RMDIR`
 |`RMDIR dir$`
-|-
+|xref:_verzeichnisse_löschen[398]
 |X
 |X
 |X
@@ -3778,7 +3778,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`SAVE`
 |`SAVE file$`
-|-
+|xref:_programme_als_dateien_speichern[51]
 |X
 |X
 |X
@@ -3832,7 +3832,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`SELECT CASE`
 |`SELECT CASE value`
-|-
+|xref:_select_case[297]
 |X
 |X
 |X
@@ -3850,7 +3850,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`SETPIN`
 |`SETPIN pin, cfg [, option] SETPIN pin, cfg, target [, SETPIN p1[, p2 [, p3]], device SETPIN rx, tx, COM1 SETPIN rx, tx, COM2 …`
-|-
+|xref:_ein_ausgang[265]
 |X
 |X
 |X
@@ -3931,7 +3931,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`SPRITE`
 |`SPRITE`
-|-
+|xref:_sprites_und_blit[506]
 |X
 |X
 |X
@@ -3976,7 +3976,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`SUB`
 |`SUB xxx (arg1 [,arg2, …])`
-|-
+|xref:_unsere_erste_sub[65]
 |X
 |X
 |X
@@ -4045,7 +4045,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`TIME$`
 |`TIME$ = "HH:MM:SS" or TIME$ = "HH:MM" or TIME$ = "HH"`
-|-
+|xref:_datum_und_uhrzeit[87]
 |X
 |X
 |X
@@ -4054,7 +4054,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`TIMER`
 |`TIMER = msec`
-|-
+|xref:_praxisprojekt_reaktionsspiel[290]
 |X
 |X
 |X
@@ -4459,7 +4459,7 @@ Die vollständige Beschreibung der Syntax und aller Parameter findest du im jewe
 
 |`WS2812`
 |`WS2812 type, pin, nbr,`
-|-
+|xref:_ws2812_rgb_leds[480]
 |X
 |X
 |X

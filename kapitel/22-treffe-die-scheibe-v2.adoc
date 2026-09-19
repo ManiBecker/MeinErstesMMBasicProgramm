@@ -22,13 +22,13 @@ Das ist zwar ein guter Anfang, aber noch kein richtiges Spiel.
 
 In dieser Version erhält der Spieler zehn Schüsse.
 
-Nach jedem Schuss werden über ein indexterm:[Spieleprogrammierung,Punktesystem]indexterm:[Punktesystem]Punktesystem Punkte vergeben.
+Nach jedem Schuss werden über ein indexterm:[Spieleprogrammierung,Punktesystem]indexterm:[Punktesystem] Punktesystem Punkte vergeben.
 
 Am Ende wird die Gesamtpunktzahl berechnet.
 
 === Schwierigkeitsstufen
 
-Zu Beginn darf der Spieler den indexterm:[Spieleprogrammierung,Schwierigkeitsstufen]indexterm:[Schwierigkeitsstufen]Schwierigkeitsgrad wählen.
+Zu Beginn darf der Spieler den indexterm:[Spieleprogrammierung,Schwierigkeitsstufen]indexterm:[Schwierigkeitsstufen] Schwierigkeitsgrad wählen.
 
 [source,basic]
 ----
@@ -244,7 +244,7 @@ Der kleinste Abstand entspricht dem besten Treffer.
 
 === Highscores speichern
 
-Mit dem Wissen aus Kapitel 16 speichern wir den indexterm:[Spieleprogrammierung,Highscore]indexterm:[Highscore]Highscore in einer Datei.
+Mit dem Wissen aus Kapitel 16 speichern wir den indexterm:[Spieleprogrammierung,Highscore]indexterm:[Highscore] Highscore in einer Datei.
 
 [source,basic]
 ----

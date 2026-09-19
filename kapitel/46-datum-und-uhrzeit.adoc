@@ -155,7 +155,7 @@ die Uhr auf `14:30:00`.
 
 === Die interne Uhr und die RTC
 
-indexterm:[Echtzeituhr]indexterm:[RTC]RTC steht für:
+indexterm:[Echtzeituhr]indexterm:[RTC] RTC steht für:
 
 [source]
 ----
@@ -164,7 +164,7 @@ Real Time Clock
 
 MMBasic führt intern Datum und Uhrzeit und stellt sie über `DATE$` und `TIME$` zur Verfügung. Ob nach dem Einschalten sofort das richtige Datum und die richtige Uhrzeit vorhanden sind, hängt beim PicoMite jedoch von der RTC-Konfiguration ab.
 
-Mit indexterm:[OPTION RTC AUTO ENABLE]`OPTION RTC AUTO ENABLE`
+Mit indexterm:[OPTION RTC AUTO ENABLE] `OPTION RTC AUTO ENABLE`
 
 [source,basic]
 ----
@@ -222,7 +222,7 @@ Damit lassen sich einfache Zeitmessungen besonders übersichtlich durchführen.
 
 === Zeit messen
 
-indexterm:[Zeitmessung]Mit TIMER können Zeitmessungen durchgeführt werden.
+indexterm:[Zeitmessung] Mit TIMER können Zeitmessungen durchgeführt werden.
 
 [source,basic]
 ----

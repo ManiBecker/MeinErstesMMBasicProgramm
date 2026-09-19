@@ -41,11 +41,11 @@ Es muss einen besseren Weg geben.
 
 === Die Lösung: Arrays
 
-Ein indexterm:[Arrays]Array ist eine Sammlung von Variablen mit demselben Namen.
+Ein indexterm:[Arrays] Array ist eine Sammlung von Variablen mit demselben Namen.
 
-Jedes indexterm:[Array-Elemente]Element besitzt eine Nummer, den sogenannten indexterm:[Array-Index]Index.
+Jedes indexterm:[Array-Elemente] Element besitzt eine Nummer, den sogenannten indexterm:[Array-Elemente] Index.
 
-Bevor ein Array verwendet werden kann, muss es mit indexterm:[DIM]`DIM` angelegt werden.
+Bevor ein Array verwendet werden kann, muss es mit indexterm:[DIM] `DIM` angelegt werden.
 
 [source,basic]
 ----
@@ -223,7 +223,7 @@ Peter
 
 === Textarrays
 
-Natürlich können auch indexterm:[Arrays,Textarrays]indexterm:[Textarrays]Textarrays verwendet werden.
+Natürlich können auch indexterm:[Arrays,Textarrays]indexterm:[Textarrays] Textarrays verwendet werden.
 
 [source,basic]
 ----
@@ -322,7 +322,7 @@ NEXT X
 
 === Mehrdimensionale Arrays
 
-Ein indexterm:[Arrays,Mehrdimensionale Arrays]indexterm:[Mehrdimensionale Arrays]Array kann mehrere Dimensionen besitzen.
+Ein indexterm:[Arrays,Mehrdimensionale Arrays]indexterm:[Mehrdimensionale Arrays] Array kann mehrere Dimensionen besitzen.
 
 Stell dir eine Tabelle mit Zeilen und Spalten vor.
 

@@ -17,7 +17,7 @@ Am Ende des Kapitels kannst du eine einfache Verkehrsampel mit Fußgängeranford
 
 === Warum eine Ampel?
 
-indexterm:[Ampelsteuerung]Ampeln gehören zu den bekanntesten Steuerungssystemen überhaupt.
+indexterm:[Ampelsteuerung] Ampeln gehören zu den bekanntesten Steuerungssystemen überhaupt.
 
 Sie arbeiten nach klaren Regeln:
 
@@ -158,7 +158,7 @@ Wenn wir später weitere Funktionen hinzufügen, wird das schnell unübersichtli
 
 === Eine Ampel hat Zustände
 
-Eine Ampel befindet sich immer in genau einem indexterm:[Zustandssteuerung]indexterm:[Automatisierung,Zustandssteuerung]Zustand.
+Eine Ampel befindet sich immer in genau einem indexterm:[Zustandssteuerung]indexterm:[Automatisierung,Zustandssteuerung] Zustand.
 
 Zum Beispiel:
 
@@ -188,7 +188,7 @@ STATUS=1
 
 === SELECT CASE
 
-Für solche Aufgaben eignet sich indexterm:[SELECT CASE]`SELECT CASE` hervorragend.
+Für solche Aufgaben eignet sich indexterm:[SELECT CASE] `SELECT CASE` hervorragend.
 
 [source,basic]
 ----
@@ -205,7 +205,7 @@ SELECT CASE STATUS
 END SELECT
 ----
 
-Je nach Wert von `STATUS` wird mit indexterm:[CASE]`CASE` ein anderer Programmteil ausgeführt. indexterm:[END SELECT]`END SELECT` beendet die Auswahlstruktur.
+Je nach Wert von `STATUS` wird mit indexterm:[CASE] `CASE` ein anderer Programmteil ausgeführt. indexterm:[CASE] `END SELECT` beendet die Auswahlstruktur.
 
 === Die Ampel mit Zuständen
 
@@ -258,7 +258,7 @@ Viele technische Systeme arbeiten mit Zuständen:
 * Fahrkartenautomaten
 * Alarmanlagen
 
-Dieses Programmierprinzip gehört zu den wichtigsten Techniken der indexterm:[Automatisierung]Automatisierung.
+Dieses Programmierprinzip gehört zu den wichtigsten Techniken der indexterm:[Automatisierung] Automatisierung.
 
 === Die Fußgängerampel
 
@@ -319,7 +319,7 @@ So bleibt der Verkehrsfluss erhalten.
 
 === Fußgängeranforderung
 
-indexterm:[Ampelsteuerung,Fußgängeranforderung]indexterm:[Fußgängeranforderung]Wird der Taster gedrückt:
+indexterm:[Ampelsteuerung,Fußgängeranforderung]indexterm:[Fußgängeranforderung] Wird der Taster gedrückt:
 
 [source]
 ----
@@ -360,7 +360,7 @@ IF PIN(GP5)=0 THEN
 ENDIF
 ----
 
-Die indexterm:[Ampelsteuerung,Anforderung speichern]indexterm:[Anforderung speichern]Information bleibt erhalten.
+Die indexterm:[Ampelsteuerung,Anforderung speichern]indexterm:[Anforderung speichern] Information bleibt erhalten.
 
 === Warum speichern wir die Anforderung?
 

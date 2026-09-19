@@ -52,7 +52,7 @@ Bevor wir damit beginnen, sollten wir einige Grundlagen kennenlernen.
 
 Jeder Bildschirm besteht aus vielen einzelnen Bildpunkten.
 
-Diese Bildpunkte nennt man indexterm:[Grafik,Pixel]indexterm:[Pixel]Pixel.
+Diese Bildpunkte nennt man indexterm:[Grafik,Pixel]indexterm:[Pixel] Pixel.
 
 Jeder Pixel besitzt eine Position auf dem Bildschirm.
 
@@ -63,7 +63,7 @@ Die Position wird durch zwei Werte beschrieben:
 
 === Das Koordinatensystem
 
-Das indexterm:[Grafik,Koordinatensystem]indexterm:[Koordinatensystem]Koordinatensystem von MMBasic hat seinen Ursprung in der linken oberen Ecke.
+Das indexterm:[Grafik,Koordinatensystem]indexterm:[Koordinatensystem] Koordinatensystem von MMBasic hat seinen Ursprung in der linken oberen Ecke.
 
 Die Position links oben besitzt die Koordinaten:
 
@@ -92,7 +92,7 @@ Wenn später eine Linie oder ein Kreis gezeichnet wird, erfolgt dies immer anhan
 
 === Die Bildschirmgröße
 
-Je nach verwendetem PicoMite-System stehen unterschiedliche indexterm:[Grafik,Bildschirmauflösung]indexterm:[Bildschirmauflösung]Bildschirmauflösungen zur Verfügung. Bei PicoMite-Systemen mit HDMI- oder VGA-Ausgabe wird die gewünschte Auflösung mit dem Befehl indexterm:[OPTION RESOLUTION]`OPTION RESOLUTION` festgelegt.
+Je nach verwendetem PicoMite-System stehen unterschiedliche indexterm:[Grafik,Bildschirmauflösung]indexterm:[Bildschirmauflösung] Bildschirmauflösungen zur Verfügung. Bei PicoMite-Systemen mit HDMI- oder VGA-Ausgabe wird die gewünschte Auflösung mit dem Befehl indexterm:[Bildschirmauflösung] `OPTION RESOLUTION` festgelegt.
 
 [source,basic]
 ----
@@ -126,7 +126,7 @@ Je nach Hardware werden unter anderem folgende Bildschirmauflösungen unterstüt
 
 Eine höhere Bildschirmauflösung bietet mehr Platz für Grafiken und Texte. Gleichzeitig steigt jedoch auch der Speicherbedarf der Grafikausgabe. Dadurch stehen einem MMBasic-Programm weniger Programm- und Variablenspeicher zur Verfügung.
 
-Welche Bildschirmauflösung aktuell am System eingestellt ist, kann anhand zweier Variablen ermittelt werden, die MMBasic bereitstellt: indexterm:[Systemvariablen,MM.HRES]indexterm:[MM.HRES]`MM.HRES` und indexterm:[Systemvariablen,MM.VRES]indexterm:[MM.VRES]`MM.VRES`.
+Welche Bildschirmauflösung aktuell am System eingestellt ist, kann anhand zweier Variablen ermittelt werden, die MMBasic bereitstellt: indexterm:[Systemvariablen,MM.HRES]indexterm:[MM.HRES] `MM.HRES` und indexterm:[Systemvariablen,MM.VRES]indexterm:[MM.HRES] `MM.VRES`.
 
 [source,basic]
 ----
@@ -166,7 +166,7 @@ Die Bildschirmauflösung bestimmt also die Größe des Zeichenbereichs. Wie dies
 
 Bevor wir Grafiken zeichnen können, muss zunächst ein geeigneter Grafikmodus ausgewählt werden.
 
-Dies geschieht mit dem Befehl indexterm:[Grafikbefehle,MODE]indexterm:[MODE]`MODE`.
+Dies geschieht mit dem Befehl indexterm:[Grafikbefehle,MODE]indexterm:[MODE] `MODE`.
 
 [source,basic]
 ----
@@ -236,7 +236,7 @@ MMBasic besitzt mehrere eingebaute Schriftarten.
 
 Je nach Schriftart unterscheiden sich Breite und Höhe der Zeichen.
 
-Die aktuelle Schriftgröße kann mit indexterm:[MM.INFO(FONTWIDTH)]`MM.INFO(FONTWIDTH)` und indexterm:[MM.INFO(FONTHEIGHT)]`MM.INFO(FONTHEIGHT)` abgefragt werden.
+Die aktuelle Schriftgröße kann mit indexterm:[MM.INFO(FONTWIDTH)] `MM.INFO(FONTWIDTH)` und indexterm:[MM.INFO(FONTWIDTH)] `MM.INFO(FONTHEIGHT)` abgefragt werden.
 
 [source,basic]
 ----
@@ -267,7 +267,7 @@ Dadurch können Texte exakt positioniert werden.
 
 Bisher haben wir `PRINT` verwendet, um Texte an der aktuellen Schreibposition auszugeben. MMBasic bietet jedoch auch die Möglichkeit, die Ausgabe von `PRINT` direkt an einer bestimmten Pixelposition zu beginnen.
 
-Dazu wird hinter `PRINT` die Funktion indexterm:[PRINT @()]`@()` angegeben:
+Dazu wird hinter `PRINT` die Funktion indexterm:[PRINT @()] `@()` angegeben:
 
 [source,basic]
 ----
@@ -371,7 +371,7 @@ Die Grafikbefehle selbst funktionieren jedoch weitgehend identisch.
 
 === Farben
 
-Farben werden in MMBasic mit der Funktion indexterm:[Grafikfunktionen,RGB()]indexterm:[RGB()]`RGB()` beschrieben.
+Farben werden in MMBasic mit der Funktion indexterm:[Grafikfunktionen,RGB()]indexterm:[RGB()] `RGB()` beschrieben.
 
 Beispiele:
 

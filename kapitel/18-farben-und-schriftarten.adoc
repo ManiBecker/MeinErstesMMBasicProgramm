@@ -16,7 +16,7 @@ Am Ende des Kapitels kannst du farbige Bildschirmausgaben gestalten und die pass
 
 === Farben in MMBasic
 
-MMBasic verwendet ein modernes Farbsystem mit indexterm:[Grafik,Farbtiefe]indexterm:[Farbtiefe]24 Bit Farbtiefe.
+MMBasic verwendet ein modernes Farbsystem mit indexterm:[Grafik,Farbtiefe]indexterm:[Farbtiefe] 24 Bit Farbtiefe.
 
 Jede Farbe setzt sich aus den Anteilen für:
 
@@ -26,7 +26,7 @@ Jede Farbe setzt sich aus den Anteilen für:
 
 zusammen.
 
-Daher stammt auch die Bezeichnung indexterm:[Farben,RGB]RGB.
+Daher stammt auch die Bezeichnung indexterm:[Farben,RGB] RGB.
 
 === Farben mit RGB() erzeugen
 
@@ -54,7 +54,7 @@ erzeugen:
 
 === Farbkonstanten verwenden
 
-Häufig verwendete Farben können direkt über indexterm:[Farben,Farbkonstanten]indexterm:[Farbkonstanten]Farbkonstanten angegeben werden.
+Häufig verwendete Farben können direkt über indexterm:[Farben,Farbkonstanten]indexterm:[Farbkonstanten] Farbkonstanten angegeben werden.
 
 [source,basic]
 ----
@@ -72,7 +72,7 @@ Dadurch werden Programme leichter lesbar.
 
 === Vorder- und Hintergrundfarbe
 
-Mit dem Befehl indexterm:[Grafikbefehle,COLOUR]indexterm:[COLOUR]`COLOUR` werden die Standardfarben festgelegt.
+Mit dem Befehl indexterm:[Grafikbefehle,COLOUR]indexterm:[COLOUR] `COLOUR` werden die Standardfarben festgelegt.
 
 [source,basic]
 ----
@@ -97,7 +97,7 @@ PRINT "Hallo MMBasic"
 
 === Der Bildschirmhintergrund
 
-Mit indexterm:[Grafikbefehle,CLS]indexterm:[CLS]`CLS` wird der Bildschirm gelöscht.
+Mit indexterm:[Grafikbefehle,CLS]indexterm:[CLS] `CLS` wird der Bildschirm gelöscht.
 
 Ohne Parameter wird die aktuelle Hintergrundfarbe verwendet.
 
@@ -136,7 +136,7 @@ Probiere verschiedene Farbkombinationen aus.
 
 === Schriftarten
 
-MMBasic enthält bereits mehrere eingebaute indexterm:[Grafik,Schriftarten]indexterm:[Schriftarten]Schriftarten.
+MMBasic enthält bereits mehrere eingebaute indexterm:[Grafik,Schriftarten]indexterm:[Schriftarten] Schriftarten.
 
 Jede Schrift besitzt eine andere Größe.
 
@@ -144,7 +144,7 @@ Die Standard-Schrift ist Schriftart 1.
 
 === Schriftart auswählen
 
-Mit indexterm:[Grafikbefehle,FONT]indexterm:[FONT]`FONT` wird die gewünschte Schriftart ausgewählt.
+Mit indexterm:[Grafikbefehle,FONT]indexterm:[FONT] `FONT` wird die gewünschte Schriftart ausgewählt.
 
 [source,basic]
 ----

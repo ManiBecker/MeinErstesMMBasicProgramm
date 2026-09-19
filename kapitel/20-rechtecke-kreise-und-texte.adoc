@@ -130,7 +130,7 @@ Da sich die Rechtecke überlagern, entsteht bereits eine kleine grafische Kompos
 
 === Abgerundete Rechtecke
 
-Mit indexterm:[Grafikbefehle,RBOX]indexterm:[RBOX]`RBOX` werden Rechtecke mit abgerundeten Ecken gezeichnet.
+Mit indexterm:[Grafikbefehle,RBOX]indexterm:[RBOX] `RBOX` werden Rechtecke mit abgerundeten Ecken gezeichnet.
 
 [source,basic]
 ----
@@ -220,7 +220,7 @@ Dabei bedeuten die zusätzlichen Parameter:
 
 === Ellipsen zeichnen
 
-Der indexterm:[CIRCLE,Seitenverhältnis]indexterm:[Ellipsen]Parameter für das Seitenverhältnis bestimmt, ob ein Kreis oder eine Ellipse gezeichnet wird.
+Der indexterm:[CIRCLE,Seitenverhältnis]indexterm:[Ellipsen] Parameter für das Seitenverhältnis bestimmt, ob ein Kreis oder eine Ellipse gezeichnet wird.
 
 Ein Wert von `1` erzeugt einen Kreis.
 
@@ -261,7 +261,7 @@ Dadurch liegt die Zielscheibe unabhängig von der Auflösung in der Bildschirmmi
 
 === Kreisbögen zeichnen
 
-Mit indexterm:[Grafikbefehle,ARC]indexterm:[ARC]`ARC` können Teile eines Kreises gezeichnet werden.
+Mit indexterm:[Grafikbefehle,ARC]indexterm:[ARC] `ARC` können Teile eines Kreises gezeichnet werden.
 
 Die grundlegende Schreibweise lautet:
 
@@ -302,7 +302,7 @@ Damit entsteht ein Ring aus vier verschiedenfarbigen Abschnitten.
 
 === Texte frei positionieren
 
-In Kapitel 17 haben wir mit `PRINT @()` bereits Texte pixelgenau auf dem Bildschirm positioniert. Für die Grafikprogrammierung stellt MMBasic zusätzlich den Befehl indexterm:[Grafikbefehle,TEXT]indexterm:[TEXT]`TEXT` zur Verfügung.
+In Kapitel 17 haben wir mit `PRINT @()` bereits Texte pixelgenau auf dem Bildschirm positioniert. Für die Grafikprogrammierung stellt MMBasic zusätzlich den Befehl indexterm:[Grafikbefehle,TEXT]indexterm:[TEXT] `TEXT` zur Verfügung.
 
 Auch `TEXT` arbeitet mit Pixelkoordinaten. Darüber hinaus bietet der Befehl weitere Möglichkeiten, beispielsweise die Ausrichtung, Skalierung, Farbwahl und Drehung des Textes. Damit eignet sich `TEXT` besonders für Texte, die Teil einer Grafik sind.
 
@@ -324,7 +324,7 @@ TEXT 50,40,"Hallo MMBasic"
 
 === Text ausrichten
 
-Der Text kann mit indexterm:[TEXT,Ausrichtung]Ausrichtungsparametern relativ zu seiner Position ausgerichtet werden.
+Der Text kann mit indexterm:[TEXT,Ausrichtung] Ausrichtungsparametern relativ zu seiner Position ausgerichtet werden.
 
 [source,basic]
 ----
@@ -378,7 +378,7 @@ TEXT MM.HRES/2,MM.VRES/2,"Hallo MMBasic","CM"
 
 === Schriftart und Skalierung
 
-Mit weiteren Parametern können indexterm:[TEXT,Schriftart]Schriftart und indexterm:[TEXT,Skalierung]Skalierung festgelegt werden.
+Mit weiteren Parametern können indexterm:[TEXT,Schriftart] Schriftart und indexterm:[TEXT,Schriftart] Skalierung festgelegt werden.
 
 [source,basic]
 ----
@@ -403,7 +403,7 @@ TEXT 100,80,"MMBasic","LT",2,2,RGB(YELLOW),RGB(BLUE)
 
 === Transparenter Hintergrund
 
-Auf unterstützten Bildschirmen kann der indexterm:[TEXT,Transparenter Hintergrund]Hintergrund eines Textes transparent bleiben.
+Auf unterstützten Bildschirmen kann der indexterm:[TEXT,Transparenter Hintergrund] Hintergrund eines Textes transparent bleiben.
 
 Dazu wird als Hintergrundfarbe `-1` angegeben.
 
@@ -423,7 +423,7 @@ Auf VGA- und HDMI-Systemen steht diese Möglichkeit in der Regel zur Verfügung.
 
 === Text drehen
 
-Ein dritter Buchstabe in der Ausrichtung legt die indexterm:[TEXT,Drehung]Drehung bzw. Orientierung des Textes fest.
+Ein dritter Buchstabe in der Ausrichtung legt die indexterm:[TEXT,Drehung] Drehung bzw. Orientierung des Textes fest.
 
 [cols="1,3"]
 |===

@@ -20,7 +20,7 @@ Am Ende des Kapitels besitzt du einen deutlich leistungsfähigeren Mathematiktra
 
 Der Little Professor aus dem letzten Kapitel konnte bereits Additionsaufgaben erzeugen.
 
-Nun möchten wir weitere indexterm:[Rechenarten]Rechenarten hinzufügen:
+Nun möchten wir weitere indexterm:[Rechenarten] Rechenarten hinzufügen:
 
 * Addition
 * Subtraktion
@@ -118,7 +118,7 @@ PRINT A;" * ";B;" = ?"
 
 === Divisionsaufgaben
 
-indexterm:[Division,ganzzahlige Ergebnisse]Divisionen sollen immer ganzzahlig lösbar sein.
+indexterm:[Division,ganzzahlige Ergebnisse] Divisionen sollen immer ganzzahlig lösbar sein.
 
 Deshalb erzeugen wir zuerst das Ergebnis.
 

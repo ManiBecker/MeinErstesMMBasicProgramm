@@ -30,9 +30,9 @@ zum Beispiel:
 Wäre es nicht praktisch, wenn du alle diese Programme über ein gemeinsames
 Hauptmenü starten könntest?
 
-Genau dafür eignet sich der indexterm:[CHAIN]Befehl `CHAIN`.
+Genau dafür eignet sich der indexterm:[CHAIN] Befehl `CHAIN`.
 
-Mit indexterm:[CHAIN,Programmverkettung]indexterm:[Programmverkettung]`CHAIN` kann ein laufendes BASIC-Programm ein anderes BASIC-Programm laden
+Mit indexterm:[CHAIN,Programmverkettung]indexterm:[Programmverkettung] `CHAIN` kann ein laufendes BASIC-Programm ein anderes BASIC-Programm laden
 und sofort starten. Dabei bleibt der Variablenbereich erhalten. Auf diese Weise
 lassen sich größere Anwendungen auf mehrere Programme verteilen, ohne dass alle
 Daten beim Wechsel verloren gehen.
@@ -72,7 +72,7 @@ CHAIN "PONG.BAS"
 Das aktuell laufende Programm wird durch `PONG.BAS` ersetzt und dieses sofort
 gestartet.
 
-Der wichtige Unterschied zu einem vollständigen Neustart ist: Der indexterm:[CHAIN,Variablenbereich]indexterm:[Variablenbereich]vorhandene
+Der wichtige Unterschied zu einem vollständigen Neustart ist: Der indexterm:[CHAIN,Variablenbereich]indexterm:[Variablenbereich] vorhandene
 Variablenbereich bleibt erhalten.
 
 [IMPORTANT]
@@ -122,7 +122,7 @@ und demselben Datentyp benutzt werden.
 
 === Zusätzliche Parameter mit MM.CMDLINE$
 
-indexterm:[Systemvariablen,MM.CMDLINE$]indexterm:[MM.CMDLINE$]Neben dem erhaltenen Variablenbereich kann `CHAIN` dem nächsten Programm noch
+indexterm:[Systemvariablen,MM.CMDLINE$]indexterm:[MM.CMDLINE$] Neben dem erhaltenen Variablenbereich kann `CHAIN` dem nächsten Programm noch
 eine zusätzliche Zeichenkette übergeben.
 
 Beispiel:
@@ -146,7 +146,7 @@ Die Ausgabe lautet:
 LEVEL=2
 ----
 
-indexterm:[CHAIN,Startparameter]indexterm:[Startparameter]`MM.CMDLINE$` eignet sich beispielsweise für:
+indexterm:[CHAIN,Startparameter]indexterm:[Startparameter] `MM.CMDLINE$` eignet sich beispielsweise für:
 
 * Startoptionen,
 * Dateinamen,
@@ -166,7 +166,7 @@ ENDIF
 
 === CHAIN oder RUN?
 
-indexterm:[CHAIN,RUN im Vergleich]Auf den ersten Blick scheint `CHAIN` dem Befehl `RUN` ähnlich zu sein. Beide
+indexterm:[CHAIN,RUN im Vergleich] Auf den ersten Blick scheint `CHAIN` dem Befehl `RUN` ähnlich zu sein. Beide
 können ein BASIC-Programm starten, sie werden aber für unterschiedliche Zwecke
 eingesetzt.
 
@@ -193,7 +193,7 @@ Programmwechsel erhalten bleibt.
 
 === Ein einfaches Hauptmenü
 
-indexterm:[Menüsystem]Erstellen wir ein Menü, über das sich einige unserer bisherigen Programme
+indexterm:[Menüsystem] Erstellen wir ein Menü, über das sich einige unserer bisherigen Programme
 starten lassen.
 
 Speichere das folgende Programm als `HAUPTMENU.BAS`:
@@ -398,7 +398,7 @@ Programmkette. Eine Datei speichert sie dauerhaft auf dem Laufwerk.
 
 === CHAIN und Verzeichnisse
 
-indexterm:[CHAIN,Pfadangaben]`CHAIN` kann auch mit Pfadangaben verwendet werden.
+indexterm:[CHAIN,Pfadangaben] `CHAIN` kann auch mit Pfadangaben verwendet werden.
 
 Beispiel:
 

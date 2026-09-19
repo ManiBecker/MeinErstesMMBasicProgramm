@@ -100,7 +100,7 @@ Verwende in diesem Fall eine externe LED.
 
 === Was ist eine LED?
 
-indexterm:[LED]LED steht für:
+indexterm:[LED] LED steht für:
 
 [source]
 ----
@@ -154,7 +154,7 @@ title="Anode und Kathode einer LED"
 
 === Warum benötigen wir einen Vorwiderstand?
 
-indexterm:[LED,Vorwiderstand]indexterm:[Vorwiderstand]Eine LED darf niemals direkt an einen Ausgang angeschlossen werden.
+indexterm:[LED,Vorwiderstand]indexterm:[Vorwiderstand] Eine LED darf niemals direkt an einen Ausgang angeschlossen werden.
 
 Ohne Vorwiderstand würde zu viel Strom fließen.
 
@@ -299,9 +299,9 @@ PIN(32)=0
 
 Ein GPIO-Ausgang kann nur einen kleinen Strom liefern. Das reicht für LEDs, Taster oder einfache Piezo-Lautsprecher, nicht jedoch für größere Verbraucher wie Motoren, Relais oder Magnetspulen.
 
-In solchen Fällen verwendet man eine indexterm:[GPIO-Pins,Treiberschaltung]indexterm:[Treiberschaltung]**Treiber- oder Verstärkerschaltung**. Sie sorgt dafür, dass der Mikrocontroller nur ein kleines Steuersignal liefern muss, während die eigentliche Last aus einer separaten Spannungsquelle versorgt wird.
+In solchen Fällen verwendet man eine indexterm:[GPIO-Pins,Treiberschaltung]indexterm:[Treiberschaltung] **Treiber- oder Verstärkerschaltung**. Sie sorgt dafür, dass der Mikrocontroller nur ein kleines Steuersignal liefern muss, während die eigentliche Last aus einer separaten Spannungsquelle versorgt wird.
 
-Ein häufig verwendeter Aufbau besteht aus einem indexterm:[Treiberschaltung,NPN-Transistor]indexterm:[NPN-Transistor]NPN-Transistor oder einem indexterm:[Treiberschaltung,MOSFET]indexterm:[MOSFET]MOSFET.
+Ein häufig verwendeter Aufbau besteht aus einem indexterm:[Treiberschaltung,NPN-Transistor]indexterm:[NPN-Transistor] NPN-Transistor oder einem indexterm:[Treiberschaltung,MOSFET]indexterm:[NPN-Transistor] MOSFET.
 
 [source]
 ----
@@ -331,7 +331,7 @@ Mit einer solchen Schaltung lassen sich beispielsweise ansteuern:
 
 [NOTE]
 ====
-Beim Schalten von Spulen, Relais oder Motoren entsteht beim Ausschalten eine hohe Spannungsspitze. Deshalb wird parallel zur Spule eine sogenannte indexterm:[Treiberschaltung,Freilaufdiode]indexterm:[Freilaufdiode]**Freilaufdiode** angeschlossen, um den Transistor und den Mikrocontroller zu schützen.
+Beim Schalten von Spulen, Relais oder Motoren entsteht beim Ausschalten eine hohe Spannungsspitze. Deshalb wird parallel zur Spule eine sogenannte indexterm:[Treiberschaltung,Freilaufdiode]indexterm:[Freilaufdiode] **Freilaufdiode** angeschlossen, um den Transistor und den Mikrocontroller zu schützen.
 
 Dieses Thema werden wir später noch ausführlicher behandeln.
 ====

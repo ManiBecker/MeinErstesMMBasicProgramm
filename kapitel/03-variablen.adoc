@@ -15,7 +15,7 @@ Am Ende des Kapitels kannst du eigene Werte speichern und weiterverarbeiten.
 
 === Was ist eine Variable?
 
-Eine indexterm:[Variablen]Variable ist ein Speicherplatz für einen Wert.
+Eine indexterm:[Variablen] Variable ist ein Speicherplatz für einen Wert.
 
 Du kannst dir eine Variable wie eine beschriftete Schachtel vorstellen.
 
@@ -28,7 +28,7 @@ Gib folgende Zeilen ein:
 [source,basic]
 ----
 A=10
-indexterm:[PRINT]PRINT A
+indexterm:[PRINT] PRINT A
 ----
 
 Ausgabe:
@@ -151,7 +151,7 @@ Danach wird das Ergebnis wieder in A gespeichert.
 
 === Zähler erstellen
 
-Auf diese Weise kann ein einfacher indexterm:[Zähler]Zähler aufgebaut werden.
+Auf diese Weise kann ein einfacher indexterm:[Zähler] Zähler aufgebaut werden.
 
 [source,basic]
 ----

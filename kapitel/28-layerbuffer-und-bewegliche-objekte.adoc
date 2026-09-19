@@ -66,9 +66,9 @@ Spieler
 Gegner
 ----
 
-Der indexterm:[Layerbuffer,Statischer Hintergrund]statische Hintergrund bleibt unverändert.
+Der indexterm:[Layerbuffer,Statischer Hintergrund] statische Hintergrund bleibt unverändert.
 
-Nur die indexterm:[Layerbuffer,Bewegliche Objekte]beweglichen Objekte auf der zweiten Ebene verändern sich.
+Nur die indexterm:[Layerbuffer,Bewegliche Objekte] beweglichen Objekte auf der zweiten Ebene verändern sich.
 
 === Framebuffer und Layerbuffer
 
@@ -87,7 +87,7 @@ Nur die indexterm:[Layerbuffer,Bewegliche Objekte]beweglichen Objekte auf der zw
 
 === Einen Layerbuffer erzeugen
 
-Zuerst wird ein Layerbuffer mit indexterm:[FRAMEBUFFER LAYER]`FRAMEBUFFER LAYER` angelegt.
+Zuerst wird ein Layerbuffer mit indexterm:[FRAMEBUFFER LAYER] `FRAMEBUFFER LAYER` angelegt.
 
 [source,basic]
 ----
@@ -105,7 +105,7 @@ Mit
 FRAMEBUFFER WRITE L
 ----
 
-werden mit indexterm:[FRAMEBUFFER WRITE L]`FRAMEBUFFER WRITE L` alle Grafikbefehle auf den Layerbuffer umgeleitet.
+werden mit indexterm:[FRAMEBUFFER WRITE L] `FRAMEBUFFER WRITE L` alle Grafikbefehle auf den Layerbuffer umgeleitet.
 
 Das `L` steht für:
 
@@ -121,7 +121,7 @@ L = Layerbuffer
 FRAMEBUFFER WRITE N
 ----
 
-stellt mit indexterm:[FRAMEBUFFER WRITE N]`FRAMEBUFFER WRITE N` die normale Ausgabe wieder her.
+stellt mit indexterm:[FRAMEBUFFER WRITE N] `FRAMEBUFFER WRITE N` die normale Ausgabe wieder her.
 
 === Unser erster Hintergrund
 
@@ -285,7 +285,7 @@ Der Hintergrund ändert sich selten.
 
 Die beweglichen Objekte ändern sich ständig.
 
-Layerbuffer ermöglichen genau diese indexterm:[Spieleprogrammierung,Ebenentrennung]indexterm:[Ebenentrennung]Trennung von Hintergrund und beweglichen Objekten.
+Layerbuffer ermöglichen genau diese indexterm:[Spieleprogrammierung,Ebenentrennung]indexterm:[Ebenentrennung] Trennung von Hintergrund und beweglichen Objekten.
 
 === Ein einfaches Spielfeld
 

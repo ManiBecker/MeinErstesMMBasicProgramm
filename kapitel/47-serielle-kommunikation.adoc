@@ -148,7 +148,7 @@ Die UART-Pins des PicoMite sind keine RS-232-Anschlüsse. Eine klassische RS-232
 
 === COM1 und COM2 den GPIO-Pins zuordnen
 
-Der PicoMite besitzt zwei indexterm:[Serielle Schnittstellen]serielle Schnittstellen: indexterm:[Serielle Schnittstellen,COM1]indexterm:[COM1]`COM1` und indexterm:[Serielle Schnittstellen,COM2]indexterm:[COM2]`COM2`.
+Der PicoMite besitzt zwei indexterm:[Serielle Schnittstellen] serielle Schnittstellen: indexterm:[Serielle Schnittstellen,COM1]indexterm:[Serielle Schnittstellen] `COM1` und indexterm:[Serielle Schnittstellen,COM2]indexterm:[Serielle Schnittstellen] `COM2`.
 
 Bevor eine davon verwendet werden kann, müssen die GPIO-Pins für RX und TX mit `SETPIN` zugeordnet werden.
 
@@ -230,7 +230,7 @@ GND → GND
 
 === Das erste UART-Programm
 
-Nachdem `COM1` den GPIO-Pins zugeordnet wurde, kann die indexterm:[UART]indexterm:[Serielle Kommunikation]serielle Schnittstelle geöffnet werden.
+Nachdem `COM1` den GPIO-Pins zugeordnet wurde, kann die indexterm:[UART]indexterm:[Serielle Kommunikation] serielle Schnittstelle geöffnet werden.
 
 Das folgende Programm sendet den Text `Hallo Welt!` über `COM1`:
 
@@ -264,7 +264,7 @@ OPEN "COM1:9600" AS #1
 
 Die `1` ist die Dateinummer, unter der das Programm anschließend auf die Schnittstelle zugreift.
 
-Die indexterm:[UART,Baudrate]indexterm:[Baudrate]Voreinstellungen des PicoMite sind:
+Die indexterm:[UART,Baudrate]indexterm:[Baudrate] Voreinstellungen des PicoMite sind:
 
 * 9600 Baud
 * 8 Datenbits
@@ -320,14 +320,14 @@ CLOSE #1
 
 Empfangene Zeichen werden von MMBasic automatisch in einem Speicherpuffer gesammelt.
 
-Mit indexterm:[Serielle Kommunikation,LOC()]indexterm:[LOC()]`LOC()` kann festgestellt werden, wie viele Zeichen bereits im Empfangspuffer warten:
+Mit indexterm:[Serielle Kommunikation,LOC()]indexterm:[LOC()] `LOC()` kann festgestellt werden, wie viele Zeichen bereits im Empfangspuffer warten:
 
 [source,basic]
 ----
 anzahl = LOC(#1)
 ----
 
-Die Funktion indexterm:[Serielle Kommunikation,INPUT$()]indexterm:[INPUT$()]`INPUT$()` liest Zeichen aus diesem Puffer. Sie wartet nicht auf neue Daten. Sind momentan keine Zeichen vorhanden, wird sofort ein leerer String zurückgegeben.
+Die Funktion indexterm:[Serielle Kommunikation,INPUT$()]indexterm:[INPUT$()] `INPUT$()` liest Zeichen aus diesem Puffer. Sie wartet nicht auf neue Daten. Sind momentan keine Zeichen vorhanden, wird sofort ein leerer String zurückgegeben.
 
 Ein einfaches Empfangsprogramm sieht so aus:
 
@@ -375,7 +375,7 @@ DON
 
 im Empfangspuffer finden.
 
-Wenn ein Programm vollständige Befehle übertragen soll, benötigt es deshalb eine Vereinbarung darüber, wo eine Nachricht endet. Häufig wird dafür ein indexterm:[Serielle Kommunikation,CR/LF]indexterm:[CR/LF]Zeilenende mit CR/LF verwendet.
+Wenn ein Programm vollständige Befehle übertragen soll, benötigt es deshalb eine Vereinbarung darüber, wo eine Nachricht endet. Häufig wird dafür ein indexterm:[Serielle Kommunikation,CR/LF]indexterm:[CR/LF] Zeilenende mit CR/LF verwendet.
 
 Auf diesem Prinzip bauen wir später unsere einfachen Kommunikationsprotokolle auf.
 
@@ -385,7 +385,7 @@ Ein besonders nützliches Experiment ist die Verbindung mit einem PC.
 
 === Verdrahtung
 
-Für dieses Beispiel verwenden wir einen indexterm:[UART,USB-UART-Adapter]indexterm:[USB-UART-Adapter]USB-UART-Adapter mit 3,3-V-Logikpegeln:
+Für dieses Beispiel verwenden wir einen indexterm:[UART,USB-UART-Adapter]indexterm:[USB-UART-Adapter] USB-UART-Adapter mit 3,3-V-Logikpegeln:
 
 [source]
 ----
@@ -536,7 +536,7 @@ Für einen echten Chat müssten beide Programme gleichzeitig Tastatureingaben un
 
 === Nachrichten strukturieren
 
-Bei größeren Projekten empfiehlt es sich, indexterm:[Serielle Kommunikation,Textprotokoll]indexterm:[Textprotokoll]feste Nachrichtenformate zu verwenden.
+Bei größeren Projekten empfiehlt es sich, indexterm:[Serielle Kommunikation,Textprotokoll]indexterm:[Textprotokoll] feste Nachrichtenformate zu verwenden.
 
 Beispiele:
 
@@ -738,9 +738,9 @@ Die Interrupt-Subroutine sollte außerdem möglichst kurz bleiben. Typischerweis
 
 Der RP2040 beziehungsweise RP2350 besitzt bereits integrierte UARTs. Für eine Verbindung zu einem anderen Gerät mit kompatiblen 3,3-V-Logikpegeln ist deshalb kein zusätzlicher UART-Baustein erforderlich.
 
-Besitzt der Zielcomputer jedoch eine indexterm:[RS-232]echte RS-232-Schnittstelle, müssen die unterschiedlichen elektrischen Pegel angepasst werden.
+Besitzt der Zielcomputer jedoch eine indexterm:[RS-232] echte RS-232-Schnittstelle, müssen die unterschiedlichen elektrischen Pegel angepasst werden.
 
-Dafür eignet sich beispielsweise ein indexterm:[Pegelwandler,MAX3232]indexterm:[MAX3232]`MAX3232`:
+Dafür eignet sich beispielsweise ein indexterm:[Pegelwandler,MAX3232]indexterm:[MAX3232] `MAX3232`:
 
 [source]
 ----
