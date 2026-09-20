@@ -24,7 +24,7 @@ Nicht alle Punkte werden zwingend umgesetzt. Die Liste dient als Ideensammlung.
   - [x] Float
   - [x] String
   - [x] Typkennzeichen (`%`, `!`, `$`)
-  - [ ] Typkonvertierung
+  - [x] Typkonvertierung
 - [x] Kapitel „Variablen“ erweitern
   - [x] Regeln für Variablennamen
   - [x] Verwendung von `_` und `.`
@@ -32,7 +32,7 @@ Nicht alle Punkte werden zwingend umgesetzt. Die Liste dient als Ideensammlung.
   - [x] Groß- und Kleinschreibung bei Variablennamen
   - [x] Ein Variablenname kann nur einen Datentyp besitzen
   - [x] Empfehlungen für sprechende Variablennamen
-  - [ ] `OPTION EXPLICIT` und Variablendeklaration
+  - [x] `OPTION EXPLICIT` und Variablendeklaration
 
 ---
 
