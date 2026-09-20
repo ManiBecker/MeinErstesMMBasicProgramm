@@ -25,9 +25,12 @@ Nicht alle Punkte werden zwingend umgesetzt. Die Liste dient als Ideensammlung.
   - [x] String
   - [x] Typkennzeichen (`%`, `!`, `$`)
   - [ ] Typkonvertierung
-- [ ] Kapitel „Variablen“ erweitern
+- [x] Kapitel „Variablen“ erweitern
   - [x] Regeln für Variablennamen
-  - [ ] Verwendung von `_` und `.`
+  - [x] Verwendung von `_` und `.`
+  - [x] Schlüsselwörter dürfen nicht als Variablennamen verwendet werden
+  - [x] Groß- und Kleinschreibung bei Variablennamen
+  - [x] Ein Variablenname kann nur einen Datentyp besitzen
   - [x] Empfehlungen für sprechende Variablennamen
 
 ---
