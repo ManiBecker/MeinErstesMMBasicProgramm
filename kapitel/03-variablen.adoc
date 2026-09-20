@@ -25,10 +25,12 @@ In diese Schachtel kannst du einen Wert hineinlegen und später wieder darauf zu
 
 Gib folgende Zeilen ein:
 
+indexterm:[PRINT] 
+
 [source,basic]
 ----
 A=10
-indexterm:[PRINT] PRINT A
+PRINT A
 ----
 
 Ausgabe:
