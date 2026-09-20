@@ -170,16 +170,18 @@ Bei klassischen BASIC-Versionen sah ein Programm häufig etwa so aus:
 [source,basic]
 ----
 10 INPUT "Wie alt bist du"; ALTER
-20 IF ALTER>=18 THEN GOTO 40
+20 IF ALTER>=18 THEN 50
 30 PRINT "Du bist noch nicht volljährig."
-40 END
+40 GOTO 60
+50 PRINT "Du bist volljährig."
+60 END
 ----
 
-In MMBasic sind solche Zeilennummern für normale Programme nicht notwendig.
-Stattdessen verwenden wir strukturierte Anweisungen wie `IF ... THEN`,
-Schleifen sowie später Unterprogramme und Funktionen.
+MMBasic unterstützt solche Zeilennummern weiterhin. Sie sind jedoch optional
+und für neue Programme nicht erforderlich.
 
-Ein Programm kann deshalb beispielsweise so geschrieben werden:
+Statt mit Zeilennummern und `GOTO` können wir Entscheidungen strukturiert
+schreiben:
 
 [source,basic]
 ----
@@ -192,15 +194,22 @@ ELSE
 ENDIF
 ----
 
-Das Programm lässt sich dadurch meist leichter lesen und verändern.
+Diese Schreibweise macht den Programmablauf unmittelbar sichtbar und kommt
+ohne Sprünge zu bestimmten Zeilennummern aus.
 
 [NOTE]
 ====
-MMBasic unterstützt Zeilennummern weiterhin, unter anderem aus Gründen der
-Kompatibilität mit älteren BASIC-Programmen. Für neue Programme benötigen
-wir sie jedoch normalerweise nicht.
+Anders als bei vielen klassischen BASIC-Systemen können nummerierte
+Programmzeilen nicht einfach am MMBasic-Prompt eingegeben werden. Eine dort
+eingegebene Zeile wie `10 PRINT "Hallo"` wird unmittelbar ausgeführt und
+nicht als neue Programmzeile gespeichert.
 
-In diesem Buch verwenden wir deshalb keine Zeilennummern.
+Zeilennummern können jedoch innerhalb eines Programms verwendet werden.
+MMBasic unterstützt dabei auch die klassische Schreibweise `IF ... THEN 100`.
+Für neue Programme empfiehlt das MMBasic-Handbuch die eindeutigere
+Schreibweise `IF ... THEN GOTO 100` oder die Verwendung eines Labels.
+
+In diesem Buch verwenden wir für neue Programme keine Zeilennummern.
 ====
 
 === Vergleichsoperatoren
