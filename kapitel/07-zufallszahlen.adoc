@@ -14,7 +14,9 @@ Am Ende des Kapitels kannst du Würfel, Münzwürfe und kleine Spiele programmie
 
 === Warum Zufallszahlen wichtig sind
 
-Viele Programme benötigen indexterm:[Zufallszahlen] Zufallszahlen.
+indexterm:[Zufallszahlen]
+
+Viele Programme benötigen Zufallszahlen.
 
 Zum Beispiel:
 
@@ -24,7 +26,10 @@ Zum Beispiel:
 * Würfel
 * Lottozahlen
 
-MMBasic stellt dafür die Funktion indexterm:[Zufallsfunktionen,RND]indexterm:[RND] `RND` bereit.
+indexterm:[Zufallsfunktionen,RND]
+indexterm:[RND]
+
+MMBasic stellt dafür die Funktion `RND` bereit.
 
 === Eine Zufallszahl erzeugen
 
@@ -66,9 +71,12 @@ NEXT I
 
 Ein Würfel besitzt die Werte 1 bis 6.
 
+indexterm:[Mathematische Funktionen,INT]
+indexterm:[INT]
+
 [source,basic]
 ----
-PRINT indexterm:[Mathematische Funktionen,INT]indexterm:[INT] INT(RND*6)+1
+PRINT INT(RND*6)+1
 ----
 
 Mögliche Ausgabe:
