@@ -179,6 +179,33 @@ Ausgabe:
 34
 ----
 
+[NOTE]
+====
+`SUB`- und `FUNCTION`-Definitionen können in MMBasic an beliebiger Stelle im
+Programm stehen. Sie müssen also nicht vor ihrem ersten Aufruf definiert
+werden.
+
+Du kannst beispielsweise das Hauptprogramm am Anfang schreiben und die
+benötigten Unterprogramme und Funktionen anschließend folgen lassen:
+
+[source,basic]
+----
+PRINT "Das Quadrat von 5 ist ";Quadrat(5)
+Begruessung
+
+SUB Begruessung
+  PRINT "Willkommen bei MMBasic!"
+END SUB
+
+FUNCTION Quadrat(X)
+  Quadrat=X*X
+END FUNCTION
+----
+
+MMBasic kennt die im Programm definierten Unterprogramme und Funktionen auch
+dann, wenn ihre Definition erst nach dem Aufruf folgt.
+====
+
 === Eine Würfelfunktion
 
 Mit Funktionen lassen sich eigene BASIC-Befehle erstellen.
