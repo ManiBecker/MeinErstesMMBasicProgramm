@@ -7,8 +7,11 @@ image::bilder/07_zufallszahlen.jpg[align=center]
 In diesem Kapitel lernst du:
 
 * wie Zufallszahlen erzeugt werden
-* wie die Funktion RND verwendet wird
+* wie die Funktion `RND` verwendet wird
 * wie Zufallszahlen auf einen gewünschten Bereich angepasst werden
+* warum der RP2040 Pseudozufallszahlen erzeugt
+* wie mit `RANDOMIZE` unterschiedliche Zufallsfolgen erzeugt werden
+* warum `RANDOMIZE` auf dem RP2350 nicht benötigt wird
 
 Am Ende des Kapitels kannst du Würfel, Münzwürfe und kleine Spiele programmieren.
 
@@ -136,14 +139,64 @@ ELSE
 ENDIF
 ----
 
+=== RANDOMIZE – unterschiedliche Zufallsfolgen
+
+Auf einem RP2040 erzeugt `RND` sogenannte
+indexterm:[Pseudozufallszahlen] *Pseudozufallszahlen*. Dabei wird eine
+Zahlenfolge berechnet, die zufällig erscheint.
+
+Nach dem Einschalten beginnt der Zufallszahlengenerator jedoch mit demselben
+Startwert. Dadurch kann bei jedem Programmstart dieselbe Folge von
+Zufallszahlen entstehen.
+
+Mit indexterm:[RANDOMIZE] `RANDOMIZE` kann ein anderer Startwert festgelegt
+werden. Als Startwert eignet sich beispielsweise `TIMER`:
+
+[source,basic]
+----
+RANDOMIZE TIMER
+
+FOR I=1 TO 5
+  PRINT RND
+NEXT I
+----
+
+Da sich der Wert von `TIMER` verändert, beginnt der Zufallszahlengenerator
+nicht immer mit derselben Zahlenfolge.
+
+[NOTE]
+====
+Auf dem RP2350 ist `RANDOMIZE` nicht erforderlich. Dieser Mikrocontroller
+besitzt einen Hardware-Zufallszahlengenerator und erzeugt mit `RND` echte
+Zufallszahlen. Der Befehl `RANDOMIZE` hat auf dem RP2350 deshalb keine
+Wirkung.
+
+Der RP2040 besitzt diesen Hardware-Zufallszahlengenerator nicht. Dort ist
+`RANDOMIZE` sinnvoll, wenn bei jedem Programmstart eine andere Folge von
+Pseudozufallszahlen gewünscht ist.
+====
+
+[TIP]
+====
+MMBasic bietet mit `MATH(RAND)` außerdem einen Zufallszahlengenerator auf
+Basis des Mersenne-Twister-Algorithmus. Dieser kann mit `MATH RANDOMIZE`
+initialisiert werden.
+
+Für unsere ersten Programme verwenden wir zunächst `RND`.
+====
+
 === Zusammenfassung
 
 In diesem Kapitel hast du gelernt:
 
-* Zufallszahlen zu erzeugen
+* Zufallszahlen mit `RND` zu erzeugen
+* Zufallszahlen auf einen gewünschten Zahlenbereich anzupassen
 * Würfel zu simulieren
 * Münzen zu werfen
-* kleine Spiele zu programmieren
+* kleine Spiele mit Zufallszahlen zu programmieren
+* warum der RP2040 Pseudozufallszahlen erzeugt
+* mit `RANDOMIZE` unterschiedliche Zufallsfolgen auf dem RP2040 zu erzeugen
+* warum `RANDOMIZE` auf dem RP2350 nicht benötigt wird
 
 Im nächsten Kapitel schreiben wir unser erstes größeres Programm.
 
