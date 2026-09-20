@@ -30,9 +30,15 @@ MMBasic-Community aus.
 
 Bedanken möchte ich mich auch bei den vielen Menschen in den Foren und
 Communities, die Fragen gestellt, Fehler gefunden, Hinweise gegeben oder einfach
-ihre eigenen Erfahrungen geteilt haben. Manche dieser Rückmeldungen haben
-unmittelbar dazu geführt, dass ich etwas noch einmal ausprobiert, genauer
-erklärt oder in diesem Buch ergänzt habe.
+ihre eigenen Erfahrungen geteilt haben. Besonders hervorheben möchte ich dabei
+das Forum des Vereins zum Erhalt klassischer Computer e. V. (VzEkC), in dem
+ich selbst Mitglied bin und in dem die Entstehung dieses Buches mit vielen
+hilfreichen Rückmeldungen, Anregungen und Diskussionen begleitet wurde.
+
+Manche dieser Rückmeldungen haben unmittelbar dazu geführt, dass ich etwas noch
+einmal ausprobiert, genauer erklärt oder in diesem Buch ergänzt habe. Gerade
+dieser Austausch zeigt für mich, wie wertvoll eine aktive Community rund um
+klassische Computer, moderne Nachbauten und Projekte wie MMBasic sein kann.
 
 Auch *ChatGPT* war während der Entstehung dieses Buches ein hilfreicher
 Begleiter. Die KI half mir dabei, Ideen zu strukturieren, Formulierungen zu
