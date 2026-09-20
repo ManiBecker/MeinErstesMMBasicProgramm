@@ -117,6 +117,42 @@ verwenden, sondern Namen, deren Bedeutung beim Lesen des Programms sofort
 erkennbar ist.
 ====
 
+==== Schlüsselwörter dürfen keine Variablennamen sein
+
+Bei der Wahl eines Variablennamens gibt es noch eine wichtige Regel:
+indexterm:[Schlüsselwörter] Schlüsselwörter von MMBasic dürfen nicht als
+Variablennamen verwendet werden.
+
+Schlüsselwörter sind Wörter, die in MMBasic bereits eine feste Bedeutung
+haben. Dazu gehören beispielsweise Befehle und Anweisungen wie `PRINT`,
+`INPUT`, `IF` oder `FOR`.
+
+Folgende Variablennamen wären deshalb nicht zulässig:
+
+[source,basic]
+----
+PRINT=10
+INPUT=20
+FOR=5
+----
+
+Verwende stattdessen einen Namen, der den Inhalt der Variablen beschreibt:
+
+[source,basic]
+----
+ANZAHL=10
+EINGABE=20
+ZAHL=5
+----
+
+[NOTE]
+====
+Da MMBasic bei Variablennamen nicht zwischen Groß- und Kleinschreibung
+unterscheidet, lässt sich diese Regel nicht durch eine andere Schreibweise
+umgehen. `PRINT`, `Print` und `print` werden gleichermaßen als Schlüsselwort
+erkannt.
+====
+
 === Zahlen oder Text? – Ein erster Blick auf Datentypen
 
 Bis jetzt haben unsere Variablen Zahlen enthalten:
