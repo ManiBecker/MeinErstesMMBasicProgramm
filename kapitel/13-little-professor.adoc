@@ -256,9 +256,11 @@ navigieren.
 
 Damit die indexterm:[Editor,Maus]indexterm:[Maus im Editor] Maus verwendet werden kann, muss sie zunächst aktiviert werden:
 
+indexterm:[OPTION MOUSE ON]
+
 [source,basic]
 ----
-indexterm:[OPTION MOUSE ON] OPTION MOUSE ON
+OPTION MOUSE ON
 ----
 
 Diese Einstellung muss nur einmal vorgenommen werden und bleibt dauerhaft
