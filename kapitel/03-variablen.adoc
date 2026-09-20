@@ -326,7 +326,9 @@ NAME$="Manfred"
 ----
 
 Bei größeren Programmen hat diese Schreibweise einen wichtigen Vorteil:
-Es wird klar festgelegt, welche Variablen im Programm verwendet werden.
+Die verwendeten Variablen werden ausdrücklich festgelegt. In Verbindung mit
+`OPTION EXPLICIT` kann MMBasic dadurch auch versehentlich falsch geschriebene
+Variablennamen erkennen.
 
 ==== Tippfehler mit OPTION EXPLICIT erkennen
 
