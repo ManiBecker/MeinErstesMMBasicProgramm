@@ -91,8 +91,31 @@ PUNKTE=100
 
 MMBasic erlaubt dazu längere indexterm:[Variablennamen] Variablennamen.
 
-Ein Variablenname darf mit einem Buchstaben beginnen und kann anschließend
-weitere Buchstaben, Ziffern und den Unterstrich `_` enthalten.
+Ein Variablenname beginnt mit einem Buchstaben. Danach können weitere
+Buchstaben, Ziffern, der Unterstrich `_` und der Punkt `.` verwendet werden.
+
+Unterstrich und Punkt können helfen, längere Variablennamen übersichtlicher
+zu gestalten. Zum Beispiel:
+
+[source,basic]
+----
+MAX_PUNKTE=100
+SPIELER.NAME$="Manfred"
+SPIELER.PUNKTE=50
+----
+
+`MAX_PUNKTE` besteht aus zwei Wörtern, die durch einen Unterstrich getrennt
+werden. Der Punkt kann verwendet werden, um zusammengehörige Namen zu
+strukturieren. `SPIELER.NAME$` und `SPIELER.PUNKTE` lassen beispielsweise
+sofort erkennen, dass beide Werte zu einem Spieler gehören.
+
+[TIP]
+====
+Verwende `_` und `.` nur dann, wenn sie einen Variablennamen wirklich
+verständlicher machen. Entscheidend ist nicht, möglichst lange Namen zu
+verwenden, sondern Namen, deren Bedeutung beim Lesen des Programms sofort
+erkennbar ist.
+====
 
 === Zahlen oder Text? – Ein erster Blick auf Datentypen
 
