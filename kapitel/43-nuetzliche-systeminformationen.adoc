@@ -96,10 +96,12 @@ Viele weitere Systeminformationen können mit indexterm:[MM.INFO]indexterm:[MM.I
 
 Grundsätzlich gibt es zwei Schreibweisen:
 
+indexterm:[MM.INFO$()]
+
 [source,basic]
 ----
 MM.INFO(parameter)
-indexterm:[MM.INFO$()] MM.INFO$(parameter)
+MM.INFO$(parameter)
 ----
 
 Beide Varianten können laut PicoMite-Handbuch grundsätzlich untereinander verwendet werden. Gute Programmierpraxis ist jedoch, die Variante passend zum zurückgegebenen Datentyp zu wählen:
@@ -164,9 +166,11 @@ Diese Information kann beispielsweise bei der Fehlersuche hilfreich sein, wenn s
 
 Interessant ist auch die Frage, warum der Pico zuletzt neu gestartet wurde. Dafür liefert `MM.INFO$(BOOT)` die indexterm:[Boot-Ursache] Boot-Ursache.
 
+indexterm:[MM.INFO$(BOOT)]
+
 [source,basic]
 ----
-indexterm:[MM.INFO$(BOOT)] PRINT MM.INFO$(BOOT)
+PRINT MM.INFO$(BOOT)
 ----
 
 Bei einem Neustart über den Reset-Taster erhielten wir:
