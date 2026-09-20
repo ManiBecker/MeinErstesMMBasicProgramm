@@ -384,6 +384,84 @@ bedeutet:
 * Fach Nummer 1 (Englisch)
 * Note 1
 
+=== Beispiel: Ein Spielfeld im Array
+
+Ein zweidimensionales Array eignet sich nicht nur für Tabellen. Auch ein
+Spielfeld kann als Array gespeichert werden.
+
+Dabei beschreibt die erste Dimension die Zeile und die zweite Dimension die
+Spalte.
+
+Wir legen ein Spielfeld mit 5 Zeilen und 10 Spalten an:
+
+[source,basic]
+----
+DIM FELD$(4,9)
+----
+
+Zunächst füllen wir alle Felder mit einem Punkt:
+
+[source,basic]
+----
+FOR ZEILE=0 TO 4
+  FOR SPALTE=0 TO 9
+    FELD$(ZEILE,SPALTE)="."
+  NEXT SPALTE
+NEXT ZEILE
+----
+
+Nun setzen wir an einigen Positionen Hindernisse und eine Spielfigur:
+
+[source,basic]
+----
+FELD$(1,3)="#"
+FELD$(2,6)="#"
+FELD$(3,4)="#"
+FELD$(2,2)="X"
+----
+
+Anschließend geben wir das gesamte Spielfeld aus:
+
+[source,basic]
+----
+FOR ZEILE=0 TO 4
+  FOR SPALTE=0 TO 9
+    PRINT FELD$(ZEILE,SPALTE);
+  NEXT SPALTE
+  PRINT
+NEXT ZEILE
+----
+
+Ausgabe:
+
+[source]
+----
+..........
+...#......
+..X...#...
+....#.....
+..........
+----
+
+Jedes Element des Arrays entspricht genau einer Position auf dem Spielfeld.
+
+Der Zugriff
+
+[source,basic]
+----
+FELD$(2,2)
+----
+
+bezeichnet beispielsweise das Feld in Zeile 2 und Spalte 2. Dort befindet
+sich in unserem Beispiel die Spielfigur `X`.
+
+[TIP]
+====
+Zweidimensionale Arrays werden häufig verwendet, wenn Daten in Zeilen und
+Spalten angeordnet sind. Neben Tabellen können damit beispielsweise
+Spielfelder, Labyrinthe oder Karten gespeichert werden.
+====
+
 === Experimentiere!
 
 Probiere folgende Änderungen aus:
@@ -392,6 +470,8 @@ Probiere folgende Änderungen aus:
 * Speichere die Punkte von zehn Spielern.
 * Berechne einen Durchschnitt.
 * Vergrößere ein Array.
+* Verändere das Spielfeld und füge weitere Hindernisse hinzu.
+* Verschiebe die Spielfigur `X` auf eine andere Position.
 
 === Probier's selbst!
 
