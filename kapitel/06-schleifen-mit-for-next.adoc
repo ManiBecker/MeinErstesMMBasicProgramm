@@ -263,6 +263,8 @@ Ausgabe:
 Start!
 ----
 
+indexterm:[Schleifenvariable]
+
 [IMPORTANT]
 ====
 Die Schleifenvariable wird von `FOR ... NEXT` automatisch verwaltet. Verändere
