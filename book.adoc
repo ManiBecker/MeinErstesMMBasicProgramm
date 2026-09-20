@@ -21,7 +21,7 @@ Manfred Becker
 :sectnums:
 :icons: font
 :revnumber: 0.21
-:revdate: 2026-09-19
+:revdate: 2026-09-20
 :github-programme: https://github.com/ManiBecker/MeinErstesMMBasicProgramm/blob/main/programme
 
 ifndef::kdp[]
