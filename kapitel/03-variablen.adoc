@@ -298,6 +298,70 @@ WERTTEXT$="zehn"
 ----
 ====
 
+=== Variablen ausdrücklich deklarieren
+
+Bisher haben wir Variablen einfach verwendet:
+
+[source,basic]
+----
+ALTER=60
+NAME$="Manfred"
+----
+
+MMBasic legt diese Variablen automatisch an, sobald sie zum ersten Mal
+verwendet werden. Das ist für unsere ersten Programme sehr praktisch.
+
+Variablen können aber auch ausdrücklich mit indexterm:[DIM] `DIM`
+deklariert werden:
+
+[source,basic]
+----
+DIM ALTER
+DIM NAME$
+
+ALTER=60
+NAME$="Manfred"
+----
+
+Bei größeren Programmen hat diese Schreibweise einen wichtigen Vorteil:
+Es wird klar festgelegt, welche Variablen im Programm verwendet werden.
+
+==== Tippfehler mit OPTION EXPLICIT erkennen
+
+Ein Tippfehler in einem Variablennamen kann schwer zu entdecken sein:
+
+[source,basic]
+----
+PUNKTE=100
+PRINT PUNKET
+----
+
+MMBasic kann `PUNKET` als neue Variable betrachten, obwohl eigentlich
+`PUNKTE` gemeint war.
+
+Mit indexterm:[OPTION EXPLICIT] `OPTION EXPLICIT` kann festgelegt werden,
+dass Variablen vor ihrer Verwendung deklariert werden müssen:
+
+[source,basic]
+----
+OPTION EXPLICIT
+
+DIM PUNKTE
+PUNKTE=100
+
+PRINT PUNKTE
+----
+
+Ein versehentlich verwendeter Variablenname, der nicht vorher deklariert
+wurde, führt dann zu einer Fehlermeldung.
+
+[TIP]
+====
+Für unsere ersten kleinen Programme verzichten wir zunächst auf
+`OPTION EXPLICIT`. Bei größeren Programmen ist es jedoch eine gute
+Möglichkeit, Tippfehler in Variablennamen frühzeitig zu entdecken.
+====
+
 === Mit Variablen rechnen
 
 Variablen können in Berechnungen verwendet werden.
