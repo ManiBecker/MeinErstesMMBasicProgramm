@@ -75,6 +75,131 @@ PRINT A
 
 Wenn du beispielsweise `100` eingibst, enthält `A` anschließend den Wert 100.
 
+==== Die Eingabe muss zum Datentyp passen
+
+Im vorherigen Kapitel hast du gelernt, dass Variablen unterschiedliche
+Datentypen besitzen können. Das spielt auch bei `INPUT` eine wichtige Rolle.
+
+Bei
+
+[source,basic]
+----
+INPUT A
+----
+
+erwartet MMBasic eine Zahl. Gibst du beispielsweise `42` ein, kann dieser
+Wert problemlos in `A` gespeichert werden.
+
+Was passiert aber, wenn du stattdessen einen Text eingibst?
+
+[source]
+----
+? Hallo
+----
+
+MMBasic kann den Text `Hallo` nicht als Zahl in der numerischen Variablen `A`
+speichern. Die Eingabe schlägt deshalb fehl.
+
+Wenn du Text erfassen möchtest, musst du eine String-Variable verwenden:
+
+[source,basic]
+----
+INPUT NAME$
+----
+
+Dann ist beispielsweise diese Eingabe möglich:
+
+[source]
+----
+? Manfred
+----
+
+[IMPORTANT]
+====
+Der Datentyp der Variablen bestimmt, welche Art von Eingabe `INPUT` erwartet.
+
+* Eine numerische Variable wie `A` erwartet eine Zahl.
+* Eine String-Variable wie `NAME$` erwartet Text.
+
+Die Eingabe muss also zum Datentyp der Variablen passen.
+====
+
+=== Text und Zahlen umwandeln
+
+Manchmal liegt eine Zahl nicht als numerischer Wert, sondern als Text vor.
+Zum Beispiel kann der String `"42"` in einer String-Variablen gespeichert
+sein:
+
+[source,basic]
+----
+EINGABE$="42"
+----
+
+Mit indexterm:[VAL()] `VAL()` kann ein solcher Text in einen Zahlenwert
+umgewandelt werden:
+
+[source,basic]
+----
+EINGABE$="42"
+ZAHL=VAL(EINGABE$)
+
+PRINT ZAHL
+PRINT ZAHL+8
+----
+
+Ausgabe:
+
+[source]
+----
+42
+50
+----
+
+`VAL()` liest den Zahlenwert am Anfang eines Strings und liefert ihn als
+numerischen Wert zurück.
+
+Die umgekehrte Richtung ist ebenfalls möglich. Mit indexterm:[STR$()]
+`STR$()` kann ein Zahlenwert in einen String umgewandelt werden:
+
+[source,basic]
+----
+ZAHL=42
+TEXT$=STR$(ZAHL)
+
+PRINT TEXT$
+----
+
+Ausgabe:
+
+[source]
+----
+42
+----
+
+Damit stehen uns zwei wichtige Funktionen zur Umwandlung zur Verfügung:
+
+[cols="2,3,3",options="header"]
+|===
+|Funktion |Umwandlung |Beispiel
+
+|`VAL()`
+|String → Zahl
+|`ZAHL=VAL("42")`
+
+|`STR$()`
+|Zahl → String
+|`TEXT$=STR$(42)`
+|===
+
+[TIP]
+====
+`VAL()` und `STR$()` werden dir in späteren Programmen noch häufiger
+begegnen. Für den Moment genügt es, sich die beiden Richtungen zu merken:
+
+`VAL()` macht aus einem Zahlentext eine Zahl, `STR$()` aus einer Zahl einen
+String.
+====
+
 === Mit Eingaben rechnen
 
 Eingegebene Werte können sofort weiterverarbeitet werden.
