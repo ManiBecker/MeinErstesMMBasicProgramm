@@ -7,9 +7,13 @@ image::bilder/10_sub_und_function.jpg[align=center]
 In diesem Kapitel lernst du:
 
 * Programme in kleinere Bausteine aufzuteilen
-* eigene Unterprogramme mit SUB zu erstellen
-* eigene Funktionen mit FUNCTION zu schreiben
+* eigene Unterprogramme mit `SUB` zu erstellen
+* eigene Funktionen mit `FUNCTION` zu schreiben
 * Parameter an Unterprogramme und Funktionen zu übergeben
+* Werte aus Funktionen zurückzugeben
+* wiederkehrende Aufgaben in Unterprogrammen zusammenzufassen
+* Berechnungen in eigenen Funktionen zu kapseln
+* `SUB` und `FUNCTION` gemeinsam in einem Programm zu verwenden
 
 Am Ende des Kapitels kannst du eigene Befehle und Funktionen entwickeln.
 
@@ -272,6 +276,196 @@ Beispiele:
 * Zufallszahlen erzeugen
 * mathematische Funktionen berechnen
 
+=== Eine SUB für wiederkehrende Aufgaben
+
+Besonders nützlich sind Unterprogramme, wenn dieselbe Aufgabe an mehreren
+Stellen eines Programms benötigt wird.
+
+Das folgende Unterprogramm zeichnet eine Trennlinie mit einer frei wählbaren
+Länge:
+
+[source,basic]
+----
+SUB Linie(ANZAHL)
+
+  FOR I=1 TO ANZAHL
+    PRINT "-";
+  NEXT I
+  PRINT
+
+END SUB
+
+PRINT "MMBasic Tutorial"
+Linie(20)
+PRINT "Kapitel 10"
+Linie(20)
+----
+
+Ausgabe:
+
+[source]
+----
+MMBasic Tutorial
+--------------------
+Kapitel 10
+--------------------
+----
+
+Wenn wir später das Aussehen der Linie ändern möchten, müssen wir dafür nur
+noch die `SUB` ändern.
+
+=== Eine Funktion zur Temperaturumrechnung
+
+Eine Funktion kann eine Berechnung kapseln, die an verschiedenen Stellen
+eines Programms benötigt wird.
+
+[source,basic]
+----
+FUNCTION Fahrenheit(C)
+
+  Fahrenheit=C*9/5+32
+
+END FUNCTION
+
+PRINT "0 Grad Celsius = ";Fahrenheit(0);" Grad Fahrenheit"
+PRINT "20 Grad Celsius = ";Fahrenheit(20);" Grad Fahrenheit"
+PRINT "30 Grad Celsius = ";Fahrenheit(30);" Grad Fahrenheit"
+----
+
+Ausgabe:
+
+[source]
+----
+0 Grad Celsius = 32 Grad Fahrenheit
+20 Grad Celsius = 68 Grad Fahrenheit
+30 Grad Celsius = 86 Grad Fahrenheit
+----
+
+=== Werte auf einen Bereich begrenzen
+
+In vielen Programmen darf ein Wert einen bestimmten Bereich nicht verlassen.
+Dafür können wir eine eigene Funktion schreiben:
+
+[source,basic]
+----
+FUNCTION Begrenzen(WERT,MINIMUM,MAXIMUM)
+
+  IF WERT<MINIMUM THEN WERT=MINIMUM
+  IF WERT>MAXIMUM THEN WERT=MAXIMUM
+
+  Begrenzen=WERT
+
+END FUNCTION
+
+PRINT Begrenzen(120,0,100)
+PRINT Begrenzen(50,0,100)
+PRINT Begrenzen(-10,0,100)
+----
+
+Ausgabe:
+
+[source]
+----
+100
+50
+0
+----
+
+=== SUB und FUNCTION gemeinsam verwenden
+
+In einem größeren Programm werden Unterprogramme und Funktionen häufig
+gemeinsam eingesetzt.
+
+[source,basic]
+----
+FUNCTION Wuerfel()
+
+  Wuerfel=INT(RND*6)+1
+
+END FUNCTION
+
+SUB WurfAnzeigen(WURF)
+
+  PRINT "Du hast eine ";WURF;" gewuerfelt."
+
+END SUB
+
+FOR I=1 TO 3
+  WURF=Wuerfel()
+  WurfAnzeigen(WURF)
+NEXT I
+----
+
+Eine `FUNCTION` erzeugt hier den Würfelwert und gibt ihn zurück.
+Die `SUB` übernimmt die Ausgabe.
+
+Dadurch erhält jeder Programmteil eine klar abgegrenzte Aufgabe.
+
+=== Beispiel: Den Body-Mass-Index berechnen
+
+Ein praktisches Beispiel für eine Funktion ist die Berechnung des
+indexterm:[Body-Mass-Index] Body-Mass-Index (BMI).
+
+Der BMI wird aus dem Körpergewicht in Kilogramm und der Körpergröße in Metern
+berechnet:
+
+----
+BMI = Gewicht / (Größe * Größe)
+----
+
+Dafür können wir eine eigene Funktion schreiben:
+
+[source,basic]
+----
+FUNCTION BMI(GEWICHT,GROESSE)
+
+  BMI=GEWICHT/(GROESSE*GROESSE)
+
+END FUNCTION
+
+PRINT BMI(80,1.80)
+----
+
+Ausgabe:
+
+[source]
+----
+24.69136
+----
+
+Unsere Funktion erwartet zwei Werte:
+
+* `GEWICHT` ist das Körpergewicht in Kilogramm.
+* `GROESSE` ist die Körpergröße in Metern.
+
+Die Funktion berechnet daraus den BMI und gibt das Ergebnis zurück.
+
+Natürlich können die Werte auch vom Benutzer eingegeben werden:
+
+[source,basic]
+----
+INPUT "Gewicht in kg"; GEWICHT
+INPUT "Koerpergroesse in m"; GROESSE
+
+PRINT "Dein BMI ist ";BMI(GEWICHT,GROESSE)
+
+FUNCTION BMI(GEWICHT,GROESSE)
+
+  BMI=GEWICHT/(GROESSE*GROESSE)
+
+END FUNCTION
+----
+
+Damit übernimmt das Hauptprogramm die Eingabe und Ausgabe, während die
+Funktion ausschließlich für die Berechnung zuständig ist.
+
+[TIP]
+====
+Genau darin liegt ein wichtiger Vorteil von Funktionen: Eine Berechnung wird
+an einer Stelle definiert und kann anschließend überall im Programm verwendet
+werden.
+====
+
 === Experimentiere!
 
 Probiere folgende Änderungen aus:
@@ -293,16 +487,21 @@ Versuche folgende Aufgaben:
 
 === Zusammenfassung
 
-In diesem Kapitel hast du gelernt, Programme zu strukturieren.
+In diesem Kapitel hast du gelernt, Programme in kleinere Bausteine aufzuteilen
+und dadurch übersichtlicher zu strukturieren.
 
-Du kennst nun:
+Du kannst nun:
 
-* SUB ... END SUB
-* FUNCTION ... END FUNCTION
-* Parameter
-* Rückgabewerte
+* eigene Unterprogramme mit `SUB ... END SUB` erstellen
+* eigene Funktionen mit `FUNCTION ... END FUNCTION` schreiben
+* Parameter an Unterprogramme und Funktionen übergeben
+* Werte aus Funktionen zurückgeben
+* wiederkehrende Aufgaben in Unterprogrammen zusammenfassen
+* Berechnungen in eigenen Funktionen kapseln
+* `SUB` und `FUNCTION` gemeinsam in einem Programm verwenden
 
-Mit diesen Werkzeugen lassen sich auch größere Programme übersichtlich aufbauen.
+Mit diesen Werkzeugen lassen sich auch größere Programme übersichtlich
+aufbauen und einzelne Programmteile wiederverwenden.
 
 Im nächsten Kapitel werden wir unser Wissen nutzen, um ein weiteres Spiel oder ein größeres Praxisprojekt zu entwickeln.
 
