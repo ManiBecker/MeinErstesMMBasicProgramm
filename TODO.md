@@ -32,6 +32,7 @@ Nicht alle Punkte werden zwingend umgesetzt. Die Liste dient als Ideensammlung.
   - [x] Groß- und Kleinschreibung bei Variablennamen
   - [x] Ein Variablenname kann nur einen Datentyp besitzen
   - [x] Empfehlungen für sprechende Variablennamen
+  - [ ] `OPTION EXPLICIT` und Variablendeklaration
 
 ---
 
