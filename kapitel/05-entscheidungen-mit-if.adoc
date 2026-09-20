@@ -160,6 +160,49 @@ Da `A` den Wert 5 besitzt, erscheint:
 A ist nicht 10.
 ----
 
+==== Wo sind eigentlich die Zeilennummern?
+
+Wenn du bereits mit älteren BASIC-Dialekten gearbeitet hast, ist dir
+vielleicht aufgefallen, dass unsere Programme keine Zeilennummern besitzen.
+
+Bei klassischen BASIC-Versionen sah ein Programm häufig etwa so aus:
+
+[source,basic]
+----
+10 INPUT "Wie alt bist du"; ALTER
+20 IF ALTER>=18 THEN GOTO 40
+30 PRINT "Du bist noch nicht volljährig."
+40 END
+----
+
+In MMBasic sind solche Zeilennummern für normale Programme nicht notwendig.
+Stattdessen verwenden wir strukturierte Anweisungen wie `IF ... THEN`,
+Schleifen sowie später Unterprogramme und Funktionen.
+
+Ein Programm kann deshalb beispielsweise so geschrieben werden:
+
+[source,basic]
+----
+INPUT "Wie alt bist du"; ALTER
+
+IF ALTER>=18 THEN
+  PRINT "Du bist volljährig."
+ELSE
+  PRINT "Du bist noch nicht volljährig."
+ENDIF
+----
+
+Das Programm lässt sich dadurch meist leichter lesen und verändern.
+
+[NOTE]
+====
+MMBasic unterstützt Zeilennummern weiterhin, unter anderem aus Gründen der
+Kompatibilität mit älteren BASIC-Programmen. Für neue Programme benötigen
+wir sie jedoch normalerweise nicht.
+
+In diesem Buch verwenden wir deshalb keine Zeilennummern.
+====
+
 === Vergleichsoperatoren
 
 Für Bedingungen werden indexterm:[Vergleichsoperatoren] Vergleichsoperatoren verwendet.
