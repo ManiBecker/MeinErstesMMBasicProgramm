@@ -30,9 +30,11 @@ Keine Sorge – der Editor ist bewusst einfach gehalten und schnell zu erlernen.
 
 Den Editor startest du mit dem Befehl:
 
+indexterm:[EDIT] 
+
 [source,basic]
 ----
-indexterm:[EDIT] EDIT
+EDIT
 ----
 
 Nun kannst du dein Programm Zeile für Zeile eingeben.
@@ -43,9 +45,11 @@ Während der Eingabe kannst du den Cursor mit den Pfeiltasten bewegen und den Te
 ====
 Falls sich bereits ein anderes Programm im Speicher befindet, kannst du es vorher mit
 
+indexterm:[NEW]
+
 [source,basic]
 ----
-indexterm:[NEW] NEW
+NEW
 ----
 
 löschen.
@@ -67,9 +71,11 @@ Später in diesem Buch lernst du außerdem, wie Programme als Dateien im Dateisy
 
 Ein im Speicher befindliches Programm wird mit dem Befehl
 
+indexterm:[RUN] 
+
 [source,basic]
 ----
-indexterm:[RUN] RUN
+RUN
 ----
 
 gestartet.
