@@ -8,6 +8,8 @@ In diesem Kapitel lernst du:
 
 * was Variablen sind
 * wie Werte gespeichert werden
+* wie Variablen benannt werden
+* welche grundlegenden Datentypen es gibt
 * wie Variablen in Berechnungen verwendet werden
 * wie Variablen ihren Inhalt ändern können
 
@@ -25,7 +27,7 @@ In diese Schachtel kannst du einen Wert hineinlegen und später wieder darauf zu
 
 Gib folgende Zeilen ein:
 
-indexterm:[PRINT] 
+indexterm:[PRINT]
 
 [source,basic]
 ----
@@ -40,9 +42,9 @@ Ausgabe:
 10
 ----
 
-MMBasic speichert den Wert 10 in der Variablen A.
+MMBasic speichert den Wert 10 in der Variablen `A`.
 
-Mit PRINT kann der gespeicherte Wert angezeigt werden.
+Mit `PRINT` kann der gespeicherte Wert angezeigt werden.
 
 === Mehrere Variablen verwenden
 
@@ -64,6 +66,178 @@ Ausgabe:
 10
 20
 ----
+
+=== Aussagekräftige Variablennamen
+
+Für die ersten Beispiele sind kurze Variablennamen wie `A` und `B` praktisch.
+In größeren Programmen ist es jedoch leichter zu verstehen, was eine Variable
+enthält, wenn ihr Name den Inhalt beschreibt.
+
+Statt
+
+[source,basic]
+----
+A=60
+B=100
+----
+
+kannst du zum Beispiel schreiben:
+
+[source,basic]
+----
+ALTER=60
+PUNKTE=100
+----
+
+MMBasic erlaubt dazu längere indexterm:[Variablennamen] Variablennamen.
+
+Ein Variablenname darf mit einem Buchstaben beginnen und kann anschließend
+weitere Buchstaben, Ziffern und den Unterstrich `_` enthalten.
+
+=== Zahlen oder Text? – Ein erster Blick auf Datentypen
+
+Bis jetzt haben unsere Variablen Zahlen enthalten:
+
+[source,basic]
+----
+A
+B
+ALTER
+PUNKTE
+----
+
+MMBasic kann aber auch Texte in Variablen speichern. Dazu verwenden wir eine
+indexterm:[String-Variablen] String-Variable. Eine String-Variable erkennst du
+am Dollarzeichen `$` am Ende ihres Namens:
+
+[source,basic]
+----
+NAME$="Manfred"
+WOHNORT$="Heidelberg"
+
+PRINT NAME$
+PRINT WOHNORT$
+----
+
+Das Dollarzeichen `$` zeigt an, dass die Variable einen Text enthält. Solche
+Texte werden in der Programmierung als indexterm:[String] *Strings* bezeichnet.
+
+Eine Variable besitzt also einen bestimmten indexterm:[Datentyp] *Datentyp*.
+Der Datentyp legt fest, welche Art von Wert in einer Variablen gespeichert
+werden kann.
+
+Für den Anfang genügt uns die Unterscheidung zwischen Zahlen und Texten:
+
+[cols="2,2,4",options="header"]
+|===
+|Beispiel |Datentyp |Typische Verwendung
+
+|`ALTER`
+|Zahl
+|Alter, Punkte, Messwerte oder Berechnungen
+
+|`NAME$`
+|String
+|Namen, Texte oder andere Zeichenfolgen
+|===
+
+==== Es gibt noch weitere Datentypen
+
+MMBasic kann Zahlen noch genauer unterscheiden. Dafür gibt es besondere
+Typkennzeichen, die an einen Variablennamen angehängt werden können:
+
+[cols="1,2,3,3",options="header"]
+|===
+|Zeichen |Datentyp |Beispiel |Bedeutung
+
+|`$`
+|String
+|`NAME$`
+|Text bzw. Zeichenfolge
+
+|`%`
+|Integer
+|`PUNKTE%`
+|Ganze Zahl
+
+|`!`
+|Float
+|`TEMPERATUR!`
+|Zahl mit Nachkommastellen
+|===
+
+Du musst dir diese Datentypen jetzt noch nicht im Detail merken. Wichtig ist
+zunächst, dass Variablen unterschiedliche Arten von Werten speichern können.
+
+==== Groß- und Kleinschreibung bei Variablennamen
+
+Bei Variablennamen unterscheidet MMBasic nicht zwischen Groß- und
+Kleinschreibung. Die folgenden Schreibweisen bezeichnen deshalb dieselbe
+Variable:
+
+[source,basic]
+----
+ALTER=25
+PRINT alter
+PRINT Alter
+----
+
+Ausgabe:
+
+[source]
+----
+25
+25
+----
+
+Das Gleiche gilt auch für String-Variablen:
+
+[source,basic]
+----
+NAME$="Manfred"
+PRINT name$
+----
+
+MMBasic erkennt `NAME$` und `name$` als dieselbe Variable.
+
+[TIP]
+====
+Verwende trotzdem eine einheitliche Schreibweise. In diesem Buch schreiben wir
+Variablennamen in den Beispielen überwiegend in Großbuchstaben. So lassen sie
+sich im Programmtext leicht erkennen.
+====
+
+==== Ein Name – ein Datentyp
+
+Bei den verschiedenen Datentypen gibt es noch eine wichtige Regel:
+Ein Variablenname kann in MMBasic nicht gleichzeitig für unterschiedliche
+Datentypen verwendet werden.
+
+Es ist also nicht zulässig, beispielsweise diese beiden Variablen im selben
+Programm zu verwenden:
+
+[source,basic]
+----
+WERT%=10
+WERT$="zehn"
+----
+
+Obwohl `%` eine Integer-Variable und `$` eine String-Variable kennzeichnet,
+verwenden beide denselben Basisnamen `WERT`.
+
+[IMPORTANT]
+====
+Für einen Variablennamen musst du dich für einen Datentyp entscheiden.
+
+Wenn du sowohl einen Zahlenwert als auch einen dazugehörigen Text speichern
+möchtest, verwende unterschiedliche Namen:
+
+[source,basic]
+----
+WERT%=10
+WERTTEXT$="zehn"
+----
+====
 
 === Mit Variablen rechnen
 
@@ -149,7 +323,7 @@ Zuerst berechnet MMBasic die rechte Seite:
 10+1
 ----
 
-Danach wird das Ergebnis wieder in A gespeichert.
+Danach wird das Ergebnis wieder in `A` gespeichert.
 
 === Zähler erstellen
 
@@ -194,26 +368,37 @@ PRINT A*B
 
 Was passiert?
 
+Probiere auch einmal eine String-Variable aus:
+
+[source,basic]
+----
+NAME$="MMBasic"
+PRINT NAME$
+----
+
 === Probier's selbst!
 
 Versuche folgende Aufgaben:
 
 . Speichere dein Alter in einer Variablen.
 . Speichere dein Geburtsjahr in einer Variablen.
+. Speichere deinen Namen in einer String-Variablen.
 . Addiere zwei Zahlen mit Hilfe von Variablen.
 . Erhöhe eine Variable dreimal um 1.
 
 === Zusammenfassung
 
-In diesem Kapitel hast du Variablen kennengelernt.
+In diesem Kapitel hast du Variablen und erste Datentypen kennengelernt.
 
 Du kannst nun:
 
 * Werte speichern
+* aussagekräftige Variablennamen verwenden
+* Zahlen und Texte in Variablen unterscheiden
 * Werte verändern
 * mit Variablen rechnen
 
-Im nächsten Kapitel lernen wir Benutzereingaben mit INPUT kennen.
+Im nächsten Kapitel lernen wir Benutzereingaben mit `INPUT` kennen.
 
 ifndef::kdp[]
 === Programmbeispiel
