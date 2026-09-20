@@ -7,8 +7,9 @@ image::bilder/04_benutzereingaben_mit_input.jpg[align=center]
 In diesem Kapitel lernst du:
 
 * wie Daten vom Benutzer eingegeben werden
-* wie die Anweisung INPUT verwendet wird
+* wie die Anweisung `INPUT` verwendet wird
 * wie Eingaben in Variablen gespeichert werden
+* wie Zahlen und Texte eingegeben werden
 * wie Eingaben weiterverarbeitet werden
 
 Am Ende des Kapitels kannst du eigene interaktive Programme schreiben.
@@ -49,23 +50,22 @@ MMBasic zeigt ein Fragezeichen an:
 ?
 ----
 
-Gib nun beispielsweise folgende Zahl ein:
+Gib nun beispielsweise die Zahl `42` ein und bestätige mit der Eingabetaste.
+
+Auf dem Bildschirm sieht das so aus:
 
 [source]
 ----
+? 42
 42
 ----
 
-Danach erscheint:
-
-[source]
-----
-42
-----
+Die erste `42` ist deine Eingabe. Die zweite wird anschließend mit `PRINT`
+ausgegeben.
 
 === Eingaben in Variablen speichern
 
-Die eingegebene Zahl wird in der Variablen gespeichert.
+Die eingegebene Zahl wird in der Variablen `A` gespeichert.
 
 [source,basic]
 ----
@@ -73,14 +73,7 @@ INPUT A
 PRINT A
 ----
 
-Wenn du 100 eingibst:
-
-[source]
-----
-100
-----
-
-wird dieser Wert in der Variablen `A` gespeichert.
+Wenn du beispielsweise `100` eingibst, enthält `A` anschließend den Wert 100.
 
 === Mit Eingaben rechnen
 
@@ -119,14 +112,17 @@ Beispiel:
 30
 ----
 
-Da ein Benutzer nicht erkennen kann, in welcher Form die Eingabe nach dem ?-Prompt anzugeben ist, kann dem INPUT-Befehl auch ein Fragetext mitgegeben werden. Die Syntax ist dabei:
+Da ein Benutzer nicht erkennen kann, in welcher Form die Eingabe nach dem
+`?`-Prompt anzugeben ist, kann dem `INPUT`-Befehl auch ein Fragetext mitgegeben
+werden. Die Syntax ist dabei:
 
 [source]
 ----
 INPUT ["prompt$(;|,)] var1 [, var2[, var3[, etc]]]
 ----
 
-Normalerweise wird der Fragetext mit dem Semicolon (;) abgeschlossen. In diesem Fall wird hinter dem Fragetext ein Fragezeichen angezeigt. 
+Normalerweise wird der Fragetext mit einem Semikolon (`;`) abgeschlossen. In
+diesem Fall wird hinter dem Fragetext ein Fragezeichen angezeigt.
 
 [source,basic]
 ----
@@ -142,7 +138,8 @@ Bitte gib zwei Zahlen ein, getrennt durch ein Komma: ? 10,20
 Die Summe der zwei Zahlen ist: 30
 ----
 
-Wenn der Fragetext mit einem Komma (,) abgeschlossen wird, wird das Fragezeichen unterdrückt.
+Wenn der Fragetext mit einem Komma (`,`) abgeschlossen wird, wird das
+Fragezeichen unterdrückt.
 
 [source,basic]
 ----
@@ -160,16 +157,15 @@ Die Summe der zwei Zahlen ist: 30
 
 === Eine persönliche Begrüßung
 
-MMBasic kann auch Texte verarbeiten.
+Im vorherigen Kapitel hast du bereits String-Variablen für Texte kennengelernt.
+Auch mit `INPUT` können solche Texte eingegeben werden.
 
-Dazu verwenden wir eine indexterm:[String-Variablen] String-Variable.
-
-String-Variablen erkennt man am Dollarzeichen am Ende des Namens.
+Für den Namen verwenden wir die String-Variable `NAME$`:
 
 [source,basic]
 ----
-INPUT "Wie heisst du";N$
-PRINT "Hallo ";N$;", schön, dass du da bist."
+INPUT "Wie heisst du"; NAME$
+PRINT "Hallo "; NAME$; ", schön, dass du da bist."
 ----
 
 Beispiel:
@@ -180,40 +176,39 @@ Wie heisst du? Manfred
 Hallo Manfred, schön, dass du da bist.
 ----
 
-[NOTE]
-====
-MMBasic erlaubt aussagekräftige indexterm:[Variablennamen] Variablennamen.
+Das `$` am Ende von `NAME$` zeigt, wie du bereits weißt, dass diese Variable
+einen String enthält.
 
-Statt kurzer Namen wie
+=== Aussagekräftige Namen bei Eingaben
 
-[source,basic]
-----
-A
-B
-X
-----
+Gerade bei Benutzereingaben sind aussagekräftige Variablennamen hilfreich.
 
-können auch längere Namen verwendet werden:
+Statt
 
 [source,basic]
 ----
-ALTER
-NAME$
-WOHNORT$
-PUNKTE
+INPUT A
+INPUT B$
 ----
 
-Ein Variablenname darf mit einem Buchstaben beginnen und kann anschließend weitere Buchstaben, Ziffern und den Unterstrich `_` enthalten.
-
-Für Textvariablen wird häufig ein Dollarzeichen `$` am Ende des Namens verwendet:
+kannst du zum Beispiel schreiben:
 
 [source,basic]
 ----
-NAME$
-WOHNORT$
-TEXT$
+INPUT "Wie alt bist du"; ALTER
+INPUT "Wo wohnst du"; WOHNORT$
 ----
-====
+
+Beispiel:
+
+[source]
+----
+Wie alt bist du? 60
+Wo wohnst du? Heidelberg
+----
+
+Schon beim Lesen des Programms ist damit klar, welche Information in einer
+Variablen gespeichert wird.
 
 === Experimentiere!
 
@@ -231,6 +226,7 @@ Versuche folgende Aufgaben:
 . Frage den Benutzer nach seinem Namen.
 . Frage den Benutzer nach seinem Alter.
 . Addiere zwei eingegebene Zahlen.
+. Frage nach dem Wohnort.
 . Gib eine persönliche Begrüßung aus.
 
 === Zusammenfassung
@@ -241,7 +237,8 @@ Du kannst nun:
 
 * Zahlen eingeben
 * Texte eingeben
-* Eingaben speichern
+* Eingaben in Variablen speichern
+* mehrere Werte eingeben
 * Eingaben weiterverarbeiten
 
 Im nächsten Kapitel lernen wir Entscheidungen mit `IF ... THEN` kennen.
