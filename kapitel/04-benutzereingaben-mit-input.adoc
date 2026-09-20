@@ -10,6 +10,9 @@ In diesem Kapitel lernst du:
 * wie die Anweisung `INPUT` verwendet wird
 * wie Eingaben in Variablen gespeichert werden
 * wie Zahlen und Texte eingegeben werden
+* warum eine Eingabe zum Datentyp der Variablen passen muss
+* wie mit `VAL()` Text in eine Zahl umgewandelt wird
+* wie mit `STR$()` eine Zahl in Text umgewandelt wird
 * wie Eingaben weiterverarbeitet werden
 
 Am Ende des Kapitels kannst du eigene interaktive Programme schreiben.
@@ -364,6 +367,9 @@ Du kannst nun:
 * Texte eingeben
 * Eingaben in Variablen speichern
 * mehrere Werte eingeben
+* den passenden Datentyp für eine Eingabe verwenden
+* mit `VAL()` einen Text in eine Zahl umwandeln
+* mit `STR$()` eine Zahl in einen Text umwandeln
 * Eingaben weiterverarbeiten
 
 Im nächsten Kapitel lernen wir Entscheidungen mit `IF ... THEN` kennen.
