@@ -263,6 +263,28 @@ Ausgabe:
 Start!
 ----
 
+[IMPORTANT]
+====
+Die Schleifenvariable wird von `FOR ... NEXT` automatisch verwaltet. Verändere
+ihren Wert deshalb innerhalb der Schleife möglichst nicht selbst.
+
+Vermeide beispielsweise:
+
+[source,basic]
+----
+FOR I=1 TO 10
+  PRINT I
+  I=I+1
+NEXT I
+----
+
+Hier wird `I` innerhalb der Schleife verändert und anschließend durch `NEXT`
+noch einmal erhöht. Dadurch ist der Ablauf schwieriger nachzuvollziehen.
+
+Wenn eine Schleife unter bestimmten Bedingungen vorzeitig beendet werden soll,
+verwende stattdessen `EXIT FOR`.
+====
+
 === Schleifen und Entscheidungen
 
 Schleifen und IF lassen sich hervorragend kombinieren.
@@ -358,6 +380,68 @@ Mit einer Schleife lassen sich auch Tabellen für mathematische Funktionen erzeu
 
 Solche Wertetabellen wurden früher häufig verwendet, um Funktionen zu untersuchen oder später als Graph darzustellen.
 ====
+
+=== Verschachtelte Schleifen
+
+Eine `FOR ... NEXT`-Schleife kann auch eine weitere Schleife enthalten.
+Man spricht dann von indexterm:[verschachtelte Schleifen] *verschachtelten
+Schleifen*.
+
+[source,basic]
+----
+FOR ZEILE=1 TO 3
+  FOR SPALTE=1 TO 5
+    PRINT "*";
+  NEXT SPALTE
+  PRINT
+NEXT ZEILE
+----
+
+Ausgabe:
+
+[source]
+----
+*****
+*****
+*****
+----
+
+Bei jedem Durchlauf der äußeren Schleife wird die innere Schleife vollständig
+durchlaufen. In unserem Beispiel läuft `ZEILE` dreimal von 1 bis 3. Für jede
+Zeile läuft `SPALTE` fünfmal von 1 bis 5.
+
+=== Eine Schleife vorzeitig verlassen
+
+Normalerweise wird eine `FOR ... NEXT`-Schleife so lange ausgeführt, bis ihr
+Endwert erreicht ist. Manchmal soll die Schleife jedoch schon vorher beendet
+werden.
+
+Dafür gibt es indexterm:[EXIT FOR] `EXIT FOR`.
+
+[source,basic]
+----
+FOR I=1 TO 10
+  PRINT I
+
+  IF I=5 THEN
+    EXIT FOR
+  ENDIF
+NEXT I
+----
+
+Ausgabe:
+
+[source]
+----
+1
+2
+3
+4
+5
+----
+
+Sobald `I` den Wert 5 erreicht, wird `EXIT FOR` ausgeführt. Das Programm
+verlässt die Schleife und setzt die Ausführung hinter `NEXT I` fort.
 
 === Experimentiere!
 
