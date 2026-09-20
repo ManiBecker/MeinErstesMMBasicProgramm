@@ -10,6 +10,8 @@ In diesem Kapitel lernst du:
 * wie Werte gespeichert werden
 * wie Variablen benannt werden
 * welche grundlegenden Datentypen es gibt
+* wie Variablen mit `DIM` deklariert werden
+* wie `OPTION EXPLICIT` Tippfehler bei Variablennamen erkennen hilft
 * wie Variablen in Berechnungen verwendet werden
 * wie Variablen ihren Inhalt ändern können
 
@@ -515,9 +517,13 @@ In diesem Kapitel hast du Variablen und erste Datentypen kennengelernt.
 
 Du kannst nun:
 
-* Werte speichern
+* Werte in Variablen speichern
 * aussagekräftige Variablennamen verwenden
+* die wichtigsten Regeln für Variablennamen beachten
 * Zahlen und Texte in Variablen unterscheiden
+* die Typkennzeichen `%`, `!` und `$` einordnen
+* Variablen mit `DIM` ausdrücklich deklarieren
+* mit `OPTION EXPLICIT` nicht deklarierte Variablen erkennen
 * Werte verändern
 * mit Variablen rechnen
 
