@@ -67,6 +67,12 @@ Wenn du gerade erst mit MMBasic beginnst, hilft dir die folgende Übersicht bei 
 |Nein
 |Ideal für Linux-Anwender.
 
+|MMBasic for MacOS (MMB4M)
+|Mac oder MacBook
+|Ja
+|Nein
+|Ideal für Mac-Anwender.
+
 |DOS MMBasic
 |DOS-PC oder DOSBox
 |Text
