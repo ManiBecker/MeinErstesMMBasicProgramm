@@ -162,6 +162,8 @@ A ist nicht 10.
 
 ==== Wo sind eigentlich die Zeilennummern?
 
+indexterm:[Zeilennummern]
+
 Wenn du bereits mit älteren BASIC-Dialekten gearbeitet hast, ist dir
 vielleicht aufgefallen, dass unsere Programme keine Zeilennummern besitzen.
 
