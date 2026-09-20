@@ -19,16 +19,16 @@ Nicht alle Punkte werden zwingend umgesetzt. Die Liste dient als Ideensammlung.
 
 ## Grundlagen
 
-- [ ] Eigenes Kapitel „Datentypen“
-  - Integer
-  - Float
-  - String
-  - Typkennzeichen (`%`, `!`, `$`)
-  - Typkonvertierung
+- [x] Datentypen im Kapitel „Variablen“ einführen
+  - [x] Integer
+  - [x] Float
+  - [x] String
+  - [x] Typkennzeichen (`%`, `!`, `$`)
+  - [ ] Typkonvertierung
 - [ ] Kapitel „Variablen“ erweitern
-  - Regeln für Variablennamen
-  - Verwendung von `_` und `.`
-  - Empfehlungen für sprechende Variablennamen
+  - [x] Regeln für Variablennamen
+  - [ ] Verwendung von `_` und `.`
+  - [x] Empfehlungen für sprechende Variablennamen
 
 ---
 
