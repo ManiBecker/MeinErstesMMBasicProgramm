@@ -78,6 +78,8 @@ Nicht alle Punkte werden zwingend umgesetzt. Die Liste dient als Ideensammlung.
 | Regeln für Variablennamen (bfwolf) | ☑ Geplant |
 | `TYPE ... END TYPE` und Data-Logger-Beispiel (bfwolf) | ☑ Geplant |
 | Historischer Exkurs zu BASIC-Zeilennummern (bfwolf) | ☑ Geplant |
+| Kurzübersicht weiterer Maximite-Varianten und ihrer Besonderheiten (Cpt_Void / ThoralfAsmussen) | ☑ Geplant |
+| Grobe Unterschiede zwischen MMBasic, GW-BASIC und QuickBASIC (Cpt_Void) | ☑ Geplant |
 
 ---
 
