@@ -21,6 +21,12 @@ CONST FALSE=0
 DATEI$="geburtstage.txt"
 TEMPDATEI$="geburtstage.tmp"
 
+' Datendatei beim ersten Programmstart anlegen
+IF MM.INFO(EXISTS FILE DATEI$)=FALSE THEN
+  OPEN DATEI$ FOR OUTPUT AS #1
+  CLOSE #1
+ENDIF
+
 DO
 
   CLS
@@ -236,7 +242,7 @@ SUB GeburtstagLoeschen
       CLOSE #2
 
       KILL DATEI$
-      NAME TEMPDATEI$ AS DATEI$
+      RENAME TEMPDATEI$ AS DATEI$
 
       PRINT
       PRINT "Eintrag geloescht."
