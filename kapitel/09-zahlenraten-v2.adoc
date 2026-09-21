@@ -78,7 +78,7 @@ und läuft deshalb als Endlosschleife immer weiter.
 
 Eine Schleifenbedingung legt fest, wie lange eine Schleife ausgeführt wird.
 
-Sie kann mit `CTRL+C` abgebrochen werden.
+Eine Schleife kann mit `CTRL+C` abgebrochen werden.
 ====
 
 `DO ... LOOP` eignet sich besonders für Wiederholungen, bei denen die Anzahl
