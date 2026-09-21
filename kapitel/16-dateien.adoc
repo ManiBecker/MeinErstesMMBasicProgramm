@@ -1425,6 +1425,8 @@ SUB DatensatzLesen(ZEILE$,NAME$,TAG,MONAT,JAHR)
 END SUB
 ----
 
+=== Zusammenfassung
+
 In diesem Programm arbeiten viele der bisher kennengelernten Techniken
 zusammen:
 
