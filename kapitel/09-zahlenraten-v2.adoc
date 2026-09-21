@@ -6,10 +6,12 @@ image::bilder/09_zahlenraten_v2.jpg[align=center]
 
 In diesem Kapitel lernst du:
 
+* wann eine `DO ... LOOP`-Schleife verwendet wird
+* wie eine Schleife mit `UNTIL` oder `WHILE` gesteuert wird
+* warum die Position der Bedingung eine Rolle spielt
 * wie ein Spiel mehrere Versuche erlauben kann
 * wie Hinweise ausgegeben werden
 * wie die Anzahl der Versuche gezählt wird
-* wie die Schleife DO ... LOOP UNTIL verwendet wird
 
 Am Ende des Kapitels hast du ein deutlich verbessertes Zahlenratespiel programmiert.
 
@@ -37,7 +39,25 @@ Zusätzlich erhält er hilfreiche Hinweise:
 
 === Eine neue Schleife
 
-Für solche Aufgaben eignet sich die indexterm:[DO]indexterm:[LOOP] Schleife `DO ... LOOP`.
+In Kapitel 6 haben wir die Schleife `FOR ... NEXT` kennengelernt.
+
+Sie eignet sich besonders dann, wenn bereits vorher feststeht, wie oft etwas
+wiederholt werden soll:
+
+[source,basic]
+----
+FOR I=1 TO 10
+  PRINT I
+NEXT I
+----
+
+Beim Zahlenratespiel wissen wir dagegen nicht, wie viele Versuche der Spieler
+benötigen wird.
+
+Für solche Aufgaben eignet sich die
+indexterm:[DO]indexterm:[LOOP] Schleife `DO ... LOOP`.
+
+Die einfachste Form sieht so aus:
 
 [source,basic]
 ----
@@ -48,13 +68,28 @@ DO
 LOOP
 ----
 
-Vorsicht!
+indexterm:[Schleifenbedingung]
+indexterm:[Endlosschleife]
 
-Dieses Programm läuft als indexterm:[Endlosschleife] Endlosschleife und kann nur mit CTRL+C beendet werden.
+[IMPORTANT]
+====
+Diese Schleife besitzt keine Schleifenbedingung
+und läuft deshalb als Endlosschleife immer weiter.
+
+Eine Schleifenbedingung legt fest, wie lange eine Schleife ausgeführt wird.
+
+Sie kann mit `CTRL+C` abgebrochen werden.
+====
+
+`DO ... LOOP` eignet sich besonders für Wiederholungen, bei denen die Anzahl
+der Durchläufe vorher nicht bekannt ist.
 
 === Die Schleife beenden
 
-Eine Schleife kann mit einer Bedingung beendet werden. Mit indexterm:[UNTIL] `UNTIL` wird die Schleife beendet, sobald die Bedingung erfüllt ist.
+Natürlich soll eine Schleife normalerweise nicht endlos laufen.
+
+Mit indexterm:[UNTIL] `UNTIL` können wir festlegen, wann die Schleife beendet
+werden soll.
 
 [source,basic]
 ----
@@ -65,7 +100,110 @@ DO
 LOOP UNTIL A=10
 ----
 
-Das Programm fordert solange eine Zahl an, bis die Zahl 10 eingegeben wird.
+Das Programm fordert so lange eine Zahl an, bis die Zahl 10 eingegeben wird.
+
+`UNTIL` bedeutet sinngemäß „bis“. Die Schleife läuft also:
+
+----
+Wiederhole ...
+bis A=10
+----
+
+[IMPORTANT]
+====
+Bei `LOOP UNTIL` wird die Bedingung erst am Ende der Schleife geprüft.
+
+Die Anweisungen zwischen `DO` und `LOOP` werden deshalb mindestens einmal
+ausgeführt.
+====
+
+=== Wiederholen mit WHILE
+
+Neben `UNTIL` können wir eine `DO ... LOOP`-Schleife auch mit
+indexterm:[WHILE] `WHILE` steuern.
+
+`WHILE` bedeutet sinngemäß „so lange“.
+
+[source,basic]
+----
+A=1
+
+DO
+
+  PRINT A
+  A=A+1
+
+LOOP WHILE A<=5
+----
+
+Die Ausgabe lautet:
+
+[source]
+----
+1
+2
+3
+4
+5
+----
+
+Die Schleife wird wiederholt, so lange die Bedingung `A<=5` erfüllt ist.
+
+Damit unterscheiden sich `UNTIL` und `WHILE` vor allem in der Bedeutung:
+
+[cols="1,3"]
+|===
+|`UNTIL` |wiederholen, bis die Bedingung wahr wird
+|`WHILE` |wiederholen, so lange die Bedingung wahr ist
+|===
+
+Bei `UNTIL` beschreibt die Bedingung also, wann die Schleife _enden_ soll.
+Bei `WHILE` beschreibt sie dagegen, unter welcher Bedingung die Schleife
+_weiterlaufen_ soll.
+
+==== Die Bedingung kann auch am Anfang stehen
+
+Die Bedingung einer `DO ... LOOP`-Schleife kann auch bereits bei `DO`
+angegeben werden:
+
+[source,basic]
+----
+A=1
+
+DO WHILE A<=5
+
+  PRINT A
+  A=A+1
+
+LOOP
+----
+
+Hier wird die Bedingung geprüft, bevor die Anweisungen innerhalb der Schleife
+ausgeführt werden.
+
+Ist die Bedingung bereits beim ersten Test nicht erfüllt, wird die Schleife
+kein einziges Mal durchlaufen.
+
+Bei einer Bedingung hinter `LOOP` wird der Schleifeninhalt dagegen mindestens
+einmal ausgeführt.
+
+[NOTE]
+====
+Auch `UNTIL` kann direkt hinter `DO` verwendet werden:
+
+[source,basic]
+----
+DO UNTIL BEDINGUNG
+  ...
+LOOP
+----
+
+Damit kann die Bedingung sowohl am Anfang als auch am Ende einer
+`DO ... LOOP`-Schleife geprüft werden.
+
+Welche Form besser geeignet ist, hängt davon ab, ob der Schleifeninhalt 
+auf jeden Fall mindestens einmal ausgeführt werden soll.
+====
 
 === Das neue Zahlenratespiel
 
@@ -108,7 +246,7 @@ DO
 LOOP UNTIL TIPP=GEHEIM
 ----
 
-Die Schleife wird solange wiederholt, bis der Spieler die richtige Zahl eingegeben hat.
+Die Schleife wird so lange wiederholt, bis der Spieler die richtige Zahl eingegeben hat.
 
 === Die Anzahl der Versuche zählen
 
@@ -217,7 +355,10 @@ In diesem Kapitel hast du unser erstes Spiel verbessert.
 
 Du hast gelernt:
 
-* die Schleife DO ... LOOP UNTIL zu verwenden
+* `DO ... LOOP` für Wiederholungen mit unbekannter Anzahl von Durchläufen zu verwenden
+* Schleifen mit `UNTIL` zu wiederholen, bis eine Bedingung erfüllt ist
+* Schleifen mit `WHILE` zu wiederholen, so lange eine Bedingung erfüllt ist
+* Bedingungen am Anfang oder am Ende einer `DO ... LOOP`-Schleife zu prüfen
 * Hinweise auszugeben
 * Versuche zu zählen
 * Programme schrittweise zu erweitern
