@@ -207,6 +207,17 @@ auf jeden Fall mindestens einmal ausgeführt werden soll.
 
 === Das neue Zahlenratespiel
 
+Nach so viel Schleifentheorie wird es Zeit, wieder zu programmieren.
+
+Jetzt kennen wir die wichtigsten Grundlagen der `DO ... LOOP`-Schleife und
+können sie in unserem Zahlenratespiel einsetzen.
+
+Da wir vorher nicht wissen, wie viele Versuche der Spieler benötigen wird,
+verwenden wir eine Schleife mit `LOOP UNTIL`. Das Spiel fragt dadurch so lange
+nach einem neuen Tipp, bis die geheime Zahl gefunden wurde.
+
+Unser verbessertes Zahlenratespiel sieht damit so aus:
+
 [source,basic]
 ----
 GEHEIM=INT(RND*100)+1
