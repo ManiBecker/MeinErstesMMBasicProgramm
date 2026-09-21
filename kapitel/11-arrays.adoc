@@ -7,12 +7,16 @@ image::bilder/11_arrays.jpg[align=center]
 In diesem Kapitel lernst du:
 
 * was ein Array ist
-* wie Arrays mit DIM angelegt werden
-* wie Werte in Arrays gespeichert werden
-* wie Arrays mit FOR-Schleifen verarbeitet werden
+* wie Arrays mit `DIM` angelegt werden
+* wie Werte in Arrays gespeichert und wieder ausgelesen werden
+* wie Arrays mit `FOR`-Schleifen verarbeitet werden
 * wie Zahlen- und Textarrays verwendet werden
+* wie ein Array Zustände speichern kann
+* wie mehrdimensionale Arrays aufgebaut sind
+* wie Daten in Zeilen und Spalten organisiert werden
 
-Am Ende des Kapitels kannst du viele Werte übersichtlich verwalten.
+Am Ende des Kapitels kannst du viele zusammengehörige Werte übersichtlich
+speichern und verarbeiten.
 
 === Das Problem
 
@@ -43,7 +47,8 @@ Es muss einen besseren Weg geben.
 
 Ein indexterm:[Arrays] Array ist eine Sammlung von Variablen mit demselben Namen.
 
-Jedes indexterm:[Array-Elemente] Element besitzt eine Nummer, den sogenannten indexterm:[Array-Elemente] Index.
+Jedes indexterm:[Array-Elemente] Element besitzt eine Nummer, den sogenannten
+indexterm:[Index] Index.
 
 Bevor ein Array verwendet werden kann, muss es mit indexterm:[DIM] `DIM` angelegt werden.
 
@@ -320,6 +325,288 @@ FOR X=0 TO 10
 NEXT X
 ----
 
+=== Lottozahlen ohne Wiederholung
+
+In Kapitel 7 haben wir bereits sechs indexterm:[Lottozahlen] Lottozahlen erzeugt.
+Damals konnten die Zahlen allerdings noch mehrfach auftreten.
+
+Inzwischen kennen wir Arrays und können dieses Problem lösen.
+
+Für jede der 49 möglichen Lottozahlen merken wir uns in einem Array, ob sie
+bereits gezogen wurde. Dazu verwenden wir die beiden Konstanten
+indexterm:[TRUE] `TRUE` und indexterm:[FALSE] `FALSE`.
+
+Mit indexterm:[CONST] `CONST` können wir einen Namen mit einem festen Wert
+verbinden. Anders als bei einer Variablen kann dieser Wert während des
+Programms nicht mehr verändert werden.
+
+[source,basic]
+----
+CONST TRUE=1
+CONST FALSE=0
+----
+
+Damit steht `TRUE` für den Wert 1 und `FALSE` für den Wert 0. Im Programm
+können wir dadurch beispielsweise schreiben:
+
+[source,basic]
+----
+GEZOGEN(22)=TRUE
+----
+
+Das ist leichter verständlich als:
+
+[source,basic]
+----
+GEZOGEN(22)=1
+----
+
+[NOTE]
+====
+`TRUE` und `FALSE` sind hier lediglich Namen für die Zahlenwerte 1 und 0.
+
+Wenn wir schreiben:
+
+[source,basic]
+----
+GEZOGEN(22)=TRUE
+----
+
+wird im Array nicht das Wort `TRUE` gespeichert. Da wir zuvor
+
+[source,basic]
+----
+CONST TRUE=1
+CONST FALSE=0
+----
+
+definiert haben, speichert MMBasic tatsächlich den Zahlenwert `1` im
+Array-Element `GEZOGEN(22)`.
+
+Entsprechend bedeutet:
+
+[source,basic]
+----
+GEZOGEN(22)=FALSE
+----
+
+dass dort der Zahlenwert `0` gespeichert wird.
+
+Die Konstanten `TRUE` und `FALSE` machen das Programm lediglich leichter
+lesbar.
+====
+
+Mit diesem Wissen können wir nun unsere Lottoziehung programmieren. Das Array
+`GEZOGEN()` merkt sich dabei für jede Zahl von 1 bis 49, ob sie bereits gezogen
+wurde:
+
+[source,basic]
+----
+CONST TRUE=1
+CONST FALSE=0
+
+DIM GEZOGEN(49)
+
+DO
+
+  ' Array fuer eine neue Ziehung loeschen
+  FOR ZAHL=1 TO 49
+    GEZOGEN(ZAHL)=FALSE
+  NEXT ZAHL
+
+  ' Sechs verschiedene Lottozahlen ziehen
+  FOR I=1 TO 6
+
+    DO
+      ZAHL=INT(RND*49)+1
+    LOOP WHILE GEZOGEN(ZAHL)=TRUE
+
+    GEZOGEN(ZAHL)=TRUE
+
+  NEXT I
+
+  ' Zusatzzahl ziehen
+  DO
+    ZUSATZZAHL=INT(RND*49)+1
+  LOOP WHILE GEZOGEN(ZUSATZZAHL)=TRUE
+
+  ' Lottozahlen sortiert ausgeben
+  PRINT "Ziehung der Lottozahlen: ";
+
+  ERSTE=TRUE
+
+  FOR ZAHL=1 TO 49
+
+    IF GEZOGEN(ZAHL)=TRUE THEN
+
+      IF ERSTE=FALSE THEN PRINT ", ";
+
+      PRINT ZAHL;
+      ERSTE=FALSE
+
+    ENDIF
+
+  NEXT ZAHL
+
+  PRINT ". Zusatzzahl: ";ZUSATZZAHL
+
+  ' Weitere Ziehung?
+  INPUT "Noch einmal ziehen (J/N)"; NOCHMAL$
+
+LOOP WHILE UCASE$(NOCHMAL$)="J"
+----
+
+Eine mögliche Ausgabe ist:
+
+[source]
+----
+Ziehung der Lottozahlen: 4, 6, 22, 33, 34, 40. Zusatzzahl: 3
+Noch einmal ziehen (J/N)? J
+
+Ziehung der Lottozahlen: 2, 9, 14, 21, 37, 48. Zusatzzahl: 16
+Noch einmal ziehen (J/N)? N
+----
+
+==== Das Array als Merkspeicher
+
+Das Array `GEZOGEN()` dient als Gedächtnis für unsere Lottoziehung.
+
+Zu Beginn einer neuen Ziehung setzen wir alle Elemente auf `FALSE`:
+
+[source,basic]
+----
+FOR ZAHL=1 TO 49
+  GEZOGEN(ZAHL)=FALSE
+NEXT ZAHL
+----
+
+Damit ist zunächst keine der 49 möglichen Zahlen als gezogen markiert.
+
+Wird beispielsweise die Zahl 22 gezogen, setzen wir das entsprechende
+Array-Element auf `TRUE`:
+
+[source,basic]
+----
+GEZOGEN(22)=TRUE
+----
+
+Bei jeder weiteren Ziehung prüfen wir, ob die erzeugte Zahl bereits als
+gezogen markiert ist:
+
+[source,basic]
+----
+DO
+  ZAHL=INT(RND*49)+1
+LOOP WHILE GEZOGEN(ZAHL)=TRUE
+----
+
+Solange die gezogene Zahl bereits im Array mit `TRUE` markiert ist, wird eine
+neue Zufallszahl erzeugt. Erst bei einer noch nicht gezogenen Zahl wird die
+Schleife beendet.
+
+Auf diese Weise erhalten wir sechs verschiedene Lottozahlen.
+
+==== Die Zusatzzahl
+
+Auch die Zusatzzahl darf keine der sechs zuvor gezogenen Lottozahlen sein.
+Deshalb verwenden wir bei ihrer Ermittlung dieselbe Prüfung:
+
+[source,basic]
+----
+DO
+  ZUSATZZAHL=INT(RND*49)+1
+LOOP WHILE GEZOGEN(ZUSATZZAHL)=TRUE
+----
+
+Da die Zusatzzahl anschließend nicht mehr für weitere Ziehungen geprüft werden
+muss, brauchen wir sie nicht zusätzlich im Array zu markieren.
+
+==== Sortieren ganz ohne Sortieralgorithmus
+
+Für die Ausgabe benötigen wir keinen eigenen Sortieralgorithmus.
+
+Das Array `GEZOGEN()` besitzt für jede mögliche Lottozahl von 1 bis 49 ein
+Element. Deshalb können wir das Array einfach in dieser Reihenfolge
+durchlaufen:
+
+[source,basic]
+----
+FOR ZAHL=1 TO 49
+  IF GEZOGEN(ZAHL)=TRUE THEN
+    PRINT ZAHL
+  ENDIF
+NEXT ZAHL
+----
+
+Da wir bei 1 beginnen und bei 49 aufhören, werden die gezogenen Zahlen
+automatisch in aufsteigender Reihenfolge ausgegeben.
+
+Für die gewünschte Ausgabe in einer einzigen Zeile benötigen wir noch die
+Variable `ERSTE`. Sie merkt sich, ob bereits eine Lottozahl ausgegeben wurde:
+
+[source,basic]
+----
+ERSTE=TRUE
+
+FOR ZAHL=1 TO 49
+
+  IF GEZOGEN(ZAHL)=TRUE THEN
+
+    IF ERSTE=FALSE THEN PRINT ", ";
+
+    PRINT ZAHL;
+    ERSTE=FALSE
+
+  ENDIF
+
+NEXT ZAHL
+----
+
+Vor der ersten Lottozahl wird dadurch kein Komma ausgegeben. Vor allen
+folgenden Zahlen dagegen schon.
+
+==== Eine weitere Ziehung
+
+Nach jeder Ziehung fragen wir den Benutzer, ob eine weitere Ziehung
+durchgeführt werden soll:
+
+[source,basic]
+----
+INPUT "Noch einmal ziehen (J/N)"; NOCHMAL$
+----
+
+Die gesamte Lottoziehung befindet sich deshalb in einer weiteren
+`DO ... LOOP`-Schleife:
+
+[source,basic]
+----
+DO
+
+  ' Lottoziehung
+
+  INPUT "Noch einmal ziehen (J/N)"; NOCHMAL$
+
+LOOP WHILE UCASE$(NOCHMAL$)="J"
+----
+
+Mit `UCASE$()` wird die Eingabe vor dem Vergleich in Großbuchstaben
+umgewandelt. Deshalb werden sowohl `J` als auch `j` akzeptiert.
+
+Wird etwas anderes eingegeben, endet die Schleife und damit das Programm.
+
+[TIP]
+====
+Dieses Beispiel zeigt einen weiteren Vorteil von Arrays: Sie können nicht nur
+Werte speichern, sondern auch Zustände festhalten.
+
+`GEZOGEN(22)=TRUE` lässt sich fast wie ein Satz lesen:
+
+„Die Zahl 22 wurde bereits gezogen.“
+
+Die Konstanten `TRUE` und `FALSE` machen solche Abfragen leichter lesbar als
+die direkte Verwendung der Zahlen 1 und 0.
+====
+
 === Mehrdimensionale Arrays
 
 Ein indexterm:[Arrays,Mehrdimensionale Arrays]indexterm:[Mehrdimensionale Arrays] Array kann mehrere Dimensionen besitzen.
@@ -489,21 +776,25 @@ In diesem Kapitel hast du Arrays kennengelernt.
 
 Du kannst nun:
 
-* Arrays mit DIM anlegen
-* Werte speichern
-* Werte auslesen
-* Arrays mit FOR-Schleifen verarbeiten
+* Arrays mit `DIM` anlegen
+* Werte in Arrays speichern und wieder auslesen
+* Arrays mit `FOR`-Schleifen verarbeiten
 * Zahlen- und Textarrays verwenden
+* Arrays als Merkspeicher für Zustände verwenden
 * mehrdimensionale Arrays anlegen
+* Daten in Zeilen und Spalten organisieren
 
-Arrays gehören zu den wichtigsten Werkzeugen der Programmierung und werden in vielen späteren Projekten verwendet.
+Arrays gehören zu den wichtigsten Werkzeugen der Programmierung und werden
+in vielen späteren Projekten verwendet.
 
-Im nächsten Kapitel beschäftigen wir uns mit Zeichenketten und lernen, Texte zu bearbeiten und auszuwerten.
+Im nächsten Kapitel beschäftigen wir uns mit Zeichenketten und lernen, Texte
+zu bearbeiten und auszuwerten.
 
 ifndef::kdp[]
-=== Programmbeispiel
+=== Programmbeispiele
 
-Das vollständige BASIC-Programm findest du hier:
+Die vollständigen BASIC-Programme findest du hier:
 
 * {github-programme}/11_array_einfach.bas[11_array_einfach.bas]
+* {github-programme}/11_lottozahlen.bas[11_lottozahlen.bas]
 endif::[]
