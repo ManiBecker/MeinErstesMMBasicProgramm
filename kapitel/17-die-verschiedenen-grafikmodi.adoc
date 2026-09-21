@@ -11,10 +11,13 @@ In diesem Kapitel lernst du:
 * wie Bildschirmkoordinaten funktionieren
 * wie die Bildschirmgröße ermittelt werden kann
 * wie Texte mit `PRINT @()` pixelgenau positioniert werden können
+* wie Textpositionen abhängig von Bildschirm- und Textgröße berechnet werden
 * wie der Grafikmodus festgelegt wird
 * welche Informationen MMBasic über den Bildschirm bereitstellt
 
-Am Ende des Kapitels verstehst du die wichtigsten Grundlagen für die Grafikprogrammierung.
+Am Ende des Kapitels verstehst du die wichtigsten Grundlagen für die
+Grafikprogrammierung und kannst Bildschirmausgaben unabhängig von festen
+Koordinaten positionieren.
 
 === Eine neue Welt
 
@@ -126,7 +129,7 @@ Je nach Hardware werden unter anderem folgende Bildschirmauflösungen unterstüt
 
 Eine höhere Bildschirmauflösung bietet mehr Platz für Grafiken und Texte. Gleichzeitig steigt jedoch auch der Speicherbedarf der Grafikausgabe. Dadurch stehen einem MMBasic-Programm weniger Programm- und Variablenspeicher zur Verfügung.
 
-Welche Bildschirmauflösung aktuell am System eingestellt ist, kann anhand zweier Variablen ermittelt werden, die MMBasic bereitstellt: indexterm:[Systemvariablen,MM.HRES]indexterm:[MM.HRES] `MM.HRES` und indexterm:[Systemvariablen,MM.VRES]indexterm:[MM.HRES] `MM.VRES`.
+Welche Bildschirmauflösung aktuell am System eingestellt ist, kann anhand zweier Variablen ermittelt werden, die MMBasic bereitstellt: indexterm:[Systemvariablen,MM.HRES]indexterm:[MM.HRES] `MM.HRES` und indexterm:[Systemvariablen,MM.VRES]indexterm:[MM.VRES] `MM.VRES`.
 
 [source,basic]
 ----
@@ -162,6 +165,20 @@ Die Variablen haben folgende Bedeutung:
 
 Die Bildschirmauflösung bestimmt also die Größe des Zeichenbereichs. Wie dieser Zeichenbereich anschließend von MMBasic genutzt wird, legen wir im nächsten Abschnitt mit dem Befehl `MODE` fest.
 
+[IMPORTANT]
+====
+`OPTION RESOLUTION` und `MODE` erfüllen unterschiedliche Aufgaben.
+
+Mit `OPTION RESOLUTION` wird die grundlegende Ausgabeauflösung des VGA- oder
+HDMI-Systems festgelegt.
+
+Mit `MODE` wählen wir anschließend aus, wie MMBasic diese Bildschirmausgabe
+für Grafik und Farben verwendet.
+
+Deshalb kann sich die mit `MM.HRES` und `MM.VRES` gemeldete Größe des
+Zeichenbereichs beim Wechsel des Grafikmodus ändern.
+====
+
 === Der Grafikmodus
 
 Bevor wir Grafiken zeichnen können, muss zunächst ein geeigneter Grafikmodus ausgewählt werden.
@@ -184,6 +201,10 @@ Welche Grafikmodi verfügbar sind, hängt von der verwendeten Hardware ab.
 Ein PicoMite mit HDMI-Ausgabe bietet beispielsweise andere Grafikmodi als ein PicoMite mit VGA-Ausgabe oder ein Colour Maximite 2.
 
 Die meisten Grafikprogramme in diesem Tutorial verwenden `MODE 2`. Dieser Modus eignet sich besonders gut für die gezeigten Beispiele und steht auf den meisten PicoMite-Systemen zur Verfügung.
+
+Die folgende Tabelle gibt einen Überblick über typische Grafikmodi.
+Nicht jeder Modus steht mit jeder PicoMite-Firmware, Ausgabeart und
+eingestellten Bildschirmauflösung zur Verfügung.
 
 [cols="1,2,2,4",options="header"]
 |===
@@ -236,7 +257,7 @@ MMBasic besitzt mehrere eingebaute Schriftarten.
 
 Je nach Schriftart unterscheiden sich Breite und Höhe der Zeichen.
 
-Die aktuelle Schriftgröße kann mit indexterm:[MM.INFO(FONTWIDTH)] `MM.INFO(FONTWIDTH)` und indexterm:[MM.INFO(FONTWIDTH)] `MM.INFO(FONTHEIGHT)` abgefragt werden.
+Die aktuelle Schriftgröße kann mit indexterm:[MM.INFO(FONTWIDTH)] `MM.INFO(FONTWIDTH)` und indexterm:[MM.INFO(FONTHEIGHT)] `MM.INFO(FONTHEIGHT)` abgefragt werden.
 
 [source,basic]
 ----
@@ -425,6 +446,168 @@ Fontbreite  : 6
 Fonthoehe   : 8
 ----
 
+=== Praxisbeispiel: Text automatisch zentrieren
+
+Wir kennen nun die Größe unseres Grafikbereichs und wissen, wie Texte mit
+`PRINT @(x,y)` an einer bestimmten Bildschirmposition ausgegeben werden.
+
+Damit können wir eine kleine Aufgabe lösen, die in vielen Programmen benötigt
+wird: Wir möchten einen Text genau in der Mitte des Bildschirms ausgeben.
+
+Eine feste Position wie
+
+[source,basic]
+----
+PRINT @(200,100) "MMBasic"
+----
+
+funktioniert zwar, ist aber nur für eine bestimmte Bildschirmauflösung und
+einen bestimmten Text geeignet.
+
+Ändert sich die Auflösung oder die Länge des Textes, stimmt die Position nicht
+mehr.
+
+Besser ist es, die Position vom Programm berechnen zu lassen.
+
+==== Die Bildschirmmitte berechnen
+
+Die Breite des aktuellen Grafikbereichs erhalten wir mit `MM.HRES`, die Höhe
+mit `MM.VRES`.
+
+Die Mitte des Bildschirms liegt deshalb zunächst bei:
+
+[source,basic]
+----
+X=MM.HRES\2
+Y=MM.VRES\2
+----
+
+Wenn wir den Text einfach an dieser Position ausgeben,
+
+[source,basic]
+----
+PRINT @(X,Y) "MMBasic"
+----
+
+beginnt der Text allerdings erst in der Bildschirmmitte. Er ist also nicht
+wirklich zentriert.
+
+Das liegt daran, dass `PRINT @(x,y)` die Position der linken oberen Ecke des
+Textes angibt.
+
+==== Die Größe des Textes berücksichtigen
+
+Um den Text wirklich zu zentrieren, müssen wir seine Breite kennen.
+
+Mit
+
+[source,basic]
+----
+MM.INFO(FONTWIDTH)
+----
+
+erhalten wir die Breite eines Zeichens des aktuell verwendeten Fonts in
+Pixeln.
+
+Die Anzahl der Zeichen eines Textes kennen wir bereits aus Kapitel 12:
+`LEN()` liefert die Länge einer Zeichenkette.
+
+Damit können wir die Breite unseres Textes berechnen:
+
+[source,basic]
+----
+BREITE=LEN(TEXT$)*MM.INFO(FONTWIDTH)
+----
+
+Für die horizontale Position ziehen wir diese Breite zunächst von der
+Bildschirmbreite ab und teilen das Ergebnis durch zwei:
+
+[source,basic]
+----
+X=(MM.HRES-BREITE)\2
+----
+
+Für die vertikale Position benötigen wir entsprechend die Höhe des aktuellen
+Fonts:
+
+[source,basic]
+----
+Y=(MM.VRES-MM.INFO(FONTHEIGHT))\2
+----
+
+Nun können wir den Text an der berechneten Position ausgeben:
+
+[source,basic]
+----
+PRINT @(X,Y) TEXT$
+----
+
+Der Text erscheint damit unabhängig von seiner Länge genau in der Mitte des
+Grafikbereichs.
+
+==== Das vollständige Programm
+
+Unser kleines Beispiel benötigt nur wenige Zeilen:
+
+[source,basic]
+----
+CLS
+
+TEXT$="Mein erstes MMBasic Programm"
+
+BREITE=LEN(TEXT$)*MM.INFO(FONTWIDTH)
+
+X=(MM.HRES-BREITE)\2
+Y=(MM.VRES-MM.INFO(FONTHEIGHT))\2
+
+PRINT @(X,Y) TEXT$
+----
+
+Ändere nun den Inhalt von `TEXT$`:
+
+[source,basic]
+----
+TEXT$="MMBasic"
+----
+
+oder beispielsweise:
+
+[source,basic]
+----
+TEXT$="Hallo PicoMite!"
+----
+
+Obwohl die Texte unterschiedlich lang sind, berechnet das Programm jedes Mal
+eine neue Position und gibt den Text wieder zentriert aus.
+
+[TIP]
+====
+Versuche nicht, die passenden Koordinaten durch Ausprobieren zu finden.
+
+Wenn die benötigte Position aus bekannten Größen berechnet werden kann, ist
+das Programm flexibler und funktioniert auch mit anderen Texten oder
+Bildschirmgrößen.
+====
+
+==== Was haben wir dabei verwendet?
+
+Dieses kleine Beispiel verbindet gleich mehrere Dinge, die wir bereits
+kennengelernt haben:
+
+* `MM.HRES` liefert die Breite des Grafikbereichs.
+* `MM.VRES` liefert die Höhe des Grafikbereichs.
+* `MM.INFO(FONTWIDTH)` liefert die Breite eines Zeichens.
+* `MM.INFO(FONTHEIGHT)` liefert die Höhe eines Zeichens.
+* `LEN()` bestimmt die Anzahl der Zeichen unseres Textes.
+* `PRINT @(x,y)` gibt den Text an der berechneten Position aus.
+
+Damit haben wir zum ersten Mal die Eigenschaften des aktuellen Grafikmodus
+verwendet, um die Position einer Ausgabe automatisch zu berechnen.
+
+Im nächsten Schritt können wir dasselbe Prinzip auf echte Grafikelemente
+anwenden: Punkte, Linien, Rechtecke und andere Formen lassen sich ebenfalls
+über ihre Koordinaten gezielt auf dem Bildschirm positionieren.
+
 === Experimentiere!
 
 Probiere folgende Änderungen aus:
@@ -433,6 +616,10 @@ Probiere folgende Änderungen aus:
 * Vergleiche HDMI und VGA.
 * Ändere die Schriftart und beobachte die Werte.
 * Notiere die Bildschirmgröße deines Systems.
+* Positioniere einen Text genau in der Bildschirmmitte.
+* Gib Texte in allen vier Bildschirmecken aus.
+* Ändere den Grafikmodus und beobachte, wie sich `MM.HRES` und `MM.VRES` verändern.
+* Berechne die Position so, dass ein Text unabhängig von seiner Länge zentriert erscheint.
 
 === Probier's selbst!
 
@@ -456,10 +643,20 @@ Du weißt nun:
 * wie die Bildschirmgröße bestimmt wird
 * wie Schriftgrößen abgefragt werden können
 * wie Texte mit `PRINT @()` pixelgenau positioniert werden können
+* wie Textpositionen aus Bildschirmgröße, Schriftgröße und Textlänge berechnet werden
 * wie der Grafikmodus festgelegt wird
 * wie Farben beschrieben werden
 
-Im nächsten Kapitel beschäftigen wir uns ausführlicher mit Farben und lernen außerdem die verschiedenen Schriftarten von MMBasic kennen.
+Im Praxisbeispiel hast du diese Informationen miteinander kombiniert und
+einen Text unabhängig von seiner Länge automatisch in der Bildschirmmitte
+positioniert.
+
+Damit kennst du die wichtigsten Grundlagen, um grafische Ausgaben nicht nur
+an festen Koordinaten, sondern abhängig von der aktuellen Bildschirmgröße zu
+positionieren.
+
+Im nächsten Kapitel beschäftigen wir uns ausführlicher mit Farben und lernen
+außerdem die verschiedenen Schriftarten von MMBasic kennen.
 
 ifndef::kdp[]
 === Programmbeispiel
