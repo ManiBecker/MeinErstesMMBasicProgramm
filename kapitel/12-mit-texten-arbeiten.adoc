@@ -787,6 +787,9 @@ Probiere folgende Änderungen aus:
 * Wandle einen Namen in Großbuchstaben um.
 * Wandle einen Namen in Kleinbuchstaben um.
 * Suche nach einem Wort in einem Text.
+* Ändere das gesuchte Wort im Hangman-Spiel.
+* Verändere die Anzahl der erlaubten Fehlversuche.
+* Lass das Hangman-Spiel zusätzlich alle bisher geratenen Buchstaben anzeigen.
 
 === Probier's selbst!
 
@@ -799,29 +802,38 @@ Versuche folgende Aufgaben:
 . Gib den Namen komplett in Großbuchstaben aus.
 . Suche nach einem bestimmten Wort in einem Satz.
 . Gib Datum und Uhrzeit aus.
+. Erweitere das Hangman-Spiel so, dass der Spieler nach Spielende gefragt wird,
+  ob er noch einmal spielen möchte.
+. Lege mehrere mögliche Wörter in einem String-Array ab und wähle für jede
+  neue Runde zufällig eines davon aus.
 
 === Zusammenfassung
 
-In diesem Kapitel hast du gelernt, mit Texten zu arbeiten.
+In diesem Kapitel hast du gelernt, mit Texten und Zeichenketten zu arbeiten.
 
 Du kennst nun:
 
 * String-Variablen
-* LEN()
-* LEFT$()
-* MID$()
-* RIGHT$()
-* UCASE$()
-* LCASE$()
-* INSTR()
-* VAL()
-* STR$()
-* DATE$
-* TIME$
+* `LEN()`
+* `LEFT$()`
+* `MID$()`
+* `RIGHT$()`
+* `UCASE$()`
+* `LCASE$()`
+* `INSTR()`
+* `VAL()`
+* `STR$()`
+* `DATE$`
+* `TIME$`
 
-Damit kannst du Texte speichern, verändern und auswerten.
+Du kannst damit Texte speichern, verändern, durchsuchen und auswerten.
 
-Im nächsten Kapitel werden wir das bisher Gelernte in einem größeren Praxisprojekt einsetzen.
+Im Hangman-Spiel hast du außerdem gesehen, wie mehrere dieser Funktionen
+zusammen eingesetzt werden können. Dabei haben wir einen String sogar als
+Speicher für die bereits geratenen Buchstaben verwendet.
+
+Im nächsten Kapitel werden wir das bisher Gelernte in einem größeren
+Praxisprojekt einsetzen.
 
 ifndef::kdp[]
 === Programmbeispiel
