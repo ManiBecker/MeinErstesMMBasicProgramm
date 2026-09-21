@@ -14,8 +14,11 @@ In diesem Kapitel lernst du:
 * in Texten zu suchen
 * Zahlen und Texte ineinander umzuwandeln
 * Datum und Uhrzeit zu verwenden
+* mehrere Stringfunktionen in einem Programm miteinander zu kombinieren
 
-Am Ende des Kapitels kannst du Texte in deinen Programmen verarbeiten und auswerten.
+Am Ende des Kapitels kannst du Texte in deinen Programmen verarbeiten und
+auswerten und die verschiedenen Möglichkeiten der Stringverarbeitung in
+einem kleinen Spiel praktisch einsetzen.
 
 === Zahlen und Texte
 
