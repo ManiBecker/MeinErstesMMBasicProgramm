@@ -9,85 +9,108 @@ Rem
 Rem Beschreibung:
 Rem Zeigt vordefinierte und selbst gemischte Farben sowie verschiedene
 Rem Schriftarten von MMBasic auf dem Bildschirm an.
+Rem Die Farbbeispiele werden platzsparend in zwei Spalten ausgegeben.
 Rem
 Rem Hardware/Voraussetzungen: Grafikausgabe
 Rem ====================================================================
 
 CLS RGB(BLACK)
-
-' ------------------------------------------------------------
-' Vordefinierte Farben
-' ------------------------------------------------------------
-
 FONT 1
-
 COLOUR RGB(WHITE),RGB(BLACK)
+
 PRINT "MMBasic Farb- und Schriftmustertafel"
 PRINT
-PRINT "Vordefinierte Farben:"
+
+' ------------------------------------------------------------
+' Positionen fuer die beiden Spalten berechnen
+' ------------------------------------------------------------
+
+X1=0
+X2=MM.HRES\2
+Y=MM.INFO(FONTHEIGHT)*3
+DY=MM.INFO(FONTHEIGHT)
+
+' ------------------------------------------------------------
+' Ueberschriften
+' ------------------------------------------------------------
 
 COLOUR RGB(WHITE),RGB(BLACK)
-PRINT "WHITE"
+
+PRINT @(X1,Y) "Vordefinierte Farben:"
+PRINT @(X2,Y) "Eigene RGB-Farben:"
+
+Y=Y+DY*2
+
+' ------------------------------------------------------------
+' Vordefinierte Farben - linke Spalte
+' ------------------------------------------------------------
+
+COLOUR RGB(WHITE),RGB(BLACK)
+PRINT @(X1,Y) "WHITE"
 
 COLOUR RGB(RED),RGB(BLACK)
-PRINT "RED"
+PRINT @(X1,Y+DY) "RED"
 
 COLOUR RGB(GREEN),RGB(BLACK)
-PRINT "GREEN"
+PRINT @(X1,Y+DY*2) "GREEN"
 
 COLOUR RGB(BLUE),RGB(BLACK)
-PRINT "BLUE"
+PRINT @(X1,Y+DY*3) "BLUE"
 
 COLOUR RGB(YELLOW),RGB(BLACK)
-PRINT "YELLOW"
+PRINT @(X1,Y+DY*4) "YELLOW"
 
 COLOUR RGB(CYAN),RGB(BLACK)
-PRINT "CYAN"
+PRINT @(X1,Y+DY*5) "CYAN"
 
 COLOUR RGB(MAGENTA),RGB(BLACK)
-PRINT "MAGENTA"
+PRINT @(X1,Y+DY*6) "MAGENTA"
 
 ' ------------------------------------------------------------
-' Selbst gemischte Farben
+' Selbst gemischte Farben - rechte Spalte
 ' ------------------------------------------------------------
-
-COLOUR RGB(WHITE),RGB(BLACK)
-PRINT
-PRINT "Eigene RGB-Farben:"
 
 COLOUR RGB(255,128,0),RGB(BLACK)
-PRINT "ORANGE       RGB(255,128,0)"
+PRINT @(X2,Y) "ORANGE  RGB(255,128,0)"
 
 COLOUR RGB(128,255,0),RGB(BLACK)
-PRINT "HELLGRUEN    RGB(128,255,0)"
+PRINT @(X2,Y+DY) "HELLGRUEN RGB(128,255,0)"
 
 COLOUR RGB(255,128,192),RGB(BLACK)
-PRINT "ROSA         RGB(255,128,192)"
+PRINT @(X2,Y+DY*2) "ROSA    RGB(255,128,192)"
 
 COLOUR RGB(128,128,255),RGB(BLACK)
-PRINT "HELLBLAU     RGB(128,128,255)"
+PRINT @(X2,Y+DY*3) "HELLBLAU RGB(128,128,255)"
 
 COLOUR RGB(128,128,128),RGB(BLACK)
-PRINT "GRAU         RGB(128,128,128)"
+PRINT @(X2,Y+DY*4) "GRAU    RGB(128,128,128)"
 
 ' ------------------------------------------------------------
 ' Verschiedene Schriftarten
 ' ------------------------------------------------------------
 
+Y=Y+DY*8
+
 COLOUR RGB(WHITE),RGB(BLACK)
 
-PRINT
-PRINT "Schriftarten:"
+FONT 1
+PRINT @(0,Y) "Schriftarten:"
+
+Y=Y+MM.INFO(FONTHEIGHT)*2
 
 FONT 1
-PRINT "Font 1 - Standardschrift"
+PRINT @(0,Y) "Font 1 - Standardschrift"
+
+Y=Y+MM.INFO(FONTHEIGHT)
 
 FONT 2
-PRINT "Font 2"
+PRINT @(0,Y) "Font 2"
+
+Y=Y+MM.INFO(FONTHEIGHT)
 
 FONT 3
-PRINT "Font 3"
+PRINT @(0,Y) "Font 3"
 
 ' Standardschrift und Farben wiederherstellen
 FONT 1
-COLOUR RGB(WHITE),RGB(BLACK) 
+COLOUR RGB(WHITE),RGB(BLACK)
