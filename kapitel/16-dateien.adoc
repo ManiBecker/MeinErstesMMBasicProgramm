@@ -10,9 +10,13 @@ In diesem Kapitel lernst du:
 * Daten in Dateien zu speichern
 * Dateien wieder einzulesen
 * Textdateien zu verwenden
-* Highscores und Einstellungen dauerhaft zu speichern
+* zu prüfen, ob eine Datei bereits existiert
+* mehrere Datensätze in einer Datei zu speichern und auszuwerten
+* einzelne Datensätze aus einer Datei zu entfernen
+* Highscores, Einstellungen und andere Programmdaten dauerhaft zu speichern
 
-Am Ende des Kapitels können deine Programme Informationen auch nach dem Programmende behalten.
+Am Ende des Kapitels kannst du Programme schreiben, die ihre Daten dauerhaft
+speichern, beim nächsten Start wieder einlesen und verwalten.
 
 === Das Problem
 
@@ -313,6 +317,1131 @@ In diesem Fall erzeugt MMBasic eine Fehlermeldung.
 
 Ebenso sollte jede geöffnete Datei wieder geschlossen werden.
 
+=== Praxisbeispiel: Ein Geburtstagskalender
+
+Bisher haben wir einzelne Möglichkeiten kennengelernt, Daten in Dateien zu
+speichern und wieder einzulesen.
+
+Nun verbinden wir diese Techniken zu einem kleinen vollständigen Programm:
+einem Geburtstagskalender.
+
+Unser Programm soll:
+
+* neue Geburtstage speichern
+* alle gespeicherten Geburtstage anzeigen
+* einzelne Einträge löschen
+* beim Start auf heutige Geburtstage hinweisen
+* das Alter des Geburtstagskindes berechnen
+
+Die Geburtstage sollen auch nach dem Beenden des Programms erhalten bleiben.
+Dafür speichern wir sie in einer Textdatei.
+
+==== Wie speichern wir einen Geburtstag?
+
+Für jeden Geburtstag benötigen wir vier Informationen:
+
+* Name
+* Tag
+* Monat
+* Geburtsjahr
+
+Wir könnten jede Information in einer eigenen Datei speichern. Wesentlich
+praktischer ist es jedoch, alle Angaben zu einer Person in einer einzigen
+Zeile abzulegen.
+
+Als Trennzeichen verwenden wir ein Semikolon:
+
+[source,text]
+----
+Manfred;27;7;1966
+Peter;12;3;1970
+Sabine;5;11;1982
+----
+
+Jede Zeile bildet damit einen vollständigen Datensatz.
+
+Unser Dateiformat lautet:
+
+[source,text]
+----
+Name;Tag;Monat;Jahr
+----
+
+Das Semikolon benötigen wir später, um die einzelnen Bestandteile wieder
+voneinander zu trennen.
+
+==== Die Datendatei
+
+Die Geburtstage speichern wir in der Datei `geburtstage.txt`.
+
+Den Dateinamen legen wir in einer String-Variablen ab:
+
+[source,basic]
+----
+DATEI$="geburtstage.txt"
+----
+
+Für das spätere Löschen eines Datensatzes benötigen wir außerdem eine
+temporäre Datei:
+
+[source,basic]
+----
+TEMPDATEI$="geburtstage.tmp"
+----
+
+Beim ersten Start unseres Programms existiert `geburtstage.txt` allerdings
+noch nicht.
+
+Würden wir sofort versuchen, die Datei zum Lesen zu öffnen,
+
+[source,basic]
+----
+OPEN DATEI$ FOR INPUT AS #1
+----
+
+würde MMBasic einen Fehler melden.
+
+Mit `MM.INFO(EXISTS FILE ...)` können wir deshalb zunächst prüfen, ob die
+Datei bereits vorhanden ist:
+
+[source,basic]
+----
+IF MM.INFO(EXISTS FILE DATEI$)=FALSE THEN
+  OPEN DATEI$ FOR OUTPUT AS #1
+  CLOSE #1
+ENDIF
+----
+
+Existiert die Datei noch nicht, wird sie mit `OPEN ... FOR OUTPUT` angelegt
+und anschließend sofort wieder geschlossen.
+
+[NOTE]
+====
+Eine neu angelegte Datei ist zunächst leer. Das ist für unser Programm kein
+Problem. Sobald der erste Geburtstag eingetragen wird, schreiben wir den
+ersten Datensatz hinein.
+====
+
+==== Einen Geburtstag speichern
+
+Zum Eintragen eines neuen Geburtstags fragen wir die benötigten Informationen
+mit `INPUT` ab:
+
+[source,basic]
+----
+INPUT "Name"; NAME$
+INPUT "Tag"; TAG
+INPUT "Monat"; MONAT
+INPUT "Jahr"; JAHR
+----
+
+Anschließend öffnen wir unsere Datei mit `APPEND`:
+
+[source,basic]
+----
+OPEN DATEI$ FOR APPEND AS #1
+----
+
+`APPEND` fügt neue Daten am Ende einer bestehenden Datei hinzu. Bereits
+gespeicherte Geburtstage bleiben dadurch erhalten.
+
+Die vier Werte schreiben wir durch Semikola getrennt in eine Zeile:
+
+[source,basic]
+----
+PRINT #1,NAME$;";";TAG;";";MONAT;";";JAHR
+----
+
+Danach schließen wir die Datei wieder:
+
+[source,basic]
+----
+CLOSE #1
+----
+
+Aus den Eingaben
+
+[source,text]
+----
+Name? Manfred
+Tag? 27
+Monat? 7
+Jahr? 1966
+----
+
+entsteht damit in der Datei:
+
+[source,text]
+----
+Manfred;27;7;1966
+----
+
+Die vollständige Unterroutine sieht so aus:
+
+[source,basic]
+----
+SUB GeburtstagEintragen
+
+  LOCAL NAME$
+  LOCAL TAG
+  LOCAL MONAT
+  LOCAL JAHR
+  LOCAL DUMMY$
+
+  CLS
+
+  PRINT "GEBURTSTAG EINTRAGEN"
+  PRINT "===================="
+  PRINT
+
+  INPUT "Name"; NAME$
+  INPUT "Tag"; TAG
+  INPUT "Monat"; MONAT
+  INPUT "Jahr"; JAHR
+
+  OPEN DATEI$ FOR APPEND AS #1
+
+  PRINT #1,NAME$;";";TAG;";";MONAT;";";JAHR
+
+  CLOSE #1
+
+  PRINT
+  PRINT "Geburtstag gespeichert."
+  PRINT
+  INPUT "Weiter mit ENTER"; DUMMY$
+
+END SUB
+----
+
+==== Einen Datensatz wieder zerlegen
+
+Beim Einlesen erhalten wir zunächst wieder die vollständige Zeile:
+
+[source,text]
+----
+Manfred;27;7;1966
+----
+
+Unser Programm benötigt aber die einzelnen Werte `Manfred`, `27`, `7` und
+`1966`.
+
+Hier können wir die Stringfunktionen aus Kapitel 12 wiederverwenden.
+
+Mit `INSTR()` suchen wir zunächst das erste Semikolon:
+
+[source,basic]
+----
+P1=INSTR(ZEILE$,";")
+----
+
+Mit `LEFT$()` holen wir alles links davon:
+
+[source,basic]
+----
+NAME$=LEFT$(ZEILE$,P1-1)
+----
+
+Damit enthält `NAME$`:
+
+[source,text]
+----
+Manfred
+----
+
+Den bereits verarbeiteten Teil entfernen wir mit `MID$()`:
+
+[source,basic]
+----
+REST$=MID$(ZEILE$,P1+1)
+----
+
+In `REST$` steht nun nur noch:
+
+[source,text]
+----
+27;7;1966
+----
+
+Dasselbe Verfahren wiederholen wir für Tag und Monat. Mit `VAL()` wandeln
+wir die gelesenen Zeichenketten wieder in Zahlen um.
+
+Da wir diese Aufgabe an mehreren Stellen unseres Programms benötigen,
+schreiben wir dafür eine eigene Unterroutine:
+
+[source,basic]
+----
+SUB DatensatzLesen(ZEILE$,NAME$,TAG,MONAT,JAHR)
+
+  LOCAL P1
+  LOCAL P2
+  LOCAL P3
+  LOCAL REST$
+
+  ' Name abtrennen
+  P1=INSTR(ZEILE$,";")
+
+  NAME$=LEFT$(ZEILE$,P1-1)
+  REST$=MID$(ZEILE$,P1+1)
+
+  ' Tag abtrennen
+  P2=INSTR(REST$,";")
+
+  TAG=VAL(LEFT$(REST$,P2-1))
+  REST$=MID$(REST$,P2+1)
+
+  ' Monat abtrennen
+  P3=INSTR(REST$,";")
+
+  MONAT=VAL(LEFT$(REST$,P3-1))
+  JAHR=VAL(MID$(REST$,P3+1))
+
+END SUB
+----
+
+[TIP]
+====
+Hier zeigt sich ein Vorteil von Unterprogrammen besonders deutlich:
+Das Zerlegen eines Datensatzes müssen wir nur einmal programmieren und können
+es anschließend an verschiedenen Stellen wiederverwenden.
+====
+
+==== Alle Geburtstage anzeigen
+
+Nun können wir unsere Datei öffnen und Zeile für Zeile einlesen.
+
+Da wir vorher nicht wissen müssen, wie viele Geburtstage gespeichert sind,
+verwenden wir `EOF()`.
+
+`EOF` steht für _End Of File_, also „Ende der Datei“.
+
+[source,basic]
+----
+DO WHILE NOT EOF(#1)
+
+  LINE INPUT #1,ZEILE$
+
+  ...
+
+LOOP
+----
+
+Solange das Dateiende noch nicht erreicht wurde, lesen wir mit `LINE INPUT`
+eine weitere Zeile ein.
+
+Anschließend zerlegen wir den Datensatz:
+
+[source,basic]
+----
+DatensatzLesen ZEILE$,NAME$,TAG,MONAT,JAHR
+----
+
+Mit `FORMAT$()` sorgen wir dafür, dass Tag und Monat immer zweistellig
+ausgegeben werden:
+
+[source,basic]
+----
+PRINT FORMAT$(TAG,"%02g");".";
+PRINT FORMAT$(MONAT,"%02g");".";
+PRINT FORMAT$(JAHR,"%04g")
+----
+
+Aus
+
+[source,text]
+----
+Manfred;27;7;1966
+----
+
+wird dadurch beispielsweise:
+
+[source,text]
+----
+Manfred  27.07.1966
+----
+
+Zusätzlich nummerieren wir die Einträge. Diese Nummern benötigen wir später
+beim Löschen eines Geburtstags.
+
+Die vollständige Unterroutine lautet:
+
+[source,basic]
+----
+SUB GeburtstageAnzeigen
+
+  LOCAL ZEILE$
+  LOCAL NAME$
+  LOCAL NR
+  LOCAL TAG
+  LOCAL MONAT
+  LOCAL JAHR
+  LOCAL DUMMY$
+
+  CLS
+
+  PRINT "GESPEICHERTE GEBURTSTAGE"
+  PRINT "========================"
+  PRINT
+
+  NR=0
+
+  OPEN DATEI$ FOR INPUT AS #1
+
+  DO WHILE NOT EOF(#1)
+
+    LINE INPUT #1,ZEILE$
+
+    NR=NR+1
+
+    DatensatzLesen ZEILE$,NAME$,TAG,MONAT,JAHR
+
+    PRINT NR;"  ";
+    PRINT NAME$;"  ";
+    PRINT FORMAT$(TAG,"%02g");".";
+    PRINT FORMAT$(MONAT,"%02g");".";
+    PRINT FORMAT$(JAHR,"%04g")
+
+  LOOP
+
+  CLOSE #1
+
+  IF NR=0 THEN
+    PRINT "Keine Geburtstage gespeichert."
+  ENDIF
+
+  PRINT
+  INPUT "Weiter mit ENTER"; DUMMY$
+
+END SUB
+----
+
+==== Wer hat heute Geburtstag?
+
+Ein Geburtstagskalender wird besonders nützlich, wenn er uns automatisch auf
+heutige Geburtstage aufmerksam macht.
+
+Das aktuelle Datum liefert uns `DATE$`.
+
+Tag, Monat und Jahr können wir mit den bereits bekannten Stringfunktionen
+herausholen:
+
+[source,basic]
+----
+HEUTETAG=VAL(LEFT$(DATE$,2))
+HEUTEMONAT=VAL(MID$(DATE$,4,2))
+HEUTEJAHR=VAL(RIGHT$(DATE$,4))
+----
+
+Anschließend lesen wir wieder alle gespeicherten Geburtstage ein.
+
+Für jeden Datensatz vergleichen wir Tag und Monat:
+
+[source,basic]
+----
+IF TAG=HEUTETAG AND MONAT=HEUTEMONAT THEN
+  ...
+ENDIF
+----
+
+Das Geburtsjahr müssen wir dabei nicht vergleichen. Stattdessen verwenden wir
+es, um das heutige Alter zu berechnen:
+
+[source,basic]
+----
+ALTER=HEUTEJAHR-JAHR
+----
+
+Hat beispielsweise jemand am heutigen Tag Geburtstag und wurde 1966 geboren,
+kann unser Programm ausgeben:
+
+[source,text]
+----
+HEUTE HAT GEBURTSTAG
+--------------------
+
+Manfred wird heute 60 Jahre alt.
+
+Alles Gute zum Geburtstag!
+----
+
+Die Variable `GEFUNDEN` merkt sich mit `TRUE` und `FALSE`, ob mindestens ein
+heutiger Geburtstag gefunden wurde.
+
+[source,basic]
+----
+SUB GeburtstageHeute
+
+  LOCAL ZEILE$
+  LOCAL NAME$
+  LOCAL TAG
+  LOCAL MONAT
+  LOCAL JAHR
+  LOCAL HEUTETAG
+  LOCAL HEUTEMONAT
+  LOCAL HEUTEJAHR
+  LOCAL ALTER
+  LOCAL GEFUNDEN
+
+  ' Aktuelles Datum zerlegen
+  HEUTETAG=VAL(LEFT$(DATE$,2))
+  HEUTEMONAT=VAL(MID$(DATE$,4,2))
+  HEUTEJAHR=VAL(RIGHT$(DATE$,4))
+
+  GEFUNDEN=FALSE
+
+  OPEN DATEI$ FOR INPUT AS #1
+
+  DO WHILE NOT EOF(#1)
+
+    LINE INPUT #1,ZEILE$
+
+    DatensatzLesen ZEILE$,NAME$,TAG,MONAT,JAHR
+
+    IF TAG=HEUTETAG AND MONAT=HEUTEMONAT THEN
+
+      IF GEFUNDEN=FALSE THEN
+        PRINT "HEUTE HAT GEBURTSTAG"
+        PRINT "--------------------"
+        GEFUNDEN=TRUE
+      ENDIF
+
+      ALTER=HEUTEJAHR-JAHR
+
+      PRINT
+      PRINT NAME$;" wird heute ";ALTER;" Jahre alt."
+
+    ENDIF
+
+  LOOP
+
+  CLOSE #1
+
+  IF GEFUNDEN=TRUE THEN
+    PRINT
+    PRINT "Alles Gute zum Geburtstag!"
+    PRINT
+  ENDIF
+
+END SUB
+----
+
+==== Einen Datensatz löschen
+
+Das Löschen eines einzelnen Datensatzes ist etwas aufwendiger.
+
+Wir können nicht einfach sagen:
+
+[source,text]
+----
+Lösche Zeile 3 aus geburtstage.txt
+----
+
+Stattdessen verwenden wir eine zweite, temporäre Datei.
+
+Das Prinzip sieht so aus:
+
+[source,text]
+----
+geburtstage.txt
+       |
+       | einlesen
+       v
++---------------------+
+| Manfred;27;7;1966   | ---> übernehmen
+| Peter;12;3;1970     | ---> nicht übernehmen
+| Sabine;5;11;1982    | ---> übernehmen
++---------------------+
+       |
+       v
+geburtstage.tmp
+----
+
+Wir lesen also alle Datensätze der ursprünglichen Datei ein. Alle Einträge
+außer dem zu löschenden schreiben wir in `geburtstage.tmp`.
+
+Zunächst zeigen wir dafür alle Geburtstage nummeriert an:
+
+[source,text]
+----
+1  Manfred  27.07.1966
+2  Peter    12.03.1970
+3  Sabine   05.11.1982
+----
+
+Der Benutzer wählt anschließend die Nummer des zu löschenden Eintrags:
+
+[source,text]
+----
+Welcher Eintrag soll geloescht werden? 2
+----
+
+Beim Kopieren erhöhen wir für jede gelesene Zeile `NR`:
+
+[source,basic]
+----
+NR=NR+1
+
+IF NR<>LOESCHEN THEN
+  PRINT #2,ZEILE$
+ENDIF
+----
+
+Nur wenn die aktuelle Nummer nicht der ausgewählten Nummer entspricht, wird
+der Datensatz in die temporäre Datei geschrieben.
+
+Anschließend schließen wir beide Dateien:
+
+[source,basic]
+----
+CLOSE #1
+CLOSE #2
+----
+
+Nun enthält `geburtstage.tmp` alle Datensätze außer dem gelöschten.
+
+Die ursprüngliche Datei kann deshalb mit `KILL` gelöscht werden:
+
+[source,basic]
+----
+KILL DATEI$
+----
+
+Danach benennen wir die temporäre Datei in `geburtstage.txt` um:
+
+[source,basic]
+----
+RENAME TEMPDATEI$ AS DATEI$
+----
+
+Damit ist der ausgewählte Datensatz verschwunden.
+
+[NOTE]
+====
+Dieses Verfahren wird häufig verwendet, wenn einzelne Datensätze aus einer
+einfachen Textdatei entfernt werden sollen: Die gewünschten Datensätze werden
+in eine neue Datei geschrieben und anschließend ersetzt diese die alte Datei.
+====
+
+Die vollständige Unterroutine sieht so aus:
+
+[source,basic]
+----
+SUB GeburtstagLoeschen
+
+  LOCAL ZEILE$
+  LOCAL NAME$
+  LOCAL NR
+  LOCAL TAG
+  LOCAL MONAT
+  LOCAL JAHR
+  LOCAL LOESCHEN
+  LOCAL DUMMY$
+
+  CLS
+
+  PRINT "GEBURTSTAG LOESCHEN"
+  PRINT "==================="
+  PRINT
+
+  NR=0
+
+  OPEN DATEI$ FOR INPUT AS #1
+
+  DO WHILE NOT EOF(#1)
+
+    LINE INPUT #1,ZEILE$
+
+    NR=NR+1
+
+    DatensatzLesen ZEILE$,NAME$,TAG,MONAT,JAHR
+
+    PRINT NR;"  ";
+    PRINT NAME$;"  ";
+    PRINT FORMAT$(TAG,"%02g");".";
+    PRINT FORMAT$(MONAT,"%02g");".";
+    PRINT FORMAT$(JAHR,"%04g")
+
+  LOOP
+
+  CLOSE #1
+
+  IF NR=0 THEN
+
+    PRINT "Keine Geburtstage gespeichert."
+
+  ELSE
+
+    PRINT
+    INPUT "Welcher Eintrag soll geloescht werden"; LOESCHEN
+
+    IF LOESCHEN<1 OR LOESCHEN>NR THEN
+
+      PRINT
+      PRINT "Ungueltige Nummer."
+
+    ELSE
+
+      OPEN DATEI$ FOR INPUT AS #1
+      OPEN TEMPDATEI$ FOR OUTPUT AS #2
+
+      NR=0
+
+      DO WHILE NOT EOF(#1)
+
+        LINE INPUT #1,ZEILE$
+
+        NR=NR+1
+
+        IF NR<>LOESCHEN THEN
+          PRINT #2,ZEILE$
+        ENDIF
+
+      LOOP
+
+      CLOSE #1
+      CLOSE #2
+
+      KILL DATEI$
+      RENAME TEMPDATEI$ AS DATEI$
+
+      PRINT
+      PRINT "Eintrag geloescht."
+
+    ENDIF
+
+  ENDIF
+
+  PRINT
+  INPUT "Weiter mit ENTER"; DUMMY$
+
+END SUB
+----
+
+==== Das Hauptmenü
+
+Jetzt benötigen wir nur noch ein Menü, mit dem der Benutzer die einzelnen
+Funktionen aufrufen kann.
+
+Dafür verwenden wir wieder eine `DO ... LOOP`-Schleife und `SELECT CASE`:
+
+[source,basic]
+----
+DO
+
+  CLS
+
+  PRINT "GEBURTSTAGSKALENDER"
+  PRINT "==================="
+  PRINT
+
+  GeburtstageHeute
+
+  PRINT "1 - Geburtstag eintragen"
+  PRINT "2 - Geburtstage anzeigen"
+  PRINT "3 - Geburtstag loeschen"
+  PRINT "4 - Beenden"
+  PRINT
+
+  INPUT "Auswahl"; AUSWAHL
+
+  SELECT CASE AUSWAHL
+
+    CASE 1
+      GeburtstagEintragen
+
+    CASE 2
+      GeburtstageAnzeigen
+
+    CASE 3
+      GeburtstagLoeschen
+
+    CASE 4
+      PRINT
+      PRINT "Auf Wiedersehen!"
+
+    CASE ELSE
+      PRINT
+      PRINT "Ungueltige Auswahl."
+      PRINT
+      INPUT "Weiter mit ENTER"; DUMMY$
+
+  END SELECT
+
+LOOP UNTIL AUSWAHL=4
+----
+
+Beachte den Aufruf
+
+[source,basic]
+----
+GeburtstageHeute
+----
+
+direkt nach der Überschrift. Dadurch werden aktuelle Geburtstage bei jeder
+Anzeige des Hauptmenüs automatisch angezeigt.
+
+==== Das vollständige Programm
+
+Nun können wir alle Teile zu unserem Geburtstagskalender zusammensetzen.
+
+[source,basic]
+----
+CONST TRUE=1
+CONST FALSE=0
+
+DATEI$="geburtstage.txt"
+TEMPDATEI$="geburtstage.tmp"
+
+' Datendatei beim ersten Programmstart anlegen
+IF MM.INFO(EXISTS FILE DATEI$)=FALSE THEN
+  OPEN DATEI$ FOR OUTPUT AS #1
+  CLOSE #1
+ENDIF
+
+DO
+
+  CLS
+
+  PRINT "GEBURTSTAGSKALENDER"
+  PRINT "==================="
+  PRINT
+
+  GeburtstageHeute
+
+  PRINT "1 - Geburtstag eintragen"
+  PRINT "2 - Geburtstage anzeigen"
+  PRINT "3 - Geburtstag loeschen"
+  PRINT "4 - Beenden"
+  PRINT
+
+  INPUT "Auswahl"; AUSWAHL
+
+  SELECT CASE AUSWAHL
+
+    CASE 1
+      GeburtstagEintragen
+
+    CASE 2
+      GeburtstageAnzeigen
+
+    CASE 3
+      GeburtstagLoeschen
+
+    CASE 4
+      PRINT
+      PRINT "Auf Wiedersehen!"
+
+    CASE ELSE
+      PRINT
+      PRINT "Ungueltige Auswahl."
+      PRINT
+      INPUT "Weiter mit ENTER"; DUMMY$
+
+  END SELECT
+
+LOOP UNTIL AUSWAHL=4
+
+END
+
+
+' --------------------------------------------------------------------
+' Neuen Geburtstag eintragen
+' --------------------------------------------------------------------
+
+SUB GeburtstagEintragen
+
+  LOCAL NAME$
+  LOCAL TAG
+  LOCAL MONAT
+  LOCAL JAHR
+  LOCAL DUMMY$
+
+  CLS
+
+  PRINT "GEBURTSTAG EINTRAGEN"
+  PRINT "===================="
+  PRINT
+
+  INPUT "Name"; NAME$
+  INPUT "Tag"; TAG
+  INPUT "Monat"; MONAT
+  INPUT "Jahr"; JAHR
+
+  OPEN DATEI$ FOR APPEND AS #1
+
+  PRINT #1,NAME$;";";TAG;";";MONAT;";";JAHR
+
+  CLOSE #1
+
+  PRINT
+  PRINT "Geburtstag gespeichert."
+  PRINT
+  INPUT "Weiter mit ENTER"; DUMMY$
+
+END SUB
+
+
+' --------------------------------------------------------------------
+' Alle Geburtstage anzeigen
+' --------------------------------------------------------------------
+
+SUB GeburtstageAnzeigen
+
+  LOCAL ZEILE$
+  LOCAL NAME$
+  LOCAL NR
+  LOCAL TAG
+  LOCAL MONAT
+  LOCAL JAHR
+  LOCAL DUMMY$
+
+  CLS
+
+  PRINT "GESPEICHERTE GEBURTSTAGE"
+  PRINT "========================"
+  PRINT
+
+  NR=0
+
+  OPEN DATEI$ FOR INPUT AS #1
+
+  DO WHILE NOT EOF(#1)
+
+    LINE INPUT #1,ZEILE$
+
+    NR=NR+1
+
+    DatensatzLesen ZEILE$,NAME$,TAG,MONAT,JAHR
+
+    PRINT NR;"  ";
+    PRINT NAME$;"  ";
+    PRINT FORMAT$(TAG,"%02g");".";
+    PRINT FORMAT$(MONAT,"%02g");".";
+    PRINT FORMAT$(JAHR,"%04g")
+
+  LOOP
+
+  CLOSE #1
+
+  IF NR=0 THEN
+    PRINT "Keine Geburtstage gespeichert."
+  ENDIF
+
+  PRINT
+  INPUT "Weiter mit ENTER"; DUMMY$
+
+END SUB
+
+
+' --------------------------------------------------------------------
+' Einen Geburtstag loeschen
+' --------------------------------------------------------------------
+
+SUB GeburtstagLoeschen
+
+  LOCAL ZEILE$
+  LOCAL NAME$
+  LOCAL NR
+  LOCAL TAG
+  LOCAL MONAT
+  LOCAL JAHR
+  LOCAL LOESCHEN
+  LOCAL DUMMY$
+
+  CLS
+
+  PRINT "GEBURTSTAG LOESCHEN"
+  PRINT "==================="
+  PRINT
+
+  NR=0
+
+  OPEN DATEI$ FOR INPUT AS #1
+
+  DO WHILE NOT EOF(#1)
+
+    LINE INPUT #1,ZEILE$
+
+    NR=NR+1
+
+    DatensatzLesen ZEILE$,NAME$,TAG,MONAT,JAHR
+
+    PRINT NR;"  ";
+    PRINT NAME$;"  ";
+    PRINT FORMAT$(TAG,"%02g");".";
+    PRINT FORMAT$(MONAT,"%02g");".";
+    PRINT FORMAT$(JAHR,"%04g")
+
+  LOOP
+
+  CLOSE #1
+
+  IF NR=0 THEN
+
+    PRINT "Keine Geburtstage gespeichert."
+
+  ELSE
+
+    PRINT
+    INPUT "Welcher Eintrag soll geloescht werden"; LOESCHEN
+
+    IF LOESCHEN<1 OR LOESCHEN>NR THEN
+
+      PRINT
+      PRINT "Ungueltige Nummer."
+
+    ELSE
+
+      OPEN DATEI$ FOR INPUT AS #1
+      OPEN TEMPDATEI$ FOR OUTPUT AS #2
+
+      NR=0
+
+      DO WHILE NOT EOF(#1)
+
+        LINE INPUT #1,ZEILE$
+
+        NR=NR+1
+
+        IF NR<>LOESCHEN THEN
+          PRINT #2,ZEILE$
+        ENDIF
+
+      LOOP
+
+      CLOSE #1
+      CLOSE #2
+
+      KILL DATEI$
+      RENAME TEMPDATEI$ AS DATEI$
+
+      PRINT
+      PRINT "Eintrag geloescht."
+
+    ENDIF
+
+  ENDIF
+
+  PRINT
+  INPUT "Weiter mit ENTER"; DUMMY$
+
+END SUB
+
+
+' --------------------------------------------------------------------
+' Heutige Geburtstage anzeigen
+' --------------------------------------------------------------------
+
+SUB GeburtstageHeute
+
+  LOCAL ZEILE$
+  LOCAL NAME$
+  LOCAL TAG
+  LOCAL MONAT
+  LOCAL JAHR
+  LOCAL HEUTETAG
+  LOCAL HEUTEMONAT
+  LOCAL HEUTEJAHR
+  LOCAL ALTER
+  LOCAL GEFUNDEN
+
+  ' Aktuelles Datum zerlegen
+  HEUTETAG=VAL(LEFT$(DATE$,2))
+  HEUTEMONAT=VAL(MID$(DATE$,4,2))
+  HEUTEJAHR=VAL(RIGHT$(DATE$,4))
+
+  GEFUNDEN=FALSE
+
+  OPEN DATEI$ FOR INPUT AS #1
+
+  DO WHILE NOT EOF(#1)
+
+    LINE INPUT #1,ZEILE$
+
+    DatensatzLesen ZEILE$,NAME$,TAG,MONAT,JAHR
+
+    IF TAG=HEUTETAG AND MONAT=HEUTEMONAT THEN
+
+      IF GEFUNDEN=FALSE THEN
+        PRINT "HEUTE HAT GEBURTSTAG"
+        PRINT "--------------------"
+        GEFUNDEN=TRUE
+      ENDIF
+
+      ALTER=HEUTEJAHR-JAHR
+
+      PRINT
+      PRINT NAME$;" wird heute ";ALTER;" Jahre alt."
+
+    ENDIF
+
+  LOOP
+
+  CLOSE #1
+
+  IF GEFUNDEN=TRUE THEN
+    PRINT
+    PRINT "Alles Gute zum Geburtstag!"
+    PRINT
+  ENDIF
+
+END SUB
+
+
+' --------------------------------------------------------------------
+' Einen Datensatz zerlegen
+'
+' Format:
+' Name;Tag;Monat;Jahr
+'
+' Beispiel:
+' Manfred;27;7;1966
+' --------------------------------------------------------------------
+
+SUB DatensatzLesen(ZEILE$,NAME$,TAG,MONAT,JAHR)
+
+  LOCAL P1
+  LOCAL P2
+  LOCAL P3
+  LOCAL REST$
+
+  ' Name abtrennen
+  P1=INSTR(ZEILE$,";")
+
+  NAME$=LEFT$(ZEILE$,P1-1)
+  REST$=MID$(ZEILE$,P1+1)
+
+  ' Tag abtrennen
+  P2=INSTR(REST$,";")
+
+  TAG=VAL(LEFT$(REST$,P2-1))
+  REST$=MID$(REST$,P2+1)
+
+  ' Monat abtrennen
+  P3=INSTR(REST$,";")
+
+  MONAT=VAL(LEFT$(REST$,P3-1))
+  JAHR=VAL(MID$(REST$,P3+1))
+
+END SUB
+----
+
+In diesem Programm arbeiten viele der bisher kennengelernten Techniken
+zusammen:
+
+* `OPEN`, `CLOSE`, `PRINT #` und `LINE INPUT #` lesen und schreiben Dateien.
+* `EOF()` erkennt das Ende einer Datei.
+* `MM.INFO(EXISTS FILE ...)` prüft, ob unsere Datendatei vorhanden ist.
+* `KILL` und `RENAME` helfen beim Löschen eines Datensatzes.
+* `INSTR()`, `LEFT$()`, `MID$()` und `VAL()` zerlegen die gespeicherten Daten.
+* `DATE$` liefert das aktuelle Datum.
+* `SUB` teilt das Programm in überschaubare Aufgaben auf.
+* `LOCAL` hält die Variablen der Unterprogramme voneinander getrennt.
+* `DO ... LOOP`, `IF` und `SELECT CASE` steuern den Programmablauf.
+
+Aus den einzelnen Befehlen zur Dateiverarbeitung ist damit ein kleines
+Programm entstanden, das seine Daten dauerhaft speichern und beim nächsten
+Start wiederverwenden kann.
+
 === Experimentiere!
 
 Probiere folgende Änderungen aus:
@@ -332,27 +1461,41 @@ Versuche folgende Aufgaben:
 . Erstelle eine kleine Highscore-Datei.
 . Speichere mehrere Spieler untereinander.
 
-=== Zusammenfassung
+In diesem Kapitel hast du gelernt, mit Dateien zu arbeiten und Daten dauerhaft
+zu speichern.
 
-In diesem Kapitel hast du gelernt, mit Dateien zu arbeiten.
+Du kennst nun unter anderem:
 
-Du kennst nun:
+* `OPEN`
+* `CLOSE`
+* `PRINT #`
+* `WRITE #`
+* `READ #`
+* `LINE INPUT #`
+* `EOF()`
+* `MM.INFO(EXISTS FILE ...)`
+* `KILL`
+* `RENAME`
 
-* OPEN
-* CLOSE
-* PRINT #
-* WRITE #
-* READ #
-* LINE INPUT #
+Du kannst Textdateien anlegen, Daten hineinschreiben und wieder einlesen.
+Außerdem hast du gesehen, wie mehrere Datensätze in einer Datei gespeichert,
+wieder zerlegt und ausgewertet werden können.
 
-Damit können deine Programme Informationen dauerhaft speichern.
+Mit dem Geburtstagskalender hast du schließlich ein kleines Programm erstellt,
+das seine Daten dauerhaft speichert, beim nächsten Start wieder einliest und
+einzelne Einträge verwalten und löschen kann.
 
-Im nächsten Kapitel werden wir die grafischen Möglichkeiten des PicoMite kennenlernen und erste Zeichnungen auf dem Bildschirm erzeugen.
+Damit können deine Programme Informationen nicht nur über das Programmende
+hinaus behalten, sondern diese Daten auch gezielt verwalten.
+
+Im nächsten Kapitel werden wir die grafischen Möglichkeiten des PicoMite
+kennenlernen und erste Zeichnungen auf dem Bildschirm erzeugen.
 
 ifndef::kdp[]
-=== Programmbeispiel
+=== Programmbeispiele
 
-Das vollständige BASIC-Programm findest du hier:
+Die vollständigen BASIC-Programme findest du hier:
 
 * {github-programme}/16_highscore_speichern.bas[16_highscore_speichern.bas]
+* {github-programme}/16_geburtstagskalender.bas[16_geburtstagskalender.bas]
 endif::[]
