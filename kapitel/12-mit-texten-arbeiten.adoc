@@ -449,6 +449,335 @@ ELSE
 ENDIF
 ----
 
+=== Praxisbeispiel: Hangman
+
+Wir haben inzwischen verschiedene Möglichkeiten kennengelernt, Zeichenketten
+zu untersuchen und zu verändern.
+
+Zeit, diese Funktionen in einem kleinen Spiel miteinander zu kombinieren.
+
+Beim klassischen Hangman-Spiel muss ein unbekanntes Wort Buchstabe für
+Buchstabe erraten werden. Zu Beginn sehen wir nur, wie viele Buchstaben das
+gesuchte Wort besitzt:
+
+[source]
+----
+_ _ _ _ _ _ _
+----
+
+Nach jeder Eingabe werden alle richtig geratenen Buchstaben aufgedeckt.
+
+Für unser erstes Spiel verwenden wir das Wort `MMBASIC`.
+
+==== Das gesuchte Wort
+
+Das gesuchte Wort speichern wir in einer Zeichenkette:
+
+[source,basic]
+----
+WORT$="MMBASIC"
+----
+
+Mit `LEN()` können wir feststellen, aus wie vielen Zeichen das Wort besteht:
+
+[source,basic]
+----
+PRINT LEN(WORT$)
+----
+
+Die Ausgabe lautet:
+
+[source]
+----
+7
+----
+
+Diese Information benötigen wir später, um alle Buchstaben des Wortes
+nacheinander zu untersuchen.
+
+==== Bereits geratene Buchstaben speichern
+
+Wir benötigen außerdem eine Zeichenkette, in der wir uns die bereits
+eingegebenen Buchstaben merken:
+
+[source,basic]
+----
+GERATEN$=""
+----
+
+Gibt der Spieler beispielsweise den Buchstaben `A` ein, hängen wir ihn an
+diese Zeichenkette an:
+
+[source,basic]
+----
+GERATEN$=GERATEN$+"A"
+----
+
+Nach mehreren Versuchen könnte `GERATEN$` beispielsweise so aussehen:
+
+[source]
+----
+AMBS
+----
+
+Damit weiß unser Programm, welche Buchstaben bereits geraten wurden.
+
+==== Einen einzelnen Buchstaben untersuchen
+
+Mit `MID$()` können wir einen einzelnen Buchstaben aus dem gesuchten Wort
+herausholen:
+
+[source,basic]
+----
+PRINT MID$(WORT$,3,1)
+----
+
+Beim Wort `MMBASIC` erhalten wir:
+
+[source]
+----
+B
+----
+
+Die Zahl `3` gibt die Position an und die Zahl `1`, dass genau ein Zeichen
+gelesen werden soll.
+
+Mit einer `FOR`-Schleife können wir deshalb das gesamte Wort Zeichen für
+Zeichen durchlaufen:
+
+[source,basic]
+----
+FOR I=1 TO LEN(WORT$)
+  PRINT MID$(WORT$,I,1)
+NEXT I
+----
+
+==== Welche Buchstaben dürfen wir anzeigen?
+
+Jetzt verbinden wir `MID$()` mit `INSTR()`.
+
+Für jeden Buchstaben des gesuchten Wortes prüfen wir, ob er bereits in
+`GERATEN$` vorkommt:
+
+[source,basic]
+----
+FOR I=1 TO LEN(WORT$)
+
+  BUCHSTABE$=MID$(WORT$,I,1)
+
+  IF INSTR(GERATEN$,BUCHSTABE$)>0 THEN
+    PRINT BUCHSTABE$;" ";
+  ELSE
+    PRINT "_ ";
+  ENDIF
+
+NEXT I
+
+PRINT
+----
+
+Enthält `GERATEN$` beispielsweise
+
+[source,basic]
+----
+GERATEN$="AMB"
+----
+
+erscheint:
+
+[source]
+----
+M M B A _ _ _
+----
+
+Damit haben wir bereits den wichtigsten Teil unseres Hangman-Spiels.
+
+==== Groß- und Kleinschreibung
+
+Der Spieler soll sowohl `m` als auch `M` eingeben dürfen.
+
+Mit `UCASE$()` wandeln wir die Eingabe deshalb in Großbuchstaben um:
+
+[source,basic]
+----
+INPUT "Buchstabe"; EINGABE$
+
+EINGABE$=UCASE$(EINGABE$)
+----
+
+Für das Spiel macht es dadurch keinen Unterschied, ob der Spieler `a` oder
+`A` eingibt.
+
+==== Doppelte Eingaben erkennen
+
+Bevor wir einen Buchstaben zu `GERATEN$` hinzufügen, können wir mit `INSTR()`
+prüfen, ob er dort bereits vorhanden ist:
+
+[source,basic]
+----
+IF INSTR(GERATEN$,EINGABE$)>0 THEN
+  PRINT "Diesen Buchstaben hast du bereits versucht."
+ELSE
+  GERATEN$=GERATEN$+EINGABE$
+ENDIF
+----
+
+Auch hier zeigt sich, wie praktisch Zeichenketten sein können: `GERATEN$`
+dient gleichzeitig als Speicher für alle bisher eingegebenen Buchstaben.
+
+==== Das vollständige Spiel
+
+Nun setzen wir die einzelnen Teile zusammen.
+
+Wie bei unserer Lottoziehung verwenden wir wieder die Konstanten `TRUE` und
+`FALSE`. Die Variable `FERTIG` merkt sich damit, ob alle Buchstaben des
+gesuchten Wortes bereits gefunden wurden.
+
+Der Spieler hat acht Fehlversuche. Nach jedem Versuch wird das Wort erneut
+angezeigt.
+
+[source,basic]
+----
+CONST TRUE=1
+CONST FALSE=0
+
+WORT$="MMBASIC"
+GERATEN$=""
+FEHLER=0
+MAXFEHLER=8
+
+DO
+
+  PRINT
+
+  ' Wort anzeigen
+  FERTIG=TRUE
+
+  FOR I=1 TO LEN(WORT$)
+
+    BUCHSTABE$=MID$(WORT$,I,1)
+
+    IF INSTR(GERATEN$,BUCHSTABE$)>0 THEN
+      PRINT BUCHSTABE$;" ";
+    ELSE
+      PRINT "_ ";
+      FERTIG=FALSE
+    ENDIF
+
+  NEXT I
+
+  PRINT
+  PRINT
+
+  ' Wurde das ganze Wort erraten?
+  IF FERTIG=TRUE THEN
+
+    PRINT "Geschafft!"
+    PRINT "Du hast das Wort ";WORT$;" erraten."
+
+  ELSE
+
+    PRINT "Fehlversuche: ";FEHLER;" von ";MAXFEHLER
+    INPUT "Buchstabe"; EINGABE$
+
+    EINGABE$=UCASE$(EINGABE$)
+
+    ' Nur das erste eingegebene Zeichen verwenden
+    EINGABE$=LEFT$(EINGABE$,1)
+
+    IF INSTR(GERATEN$,EINGABE$)>0 THEN
+
+      PRINT "Diesen Buchstaben hast du bereits versucht."
+
+    ELSE
+
+      GERATEN$=GERATEN$+EINGABE$
+
+      IF INSTR(WORT$,EINGABE$)=0 THEN
+        FEHLER=FEHLER+1
+        PRINT "Leider falsch!"
+      ENDIF
+
+    ENDIF
+
+  ENDIF
+
+LOOP UNTIL FERTIG=TRUE OR FEHLER=MAXFEHLER
+
+PRINT
+
+IF FERTIG=FALSE THEN
+  PRINT "Leider verloren!"
+  PRINT "Das gesuchte Wort war ";WORT$;"."
+ENDIF
+----
+
+Eine mögliche Runde könnte so aussehen:
+
+[source]
+----
+_ _ _ _ _ _ _
+
+Fehlversuche: 0 von 8
+Buchstabe? A
+
+_ _ _ A _ _ _
+
+Fehlversuche: 0 von 8
+Buchstabe? X
+Leider falsch!
+
+_ _ _ A _ _ _
+
+Fehlversuche: 1 von 8
+Buchstabe? M
+
+M M _ A _ _ _
+
+Fehlversuche: 1 von 8
+Buchstabe? B
+
+M M B A _ _ _
+
+...
+
+M M B A S I C
+
+Geschafft!
+Du hast das Wort MMBASIC erraten.
+----
+
+==== Viele Stringfunktionen in einem Spiel
+
+Unser kleines Hangman-Spiel verwendet gleich mehrere der Stringfunktionen,
+die wir in diesem Kapitel kennengelernt haben:
+
+[cols="1,3",options="header"]
+|===
+|Funktion |Aufgabe im Spiel
+
+|`LEN()`
+|ermittelt die Länge des gesuchten Wortes
+
+|`MID$()`
+|liest einzelne Buchstaben aus dem Wort
+
+|`INSTR()`
+|sucht nach bereits geratenen oder richtigen Buchstaben
+
+|`UCASE$()`
+|wandelt die Eingabe in Großbuchstaben um
+
+|`LEFT$()`
+|verwendet nur das erste eingegebene Zeichen
+
+|`+`
+|fügt einen neuen Buchstaben an `GERATEN$` an
+|===
+
+Aus einzelnen Befehlen zur Textverarbeitung ist damit ein vollständiges
+kleines Spiel entstanden.
+
 === Experimentiere!
 
 Probiere folgende Änderungen aus:
@@ -500,4 +829,5 @@ ifndef::kdp[]
 Das vollständige BASIC-Programm findest du hier:
 
 * {github-programme}/12_stringfunktionen.bas[12_stringfunktionen.bas]
+* {github-programme}/12_hangman.bas[12_hangman.bas]
 endif::[]
