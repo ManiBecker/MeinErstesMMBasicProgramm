@@ -118,9 +118,13 @@ FOR I=1 TO 6
 NEXT I
 ----
 
-Hinweis:
+[NOTE]
+====
+Die erzeugten Lottozahlen können mehrfach auftreten. Für eine richtige
+Lottoziehung müssen wir verhindern, dass dieselbe Zahl zweimal gezogen wird.
 
-Die Zahlen können mehrfach auftreten. Eine vollständige Lotto-Simulation werden wir später erstellen.
+Wie das funktioniert, sehen wir später, sobald wir Arrays kennengelernt haben.
+====
 
 === Ein Ratespiel
 
