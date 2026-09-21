@@ -70,6 +70,7 @@ LOOP
 
 indexterm:[Schleifenbedingung]
 indexterm:[Endlosschleife]
+indexterm:[CTRL+C]
 
 [IMPORTANT]
 ====
