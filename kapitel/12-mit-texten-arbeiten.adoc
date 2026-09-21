@@ -70,11 +70,11 @@ Beispiele:
 NAME$="Manfred"
 ----
 
-Für sehr lange Texte stellt MMBasic sogenannte indexterm:[Long Strings] Long Strings zur Verfügung.
+Für längere Texte und größere Datenmengen stellt MMBasic sogenannte
+indexterm:[Long Strings] Long Strings zur Verfügung.
 
-Diese werden wir später kennenlernen.
-
-Für die meisten Programme reichen normale Zeichenketten jedoch völlig aus.
+Wie Long Strings verwendet werden, sehen wir später im Kapitel zur
+seriellen Kommunikation.
 
 === Texte ausgeben
 
