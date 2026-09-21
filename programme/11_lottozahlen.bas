@@ -1,7 +1,7 @@
 Rem ====================================================================
 Rem Repo:  https://github.com/ManiBecker/MeinErstesMMBasicProgramm
 Rem Datei: 11_lottozahlen.bas
-Rem Titel: Kapitel 11: Arrays
+Rem Titel: Kapitel 11: Lottozahlen ohne Wiederholung
 Rem Buch:  Mein erstes MMBasic Programm
 Rem Autor: Manfred Becker
 Rem Datum: 21.09.2026
