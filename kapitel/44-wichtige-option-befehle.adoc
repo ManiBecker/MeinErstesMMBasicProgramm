@@ -477,12 +477,12 @@ Eine mögliche Einstellung für eine deutsche USB-Tastatur wäre beispielsweise:
 
 [source,basic]
 ----
-OPTION KEYBOARD GR,0,1,300,50
+OPTION KEYBOARD GR,0,1,250,50
 ----
 
 Damit verwenden wir das deutsche Tastaturlayout, Caps Lock ist zunächst
 ausgeschaltet und Num Lock eingeschaltet. Eine gehaltene Taste beginnt nach
-300 ms mit der Wiederholung und wird anschließend alle 50 ms erneut gemeldet.
+250 ms mit der Wiederholung und wird anschließend alle 50 ms erneut gemeldet.
 
 [NOTE]
 ====
@@ -511,10 +511,10 @@ Beispielsweise:
 
 [source,basic]
 ----
-OPTION KEYBOARD REPEAT 300,50
+OPTION KEYBOARD REPEAT 250,50
 ----
 
-Die Wiederholung beginnt nach 300 ms und erfolgt anschließend alle 50 ms.
+Die Wiederholung beginnt nach 250 ms und erfolgt anschließend alle 50 ms.
 
 Je kleiner `repeatrate` gewählt wird, desto schneller werden die
 Tastenwiederholungen erzeugt. Der kleinste zulässige Wert von 25 ms ergibt
