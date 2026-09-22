@@ -67,11 +67,15 @@ PicoMite                         WS2812 / WS2812B
 
 GP5 ---------------------------> DIN
 GND ---------------------------- GND
-5 V ---------------------------- +5 V
+5-V-Versorgung ----------------- +5 V
 ----
 
 Bei mehreren LEDs wird jeweils `DOUT` einer LED mit `DIN` der nächsten LED
 verbunden.
+
+Bei wenigen LEDs kann die Versorgung je nach Aufbau aus einer vorhandenen
+5-V-Versorgung erfolgen. Größere LED-Ketten benötigen dagegen ein ausreichend
+dimensioniertes externes Netzteil.
 
 [IMPORTANT]
 ====
@@ -297,6 +301,13 @@ WS2812 B, GP5, 1, farbe%
 Nach jedem Aufruf von `WS2812` bleibt die zuletzt übertragene Farbe erhalten.
 Die LED muss also nicht fortlaufend mit Daten versorgt werden.
 
+[IMPORTANT]
+====
+Auch das Beenden des BASIC-Programms schaltet die LEDs nicht automatisch aus.
+Sollen die LEDs beim Programmende dunkel werden, müssen sie zuvor noch einmal
+mit `RGB(BLACK)` angesteuert werden.
+====
+
 === Mehrere LEDs ansteuern
 
 Sollen mehrere LEDs unterschiedliche Farben erhalten, werden die Farbwerte in
@@ -502,12 +513,148 @@ RGBW-LEDs behandeln wir in diesem Kapitel nicht weiter. Wichtig ist zunächst
 nur, dass du für diese LEDs den Typ `W` und einen RGBW-Wert statt eines
 normalen RGB888-Werts verwendest.
 
+=== Praxisprojekt: Wandernder Regenbogen
+
+indexterm:[LED,Regenbogen]indexterm:[Regenbogen]
+
+Zum Abschluss verbinden wir Arrays, Farben, Schleifen und den `WS2812`-Befehl
+zu einer kleinen Animation. Acht WS2812B-LEDs zeigen einen wandernden
+Regenbogen.
+
+Zunächst legen wir die Anzahl der LEDs und die Anzahl der verwendeten Farben
+fest:
+
+[source,basic]
+----
+CONST LEDS = 8
+CONST FARBEN = 6
+
+DIM leds%(LEDS - 1)
+DIM palette%(FARBEN - 1)
+----
+
+Das Array `leds%()` enthält den aktuellen Zustand der LED-Kette. Im Array
+`palette%()` speichern wir dagegen unsere sechs Regenbogenfarben:
+
+[source,basic]
+----
+palette%(0) = RGB(40, 0, 0)      ' Rot
+palette%(1) = RGB(40, 20, 0)     ' Orange
+palette%(2) = RGB(40, 40, 0)     ' Gelb
+palette%(3) = RGB(0, 40, 0)      ' Gruen
+palette%(4) = RGB(0, 0, 40)      ' Blau
+palette%(5) = RGB(30, 0, 40)     ' Violett
+----
+
+Die Farbwerte sind bewusst relativ klein gewählt. Dadurch leuchten die LEDs
+nicht mit voller Helligkeit und der Strombedarf bleibt beim Experimentieren
+geringer.
+
+==== Den Regenbogen verschieben
+
+Der entscheidende Teil der Animation steckt in nur wenigen Zeilen:
+
+[source,basic]
+----
+FOR i = 0 TO LEDS - 1
+  farbindex = (i + offset) MOD FARBEN
+  leds%(i) = palette%(farbindex)
+NEXT i
+----
+
+Jede LED erhält eine Farbe aus der Palette. Der Ausdruck
+
+[source,basic]
+----
+(i + offset) MOD FARBEN
+----
+
+sorgt dafür, dass der Farbindex immer im gültigen Bereich von `0` bis `5`
+bleibt.
+
+Erreicht der Wert `FARBEN`, beginnt er durch `MOD` wieder bei `0`.
+
+Beispielsweise ergibt sich bei sechs Farben:
+
+[source]
+----
+0 MOD 6 = 0
+1 MOD 6 = 1
+...
+5 MOD 6 = 5
+6 MOD 6 = 0
+7 MOD 6 = 1
+----
+
+Damit lässt sich eine zyklische Folge besonders einfach programmieren.
+
+Nachdem alle Farben vorbereitet wurden, wird die komplette LED-Kette
+aktualisiert:
+
+[source,basic]
+----
+WS2812 B, GP5, LEDS, leds%()
+----
+
+Anschließend verschieben wir den Regenbogen um eine Position:
+
+[source,basic]
+----
+offset = (offset + 1) MOD FARBEN
+----
+
+Auch hier sorgt `MOD` dafür, dass nach dem letzten Farbversatz wieder bei
+`0` begonnen wird.
+
+Mit
+
+[source,basic]
+----
+PAUSE 150
+----
+
+bestimmen wir die Geschwindigkeit der Animation.
+
+==== Programm mit einer Taste beenden
+
+Die Animation läuft so lange, bis eine Taste gedrückt wird:
+
+[source,basic]
+----
+LOOP UNTIL INKEY$ <> ""
+----
+
+Danach sollten wir die LEDs ausdrücklich ausschalten. Wie wir bereits
+gesehen haben, behalten WS2812-LEDs ihren zuletzt übertragenen Zustand auch
+nach dem Ende des BASIC-Programms bei.
+
+Deshalb setzen wir alle Elemente des Arrays auf Schwarz und übertragen den
+neuen Zustand noch einmal:
+
+[source,basic]
+----
+FOR i = 0 TO LEDS - 1
+  leds%(i) = RGB(BLACK)
+NEXT i
+
+WS2812 B, GP5, LEDS, leds%()
+----
+
+Damit endet das Programm mit ausgeschalteten LEDs.
+
+[TIP]
+====
+Ändere einmal `PAUSE 150` oder die Werte in `palette%()`. Schon mit kleinen
+Änderungen entstehen deutlich andere Farbeindrücke und
+Animationsgeschwindigkeiten.
+====
+
 === Ideen für eigene Experimente
 
 Mit dem gleichen Grundprinzip lassen sich viele weitere Effekte programmieren:
 
 * ein Knight-Rider-Lauflicht mit nachleuchtendem Schweif
-* ein wandernder Regenbogen
+* ein pulsierender Farbverlauf
 * zufällig funkelnde Sterne
 * Statusanzeigen mit Grün, Gelb und Rot
 * Modellbau- und Fahrzeugbeleuchtungen
@@ -533,6 +680,8 @@ Die wichtigsten Punkte sind:
 * Eine Kette darf 1 bis 256 LEDs enthalten.
 * Eine einzelne LED kann mit einer einfachen Integer-Variablen angesteuert werden.
 * Für mehrere LEDs wird ein Integer-Array mit den Farbwerten verwendet.
+* Mit `MOD` lassen sich zyklische Farbfolgen und Animationen besonders einfach erzeugen.
+* Beim Programmende müssen die LEDs bei Bedarf ausdrücklich mit `RGB(BLACK)` ausgeschaltet werden.
 * WS2812, WS2812B und SK6812 verwenden im BASIC-Programm RGB888-Farbwerte.
 * Bei 5-V-LED-Ketten müssen Stromversorgung, gemeinsame Masse und der 3,3-V-Signalpegel beachtet werden.
 
