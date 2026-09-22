@@ -348,9 +348,12 @@ Sprites kollidieren mit
 * Sprites auf Layer 0
 * und dem Bildschirmrand.
 
-Dadurch kann Layer 0 beispielsweise für Hindernisse verwendet werden, mit denen Objekte auf anderen Layern kollidieren sollen.
+Dadurch kann Layer 0 beispielsweise für Hindernisse verwendet werden, mit
+denen Objekte auf allen anderen Layern kollidieren sollen. Layer 0 ist damit
+eine Art gemeinsame Kollisionsebene.
 
-Beim Scrollen bewegt sich Layer 0 zusammen mit dem Hintergrund. Sprites auf anderen Layern bleiben dagegen an ihrer Bildschirmposition.
+Beim Scrollen bewegt sich Layer 0 zusammen mit dem Hintergrund. Sprites auf
+anderen Layern bleiben dagegen an ihrer Bildschirmposition.
 
 indexterm:[LIFO]
 === Die Zeichenreihenfolge und das LIFO-Prinzip
@@ -372,7 +375,36 @@ Diese Reihenfolge funktioniert nach dem Prinzip _Last In, First Out_, kurz LIFO.
 
 Würde nun das zuerst gezeichnete Sprite 1 bewegt, könnten gespeicherte Hintergrundbereiche Teile der später darüber gezeichneten Sprites überschreiben.
 
-Für solche Situationen gibt es `SPRITE SHOW SAFE`.
+Vereinfacht können wir uns die Zeichenreihenfolge so vorstellen:
+
+[source]
+----
+Hintergrund
+   |
+   v
+Sprite 1
+   |
+   v
+Sprite 2
+   |
+   v
+Sprite 3
+----
+
+Soll nun Sprite 1 sicher bewegt werden, müssen die darüberliegenden Sprites
+vorübergehend in umgekehrter Reihenfolge entfernt und anschließend wieder
+aufgebaut werden:
+
+[source]
+----
+Sprite 3 entfernen
+Sprite 2 entfernen
+Sprite 1 bewegen
+Sprite 2 wieder anzeigen
+Sprite 3 wieder anzeigen
+----
+
+Genau dafür gibt es `SPRITE SHOW SAFE`.
 
 indexterm:[SPRITE, SHOW SAFE]
 === `SPRITE SHOW SAFE`
@@ -574,6 +606,12 @@ SUB collision
     PRINT "Kollision!"
 END SUB
 ----
+
+Wie bei den Interrupts aus Kapitel 45 sollte auch eine
+Sprite-Interrupt-Routine möglichst kurz bleiben. Bei umfangreicheren Spielen
+ist es sinnvoll, dort nur die Kollisionsinformationen zu erfassen oder ein
+Flag zu setzen und die eigentliche Spielreaktion anschließend in der
+Hauptschleife auszuführen.
 
 In einem echten Spiel möchten wir natürlich wissen, welches Sprite beteiligt war.
 
@@ -920,7 +958,17 @@ Wenn dagegen einfach ein rechteckiger Bildbereich kopiert oder verschoben werden
 
 === Von der Spielfigur zur Spielschleife
 
-Mit den Sprite-Befehlen lässt sich die typische Hauptschleife eines Spiels sehr übersichtlich aufbauen.
+Nahezu jedes Computerspiel arbeitet mit einer sich ständig wiederholenden
+Spielschleife. Typischerweise werden dabei immer wieder dieselben Aufgaben
+ausgeführt:
+
+. Eingaben lesen
+. Positionen berechnen
+. Sprites bewegen
+. Animationen aktualisieren
+. Kollisionen auswerten
+. Spielregeln und Punkte aktualisieren
+. kurze Pause beziehungsweise Bildwechsel
 
 Ein vereinfachter Ablauf könnte so aussehen:
 
@@ -930,37 +978,24 @@ DO
     ' Eingaben lesen
 
     ' neue Positionen berechnen
-
     SPRITE NEXT #1, PlayerX, PlayerY
     SPRITE NEXT #2, EnemyX, EnemyY
 
+    ' vorbereitete Bewegungen gemeinsam ausfuehren
     SPRITE MOVE
 
-    ' Animation aktualisieren
-
-    ' Spielregeln auswerten
+    ' Animation und Spielregeln aktualisieren
 
     PAUSE 20
 LOOP
 ----
 
-Kollisionen können parallel dazu über `SPRITE INTERRUPT` behandelt werden.
+Mit `SPRITE NEXT` und `SPRITE MOVE` können mehrere Bewegungen für dieselbe
+Spielrunde vorbereitet und anschließend gemeinsam ausgeführt werden.
 
-Damit müssen wir uns im Hauptprogramm nicht mehr um das Löschen und Restaurieren jedes einzelnen bewegten Bildbereichs kümmern.
-
-=== Die Spielschleife
-
-Nahezu jedes Computerspiel arbeitet mit einer sich ständig wiederholenden Spielschleife.
-
-Typischerweise werden dabei immer wieder dieselben Aufgaben ausgeführt:
-
-. Eingaben lesen
-. Positionen berechnen
-. Spielfiguren bewegen
-. Animationen aktualisieren
-. Kollisionen auswerten
-. Spielregeln und Punkte aktualisieren
-. kurze Pause beziehungsweise Bildwechsel
+Kollisionen können parallel dazu über `SPRITE INTERRUPT` erfasst werden.
+Damit müssen wir uns im Hauptprogramm nicht mehr selbst um das Löschen und
+Restaurieren jedes einzelnen bewegten Bildbereichs kümmern.
 
 [source]
 ----
@@ -991,7 +1026,154 @@ Typischerweise werden dabei immer wieder dieselben Aufgaben ausgeführt:
               +-----> zurück zum Anfang
 ----
 
-Je klarer diese Aufgaben voneinander getrennt sind, desto leichter lässt sich das Spiel später erweitern.
+Je klarer diese Aufgaben voneinander getrennt sind, desto leichter lässt sich
+das Spiel später erweitern.
+
+=== Praxisprojekt: Zwei Sprites in Bewegung
+
+indexterm:[Sprite-Demo]indexterm:[SPRITE, LOADARRAY]
+
+Zum Abschluss verbinden wir die wichtigsten Sprite-Techniken dieses Kapitels
+in einem kleinen Demoprogramm.
+
+Das Programm erzeugt zwei Sprite-Grafiken direkt im BASIC-Programm. Es sind
+also keine zusätzlichen Bilddateien erforderlich.
+
+Dazu werden zwei Integer-Arrays vorbereitet:
+
+[source,basic]
+----
+DIM INTEGER BallPixels%(255)
+DIM INTEGER BoxPixels%(399)
+----
+
+Das erste Array enthält die 16 x 16 Pixel eines Balls, das zweite die
+20 x 20 Pixel eines Quadrats. Die Subroutine `CreateSprites` füllt beide
+Arrays mit den gewünschten Farben.
+
+Anschließend werden daraus zwei Sprites erzeugt:
+
+[source,basic]
+----
+SPRITE LOADARRAY #1, 16, 16, BallPixels%()
+SPRITE LOADARRAY #2, 20, 20, BoxPixels%()
+----
+
+Mit
+
+[source,basic]
+----
+SPRITE SET TRANSPARENT 0
+----
+
+wird der Farbwert 0 transparent dargestellt.
+
+==== Beide Sprites gemeinsam bewegen
+
+Die beiden Objekte erhalten jeweils eine Position und eine
+Bewegungsrichtung. In jeder Runde der Spielschleife werden zunächst die
+neuen Koordinaten berechnet.
+
+Danach bereiten wir beide Bewegungen vor:
+
+[source,basic]
+----
+SPRITE NEXT #1, x1%, y1%
+SPRITE NEXT #2, x2%, y2%
+----
+
+Erst
+
+[source,basic]
+----
+SPRITE MOVE
+----
+
+führt beide vorbereiteten Bewegungen gemeinsam aus. Anschließend übernimmt
+das Programm die tatsächlichen Sprite-Positionen wieder von der Firmware:
+
+[source,basic]
+----
+x1% = SPRITE(X, 1)
+y1% = SPRITE(Y, 1)
+x2% = SPRITE(X, 2)
+y2% = SPRITE(Y, 2)
+----
+
+Das ist besonders nach einer Kollision nützlich.
+
+==== Kollisionen auswerten
+
+Vor Beginn der Spielschleife wird die Kollisionsroutine registriert:
+
+[source,basic]
+----
+SPRITE INTERRUPT Collision
+----
+
+Das Demoprogramm berücksichtigt dabei einen wichtigen Sonderfall von
+`SPRITE MOVE`: Werden mehrere vorbereitete Sprite-Bewegungen gemeinsam
+ausgeführt, kann `SPRITE(S)` den Wert `0` liefern. Dann werden die von der
+Bewegung betroffenen Sprites über
+
+[source,basic]
+----
+SPRITE(C, 0)
+SPRITE(C, 0, i%)
+----
+
+ermittelt.
+
+Für jedes betroffene Sprite wertet `ProcessCollision` anschließend die
+gespeicherten Kollisionen aus. Bei einem Bildschirmrand wird nur die
+entsprechende Bewegungsrichtung umgekehrt:
+
+[source,basic]
+----
+CASE &HF1
+    dx1% = ABS(dx1%)
+
+CASE &HF4
+    dx1% = -ABS(dx1%)
+----
+
+Entsprechend werden oberer und unterer Rand über `dy1%` beziehungsweise
+`dy2%` behandelt.
+
+Bei einer Kollision der beiden Sprites wird die Bewegungsrichtung ebenfalls
+umgekehrt. Dadurch prallen die Objekte voneinander ab.
+
+[NOTE]
+====
+Die Sprite-Kollisionserkennung arbeitet mit den umschließenden Rechtecken.
+Die sichtbaren Formen von Ball und Quadrat werden dabei nicht pixelgenau
+geprüft.
+====
+
+==== Am Programmende aufräumen
+
+Mit `Q` wird die Schleife beendet. Danach entfernt das Programm alle Sprites
+vom Bildschirm und gibt den belegten Speicher wieder frei:
+
+[source,basic]
+----
+SPRITE HIDE ALL
+SPRITE CLOSE ALL
+----
+
+Damit führt das Praxisprojekt noch einmal mehrere wichtige Techniken des
+Kapitels zusammen:
+
+* `SPRITE LOADARRAY`
+* Transparenz
+* Layer
+* `SPRITE NEXT`
+* `SPRITE MOVE`
+* `SPRITE INTERRUPT`
+* `SPRITE()`
+* Rand- und Sprite-Kollisionen
+* `SPRITE HIDE ALL`
+* `SPRITE CLOSE ALL`
 
 === Zusammenfassung
 
@@ -1003,9 +1185,10 @@ Du weißt nun,
 * dass Sprites ihren verdeckten Hintergrund automatisch sichern und restaurieren,
 * dass ein bereits sichtbares Sprite mit einem weiteren `SPRITE SHOW` bewegt werden kann,
 * dass `SPRITE SHOW SAFE` überlappende Sprites sicher berücksichtigt,
-* dass Layer festlegen, welche Sprites miteinander kollidieren,
+* dass Layer festlegen, welche Sprites miteinander kollidieren und Layer 0 dabei eine besondere Rolle besitzt,
 * dass `SPRITE INTERRUPT` und `SPRITE()` eine eingebaute Kollisionserkennung bereitstellen,
 * dass `SPRITE SWAP` für Animationen verwendet werden kann,
+* wie mehrere Sprites mit `SPRITE NEXT` und `SPRITE MOVE` gemeinsam bewegt werden,
 * dass `BLIT` rechteckige Bildbereiche kopiert
 * und dass BLIT-Puffer im Gegensatz zu Sprites RGB888-Farbdaten verwenden.
 
