@@ -313,54 +313,22 @@ Die Farbdarstellung funktioniert bei VGA- und HDMI-Ausgabe sowie über die serie
 `OPTION COLOURCODE` ist eine permanente Option und muss an der MMBasic-Eingabeaufforderung ausgeführt werden. Innerhalb eines BASIC-Programms ist der Befehl nicht zulässig.
 ====
 
-=== OPTION CPUSPEED
-
-indexterm:[OPTION CPUSPEED] Bei PicoMite-Versionen ohne VGA- oder HDMI-Ausgabe kann mit `OPTION CPUSPEED` die CPU-Taktfrequenz eingestellt werden.
-
-Die Syntax lautet:
-
-[source,basic]
-----
-OPTION CPUSPEED speed
-----
-
-Die Angabe erfolgt in kHz. Der zulässige Bereich reicht von:
-
-[source]
-----
-48000 kHz
-bis
-420000 kHz
-----
-
-Beispielsweise entsprechen:
-
-[source,basic]
-----
-OPTION CPUSPEED 200000
-----
-
-200 MHz.
-
-Der im Handbuch angegebene Standardwert beträgt beim RP2040 200 MHz und beim RP2350 150 MHz. Höhere Taktfrequenzen gelten als Übertaktung.
-
-[WARNING]
-====
-`OPTION CPUSPEED` steht bei den VGA- und HDMI-Versionen des PicoMite nicht zur Verfügung. Außerdem muss der Befehl an der MMBasic-Eingabeaufforderung ausgeführt werden und kann nicht innerhalb eines Programms verwendet werden.
-====
-
 === CPU-Takt bei VGA und HDMI
 
-Bei den VGA- und HDMI-Versionen wird die CPU-Taktfrequenz nicht mit `OPTION CPUSPEED` eingestellt. Hier hängt sie mit der verwendeten Videoauflösung zusammen.
+Bei den VGA- und HDMI-Versionen wird die CPU-Taktfrequenz nicht mit
+`OPTION CPUSPEED` eingestellt. Hier hängt sie mit der verwendeten
+Videoauflösung zusammen.
 
-Dafür gibt es den Befehl:
+Dafür gibt es indexterm:[OPTION RESOLUTION] `OPTION RESOLUTION`:
 
 [source,basic]
 ----
 OPTION RESOLUTION nn [,cpuspeedinKhz]
 ----
 
-Bei einer Auflösung von 640 x 480 nennt das PicoMite-Handbuch beispielsweise CPU-Taktfrequenzen von 252 MHz, 315 MHz oder 378 MHz, abhängig von der gewünschten Bildwiederholfrequenz.
+Bei einer Auflösung von 640 × 480 nennt das PicoMite-Handbuch beispielsweise
+CPU-Taktfrequenzen von 252 MHz, 315 MHz oder 378 MHz, abhängig von der
+gewünschten Bildwiederholfrequenz.
 
 Das erklärt auch, warum beispielsweise:
 
@@ -376,7 +344,46 @@ auf einem PicoMite HDMI/USB einen Wert wie:
 252000000
 ----
 
-liefern kann. `MM.INFO$(CPUSPEED)` gibt die CPU-Taktfrequenz dabei in Hz zurück.
+liefern kann. `MM.INFO$(CPUSPEED)` gibt die CPU-Taktfrequenz dabei in Hz
+zurück.
+
+==== Bildwiederholrate und Monitor-Kompatibilität
+
+Die mit `OPTION RESOLUTION` gewählte CPU-Taktfrequenz beeinflusst bei der
+Videoausgabe auch die Bildwiederholrate.
+
+Das kann in der Praxis eine wichtige Rolle spielen. Beim Test des
+Pico Computer 3 lieferte beispielsweise folgende Einstellung an einem
+Monitor zunächst kein Bild:
+
+[source,basic]
+----
+OPTION RESOLUTION 640,315000
+----
+
+Ein anderer Monitor konnte diese Einstellung dagegen problemlos darstellen.
+Mit dieser Einstellung wird eine Bildwiederholrate von 75 Hz verwendet.
+
+Durch die Umstellung auf:
+
+[source,basic]
+----
+OPTION RESOLUTION 640,252000
+----
+
+wurde die Bildwiederholrate auf 60 Hz reduziert. Damit funktionierte die
+Ausgabe auch am zuvor problematischen Monitor.
+
+[NOTE]
+====
+Wenn ein PicoMite mit VGA- oder HDMI-Ausgabe an einem Monitor kein Bild
+liefert, muss deshalb nicht unbedingt ein Hardwarefehler vorliegen.
+
+Prüfe auch die mit `OPTION RESOLUTION` eingestellte Auflösung und
+Bildwiederholrate. Eine Einstellung mit 60 Hz kann bei Monitoren mit
+eingeschränkter Unterstützung verschiedener Bildwiederholraten die
+kompatiblere Wahl sein.
+====
 
 === OPTION RESET
 
