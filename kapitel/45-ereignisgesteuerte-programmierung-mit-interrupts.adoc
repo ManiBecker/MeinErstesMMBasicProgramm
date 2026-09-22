@@ -126,7 +126,9 @@ Interrupt-Subroutine
 Hauptprogramm läuft weiter
 ----
 
-Während die Interrupt-Subroutine ausgeführt wird, sind andere Interrupts gesperrt. Deshalb sollte eine Interrupt-Subroutine immer möglichst kurz sein.
+Während die Interrupt-Subroutine ausgeführt wird, sind andere Interrupts gesperrt.
+
+Die Interrupt-Subroutine läuft also nicht gleichzeitig mit dem Hauptprogramm, sondern unterbricht es vorübergehend. Deshalb sollte eine Interrupt-Subroutine immer möglichst kurz sein.
 
 === Steigende und fallende Flanken
 
@@ -222,6 +224,26 @@ Die eigentliche Verarbeitung übernimmt anschließend das Hauptprogramm.
 
 Dieses Vorgehen nennt man häufig das indexterm:[Interrupts,Flag-Prinzip]indexterm:[Flag-Prinzip] *Flag-Prinzip*. Eine Variable dient als Flag und zeigt dem Hauptprogramm an, dass ein Ereignis eingetreten ist.
 
+Der Ablauf lässt sich vereinfacht so darstellen:
+
+[source]
+----
+Taster
+   |
+   v
+Interrupt-Subroutine
+   |
+   | ereignis = 1
+   v
+Flag
+   |
+   v
+Hauptprogramm
+   |
+   v
+eigentliche Verarbeitung
+----
+
 NOTE: Einer Interrupt-Subroutine können keine Parameter übergeben werden. Innerhalb der Interrupt-Subroutine dürfen jedoch andere Subroutinen und Funktionen aufgerufen werden.
 
 === Was passiert im Hintergrund?
@@ -302,6 +324,8 @@ Deshalb sollten mechanische Taster bei Bedarf entprellt werden.
 
 === Entprellen mit TIMER
 
+indexterm:[TIMER]indexterm:[Interrupts,Entprellung]
+
 Eine Möglichkeit besteht darin, den Zeitpunkt des letzten gültigen Interrupts zu speichern. Weitere Interrupts innerhalb einer kurzen Zeitspanne werden ignoriert.
 
 [source,basic]
@@ -332,11 +356,12 @@ Die `50` steht hier für eine indexterm:[Interrupts,Entprellung] Entprellzeit vo
 
 === Praxisbeispiel: Ereigniszähler
 
-Nun zählen wir, wie oft der Taster betätigt wurde. Auch hier verwenden wir die Entprellung mit `TIMER`.
+Nun zählen wir, wie oft der Taster betätigt wurde. Auch hier verwenden wir die Entprellung mit `TIMER` und das zuvor kennengelernte Flag-Prinzip.
 
 [source,basic]
 ----
 DIM anzahl = 0
+DIM ereignis = 0
 DIM letzteZeit = -100
 
 SETPIN GP14, INTL, Zaehler, PULLUP
@@ -344,19 +369,24 @@ SETPIN GP14, INTL, Zaehler, PULLUP
 PRINT "Tastendruecke: 0"
 
 DO
-  PAUSE 100
+  IF ereignis THEN
+    ereignis = 0
+    anzahl = anzahl + 1
+    PRINT "Tastendruecke: "; anzahl
+  ENDIF
 LOOP
 
 SUB Zaehler
   IF TIMER - letzteZeit < 50 THEN EXIT SUB
 
   letzteZeit = TIMER
-  anzahl = anzahl + 1
-  PRINT "Tastendruecke: "; anzahl
+  ereignis = 1
 END SUB
 ----
 
-Für dieses kleine Beispiel ist die Ausgabe direkt in der Interrupt-Subroutine noch überschaubar. In größeren Programmen ist es jedoch besser, auch hier nur ein Flag zu setzen und die Ausgabe im Hauptprogramm durchzuführen.
+Die Interrupt-Subroutine erledigt nur die zeitkritische Erkennung und Entprellung des Tastendrucks. Anschließend setzt sie das Flag `ereignis`.
+
+Das Hauptprogramm erkennt dieses Flag, erhöht den Zähler und übernimmt die Ausgabe. Damit bleibt die Interrupt-Subroutine kurz und das Beispiel folgt konsequent dem Flag-Prinzip.
 
 === Praxisbeispiel: LED umschalten
 
@@ -449,6 +479,7 @@ PIN(GP15) = 1
 DO
   IF tasteGedrueckt THEN
     tasteGedrueckt = 0
+    PIN(GP15) = 0
     PRINT "Reaktionszeit: "; messung; " ms"
     EXIT DO
   ENDIF
@@ -464,12 +495,15 @@ SUB Reaktion
 
   messung = TIMER - startZeit
   messungAktiv = 0
-  PIN(GP15) = 0
   tasteGedrueckt = 1
 END SUB
 ----
 
 Die Variable `messungAktiv` sorgt dafür, dass ein Tastendruck nur dann als Reaktion gewertet wird, wenn die LED bereits eingeschaltet wurde.
+
+Die Zeitmessung selbst findet direkt in der Interrupt-Subroutine statt. Das ist hier sinnvoll, weil der Zeitpunkt des Tastendrucks möglichst genau erfasst werden soll.
+
+Alles, was nicht zeitkritisch ist, übernimmt dagegen das Hauptprogramm. Dazu gehören das Ausschalten der LED und die Ausgabe der gemessenen Reaktionszeit.
 
 Nach dem gültigen Tastendruck wird `messungAktiv` sofort auf `0` gesetzt. Weitere Tastendrücke können die gemessene Zeit deshalb nicht mehr verändern.
 
@@ -484,17 +518,28 @@ den nicht mehr benötigten Interrupt.
 
 === Können Interrupts verloren gehen?
 
-Pin-Interrupts werden von MMBasic nach dem Abschluss eines Befehls geprüft und nicht von der Hardware zwischengespeichert. Ein sehr kurzer Impuls kann deshalb unter Umständen auftreten und wieder verschwinden, bevor MMBasic ihn erkennt.
+indexterm:[Interrupts,verlorene Interrupts]
+
+[IMPORTANT]
+====
+Pin-Interrupts werden von MMBasic nach dem Abschluss eines Befehls geprüft und nicht von der Hardware zwischengespeichert.
+
+Sehr kurze Impulse können deshalb unter Umständen auftreten und wieder verschwinden, bevor MMBasic sie erkennt.
+====
 
 Die meisten Befehle werden sehr schnell ausgeführt. Einige Hardwareoperationen können jedoch deutlich länger dauern. Während solcher Operationen kann sich die Reaktion auf einen Interrupt verzögern oder ein sehr kurzer Impuls übersehen werden.
 
-Auch während einer `INPUT`-Anweisung sind Interrupts deaktiviert.
+Auch während einer indexterm:[Interrupts,INPUT] `INPUT`-Anweisung sind Interrupts deaktiviert.
 
 Für normale Taster ist das meist kein Problem, weil ein Tastendruck vergleichsweise lange dauert. Bei sehr kurzen elektrischen Impulsen muss dieser Punkt jedoch berücksichtigt werden.
 
 === Mehrere Interrupts
 
 MMBasic kann nicht nur Pin-Interrupts verarbeiten. Auch Timer, serielle Schnittstellen, ADC, I2C und andere Funktionen können Interrupts auslösen.
+
+In diesem Kapitel beschränken wir uns bewusst auf Pin-Interrupts. Andere Interruptquellen werden dort behandelt, wo die jeweiligen Funktionen verwendet werden.
+
+indexterm:[Interrupts,Priorität]
 
 Treten mehrere Interrupts gleichzeitig auf, verwendet MMBasic eine festgelegte Prioritätsreihenfolge. Pin-Interrupts werden dabei in der Reihenfolge ihrer Definition verarbeitet.
 
@@ -548,6 +593,8 @@ In diesem Kapitel hast du gelernt:
 * warum Interrupt-Subroutinen möglichst kurz sein müssen
 * wie das Flag-Prinzip funktioniert
 * wie Taster ohne `PAUSE` in der Interrupt-Subroutine entprellt werden können
+* warum zeitkritische Arbeiten von der übrigen Verarbeitung getrennt werden sollten
+* dass sehr kurze Impulse unter bestimmten Umständen übersehen werden können
 * wie ein Interrupt mit `SETPIN pin, OFF` wieder deaktiviert wird
 
 Interrupts gehören zu den wichtigsten Werkzeugen der Mikrocontroller-Programmierung. Richtig eingesetzt ermöglichen sie Programme, die schnell und übersichtlich auf Ereignisse reagieren.
