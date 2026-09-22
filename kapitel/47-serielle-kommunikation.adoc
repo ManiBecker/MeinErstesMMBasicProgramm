@@ -1161,4 +1161,5 @@ Die vollständigen BASIC-Programme findest du hier:
 
 * {github-programme}/47_seriell_senden.bas[47_seriell_senden.bas]
 * {github-programme}/47_seriell_empfangen.bas[47_seriell_empfangen.bas]
+* {github-programme}/47_longstring_empfangen.bas[47_longstring_empfangen.bas]
 endif::[]
