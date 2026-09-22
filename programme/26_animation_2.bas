@@ -19,7 +19,12 @@ Const cSpeed     = 10         ' Maximale Geschwindigkeit eines Eckpunkts
 Const cDelay     = 50         ' Pause in Millisekunden
 Const cBackColor = RGB(BLACK) ' Hintergrundfarbe
 
-MODE 3
+If UCase$(Left$(MM.Info$(DEVICE),7))="WEBMITE" Then
+  Mode 5
+Else
+  Mode 3
+EndIf
+
 CLS cBackColor
 
 
