@@ -11,6 +11,7 @@ In diesem Kapitel lernst du:
 * einen PicoMite mit einem PC zu verbinden
 * zwei MMBasic-Systeme miteinander kommunizieren zu lassen
 * einfache Kommunikationsprotokolle zu entwickeln
+* größere Datenmengen mit Long Strings zu verarbeiten
 
 Am Ende des Kapitels kannst du eigene Geräte miteinander Daten austauschen lassen.
 
@@ -291,6 +292,16 @@ OPEN "COM1:9600, 1024" AS #1
 
 Damit wird ein Empfangspuffer von 1024 Byte verwendet.
 
+[NOTE]
+====
+Ein größerer UART-Empfangspuffer bedeutet nicht automatisch, dass die
+empfangenen Daten in eine normale Stringvariable passen. Normale Strings
+sind in MMBasic auf 255 Zeichen begrenzt.
+
+Wie größere Datenmengen verarbeitet werden können, sehen wir später in
+diesem Kapitel bei den Long Strings.
+====
+
 === Daten senden
 
 Zum Senden kann `PRINT` mit der Dateinummer der seriellen Schnittstelle verwendet werden:
@@ -345,6 +356,10 @@ LOOP
 ----
 
 Durch das Semikolon bei `PRINT text$;` werden die Zeichen so ausgegeben, wie sie empfangen wurden.
+
+Solange jeweils höchstens 255 Zeichen in `text$` übernommen werden, reicht
+dafür eine normale Stringvariable aus. Für größere zusammenhängende
+Datenmengen benötigen wir dagegen Long Strings.
 
 === Zeichenstrom statt fertiger Nachrichten
 
@@ -485,10 +500,15 @@ puffer$ = ""
 
 DO
   IF LOC(#1) > 0 THEN
-    puffer$ = puffer$ + INPUT$(LOC(#1), #1)
+    frei = 255 - LEN(puffer$)
+    IF frei > 0 THEN
+      anzahl = LOC(#1)
+      IF anzahl > frei THEN anzahl = frei
+      puffer$ = puffer$ + INPUT$(anzahl, #1)
+    ENDIF
 
     pos = INSTR(puffer$, CHR$(10))
-    IF pos > 0 THEN
+    DO WHILE pos > 0
       text$ = LEFT$(puffer$, pos - 1)
 
       IF RIGHT$(text$, 1) = CHR$(13) THEN
@@ -497,7 +517,8 @@ DO
 
       PRINT text$
       puffer$ = MID$(puffer$, pos + 1)
-    ENDIF
+      pos = INSTR(puffer$, CHR$(10))
+    LOOP
   ENDIF
 LOOP
 ----
@@ -512,6 +533,14 @@ Hallo
 an.
 
 Dieses Beispiel zeigt bereits einen wichtigen Unterschied zwischen einer UART und einem Nachrichtenprotokoll: Die UART liefert Zeichen, während unser Programm daraus vollständige, durch ein Zeilenende getrennte Nachrichten bildet.
+
+Da `puffer$` eine normale Stringvariable ist, achten wir darauf, nie mehr
+als 255 Zeichen darin zu speichern. Die innere `DO WHILE`-Schleife
+verarbeitet außerdem alle bereits vollständig empfangenen Zeilen und nicht
+nur die erste.
+
+Für kurze Befehle und Textzeilen ist dieses Verfahren gut geeignet. Bei
+größeren Datenblöcken verwenden wir später Long Strings.
 
 === Ein einfacher Chat
 
@@ -575,10 +604,15 @@ puffer$ = ""
 
 DO
   IF LOC(#1) > 0 THEN
-    puffer$ = puffer$ + INPUT$(LOC(#1), #1)
+    frei = 255 - LEN(puffer$)
+    IF frei > 0 THEN
+      anzahl = LOC(#1)
+      IF anzahl > frei THEN anzahl = frei
+      puffer$ = puffer$ + INPUT$(anzahl, #1)
+    ENDIF
 
     pos = INSTR(puffer$, CHR$(10))
-    IF pos > 0 THEN
+    DO WHILE pos > 0
       text$ = LEFT$(puffer$, pos - 1)
 
       IF RIGHT$(text$, 1) = CHR$(13) THEN
@@ -592,12 +626,239 @@ DO
       ENDIF
 
       puffer$ = MID$(puffer$, pos + 1)
-    ENDIF
+      pos = INSTR(puffer$, CHR$(10))
+    LOOP
   ENDIF
 LOOP
 ----
 
 Damit kann ein Mikrocontroller einen anderen fernsteuern.
+
+=== Wenn 255 Zeichen nicht mehr reichen
+
+indexterm:[Long Strings]indexterm:[Strings,Long Strings]
+
+In Kapitel 12 haben wir bereits gesehen, dass normale Zeichenketten in
+MMBasic maximal 255 Zeichen enthalten können. Damals haben wir Long Strings
+angekündigt – nun gibt es einen praktischen Grund, sie einzusetzen.
+
+Bei der seriellen Kommunikation können größere Datenmengen eintreffen. Ein
+UART-Empfangspuffer kann beispielsweise 1024 Byte groß sein. Sollen solche
+Daten als zusammenhängender Text gespeichert werden, reicht eine normale
+Stringvariable nicht mehr aus.
+
+Für diesen Fall stellt MMBasic sogenannte *Long Strings* zur Verfügung.
+
+Long Strings können wesentlich mehr als 255 Zeichen aufnehmen. Ihre maximale
+Größe wird im Wesentlichen durch den dafür reservierten Speicher und den
+verfügbaren RAM begrenzt.
+
+==== Long Strings sind Integer-Arrays
+
+Eine Besonderheit fällt sofort auf: Long Strings werden nicht als normale
+Stringvariablen mit `$` angelegt.
+
+Stattdessen reservieren wir ein eindimensionales Integer-Array als
+Speicherbereich.
+
+Für einen Long String mit maximal 2048 Zeichen können wir beispielsweise
+schreiben:
+
+[source,basic]
+----
+CONST MAXLEN=2048
+DIM INTEGER EMPFANG(MAXLEN/8)
+----
+
+Ein Integer belegt in MMBasic acht Byte. Deshalb wird die gewünschte
+maximale Zeichenanzahl durch acht geteilt.
+
+Der neu angelegte Long String ist zunächst leer.
+
+[NOTE]
+====
+Bei den Long-String-Befehlen wird der Arrayname mit leeren Klammern
+angegeben:
+
+[source,basic]
+----
+EMPFANG()
+----
+====
+
+==== Text anhängen
+
+Mit indexterm:[LONGSTRING APPEND] `LONGSTRING APPEND` kann ein normaler
+String an einen Long String angehängt werden:
+
+[source,basic]
+----
+LONGSTRING APPEND EMPFANG(),text$
+----
+
+Das ist für die serielle Kommunikation besonders praktisch. Kleine
+Datenblöcke können zunächst mit `INPUT$()` gelesen und anschließend an den
+Long String angehängt werden.
+
+==== Länge eines Long Strings
+
+Die Funktion indexterm:[LLEN()] `LLEN()` entspricht bei Long Strings
+ungefähr der bekannten Funktion `LEN()` für normale Strings:
+
+[source,basic]
+----
+PRINT LLEN(EMPFANG())
+----
+
+Sie liefert die aktuelle Länge des Long Strings.
+
+==== Long String ausgeben
+
+Mit indexterm:[LONGSTRING PRINT] `LONGSTRING PRINT` kann der komplette
+Inhalt ausgegeben werden:
+
+[source,basic]
+----
+LONGSTRING PRINT EMPFANG()
+----
+
+Ein Long String kann auch über eine geöffnete Datei oder Schnittstelle
+ausgegeben werden, indem die entsprechende Dateinummer angegeben wird.
+
+==== Teile wieder als normalen String lesen
+
+Oft soll nicht der gesamte Long String auf einmal verarbeitet werden.
+
+Mit indexterm:[LGETSTR$()] `LGETSTR$()` kann ein Teil daraus als normaler
+String gelesen werden:
+
+[source,basic]
+----
+teil$=LGETSTR$(EMPFANG(),1,100)
+----
+
+Hier werden 100 Zeichen ab Position 1 gelesen.
+
+Da das Ergebnis wieder ein normaler String ist, darf der zurückgegebene
+Teil höchstens 255 Zeichen lang sein.
+
+==== Weitere Long-String-Funktionen
+
+MMBasic stellt noch zahlreiche weitere Befehle und Funktionen für Long
+Strings bereit. Dazu gehören beispielsweise:
+
+[cols="2,4"]
+|===
+|Befehl oder Funktion |Aufgabe
+
+|`LONGSTRING CLEAR`
+|Long String leeren
+
+|`LONGSTRING COPY`
+|Long String kopieren
+
+|`LONGSTRING CONCAT`
+|zwei Long Strings zusammenfügen
+
+|`LONGSTRING LEFT`
+|linken Teil übernehmen
+
+|`LONGSTRING MID`
+|Teil aus der Mitte übernehmen
+
+|`LONGSTRING RIGHT`
+|rechten Teil übernehmen
+
+|`LONGSTRING LCASE`
+|in Kleinbuchstaben umwandeln
+
+|`LONGSTRING UCASE`
+|in Großbuchstaben umwandeln
+
+|`LINSTR()`
+|Text innerhalb eines Long Strings suchen
+
+|`LGETBYTE()`
+|ein einzelnes Byte lesen
+|===
+
+Für unsere ersten Anwendungen benötigen wir davon nur wenige. Die
+vollständige Beschreibung findest du im PicoMite-Handbuch.
+
+=== Praxisbeispiel: Einen großen Datenblock empfangen
+
+Nun verbinden wir Long Strings mit der seriellen Kommunikation.
+
+Das folgende Beispiel sammelt bis zu 2048 empfangene Zeichen in einem Long
+String. Die UART selbst verwendet dabei einen Empfangspuffer von 1024 Byte.
+
+[source,basic]
+----
+CONST MAXLEN=2048
+DIM INTEGER EMPFANG(MAXLEN/8)
+
+SETPIN GP1,GP0,COM1
+OPEN "COM1:9600,1024" AS #1
+
+PRINT "Warte auf serielle Daten ..."
+PRINT "Beenden mit einer Taste."
+PRINT
+
+DO
+  IF LOC(#1)>0 THEN
+    anzahl=LOC(#1)
+
+    DO WHILE anzahl>0
+      block=anzahl
+      IF block>255 THEN block=255
+
+      text$=INPUT$(block,#1)
+
+      IF LLEN(EMPFANG())+LEN(text$)<=MAXLEN THEN
+        LONGSTRING APPEND EMPFANG(),text$
+      ELSE
+        PRINT "Long-String-Puffer ist voll."
+        EXIT DO
+      ENDIF
+
+      anzahl=LOC(#1)
+    LOOP
+  ENDIF
+LOOP WHILE INKEY$=""
+
+CLOSE #1
+
+PRINT
+PRINT "Empfangen: ";LLEN(EMPFANG());" Zeichen"
+PRINT
+LONGSTRING PRINT EMPFANG()
+----
+
+Warum lesen wir die Daten in Blöcken von höchstens 255 Zeichen ein?
+
+`INPUT$()` liefert einen normalen String zurück. Dieser kann maximal 255
+Zeichen enthalten. Jeder kleine Block wird deshalb anschließend mit
+`LONGSTRING APPEND` an den großen Speicherbereich angehängt.
+
+So können wir Datenmengen verarbeiten, die insgesamt deutlich größer als
+255 Zeichen sind.
+
+[IMPORTANT]
+====
+Der UART-Empfangspuffer und der Long String sind zwei verschiedene Dinge.
+
+Der Empfangspuffer gehört zur seriellen Schnittstelle und nimmt Zeichen
+auf, bis das BASIC-Programm sie abholt. Der Long String ist dagegen ein
+Speicherbereich unseres Programms, in dem wir die abgeholten Daten
+anschließend sammeln und verarbeiten.
+====
+
+[TIP]
+====
+Long Strings sind nicht nur für serielle Schnittstellen interessant.
+Sie eignen sich besonders für größere Datenmengen, wie sie beispielsweise
+auch bei WLAN- und Internetanwendungen auftreten können.
+====
 
 === Serielle Interrupts
 
@@ -616,7 +877,10 @@ OPEN "COM2:19200, 1024, ComInt, 256" AS #5
 
 Hier wird ein Empfangspuffer von 1024 Byte angelegt. Sobald mindestens 256 Zeichen empfangen wurden, wird die Subroutine `ComInt` aufgerufen.
 
-Wie bei allen Interrupts gilt: Die Interrupt-Subroutine sollte möglichst kurz sein. Längere Auswertungen werden besser im Hauptprogramm erledigt.
+Wie wir in Kapitel 45 gesehen haben, sollte eine Interrupt-Subroutine
+möglichst kurz bleiben. Typischerweise setzt sie nur ein Flag; die
+eigentliche Auswertung der empfangenen Daten erfolgt anschließend im
+Hauptprogramm.
 
 === Retrocomputer und serielle Kommunikation
 
@@ -846,6 +1110,7 @@ Vor dem Anschluss muss immer geprüft werden, welche elektrischen Pegel die jewe
 * Verwende einfache, klar begrenzte Textnachrichten.
 * Mit `LOC()` kannst du prüfen, wie viele Zeichen im Empfangspuffer warten.
 * Mit `INPUT$()` lassen sich die verfügbaren Zeichen auslesen, ohne auf neue Daten zu warten.
+* Für Datenmengen über 255 Zeichen können Long Strings verwendet werden.
 
 === Probier's selbst!
 
@@ -855,6 +1120,7 @@ Vor dem Anschluss muss immer geprüft werden, welche elektrischen Pegel die jewe
 . Verbinde zwei PicoMites miteinander.
 . Übertrage einfache Befehle wie `LED:ON` und `LED:OFF`.
 . Entwickle ein eigenes kleines Textprotokoll.
+. Empfange einen Datenblock mit mehr als 255 Zeichen und speichere ihn in einem Long String.
 
 === Zusammenfassung
 
@@ -869,6 +1135,7 @@ In diesem Kapitel hast du gelernt:
 * einen PicoMite mit einem PC zu verbinden
 * zwei MMBasic-Systeme miteinander kommunizieren zu lassen
 * einfache Kommunikationsprotokolle zu entwickeln
+* größere Datenmengen mit Long Strings zu speichern und zu verarbeiten
 * wie ein PicoMite zeitkritische Aufgaben für einen Retrocomputer übernehmen kann
 
 Serielle Schnittstellen gehören zu den wichtigsten Werkzeugen der Elektronik und ermöglichen den Datenaustausch zwischen unterschiedlichsten Geräten.
@@ -890,8 +1157,8 @@ Wer UART verstanden hat, besitzt damit eine wichtige Grundlage für viele weiter
 ifndef::kdp[]
 === Programmbeispiel
 
-Das vollständigen BASIC-Programme findest du hier:
+Die vollständigen BASIC-Programme findest du hier:
 
-* {github-programme}/47_seriell_empfangen.bas[47_seriell_senden.bas]
+* {github-programme}/47_seriell_senden.bas[47_seriell_senden.bas]
 * {github-programme}/47_seriell_empfangen.bas[47_seriell_empfangen.bas]
 endif::[]
