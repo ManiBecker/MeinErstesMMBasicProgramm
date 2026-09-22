@@ -9,7 +9,7 @@ In diesem Kapitel lernst du:
 * Datum und Uhrzeit auszulesen
 * die interne Echtzeituhr (RTC) von MMBasic zu verwenden
 * Zeitmessungen durchzuführen
-* Datums- und Uhrzeitangaben zu formatieren
+* Datum und Uhrzeit auszulesen und zu setzen
 * praktische Anwendungen mit Datum und Uhrzeit zu entwickeln
 
 Am Ende des Kapitels kannst du Uhren, Stoppuhren und einfache Datenlogger programmieren.
@@ -77,7 +77,7 @@ Ausgabe:
 17-07-2026
 ----
 
-`DATE$` liefert das aktuelle Datum. Beim Setzen akzeptiert MMBasic verschiedene Schreibweisen, die im folgenden Abschnitt gezeigt werden.
+indexterm:[DATE$] `DATE$` liefert das aktuelle Datum. Beim Setzen akzeptiert MMBasic verschiedene Schreibweisen, die im folgenden Abschnitt gezeigt werden.
 
 === Datum und Uhrzeit gemeinsam anzeigen
 
@@ -162,7 +162,7 @@ indexterm:[Echtzeituhr]indexterm:[RTC] RTC steht für:
 Real Time Clock
 ----
 
-MMBasic führt intern Datum und Uhrzeit und stellt sie über `DATE$` und `TIME$` zur Verfügung. Ob nach dem Einschalten sofort das richtige Datum und die richtige Uhrzeit vorhanden sind, hängt beim PicoMite jedoch von der RTC-Konfiguration ab.
+MMBasic führt intern Datum und Uhrzeit und stellt sie über `DATE$` und indexterm:[TIME$] `TIME$` zur Verfügung. Ob nach dem Einschalten sofort das richtige Datum und die richtige Uhrzeit vorhanden sind, hängt beim PicoMite jedoch von der RTC-Konfiguration ab.
 
 Mit indexterm:[OPTION RTC AUTO ENABLE] `OPTION RTC AUTO ENABLE`
 
@@ -506,6 +506,12 @@ NEXT tag
 PRINT
 ----
 
+[NOTE]
+====
+Für ein robustes Programm sollte die Eingabe zusätzlich geprüft werden.
+Ein gültiger Monat liegt zwischen `1` und `12`.
+====
+
 ==== Erweiterungen
 
 Dieses Programm lässt sich leicht erweitern.
@@ -600,32 +606,42 @@ Dieses Verfahren wird in Datenloggern häufig eingesetzt.
 
 Erinnerst du dich an die Bahnhofsuhr aus Kapitel 24?
 
-Damals haben wir die Zeiger mit Hilfe von Variablen bewegt.
+Damals haben wir die Zeiger mit Hilfe von Variablen bewegt. Mit `TIME$`
+können wir daraus nun eine echte Uhr machen.
 
-Mit den Funktionen DATE$ und TIME$ könnte die Uhr nun die tatsächliche Uhrzeit anzeigen.
+Ein Ausschnitt aus der Hauptschleife könnte beispielsweise so aussehen:
 
-Damit würde aus der Animation eine echte Uhr.
+[source,basic]
+----
+Do
+  If alteZeit$<>Time$ Then
+    alteZeit$=Time$
+    Berechne Time$
+    ZeichneZifferblatt mitteX,mitteY,radius
+    ZeichneText mitteX,mitteY,radius
+    ZeichneStundenzeiger mitteX,mitteY,radius,stundenWinkel
+    ZeichneMinutenzeiger mitteX,mitteY,radius,minutenWinkel
+    ZeichneSekundenzeiger mitteX,mitteY,radius,sekundenWinkel
+  EndIf
+Loop While Inkey$=""
+----
 
-=== Datum und Uhrzeit in eigenen Projekten
+Die Variable `alteZeit$` enthält die zuletzt dargestellte Uhrzeit. Nur wenn
+sich `TIME$` geändert hat, wird die Uhr neu gezeichnet.
 
-Typische Anwendungen sind:
+Da sich `TIME$` nur einmal pro Sekunde ändert, vermeiden wir damit
+unnötiges Neuzeichnen der Grafik.
 
-* Alarmanlagen
-* Bewässerungssteuerungen
-* Datenlogger
-* Wecker
-* Zeiterfassung
-* Hausautomatisierung
+Die Subroutine `Berechne` zerlegt `TIME$` in Stunden, Minuten und Sekunden
+und berechnet daraus die Winkel der drei Zeiger.
 
-Fast jedes größere Projekt benötigt früher oder später Datum und Uhrzeit.
-
-=== Tipps aus der Praxis
-
-* Verwende TIMER für Zeitmessungen.
-* Verwende DATE$ und TIME$ für Anzeigen.
-* Speichere Messwerte immer mit Zeitstempel.
-* Aktualisiere Uhren höchstens einmal pro Sekunde.
-* Nutze eine konfigurierte RTC, wenn Datum und Uhrzeit auch nach dem Ausschalten korrekt erhalten bleiben sollen.
+[TIP]
+====
+Dieses Verfahren ist auch für andere Anzeigen interessant. Statt mit
+`PAUSE` auf eine feste Zeit zu warten, kann ein Programm prüfen, ob sich
+der anzuzeigende Wert tatsächlich geändert hat, und die Anzeige nur dann
+aktualisieren.
+====
 
 === Probier's selbst!
 
