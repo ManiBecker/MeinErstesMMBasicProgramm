@@ -481,11 +481,15 @@ CONST cBackColor = RGB(BLACK)
 
 `cFigures` bestimmt die Anzahl der gleichzeitig bewegten Figuren. `cTrail` gibt an, wie viele Positionen einer Figur sichtbar bleiben. `cSpeed` legt die maximale Geschwindigkeit eines Eckpunktes fest. Mit `cDelay` bestimmen wir die Pause zwischen zwei Bildern und `cBackColor` enthält die Hintergrundfarbe.
 
-Das Programm verwendet `MODE 3` und löscht den Bildschirm zu Beginn mit der festgelegten Hintergrundfarbe:
+Das Programm wählt abhängig von der verwendeten PicoMite-Variante MODE 3 oder MODE 5 und löscht anschließend den Bildschirm mit der festgelegten Hintergrundfarbe:
 
 [source,basic]
 ----
-MODE 3
+If UCase$(Left$(MM.Info$(DEVICE),7))="WEBMITE" Then
+  Mode 5
+Else
+  Mode 3
+EndIf
 CLS cBackColor
 ----
 
