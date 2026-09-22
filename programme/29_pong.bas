@@ -42,19 +42,7 @@ SPIELEN=1
 
 Do While SPIELEN=1
 
-  TASTE$=UCase$(Inkey$)
-
-  If TASTE$="W" Then
-    SPIELERY=SPIELERY-SCHLAEGERGESCHWINDIGKEIT
-  EndIf
-
-  If TASTE$="S" Then
-    SPIELERY=SPIELERY+SCHLAEGERGESCHWINDIGKEIT
-  EndIf
-
-  If TASTE$=Chr$(27) Then
-    SPIELEN=0
-  EndIf
+  ReadKeyboard
 
   BegrenzeSpieler
 
@@ -96,6 +84,30 @@ CLS RGB(BLACK)
 Print "Pong wurde beendet."
 
 End
+
+
+
+Sub ReadKeyboard
+
+  Local Integer i, key
+
+  ' KEYDOWN(0) liefert die Anzahl gleichzeitig gedrueckter Tasten.
+  For i=1 To KeyDown(0)
+    key=KeyDown(i)
+
+    Select Case key
+      Case 128                    ' Cursor hoch
+        SPIELERY=SPIELERY-SCHLAEGERGESCHWINDIGKEIT
+
+      Case 129                    ' Cursor runter
+        SPIELERY=SPIELERY+SCHLAEGERGESCHWINDIGKEIT
+
+      Case 27                     ' ESC
+        SPIELEN=0
+    End Select
+  Next i
+
+End Sub
 
 
 
@@ -244,7 +256,7 @@ Sub PruefePunkt
 
     ZeigePunkt "Punkt fuer den Computer"
 
-    NeuerBall 1
+    NeuerBall -1
 
   EndIf
 
@@ -254,7 +266,7 @@ Sub PruefePunkt
 
     ZeigePunkt "Punkt fuer den Spieler"
 
-    NeuerBall -1
+    NeuerBall 1
 
   EndIf
 
