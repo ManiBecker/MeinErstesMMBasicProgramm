@@ -12,7 +12,12 @@ REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
 REM
 REM ====================================================================
 
-MODE 4
+If UCase$(Left$(MM.Info$(DEVICE),7))="WEBMITE" Then
+  Mode 5
+Else
+  Mode 4
+EndIf
+
 FRAMEBUFFER create
 bcolor=RGB(Int(Rnd*255),Int(Rnd*255),Int(Rnd*255))
 fcolor=RGB(Int(Rnd*255),Int(Rnd*255),Int(Rnd*255))
