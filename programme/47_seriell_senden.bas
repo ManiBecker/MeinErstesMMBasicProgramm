@@ -4,42 +4,37 @@ REM Datei: 47_seriell_senden.bas
 REM Titel: Kapitel 47: Serielle Kommunikation
 REM Buch:  Mein erstes MMBasic Programm
 REM Autor: Manfred Becker
-REM Datum: 08.09.2026
+REM Datum: 23.09.2026
 REM
 REM Beschreibung:
+REM Sendet Textzeilen ueber COM1. Jede Eingabe wird mit PRINT #1
+REM ueber die serielle Schnittstelle ausgegeben.
 REM
-REM PicoMite / PicoMite HDMI/USB
-REM COM1:
-REM   TX = GP0
-REM   RX = GP1
-REM   9600 Baud, 8 Datenbits, keine Paritaet, 1 Stopbit
+REM PicoMite HDMI/USB:
+REM   GP0 = COM1 TX
+REM   GP1 = COM1 RX
 REM
-REM Das Programm sendet Textzeilen ueber die serielle Schnittstelle.
-REM Jede Eingabe wird mit PRINT #1 ueber COM1 ausgegeben.
+REM Serielle Einstellung: 9600 Baud, 8 Datenbits, keine Paritaet,
+REM                       1 Stopbit
 REM
 REM Beenden mit einer leeren Eingabe.
 REM
-REM Hardware/Voraussetzungen: keine/PicoMite/ColourMaxiMite
-REM
+REM Hardware/Voraussetzungen:
+REM Zweiter PicoMite oder USB-UART-Adapter
 REM ====================================================================
 
 OPTION EXPLICIT
 
 DIM text$
 
-' COM1-Pins zuweisen.
-' GP0 ist ein gueltiger COM1-TX-Pin.
-' GP1 ist ein gueltiger COM1-RX-Pin.
+' COM1 konfigurieren und oeffnen.
 SETPIN GP0, GP1, COM1
-
-' Serielle Schnittstelle mit 9600 Baud oeffnen.
 OPEN "COM1:9600" AS #1
 
 PRINT "Kapitel 47: Serielle Kommunikation"
 PRINT
 PRINT "Serielles Sendeprogramm"
-PRINT "COM1: 9600 Baud"
-PRINT "TX = GP0, RX = GP1"
+PRINT "COM1: GP0=TX, GP1=RX, 9600 Baud"
 PRINT
 PRINT "Text eingeben und mit ENTER senden."
 PRINT "Leere Eingabe beendet das Programm."
