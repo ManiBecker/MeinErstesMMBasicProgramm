@@ -610,6 +610,18 @@ END SUB
 
 Damit bleibt die eigentliche Spielsteuerung vom restlichen Programm getrennt.
 
+[TIP]
+====
+`ReadControl` bildet hier eine kleine Abstraktionsschicht zwischen
+Eingabegerät und Spiel. Tastatur, Maus und Gamepad funktionieren technisch
+sehr unterschiedlich. Für den Rest des Spiels liefern sie aber immer
+dieselben beiden Werte: `MoveX` und `MoveY`.
+
+Dadurch müssen `MovePlayer`, die Spielregeln und die Game Loop überhaupt
+nicht wissen, welches Eingabegerät der Spieler gewählt hat. Dieses Prinzip
+ist auch bei größeren Programmen sehr nützlich.
+====
+
 ==== Cursortasten
 
 Für die Tastatur verwenden wir die vier Cursortasten. Statt `INKEY$` kommt hier `KEYDOWN()` zum Einsatz. Das hat einen wichtigen Vorteil: `KEYDOWN(0)` liefert die Anzahl der gleichzeitig gedrückten Tasten und mit `KEYDOWN(i)` können wir diese einzeln abfragen.
@@ -850,6 +862,23 @@ können wir anschließend feststellen, womit der Spieler kollidiert ist.
 
 Das ist für unser Spiel besonders praktisch, weil die Sprite-Nummern bereits eindeutig vergeben sind.
 
+[NOTE]
+====
+In Kapitel 50 haben wir außerdem `SPRITE INTERRUPT` kennengelernt. Unser
+Abschlussspiel verwendet bewusst keine eigene Sprite-Interrupt-Routine.
+Stattdessen führt `SPRITE MOVE` die vorbereiteten Bewegungen aus und
+`CheckCollisions` fragt anschließend die dabei gespeicherten
+Kollisionsinformationen mit `SPRITE()` ab.
+
+Für die überschaubare Game Loop dieses Spiels ist dieses Verfahren besonders
+leicht nachvollziehbar. Bei komplexeren Spielen kann ein Kollisionsinterrupt
+sinnvoll sein.
+====
+
+Die Kollisionsdaten gehören immer zur zuletzt ausgeführten Sprite-Operation.
+Deshalb erfolgt `CheckCollisions` in unserer Game Loop unmittelbar nach
+`MoveSprites`.
+
 === Schritt 14: Münzen einsammeln
 
 Die Münzen besitzen die Sprite-Nummern 6 bis 15.
@@ -922,6 +951,15 @@ END SUB
 
 So blockiert der kurze Soundeffekt die Spielschleife nicht.
 
+Das ist ein wichtiges Muster für ereignisgesteuerte Programme: `StartCoinSound`
+startet nur den Vorgang und merkt sich mit `SoundOffAt`, wann er beendet
+werden soll. Die Game Loop läuft währenddessen weiter. `UpdateSound` prüft
+später, ob der Zeitpunkt erreicht ist.
+
+Eine zusätzliche `PAUSE 60` direkt in `StartCoinSound` wäre zwar kürzer,
+würde aber während dieser Zeit Eingabe, Bewegung und Kollisionserkennung
+anhalten.
+
 === Schritt 15: Kollision mit einem Gegner
 
 Die Gegner besitzen die Sprite-Nummern 2 bis 5.
@@ -958,7 +996,14 @@ END SUB
 
 Außerdem haben Gegnerkollisionen Vorrang vor Münzen. Berührt der Spieler in demselben Moment einen Gegner und eine Münze, verliert er zuerst ein Leben und die Kollisionsroutine wird beendet. Dadurch bleibt das Verhalten eindeutig.
 
-Die kurze Pause verhindert, dass direkt mehrere Leben durch dieselbe Berührung verloren gehen. Für ein größeres Spiel wäre eine kurze Unverwundbarkeitszeit die elegantere Lösung. Für unser Abschlussprojekt genügt die Pause.
+Die kurze Pause verhindert, dass direkt mehrere Leben durch dieselbe
+Berührung verloren gehen. Anders als unsere Soundsteuerung ist diese
+`PAUSE 300` bewusst blockierend: Für einen kurzen Moment steht das Spiel
+still.
+
+Für ein größeres Spiel wäre eine zeitgesteuerte Unverwundbarkeitsphase mit
+`TIMER` die elegantere Lösung. Für unser Abschlussprojekt ist die kurze Pause
+leichter verständlich und erfüllt ihren Zweck.
 
 === Schritt 16: Sind noch Münzen vorhanden?
 
@@ -1101,6 +1146,11 @@ Die tatsächliche Bildrate liegt deshalb niedriger.
 
 Für unser kleines Spiel ist diese einfache Lösung vollkommen ausreichend.
 
+Dabei ist auch wichtig: `PlayerSpeed` und `EnemySpeedNow` geben in unserem
+Programm Pixel *pro Schleifendurchlauf* an. Ändert sich die Laufzeit der Game
+Loop deutlich, ändert sich deshalb auch die wahrgenommene
+Bewegungsgeschwindigkeit.
+
 [IMPORTANT]
 ====
 `PAUSE 16` ist keine exakte Bildratenregelung.
@@ -1222,8 +1272,8 @@ Unser kleines Abschlussprojekt verbindet eine erstaunlich große Zahl der Themen
 |Sprites
 |Spieler, Gegner, Münzen, Bewegung und Kollisionen
 
-|Sound
-|Akustische Rückmeldung
+|Sound und `TIMER`
+|Akustische Rückmeldung ohne blockierende Wartezeit
 |===
 
 === Vom ersten Programm zum eigenen Spiel
@@ -1294,6 +1344,7 @@ Entscheidend war die Struktur:
 * die benötigten Daten bestimmen,
 * das Problem in Teilaufgaben zerlegen,
 * passende Werkzeuge auswählen,
+* klare Schnittstellen zwischen den Teilaufgaben schaffen,
 * die Teile programmieren
 * und sie anschließend zusammenfügen.
 
