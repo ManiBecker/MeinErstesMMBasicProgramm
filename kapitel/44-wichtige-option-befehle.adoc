@@ -9,6 +9,8 @@ In diesem Kapitel lernst du:
 * was `OPTION`-Befehle sind
 * den Unterschied zwischen temporären und permanenten Optionen
 * wichtige `OPTION`-Befehle für Programme und die Systemkonfiguration einzusetzen
+* Bildschirmauflösung und CPU-Takt zu konfigurieren
+* Tastaturlayout und Tastenwiederholung einzustellen
 * die aktuelle Konfiguration mit `OPTION LIST` zu untersuchen
 * typische Fehler beim Umgang mit Optionen zu vermeiden
 
@@ -385,6 +387,280 @@ eingeschränkter Unterstützung verschiedener Bildwiederholraten die
 kompatiblere Wahl sein.
 ====
 
+=== Tastatur konfigurieren
+
+MMBasic geht standardmäßig von einer Tastatur mit US-amerikanischem Layout
+aus.
+
+Mit indexterm:[OPTION KEYBOARD] `OPTION KEYBOARD` kann ein anderes
+Tastaturlayout eingestellt werden.
+
+Die grundlegende Syntax lautet:
+
+[source,basic]
+----
+OPTION KEYBOARD language
+----
+
+Für eine deutsche Tastatur verwenden wir:
+
+[source,basic]
+----
+OPTION KEYBOARD GR
+----
+
+`GR` steht dabei für das deutsche Tastaturlayout.
+
+Weitere unterstützte Tastaturlayouts sind beispielsweise `US`, `UK`, `FR`,
+`BE`, `IT`, `BR` und `ES`.
+
+[NOTE]
+====
+Bei nicht-amerikanischen Tastaturlayouts können zwar zusätzliche
+Sondertasten der jeweiligen Tastatur berücksichtigt werden. Nicht alle
+zugehörigen Sonderzeichen sind jedoch in den Standardfonts des PicoMite
+enthalten. In diesem Fall wird stattdessen ein entsprechendes
+ASCII-Zeichen dargestellt.
+====
+
+==== Caps Lock, Num Lock und Tastenwiederholung
+
+Bei der Konfiguration der Tastatur können weitere Parameter angegeben werden:
+
+[source,basic]
+----
+OPTION KEYBOARD nn [,capslock] [,numlock] [,repeatstart] [,repeatrate]
+----
+
+`capslock` und `numlock` bestimmen den anfänglichen Zustand der beiden
+Tastaturfunktionen.
+
+Die Standardwerte sind:
+
+[cols="2,1,3"]
+|===
+|Parameter |Standard |Bedeutung
+
+|`capslock`
+|`0`
+|Caps Lock ausgeschaltet
+
+|`numlock`
+|`1`
+|Num Lock eingeschaltet
+|===
+
+Die beiden weiteren Parameter bestimmen die Tastenwiederholung.
+
+`repeatstart` legt fest, wie lange eine Taste gedrückt gehalten werden muss,
+bevor die automatische Wiederholung beginnt.
+
+`repeatrate` bestimmt anschließend den zeitlichen Abstand zwischen den
+einzelnen Wiederholungen.
+
+Bei einer USB-Tastatur werden beide Zeiten in Millisekunden angegeben:
+
+[cols="2,2,3"]
+|===
+|Parameter |Bereich |Bedeutung
+
+|`repeatstart`
+|100–2000 ms
+|Verzögerung bis zur ersten Wiederholung
+
+|`repeatrate`
+|25–2000 ms
+|Abstand zwischen den weiteren Wiederholungen
+|===
+
+Eine mögliche Einstellung für eine deutsche USB-Tastatur wäre beispielsweise:
+
+[source,basic]
+----
+OPTION KEYBOARD GR,0,1,300,50
+----
+
+Damit verwenden wir das deutsche Tastaturlayout, Caps Lock ist zunächst
+ausgeschaltet und Num Lock eingeschaltet. Eine gehaltene Taste beginnt nach
+300 ms mit der Wiederholung und wird anschließend alle 50 ms erneut gemeldet.
+
+[NOTE]
+====
+Bei einer PS/2-Tastatur werden für `repeatstart` und `repeatrate` keine
+Millisekundenwerte angegeben. Stattdessen gelten die in der
+PS/2-Spezifikation definierten Einstellwerte.
+
+Der Standardwert für `repeatstart` ist `1`, entsprechend 500 ms. Für
+`repeatrate` ist der Standardwert `12`, entsprechend 100 ms.
+====
+
+==== Wiederholrate einer USB-Tastatur ändern
+
+Bei einer bereits konfigurierten USB-Tastatur kann die Tastenwiederholung
+auch separat geändert werden.
+
+Dafür gibt es
+indexterm:[OPTION KEYBOARD REPEAT] `OPTION KEYBOARD REPEAT`:
+
+[source,basic]
+----
+OPTION KEYBOARD REPEAT repeatstart,repeatrate
+----
+
+Beispielsweise:
+
+[source,basic]
+----
+OPTION KEYBOARD REPEAT 300,50
+----
+
+Die Wiederholung beginnt nach 300 ms und erfolgt anschließend alle 50 ms.
+
+Je kleiner `repeatrate` gewählt wird, desto schneller werden die
+Tastenwiederholungen erzeugt. Der kleinste zulässige Wert von 25 ms ergibt
+bei einer USB-Tastatur somit die höchste Wiederholrate.
+
+[TIP]
+====
+Wenn sich die Tastatur bei der Eingabe zu träge anfühlt, kann eine kürzere
+Startverzögerung und insbesondere ein kleinerer Wert für `repeatrate` die
+Bedienung deutlich angenehmer machen.
+====
+
+[IMPORTANT]
+====
+Für eine kontinuierliche Tastatursteuerung in Spielen ist eine hohe
+Tastenwiederholrate trotzdem nicht die beste Lösung.
+
+Dafür eignet sich `KEYDOWN()` besser. Damit kann ein Programm direkt
+feststellen, ob eine Taste gerade gedrückt gehalten wird. Die Steuerung ist
+dann unabhängig von der eingestellten Tastenwiederholrate.
+
+Dieses Verfahren verwenden wir beispielsweise bei der Steuerung unseres
+Pong-Spiels.
+====
+
+`OPTION KEYBOARD` muss an der MMBasic-Eingabeaufforderung eingegeben werden
+und führt zu einem Neustart.
+
+Die Tastaturkonfiguration kann wieder deaktiviert werden mit:
+
+[source,basic]
+----
+OPTION KEYBOARD DISABLE
+----
+
+=== Was tun, wenn kein Bild mehr erscheint?
+
+Da viele `OPTION`-Einstellungen dauerhaft gespeichert werden, kann eine
+ungeeignete Einstellung auch nach einem Neustart erhalten bleiben.
+
+Besonders bei VGA- und HDMI-Versionen kann es passieren, dass nach einer
+Änderung der Auflösung, Bildwiederholrate oder des Grafikmodus kein Bild
+mehr auf dem Monitor erscheint.
+
+[IMPORTANT]
+====
+Ein schwarzer Bildschirm bedeutet nicht automatisch, dass der PicoMite
+nicht mehr funktioniert.
+
+Oft läuft MMBasic weiterhin und lediglich die Videoausgabe ist so
+konfiguriert, dass der angeschlossene Monitor sie nicht darstellen kann.
+====
+
+==== Einen anderen Monitor ausprobieren
+
+Wenn die Ursache eine nicht unterstützte Auflösung oder Bildwiederholrate
+ist, kann bereits ein anderer Monitor helfen.
+
+So war es beispielsweise beim Pico Computer 3: Ein Monitor konnte die mit
+
+[source,basic]
+----
+OPTION RESOLUTION 640,315000
+----
+
+erzeugte Ausgabe mit 75 Hz darstellen, ein anderer dagegen nicht.
+
+Über den funktionierenden Monitor konnte die Einstellung anschließend auf
+60 Hz geändert werden:
+
+[source,basic]
+----
+OPTION RESOLUTION 640,252000
+----
+
+==== Die Konsole als Rettungsweg
+
+Wenn über VGA oder HDMI keine brauchbare Ausgabe mehr erscheint, kann die
+MMBasic-Konsole einen zweiten Zugangsweg bieten.
+
+Ist eine serielle Konsole konfiguriert und erreichbar, können dort die
+gespeicherten Einstellungen zunächst überprüft werden:
+
+[source,basic]
+----
+OPTION LIST
+----
+
+Anschließend kann die fehlerhafte Einstellung korrigiert werden.
+
+[TIP]
+====
+Gerade beim Experimentieren mit permanenten `OPTION`-Einstellungen ist eine
+funktionierende Konsolenverbindung ein nützlicher Rettungsweg. Damit lässt
+sich der PicoMite häufig noch bedienen, obwohl die Bildschirmausgabe nicht
+mehr funktioniert.
+====
+
+==== Konfiguration zurücksetzen
+
+Sind mehrere Einstellungen verstellt oder ist die Ursache nicht mehr
+bekannt, kann die Konfiguration zurückgesetzt werden.
+
+Mit:
+
+[source,basic]
+----
+OPTION RESET LIST
+----
+
+werden zunächst die für die verwendete Firmware verfügbaren
+vordefinierten Konfigurationen angezeigt.
+
+Anschließend kann eine passende Konfiguration geladen werden. Welche Namen
+zur Verfügung stehen, hängt von der verwendeten Firmware ab.
+
+[WARNING]
+====
+Bevor du `OPTION RESET` verwendest, solltest du wichtige Dateien des
+internen Flashlaufwerks `A:` sichern.
+
+Je nach verwendeter Firmware und Reset-Konfiguration kann ein
+`OPTION RESET` nicht nur die gespeicherten Optionen zurücksetzen, sondern
+auch das Flashlaufwerk `A:` löschen oder neu initialisieren.
+
+Kopiere deshalb eigene BASIC-Programme, Konfigurationsdateien und andere
+wichtige Daten vorher beispielsweise auf eine SD-Karte oder auf deinen
+Computer.
+
+Prüfe außerdem nach Möglichkeit zunächst mit `OPTION LIST` die aktuelle
+Konfiguration und notiere wichtige Einstellungen.
+====
+
+`OPTION RESET` sollte deshalb als Rettungsweg erst verwendet werden, wenn
+sich die fehlerhafte Einstellung nicht gezielt korrigieren lässt.
+
+==== Wenn auch die Konsole nicht mehr erreichbar ist
+
+Als letzter Rettungsweg kann die PicoMite-Firmware neu aufgespielt werden.
+In besonders hartnäckigen Fällen kann zuvor auch der Flash-Speicher des
+Pico vollständig gelöscht und die Firmware anschließend neu installiert
+werden.
+
+Das ist jedoch normalerweise erst notwendig, wenn sich die Konfiguration
+nicht mehr über die MMBasic-Konsole korrigieren lässt.
+
 === OPTION RESET
 
 Mit indexterm:[OPTION RESET] `OPTION RESET`:
@@ -480,11 +756,16 @@ In diesem Kapitel hast du gelernt:
 * mit `OPTION BASE` den Startindex von Arrays zu bestimmen
 * `OPTION TAB` und `OPTION COLOURCODE` anzupassen
 * dass `OPTION CPUSPEED` nicht bei VGA- und HDMI-Versionen zur Verfügung steht
-* dass VGA- und HDMI-Versionen ihre CPU-Taktfrequenz im Zusammenhang mit der Videoauflösung festlegen
+* dass VGA- und HDMI-Versionen ihre CPU-Taktfrequenz im Zusammenhang mit der Videoauflösung und Bildwiederholrate festlegen
+* dass eine ungeeignete Bildwiederholrate dazu führen kann, dass ein Monitor kein Bild anzeigt
+* mit `OPTION KEYBOARD` das Tastaturlayout und weitere Tastatureinstellungen festzulegen
+* mit `OPTION KEYBOARD REPEAT` die Tastenwiederholung einer USB-Tastatur anzupassen
 * gespeicherte Einstellungen mit `OPTION RESET` zurückzusetzen
 * verfügbare vordefinierte Konfigurationen mit `OPTION RESET LIST` anzuzeigen
 
-`OPTION`-Befehle sind damit sowohl ein Werkzeug für eine strengere und besser kontrollierbare BASIC-Programmierung als auch für die Konfiguration des PicoMite-Systems.
+`OPTION`-Befehle sind damit sowohl ein Werkzeug für eine strengere und besser
+kontrollierbare BASIC-Programmierung als auch für die Anpassung des
+PicoMite-Systems an die verwendete Hardware und die eigenen Bedürfnisse.
 
 ifndef::kdp[]
 === Programmbeispiel
