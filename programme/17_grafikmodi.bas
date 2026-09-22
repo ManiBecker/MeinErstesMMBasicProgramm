@@ -4,7 +4,7 @@ REM Datei: 17_grafikmodi.bas
 REM Titel: Kapitel 17: Die verschiedenen Grafikmodi
 REM Buch:  Mein erstes MMBasic Programm
 REM Autor: Manfred Becker
-REM Datum: 04.09.2026
+REM Datum: 22.09.2026
 REM
 REM Beschreibung: Grafikmodi, Bildschirminformationen und pixelgenaue
 REM               Textausgabe mit PRINT @()
