@@ -12,7 +12,11 @@ REM Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
 REM
 REM ====================================================================
 
-MODE 3
+If UCase$(Left$(MM.Info$(DEVICE),7))="WEBMITE" Then
+  Mode 5
+Else
+  Mode 3
+EndIf
 
 mitteX=MM.HRES/2
 mitteY=MM.VRES/2
