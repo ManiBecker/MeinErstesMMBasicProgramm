@@ -27,12 +27,25 @@ Die Uhr soll sich automatisch an die aktuelle Bildschirmgröße anpassen und mö
 
 === Den Grafikmodus wählen
 
-Zu Beginn wählen wir `MODE 3`:
+Nicht alle Grafikmodi stehen auf jeder PicoMite-Variante zur Verfügung.
+Deshalb prüfen wir zunächst, welche Firmware verwendet wird.
+
+`MM.INFO$(DEVICE)` liefert eine Bezeichnung der verwendeten Geräte- bzw.
+Firmwarevariante. Beginnt diese mit `WebMite`, verwenden wir `MODE 5`.
+Andernfalls verwenden wir `MODE 3`:
 
 [source,basic]
 ----
-MODE 3
+If UCase$(Left$(MM.Info$(DEVICE),7))="WEBMITE" Then
+  Mode 5
+Else
+  Mode 3
+EndIf
 ----
+
+Wir vergleichen nur die ersten sieben Zeichen. Dadurch funktioniert die
+Abfrage beispielsweise auch dann, wenn `MM.INFO$(DEVICE)` den Text
+`WebMite RP2350B` zurückliefert.
 
 Damit steht für die Uhr ein geeigneter Grafikmodus zur Verfügung. Anschließend bestimmen wir die Bildschirmmitte und den größtmöglichen Radius.
 
