@@ -55,7 +55,7 @@ Bei Firmware-Versionen ohne USB-Unterstützung können alternativ Wii-Controller
 
 === USB-Kanäle
 
-[USB,Kanäle][USB-Kanäle]
+indexterm:[USB,Kanäle]indexterm:[USB-Kanäle]
 
 Der PicoMite verwaltet bis zu vier USB-Geräte. Jedes Gerät erhält einen Kanal von 1 bis 4.
 
@@ -130,11 +130,17 @@ Wird dort beispielsweise `128` ausgegeben, hat der PicoMite einen PS4-Controller
 [TIP]
 ====
 Das erste Gamepad befindet sich normalerweise auf Kanal 3. Trotzdem ist es sinnvoll, die Belegung mit `MM.INFO(USB n)` zu überprüfen, bevor du ein größeres Programm entwickelst.
+
+Die folgenden Beispiele verwenden deshalb der Einfachheit halber Kanal 3.
+Falls dein Controller einem anderen Kanal zugeordnet wurde, musst du die
+Konstante `Gamepad` entsprechend anpassen.
 ====
 
-=== Controller mit [GAMEPAD MONITOR] GAMEPAD MONITOR untersuchen
+=== Controller mit GAMEPAD MONITOR untersuchen
 
 Bevor wir ein eigenes BASIC-Programm schreiben, bietet der PicoMite eine sehr praktische Diagnosefunktion:
+
+indexterm:[GAMEPAD MONITOR]
 
 [source,basic]
 ----
@@ -147,7 +153,7 @@ Das ist besonders hilfreich, wenn du einen neuen oder unbekannten Controller aus
 
 [NOTE]
 ====
-Für Gamepads, die nicht direkt von der Firmware unterstützt werden, existiert außerdem der Befehl [GAMEPAD CONFIGURE] `GAMEPAD CONFIGURE`. Damit lässt sich die Zuordnung der Daten im USB-Report zu den einzelnen Gamepad-Tasten konfigurieren. Da dieser Befehl viele Parameter benötigt, verwenden wir ihn in diesem Einsteigerkapitel nicht weiter.
+Für Gamepads, die nicht direkt von der Firmware unterstützt werden, existiert außerdem der Befehl indexterm:[GAMEPAD CONFIGURE] `GAMEPAD CONFIGURE`. Damit lässt sich die Zuordnung der Daten im USB-Report zu den einzelnen Gamepad-Tasten konfigurieren. Da dieser Befehl viele Parameter benötigt, verwenden wir ihn in diesem Einsteigerkapitel nicht weiter.
 ====
 
 === Gamepad-Daten mit DEVICE() auslesen
@@ -315,29 +321,66 @@ Das folgende Programm zeigt die beiden Analogsticks, die Trigger und die Tasten-
 
 [source,basic]
 ----
-'------------------------------------------
-' Gamepad testen
-'------------------------------------------
-OPTION EXPLICIT
+Option EXPLICIT
 
-CONST Gamepad = 3
+Const Gamepad = 3
 
-DIM lx, ly, rx, ry
-DIM lTrigger, rTrigger
-DIM buttons%
+Const BtnR1%      = 1
+Const BtnStart%   = 2
+Const BtnHome%    = 4
+Const BtnSelect%  = 8
+Const BtnL1%      = 16
+Const BtnDown%    = 32
+Const BtnRight%   = 64
+Const BtnUp%      = 128
+Const BtnLeft%    = 256
+Const BtnR2%      = 512
+Const BtnTriangle%= 1024
+Const BtnCircle%  = 2048
+Const BtnSquare%  = 4096
+Const BtnCross%   = 8192
+Const BtnL2%      = 16384
+Const BtnTouch%   = 32768
 
-IF MM.INFO(USB 3) = 0 THEN
-    PRINT "Kein Gamepad auf USB-Kanal 3 gefunden."
-    END
-ENDIF
+Dim usbType%
+Dim lx, ly, rx, ry
+Dim lTrigger, rTrigger
+Dim buttons%
 
-PRINT "USB-Code auf Kanal 3: "; MM.INFO(USB 3)
-PRINT
-PRINT "Controller bewegen oder Tasten druecken."
-PRINT "Programmabbruch mit Ctrl-C."
-PRINT
+usbType% = MM.Info(USB Gamepad)
 
-DO
+Print "Gamepad-Test"
+Print "============"
+Print
+
+If usbType% = 0 Then
+    Print "Kein USB-Geraet auf Kanal "; Gamepad; " gefunden."
+    Print "Das erste Gamepad wird normalerweise Kanal 3 zugeordnet."
+    End
+EndIf
+
+Print "USB-Kanal : "; Gamepad
+Print "Geraetecode: "; usbType%;
+
+Select Case usbType%
+    Case 128
+        Print "  (PS4-Controller)"
+    Case 129
+        Print "  (PS3-Controller)"
+    Case 130
+        Print "  (SNES/Generic-Gamepad)"
+    Case Else
+        Print
+        Print "Achtung: Auf diesem Kanal wurde kein bekanntes Gamepad erkannt."
+        End
+End Select
+
+Print
+Print "Controller bewegen oder Tasten druecken."
+Print "Abbruch mit Ctrl-C."
+Print
+
+Do
     lx = DEVICE(GAMEPAD Gamepad, LX)
     ly = DEVICE(GAMEPAD Gamepad, LY)
     rx = DEVICE(GAMEPAD Gamepad, RX)
@@ -345,22 +388,52 @@ DO
 
     lTrigger = DEVICE(GAMEPAD Gamepad, L)
     rTrigger = DEVICE(GAMEPAD Gamepad, R)
-
     buttons% = DEVICE(GAMEPAD Gamepad, B)
 
-    PRINT "LX:"; lx;
-    PRINT "  LY:"; ly;
-    PRINT "  RX:"; rx;
-    PRINT "  RY:"; ry;
-    PRINT "  L:"; lTrigger;
-    PRINT "  R:"; rTrigger;
-    PRINT "  B:"; buttons%
+    Print @(0,150) "LX:"; lx; "  LY:"; ly; "  RX:"; rx; "  RY:"; ry; "    "
+    Print @(0,165) "L :"; lTrigger; "  R :"; rTrigger; "  B:"; buttons%; "    "
+    Print @(0,180) "Tasten: ";
+    If buttons% <> 0 Then
 
-    PAUSE 100
-LOOP
+
+        If (buttons% And BtnR1%)       <> 0 Then Print "R1 ";
+        If (buttons% And BtnStart%)    <> 0 Then Print "START/OPTIONS ";
+        If (buttons% And BtnHome%)     <> 0 Then Print "HOME ";
+        If (buttons% And BtnSelect%)   <> 0 Then Print "SELECT/SHARE ";
+        If (buttons% And BtnL1%)       <> 0 Then Print "L1 ";
+        If (buttons% And BtnDown%)     <> 0 Then Print "DOWN ";
+        If (buttons% And BtnRight%)    <> 0 Then Print "RIGHT ";
+        If (buttons% And BtnUp%)       <> 0 Then Print "UP ";
+        If (buttons% And BtnLeft%)     <> 0 Then Print "LEFT ";
+        If (buttons% And BtnR2%)       <> 0 Then Print "R2 ";
+        If (buttons% And BtnTriangle%) <> 0 Then Print "X/TRIANGLE ";
+        If (buttons% And BtnCircle%)   <> 0 Then Print "A/CIRCLE ";
+        If (buttons% And BtnSquare%)   <> 0 Then Print "Y/SQUARE ";
+        If (buttons% And BtnCross%)    <> 0 Then Print "B/CROSS ";
+        If (buttons% And BtnL2%)       <> 0 Then Print "L2 ";
+        If (buttons% And BtnTouch%)    <> 0 Then Print "TOUCHPAD ";
+
+        Print "                                                  "
+    Else
+        Print "keine                                             "
+    EndIf
+
+    Print
+    Pause 100
+Loop
 ----
 
-Bewege beide Analogsticks langsam in alle Richtungen und beobachte die ausgegebenen Werte. Achte besonders darauf, welche Werte `LX` und `LY` liefern, wenn der linke Stick nicht berührt wird.
+Das Programm prüft zunächst, ob auf Kanal 3 tatsächlich ein unterstütztes
+Gamepad erkannt wurde. Die Gerätecodes `128`, `129` und `130` stehen für
+PS4-, PS3- beziehungsweise SNES/Generic-Gamepads.
+
+Anschließend werden Analogsticks, Trigger und die komplette Tasten-Bitmaske
+laufend angezeigt. Für jedes gesetzte Bit gibt das Programm zusätzlich die
+zugehörige Tastenbezeichnung aus.
+
+Bewege beide Analogsticks langsam in alle Richtungen und beobachte die
+ausgegebenen Werte. Achte besonders darauf, welche Werte `LX` und `LY`
+liefern, wenn der linke Stick nicht berührt wird.
 
 Diese Mittelstellung brauchen wir gleich für die Totzone.
 
@@ -542,7 +615,22 @@ DO
 LOOP
 ----
 
-Bei den beiden Funktionen zum Farbwechseln und Löschen wird zusätzlich `oldButtons%` benutzt. Dadurch wird die Aktion nur beim Übergang von "nicht gedrückt" zu "gedrückt" ausgeführt. Würden wir lediglich den aktuellen Zustand prüfen, würde die Aktion während eines längeren Tastendrucks ständig wiederholt.
+Bei den beiden Funktionen zum Farbwechseln und Löschen wird zusätzlich
+`oldButtons%` benutzt. Dadurch wird die Aktion nur beim Übergang von
+"nicht gedrückt" zu "gedrückt" ausgeführt. Würden wir lediglich den
+aktuellen Zustand prüfen, würde die Aktion während eines längeren
+Tastendrucks ständig wiederholt.
+
+[TIP]
+====
+Hier unterscheiden wir zwischen *Zustand* und *Ereignis*:
+
+* `buttons%` beschreibt, welche Tasten im Moment gedrückt sind.
+* Der Vergleich mit `oldButtons%` erkennt, welche Taste gerade neu gedrückt wurde.
+
+Dieses Prinzip ist immer dann nützlich, wenn eine Aktion pro Tastendruck nur
+einmal ausgeführt werden soll.
+====
 
 === PS4-Controller: Farbe und Vibration
 
@@ -597,7 +685,7 @@ Bisher fragen unsere Programme den Controller ständig innerhalb der Hauptschlei
 Die wichtigsten Befehle sind:
 
 indexterm:[GAMEPAD INTERRUPT ENABLE]
-indexterm:[GAMEPAD INTERRUPT ENABLE]
+indexterm:[GAMEPAD INTERRUPT DISABLE]
 
 [source,basic]
 ----
@@ -605,23 +693,37 @@ GAMEPAD INTERRUPT ENABLE channel, int [, mask]
 GAMEPAD INTERRUPT DISABLE channel
 ----
 
-Mit der optionalen `mask` kann festgelegt werden, welche Tasten einen Interrupt auslösen sollen. Die Maske entspricht dabei der Bitbelegung von `DEVICE(GAMEPAD channel, B)`.
+Mit der optionalen `mask` kann festgelegt werden, welche Tasten einen
+Interrupt auslösen sollen. Wird keine Maske angegeben, können alle Tasten
+einen Interrupt auslösen.
+
+Die Maske entspricht direkt der Bitbelegung von
+`DEVICE(GAMEPAD channel, B)`. Soll beispielsweise nur B/Cross, also Bit 13,
+einen Interrupt auslösen, kann die Maske `8192` verwendet werden:
+
+[source,basic]
+----
+GAMEPAD INTERRUPT ENABLE 3, GamepadTaste, 8192
+----
+
+Wie bei den Pin-Interrupts aus Kapitel 45 sollte die Interrupt-Subroutine
+möglichst kurz bleiben. Die eigentliche Verarbeitung kann anschließend im
+Hauptprogramm erfolgen.
 
 Für unsere ersten Gamepad-Programme ist das regelmäßige Abfragen in einer Schleife einfacher und übersichtlicher. Interrupts werden interessant, wenn ein Programm unabhängig von seiner normalen Verarbeitung sofort auf bestimmte Tastendrücke reagieren soll.
 
 === Praxisprojekt: Pong mit Gamepad
 
-Wenn ein vorhandenes Spiel bereits sauber zwischen Spiellogik und Eingabe unterscheidet, lässt sich die Tastatursteuerung leicht durch ein Gamepad ersetzen.
+Wenn ein vorhandenes Spiel bereits sauber zwischen Spiellogik und Eingabe
+unterscheidet, lässt sich die Tastatursteuerung leicht durch ein Gamepad
+ersetzen.
 
-Angenommen, der Schläger wurde bisher so bewegt:
+In Kapitel 29 haben wir die Pong-Steuerung mit `KEYDOWN()` realisiert, damit
+die Bewegung nicht von der Tastenwiederholrate der Tastatur abhängt.
 
-[source,basic]
-----
-IF INKEY$ = "A" THEN y = y - 4
-IF INKEY$ = "Z" THEN y = y + 4
-----
-
-Dann kann die neue Eingabe beispielsweise so aussehen:
+Für eine Gamepad-Steuerung ersetzen wir lediglich die Ermittlung der
+Bewegungsrichtung. Mit dem linken Analogstick könnte sie beispielsweise so
+aussehen:
 
 [source,basic]
 ----
@@ -673,10 +775,28 @@ Ein moderner USB-Controller ist intern erheblich komplexer. Er liefert digitale 
 
 Das Grundprinzip ist damit seit den Heimcomputerzeiten gleich geblieben: Der Spieler bewegt einen Controller, und das Programm setzt diese Eingabe in eine Aktion um.
 
+=== Zusammenfassung
+
+In diesem Kapitel hast du gelernt:
+
+* wie USB-Gamepads vom PicoMite erkannt und USB-Kanälen zugeordnet werden
+* wie du mit `MM.INFO(USB n)` den Gerätetyp eines USB-Kanals prüfst
+* wie du mit `GAMEPAD MONITOR` einen Controller untersuchst
+* wie `DEVICE(GAMEPAD ...)` Analogsticks, Trigger und Tasten ausliest
+* wie die Tasten eines Gamepads als Bitmaske ausgewertet werden
+* wie eine Totzone ungewollte Bewegungen eines Analogsticks verhindert
+* wie du zwischen einem gehaltenen Tastenzustand und einem neuen Tastendruck unterscheidest
+* wie Gamepad-Interrupts mit einer Tastenmaske eingeschränkt werden können
+* wie sich ein Gamepad als Eingabegerät für Grafikprogramme und Spiele verwenden lässt
+
+Damit kannst du USB-Gamepads nicht nur für Spiele, sondern auch als
+vielseitige Eingabegeräte für eigene PicoMite-Projekte einsetzen.
+
+
 ifndef::kdp[]
 === Programmbeispiel
 
 Das vollständige BASIC-Programm findest du hier:
 
-* {github-programme}/47_seriell_empfangen.bas[49_gamepad_test.bas]
+* {github-programme}/49_gamepad_test.bas[49_gamepad_test.bas]
 endif::[]
