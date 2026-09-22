@@ -104,7 +104,11 @@ Das folgende Programm zeichnet 25000 zufällige Punkte.
 
 [source,basic]
 ----
-MODE 3
+If UCase$(Left$(MM.Info$(DEVICE),7))="WEBMITE" Then
+  Mode 5
+Else
+  Mode 3
+EndIf
 
 CLS RGB(BLACK)
 
@@ -162,7 +166,11 @@ Erweitern wir das Programm:
 
 [source,basic]
 ----
-MODE 3
+If UCase$(Left$(MM.Info$(DEVICE),7))="WEBMITE" Then
+  Mode 5
+Else
+  Mode 3
+EndIf
 
 CLS RGB(BLACK)
 
