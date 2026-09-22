@@ -81,7 +81,25 @@ FOR M=1 TO 5
   PRINT "Press any key...": Do: Loop While Inkey$=""
 NEXT M
 
+PRINT @(50,280) "Press any key..."
+Do: Loop While Inkey$=""
+
 MODE 1
+
+CLS
+PRINT "Text automatisch zentrieren"
+
+TEXT$="Mein erstes MMBasic Programm"
+
+BREITE=LEN(TEXT$)*MM.INFO(FONTWIDTH)
+
+X=(MM.HRES-BREITE)\2
+Y=(MM.VRES-MM.INFO(FONTHEIGHT))\2
+
+PRINT @(X,Y) TEXT$
+
+PRINT @(50,280) "Press any key..."
+Do: Loop While Inkey$=""
 
 PRINT "Experimentiere!"
 PRINT
