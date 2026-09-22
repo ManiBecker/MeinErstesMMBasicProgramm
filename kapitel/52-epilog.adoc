@@ -14,13 +14,14 @@ Du hast gelernt, Probleme in kleine, überschaubare Schritte zu zerlegen und dar
 
 Genau darum geht es beim Programmieren.
 
-Natürlich wirst du noch längst nicht jede Aufgabe sofort lösen können. Das kann niemand.
+Natürlich wirst du noch längst nicht jede Aufgabe sofort lösen können. Auch erfahrene Programmierer können längst nicht jede Aufgabe sofort lösen.
 
-Auch erfahrene Programmierer schlagen Befehle nach, lesen Dokumentationen, testen Ideen und suchen nach neuen Lösungswegen. Das gehört zum Programmieren einfach dazu.
+Sie schlagen Befehle nach, lesen Dokumentationen, testen Ideen und suchen nach neuen Lösungswegen. Das gehört zum Programmieren einfach dazu.
 
-Lass dich deshalb nicht entmutigen, wenn einmal etwas nicht auf Anhieb funktioniert. Fehlermeldungen sind keine Niederlagen. Sie geben dir Hinweise darauf, wo du weitersuchen musst.
+Lass dich deshalb nicht entmutigen, wenn einmal etwas nicht auf Anhieb funktioniert. Fehlermeldungen gehören zum Programmieren dazu. Sie geben dir Hinweise darauf, wo du weitersuchen musst.
 
-Fast jedes Programm entsteht durch indexterm:[Programmierung,Testen und Verbessern] Ausprobieren, Testen und Verbessern – oft viele Male hintereinander.
+indexterm:[Programmierung,Testen und Verbessern]
+Fast jedes Programm entsteht durch Ausprobieren, Testen und Verbessern – oft viele Male hintereinander.
 
 === Jetzt bist du dran
 
@@ -53,7 +54,10 @@ Wenn du eine neue Aufgabe lösen möchtest, überlege zuerst, was dein Programm 
 
 Auf dem PicoMite kann außerdem der Befehl `HELP` eine praktische Unterstützung sein. Voraussetzung dafür ist eine passende Datei `help.txt` im Hauptverzeichnis von Laufwerk `A:`. Wie du die Hilfe verwendest, hast du bereits im Kapitel über den Editor kennengelernt.
 
-Und noch etwas ist wichtig: indexterm:[Firmware-Version] MMBasic und die PicoMite-Firmware werden weiterentwickelt. Wenn sich ein Befehl anders verhält als erwartet, lohnt sich deshalb immer ein Blick in das Handbuch der tatsächlich verwendeten Firmware-Version.
+Und noch etwas ist wichtig:
+
+indexterm:[Firmware-Version]
+MMBasic und die PicoMite-Firmware werden weiterentwickelt. Wenn sich ein Befehl anders verhält als erwartet, lohnt sich deshalb immer ein Blick in das Handbuch der tatsächlich verwendeten Firmware-Version. Achte darauf, dass Handbuch und Firmware-Version zusammenpassen.
 
 === Tausche dich mit anderen aus
 
@@ -86,22 +90,34 @@ Sie enthält absichtlich fast nichts:
 
 [source,basic]
 ----
-' Mein nächstes MMBasic-Programm
-'
-' Ab hier bist du der Programmierer.
-
 OPTION EXPLICIT
 
-PRINT "Was programmiere ich als Naechstes?"
+CLS
 
+PRINT "Dein naechstes Programm beginnt hier."
+PRINT
+PRINT "Was moechtest du als Naechstes programmieren?"
+PRINT
+PRINT "Vielleicht ..."
+PRINT "  - ein kleines Spiel?"
+PRINT "  - ein nuetzliches Werkzeug?"
+PRINT "  - ein Experiment mit Grafik oder Sound?"
+PRINT "  - ein Projekt mit Ein- und Ausgaengen?"
+PRINT
+PRINT "Die erste Zeile ist schon geschrieben."
+PRINT
+PRINT "Jetzt bist du dran!"
+
+' ------------------------------------------------------------
 ' Deine Idee beginnt hier ...
+' ------------------------------------------------------------
 ----
 
 Du kannst alles löschen, verändern oder ergänzen. Die Datei soll dir nur eines sagen:
 
 Jetzt beginnt dein eigenes Programm.
 
-=== Mein persönlicher Rat
+=== Zum Schluss noch ein persönlicher Gedanke
 
 Ich programmiere seit vielen Jahrzehnten. In dieser Zeit habe ich viele Programmiersprachen, Betriebssysteme und Computer kennengelernt.
 
