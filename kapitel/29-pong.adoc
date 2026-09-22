@@ -9,7 +9,8 @@ In diesem Kapitel entwickelst du ein vollständiges kleines Arcade-Spiel.
 Dabei lernst du:
 
 * einen Ball über den Bildschirm zu bewegen
-* einen Schläger mit der Tastatur zu steuern
+* einen Schläger mit den Cursortasten zu steuern
+* mit `KEYDOWN()` den aktuellen Zustand der Tastatur abzufragen
 * einen computergesteuerten Gegner zu programmieren
 * Kollisionen mit Wänden und Schlägern zu erkennen
 * Punkte zu zählen und anzuzeigen
@@ -58,32 +59,56 @@ Wer zuerst zehn Punkte erreicht, gewinnt das Spiel.
 
 === Die Steuerung
 
-Der linke Schläger wird mit zwei Tasten gesteuert:
+Der linke Schläger wird mit den Cursortasten gesteuert:
 
 [cols="1,3"]
 |===
 |Taste |Funktion
 
-|`W`
+|`UP`
 |Schläger nach oben bewegen
 
-|`S`
+|`DOWN`
 |Schläger nach unten bewegen
 
 |`ESC`
 |Spiel beenden
 |===
 
-Die Tastatur wird während des laufenden Spiels mit `INKEY$` abgefragt.
+Für ein Echtzeitspiel ist es wichtig, dass eine Taste nicht nur einmal erkannt wird.
+Der Schläger soll sich so lange bewegen, wie die entsprechende Cursortaste gedrückt
+gehalten wird.
+
+Dafür verwenden wir `KEYDOWN()`.
+
+`KEYDOWN(0)` liefert die Anzahl der momentan gedrückten Tasten:
 
 [source,basic]
 ----
-TASTE$=UCASE$(INKEY$)
+KeyDown(0)
 ----
 
-Ist keine Taste gedrückt, liefert `INKEY$` eine leere Zeichenkette.
+Mit `KEYDOWN(1)`, `KEYDOWN(2)` und so weiter können anschließend die Tastencodes
+der gedrückten Tasten abgefragt werden.
 
-Mit `UCASE$()` werden kleine und große Buchstaben gleich behandelt.
+Für unsere Steuerung benötigen wir folgende Tastencodes:
+
+[cols="1,2"]
+|===
+|Code |Taste
+
+|`128`
+|Cursor hoch
+
+|`129`
+|Cursor runter
+
+|`27`
+|ESC
+|===
+
+Im Gegensatz zu `INKEY$` sind wir damit für die Bewegung des Schlägers nicht von
+der Tastatur-Wiederholrate abhängig.
 
 === Die Bestandteile des Spielfelds
 
@@ -279,20 +304,45 @@ LOOP
 
 === Den Spieler bewegen
 
-Die Tastatur wird in jedem Schleifendurchlauf abgefragt.
+Die Tastatur wird in jedem Durchlauf der Spielschleife mit einem eigenen
+Unterprogramm abgefragt:
 
 [source,basic]
 ----
-TASTE$=UCASE$(INKEY$)
-
-IF TASTE$="W" THEN
-  SPIELERY=SPIELERY-SCHLAEGERGESCHWINDIGKEIT
-ENDIF
-
-IF TASTE$="S" THEN
-  SPIELERY=SPIELERY+SCHLAEGERGESCHWINDIGKEIT
-ENDIF
+ReadKeyboard
 ----
+
+Das Unterprogramm untersucht alle momentan gedrückten Tasten:
+
+[source,basic]
+----
+Sub ReadKeyboard
+  Local Integer i, key
+
+  For i=1 To KeyDown(0)
+    key=KeyDown(i)
+
+    Select Case key
+      Case 128                    ' Cursor hoch
+        SPIELERY=SPIELERY-SCHLAEGERGESCHWINDIGKEIT
+
+      Case 129                    ' Cursor runter
+        SPIELERY=SPIELERY+SCHLAEGERGESCHWINDIGKEIT
+
+      Case 27                     ' ESC
+        SPIELEN=0
+    End Select
+  Next i
+End Sub
+----
+
+`KEYDOWN(0)` liefert die Anzahl der gleichzeitig gedrückten Tasten.
+Die Schleife fragt anschließend jede dieser Tasten ab.
+
+Mit `SELECT CASE` reagieren wir auf die für das Spiel interessanten Tastencodes.
+
+Da `KEYDOWN()` den aktuellen Zustand der Tastatur abfragt, bewegt sich der
+Schläger kontinuierlich, solange eine Cursortaste gedrückt gehalten wird.
 
 Der Spieler darf den Bildschirm jedoch nicht verlassen.
 
@@ -481,9 +531,11 @@ indexterm:[Spieleprogrammierung,Punkteverwaltung]indexterm:[Punkteverwaltung] Ve
 ----
 IF BALLX<0 THEN
   COMPUTERPUNKTE=COMPUTERPUNKTE+1
-  NeuerBall 1
+  NeuerBall -1
 ENDIF
 ----
+
+Der neue Ball startet anschließend wieder in Richtung des Spielers.
 
 Verlässt er den Bildschirm rechts, erhält der Spieler einen Punkt.
 
@@ -491,9 +543,11 @@ Verlässt er den Bildschirm rechts, erhält der Spieler einen Punkt.
 ----
 IF BALLX>MM.HRES THEN
   SPIELERPUNKTE=SPIELERPUNKTE+1
-  NeuerBall -1
+  NeuerBall 1
 ENDIF
 ----
+
+Der neue Ball startet nun wieder in Richtung des Computers.
 
 Der Parameter bestimmt, in welche Richtung der neue Ball startet.
 
@@ -590,9 +644,9 @@ Dadurch wird das Bild möglichst vollständig in einem Schritt sichtbar.
 ' Pong fuer den PicoMite
 '
 ' Steuerung:
-'   W   Schlaeger nach oben
-'   S   Schlaeger nach unten
-'   ESC Spiel beenden
+'   Cursor hoch   Schlaeger nach oben
+'   Cursor runter Schlaeger nach unten
+'   ESC           Spiel beenden
 '----------------------------------------------------------
 
 MODE 2
@@ -623,19 +677,7 @@ SPIELEN=1
 
 DO WHILE SPIELEN=1
 
-  TASTE$=UCASE$(INKEY$)
-
-  IF TASTE$="W" THEN
-    SPIELERY=SPIELERY-SCHLAEGERGESCHWINDIGKEIT
-  ENDIF
-
-  IF TASTE$="S" THEN
-    SPIELERY=SPIELERY+SCHLAEGERGESCHWINDIGKEIT
-  ENDIF
-
-  IF TASTE$=CHR$(27) THEN
-    SPIELEN=0
-  ENDIF
+  ReadKeyboard
 
   BegrenzeSpieler
 
@@ -692,6 +734,30 @@ SUB BegrenzeSpieler
   ENDIF
 
 END SUB
+
+
+
+Sub ReadKeyboard
+
+  Local Integer i, key
+
+  ' KEYDOWN(0) liefert die Anzahl gleichzeitig gedrueckter Tasten.
+  For i=1 To KeyDown(0)
+    key=KeyDown(i)
+
+    Select Case key
+      Case 128                    ' Cursor hoch
+        SPIELERY=SPIELERY-SCHLAEGERGESCHWINDIGKEIT
+
+      Case 129                    ' Cursor runter
+        SPIELERY=SPIELERY+SCHLAEGERGESCHWINDIGKEIT
+
+      Case 27                     ' ESC
+        SPIELEN=0
+    End Select
+  Next i
+
+End Sub
 
 
 
@@ -836,7 +902,7 @@ SUB PruefePunkt
 
     ZeigePunkt "Punkt fuer den Computer"
 
-    NeuerBall 1
+    NeuerBall -1
 
   ENDIF
 
@@ -846,7 +912,7 @@ SUB PruefePunkt
 
     ZeigePunkt "Punkt fuer den Spieler"
 
-    NeuerBall -1
+    NeuerBall 1
 
   ENDIF
 
@@ -993,8 +1059,7 @@ Das Hauptprogramm enthält nur den grundsätzlichen Spielablauf.
 
 [source,basic]
 ----
-TASTE$=UCASE$(INKEY$)
-
+ReadKeyboard
 BegrenzeSpieler
 BewegeComputer
 BewegeBall
@@ -1019,6 +1084,9 @@ Die Aufteilung sorgt dafür, dass jedes Unterprogramm genau eine klar erkennbare
 [cols="2,4"]
 |===
 |Unterprogramm |Aufgabe
+
+|`ReadKeyboard`
+|Liest die Cursortasten und `ESC` mit `KEYDOWN()` ein
 
 |`BegrenzeSpieler`
 |Verhindert, dass der Spielerschläger den Bildschirm verlässt
@@ -1157,39 +1225,23 @@ Das Spielfeld ist außerdem sehr einfach und kann schnell neu aufgebaut werden.
 
 Ein vollständiges Bild im Framebuffer zu zeichnen und anschließend zu kopieren, ist deshalb für dieses erste Spiel übersichtlicher.
 
-Die im vorherigen Kapitel kennengelernnten Layerbuffer werden besonders interessant, wenn ein aufwendiger Hintergrund erhalten bleiben soll.
+Die im vorherigen Kapitel kennengelernten Layerbuffer werden besonders interessant, wenn ein aufwendiger Hintergrund erhalten bleiben soll.
 
 === Den zweiten Spieler ergänzen
 
 Das Programm verwendet momentan einen computergesteuerten Gegner.
 
 Du kannst den rechten Schläger auch durch einen zweiten Spieler steuern lassen.
+Dazu wird die Computersteuerung entfernt und `ReadKeyboard` um weitere Tasten
+für den zweiten Schläger ergänzt.
 
-Beispielsweise:
+Gerade hier zeigt sich ein Vorteil von `KEYDOWN()`: Da `KEYDOWN(0)` die Anzahl
+der gleichzeitig gedrückten Tasten liefert, können auch beide Spieler ihre
+Schläger zur selben Zeit bewegen.
 
-[cols="1,2,2"]
-|===
-|Spieler |Nach oben |Nach unten
-
-|Spieler 1
-|`W`
-|`S`
-
-|Spieler 2
-|`O`
-|`L`
-|===
-
-Die Computersteuerung wird dann entfernt und durch eine zweite Tastaturabfrage ersetzt.
-
-[NOTE]
-====
-Mit `INKEY$` wird jeweils ein Zeichen aus dem Tastaturpuffer gelesen.
-
-Für sehr schnelle Mehrspielersteuerungen und gleichzeitig gedrückte Tasten kann je nach PicoMite-Variante eine direkte Tastaturabfrage geeigneter sein.
-
-Für die erste Pong-Version bleibt die Steuerung mit `INKEY$` jedoch leicht verständlich.
-====
+Für eine eigene Zwei-Spieler-Version kannst du beispielsweise zwei zusätzliche
+Buchstabentasten für den rechten Schläger festlegen und deren Tastencodes in
+`ReadKeyboard` ergänzen.
 
 === Farbe ins Spiel bringen
 
@@ -1280,7 +1332,7 @@ Dabei hast du viele bisher erlernte Techniken miteinander verbunden:
 * Bedingungen
 * Schleifen
 * Unterprogramme
-* Tastatureingaben
+* Tastatureingaben mit `KEYDOWN()`
 * Animationen
 * Kollisionserkennung
 * computergesteuerte Gegner
