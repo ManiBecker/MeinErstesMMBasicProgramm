@@ -4,7 +4,7 @@ Rem Datei: 49_gamepad_test.bas
 Rem Titel: Kapitel 49: Spielcontroller und Gamepads
 Rem Buch:  Mein erstes MMBasic Programm
 Rem Autor: Manfred Becker
-Rem Datum: 09.09.2026
+Rem Datum: 23.09.2026
 Rem
 Rem Beschreibung:
 Rem
@@ -12,7 +12,9 @@ Rem USB-Gamepad am PicoMite testen
 Rem Zeigt Analogsticks, Trigger und gedrueckte Tasten an.
 Rem Das erste Gamepad liegt normalerweise auf USB-Kanal 3.
 Rem
-Rem Hardware/Voraussetzungen: PicoMite/ColourMaxiMite
+Rem Hardware/Voraussetzungen:
+Rem PicoMite-Firmware mit USB-Gamepad-Unterstuetzung
+Rem und unterstuetzter USB-Controller
 Rem
 Rem ====================================================================
 
@@ -115,4 +117,4 @@ Do
 
     Print
     Pause 100
-Loop
+Loop 
