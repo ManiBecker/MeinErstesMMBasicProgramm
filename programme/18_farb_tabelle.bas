@@ -119,8 +119,8 @@ Sub PrintLeft(ypos, txt$)
   Print @(0,ypos) txt$
 End Sub
 
-
 Sub PrintRight(ypos, txt$)
+  Local xpos
   xpos=MM.HRES-Len(txt$)*MM.Info(FONTWIDTH)
   Print @(xpos,ypos) txt$
 End Sub
