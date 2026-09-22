@@ -4,7 +4,7 @@ Rem Datei: 51_abschlussspiel.bas
 Rem Titel: Kapitel 51: Von der Idee zum fertigen Spiel
 Rem Buch:  Mein erstes MMBasic Programm
 Rem Autor: Manfred Becker
-Rem Datum: 10.09.2026
+Rem Datum: 23.09.2026
 Rem
 Rem Beschreibung:
 Rem
@@ -315,6 +315,8 @@ End Sub
 ' ReadControl vereinheitlicht die vier Steuerungsarten und liefert MoveX/MoveY.
 ' ============================================================================
 Sub ReadControl
+    ' Alle Eingabegeraete werden auf dieselbe kleine Schnittstelle
+    ' abgebildet: Am Ende enthalten MoveX und MoveY die Bewegungsrichtung.
     If Control = 2 Then
       ReadMouse
     ElseIf Control = 3 Then
@@ -498,6 +500,8 @@ End Sub
 ' Kollisionen des Spielers mit Gegnern und Muenzen auswerten
 ' ============================================================================
 Sub CheckCollisions
+    ' Kein SPRITE INTERRUPT erforderlich: Direkt nach SPRITE MOVE werden
+    ' die dabei gespeicherten Kollisionsdaten des Spielers ausgewertet.
     Local INTEGER i, HitCount, HitSprite, CoinIndex
     Local INTEGER EnemyHit
 
@@ -630,6 +634,8 @@ Sub StartLevelSound
 End Sub
 
 Sub UpdateSound
+    ' Nicht blockierend: Die Game Loop laeuft weiter, bis TIMER den
+    ' vorgemerkten Abschaltzeitpunkt erreicht.
     If SoundActive Then
         If Timer >= SoundOffAt Then
             Play SOUND 1, B, O
