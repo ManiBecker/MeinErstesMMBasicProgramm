@@ -15,29 +15,27 @@ Rem Hardware/Voraussetzungen: Grafikausgabe
 Rem ====================================================================
 
 CLS RGB(BLACK)
-FONT 1
-COLOUR RGB(WHITE),RGB(BLACK)
+Font 1
+Colour RGB(WHITE),RGB(BLACK)
 
-PRINT "MMBasic Farb- und Schriftmustertafel"
-PRINT
+Print "MMBasic Farb- und Schriftmustertafel"
+Print
 
 ' ------------------------------------------------------------
 ' Positionen fuer die beiden Spalten berechnen
 ' ------------------------------------------------------------
 
-X1=0
-X2=MM.HRES\2
-Y=MM.INFO(FONTHEIGHT)*3
-DY=MM.INFO(FONTHEIGHT)
+Y=MM.Info(FONTHEIGHT)*3
+DY=MM.Info(FONTHEIGHT)
 
 ' ------------------------------------------------------------
 ' Ueberschriften
 ' ------------------------------------------------------------
 
-COLOUR RGB(WHITE),RGB(BLACK)
+Colour RGB(WHITE),RGB(BLACK)
 
-PRINT @(X1,Y) "Vordefinierte Farben:"
-PRINT @(X2,Y) "Eigene RGB-Farben:"
+PrintLeft(Y,"Vordefinierte Farben:")
+PrintRight(Y,"Eigene RGB-Farben:")
 
 Y=Y+DY*2
 
@@ -45,45 +43,45 @@ Y=Y+DY*2
 ' Vordefinierte Farben - linke Spalte
 ' ------------------------------------------------------------
 
-COLOUR RGB(WHITE),RGB(BLACK)
-PRINT @(X1,Y) "WHITE"
+Colour RGB(WHITE),RGB(BLACK)
+PrintLeft(Y, "WHITE")
 
-COLOUR RGB(RED),RGB(BLACK)
-PRINT @(X1,Y+DY) "RED"
+Colour RGB(RED),RGB(BLACK)
+PrintLeft(Y+DY, "RED")
 
-COLOUR RGB(GREEN),RGB(BLACK)
-PRINT @(X1,Y+DY*2) "GREEN"
+Colour RGB(GREEN),RGB(BLACK)
+PrintLeft(Y+DY*2, "GREEN")
 
-COLOUR RGB(BLUE),RGB(BLACK)
-PRINT @(X1,Y+DY*3) "BLUE"
+Colour RGB(BLUE),RGB(BLACK)
+PrintLeft(Y+DY*3, "BLUE")
 
-COLOUR RGB(YELLOW),RGB(BLACK)
-PRINT @(X1,Y+DY*4) "YELLOW"
+Colour RGB(YELLOW),RGB(BLACK)
+PrintLeft(Y+DY*4, "YELLOW")
 
-COLOUR RGB(CYAN),RGB(BLACK)
-PRINT @(X1,Y+DY*5) "CYAN"
+Colour RGB(CYAN),RGB(BLACK)
+PrintLeft(Y+DY*5, "CYAN")
 
-COLOUR RGB(MAGENTA),RGB(BLACK)
-PRINT @(X1,Y+DY*6) "MAGENTA"
+Colour RGB(MAGENTA),RGB(BLACK)
+PrintLeft(Y+DY*6, "MAGENTA")
 
 ' ------------------------------------------------------------
 ' Selbst gemischte Farben - rechte Spalte
 ' ------------------------------------------------------------
 
-COLOUR RGB(255,128,0),RGB(BLACK)
-PRINT @(X2,Y) "ORANGE  RGB(255,128,0)"
+Colour RGB(255,128,0),RGB(BLACK)
+PrintRight(Y, "ORANGE RGB(255,128,0)")
 
-COLOUR RGB(128,255,0),RGB(BLACK)
-PRINT @(X2,Y+DY) "HELLGRUEN RGB(128,255,0)"
+Colour RGB(128,255,0),RGB(BLACK)
+PrintRight(Y+DY, "HELLGRUEN RGB(128,255,0)")
 
-COLOUR RGB(255,128,192),RGB(BLACK)
-PRINT @(X2,Y+DY*2) "ROSA    RGB(255,128,192)"
+Colour RGB(255,128,192),RGB(BLACK)
+PrintRight(Y+DY*2, "ROSA RGB(255,128,192)")
 
-COLOUR RGB(128,128,255),RGB(BLACK)
-PRINT @(X2,Y+DY*3) "HELLBLAU RGB(128,128,255)"
+Colour RGB(128,128,255),RGB(BLACK)
+PrintRight(Y+DY*3, "HELLBLAU RGB(128,128,255)")
 
-COLOUR RGB(128,128,128),RGB(BLACK)
-PRINT @(X2,Y+DY*4) "GRAU    RGB(128,128,128)"
+Colour RGB(128,128,128),RGB(BLACK)
+PrintRight(Y+DY*4, "GRAU RGB(128,128,128)")
 
 ' ------------------------------------------------------------
 ' Verschiedene Schriftarten
@@ -91,26 +89,38 @@ PRINT @(X2,Y+DY*4) "GRAU    RGB(128,128,128)"
 
 Y=Y+DY*8
 
-COLOUR RGB(WHITE),RGB(BLACK)
+Colour RGB(WHITE),RGB(BLACK)
 
-FONT 1
-PRINT @(0,Y) "Schriftarten:"
+Font 1
+PrintLeft(Y, "Schriftarten:")
 
-Y=Y+MM.INFO(FONTHEIGHT)*2
+Y=Y+MM.Info(FONTHEIGHT)*2
 
-FONT 1
-PRINT @(0,Y) "Font 1 - Standardschrift"
+Font 1
+PrintLeft(Y, "Font 1 - Standardschrift")
 
-Y=Y+MM.INFO(FONTHEIGHT)
+Y=Y+MM.Info(FONTHEIGHT)
 
-FONT 2
-PRINT @(0,Y) "Font 2"
+Font 2
+PrintLeft(Y, "Font 2")
 
-Y=Y+MM.INFO(FONTHEIGHT)
+Y=Y+MM.Info(FONTHEIGHT)
 
-FONT 3
-PRINT @(0,Y) "Font 3"
+Font 3
+PrintLeft(Y, "Font 3")
 
 ' Standardschrift und Farben wiederherstellen
-FONT 1
-COLOUR RGB(WHITE),RGB(BLACK)
+Font 1
+Colour RGB(WHITE),RGB(BLACK)
+
+End
+
+Sub PrintLeft(ypos, txt$)
+  Print @(0,ypos) txt$
+End Sub
+
+
+Sub PrintRight(ypos, txt$)
+  xpos=MM.HRES-Len(txt$)*MM.Info(FONTWIDTH)
+  Print @(xpos,ypos) txt$
+End Sub
