@@ -59,7 +59,7 @@ Version {revnumber} +
 {empty} +
 {empty} +
 
-image::bilder/00_hallo.jpg[width=65%,align=center]
+image::bilder/00_hallo.jpg[width=70%,align=center]
 
 <<<
 
