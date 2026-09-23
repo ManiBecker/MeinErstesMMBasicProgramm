@@ -34,29 +34,30 @@ endif::[]
 [.text-center]
 = Mein erstes MMBasic Programm
 
-{empty}
+{empty} +
 
 [.text-center]
 *Schritt für Schritt in die Welt von MMBasic*
 
-{empty}
+{empty} +
 
 [.text-center]
 für PicoMite und Colour Maximite
 
-{empty}
+{empty} +
 
 [.text-center]
 Manfred Becker
 
-{empty}
+{empty} +
+{empty} +
 
 [.text-center]
 Version {revnumber} +
 {revdate}
 
-{empty}
-{empty}
+{empty} +
+{empty} +
 
 image::bilder/00_hallo.jpg[width=65%,align=center]
 
