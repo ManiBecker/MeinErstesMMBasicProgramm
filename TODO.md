@@ -85,6 +85,7 @@ Nicht alle Punkte werden zwingend umgesetzt. Die Liste dient als Ideensammlung.
 | Kurzübersicht weiterer Maximite-Varianten und ihrer Besonderheiten (Cpt_Void / ThoralfAsmussen) | ☑ Geplant |
 | Historische Übersicht der MMBasic-Systeme und ihrer Entwicklung (Franky) | ☑ Geplant |
 | Grobe Unterschiede zwischen MMBasic, GW-BASIC und QuickBASIC (Cpt_Void) | ☑ Geplant |
+| Astronomie mit MMBasic: `STAR`, `LOCATION`, `ASTRO` und Praxisbeispiel „Solar System Object Finder“ (Franky / ThoralfAsmussen) | ☑ Geplant |
 
 ---
 
