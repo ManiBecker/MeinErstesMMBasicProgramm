@@ -52,14 +52,14 @@ Manfred Becker
 {empty}
 {empty}
 
+image::bilder/00_hallo.jpg[width=70%,align=center]
+
+{empty}
+{empty}
+
 [.text-center]
 Version {revnumber} +
 {revdate}
-
-{empty}
-{empty}
-
-image::bilder/00_hallo.jpg[width=70%,align=center]
 
 <<<
 
