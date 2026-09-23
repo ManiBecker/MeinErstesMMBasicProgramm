@@ -1031,8 +1031,8 @@ das Spiel später erweitern.
 
 === Praxisprojekt: Zwei Sprites in Bewegung
 
-indexterm:[Sprite-Demo]indexterm:[SPRITE, LOADARRAY]
-
+indexterm:[Sprite-Demo]
+indexterm:[SPRITE, LOADARRAY]
 Zum Abschluss verbinden wir die wichtigsten Sprite-Techniken dieses Kapitels
 in einem kleinen Demoprogramm.
 

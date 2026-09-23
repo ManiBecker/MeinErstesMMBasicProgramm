@@ -71,7 +71,6 @@ LOOP
 indexterm:[Schleifenbedingung]
 indexterm:[Endlosschleife]
 indexterm:[CTRL+C]
-
 [IMPORTANT]
 ====
 Diese Schleife besitzt keine Schleifenbedingung

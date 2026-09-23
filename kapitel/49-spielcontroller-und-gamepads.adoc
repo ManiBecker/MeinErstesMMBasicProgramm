@@ -55,8 +55,8 @@ Bei Firmware-Versionen ohne USB-Unterstützung können alternativ Wii-Controller
 
 === USB-Kanäle
 
-indexterm:[USB,Kanäle]indexterm:[USB-Kanäle]
-
+indexterm:[USB,Kanäle]
+indexterm:[USB-Kanäle]
 Der PicoMite verwaltet bis zu vier USB-Geräte. Jedes Gerät erhält einen Kanal von 1 bis 4.
 
 Standardmäßig gilt folgende Zuordnung:
@@ -141,7 +141,6 @@ Konstante `Gamepad` entsprechend anpassen.
 Bevor wir ein eigenes BASIC-Programm schreiben, bietet der PicoMite eine sehr praktische Diagnosefunktion:
 
 indexterm:[GAMEPAD MONITOR]
-
 [source,basic]
 ----
 GAMEPAD MONITOR
@@ -162,7 +161,6 @@ Innerhalb eines BASIC-Programms werden die Daten des Controllers mit der Funktio
 
 indexterm:[DEVICE(),GAMEPAD]
 indexterm:[DEVICE(GAMEPAD)]
-
 [source,basic]
 ----
 DEVICE(GAMEPAD channel, funct)
@@ -439,8 +437,8 @@ Diese Mittelstellung brauchen wir gleich für die Totzone.
 
 === Analogsticks und Totzone
 
-indexterm:[Gamepad,Analogsticks]indexterm:[Analogsticks]
-
+indexterm:[Gamepad,Analogsticks]
+indexterm:[Analogsticks]
 Ein Analogstick liefert nicht nur die Zustände links, rechts, oben und unten. Seine Position wird als Zahlenwert ausgegeben.
 
 Der genaue Wertebereich ist für unsere ersten Programme gar nicht entscheidend. Wichtig ist zunächst der Wert in der Mittelstellung.
@@ -634,14 +632,13 @@ einmal ausgeführt werden soll.
 
 === PS4-Controller: Farbe und Vibration
 
-indexterm:[Gamepad,Vibration]indexterm:[Haptisches Feedback]
-
+indexterm:[Gamepad,Vibration]
+indexterm:[Haptisches Feedback]
 Bei einem PS4-Controller kann der PicoMite zusätzlich die Farbe der Leuchtanzeige verändern.
 
 Die Syntax lautet:
 
 indexterm:[GAMEPAD COLOUR]
-
 [source,basic]
 ----
 GAMEPAD COLOUR channel, colour
@@ -657,7 +654,6 @@ GAMEPAD COLOUR 3, RGB(RED)
 Auch die beiden Vibrationsmotoren lassen sich ansteuern:
 
 indexterm:[GAMEPAD HAPTIC]
-
 [source,basic]
 ----
 GAMEPAD HAPTIC channel, left, right
@@ -686,7 +682,6 @@ Die wichtigsten Befehle sind:
 
 indexterm:[GAMEPAD INTERRUPT ENABLE]
 indexterm:[GAMEPAD INTERRUPT DISABLE]
-
 [source,basic]
 ----
 GAMEPAD INTERRUPT ENABLE channel, int [, mask]

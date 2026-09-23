@@ -255,9 +255,7 @@ Cursor bequem positionieren, Text markieren und durch größere Programme
 navigieren.
 
 Damit die indexterm:[Editor,Maus]indexterm:[Maus im Editor] Maus verwendet werden kann, muss sie zunächst aktiviert werden:
-
 indexterm:[OPTION MOUSE ON]
-
 [source,basic]
 ----
 OPTION MOUSE ON

@@ -91,7 +91,6 @@ Masse besitzt das Datensignal keinen eindeutigen Bezug.
 === Stromversorgung
 
 indexterm:[WS2812,Stromversorgung]
-
 WS2812-LEDs können bei hoher Helligkeit einen erheblichen Strom aufnehmen.
 Als konservative Abschätzung werden häufig bis zu etwa 60 mA pro RGB-LED bei
 voll eingeschaltetem Rot-, Grün- und Blaukanal angesetzt.
@@ -122,8 +121,8 @@ LED-Kette kann Spannungsspitzen beim Einschalten abfangen.
 
 === 3,3-V-Datensignal und 5-V-LEDs
 
-indexterm:[WS2812,Pegelwandlung]indexterm:[Pegelwandlung]
-
+indexterm:[WS2812,Pegelwandlung]
+indexterm:[Pegelwandlung]
 Der PicoMite liefert an seinen GPIO-Ausgängen ein 3,3-V-Logiksignal.
 WS2812-LEDs werden dagegen häufig mit 5 V versorgt.
 
@@ -350,8 +349,8 @@ Farbwerte benötigt, für zehn LEDs zehn Farbwerte usw.
 
 === Helligkeit über die Farbwerte steuern
 
-indexterm:[WS2812,Helligkeitssteuerung]indexterm:[LED,Helligkeitssteuerung]
-
+indexterm:[WS2812,Helligkeitssteuerung]
+indexterm:[LED,Helligkeitssteuerung]
 WS2812-LEDs besitzen beim `WS2812`-Befehl keinen zusätzlichen
 Helligkeitsparameter. Die wahrgenommene Helligkeit wird deshalb über die
 RGB-Werte bestimmt.
@@ -383,8 +382,8 @@ den Stromverbrauch der LED-Kette.
 
 === Praxisprojekt: Ein einfaches Lauflicht
 
-indexterm:[LED,Lauflicht]indexterm:[Lauflicht]
-
+indexterm:[LED,Lauflicht]
+indexterm:[Lauflicht]
 Jetzt verwenden wir ein Array und eine Schleife, um einen einzelnen Lichtpunkt
 über fünf LEDs laufen zu lassen.
 
@@ -460,8 +459,8 @@ Das Grundprinzip für Animationen lautet immer:
 
 Abrupte Farbwechsel sind nicht immer gewünscht. Werden die RGB-Werte
 schrittweise verändert, entsteht ein weicher Übergang, ein sogenannter
-indexterm:[LED,Fade]indexterm:[Fade] _Fade_.
-
+indexterm:[LED,Fade]
+indexterm:[Fade] _Fade_.
 Eine einzelne LED kann zum Beispiel langsam heller rot werden:
 
 [source,basic]
@@ -497,8 +496,8 @@ erzeugen.
 
 === RGBW mit SK6812W
 
-indexterm:[Farben,RGBW]indexterm:[RGBW]
-
+indexterm:[Farben,RGBW]
+indexterm:[RGBW]
 Der Typ `W` ist für SK6812W-LEDs mit einem zusätzlichen Weißkanal vorgesehen.
 
 Dabei verwendet jedes Array-Element einen 32-Bit-RGBW-Wert im Bereich von
@@ -515,8 +514,8 @@ normalen RGB888-Werts verwendest.
 
 === Praxisprojekt: Wandernder Regenbogen
 
-indexterm:[LED,Regenbogen]indexterm:[Regenbogen]
-
+indexterm:[LED,Regenbogen]
+indexterm:[Regenbogen]
 Zum Abschluss verbinden wir Arrays, Farben, Schleifen und den `WS2812`-Befehl
 zu einer kleinen Animation. Acht WS2812B-LEDs zeigen einen wandernden
 Regenbogen.

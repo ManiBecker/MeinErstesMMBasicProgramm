@@ -105,7 +105,6 @@ Du musst nicht ständig zur Haustür laufen und nachsehen. Die Klingel meldet si
 === Interrupts sind kein Multitasking
 
 indexterm:[Interrupts,Multitasking]
-
 Ein häufiger Irrtum ist:
 
 [source]
@@ -132,8 +131,8 @@ Die Interrupt-Subroutine läuft also nicht gleichzeitig mit dem Hauptprogramm, s
 
 === Steigende und fallende Flanken
 
-indexterm:[Signalflanken]indexterm:[Interrupts,Signalflanken]
-
+indexterm:[Signalflanken]
+indexterm:[Interrupts,Signalflanken]
 Ein digitaler Eingang kennt die beiden Zustände Low (`0`) und High (`1`). Ein Interrupt kann ausgelöst werden, wenn sich dieser Zustand ändert.
 
 MMBasic unterscheidet drei Möglichkeiten:
@@ -519,7 +518,6 @@ den nicht mehr benötigten Interrupt.
 === Können Interrupts verloren gehen?
 
 indexterm:[Interrupts,verlorene Interrupts]
-
 [IMPORTANT]
 ====
 Pin-Interrupts werden von MMBasic nach dem Abschluss eines Befehls geprüft und nicht von der Hardware zwischengespeichert.
@@ -540,7 +538,6 @@ MMBasic kann nicht nur Pin-Interrupts verarbeiten. Auch Timer, serielle Schnitts
 In diesem Kapitel beschränken wir uns bewusst auf Pin-Interrupts. Andere Interruptquellen werden dort behandelt, wo die jeweiligen Funktionen verwendet werden.
 
 indexterm:[Interrupts,Priorität]
-
 Treten mehrere Interrupts gleichzeitig auf, verwendet MMBasic eine festgelegte Prioritätsreihenfolge. Pin-Interrupts werden dabei in der Reihenfolge ihrer Definition verarbeitet.
 
 Für den Einstieg genügt es, sich zu merken:

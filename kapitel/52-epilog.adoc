@@ -44,8 +44,8 @@ Dein nächstes Projekt muss dabei weder groß noch besonders kompliziert sein. O
 
 === Nutze die Dokumentation
 
-indexterm:[Dokumentation]indexterm:[PicoMite User Manual]
-
+indexterm:[Dokumentation]
+indexterm:[PicoMite User Manual]
 Dieses Buch konnte nur einen Teil der Möglichkeiten von MMBasic zeigen. Im offiziellen PicoMite User Manual findest du viele weitere Befehle, Funktionen und Optionen.
 
 Du musst sie nicht alle kennen – und schon gar nicht auswendig lernen.
@@ -61,8 +61,8 @@ MMBasic und die PicoMite-Firmware werden weiterentwickelt. Wenn sich ein Befehl 
 
 === Tausche dich mit anderen aus
 
-indexterm:[Community]indexterm:[Foren]
-
+indexterm:[Community]
+indexterm:[Foren]
 Programmieren macht noch mehr Spaß, wenn man seine Projekte mit anderen teilt.
 
 Im Internet gibt es Foren und Communities rund um MMBasic, den PicoMite und den Colour Maximite 2. Dort findest du Ideen, Beispielprogramme, Hinweise zu neuen Firmware-Versionen und natürlich andere Menschen, die sich für dieselben Systeme interessieren.

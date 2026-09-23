@@ -206,9 +206,8 @@ GP0 und GP1 eignen sich deshalb gut für `COM1` in den Beispielen dieses Tutoria
 ====
 
 === Verbindung zweier Systeme
-
-indexterm:[UART,TX und RX]indexterm:[TX]indexterm:[RX]
-
+indexterm:[UART,TX und RX]
+indexterm:[TX]indexterm:[RX]
 [source]
 ----
 PicoMite A          PicoMite B
@@ -363,8 +362,8 @@ Datenmengen benötigen wir dagegen Long Strings.
 
 === Zeichenstrom statt fertiger Nachrichten
 
-indexterm:[UART,Zeichenstrom]indexterm:[Zeichenstrom]
-
+indexterm:[UART,Zeichenstrom]
+indexterm:[Zeichenstrom]
 Eine UART überträgt zunächst nur einen Strom von Zeichen. Sie kennt von sich aus keine Befehle, Zeilen oder Nachrichten.
 
 Wird beispielsweise
@@ -437,8 +436,9 @@ Für unser Beispiel muss das Terminalprogramm auf 9600 Baud, 8 Datenbits, keine 
 
 === Mehr als nur Text: VT100-Terminals
 
-indexterm:[Terminal,VT100]indexterm:[VT100]indexterm:[ANSI-Steuersequenzen]
-
+indexterm:[Terminal,VT100]
+indexterm:[VT100]
+indexterm:[ANSI-Steuersequenzen]
 Viele Terminalprogramme unterstützen VT100- bzw. ANSI-Steuersequenzen. Ursprünglich wurde der VT100-Standard Ende der 1970er-Jahre für Computerterminals von Digital Equipment Corporation (DEC) entwickelt.
 
 Dadurch kann ein Programm nicht nur Text ausgeben, sondern beispielsweise auch den Bildschirm löschen oder den Cursor positionieren.
@@ -862,8 +862,8 @@ auch bei WLAN- und Internetanwendungen auftreten können.
 
 === Serielle Interrupts
 
-indexterm:[Interrupts,Serielle Interrupts]indexterm:[Serielle Interrupts]
-
+indexterm:[Interrupts,Serielle Interrupts]
+indexterm:[Serielle Interrupts]
 Bei Programmen, die nicht ständig den Empfangspuffer abfragen sollen, kann eine serielle Schnittstelle auch einen Interrupt auslösen.
 
 Die vollständige `OPEN`-Syntax erlaubt unter anderem die Angabe einer Interrupt-Subroutine und einer Anzahl empfangener Zeichen, ab der der Interrupt ausgelöst werden soll.

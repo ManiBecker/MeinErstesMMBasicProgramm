@@ -28,9 +28,7 @@ In diese Schachtel kannst du einen Wert hineinlegen und später wieder darauf zu
 === Unsere erste Variable
 
 Gib folgende Zeilen ein:
-
 indexterm:[PRINT]
-
 [source,basic]
 ----
 A=10

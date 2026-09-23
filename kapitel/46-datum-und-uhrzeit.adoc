@@ -254,9 +254,8 @@ PRINT TIMER - start
 ----
 
 === Eine einfache Stoppuhr
-
-indexterm:[Zeitmessung,Stoppuhr]indexterm:[Stoppuhr]
-
+indexterm:[Zeitmessung,Stoppuhr]
+indexterm:[Stoppuhr]
 [source,basic]
 ----
 start = TIMER
@@ -346,8 +345,8 @@ Dieses kleine Programm verwandelt PicoMite oder Colour Maximite in eine einfache
 
 === Praxisprojekt: Monatskalender
 
-indexterm:[Kalender,Monatskalender]indexterm:[Monatskalender]
-
+indexterm:[Kalender,Monatskalender]
+indexterm:[Monatskalender]
 Nachdem wir uns mit Datum und Uhrzeit beschäftigt haben, wollen wir nun ein etwas größeres Praxisprojekt umsetzen.
 
 Wir schreiben einen einfachen Monatskalender.
@@ -380,8 +379,8 @@ Dieses Projekt zeigt sehr schön, wie viele der bisher gelernten Techniken zusam
 
 ==== Schaltjahre berücksichtigen
 
-indexterm:[Kalender,Schaltjahr]indexterm:[Schaltjahr]
-
+indexterm:[Kalender,Schaltjahr]
+indexterm:[Schaltjahr]
 Bevor wir einen Kalender erzeugen können, müssen wir wissen, wie viele Tage ein Monat besitzt.
 
 Besonders der Februar ist interessant.
@@ -431,8 +430,8 @@ END FUNCTION
 
 ==== Wochentag des ersten Tages bestimmen
 
-indexterm:[Kalender,Wochentag]indexterm:[Wochentag]
-
+indexterm:[Kalender,Wochentag]
+indexterm:[Wochentag]
 Für einen Kalender müssen wir außerdem wissen, auf welchen Wochentag der erste Tag des Monats fällt.
 
 Für unser Beispiel berechnen wir den Wochentag mit einer eigenen Funktion:
@@ -542,8 +541,8 @@ Verwende dazu DATE$ und werte Monat und Jahr aus dem aktuellen Datum aus.
 
 === Praxisprojekt: Laufzeitzähler
 
-indexterm:[Zeitmessung,Laufzeitzähler]indexterm:[Laufzeitzähler]
-
+indexterm:[Zeitmessung,Laufzeitzähler]
+indexterm:[Laufzeitzähler]
 Mit `TIMER` lässt sich auch anzeigen, wie lange ein Programm bereits läuft.
 
 Das folgende Beispiel ist ein einfacher Laufzeitzähler:
@@ -576,8 +575,8 @@ Dies ist noch kein echter Betriebsstundenzähler. Ein solcher müsste seinen Zä
 
 === Praxisprojekt: Messwerte mit Zeitstempel
 
-indexterm:[Datenlogger,Zeitstempel]indexterm:[Zeitstempel]
-
+indexterm:[Datenlogger,Zeitstempel]
+indexterm:[Zeitstempel]
 Stellen wir uns vor, ein Sensor liefert Messwerte.
 
 Dann könnte jeder Datensatz mit Datum und Uhrzeit gespeichert werden. Voraussetzung für aussagekräftige Zeitstempel ist natürlich, dass Datum und Uhrzeit zuvor korrekt eingestellt oder aus einer RTC übernommen wurden.

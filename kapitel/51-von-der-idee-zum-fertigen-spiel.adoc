@@ -32,8 +32,8 @@ Genau darin liegt der wichtigste Schritt beim Programmieren: Aus einzelnen Befeh
 
 === Die Spielidee
 
-indexterm:[Spieleentwicklung,Spielidee]indexterm:[Spielidee]
-
+indexterm:[Spieleentwicklung,Spielidee]
+indexterm:[Spielidee]
 Unser Abschlussprojekt soll überschaubar bleiben und trotzdem typische Elemente eines kleinen Arcade-Spiels enthalten.
 
 Der Spieler steuert eine Figur über das Spielfeld und sammelt Münzen ein. Gleichzeitig bewegen sich mehrere Gegner über den Bildschirm.
@@ -57,8 +57,8 @@ Damit besitzt unser Spiel bereits viele typische Bestandteile eines klassischen 
 
 === Spielregeln
 
-indexterm:[Spieleentwicklung,Spielregeln]indexterm:[Spielregeln]
-
+indexterm:[Spieleentwicklung,Spielregeln]
+indexterm:[Spielregeln]
 Die Regeln unseres Spiels sind schnell erklärt.
 
 * Zu Beginn wählt der Spieler die gewünschte Steuerung: Cursortasten, Maus, Gamepad-Tasten oder den linken Analogstick eines USB-Gamepads.
@@ -126,8 +126,8 @@ Das Abschlussprogramm in diesem Kapitel konzentriert sich deshalb bewusst auf VG
 
 === Planung vor dem Programmieren
 
-indexterm:[Spieleentwicklung,Programmplanung]indexterm:[Programmplanung]
-
+indexterm:[Spieleentwicklung,Programmplanung]
+indexterm:[Programmplanung]
 Auch bei einem kleinen Spiel lohnt sich eine kurze Planung.
 
 Unser Programm muss mehrere Aufgaben erledigen:
@@ -157,8 +157,8 @@ Das macht den Programmcode wesentlich leichter verständlich.
 
 === Die Programmstruktur
 
-indexterm:[Spieleentwicklung,Programmstruktur]indexterm:[Programmstruktur]
-
+indexterm:[Spieleentwicklung,Programmstruktur]
+indexterm:[Programmstruktur]
 Der grundsätzliche Ablauf sieht so aus:
 
 [source]
@@ -380,8 +380,8 @@ Sprechende Konstantennamen sind fast immer besser als fest eingetragene Zahlen.
 
 ==== Keine unnötigen magischen Zahlen
 
-indexterm:[Programmierung,Magische Zahlen]indexterm:[Magische Zahlen]
-
+indexterm:[Programmierung,Magische Zahlen]
+indexterm:[Magische Zahlen]
 Die Level unseres Spiels beginnen nicht bei einem bestimmten Punktestand, sondern immer dann, wenn alle Münzen eingesammelt wurden.
 
 Wir benötigen deshalb keine Konstante wie
@@ -452,7 +452,6 @@ Im vollständigen Programm gestalten wir Spieler, Gegner und Münze etwas schön
 ==== Ein Bild, mehrere Sprites
 
 indexterm:[SPRITE COPY]
-
 Alle vier Gegner sehen gleich aus. Wir müssen die Grafik deshalb nicht viermal im Speicher ablegen.
 
 Zunächst erzeugen wir das erste Gegner-Sprite. Anschließend können wir es kopieren:
@@ -1037,8 +1036,8 @@ ENDIF
 
 === Schritt 17: Das nächste Level
 
-indexterm:[Spieleprogrammierung,Levelwechsel]indexterm:[Levelwechsel]
-
+indexterm:[Spieleprogrammierung,Levelwechsel]
+indexterm:[Levelwechsel]
 Sind alle Münzen eingesammelt, erhöhen wir die Levelnummer.
 
 [source,basic]
@@ -1160,8 +1159,8 @@ Bei anspruchsvolleren Spielen sollte die Bewegung anhand der tatsächlich vergan
 
 === Schritt 20: Game Over
 
-indexterm:[Spieleprogrammierung,Game Over]indexterm:[Game Over]
-
+indexterm:[Spieleprogrammierung,Game Over]
+indexterm:[Game Over]
 Sobald `Lives` den Wert `0` erreicht, endet die Game Loop.
 
 Danach blenden wir die Sprites aus und zeigen den Endbildschirm an.
@@ -1213,8 +1212,8 @@ Game Over
 
 === Schritt 21: Noch einmal spielen?
 
-indexterm:[Spieleprogrammierung,Neustart]indexterm:[Neustart]
-
+indexterm:[Spieleprogrammierung,Neustart]
+indexterm:[Neustart]
 Die verbesserte Version endet nach `GAME OVER` nicht sofort. Mit `PlayAgain$()` fragen wir, ob eine weitere Runde gestartet werden soll.
 
 [source,basic]

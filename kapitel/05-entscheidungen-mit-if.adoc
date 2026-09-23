@@ -29,9 +29,7 @@ Keine Sorge – der Editor ist bewusst einfach gehalten und schnell zu erlernen.
 === Den Editor starten
 
 Den Editor startest du mit dem Befehl:
-
-indexterm:[EDIT] 
-
+indexterm:[EDIT]
 [source,basic]
 ----
 EDIT
@@ -44,9 +42,7 @@ Während der Eingabe kannst du den Cursor mit den Pfeiltasten bewegen und den Te
 [TIP]
 ====
 Falls sich bereits ein anderes Programm im Speicher befindet, kannst du es vorher mit
-
 indexterm:[NEW]
-
 [source,basic]
 ----
 NEW
@@ -70,9 +66,7 @@ Später in diesem Buch lernst du außerdem, wie Programme als Dateien im Dateisy
 === Programme starten
 
 Ein im Speicher befindliches Programm wird mit dem Befehl
-
-indexterm:[RUN] 
-
+indexterm:[RUN]
 [source,basic]
 ----
 RUN
@@ -162,9 +156,7 @@ A ist nicht 10.
 
 ==== Wo sind eigentlich die Zeilennummern?
 
-indexterm:[Zeilennummern]
-
-Wenn du bereits mit älteren BASIC-Dialekten gearbeitet hast, ist dir
+indexterm:[Zeilennummern]Wenn du bereits mit älteren BASIC-Dialekten gearbeitet hast, ist dir
 vielleicht aufgefallen, dass unsere Programme keine Zeilennummern besitzen.
 
 Bei klassischen BASIC-Versionen sah ein Programm häufig etwa so aus:
