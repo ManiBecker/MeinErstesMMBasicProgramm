@@ -632,7 +632,7 @@ Erst wenn das komplette Bild fertig ist, wird es auf den Bildschirm übertragen.
 FRAMEBUFFER COPY F,N,B
 ----
 
-Der zusätzliche Parameter indexterm:[FRAMEBUFFER COPY,B] `B` von `FRAMEBUFFER COPY F,N,B` sorgt dafür, dass die Übertragung während der indexterm:[Grafik,Bildaustastlücke]indexterm:[FRAMEBUFFER COPY,B] Bildaustastlücke erfolgt, sofern der verwendete Grafikmodus dies unterstützt.
+Der zusätzliche Parameter indexterm:[FRAMEBUFFER COPY B] `B` von `FRAMEBUFFER COPY F,N,B` sorgt dafür, dass die Übertragung während der indexterm:[Grafik,Bildaustastlücke] Bildaustastlücke erfolgt, sofern der verwendete Grafikmodus dies unterstützt.
 
 Dadurch wird das Bild möglichst vollständig in einem Schritt sichtbar.
 
