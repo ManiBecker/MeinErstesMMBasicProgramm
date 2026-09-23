@@ -52,7 +52,7 @@ Er kann beispielsweise:
 Je nach Konfiguration arbeitet ein Pin als:
 
 * indexterm:[GPIO-Pins,Eingang] Eingang
-* indexterm:[GPIO-Pins,Eingang] Ausgang
+* indexterm:[GPIO-Pins,Ausgang] Ausgang
 
 === Digitale Signale
 
@@ -69,7 +69,7 @@ indexterm:[Digitale Ein- und Ausgänge] Digitale Ein- und Ausgänge kennen nur z
 |Ein
 |===
 
-Man spricht häufig auch von indexterm:[Digitale Signale,LOW]indexterm:[LOW] `LOW` und indexterm:[Digitale Signale,HIGH]indexterm:[LOW] `HIGH`:
+Man spricht häufig auch von indexterm:[Digitale Signale,LOW]indexterm:[LOW] `LOW` und indexterm:[Digitale Signale,HIGH]indexterm:[HIGH] `HIGH`:
 
 [cols="1,2"]
 |===
