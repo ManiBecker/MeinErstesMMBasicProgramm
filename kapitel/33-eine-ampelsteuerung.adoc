@@ -205,7 +205,7 @@ SELECT CASE STATUS
 END SELECT
 ----
 
-Je nach Wert von `STATUS` wird mit indexterm:[CASE] `CASE` ein anderer Programmteil ausgeführt. indexterm:[CASE] `END SELECT` beendet die Auswahlstruktur.
+Je nach Wert von `STATUS` wird mit indexterm:[CASE] `CASE` ein anderer Programmteil ausgeführt. indexterm:[END SELECT] `END SELECT` beendet die Auswahlstruktur.
 
 === Die Ampel mit Zuständen
 
