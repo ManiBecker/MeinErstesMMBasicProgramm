@@ -138,7 +138,7 @@ sein:
 EINGABE$="42"
 ----
 
-Mit indexterm:[VAL()] `VAL()` kann ein solcher Text in einen Zahlenwert
+Mit indexterm:[VAL] `VAL()` kann ein solcher Text in einen Zahlenwert
 umgewandelt werden:
 
 [source,basic]
@@ -161,7 +161,7 @@ Ausgabe:
 `VAL()` liest den Zahlenwert am Anfang eines Strings und liefert ihn als
 numerischen Wert zurück.
 
-Die umgekehrte Richtung ist ebenfalls möglich. Mit indexterm:[STR$()]
+Die umgekehrte Richtung ist ebenfalls möglich. Mit indexterm:[STR$]
 `STR$()` kann ein Zahlenwert in einen String umgewandelt werden:
 
 [source,basic]
