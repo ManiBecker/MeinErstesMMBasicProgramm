@@ -8,6 +8,7 @@ In diesem Kapitel lernst du:
 
 * was `OPTION`-Befehle sind
 * den Unterschied zwischen temporären und permanenten Optionen
+* warum manche OPTION-Einstellungen vor dem Start eines Programms vorgenommen werden müssen
 * wichtige `OPTION`-Befehle für Programme und die Systemkonfiguration einzusetzen
 * Bildschirmauflösung und CPU-Takt zu konfigurieren
 * Tastaturlayout und Tastenwiederholung einzustellen
@@ -35,6 +36,26 @@ Dabei ist eine wichtige Unterscheidung zu beachten:
 * indexterm:[Temporäre Optionen] *Permanente Optionen* werden im nichtflüchtigen Speicher abgelegt und nach einem Neustart automatisch wiederhergestellt.
 
 Viele permanente `OPTION`-Befehle können einen Neustart der PicoMite-Firmware auslösen. Das im Programmspeicher befindliche BASIC-Programm geht dabei nicht verloren.
+
+=== Warum müssen manche OPTION-Einstellungen vorher vorgenommen werden?
+
+Vielleicht hast du dich schon gefragt, warum bestimmte OPTION-Einstellungen nicht einfach am Anfang eines BASIC-Programms stehen können.
+
+Der Grund liegt im Unterschied zwischen programmbezogenen Optionen und den Grundeinstellungen der MMBasic-Umgebung.
+
+Programmbezogene Optionen beeinflussen nur die Ausführung eines BASIC-Programms. Sie können deshalb direkt im Programm stehen. Beispiele dafür sind OPTION EXPLICIT, OPTION DEFAULT und OPTION BASE.
+
+Andere OPTION-Befehle legen dagegen Grundeinstellungen der MMBasic-Umgebung oder der verwendeten Hardware fest. Damit wird beispielsweise bestimmt, welche Bildschirmkonfiguration verwendet wird, welche Pins für bestimmte Funktionen reserviert sind oder wie bestimmte Hardware-Komponenten genutzt werden.
+
+Viele dieser Einstellungen werden dauerhaft gespeichert und beim nächsten Start von MMBasic wieder verwendet. Manche beeinflussen Ressourcen oder Hardware-Funktionen, die MMBasic bereits beim Start einrichtet. Eine Änderung kann deshalb einen Neustart erforderlich machen.
+
+[NOTE]
+
+Eine einfache Unterscheidung hilft dabei:
+
+Programmbezogene OPTION-Befehle legen fest, wie dein BASIC-Programm ausgeführt wird.
+Permanente OPTION-Befehle legen Grundeinstellungen fest, in welcher Umgebung dein BASIC-Programm ausgeführt wird.
+Deshalb können programmbezogene Optionen im BASIC-Programm stehen, während grundlegende System- und Hardwareoptionen normalerweise vorher an der MMBasic-Eingabeaufforderung eingestellt werden.
 
 === Aktuelle Einstellungen anzeigen
 
@@ -750,6 +771,7 @@ Permanente Optionen wie `OPTION TAB`, `OPTION COLOURCODE` oder verschiedene Hard
 In diesem Kapitel hast du gelernt:
 
 * dass es temporäre und permanent gespeicherte `OPTION`-Einstellungen gibt
+* warum manche OPTION-Einstellungen vor dem Start eines Programms vorgenommen werden müssen
 * geänderte permanente Einstellungen mit `OPTION LIST` anzuzeigen
 * `OPTION EXPLICIT` zur Kontrolle von Variablendeklarationen einzusetzen
 * mit `OPTION DEFAULT` den Standard-Datentyp festzulegen
