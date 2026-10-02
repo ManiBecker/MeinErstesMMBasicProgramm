@@ -14,10 +14,12 @@ In diesem Kapitel lernst du:
 * welche MMEdit-Version in diesem Tutorial verwendet wird
 * wie die Verbindung zu einem PicoMite oder Colour Maximite hergestellt wird
 * wie Programme auf dem PC erstellt, übertragen und getestet werden
+* wie MMEdit und der eingebaute Editor gemeinsam verwendet werden können
+* wie Programme nach einem Fehler direkt auf dem PicoMite korrigiert und erneut getestet werden können
 * wie mehrere Dateien gleichzeitig bearbeitet werden können
 * wie MMEdit bei größeren MMBasic-Projekten hilft
 
-Am Ende des Kapitels kennst du einen typischen Entwicklungsablauf mit MMEdit und kannst entscheiden, ob du lieber direkt auf dem PicoMite oder auf dem PC programmierst.
+Am Ende des Kapitels kennst du einen typischen Entwicklungsablauf mit MMEdit und kannst die Vorteile von MMEdit und dem eingebauten Editor miteinander kombinieren.
 
 === Was ist MMEdit?
 
@@ -64,31 +66,45 @@ Im normalen Entwicklungsalltag arbeiten beide Programme eng zusammen. MMEdit kan
 
 === Welche Version wird verwendet?
 
-Für dieses Tutorial verwende ich:
+Ursprünglich wurde dieses Tutorial mit folgender Version erstellt:
 
 [source]
 ----
 MMEdit V5.2.9
 ----
 
-Diese Version hat für mein Tutorial einen praktischen Vorteil: Sie liegt mir als portable Version vor und kann ohne klassische Installation verwendet werden. Dadurch lässt sie sich beispielsweise zusammen mit den übrigen Entwicklungswerkzeugen auf einem USB-Stick oder einer SD-Karte aufbewahren.
+Inzwischen verwende ich:
+
+[source]
+----
+MMEdit V5.4.3
+----
+
+Auch MMEdit V5.4.3 enthält eine portable Version. Diese verwende ich für die Beispiele und Tests in diesem Kapitel.
+
+Die grundlegende Bedienung des Editors hat sich gegenüber V5.2.9 nicht wesentlich geändert. Die in diesem Kapitel beschriebenen Arbeitsschritte lassen sich daher auch mit älteren Versionen nachvollziehen.
 
 [NOTE]
 ====
-MMEdit wird weiterhin entwickelt. Zum Zeitpunkt der Überarbeitung dieses Kapitels ist bereits MMEdit V5.4.3 verfügbar.
+MMEdit wird weiterhin entwickelt.
 
-Die grundlegende Bedienung des Editors hat sich gegenüber V5.2.9 jedoch nicht wesentlich geändert. Neuere Versionen enthalten unter anderem Verbesserungen an MMCC und der Dateiübertragung.
+Ab MMEdit V5.3.7 wurde insbesondere die Übertragung von Programmen zum PicoMite deutlich beschleunigt. Bei kleinen Programmen fällt der Unterschied möglicherweise kaum auf, bei größeren Programmen kann die Zeitersparnis jedoch erheblich sein.
 
-Wenn du MMEdit neu einrichtest, kannst du daher selbstverständlich eine aktuelle Version verwenden. Die grundlegenden Arbeitsschritte in diesem Kapitel bleiben gleich.
+Wenn du MMEdit neu einrichtest, empfiehlt es sich daher, eine aktuelle Version zu verwenden.
 ====
 
-=== Meine portable Version
+=== Die portable Version
 
-Bei einigen meiner MMBasic-Systeme habe ich eine portable MMEdit-Version zusammen mit den übrigen Dateien auf der mitgelieferten SD-Karte erhalten.
+MMEdit kann auch ohne klassische Installation als portable Version verwendet werden. Eine solche portable Version ist auch in MMEdit V5.4.3 enthalten und wird in diesem Tutorial verwendet.
 
-Das ist jedoch keine Voraussetzung für PicoMite oder Colour Maximite und gehört nicht grundsätzlich zu MMBasic.
+Die portable Version kann in ein beliebiges beschreibbares Verzeichnis kopiert und von dort gestartet werden. Dadurch lässt sie sich beispielsweise zusammen mit den übrigen Entwicklungswerkzeugen auf einem USB-Stick oder einer SD-Karte aufbewahren.
 
-Eine portable MMEdit-Version kann in ein beliebiges beschreibbares Verzeichnis kopiert und von dort gestartet werden. Bei einer solchen Version befinden sich auch MMEdit und MMCC gemeinsam im Programmverzeichnis.
+MMEdit und MMCC befinden sich dabei gemeinsam im Programmverzeichnis.
+
+[NOTE]
+====
+Die portable Version ist lediglich eine Möglichkeit, MMEdit zu verwenden. Sie ist keine Voraussetzung für den Betrieb eines PicoMite oder Colour Maximite und gehört nicht grundsätzlich zu MMBasic.
+====
 
 === Der erste Start
 
@@ -174,10 +190,10 @@ Der große Vorteil von MMEdit zeigt sich beim wiederholten Ändern und Testen ei
 Programm in MMEdit schreiben
           |
           v
-       Speichern
+        Speichern
           |
           v
-     Load and Run
+      Load and Run
           |
           v
 MMCC überträgt das Programm
@@ -186,10 +202,10 @@ MMCC überträgt das Programm
 PicoMite startet das Programm
           |
           v
-       Testen
+        Testen
           |
           v
-      Ändern ...
+       Ändern ...
 ----
 
 Während der Entwicklung wird dieser Zyklus oft viele Male wiederholt.
@@ -279,6 +295,80 @@ Der aktuelle Quelltext wird dabei vom PC zum Zielsystem übertragen und anschlie
 
 Das ist einer der größten Vorteile gegenüber einem Arbeitsablauf, bei dem Programme ausschließlich über Datenträger zwischen PC und PicoMite ausgetauscht werden.
 
+=== MMEdit und den eingebauten Editor gemeinsam verwenden
+
+indexterm:[MMEdit,Eingebauter Editor] MMEdit und der eingebaute Editor des PicoMite müssen nicht als zwei getrennte Arbeitsweisen betrachtet werden. Gerade bei der Fehlersuche können sich beide Werkzeuge sehr gut ergänzen.
+
+Überträgst du ein Programm mit *Load and Run* aus MMEdit und MMBasic meldet beim Ausführen einen Fehler, befindet sich das Programm bereits im Speicher des PicoMite.
+
+Drücke nun im MMCC-Terminal die Taste `F4`.
+
+Damit öffnest du den eingebauten Editor des PicoMite. Die Schreibmarke steht dabei an der Stelle, an der MMBasic den Fehler erkannt hat.
+
+Du kannst die betreffende Programmzeile nun unmittelbar korrigieren und das Programm anschließend mit `F2` erneut starten.
+
+Der Arbeitsablauf sieht dann beispielsweise so aus:
+
+[source]
+----
+Programm in MMEdit bearbeiten
+          |
+          v
+      Load and Run
+          |
+          v
+     Fehler tritt auf
+          |
+          v
+F4: eingebauten Editor öffnen
+          |
+          v
+     Fehler korrigieren
+          |
+          v
+    F2: erneut testen
+----
+
+Das ist besonders praktisch, wenn beim Testen nur eine kleine Änderung notwendig ist. Du musst das Programm nicht erst erneut in MMEdit ändern und übertragen.
+
+[IMPORTANT]
+====
+Wenn du eine Änderung direkt im eingebauten Editor vorgenommen hast, befindet sich diese Änderung zunächst nur auf dem PicoMite.
+
+Vergiss deshalb nicht, die erfolgreiche Korrektur anschließend auch in deiner Programmdatei auf dem PC nachzuführen.
+====
+
+Alternativ kannst du das geänderte Programm mit MMCC wieder vom PicoMite auf den PC übertragen.
+
+Damit ergibt sich ein sehr praktischer Entwicklungsablauf:
+
+[source]
+----
+       MMEdit auf dem PC
+              |
+              | Load and Run
+              v
+           PicoMite
+              |
+              | Fehler?
+              v
+      eingebauter Editor
+              |
+              | F4 bearbeiten
+              | F2 testen
+              v
+    Korrektur funktioniert
+              |
+        +-----+-----+
+        |           |
+        v           v
+ Änderung in    mit MMCC zurück
+ MMEdit         auf den PC
+ nachführen     übertragen
+----
+
+So kannst du die Vorteile beider Editoren kombinieren: MMEdit dient als komfortable Entwicklungsumgebung und Hauptablage des Quelltextes, während der eingebaute Editor schnelle Korrekturen direkt auf dem Zielsystem ermöglicht.
+
 === Dateien auf dem Zielsystem
 
 MMCC besitzt zusätzlich einen indexterm:[MMCC,Dateimanager]indexterm:[Dateimanager] Dateimanager. Damit können Dateien zwischen PC und MMBasic-System übertragen werden.
@@ -306,6 +396,8 @@ Damit ist die SD-Karte nur *eine* Möglichkeit, Dateien zu speichern. Für den n
 Über den Dateimanager können vorhandene Dateien auch vom Zielsystem auf den PC übertragen werden.
 
 Das ist beispielsweise hilfreich, wenn ein Programm nur noch auf dem PicoMite oder auf dessen SD-Karte vorhanden ist und du es wieder auf dem PC bearbeiten möchtest.
+
+Das gilt auch für Änderungen, die du während der Fehlersuche mit dem eingebauten Editor vorgenommen hast. Möchtest du diese Version übernehmen, kannst du das geänderte Programm wieder auf den PC übertragen.
 
 Für eine saubere Projektverwaltung empfiehlt es sich trotzdem, den PC als Hauptablage für den Quelltext zu verwenden und wichtige Projekte zusätzlich zu sichern.
 
@@ -365,7 +457,7 @@ Bei größeren Projekten erleichtert eine solche Struktur nicht nur die Entwickl
 
 === MMEdit oder der eingebaute Editor?
 
-Beide Werkzeuge haben ihre Berechtigung.
+Beide Werkzeuge haben ihre Berechtigung und können sich während der Entwicklung sehr gut ergänzen.
 
 [cols="2,1,1"]
 |===
@@ -398,9 +490,15 @@ Beide Werkzeuge haben ihre Berechtigung.
 |Programme schnell vom PC übertragen und testen
 |✗
 |✓
+
+|Schnelle Korrektur nach einer Fehlermeldung
+|✓
+|△
 |===
 
 Für kurze Tests oder Änderungen direkt am PicoMite ist der eingebaute Editor hervorragend geeignet. Wenn du dagegen längere Programme auf dem PC entwickelst, ist MMEdit deutlich komfortabler.
+
+Besonders praktisch ist die Kombination aus beiden: Das Programm wird in MMEdit entwickelt und übertragen. Tritt beim Testen ein Fehler auf, kann es direkt mit `F4` im eingebauten Editor geöffnet, korrigiert und mit `F2` erneut gestartet werden.
 
 === MMEdit oder Visual Studio Code?
 
@@ -425,6 +523,9 @@ Es spricht nichts dagegen, beide Werkzeuge parallel zu verwenden.
 * Sichere wichtige Projekte regelmäßig.
 * Lass MMCC während der Entwicklung geöffnet.
 * Teste Änderungen früh und häufig mit *Load and Run*.
+* Nutze bei kleinen Korrekturen nach einer Fehlermeldung den eingebauten Editor mit `F4`.
+* Teste die Korrektur direkt mit `F2`.
+* Übernimm erfolgreiche Änderungen anschließend wieder in die PC-Version deines Programms.
 * Bewahre die PC-Version deines Quelltextes als Hauptversion auf.
 * Verwende bei Bedarf den MMCC-Dateimanager, um zusätzliche Dateien zum PicoMite oder zurück auf den PC zu übertragen.
 
@@ -435,6 +536,10 @@ Es spricht nichts dagegen, beide Werkzeuge parallel zu verwenden.
 . Erstelle in MMEdit das Beispielprogramm aus diesem Kapitel.
 . Übertrage und starte es mit *Load and Run*.
 . Ändere die Pause von 500 auf 100 Millisekunden und teste erneut.
+. Baue testweise einen kleinen Fehler in das Programm ein und starte es erneut.
+. Öffne nach der Fehlermeldung mit `F4` den eingebauten Editor.
+. Korrigiere den Fehler und teste das Programm mit `F2`.
+. Übernimm die Korrektur anschließend auch in MMEdit.
 . Öffne zusätzlich ein zweites BASIC-Programm in einer weiteren Registerkarte.
 . Probiere die Suchfunktion von MMEdit aus.
 
@@ -444,13 +549,16 @@ In diesem Kapitel hast du gelernt:
 
 * MMEdit ist ein speziell für MMBasic entwickelter Programmeditor.
 * MMCC übernimmt die Kommunikation mit dem Zielsystem und dient als Terminal.
-* MMEdit V5.2.9 eignet sich weiterhin gut als portable Version für dieses Tutorial.
+* Dieses Tutorial wurde ursprünglich mit MMEdit V5.2.9 erstellt; inzwischen verwende ich MMEdit V5.4.3.
+* Neuere MMEdit-Versionen bieten unter anderem eine schnellere Programmübertragung.
 * Mit *Load and Run* entsteht ein schneller Zyklus aus Bearbeiten, Übertragen und Testen.
+* Nach einer Fehlermeldung kannst du mit `F4` den eingebauten Editor öffnen, eine Korrektur vornehmen und das Programm mit `F2` erneut testen.
+* Änderungen auf dem PicoMite sollten anschließend auch in die PC-Version übernommen oder mit MMCC zurückübertragen werden.
 * Der MMCC-Dateimanager ermöglicht zusätzlich die Übertragung von Dateien zwischen PC und Zielsystem.
 * Mehrere Registerkarten sowie Suchen und Ersetzen erleichtern die Arbeit an größeren Programmen.
-* Der eingebaute MMBasic-Editor und MMEdit ergänzen sich: Der eine arbeitet direkt auf dem Zielsystem, der andere komfortabel auf dem PC.
+* Der eingebaute MMBasic-Editor und MMEdit ergänzen sich: MMEdit eignet sich für die komfortable Entwicklung auf dem PC, der eingebaute Editor für schnelle Änderungen und Tests direkt auf dem Zielsystem.
 
-Damit endet der Teil *Werkzeuge und Entwicklung*. Du kennst nun sowohl den eingebauten Editor des PicoMite als auch eine komfortable Entwicklungsumgebung für den PC.
+Damit endet der Teil *Werkzeuge und Entwicklung*. Du kennst nun sowohl den eingebauten Editor des PicoMite als auch eine komfortable Entwicklungsumgebung für den PC – und weißt, wie beide Werkzeuge gemeinsam eingesetzt werden können.
 
 ifndef::kdp[]
 === Programmbeispiel
