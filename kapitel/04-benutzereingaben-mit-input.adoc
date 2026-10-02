@@ -240,14 +240,161 @@ Beispiel:
 30
 ----
 
-Da ein Benutzer nicht erkennen kann, in welcher Form die Eingabe nach dem
-`?`-Prompt anzugeben ist, kann dem `INPUT`-Befehl auch ein Fragetext mitgegeben
-werden. Die Syntax ist dabei:
+Da ein Benutzer nicht unbedingt erkennen kann, in welcher Form die Eingabe
+nach dem `?`-Prompt erfolgen soll, kann dem `INPUT`-Befehl auch ein Fragetext
+mitgegeben werden.
+
+Die vollständige Syntax von `INPUT` lautet:
 
 [source]
 ----
 INPUT ["prompt$(;|,)] var1 [, var2[, var3[, etc]]]
 ----
+
+Auf den ersten Blick sieht diese Schreibweise etwas kompliziert aus. Sie lässt
+sich aber leicht entschlüsseln.
+
+Die eckigen Klammern `[` und `]` kennzeichnen *optionale Bestandteile*. Alles,
+was in eckigen Klammern steht, kann also angegeben werden, muss aber nicht.
+
+Der senkrechte Strich `|` bedeutet *oder*. Die Schreibweise
+
+[source]
+----
+(;|,)
+----
+
+bedeutet daher: An dieser Stelle kann entweder ein Semikolon (`;`) oder ein
+Komma (`,`) stehen.
+
+Die einzelnen Bestandteile der Syntax bedeuten:
+
+[cols="2,5",options="header"]
+|===
+|Bestandteil |Bedeutung
+
+|`INPUT`
+|Die MMBasic-Anweisung zum Einlesen von Benutzereingaben.
+
+|`prompt$`
+|Ein optionaler Fragetext, der vor der Eingabe angezeigt wird.
+
+|`;`
+|Schließt den Fragetext ab. MMBasic zeigt danach zusätzlich ein Fragezeichen
+`?` an.
+
+|`,`
+|Kann anstelle des Semikolons verwendet werden. Das zusätzliche Fragezeichen
+wird dann nicht angezeigt.
+
+|`var1`
+|Die erste Variable, in der eine Eingabe gespeichert wird. Diese Variable ist
+erforderlich.
+
+|`var2`, `var3`, ...
+|Weitere optionale Variablen. Dadurch können mit einer einzigen
+`INPUT`-Anweisung mehrere Werte eingelesen werden.
+|===
+
+Die Schreibweise
+
+[source]
+----
+[, var2[, var3[, etc]]]
+----
+
+bedeutet, dass nach der ersten Variablen weitere Variablen folgen dürfen. Sie
+werden jeweils durch ein Komma voneinander getrennt.
+
+Beginnen wir mit der einfachsten Form:
+
+[source,basic]
+----
+INPUT A
+----
+
+Hier gibt es keinen Fragetext und nur eine Variable. MMBasic zeigt automatisch
+das Fragezeichen `?` als Eingabeaufforderung an.
+
+Mit einem Fragetext kann daraus zum Beispiel werden:
+
+[source,basic]
+----
+INPUT "Alter"; A
+----
+
+Das Semikolon (`;`) nach dem Fragetext bewirkt, dass MMBasic zusätzlich ein
+Fragezeichen anzeigt:
+
+[source]
+----
+Alter? 60
+----
+
+Sollen mehrere Werte eingelesen werden, können mehrere Variablen angegeben
+werden:
+
+[source,basic]
+----
+INPUT "Bitte gib zwei Zahlen ein"; A, B
+----
+
+Die beiden Eingaben werden durch ein Komma getrennt:
+
+[source]
+----
+Bitte gib zwei Zahlen ein? 10,20
+----
+
+Danach enthält `A` den Wert `10` und `B` den Wert `20`.
+
+Anstelle des Semikolons kann nach dem Fragetext auch ein Komma verwendet
+werden:
+
+[source,basic]
+----
+INPUT "Alter: ", A
+----
+
+In diesem Fall wird das zusätzliche Fragezeichen unterdrückt:
+
+[source]
+----
+Alter: 60
+----
+
+Die etwas kompliziert aussehende Syntax
+
+[source]
+----
+INPUT ["prompt$(;|,)] var1 [, var2[, var3[, etc]]]
+----
+
+beschreibt somit lediglich verschiedene mögliche Formen derselben Anweisung:
+
+[source,basic]
+----
+INPUT A
+INPUT A, B
+INPUT "Alter"; A
+INPUT "Zwei Zahlen"; A, B
+INPUT "Alter: ", A
+----
+
+[NOTE]
+====
+Die Zeichen `[` und `]` sowie der senkrechte Strich `|` gehören nur zur
+*Beschreibung der Syntax*. Sie werden nicht in das BASIC-Programm eingegeben.
+
+Merke:
+
+* `[...]` bedeutet: Dieser Teil ist optional.
+* `|` bedeutet: Wähle eine der angegebenen Möglichkeiten.
+* `prompt$` ist ein optionaler Fragetext.
+* `var1` ist erforderlich.
+* `var2`, `var3` und weitere Variablen sind optional.
+* Mehrere Eingabewerte werden durch Kommas voneinander getrennt.
+====
 
 Normalerweise wird der Fragetext mit einem Semikolon (`;`) abgeschlossen. In
 diesem Fall wird hinter dem Fragetext ein Fragezeichen angezeigt.
