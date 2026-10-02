@@ -1,0 +1,48 @@
+# =============================================================================
+# print-theme.yml
+# Druckfreundliches PDF-Theme fuer "Mein erstes MMBasic Programm"
+#
+# Ziel:
+#   - Ausdruck auf A4-Papier
+#   - Duplexdruck
+#   - Lochen und Abheften in einem Ordner
+#   - ausreichend grosser Innenrand fuer die Lochung
+#
+# Das Theme erweitert das normale theme.yml des Projekts.
+# Dadurch werden Schriftfarben und andere gemeinsame Einstellungen
+# automatisch uebernommen.
+#
+# Wichtig:
+#   Der Build sollte mit "media=prepress" erfolgen, damit Innen- und
+#   Aussenraender auf linken/rechten Seiten korrekt gespiegelt werden.
+#
+# Beispiel:
+#   asciidoctor-pdf -a media=prepress \
+#     -a pdf-theme=print-theme.yml \
+#     -o book-print.pdf book.adoc
+# =============================================================================
+
+extends: theme.yml
+
+# -----------------------------------------------------------------------------
+# Seite
+# -----------------------------------------------------------------------------
+page:
+  # Fuer den Ausdruck auf normalen Druckern verwenden wir A4.
+  size: A4
+
+  # Hochformat
+  layout: portrait
+
+  # Standard-Seitenraender:
+  # Reihenfolge: oben, rechts, unten, links
+  margin: [20mm, 20mm, 20mm, 20mm]
+
+  # Innenrand fuer Lochung und Abheftung.
+  #
+  # Bei media=prepress wird dieser Rand auf geraden und ungeraden Seiten
+  # automatisch gespiegelt.
+  margin-inner: 30mm
+
+  # Aussenrand
+  margin-outer: 20mm
