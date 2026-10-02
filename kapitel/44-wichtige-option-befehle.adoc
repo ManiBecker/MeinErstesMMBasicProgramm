@@ -640,6 +640,29 @@ erzeugte Ausgabe mit 75 Hz darstellen, ein anderer dagegen nicht.
 OPTION RESOLUTION 640,252000
 ----
 
+In diesem konkreten Fall war 60 Hz die kompatiblere Einstellung. Bei einem
+anderen Monitor oder Fernsehgerät kann es jedoch auch umgekehrt sein.
+
+Falls bei 640 × 480 kein Bild erscheint, solltest du deshalb gegebenenfalls
+beide Bildwiederholraten ausprobieren:
+
+[source,basic]
+----
+OPTION RESOLUTION 640,252000
+----
+
+für 60 Hz und:
+
+[source,basic]
+----
+OPTION RESOLUTION 640,315000
+----
+
+für 75 Hz.
+
+Gerade bei unterschiedlichen Generationen von Monitoren und Fernsehgeräten
+kann sich die Unterstützung dieser Bildschirmmodi unterscheiden.
+
 ==== Die Konsole als Rettungsweg
 
 Wenn über VGA oder HDMI keine brauchbare Ausgabe mehr erscheint, kann die
