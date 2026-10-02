@@ -397,15 +397,44 @@ OPTION RESOLUTION 640,252000
 wurde die Bildwiederholrate auf 60 Hz reduziert. Damit funktionierte die
 Ausgabe auch am zuvor problematischen Monitor.
 
+Dieses Beispiel darf jedoch nicht als allgemeine Empfehlung für 60 Hz
+verstanden werden. Die tatsächlich unterstützten Bildwiederholraten hängen
+vom verwendeten Monitor oder Fernsehgerät ab.
+
+Auch wenn 640 × 480 mit 60 Hz traditionell eine sehr weit verbreitete
+Bildschirmauflösung ist, unterstützen nicht alle modernen Displays diese
+Betriebsart. Es gibt Geräte, die 640 × 480 mit 60 Hz nicht darstellen,
+während 640 × 480 mit 75 Hz problemlos funktioniert.
+
+Umgekehrt gibt es, wie der oben beschriebene Test zeigt, auch Monitore, bei
+denen 60 Hz funktionieren und 75 Hz nicht.
+
 [NOTE]
 ====
 Wenn ein PicoMite mit VGA- oder HDMI-Ausgabe an einem Monitor kein Bild
 liefert, muss deshalb nicht unbedingt ein Hardwarefehler vorliegen.
 
 Prüfe auch die mit `OPTION RESOLUTION` eingestellte Auflösung und
-Bildwiederholrate. Eine Einstellung mit 60 Hz kann bei Monitoren mit
-eingeschränkter Unterstützung verschiedener Bildwiederholraten die
-kompatiblere Wahl sein.
+Bildwiederholrate.
+
+Bei 640 × 480 kann es sich lohnen, sowohl die Einstellung mit 60 Hz als auch
+die mit 75 Hz auszuprobieren:
+
+[source,basic]
+----
+OPTION RESOLUTION 640,252000
+----
+
+für 60 Hz beziehungsweise:
+
+[source,basic]
+----
+OPTION RESOLUTION 640,315000
+----
+
+für 75 Hz.
+
+Welche Einstellung besser funktioniert, hängt vom verwendeten Display ab.
 ====
 
 === Tastatur konfigurieren
