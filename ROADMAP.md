@@ -23,7 +23,7 @@ Schwerpunkt dieser Version ist die Bereitstellung und Verifizierung aller Beispi
 
 ## Version 0.21 – Nachschlagewerk und Indexierung ✅
 
-**Veröffentlicht am 19. September 2026**
+**Veröffentlicht am 24. September 2026**
 
 Schwerpunkt dieser Version ist die Verbesserung des Nachschlagewerts
 und der Navigation innerhalb des Tutorials.
@@ -41,7 +41,56 @@ und der Navigation innerhalb des Tutorials.
 
 ---
 
-## Version 0.22 – Einstieg verbessern
+## Version 0.22 – Überarbeitung und PDF-Ausgaben ✅
+
+**Veröffentlicht am 3. Oktober 2026**
+
+Schwerpunkt dieser Version ist die inhaltliche Überarbeitung des Tutorials
+sowie die Optimierung der verschiedenen PDF-Ausgaben.
+
+### Abgeschlossen
+
+- [x] Kapitel 4 „Benutzereingaben mit INPUT“ überarbeitet
+  - Syntax von `INPUT ["prompt$(;|,)] var1 [, var2[, var3[, etc]]]` ausführlicher erklärt
+  - Bedeutung optionaler Syntaxelemente sowie von `;`, `,` und `|` erläutert
+  - Beispiele für einzelne und mehrere Eingabevariablen ergänzt
+
+- [x] Kapitel 39 „MMEdit“ aktualisiert
+  - Beschreibung an MMEdit 5.4.3 angepasst
+  - F4/F2-Workflow mit dem integrierten Editor ergänzt
+  - Dateiübertragung und Rückübertragung über MMCC aktualisiert
+  - Hinweise zu neueren und schnelleren Übertragungsmöglichkeiten ergänzt
+
+- [x] Kapitel 42 „CHAIN und MM.CMDLINE$“ grundlegend überarbeitet
+  - Einsatz von `CHAIN` für zusammengehörende Anwendungen präzisiert
+  - Hinweise zur Übernahme von Variablen und zur Datentyp-Kompatibilität ergänzt
+  - Speicherbedarf und Grenzen von `CHAIN` erläutert
+  - Verwendung von `MM.CMDLINE$` erweitert
+  - Dateien als Alternative zur Datenübergabe zwischen Programmen beschrieben
+  - Praxisbeispiel überarbeitet
+
+- [x] Kapitel 44 überarbeitet
+  - Hinweise zu unterschiedlichen Bildschirmfrequenzen ergänzt
+  - 60-Hz- und 75-Hz-Einstellungen bei `OPTION RESOLUTION` als mögliche Troubleshooting-Varianten beschrieben
+
+- [x] Hinweise zu MMB4L unter Linux ergänzt
+  - Zugriff auf angeschlossene PicoMite-Systeme unter Linux erläutert
+
+- [x] Hinweise zu Bildschirmmodi aktualisiert
+  - Einschränkungen von MODE 3 bei der PicoMite-WEB-Firmware erläutert
+  - Speicherbedarf beziehungsweise Speicheraufteilung als Ursache klargestellt
+
+- [x] Erklärungen und Beispiele an weiteren Stellen verbessert und präzisiert
+
+- [x] Darstellung und Lesbarkeit weiter optimiert
+- [x] PDF-Ausgabe für Bildschirm und Download aktualisiert
+- [x] Separate Print-Ausgabe erstellt
+- [x] KDP-Ausgabe für die Buchveröffentlichung aktualisiert
+- [x] Build-Skripte für die verschiedenen PDF-Ausgaben angepasst
+
+---
+
+## Version 0.23 – Einstieg verbessern
 
 Schwerpunkt ist die Vereinfachung des Einstiegs für neue Anwender.
 
@@ -55,7 +104,7 @@ Schwerpunkt ist die Vereinfachung des Einstiegs für neue Anwender.
 
 ---
 
-## Version 0.23 – Dokumentation erweitern
+## Version 0.24 – Dokumentation erweitern
 
 Schwerpunkt ist die Verbesserung der Übersicht und des Nachschlagewerts.
 
