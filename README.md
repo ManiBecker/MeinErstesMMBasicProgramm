@@ -12,12 +12,12 @@ Das Projekt wird öffentlich auf GitHub entwickelt und kontinuierlich erweitert 
 
 ## Projektstatus
 
-✅ **Version 0.21 veröffentlicht**
+✅ **Version 0.22 veröffentlicht**
 
-Aktuelle Version: **0.21**  
-Stand: **24. September 2026**
+Aktuelle Version: **0.22**  
+Stand: **3. Oktober 2026**
 
-Das Tutorial umfasst inzwischen **52 Kapitel** mit zahlreichen MMBasic-Beispielprogrammen und einer umfangreichen Befehlsreferenz im Anhang.
+Das Tutorial umfasst **52 Kapitel** mit zahlreichen MMBasic-Beispielprogrammen und einer umfangreichen Befehlsreferenz im Anhang.
 
 Die aktuelle Version behandelt neben den Grundlagen der BASIC-Programmierung zahlreiche Möglichkeiten moderner MMBasic-Systeme. Dazu gehören unter anderem:
 
@@ -34,6 +34,12 @@ Die aktuelle Version behandelt neben den Grundlagen der BASIC-Programmierung zah
 - Besonderheiten verschiedener PicoMite- und Colour-Maximite-Systeme
 
 Alle zu dieser Version gehörenden BASIC-Programmbeispiele wurden auf PicoMite getestet und stehen zusätzlich als Download-Paket zur Verfügung.
+
+Das Tutorial wird in drei PDF-Varianten erzeugt:
+
+- **Normal** – für die Bildschirmdarstellung und den allgemeinen Download
+- **Print** – für eine gut lesbare Druckausgabe
+- **KDP** – für die Buchausgabe über Amazon Kindle Direct Publishing
 
 Das Projekt wird weiterhin gepflegt und erweitert. Neue Ideen, Korrekturen und Verbesserungsvorschläge aus der Community fließen in zukünftige Versionen ein.
 
@@ -54,7 +60,7 @@ Dieses Repository enthält:
 - 💻 MMBasic-Programmbeispiele
 - 🖼️ Bilder und Illustrationen
 - 📦 Download-Pakete
-- 📄 PDF-Version des Tutorials
+- 📄 PDF-Versionen des Tutorials
 
 ## Website
 
