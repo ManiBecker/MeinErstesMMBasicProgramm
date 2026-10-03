@@ -25,6 +25,7 @@ Nicht alle Punkte werden zwingend umgesetzt. Die Liste dient als Ideensammlung.
   - [x] String
   - [x] Typkennzeichen (`%`, `!`, `$`)
   - [x] Typkonvertierung
+
 - [x] Kapitel „Variablen“ erweitern
   - [x] Regeln für Variablennamen
   - [x] Verwendung von `_` und `.`
@@ -33,6 +34,13 @@ Nicht alle Punkte werden zwingend umgesetzt. Die Liste dient als Ideensammlung.
   - [x] Ein Variablenname kann nur einen Datentyp besitzen
   - [x] Empfehlungen für sprechende Variablennamen
   - [x] `OPTION EXPLICIT` und Variablendeklaration
+
+- [x] Benutzereingaben mit `INPUT` ausführlicher erklären
+  - [x] Syntax von `INPUT` erläutern
+  - [x] Optionale Syntaxelemente erklären
+  - [x] Bedeutung von `;` und `,` beim Prompt erläutern
+  - [x] Eingabe mehrerer Variablen erklären
+  - [x] Beispiele ergänzen
 
 ---
 
@@ -78,8 +86,8 @@ Nicht alle Punkte werden zwingend umgesetzt. Die Liste dient als Ideensammlung.
 | Schnellstart für PicoMite (Wolfgang) | ☑ Geplant |
 | Wiedereinstieg nach längerer Pause (Ulrich) | ☑ Geplant |
 | Baumdiagramm der MMBasic-Systeme (PilotPirx) | ☑ Geplant |
-| Kapitel „Datentypen“ (bfwolf) | ☑ Geplant |
-| Regeln für Variablennamen (bfwolf) | ☑ Geplant |
+| Kapitel „Datentypen“ (bfwolf) | ✅ Umgesetzt |
+| Regeln für Variablennamen (bfwolf) | ✅ Umgesetzt |
 | `TYPE ... END TYPE` und Data-Logger-Beispiel (bfwolf) | ☑ Geplant |
 | Historischer Exkurs zu BASIC-Zeilennummern (bfwolf) | ☑ Geplant |
 | Kurzübersicht weiterer Maximite-Varianten und ihrer Besonderheiten (Cpt_Void / ThoralfAsmussen) | ☑ Geplant |
