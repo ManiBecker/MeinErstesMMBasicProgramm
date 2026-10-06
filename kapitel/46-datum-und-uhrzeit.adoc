@@ -220,6 +220,50 @@ TIMER = 0
 
 Damit lassen sich einfache Zeitmessungen besonders übersichtlich durchführen.
 
+==== Wie lange kann TIMER zählen?
+
+Da `TIMER` fortlaufend Millisekunden zählt, stellt sich die Frage, ob der
+Zähler irgendwann überläuft.
+
+Der Raspberry Pi Pico besitzt dafür einen 64-Bit-Hardware-Timer. Der
+zugrunde liegende Hardwarezähler arbeitet mit Mikrosekunden und kann einen
+sehr großen Wertebereich erfassen.
+
+Ein 64-Bit-Zähler kann
+
+[source]
+----
+18.446.744.073.709.551.616
+----
+
+verschiedene Werte darstellen.
+
+Würde ein solcher Zähler in Mikrosekunden fortlaufend zählen, entspräche
+dies einer Zeitspanne von ungefähr 585.000 Jahren.
+
+Für Zeitmessungen mit `TIMER` muss man sich deshalb in normalen
+MMBasic-Programmen praktisch keine Gedanken über einen Überlauf nach Tagen,
+Monaten oder Jahren machen.
+
+Zum Vergleich: Ein Jahr entspricht ungefähr
+
+[source]
+----
+31.536.000.000 ms
+----
+
+also rund 31,5 Milliarden Millisekunden.
+
+[NOTE]
+====
+Der Hardware-Timer des Pico arbeitet intern mit Mikrosekunden. `TIMER`
+stellt diesen Zeitbezug in MMBasic als Millisekundenwert zur Verfügung.
+
+Für die üblichen Anwendungen von `TIMER`, beispielsweise Stoppuhren,
+Laufzeitmessungen oder Zeitabstände zwischen Ereignissen, ist ein Überlauf
+daher praktisch nicht relevant.
+====
+
 === Zeit messen
 
 indexterm:[Zeitmessung] Mit TIMER können Zeitmessungen durchgeführt werden.
