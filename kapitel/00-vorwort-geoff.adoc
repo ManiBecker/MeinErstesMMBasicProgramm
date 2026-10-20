@@ -1,0 +1,34 @@
+[.unnumbered]
+== Vorwort von Geoff Graham
+
+MMBasic entstand Ende 2010 als Firmware für einen Computer, den ich entwickelt hatte und der den Namen *Maximite* trug. Dieser Computer sollte als Selbstbauprojekt in der australischen Elektronikzeitschrift *Silicon Chip* veröffentlicht werden. Als Grundlage diente der PIC32, ein damals neuer 32-Bit-Mikrocontroller von Microchip.
+
+Ich wollte einen eigenständigen Computer schaffen, der nach dem Einschalten direkt mit einer BASIC-Eingabeaufforderung startet – ganz so wie die Heimcomputer der 1970er- und 1980er-Jahre, beispielsweise der Apple II, der Tandy TRS-80 oder der Commodore 64.
+
+Damals gab es keinen wirklich brauchbaren BASIC-Interpreter, der frei verfügbar war. Also beschloss ich, meinen eigenen zu schreiben. So entstand auch der Name MMBasic: der BASIC-Interpreter für den Maximite-Computer.
+
+Die erste Version von MMBasic war noch recht einfach gehalten, da sie die BASIC-Dialekte der 1970er-Jahre nachbilden sollte, die ebenfalls vergleichsweise schlicht waren. Doch zu meiner großen Überraschung wurde der Maximite mit MMBasic ein riesiger Erfolg. Viele Tausend begeisterte Hobbyelektroniker bauten den Computer nach.
+
+Dieser Erfolg motivierte mich, MMBasic kontinuierlich zu verbessern und zu erweitern. Aus dem ursprünglich einfachen Interpreter entwickelte sich nach und nach eine ausgereifte Programmiersprache, mit der sich auch große und komplexe Programme erstellen lassen.
+
+Bis 2019 führte ich die Entwicklung von MMBasic selbst fort. Dann übernahm Peter Mather die Herausforderung, den Interpreter weiter zu verfeinern und die Unterstützung für neue Geräte und Bildschirme auszubauen.
+
+Ein weiterer großer Entwicklungsschritt folgte 2021 mit der Veröffentlichung des Raspberry Pi Pico. Peter Mather brachte damals die erste Version von MMBasic heraus, die auf diesem neuen Mikrocontroller lief.
+
+Der Raspberry Pi Pico und seine Nachfolger zeichnen sich unter anderem dadurch aus, dass sie über reichlich Flash-Speicher für die Firmware verfügen. Peter nutzte diese Möglichkeiten im Laufe der Zeit, um MMBasic um eine Vielzahl neuer Funktionen zu erweitern. Dazu gehören unter anderem HDMI-Grafikausgabe, WLAN- und Internetanbindung, Compiler-Technologie und vieles mehr. So entwickelte sich MMBasic zu der leistungsfähigen Programmiersprache, die wir heute kennen.
+
+Von Anfang an war ich davon überzeugt, dass eine gute Dokumentation entscheidend für den Erfolg eines Projekts ist. Schließlich nützt es wenig, eine bemerkenswerte neue Software oder ein faszinierendes Gerät zu entwickeln, wenn niemand weiß, wie man damit umgeht – etwas, das bei Hobbyprojekten leider nur allzu häufig vorkommt.
+
+Deshalb gab es für MMBasic von Beginn an ein vollständiges Benutzerhandbuch, das sowohl ausführlich als auch gut verständlich sein sollte.
+
+Umso mehr habe ich mich gefreut, von Manfreds neuem Projekt zu erfahren: diesem umfassenden MMBasic-Tutorial.
+
+Es bietet einen einsteigerfreundlichen Zugang zu MMBasic. Angefangen beim allerersten BASIC-Programm führt es die Leser Schritt für Schritt an immer anspruchsvollere Themen heran – darunter Grafik, Sound, Dateizugriffe, Interrupts und vieles mehr.
+
+Und das Beste daran: Es ist leicht verständlich und unterhaltsam geschrieben.
+
+Also macht es euch bequem und entdeckt die Welt von MMBasic!
+
+**Geoff Graham**
+
+*2026*
