@@ -1,5 +1,5 @@
 [.unnumbered]
-== Vorwort
+== Vorwort des Autors
 
 Meine erste Begegnung mit MMBasic liegt inzwischen mehr als zehn Jahre zurück.
 Damals hatte mein jüngerer Bruder Uwe eine Portierung von MMBasic auf das
