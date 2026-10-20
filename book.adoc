@@ -108,6 +108,10 @@ Ziel war es, technische Sachverhalte anschaulich zu vermitteln und den Einstieg 
 
 :sectnums!:
 
+include::kapitel/00-vorwort-geoff.adoc[]
+
+<<<
+
 include::kapitel/00-vorwort.adoc[]
 
 <<<
