@@ -524,8 +524,7 @@ Du kannst nun:
 * die Typkennzeichen `%`, `!` und `$` einordnen
 * Variablen mit `DIM` ausdrücklich deklarieren
 * mit `OPTION EXPLICIT` nicht deklarierte Variablen erkennen
-* Werte verändern
-* mit Variablen rechnen
+* Werte verändern und mit Variablen rechnen
 
 Im nächsten Kapitel lernen wir Benutzereingaben mit `INPUT` kennen.
 

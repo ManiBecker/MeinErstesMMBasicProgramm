@@ -330,8 +330,6 @@ Der Colour Maximite 2 verwendet ein anderes Framebuffer-Konzept.
 Dort werden häufig virtuelle Bildschirme verwendet, die größer als die sichtbare Anzeige sein können.
 
 Techniken wie Scrolling und große Karten lassen sich damit sehr elegant umsetzen.
-
-Diese Funktionen werden wir später in eigenen Kapiteln behandeln.
 ====
 
 === Experimentiere!

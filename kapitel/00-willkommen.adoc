@@ -51,6 +51,7 @@ Sie läuft heute auf verschiedenen Plattformen – vom einfachen Raspberry Pi Pi
 
 Wenn du gerade erst mit MMBasic beginnst, hilft dir die folgende Übersicht bei der Auswahl der passenden Plattform.
 
+indexterm:[Plattform]
 [cols="2,2,1,1,2",options="header"]
 |===
 |Plattform |Benötigte Hardware |Grafik |GPIO |Empfehlung
@@ -110,24 +111,36 @@ Möchtest du dagegen auch LEDs, Taster, Sensoren und andere elektronische Bautei
 
 Besitzt du einen Colour Maximite 2, kannst du den größten Teil der Programme ebenfalls ohne Änderungen oder mit nur geringfügigen Anpassungen ausführen.
 
+
+=== Verwendete MMBasic-Firmware
+
+indexterm:[Firmware-Version]
+Die Programme und Beispiele in diesem Tutorial wurden überwiegend mit der *MMBasic-Firmware Version 7.0* erstellt und überprüft. Mit dieser Firmwaregeneration wurden zahlreiche Funktionen der PicoMite-Familie und des Colour Maximite 2 vereinheitlicht.
+
+Eine wichtige Neuerung betrifft die Kompatibilität der Grafikbefehle. Auf dem Colour Maximite 2 kann mit `OPTION PICOMITE VGA` beziehungsweise `OPTION PICOMITE HDMI` ein entsprechender PicoMite-Kompatibilitätsmodus aktiviert werden.
+
+Dadurch lassen sich viele Programme, die ursprünglich für den PicoMite VGA oder PicoMite HDMI geschrieben wurden, auch auf dem Colour Maximite 2 ausführen, ohne dass umfangreiche Anpassungen erforderlich sind.
+
+Allerdings sind nicht alle Funktionen der verschiedenen Systeme identisch. Insbesondere bei hardwarespezifischen Befehlen und Einstellungen können weiterhin Unterschiede bestehen.
+
 === Warum dieses Tutorial?
 
-Viele Programmierbücher konzentrieren sich auf die Beschreibung einzelner Befehle.
+Die offiziellen MMBasic-Handbücher von Geoff Graham und Peter Mather dokumentieren ausführlich die Befehle, Funktionen und Möglichkeiten der Programmiersprache. Sie sind unverzichtbare Nachschlagewerke für alle, die mit MMBasic arbeiten.
 
-Dieses Tutorial verfolgt einen anderen Ansatz.
+**Dieses Tutorial soll diese Handbücher nicht ersetzen, sondern sinnvoll ergänzen.**
 
-Wir entwickeln gemeinsam praktische Programme und Projekte.
+Hier steht das praktische Lernen im Vordergrund. Wir entwickeln gemeinsam Programme und Projekte und lernen dabei Schritt für Schritt die Programmiersprache kennen.
 
-Dabei lernen wir die Sprache Schritt für Schritt kennen.
-
-Von den ersten Ausgaben auf dem Bildschirm bis hin zu:
+Wir beginnen mit einfachen Ausgaben auf dem Bildschirm und arbeiten uns nach und nach zu anspruchsvolleren Themen vor:
 
 * Grafikanwendungen
 * Spielen
 * Hardwareprojekten
 * elektronischen Experimenten
 
-Das Ziel ist nicht nur das Erlernen einzelner Befehle, sondern das Verständnis, wie aus vielen kleinen Bausteinen größere Programme entstehen.
+Dabei geht es nicht nur darum, einzelne Befehle kennenzulernen, sondern vor allem zu verstehen, wie aus vielen kleinen Bausteinen größere Programme entstehen.
+
+Während die offiziellen Handbücher als umfassende Referenz dienen, begleitet dich dieses Tutorial auf deinem Weg vom ersten kleinen BASIC-Programm bis hin zu eigenen Projekten.
 
 === Lernen durch praktische Beispiele
 
