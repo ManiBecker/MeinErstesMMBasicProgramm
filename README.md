@@ -1,47 +1,72 @@
 # Mein erstes MMBasic Programm
 
-> Ein freies deutschsprachiges Tutorial für MMBasic auf PicoMite und Colour Maximite.
+> Ein freies deutschsprachiges Tutorial für MMBasic auf PicoMite und Colour Maximite 2.
 
 ## Willkommen
 
 Dieses Repository enthält das frei verfügbare Tutorial **Mein erstes MMBasic Programm**.
 
-Das Tutorial richtet sich an alle, die MMBasic auf dem PicoMite oder Colour Maximite kennenlernen möchten – vom Einsteiger bis zum fortgeschrittenen Anwender.
+Das Tutorial richtet sich an alle, die MMBasic auf dem PicoMite oder Colour Maximite 2 kennenlernen möchten – vom Einsteiger bis zum fortgeschrittenen Anwender.
 
-Das Projekt wird öffentlich auf GitHub entwickelt und kontinuierlich erweitert und verbessert. Dabei fließen auch Anregungen, Erfahrungen und Rückmeldungen aus der MMBasic-Community in das Tutorial ein.
+Das Projekt wird öffentlich auf GitHub entwickelt und kontinuierlich erweitert und verbessert. Dabei fließen auch Anregungen, Erfahrungen und Rückmeldungen aus der MMBasic-Community ein.
 
 ## Projektstatus
 
-✅ **Version 0.22 veröffentlicht**
+✅ **Version 0.23 – fertiggestellt**
 
-Aktuelle Version: **0.22**  
-Stand: **3. Oktober 2026**
+Aktuelle Version: **0.23**  
+Stand: **10. November 2026**
 
-Das Tutorial umfasst **52 Kapitel** mit zahlreichen MMBasic-Beispielprogrammen und einer umfangreichen Befehlsreferenz im Anhang.
+Das Tutorial umfasst **52 Kapitel** mit zahlreichen MMBasic-Beispielprogrammen und einem Stichwortverzeichnis.
 
-Die aktuelle Version behandelt neben den Grundlagen der BASIC-Programmierung zahlreiche Möglichkeiten moderner MMBasic-Systeme. Dazu gehören unter anderem:
+Die aktuelle KDP-Ausgabe hat **812 Seiten** und wurde vollständig durchgesehen. Letzte Textkorrekturen und Verbesserungen am Seitenlayout wurden eingearbeitet.
+
+Ein zweiter Probedruck wurde bereits geprüft. Die Veröffentlichung als Taschenbuch über Amazon KDP ist in Vorbereitung.
+
+### Inhalt
+
+Das Tutorial behandelt unter anderem:
 
 - Variablen, Datentypen, Schleifen und Unterprogramme
 - Grafik, Farben und verschiedene Bildschirmmodi
 - Sound und Audio
-- Dateien und Dateisystem
+- Dateien und Dateisysteme
 - Datum und Uhrzeit
 - Interrupts
-- Maus und Tastatur
-- BLIT, Sprites und Tilemaps
-- WS2812-LEDs
-- Ein- und Ausgabe über die Hardware-Schnittstellen
+- Maus, Tastatur und Gamepads
+- BLIT, Sprites und Layerbuffer
+- WS2812-RGB-LEDs
+- Digitale und analoge Ein- und Ausgänge
+- Serielle Kommunikation
 - Besonderheiten verschiedener PicoMite- und Colour-Maximite-Systeme
 
-Alle zu dieser Version gehörenden BASIC-Programmbeispiele wurden auf PicoMite getestet und stehen zusätzlich als Download-Paket zur Verfügung.
+Die BASIC-Programmbeispiele stehen im Repository und zusätzlich als Download-Paket zur Verfügung.
 
-Das Tutorial wird in drei PDF-Varianten erzeugt:
+### MMBasic-Firmware 7.0
+
+Die Programme und Beispiele wurden überwiegend mit **MMBasic-Firmware Version 7.0** erstellt beziehungsweise überprüft.
+
+Mit dieser Firmwaregeneration wurden zahlreiche Funktionen der PicoMite-Familie und des Colour Maximite 2 vereinheitlicht.
+
+Auf dem Colour Maximite 2 können mit `OPTION PICOMITE VGA` beziehungsweise `OPTION PICOMITE HDMI` entsprechende PicoMite-Kompatibilitätsmodi aktiviert werden. Dadurch lassen sich viele PicoMite-Programme auch auf dem Colour Maximite 2 ausführen.
+
+### Ergänzung zu den offiziellen Handbüchern
+
+Dieses Tutorial soll die offiziellen MMBasic-Handbücher von Geoff Graham und Peter Mather nicht ersetzen, sondern sinnvoll ergänzen.
+
+Während die Handbücher als umfassende Referenz dienen, vermittelt das Tutorial die Programmiersprache Schritt für Schritt anhand praktischer Beispiele und Projekte.
+
+Besonders freue ich mich darüber, dass **Geoff Graham, der ursprüngliche Entwickler von MMBasic, ein eigenes Vorwort** zu diesem Buch beigesteuert hat.
+
+### PDF-Ausgaben
+
+Das Tutorial wird in drei Varianten bereitgestellt:
 
 - **Normal** – für die Bildschirmdarstellung und den allgemeinen Download
 - **Print** – für eine gut lesbare Druckausgabe
-- **KDP** – für die Buchausgabe über Amazon Kindle Direct Publishing
+- **KDP** – für die Taschenbuchausgabe über Amazon Kindle Direct Publishing
 
-Das Projekt wird weiterhin gepflegt und erweitert. Neue Ideen, Korrekturen und Verbesserungsvorschläge aus der Community fließen in zukünftige Versionen ein.
+Die PDF-Dateien sind im Repository beziehungsweise bei den GitHub-Releases verfügbar.
 
 ## Roadmap & ToDo
 
@@ -61,10 +86,11 @@ Dieses Repository enthält:
 - 🖼️ Bilder und Illustrationen
 - 📦 Download-Pakete
 - 📄 PDF-Versionen des Tutorials
+- 🔧 Build-Skripte für die verschiedenen PDF-Ausgaben
 
 ## Website
 
-Die jeweils aktuelle Online-Version des Tutorials sowie begleitende Informationen findest du hier:
+Die jeweils aktuelle Version des Tutorials sowie begleitende Informationen findest du hier:
 
 **https://mikrocontroller.bplaced.net/wordpress/mein-erstes-mmbasic-programm-vorwort/**
 
