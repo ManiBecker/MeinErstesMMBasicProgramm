@@ -1,0 +1,61 @@
+
+/* kindle.css
+ * Mein erstes MMBasic Programm
+ * EPUB3 / Kindle
+ */
+
+body {
+  font-family: serif;
+  line-height: 1.4;
+}
+
+/* Überschriften */
+h1, h2, h3, h4 {
+  font-family: sans-serif;
+  line-height: 1.2;
+  break-after: avoid;
+}
+
+/* BASIC-Programmbeispiele */
+pre, code {
+  font-family: monospace;
+}
+
+pre {
+  font-size: 0.85em;
+  line-height: 1.25;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background-color: #f2f2f2;
+  padding: 0.5em;
+  border: 1px solid #cccccc;
+}
+
+/* Inline-Code */
+code {
+  overflow-wrap: anywhere;
+}
+
+/* Bilder */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Tabellen */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #999;
+  padding: 0.3em;
+}
+
+/* Hinweise */
+.admonitionblock {
+  border-left: 3px solid #888;
+  padding-left: 0.75em;
+  margin: 1em 0;
+}
