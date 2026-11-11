@@ -1,0 +1,124 @@
+
+/* ============================================================
+ * kindle.css
+ * Mein erstes MMBasic Programm
+ *
+ * EPUB3 / Amazon Kindle
+ *
+ * Ziel:
+ *   - Gut lesbare BASIC-Programmbeispiele
+ *   - Einrueckungen erhalten
+ *   - Lange Variablennamen moeglichst nicht trennen
+ *   - Dezente Hintergrundfarben
+ *   - Dynamisches Layout fuer Tablet und Smartphone
+ *
+ * Version: 0.23
+ * ============================================================ */
+
+
+/* ------------------------------------------------------------
+ * Grundschrift / Fliesstext
+ * ------------------------------------------------------------ */
+
+body {
+  font-family: serif;
+  line-height: 1.4;
+}
+
+
+/* ------------------------------------------------------------
+ * Ueberschriften
+ * ------------------------------------------------------------ */
+
+h1, h2, h3, h4 {
+  font-family: sans-serif;
+  line-height: 1.2;
+  break-after: avoid;
+}
+
+
+/* ------------------------------------------------------------
+ * BASIC-Programmbeispiele
+ * ------------------------------------------------------------ */
+
+pre {
+  /* Feste Zeichenbreite fuer Programmcode */
+  font-family: monospace;
+
+  /* Etwas kleiner als der normale Fliesstext */
+  font-size: 0.80em;
+
+  /* Kompakter Zeilenabstand */
+  line-height: 1.25;
+
+  /* Einrueckungen und Leerzeilen erhalten */
+  white-space: pre-wrap;
+
+  /* Lange Woerter nicht grundlos trennen */
+  overflow-wrap: normal;
+  word-break: normal;
+
+  /* Dezenter grauer Hintergrund */
+  background-color: #f2f2f2;
+
+  /* Innenabstand moeglichst klein halten */
+  padding: 0.3em;
+
+  /* Dezenter Rahmen */
+  border: 1px solid #cccccc;
+}
+
+
+/* ------------------------------------------------------------
+ * Inline-Code
+ * ------------------------------------------------------------ */
+
+code {
+  font-family: monospace;
+
+  /* Keine erzwungene Worttrennung */
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+
+/* ------------------------------------------------------------
+ * Bilder
+ * ------------------------------------------------------------ */
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+/* ------------------------------------------------------------
+ * Tabellen
+ * ------------------------------------------------------------ */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #999999;
+  padding: 0.3em;
+}
+
+
+/* ------------------------------------------------------------
+ * Hinweisboxen
+ * NOTE, TIP, IMPORTANT, WARNING, CAUTION
+ * ------------------------------------------------------------ */
+
+.admonitionblock {
+  border-left: 3px solid #888888;
+  padding-left: 0.75em;
+  margin: 1em 0;
+}
+
+
+/* ------------------------------------------------------------
+ * Ende kindle.css
+ * ------------------------------------------------------------ */
